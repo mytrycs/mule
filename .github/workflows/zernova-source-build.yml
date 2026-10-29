@@ -1,0 +1,55 @@
+# ZERNOVA source-build verification. Copyright (c) 2026 ZerNova.
+# Build instructions for CPAL-covered source; distributed under CPAL-1.0.
+# Does not publish a runtime release or change the default branch.
+name: ZERNOVA 4.10 source-build verification
+on:
+  push:
+    branches: ['zernova/4.10-build-20261029']
+    paths: ['.github/workflows/zernova-source-build.yml', 'pom.xml', 'zernova-build/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: zernova-410-source-verification
+  cancel-in-progress: false
+jobs:
+  baseline:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      MAVEN_OPTS: '-Xmx3g -Djava.awt.headless=true'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Record source and select Java 17
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p zernova-build-evidence
+          test -x "${JAVA_HOME_17_X64}/bin/java"
+          echo "JAVA_HOME=${JAVA_HOME_17_X64}" >> "$GITHUB_ENV"
+          echo "${JAVA_HOME_17_X64}/bin" >> "$GITHUB_PATH"
+          git rev-parse HEAD > zernova-build-evidence/commit.txt
+          git status --porcelain > zernova-build-evidence/worktree.txt
+          sha256sum pom.xml LICENSE.txt > zernova-build-evidence/input-hashes.txt
+          "${JAVA_HOME_17_X64}/bin/java" -version 2> zernova-build-evidence/java.txt
+          uname -a > zernova-build-evidence/platform.txt
+      - name: Build the existing 4.10 source without branding patches
+        shell: bash
+        run: |
+          set -uo pipefail
+          mvn --version | tee zernova-build-evidence/maven.txt
+          mvn -B -V -e -DskipTests -Dmaven.test.skip=true -DskipVerifications=true install 2>&1 | tee zernova-build-evidence/source-build.log
+          result=${PIPESTATUS[0]}
+          printf '%s\n' "$result" > zernova-build-evidence/build-exit-code.txt
+          printf 'Tests are intentionally not executed in this compilation gate. No runtime/distribution success is implied.\n' > zernova-build-evidence/SCOPE.txt
+          exit "$result"
+      - name: Retain actual build evidence only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: zernova-410-source-build-evidence
+          path: zernova-build-evidence/
+          if-no-files-found: error
+          retention-days: 7
