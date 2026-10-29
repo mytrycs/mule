@@ -17,11 +17,18 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
-      MAVEN_OPTS: '-Xmx3g -Djava.awt.headless=true'
+      MAVEN_OPTS: '-Xmx3g -Djava.awt.headless=true -Daether.connector.connectTimeout=10000 -Daether.connector.requestTimeout=45000'
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
+      - name: Restore build dependency cache
+        id: cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: ~/.m2/repository
+          key: zernova-410-java17-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: zernova-410-java17-
       - name: Record source and select Java 17 and Maven 3.9.11
         shell: bash
         run: |
@@ -41,23 +48,39 @@ jobs:
           sha256sum "$RUNNER_TEMP/maven.tar.gz" > zernova-build-evidence/maven-download.sha256
           tar -xzf "$RUNNER_TEMP/maven.tar.gz" -C "$RUNNER_TEMP"
           echo "$RUNNER_TEMP/apache-maven-3.9.11/bin" >> "$GITHUB_PATH"
-      - name: Record explicit stabilization of external snapshot dependencies
+      - name: Restore build metadata and matching API source
         shell: bash
         run: |
           set -euo pipefail
           python3 zernova-build/stabilize-build.py 2>&1 | tee zernova-build-evidence/stabilization.log
+          python3 zernova-build/prepare-api.py 2>&1 | tee zernova-build-evidence/api-preparation.log
           git diff -- pom.xml > zernova-build-evidence/dependency-adaptation.patch
-      - name: Compile the 4.10 snapshot source with documented release pins
+      - name: Compile the matching runtime API and its test fixtures
+        shell: bash
+        run: |
+          set +e
+          set -uo pipefail
+          mvn -B -V -e -f .zernova-upstream/mule-api/pom.xml -DskipTests -DskipVerifications=true -DskipRevapiCheck=true install 2>&1 | tee zernova-build-evidence/api-build.log
+          result=${PIPESTATUS[0]}
+          printf '%s\n' "$result" > zernova-build-evidence/api-build-exit-code.txt
+          exit "$result"
+      - name: Compile the 4.10 snapshot source with documented dependencies
         shell: bash
         run: |
           set +e
           set -uo pipefail
           mvn --version | tee zernova-build-evidence/maven.txt
-          mvn -B -V -e -DskipTests -Dmaven.test.skip=true -DskipVerifications=true install 2>&1 | tee zernova-build-evidence/source-build.log
+          mvn -B -V -e -DskipTests -Dmaven.test.skip=true -DskipVerifications=true -DskipRevapiCheck=true install 2>&1 | tee zernova-build-evidence/source-build.log
           result=${PIPESTATUS[0]}
           printf '%s\n' "$result" > zernova-build-evidence/build-exit-code.txt
-          printf 'The source is 4.10.0-SNAPSHOT with explicit external release pins. Tests are intentionally not executed in this compilation gate. No runtime/distribution success is implied.\n' > zernova-build-evidence/SCOPE.txt
+          printf 'Source: 4.10.0-SNAPSHOT plus documented release dependency pins and a source-built matching API. This compilation gate skips test execution and historical API comparison; runtime execution and full conformance are separate gates.\n' > zernova-build-evidence/SCOPE.txt
           exit "$result"
+      - name: Record built file hashes
+        if: always()
+        shell: bash
+        run: |
+          find . -type f -path '*/target/*.jar' -print0 | sort -z | xargs -0 -r sha256sum > zernova-build-evidence/compiled-artifacts.sha256
+          git diff --stat > zernova-build-evidence/changed-files.txt
       - name: Retain actual build evidence only
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -66,3 +89,9 @@ jobs:
           path: zernova-build-evidence/
           if-no-files-found: error
           retention-days: 7
+      - name: Preserve build dependency cache
+        if: always()
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: ~/.m2/repository
+          key: zernova-410-java17-${{ github.run_id }}-${{ github.run_attempt }}
