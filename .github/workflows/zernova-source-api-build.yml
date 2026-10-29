@@ -2,15 +2,22 @@ name: ZERNOVA pinned API and kernel source build
 on:
   push:
     branches: [zernova/runtime-recovery-20261029]
-    paths: [.github/workflows/zernova-source-api-build.yml]
+    paths:
+      - .github/workflows/zernova-source-api-build.yml
+      - .github/zernova-source-build.sh
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   source-candidate:
     runs-on: ubuntu-24.04
-    timeout-minutes: 23
+    timeout-minutes: 25
     steps:
+      - name: Check out the isolated build recipe
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          path: build-driver
+          persist-credentials: false
       - name: Check out the owner's exact supplied kernel source
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
@@ -24,77 +31,9 @@ jobs:
           ref: acf394e596fb41df1649ae00b2d5c7e4377078b8
           path: api
           persist-credentials: false
-      - name: Compile pinned API and kernel without removing policy isolation
+      - name: Compile pinned sources and required cross-module test fixtures
         shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p source-build-evidence
-          git -C kernel rev-parse HEAD > source-build-evidence/KERNEL_COMMIT.txt
-          git -C api rev-parse HEAD > source-build-evidence/API_COMMIT.txt
-          export JAVA_HOME="$JAVA_HOME_17_X64"
-          curl --fail --location --retry 3 --connect-timeout 20 --max-time 120 https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.11/apache-maven-3.9.11-bin.tar.gz --output "$RUNNER_TEMP/apache-maven-3.9.11-bin.tar.gz"
-          printf '%s  %s\n' 'bcfe4fe305c962ace56ac7b5fc7a08b87d5abd8b7e89027ab251069faebee516b0ded8961445d6d91ec1985dfe30f8153268843c89aa392733d1a3ec956c9978' "$RUNNER_TEMP/apache-maven-3.9.11-bin.tar.gz" | sha512sum --check
-          tar -xzf "$RUNNER_TEMP/apache-maven-3.9.11-bin.tar.gz" -C "$RUNNER_TEMP"
-          export PATH="$JAVA_HOME/bin:$RUNNER_TEMP/apache-maven-3.9.11/bin:$PATH"
-          java -version 2> source-build-evidence/JAVA_VERSION.txt
-          mvn -version > source-build-evidence/MAVEN_VERSION.txt
-          python3 - <<'PY'
-          from pathlib import Path
-          import re,json
-          Path('source-build-evidence/maven-settings.xml').write_text('''<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"><profiles><profile><id>public-source-inputs</id><repositories><repository><id>mulesoft-public</id><url>https://repository.mulesoft.org/nexus/content/repositories/public/</url><releases><enabled>true</enabled></releases><snapshots><enabled>false</enabled></snapshots></repository></repositories><pluginRepositories><pluginRepository><id>mulesoft-public</id><url>https://repository.mulesoft.org/nexus/content/repositories/public/</url><releases><enabled>true</enabled></releases><snapshots><enabled>false</enabled></snapshots></pluginRepository></pluginRepositories></profile></profiles><activeProfiles><activeProfile>public-source-inputs</activeProfile></activeProfiles></settings>''')
-          changes={}
-          for repo in ('api','kernel'):
-            p=Path(repo)/'pom.xml'; text=p.read_text()
-            Path('source-build-evidence',repo+'-original-pom.xml').write_text(text)
-            old='<artifactId>mule-plugin-mgmt-parent-pom</artifactId>\n        <version>4.10.0-SNAPSHOT</version>'
-            assert old in text
-            text=text.replace(old,old.replace('4.10.0-SNAPSHOT','4.10.0'),1)
-            start=text.index('<properties>'); end=text.index('</properties>',start)
-            subs=[]
-            def stable(match):
-              before=match.group(0)
-              if repo=='kernel' and match.group(1)=='muleApiVersion': return before
-              after=before.replace('-SNAPSHOT',''); subs.append({'old':before,'candidate':after}); return after
-            props=re.sub(r'<([A-Za-z0-9_.-]+)>[0-9][^<\n]*-SNAPSHOT</\1>',stable,text[start:end])
-            text=text[:start]+props+text[end:]
-            if repo=='kernel':
-              marker='<dependencyManagement>\n        <dependencies>'
-              assert text.count(marker)==1
-              override='\n            <!-- Source recovery: use the API compiled from the pinned public source. -->\n            <dependency>\n                <groupId>org.mule.runtime</groupId>\n                <artifactId>mule-api</artifactId>\n                <version>${muleApiVersion}</version>\n            </dependency>'
-              text=text.replace(marker,marker+override,1)
-              subs.append({'dependencyManagementOverride':'org.mule.runtime:mule-api:1.10.0-SNAPSHOT','reason':'Imported released BOM resolves its own properties; a consumer property alone did not select the source-built API.'})
-            p.write_text(text); changes[repo]=subs
-          Path('source-build-evidence/input-substitutions.json').write_text(json.dumps(changes,indent=2)+'\n')
-          Path('source-build-evidence/SCOPE.txt').write_text('Separately identified experimental 4.10 source candidate; not a 4.12 rebuild. Public 1.10 API source is compiled instead of deleting an unresolved policy-isolation feature. Original API/kernel Java sources and licenses remain unchanged. POM release-input substitutions and API dependency-management override are recorded; tests are not claimed passed by compilation. No change to shipped 4.12 runtime or Studio.\n')
-          PY
-          git -C kernel diff > source-build-evidence/kernel-inputs.patch
-          git -C api diff > source-build-evidence/api-inputs.patch
-          SETTINGS="$GITHUB_WORKSPACE/source-build-evidence/maven-settings.xml"
-          set +e
-          timeout 360 mvn -s "$SETTINGS" -f api/pom.xml --batch-mode --no-transfer-progress -Dmaven.test.skip=true -DskipVerifications=true -DskipRevapiCheck=true -Dmaven.javadoc.skip=true install > source-build-evidence/api-build.log 2>&1
-          api_result=$?
-          printf '%s\n' "$api_result" > source-build-evidence/api-build-exit-code.txt
-          if [ "$api_result" = 0 ]; then
-            javap -classpath api/target/mule-api-1.10.0-SNAPSHOT.jar org.mule.runtime.api.config.MuleRuntimeFeature > source-build-evidence/compiled-api-features.txt
-            timeout 900 mvn -s "$SETTINGS" -f kernel/pom.xml --batch-mode --no-transfer-progress -Dmaven.test.skip=true -DskipVerifications=true -DskipRevapiCheck=true -Dmaven.javadoc.skip=true install > source-build-evidence/kernel-build.log 2>&1
-            result=$?
-          else
-            result=125
-            printf 'Kernel compilation not attempted because API build failed.\n' > source-build-evidence/kernel-build.log
-          fi
-          set -e
-          printf '%s\n' "$result" > source-build-evidence/kernel-build-exit-code.txt
-          find api kernel -path '*/target/*.jar' -type f -exec sha256sum '{}' \; > source-build-evidence/generated-jars.sha256
-          tail -70 source-build-evidence/api-build.log
-          tail -100 source-build-evidence/kernel-build.log
-          tar --exclude=.git --exclude=target -czf source-build-evidence/api-source.tar.gz api
-          python3 - <<'PY'
-          from pathlib import Path
-          import zipfile
-          with zipfile.ZipFile('source-build-evidence/compiled-candidate-jars.zip','w',zipfile.ZIP_DEFLATED) as z:
-            for base in ('api','kernel'):
-              for p in sorted(Path(base).glob('**/target/*.jar')): z.write(p,p.as_posix())
-          PY
+        run: bash build-driver/.github/zernova-source-build.sh
       - name: Preserve compilation outputs and exact failures
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
