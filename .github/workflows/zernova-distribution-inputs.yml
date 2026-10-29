@@ -1,0 +1,73 @@
+# Copyright (c) 2026 ZerNova. CPAL-1.0. Inspection inputs only; no runtime release.
+name: ZERNOVA 4.10 distribution input inspection
+on:
+  push:
+    branches: ['zernova/4.10-build-20261029']
+    paths: ['.github/workflows/zernova-distribution-inputs.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: mulesoft/mule-distributions
+          ref: fa3255511c83e0a9aac5768d71ac4c51b32ffcce
+          path: upstream-distribution
+          persist-credentials: false
+      - name: Collect exact source and released POM metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p distribution-input-evidence/poms
+          git -C upstream-distribution rev-parse HEAD > distribution-input-evidence/source-commit.txt
+          test "$(cat distribution-input-evidence/source-commit.txt)" = fa3255511c83e0a9aac5768d71ac4c51b32ffcce
+          if find upstream-distribution -type f \( -iname '*.ttf' -o -iname '*.otf' -o -iname '*.woff' -o -iname '*.woff2' -o -iname '*.eot' -o -iname '*.ttc' \) | grep -q .; then
+            echo 'Font files are excluded from delivery; inspect source inventory first.' >&2
+            exit 1
+          fi
+          git -C upstream-distribution archive --format=tar --prefix=upstream-distribution-source/ HEAD | gzip -n > distribution-input-evidence/upstream-distribution-source.tar.gz
+          python3 - <<'PY'
+          from pathlib import Path
+          from concurrent.futures import ThreadPoolExecutor
+          import hashlib,json,urllib.request,urllib.error,xml.etree.ElementTree as ET
+          out=Path('distribution-input-evidence')
+          coordinates=[
+            ('org.mule.distributions','mule-distributions','4.10.0'),
+            ('org.mule.distributions','mule-services-all','4.10.0'),
+            ('org.mule.distributions','mule-standalone','4.10.0'),
+            ('org.mule.distributions','mule-standalone-structure','4.10.0'),
+            ('org.mule','mule-runtime-bom','4.10.0'),
+            ('org.mule','mule-tests-bom','4.10.0'),
+            ('org.mule','mule-runtime-bom-parent','4.10.0'),
+          ]
+          def fetch(item):
+            g,a,v=item
+            url='https://repository.mulesoft.org/releases/'+g.replace('.','/')+'/'+a+'/'+v+'/'+a+'-'+v+'.pom'
+            record={'coordinates':':'.join(item),'url':url}
+            try:
+              with urllib.request.urlopen(url,timeout=45) as r:
+                data=r.read();record['http_status']=r.status
+              ET.fromstring(data)
+              (out/'poms'/(a+'-'+v+'.pom')).write_bytes(data)
+              record.update(status='RETRIEVED',sha256=hashlib.sha256(data).hexdigest())
+            except (urllib.error.URLError,TimeoutError,ET.ParseError) as e:
+              record.update(status='FAILED',error=str(e))
+            return record
+          records=list(ThreadPoolExecutor(max_workers=4).map(fetch,coordinates))
+          (out/'released-pom-results.json').write_text(json.dumps(records,indent=2)+'\n')
+          print(json.dumps(records,indent=2))
+          PY
+          find distribution-input-evidence -type f -print0 | sort -z | xargs -0 sha256sum > distribution-input-evidence.sha256
+          mv distribution-input-evidence.sha256 distribution-input-evidence/SHA256SUMS.txt
+          printf 'Pinned upstream distribution source and release metadata for engineering inspection. No compilation or runtime readiness is claimed.\n' > distribution-input-evidence/SCOPE.txt
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: zernova-410-distribution-inputs
+          path: distribution-input-evidence/
+          if-no-files-found: error
+          retention-days: 7
