@@ -22,6 +22,7 @@ stage branding python3 zernova-build/brand-source.py
 stage http-sdk-adaptation python3 zernova-build/adapt-http-sdk.py
 stage http-entity-adaptation python3 zernova-build/adapt-http-entities.py
 stage source-license-headers python3 zernova-build/preserve-license-headers.py
+stage boot-module-adaptation python3 zernova-build/adapt-boot-module.py
 git diff > "$EVIDENCE/complete-source-changes.patch"
 sha256sum LICENSE.txt > "$EVIDENCE/preserved-license.sha256"
 mvn --version > "$EVIDENCE/maven.txt"
