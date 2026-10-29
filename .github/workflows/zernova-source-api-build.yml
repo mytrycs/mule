@@ -41,6 +41,7 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           import re,json
+          Path('source-build-evidence/maven-settings.xml').write_text('''<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"><profiles><profile><id>public-source-inputs</id><repositories><repository><id>mulesoft-public</id><url>https://repository.mulesoft.org/nexus/content/repositories/public/</url><releases><enabled>true</enabled></releases><snapshots><enabled>false</enabled></snapshots></repository></repositories><pluginRepositories><pluginRepository><id>mulesoft-public</id><url>https://repository.mulesoft.org/nexus/content/repositories/public/</url><releases><enabled>true</enabled></releases><snapshots><enabled>false</enabled></snapshots></pluginRepository></pluginRepositories></profile></profiles><activeProfiles><activeProfile>public-source-inputs</activeProfile></activeProfiles></settings>''')
           changes={}
           for repo in ('api','kernel'):
             p=Path(repo)/'pom.xml'; text=p.read_text()
@@ -61,12 +62,13 @@ jobs:
           PY
           git -C kernel diff > source-build-evidence/kernel-inputs.patch
           git -C api diff > source-build-evidence/api-inputs.patch
+          SETTINGS="$GITHUB_WORKSPACE/source-build-evidence/maven-settings.xml"
           set +e
-          timeout 360 mvn -f api/pom.xml --batch-mode --no-transfer-progress -Dmaven.test.skip=true -DskipVerifications=true -DskipRevapiCheck=true -Dmaven.javadoc.skip=true install > source-build-evidence/api-build.log 2>&1
+          timeout 360 mvn -s "$SETTINGS" -f api/pom.xml --batch-mode --no-transfer-progress -Dmaven.test.skip=true -DskipVerifications=true -DskipRevapiCheck=true -Dmaven.javadoc.skip=true install > source-build-evidence/api-build.log 2>&1
           api_result=$?
           printf '%s\n' "$api_result" > source-build-evidence/api-build-exit-code.txt
           if [ "$api_result" = 0 ]; then
-            timeout 600 mvn -f kernel/pom.xml --batch-mode --no-transfer-progress -Dmaven.test.skip=true -DskipVerifications=true -DskipRevapiCheck=true -Dmaven.javadoc.skip=true package > source-build-evidence/kernel-build.log 2>&1
+            timeout 600 mvn -s "$SETTINGS" -f kernel/pom.xml --batch-mode --no-transfer-progress -Dmaven.test.skip=true -DskipVerifications=true -DskipRevapiCheck=true -Dmaven.javadoc.skip=true package > source-build-evidence/kernel-build.log 2>&1
             result=$?
           else
             result=125
