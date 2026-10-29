@@ -47,7 +47,12 @@ jobs:
           persist-credentials: false
       - name: Compile pinned sources and attempt standalone assembly
         shell: bash
-        run: bash build-driver/.github/zernova-full-source-build.sh
+        env:
+          MAVEN_OPTS: -Drevapi.skip=true
+        run: |
+          mkdir -p source-build-evidence
+          printf 'Historical API comparison is NOT VERIFIED: its published baseline mule-extensions-mime-types:1.9.0-rc1 is unavailable. The documented revapi.skip property is enabled for this compilation experiment. Java compilation, packaging and license notices are unchanged; skipped checks are not passes.\n' > source-build-evidence/API_COMPATIBILITY_CHECK.txt
+          bash build-driver/.github/zernova-full-source-build.sh
       - name: Preserve compilation outputs and exact failures
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
