@@ -1,0 +1,64 @@
+# Copyright (c) 2026 ZerNova. CPAL-1.0. Read-only artifact recovery.
+name: ZERNOVA matching SDK recovery
+on:
+  push:
+    branches: ['zernova/4.10-build-20261029']
+    paths: ['.github/workflows/zernova-sdk-snapshot.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  recover:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - name: Retrieve exact snapshot coordinates from official metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p sdk-snapshot-evidence
+          python3 - <<'PY'
+          from pathlib import Path
+          from concurrent.futures import ThreadPoolExecutor
+          import hashlib,json,urllib.request,urllib.error,xml.etree.ElementTree as ET,zipfile,io
+          out=Path('sdk-snapshot-evidence'); tasks=[]; records=[]
+          base='https://repository.mulesoft.org/snapshots/org/mule/sdk/'
+          for artifact in ['mule-sdk-api','mule-sdk-compatibility-api']:
+            url=base+artifact+'/0.12.0-SNAPSHOT/maven-metadata.xml'
+            try:
+              with urllib.request.urlopen(url,timeout=35) as r: data=r.read()
+              metadata=ET.fromstring(data)
+              (out/(artifact+'-metadata.xml')).write_bytes(data)
+              records.append({'url':url,'status':'RETRIEVED','sha256':hashlib.sha256(data).hexdigest()})
+              for s in metadata.findall('versioning/snapshotVersions/snapshotVersion'):
+                ext=s.findtext('extension'); classifier=s.findtext('classifier'); value=s.findtext('value')
+                if classifier not in [None,'sources']: continue
+                name=artifact+'-'+value+('-'+classifier if classifier else '')+'.'+ext
+                tasks.append((name,base+artifact+'/0.12.0-SNAPSHOT/'+name))
+            except Exception as e: records.append({'url':url,'status':'FAILED','error':str(e)})
+          def fetch(item):
+            name,url=item; row={'file':name,'url':url}
+            try:
+              with urllib.request.urlopen(url,timeout=40) as r: data=r.read()
+              if name.endswith('.jar'):
+                with zipfile.ZipFile(io.BytesIO(data)) as z:
+                  names=z.namelist()
+                  row['http_entries']=[n for n in names if '/http/' in n and (n.endswith('.java') or n.endswith('.class'))]
+                  row['old_config_present']=any(n.endswith('/HttpClientConfig.class') or n.endswith('/HttpClientConfig.java') for n in names)
+                  if any(Path(n).suffix.lower() in {'.ttf','.otf','.woff','.woff2','.eot','.ttc'} for n in names): raise ValueError('Font assets excluded from handoff')
+              else: ET.fromstring(data)
+              (out/name).write_bytes(data)
+              row.update(status='RETRIEVED',sha256=hashlib.sha256(data).hexdigest(),bytes=len(data))
+            except Exception as e: row.update(status='FAILED',error=str(e))
+            return row
+          records+=list(ThreadPoolExecutor(max_workers=6).map(fetch,tasks))
+          (out/'recovery.json').write_text(json.dumps(records,indent=2)+'\n')
+          print(json.dumps(records,indent=2))
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: zernova-sdk-snapshot-recovery
+          path: sdk-snapshot-evidence/
+          if-no-files-found: error
+          retention-days: 7
