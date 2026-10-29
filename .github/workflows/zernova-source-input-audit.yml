@@ -1,0 +1,59 @@
+name: ZERNOVA source input audit
+on:
+  push:
+    branches: [zernova/runtime-recovery-20261029]
+    paths: [.github/workflows/zernova-source-input-audit.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect-authorized-public-inputs:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Check public artifact origins without substituting source versions
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir source-inputs
+          git ls-remote --tags https://github.com/mytrycs/mule.git > source-inputs/repository-tags.txt
+          python3 - <<'PY'
+          import concurrent.futures, hashlib, json, pathlib, urllib.request, urllib.error, zipfile, io
+          out=pathlib.Path('source-inputs')
+          coordinates=[
+            ('org/mule/runtime/mule-core','4.12.0','mule-core-4.12.0-sources.jar'),
+            ('org/mule/runtime/mule','4.12.0','mule-4.12.0.pom'),
+            ('org/mule/mule-plugin-mgmt-parent-pom','4.12.0','mule-plugin-mgmt-parent-pom-4.12.0.pom'),
+            ('org/mule/mule-plugin-mgmt-parent-pom','4.10.0','mule-plugin-mgmt-parent-pom-4.10.0.pom'),
+            ('org/mule/distributions/mule-bom','4.10.0','mule-bom-4.10.0.pom')]
+          bases=['https://repository.mulesoft.org/nexus/content/repositories/releases/',
+                 'https://repository.mulesoft.org/nexus/content/repositories/public/']
+          jobs=[(i,b+'/'+g+'/'+v+'/'+f,f) for i,(b,g,v,f) in enumerate((b.rstrip('/'),g,v,f) for b in bases for g,v,f in coordinates)]
+          def check(job):
+            i,url,name=job
+            record={'url':url,'filename':name}
+            try:
+              with urllib.request.urlopen(url,timeout=45) as r:
+                data=r.read(); record.update(status=r.status,bytes=len(data))
+              if name.endswith('.jar') and not zipfile.is_zipfile(io.BytesIO(data)):
+                record['status']='INVALID_ARCHIVE'
+              elif name.endswith('.pom') and b'<project' not in data:
+                record['status']='INVALID_POM'
+              else:
+                (out/(str(i)+'-'+name)).write_bytes(data)
+                record['sha256']=hashlib.sha256(data).hexdigest()
+            except urllib.error.HTTPError as e: record.update(status=e.code,error=str(e))
+            except Exception as e: record.update(status='ERROR',error=str(e))
+            return record
+          with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool: result=list(pool.map(check,jobs))
+          (out/'availability.json').write_text(json.dumps(result,indent=2)+'\n')
+          print(json.dumps(result,indent=2))
+          PY
+      - name: Preserve source retrieval evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: zernova-source-input-availability
+          path: source-inputs/
+          retention-days: 7
+          if-no-files-found: error
