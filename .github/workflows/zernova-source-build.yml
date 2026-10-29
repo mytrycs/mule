@@ -33,7 +33,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p zernova-build-evidence
+          mkdir -p zernova-build-evidence "$HOME/.m2"
+          cp zernova-build/settings.xml "$HOME/.m2/settings.xml"
+          cp zernova-build/settings.xml zernova-build-evidence/settings.xml
           test -x "${JAVA_HOME_17_X64}/bin/java"
           echo "JAVA_HOME=${JAVA_HOME_17_X64}" >> "$GITHUB_ENV"
           echo "${JAVA_HOME_17_X64}/bin" >> "$GITHUB_PATH"
