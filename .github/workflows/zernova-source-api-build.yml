@@ -4,14 +4,14 @@ on:
     branches: [zernova/runtime-recovery-20261029]
     paths:
       - .github/workflows/zernova-source-api-build.yml
-      - .github/zernova-source-build.sh
+      - .github/zernova-full-source-build.sh
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   source-candidate:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 35
     steps:
       - name: Check out the isolated build recipe
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -24,16 +24,30 @@ jobs:
           ref: 8d1af8a8aa9ee6f95621f617ac848c4a49a5d8a6
           path: kernel
           persist-credentials: false
-      - name: Check out the corresponding public API source line
+      - name: Check out pinned public API source
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           repository: mulesoft/mule-api
           ref: acf394e596fb41df1649ae00b2d5c7e4377078b8
           path: api
           persist-credentials: false
-      - name: Compile pinned sources and required cross-module test fixtures
+      - name: Check out matching extension API source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: mulesoft/mule-extensions-api
+          ref: be8ee76e1a359c263861baf539c5359eaa89e9f1
+          path: extensions
+          persist-credentials: false
+      - name: Check out pinned standalone assembly source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: mulesoft/mule-distributions
+          ref: fa3255511c83e0a9aac5768d71ac4c51b32ffcce
+          path: distributions
+          persist-credentials: false
+      - name: Compile pinned sources and attempt standalone assembly
         shell: bash
-        run: bash build-driver/.github/zernova-source-build.sh
+        run: bash build-driver/.github/zernova-full-source-build.sh
       - name: Preserve compilation outputs and exact failures
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
