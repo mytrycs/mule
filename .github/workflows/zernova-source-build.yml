@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
-      - name: Record source and select Java 17
+      - name: Record source and select Java 17 and Maven 3.9.11
         shell: bash
         run: |
           set -euo pipefail
@@ -31,19 +31,32 @@ jobs:
           echo "JAVA_HOME=${JAVA_HOME_17_X64}" >> "$GITHUB_ENV"
           echo "${JAVA_HOME_17_X64}/bin" >> "$GITHUB_PATH"
           git rev-parse HEAD > zernova-build-evidence/commit.txt
-          git status --porcelain > zernova-build-evidence/worktree.txt
           sha256sum pom.xml LICENSE.txt > zernova-build-evidence/input-hashes.txt
           "${JAVA_HOME_17_X64}/bin/java" -version 2> zernova-build-evidence/java.txt
           uname -a > zernova-build-evidence/platform.txt
-      - name: Build the existing 4.10 source without branding patches
+          url='https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.11/apache-maven-3.9.11-bin.tar.gz'
+          curl --fail --location --retry 2 "$url" --output "$RUNNER_TEMP/maven.tar.gz"
+          curl --fail --location --retry 2 "$url.sha512" --output "$RUNNER_TEMP/maven.sha512"
+          printf '%s  %s\n' "$(cat "$RUNNER_TEMP/maven.sha512")" "$RUNNER_TEMP/maven.tar.gz" | sha512sum --check
+          sha256sum "$RUNNER_TEMP/maven.tar.gz" > zernova-build-evidence/maven-download.sha256
+          tar -xzf "$RUNNER_TEMP/maven.tar.gz" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/apache-maven-3.9.11/bin" >> "$GITHUB_PATH"
+      - name: Record explicit stabilization of external snapshot dependencies
         shell: bash
         run: |
+          set -euo pipefail
+          python3 zernova-build/stabilize-build.py 2>&1 | tee zernova-build-evidence/stabilization.log
+          git diff -- pom.xml > zernova-build-evidence/dependency-adaptation.patch
+      - name: Compile the 4.10 snapshot source with documented release pins
+        shell: bash
+        run: |
+          set +e
           set -uo pipefail
           mvn --version | tee zernova-build-evidence/maven.txt
           mvn -B -V -e -DskipTests -Dmaven.test.skip=true -DskipVerifications=true install 2>&1 | tee zernova-build-evidence/source-build.log
           result=${PIPESTATUS[0]}
           printf '%s\n' "$result" > zernova-build-evidence/build-exit-code.txt
-          printf 'Tests are intentionally not executed in this compilation gate. No runtime/distribution success is implied.\n' > zernova-build-evidence/SCOPE.txt
+          printf 'The source is 4.10.0-SNAPSHOT with explicit external release pins. Tests are intentionally not executed in this compilation gate. No runtime/distribution success is implied.\n' > zernova-build-evidence/SCOPE.txt
           exit "$result"
       - name: Retain actual build evidence only
         if: always()
