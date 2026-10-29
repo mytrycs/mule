@@ -32,8 +32,7 @@ assert model.findtext('m:version', namespaces=NS) == '1.10.0-SNAPSHOT'
 assert 'SEPARATE_CLASSLOADER_FOR_POLICY_ISOLATION(' in (DEST/'src/main/java/org/mule/runtime/api/config/MuleRuntimeFeature.java').read_text()
 parent = re.search(r'<parent>.*?</parent>',text,re.S).group(0)
 text = text.replace(parent,parent.replace('<version>4.10.0-SNAPSHOT</version>','<version>4.10.0</version>'),1)
-# A distinct artifact version avoids representing patched/source-built API bytes
-# as the vendor's released 1.10.0 binary. Original package/class names are retained.
+# Do not represent our source-built API bytes as the vendor's release binary.
 text = text.replace('<version>1.10.0-SNAPSHOT</version>', '<version>'+VERSION+'</version>', 1)
 changes = []
 for key in ['artifactDeclarationVersion','muleModuleMavenPluginVersion','muleApiAnnotationsVersion','muleBomVersion']:
@@ -49,6 +48,8 @@ pom.write_text(text)
 
 main = ROOT/'pom.xml'
 text = main.read_text()
+assert '<muleApiVersion>1.10.0</muleApiVersion>' in text
+text = text.replace('<muleApiVersion>1.10.0</muleApiVersion>','<muleApiVersion>'+VERSION+'</muleApiVersion>',1)
 anchor = re.search(r'<dependencyManagement>\s*<dependencies>',text).group(0)
 override = '\n            <!-- ZERNOVA: source-built API matching this development snapshot. CPAL-1.0. -->\n            <dependency>\n                <groupId>org.mule.runtime</groupId>\n                <artifactId>mule-api</artifactId>\n                <version>'+VERSION+'</version>\n            </dependency>\n'
 assert '<version>'+VERSION+'</version>' not in text
