@@ -1,5 +1,4 @@
-# ZERNOVA source-build verification. Copyright (c) 2026 ZerNova. CPAL-1.0.
-# This isolated branch does not publish a runtime release or change master.
+# Copyright (c) 2026 ZerNova. CPAL-1.0. Isolated source verification, not a release.
 name: ZERNOVA 4.10 source-build verification
 on:
   push:
@@ -54,19 +53,22 @@ jobs:
           set -euo pipefail
           python3 zernova-build/stabilize-build.py 2>&1 | tee zernova-build-evidence/stabilization.log
           python3 zernova-build/prepare-api.py 2>&1 | tee zernova-build-evidence/api-preparation.log
+          python3 zernova-build/prepare-extensions-api.py 2>&1 | tee zernova-build-evidence/extensions-api-preparation.log
           git diff -- pom.xml > zernova-build-evidence/dependency-adaptation.patch
           python3 zernova-build/brand-source.py 2>&1 | tee zernova-build-evidence/branding.log
           git diff > zernova-build-evidence/complete-source-changes.patch
           sha256sum LICENSE.txt > zernova-build-evidence/preserved-license.sha256
-      - name: Compile the matching runtime API and its test fixtures
+      - name: Compile source-matched runtime and connector APIs with test fixtures
         shell: bash
         run: |
           set +e
           set -uo pipefail
-          mvn -B -V -e -f .zernova-upstream/mule-api/pom.xml -DskipTests -DskipVerifications=true -DskipRevapiCheck=true install 2>&1 | tee zernova-build-evidence/api-build.log
-          result=${PIPESTATUS[0]}
-          printf '%s\n' "$result" > zernova-build-evidence/api-build-exit-code.txt
-          exit "$result"
+          for component in mule-api mule-extensions-api; do
+            mvn -B -V -e -f ".zernova-upstream/$component/pom.xml" -DskipTests -DskipVerifications=true -DskipRevapiCheck=true install 2>&1 | tee "zernova-build-evidence/$component-build.log"
+            result=${PIPESTATUS[0]}
+            printf '%s\n' "$result" > "zernova-build-evidence/$component-build-exit-code.txt"
+            if [ "$result" -ne 0 ]; then exit "$result"; fi
+          done
       - name: Compile the branded kernel and required test fixtures
         shell: bash
         run: |
@@ -76,7 +78,7 @@ jobs:
           mvn -B -V -e -DskipTests -DskipVerifications=true -DskipRevapiCheck=true install 2>&1 | tee zernova-build-evidence/source-build.log
           result=${PIPESTATUS[0]}
           printf '%s\n' "$result" > zernova-build-evidence/build-exit-code.txt
-          printf 'Source: 4.10.0-SNAPSHOT plus recorded release pins, matching source-built API and ZERNOVA presentation changes. Tests compile but do not execute in this gate. Historical API comparison is skipped. Assembly and real application execution remain separate gates.\n' > zernova-build-evidence/SCOPE.txt
+          printf 'Source: 4.10.0-SNAPSHOT plus recorded release pins, matching source-built APIs and ZERNOVA presentation changes. Tests compile but do not execute in this gate. Historical API comparison is skipped. Assembly and real application execution remain separate gates.\n' > zernova-build-evidence/SCOPE.txt
           exit "$result"
       - name: Record built file hashes
         if: always()
@@ -84,18 +86,6 @@ jobs:
         run: |
           find . -type f -path '*/target/*.jar' -print0 | sort -z | xargs -0 -r sha256sum > zernova-build-evidence/compiled-artifacts.sha256
           git diff --stat > zernova-build-evidence/changed-files.txt
-      - name: Capture successful compilation with exact corresponding source
-        if: success()
-        run: python3 zernova-build/capture-output.py
-      - name: Retain compiled source checkpoint
-        if: success()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: zernova-410-compiled-source-checkpoint
-          path: zernova-build-output/
-          compression-level: 0
-          if-no-files-found: error
-          retention-days: 7
       - name: Retain actual build evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
