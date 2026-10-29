@@ -1,0 +1,62 @@
+name: ZERNOVA isolated source rebuild probe
+on:
+  push:
+    branches: [zernova/runtime-recovery-20261029]
+    paths: [.github/workflows/zernova-source-rebuild-probe.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Try available released build inputs on an isolated source candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p source-build-evidence
+          git rev-parse HEAD > source-build-evidence/COMMIT.txt
+          export JAVA_HOME="$JAVA_HOME_17_X64"
+          export PATH="$JAVA_HOME/bin:$PATH"
+          java -version 2> source-build-evidence/JAVA_VERSION.txt
+          mvn -version > source-build-evidence/MAVEN_VERSION.txt
+          cp pom.xml source-build-evidence/original-pom.xml
+          python3 - <<'PY'
+          from pathlib import Path
+          import re,json
+          p=Path('pom.xml'); original=p.read_text(); text=original
+          old='<artifactId>mule-plugin-mgmt-parent-pom</artifactId>\n        <version>4.10.0-SNAPSHOT</version>'
+          assert old in text
+          text=text.replace(old,old.replace('4.10.0-SNAPSHOT','4.10.0'),1)
+          start=text.index('<properties>'); end=text.index('</properties>',start)
+          props=text[start:end]
+          substitutions=[]
+          def stable(match):
+            before=match.group(0); after=before.replace('-SNAPSHOT','')
+            substitutions.append({'old':before,'candidate':after});return after
+          props=re.sub(r'<([A-Za-z0-9_.-]+)>[0-9][^<\n]*-SNAPSHOT</\1>',stable,props)
+          text=text[:start]+props+text[end:]
+          p.write_text(text)
+          Path('source-build-evidence/input-substitutions.json').write_text(json.dumps(substitutions,indent=2)+'\n')
+          Path('source-build-evidence/SCOPE.txt').write_text('Experimental 4.10.0-SNAPSHOT source candidate with explicitly recorded released build-input versions. No Java source changes, no 4.12.0 equivalence claim, no replacement of the working binary distribution, and no release publication. Original source validation failed before this separately recorded experiment.\n')
+          PY
+          git diff -- pom.xml > source-build-evidence/experimental-inputs.patch
+          set +e
+          timeout 420 mvn --batch-mode --no-transfer-progress -Dmaven.test.skip=true -DskipVerifications=true -DskipRevapiCheck=true -Dmaven.javadoc.skip=true package > source-build-evidence/maven-package.log 2>&1
+          result=$?
+          set -e
+          printf '%s\n' "$result" > source-build-evidence/maven-package-exit-code.txt
+          find . -path '*/target/*.jar' -type f -exec sha256sum '{}' \; > source-build-evidence/generated-jars.sha256
+          tail -100 source-build-evidence/maven-package.log
+      - name: Retain exact success or failure evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: zernova-4-10-source-rebuild-probe
+          path: source-build-evidence/
+          retention-days: 7
+          if-no-files-found: error
