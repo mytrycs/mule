@@ -9,7 +9,7 @@ permissions:
 jobs:
   source-candidate:
     runs-on: ubuntu-24.04
-    timeout-minutes: 18
+    timeout-minutes: 23
     steps:
       - name: Check out the owner's exact supplied kernel source
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -56,9 +56,16 @@ jobs:
               if repo=='kernel' and match.group(1)=='muleApiVersion': return before
               after=before.replace('-SNAPSHOT',''); subs.append({'old':before,'candidate':after}); return after
             props=re.sub(r'<([A-Za-z0-9_.-]+)>[0-9][^<\n]*-SNAPSHOT</\1>',stable,text[start:end])
-            p.write_text(text[:start]+props+text[end:]); changes[repo]=subs
+            text=text[:start]+props+text[end:]
+            if repo=='kernel':
+              marker='<dependencyManagement>\n        <dependencies>'
+              assert text.count(marker)==1
+              override='\n            <!-- Source recovery: use the API compiled from the pinned public source. -->\n            <dependency>\n                <groupId>org.mule.runtime</groupId>\n                <artifactId>mule-api</artifactId>\n                <version>${muleApiVersion}</version>\n            </dependency>'
+              text=text.replace(marker,marker+override,1)
+              subs.append({'dependencyManagementOverride':'org.mule.runtime:mule-api:1.10.0-SNAPSHOT','reason':'Imported released BOM resolves its own properties; a consumer property alone did not select the source-built API.'})
+            p.write_text(text); changes[repo]=subs
           Path('source-build-evidence/input-substitutions.json').write_text(json.dumps(changes,indent=2)+'\n')
-          Path('source-build-evidence/SCOPE.txt').write_text('Separately identified experimental 4.10 source candidate; not a 4.12 rebuild. Public 1.10 API source is compiled instead of deleting an unresolved policy-isolation feature. Original API/kernel Java sources and licenses remain unchanged. POM release-input substitutions are recorded; tests are not claimed passed by compilation. No change to shipped 4.12 runtime or Studio.\n')
+          Path('source-build-evidence/SCOPE.txt').write_text('Separately identified experimental 4.10 source candidate; not a 4.12 rebuild. Public 1.10 API source is compiled instead of deleting an unresolved policy-isolation feature. Original API/kernel Java sources and licenses remain unchanged. POM release-input substitutions and API dependency-management override are recorded; tests are not claimed passed by compilation. No change to shipped 4.12 runtime or Studio.\n')
           PY
           git -C kernel diff > source-build-evidence/kernel-inputs.patch
           git -C api diff > source-build-evidence/api-inputs.patch
@@ -68,7 +75,8 @@ jobs:
           api_result=$?
           printf '%s\n' "$api_result" > source-build-evidence/api-build-exit-code.txt
           if [ "$api_result" = 0 ]; then
-            timeout 600 mvn -s "$SETTINGS" -f kernel/pom.xml --batch-mode --no-transfer-progress -Dmaven.test.skip=true -DskipVerifications=true -DskipRevapiCheck=true -Dmaven.javadoc.skip=true package > source-build-evidence/kernel-build.log 2>&1
+            javap -classpath api/target/mule-api-1.10.0-SNAPSHOT.jar org.mule.runtime.api.config.MuleRuntimeFeature > source-build-evidence/compiled-api-features.txt
+            timeout 900 mvn -s "$SETTINGS" -f kernel/pom.xml --batch-mode --no-transfer-progress -Dmaven.test.skip=true -DskipVerifications=true -DskipRevapiCheck=true -Dmaven.javadoc.skip=true install > source-build-evidence/kernel-build.log 2>&1
             result=$?
           else
             result=125
@@ -79,6 +87,7 @@ jobs:
           find api kernel -path '*/target/*.jar' -type f -exec sha256sum '{}' \; > source-build-evidence/generated-jars.sha256
           tail -70 source-build-evidence/api-build.log
           tail -100 source-build-evidence/kernel-build.log
+          tar --exclude=.git --exclude=target -czf source-build-evidence/api-source.tar.gz api
           python3 - <<'PY'
           from pathlib import Path
           import zipfile
