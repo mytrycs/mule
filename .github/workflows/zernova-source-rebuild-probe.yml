@@ -21,7 +21,10 @@ jobs:
           mkdir -p source-build-evidence
           git rev-parse HEAD > source-build-evidence/COMMIT.txt
           export JAVA_HOME="$JAVA_HOME_17_X64"
-          export PATH="$JAVA_HOME/bin:$PATH"
+          curl --fail --location --retry 3 --connect-timeout 20 --max-time 120 https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.11/apache-maven-3.9.11-bin.tar.gz --output "$RUNNER_TEMP/apache-maven-3.9.11-bin.tar.gz"
+          printf '%s  %s\n' 'bcfe4fe305c962ace56ac7b5fc7a08b87d5abd8b7e89027ab251069faebee516b0ded8961445d6d91ec1985dfe30f8153268843c89aa392733d1a3ec956c9978' "$RUNNER_TEMP/apache-maven-3.9.11-bin.tar.gz" | sha512sum --check
+          tar -xzf "$RUNNER_TEMP/apache-maven-3.9.11-bin.tar.gz" -C "$RUNNER_TEMP"
+          export PATH="$JAVA_HOME/bin:$RUNNER_TEMP/apache-maven-3.9.11/bin:$PATH"
           java -version 2> source-build-evidence/JAVA_VERSION.txt
           mvn -version > source-build-evidence/MAVEN_VERSION.txt
           cp pom.xml source-build-evidence/original-pom.xml
@@ -52,6 +55,14 @@ jobs:
           printf '%s\n' "$result" > source-build-evidence/maven-package-exit-code.txt
           find . -path '*/target/*.jar' -type f -exec sha256sum '{}' \; > source-build-evidence/generated-jars.sha256
           tail -100 source-build-evidence/maven-package.log
+          if [ "$result" = 0 ]; then
+            python3 - <<'PY'
+          from pathlib import Path
+          import zipfile
+          with zipfile.ZipFile('source-build-evidence/experimental-built-jars.zip','w',zipfile.ZIP_DEFLATED) as z:
+            for p in sorted(Path('.').glob('**/target/*.jar')): z.write(p,p.as_posix())
+          PY
+          fi
       - name: Retain exact success or failure evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
