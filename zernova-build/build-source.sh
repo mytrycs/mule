@@ -20,6 +20,7 @@ stage extensions-api-preparation python3 zernova-build/prepare-extensions-api.py
 git diff -- pom.xml > "$EVIDENCE/dependency-adaptation.patch"
 stage branding python3 zernova-build/brand-source.py
 stage http-sdk-adaptation python3 zernova-build/adapt-http-sdk.py
+stage http-entity-adaptation python3 zernova-build/adapt-http-entities.py
 git diff > "$EVIDENCE/complete-source-changes.patch"
 sha256sum LICENSE.txt > "$EVIDENCE/preserved-license.sha256"
 mvn --version > "$EVIDENCE/maven.txt"
@@ -29,7 +30,6 @@ done
 stage source-build mvn "${COMMON[@]}" install
 cp "$EVIDENCE/source-build-exit-code.txt" "$EVIDENCE/build-exit-code.txt"
 printf 'Kernel/API compilation passed; tests compiled but not executed in that gate. Historical API comparisons skipped. Full assembly and real execution remain separate.\n' > "$EVIDENCE/SCOPE.txt"
-# Run the HTTP bridge unit suite, including the explicit protocol capability tests.
 stage http-bridge-tests mvn -B -V -e -f modules/http-support/pom.xml -DskipTests=false -DskipVerifications=true -DskipRevapiCheck=true -Drevapi.skip=true test
 stage distribution-preparation python3 zernova-build/prepare-distribution.py
 stage distribution-build mvn "${COMMON[@]}" -f .zernova-upstream/mule-distributions/pom.xml -pl standalone -am install
