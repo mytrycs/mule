@@ -1,0 +1,60 @@
+# Copyright (c) 2026 ZerNova. CPAL-1.0. Read-only dependency inspection.
+name: ZERNOVA SDK source inspection
+on:
+  push:
+    branches: ['zernova/4.10-build-20261029']
+    paths: ['.github/workflows/zernova-sdk-inputs.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - name: Fetch official SDK metadata and source archives
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p sdk-input-evidence
+          python3 - <<'PY'
+          from pathlib import Path
+          from concurrent.futures import ThreadPoolExecutor
+          import hashlib,json,urllib.request,urllib.error,xml.etree.ElementTree as ET,zipfile,io
+          out=Path('sdk-input-evidence')
+          base='https://repository.mulesoft.org/releases/org/mule/sdk/'
+          tasks=[('release-metadata.xml',base+'mule-sdk-api/maven-metadata.xml'),('snapshot-metadata.xml','https://repository.mulesoft.org/snapshots/org/mule/sdk/mule-sdk-api/0.12.0-SNAPSHOT/maven-metadata.xml')]
+          for artifact in ['mule-sdk-api','mule-sdk-compatibility-api']:
+            for version in ['0.12.0','0.11.9']:
+              for suffix in ['.pom','.jar','-sources.jar']:
+                name=artifact+'-'+version+suffix
+                tasks.append((name,base+artifact+'/'+version+'/'+name))
+          def fetch(item):
+            name,url=item; row={'file':name,'url':url}
+            try:
+              with urllib.request.urlopen(url,timeout=40) as response:
+                data=response.read(); row['http_status']=response.status
+              if name.endswith('.jar'):
+                with zipfile.ZipFile(io.BytesIO(data)) as z:
+                  names=z.namelist()
+                  row['http_api_entries']=[n for n in names if '/http/' in n and (n.endswith('.java') or n.endswith('.class'))]
+                  row['required_class_present']=any(n.endswith('/HttpClientConfig.class') or n.endswith('/HttpClientConfig.java') for n in names)
+                  if any(Path(n).suffix.lower() in {'.ttf','.otf','.woff','.woff2','.ttc','.eot'} for n in names):
+                    raise ValueError('Font assets are not allowed in handoff')
+              else: ET.fromstring(data)
+              (out/name).write_bytes(data)
+              row.update(status='RETRIEVED',sha256=hashlib.sha256(data).hexdigest(),bytes=len(data))
+            except (urllib.error.URLError,TimeoutError,ET.ParseError,zipfile.BadZipFile,ValueError) as error:
+              row.update(status='FAILED',error=str(error))
+            return row
+          rows=list(ThreadPoolExecutor(max_workers=5).map(fetch,tasks))
+          (out/'sdk-source-inspection.json').write_text(json.dumps(rows,indent=2)+'\n')
+          print(json.dumps(rows,indent=2))
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: zernova-sdk-source-inputs
+          path: sdk-input-evidence/
+          if-no-files-found: error
+          retention-days: 7
