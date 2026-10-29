@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Copyright (c) 2026 ZerNova. CPAL-1.0, see ../LICENSE.txt.
-# This is an explicit build adaptation of the uploaded 4.10.0-SNAPSHOT source,
-# not a claim that it is the official 4.10.0 release source.
+# Explicit build adaptation of the uploaded 4.10.0-SNAPSHOT source;
+# this does not claim to be the official 4.10.0 release source.
 from pathlib import Path
 import hashlib
 import json
@@ -18,22 +18,18 @@ ns = {'m': 'http://maven.apache.org/POM/4.0.0'}
 model = ET.fromstring(text)
 assert model.findtext('m:version', namespaces=ns) == '4.10.0-SNAPSHOT'
 assert model.findtext('m:parent/m:artifactId', namespaces=ns) == 'mule-plugin-mgmt-parent-pom'
-
-# Obtain and record the actual release parent, without inventing a replacement POM.
 url = 'https://repository.mulesoft.org/releases/org/mule/mule-plugin-mgmt-parent-pom/4.10.0/mule-plugin-mgmt-parent-pom-4.10.0.pom'
 with urllib.request.urlopen(url, timeout=60) as response:
     parent = response.read()
+(OUT / 'released-parent-4.10.0.pom').write_bytes(parent)
 parent_model = ET.fromstring(parent)
 assert parent_model.findtext('m:artifactId', namespaces=ns) == 'mule-plugin-mgmt-parent-pom'
-assert parent_model.findtext('m:version', namespaces=ns) == '4.10.0'
-(OUT / 'released-parent-4.10.0.pom').write_bytes(parent)
+parent_version = parent_model.findtext('m:version', namespaces=ns) or parent_model.findtext('m:parent/m:version', namespaces=ns)
+assert parent_version == '4.10.0', parent_version
 changes = [{'location': 'parent', 'from': '4.10.0-SNAPSHOT', 'to': '4.10.0', 'origin': url, 'sha256': hashlib.sha256(parent).hexdigest()}]
 block = re.search(r'<parent>.*?</parent>', text, re.S).group(0)
 assert block.count('<version>4.10.0-SNAPSHOT</version>') == 1
 text = text.replace(block, block.replace('<version>4.10.0-SNAPSHOT</version>', '<version>4.10.0</version>'), 1)
-
-# Keep the reactor/source version intact. Only these external dependency/plugin
-# properties are stabilized; every change is retained as machine-readable evidence.
 keys = ['muleBomVersion', 'muleMavenClientBomVersion', 'mulePropertiesApiVersion',
         'muleExtensionsApiVersion', 'muleConnectivityApiVersion', 'muleHttpPolicyApiVersion',
         'mulePolicyApiVersion', 'muleApiVersion', 'muleMetadataModelVersion',
