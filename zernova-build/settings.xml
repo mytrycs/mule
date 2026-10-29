@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2026 ZerNova. CPAL-1.0. No credentials or private mirrors. -->
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd">
+  <profiles>
+    <profile>
+      <id>zernova-public-build-inputs</id>
+      <repositories>
+        <repository>
+          <id>central</id>
+          <url>https://repo.maven.apache.org/maven2</url>
+          <releases><enabled>true</enabled><checksumPolicy>fail</checksumPolicy></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </repository>
+        <repository>
+          <id>mule</id>
+          <url>https://repository.mulesoft.org/nexus/content/repositories/public/</url>
+          <releases><enabled>true</enabled><checksumPolicy>fail</checksumPolicy></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>central</id>
+          <url>https://repo.maven.apache.org/maven2</url>
+          <releases><enabled>true</enabled><checksumPolicy>fail</checksumPolicy></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </pluginRepository>
+        <pluginRepository>
+          <id>mule-plugin</id>
+          <url>https://repository.mulesoft.org/nexus/content/repositories/public/</url>
+          <releases><enabled>true</enabled><checksumPolicy>fail</checksumPolicy></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+  <activeProfiles><activeProfile>zernova-public-build-inputs</activeProfile></activeProfiles>
+</settings>
