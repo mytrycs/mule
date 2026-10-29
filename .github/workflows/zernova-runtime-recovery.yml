@@ -1,0 +1,76 @@
+name: ZERNOVA runtime recovery
+
+on:
+  push:
+    branches: [zernova/runtime-recovery-20261029]
+    paths: [.github/workflows/zernova-runtime-recovery.yml]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verified-toolchain:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - name: Retrieve exact official toolchain archives
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p verified-inputs
+          cd verified-inputs
+          JDK=OpenJDK17U-jdk_x64_linux_hotspot_17.0.21_9.tar.gz
+          MAVEN=apache-maven-3.9.11-bin.tar.gz
+          curl --fail --location --retry 3 --connect-timeout 20 --max-time 300 \
+            "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21%2B9/$JDK" --output "$JDK"
+          printf '%s  %s\n' '8b9b611d917e3dfd8419d3566b5949226f69b052fed7e109c1368add1dfe8711' "$JDK" | sha256sum --check
+          curl --fail --location --retry 3 --connect-timeout 20 --max-time 120 \
+            "https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.11/$MAVEN" --output "$MAVEN"
+          printf '%s  %s\n' 'bcfe4fe305c962ace56ac7b5fc7a08b87d5abd8b7e89027ab251069faebee516b0ded8961445d6d91ec1985dfe30f8153268843c89aa392733d1a3ec956c9978' "$MAVEN" | sha512sum --check
+          sha256sum *.tar.gz > SHA256SUMS.txt
+          mkdir -p "$RUNNER_TEMP/verified-java"
+          tar -xzf "$JDK" -C "$RUNNER_TEMP/verified-java"
+          "$RUNNER_TEMP/verified-java/jdk-17.0.21+9/bin/java" -version 2>&1 | tee JAVA_VERSION.txt
+          printf 'Official archives retrieved without modifying upstream bytes. No customer release or source-build claim.\n' > README.txt
+      - name: Retain verified toolchain for runtime assembly
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: zernova-verified-java17-maven
+          path: verified-inputs/
+          compression-level: 0
+          retention-days: 7
+          if-no-files-found: error
+
+  source-baseline-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Read the owner-authorized source branch
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Record identity and validate the unchanged Maven model
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p source-audit
+          git rev-parse HEAD > source-audit/COMMIT.txt
+          cp pom.xml LICENSE.txt source-audit/
+          java -version 2> source-audit/JAVA_VERSION.txt
+          mvn -version > source-audit/MAVEN_VERSION.txt
+          set +e
+          timeout 300 mvn --batch-mode --no-transfer-progress -DskipTests validate > source-audit/maven-validate.log 2>&1
+          result=$?
+          set -e
+          printf '%s\n' "$result" > source-audit/maven-validate-exit-code.txt
+          tail -100 source-audit/maven-validate.log
+          printf 'This is a source-model validation attempt, not proof of compilation or equivalence to the separately packaged 4.12.0 engine.\n' > source-audit/README.txt
+      - name: Retain source audit including failures
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: zernova-source-baseline-audit
+          path: source-audit/
+          retention-days: 7
+          if-no-files-found: error
