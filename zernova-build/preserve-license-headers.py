@@ -19,9 +19,11 @@ tracked=subprocess.check_output(['git','-C',str(ROOT),'ls-files','*.java'],text=
 records=[]
 for rel in tracked:
     p=ROOT/rel
-    text=p.read_text()
-    if 'ZERNOVA' not in text[:700] or 'Copyright (c) 2026 ZerNova' not in text[:700]:continue
-    original=subprocess.check_output(['git','-C',str(ROOT),'show','HEAD:'+rel],text=True)
+    raw=p.read_bytes()
+    if b'ZERNOVA' not in raw[:700] or b'Copyright (c) 2026 ZerNova' not in raw[:700]:continue
+    # Unmodified legacy-encoded fixtures must not be decoded or rewritten.
+    text=raw.decode('utf-8')
+    original=subprocess.check_output(['git','-C',str(ROOT),'show','HEAD:'+rel]).decode('utf-8')
     match=re.match(r'/\*.*?\*/',original,re.S)
     assert match and ('Copyright' in match.group(0)),rel
     inherited=match.group(0)
@@ -37,7 +39,6 @@ for rel in tracked:
 for rel in new_names:
     p=ROOT/'modules/http-support'/rel
     text=p.read_text();match=re.match(r'/\*.*?\*/',text,re.S);assert match
-    # Keep explanatory notes as a second comment, never attribute new code to Salesforce.
     previous=match.group(0)
     text=header+'\n'+previous+text[match.end():]
     p.write_text(text)
