@@ -5,8 +5,6 @@ cd "$(dirname "$0")/.."
 mkdir -p zernova-build-evidence
 EVIDENCE="$PWD/zernova-build-evidence"
 COMMON=(-B -V -e -DskipTests -DskipVerifications=true -DskipRevapiCheck=true -Drevapi.skip=true)
-# revapi.skip is the documented plugin switch. The older skipRevapiCheck is
-# retained for this source parent's separate conditional configuration.
 stage() {
   local name="$1"; shift
   set +e
@@ -21,6 +19,7 @@ stage api-preparation python3 zernova-build/prepare-api.py
 stage extensions-api-preparation python3 zernova-build/prepare-extensions-api.py
 git diff -- pom.xml > "$EVIDENCE/dependency-adaptation.patch"
 stage branding python3 zernova-build/brand-source.py
+stage http-sdk-adaptation python3 zernova-build/adapt-http-sdk.py
 git diff > "$EVIDENCE/complete-source-changes.patch"
 sha256sum LICENSE.txt > "$EVIDENCE/preserved-license.sha256"
 mvn --version > "$EVIDENCE/maven.txt"
@@ -29,7 +28,9 @@ for component in mule-api mule-extensions-api; do
 done
 stage source-build mvn "${COMMON[@]}" install
 cp "$EVIDENCE/source-build-exit-code.txt" "$EVIDENCE/build-exit-code.txt"
-printf 'Kernel/API compilation gate passed. Tests were compiled but not executed. Historical API comparisons were explicitly skipped because historical reference artifacts are not all available. Full standalone assembly and application execution are separate gates.\n' > "$EVIDENCE/SCOPE.txt"
+printf 'Kernel/API compilation passed; tests compiled but not executed in that gate. Historical API comparisons skipped. Full assembly and real execution remain separate.\n' > "$EVIDENCE/SCOPE.txt"
+# Run the HTTP bridge unit suite, including the explicit protocol capability tests.
+stage http-bridge-tests mvn -B -V -e -f modules/http-support/pom.xml -DskipTests=false -DskipVerifications=true -DskipRevapiCheck=true -Drevapi.skip=true test
 stage distribution-preparation python3 zernova-build/prepare-distribution.py
 stage distribution-build mvn "${COMMON[@]}" -f .zernova-upstream/mule-distributions/pom.xml -pl standalone -am install
-printf 'Kernel/API compilation and standalone assembly passed. Live integration execution and tests remain separate gates.\n' > "$EVIDENCE/SCOPE.txt"
+printf 'Kernel/API compilation, HTTP bridge unit tests, and standalone assembly passed. Live integration execution and broader conformance remain separate.\n' > "$EVIDENCE/SCOPE.txt"
