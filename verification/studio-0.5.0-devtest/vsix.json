@@ -1,0 +1,9 @@
+{
+  "file": "zernova-studio-kernel-preview-0.5.0-darwin-x64.vsix",
+  "bytes": 199087931,
+  "sha256": "4f0dff0ebd4fec7827924dd391a7d5ed0c61c6a117aa22cf898017a0da188135",
+  "sourceCommit": "a4cb85fcb5",
+  "target": "darwin-x64",
+  "runtime": "0.4.1-alpha.1",
+  "supportModule": "0.5.0"
+}

@@ -1,0 +1,40 @@
+{
+  "studio": "0.5.0",
+  "baseRuntime": "0.4.1-alpha.1",
+  "supportModule": "0.5.0",
+  "java": "17.0.21+9",
+  "target": "darwin-x64",
+  "implementationCommit": "a4cb85fcb5",
+  "checks": {
+    "unit": {
+      "pass": 84,
+      "fail": 0
+    },
+    "nativeRuntime": {
+      "pass": 23,
+      "fail": 0
+    },
+    "installedVSIX": {
+      "pass": 20,
+      "fail": 0
+    },
+    "coreBehaviors": {
+      "pass": 16,
+      "fail": 0
+    }
+  },
+  "ownerApp": {
+    "configuredPort": 8081,
+    "http": 200,
+    "matchingLog": true,
+    "sourceFilesUnchanged": 8,
+    "runtimeLeftStopped": true
+  },
+  "handoff": "/Users/roz/Downloads/ZERNOVA_Studio_0.5.0_Dev_Test",
+  "knownScope": [
+    "Local Mac x64 qualification",
+    "Single-instance at-least-once Batch",
+    "Application-local bounded Cache",
+    "No overall throughput claim"
+  ]
+}

@@ -42,3 +42,13 @@ test('Scheduler editing preserves cron time zone and comments',()=>{
  source=parseIntegration(xml).flows[0].source!;xml=applyOperation(xml,{kind:'updateCore',id:source.id,values:{displayName:'Hourly'}}).text;
  assert(xml.includes('<!--keep-->'));assert(xml.includes('timeZone="UTC"'));assert.equal(parseIntegration(xml).flows[0].source?.displayName,'Hourly');
 });
+test('nested insertion stays inside its scope when the flow has an error handler; terminal routes stay last',()=>{
+ let xml=applyOperation(base(),{kind:'insert',flowId:'flow:test',component:'try'}).text;
+ xml=applyOperation(xml,{kind:'createErrorHandler',flowId:'flow:test'}).text;
+ const scope=parseIntegration(xml).flows[0].processors[0] as RealCore;
+ xml=applyOperation(xml,{kind:'insert',flowId:'flow:test',component:'logger',parentId:scope.id}).text;
+ let flow=parseIntegration(xml).flows[0];assert.equal(flow.processors.length,1);assert.equal((flow.processors[0] as RealCore).children.length,2);assert.equal(flow.errorHandler?.processors.length,1);
+ xml=applyOperation(base(),{kind:'insert',flowId:'flow:test',component:'choice'}).text;let parent=parseIntegration(xml).flows[0].processors[0] as RealCore;
+ xml=applyOperation(xml,{kind:'insert',flowId:'flow:test',component:'when',parentId:parent.id,index:2}).text;parent=parseIntegration(xml).flows[0].processors[0] as RealCore;assert.equal((parent.children.at(-1) as RealCore).coreType,'otherwise');
+ assert.throws(()=>applyOperation(xml,{kind:'insert',flowId:'flow:test',component:'otherwise',parentId:parent.id}),/already has/);
+});

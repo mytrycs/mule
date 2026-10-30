@@ -1,0 +1,9 @@
+{
+  "studio": "0.5.0",
+  "runtime": "0.4.1-alpha.1",
+  "endpoint": "http://localhost:8081/hello?testId=STUDIO050OWNER",
+  "status": 200,
+  "preservedOwnerTransform": true,
+  "returnedTestId": "STUDIO050OWNER",
+  "correlatedApplicationLog": true
+}

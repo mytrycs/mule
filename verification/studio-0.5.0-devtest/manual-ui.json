@@ -1,0 +1,40 @@
+{
+  "target": "darwin-x64",
+  "guiProfile": "/Users/roz/.zernova-studio-tests/gui-050-1793387422771",
+  "webviewFilesMatchingFinalVSIX": {
+    "media/studio.css": "23cffacf3aa99380d043d8bbccf790d96c44cdff583cbcc1e01078a803fe5bb3",
+    "media/studio.js": "1937b37c73c39b2271dd5b7b03853db63408d3bc9fb8e8acdbadcee2ba41a378"
+  },
+  "checks": [
+    "Expanded core catalog visible and selectable",
+    "Palette click alone does not insert a component",
+    "Click in a valid root lane inserts Try",
+    "Nested Logger insertion inside Try",
+    "Mac Delete/Backspace removes selected nested Logger",
+    "Try collapse hides its children",
+    "Payload-only default; add Variables then remove Payload; last output protected",
+    "External script wizard is draggable",
+    "Existing file selection saves",
+    "Save as new external file creates and links identical UTF-8 script",
+    "Run toolbar deploys actual application",
+    "Embedded deployment console shows Z banner and build/deploy stages",
+    "HTTP Listener owns separate success/error status, body and headers",
+    "Environment wizard creates QA property file and updates launch profiles",
+    "QA Run returns configured greeting and environment"
+  ],
+  "httpEvidence": {
+    "endpoint": "http://localhost:19081/hello",
+    "status": 200,
+    "initial": {
+      "message": "Hello from ZERNOVA",
+      "environment": "development"
+    },
+    "qa": {
+      "message": "Hello from ZERNOVA QA",
+      "environment": "qa"
+    }
+  },
+  "notes": [
+    "Manual GUI package preceded only the project README template wording update; its webview files match the final VSIX. Final installed-host suite uses the final VSIX."
+  ]
+}
