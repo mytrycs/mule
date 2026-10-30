@@ -4,13 +4,13 @@ import { layoutFlows } from './flowLayout';
 import { icon } from './icons';
 import { DEFAULT_LAYOUT, HTTP_METHODS, LOG_LEVELS } from '../shared/model';
 import type { RealDocumentSnapshot } from '../shared/realProtocol';
-import type { XmlOperation, RealFlow, RealListener, RealLogger, RealHttpConfig } from '../shared/xml';
+import type { XmlOperation, RealFlow, RealListener, RealLogger, RealTransform, RealHttpConfig } from '../shared/xml';
 
 type VSCodeBridge = { postMessage(message: unknown): void; setState(state: unknown): void; getState(): unknown };
-type Component = RealListener | RealLogger;
+type Component = RealListener | RealLogger | RealTransform;
 type EditTab = 'flow' | 'globals' | 'xml';
 type LowerTab = 'properties' | 'problems' | 'console' | 'outline';
-type RuntimeAction = 'debug' | 'configureRun' | 'configureRuntime' | 'diagnostics' | 'build' | 'run' | 'status' | 'logs' | 'stopApplication' | 'stopRuntime' | 'cancel';
+type RuntimeAction = 'debug' | 'configureRun' | 'configureDebug' | 'configureRuntime' | 'diagnostics' | 'build' | 'run' | 'status' | 'logs' | 'stopApplication' | 'stopRuntime' | 'cancel';
 type RuntimeState = { projectName?: string; configured?: boolean; phase?: string; busy?: boolean; process?: string; application?: string | Record<string, unknown>; endpoint?: string; lastError?: string; buildOutput?: string; applicationLogs?: string; [key: string]: unknown };
 type ViewState = { flowId: string | null; selectedId: string | null; configId: string | null; tab: EditTab; lower: LowerTab; section: string; consoleTab: 'build' | 'logs' | 'runtime' | 'status'; theme: 'host' | 'light' | 'dark'; zoom: number; paletteWidth: number; propertiesHeight: number };
 type Pending = { requestId: string; version: number; text?: string; operation?: XmlOperation; draftKey?: string; draftValue?: string };
@@ -50,11 +50,11 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
   let deleteDialog: { id: string; baseVersion: number; name: string; error: string } | undefined;
   let returnFocus = '';
   const collapsedFlows = new Set<string>(); const openErrors = new Set<string>();
-  let selectedPalette: 'listener' | 'logger' | undefined;
+  let selectedPalette: 'listener' | 'logger' | 'transform' | undefined;
   let showLogsAfterRun = false;
-  let contextMenu: { id: string; kind?: 'component' | 'canvas' | 'config'; x: number; y: number } | undefined;
-  let drag: { kind?: 'listener' | 'logger'; id?: string } | undefined;
-  let pointerPlacement: { item: { kind?: 'listener' | 'logger'; id?: string }; element: HTMLElement; startX: number; startY: number; active: boolean } | undefined;
+  let contextMenu: { id: string; kind?: 'component' | 'canvas' | 'config' | 'run' | 'debug'; x: number; y: number } | undefined;
+  let drag: { kind?: 'listener' | 'logger' | 'transform'; id?: string } | undefined;
+  let pointerPlacement: { item: { kind?: 'listener' | 'logger' | 'transform'; id?: string }; element: HTMLElement; startX: number; startY: number; active: boolean } | undefined;
   let suppressPlacementClick = false;
   let resize: { key: 'paletteWidth' | 'propertiesHeight'; start: number; value: number } | undefined;
   let applyingFromHost = false;
@@ -102,7 +102,7 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
     // Inspection and lifecycle cleanup must remain available while an editor
     // draft is conflicted. They do not commit or execute the draft.
     contextMenu = undefined;
-    if (['configureRun', 'cancel', 'stopApplication', 'stopRuntime', 'status', 'logs', 'diagnostics', 'configureRuntime'].includes(name)) {
+    if (['configureRun', 'configureDebug', 'cancel', 'stopApplication', 'stopRuntime', 'status', 'logs', 'diagnostics', 'configureRuntime'].includes(name)) {
       if (name === 'logs') { view.lower = 'console'; view.consoleTab = 'logs'; }
       if (name === 'diagnostics' || name === 'status') { view.lower = 'console'; view.consoleTab = 'status'; }
       vscode.postMessage({ type: 'realAction', action: name }); render(); return;
@@ -160,8 +160,8 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
   }
   function renderBar(): string {
     const busy = !!runtime.busy;
-    return `<header class="preview-bar"><span class="brand"><span class="brand-mark" aria-hidden="true"></span>ZERNOVA</span><span class="preview-badge">REAL PROJECT</span><span class="connection" data-testid="runtime-phase">${icon(runtime.lastError ? 'warning' : 'info')}${escape(runtime.phase || 'Not configured')}</span><span class="bar-spacer"></span>
-      ${button('runtime-run', 'Run / Deploy', 'play', busy, 'primary')}${iconButton('runtime-debug', 'Debug application (Java attach)', 'debug', busy)}${iconButton('runtime-configureRun', 'Run configuration', 'settings', busy)}${iconButton('runtime-logs', 'Application logs', 'logger', busy)}${iconButton('runtime-stopRuntime', 'Stop runtime', 'stop', busy)}${button('runtime-diagnostics', 'Diagnostics', undefined, busy)}
+    return `<header class="preview-bar"><span class="brand"><span class="brand-mark" aria-hidden="true"></span>ZERNOVA</span><span class="connection" data-testid="runtime-phase">${icon(runtime.lastError ? 'warning' : 'info')}${escape(runtime.phase || 'Not configured')}</span><span class="bar-spacer"></span>
+      <div class="launch-control" role="group" aria-label="Run controls">${button('runtime-run','Run / Deploy','play',busy,'primary')}${button('runMenu','', 'down',busy,'launch-caret',`aria-label="Run options" aria-haspopup="menu" aria-expanded="${contextMenu?.kind === 'run'}"`)}</div><div class="launch-control" role="group" aria-label="Debug controls">${iconButton('runtime-debug','Debug application (Java attach)','debug',busy)}${button('debugMenu','', 'down',busy,'launch-caret',`aria-label="Debug options" aria-haspopup="menu" aria-expanded="${contextMenu?.kind === 'debug'}"`)}</div>${iconButton('runtime-logs', 'Application logs', 'logger', busy)}${iconButton('runtime-stopRuntime', 'Stop runtime', 'stop', busy)}${button('runtime-diagnostics', 'Diagnostics', undefined, busy)}
       <select class="compact-select theme-select" aria-label="Editor theme" data-control="theme" data-focus="theme">${[['host', 'Host theme'], ['light', 'Light'], ['dark', 'Dark']].map(([id, name]) => `<option value="${id}" ${view.theme === id ? 'selected' : ''}>${name}</option>`).join('')}</select></header>`;
   }
   function renderTabs(): string {
@@ -171,13 +171,17 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
     const files = document?.uri.split('/');
     return `<div class="canvas-toolbar real-document-toolbar"><span class="hint" title="${escape(document?.uri)}">${icon('code')} ${escape(files?.at(-1) ?? 'Loading document…')}${document?.dirty ? ' • Unsaved' : ''}</span>${button('save', 'Save', undefined, !document)}${iconButton('undo', 'Undo document edit', 'undo', !document)}${iconButton('redo', 'Redo document edit', 'redo', !document)}${button('newFlow', 'New flow', 'plus', !canEdit())}<span class="toolbar-separator"></span>${iconButton('zoomOut', 'Zoom out', 'minus', view.zoom <= 60)}<span class="zoom-value">${view.zoom}%</span>${iconButton('zoomIn', 'Zoom in', 'plus', view.zoom >= 160)}</div>`;
   }
+  const componentName = (node: Component) => node.kind === 'listener' ? 'HTTP Listener' : node.kind === 'transform' ? 'Transform Message' : 'Logger';
+  const componentIcon = (node: Component) => node.kind === 'listener' ? 'globe' : node.kind === 'transform' ? 'transform' : 'logger';
   function renderNode(node: Component): string {
-    return `<button class="node${view.selectedId === node.id ? ' selected' : ''}" data-node="${escape(node.id)}" data-action="select" draggable="false" data-focus="node-${escape(node.id)}" aria-label="${node.kind === 'listener' ? 'HTTP Listener' : 'Logger'}: ${escape(node.displayName)}" aria-pressed="${view.selectedId === node.id}" title="Select to edit ${escape(node.displayName)}. Shift+F10 for actions."><span class="node-symbol ${node.kind}">${icon(node.kind === 'listener' ? 'globe' : 'logger')}</span><span class="node-label">${escape(node.displayName || (node.kind === 'listener' ? 'HTTP Listener' : 'Logger'))}</span></button>`;
+    const last = flow()?.processors.at(-1)?.id === node.id;
+    const ports = node.kind === 'listener' ? `<span class="node-port request-port" data-anchor="request" role="img" aria-label="Request into flow" title="Request into flow">${icon('arrowRight')}</span><span class="node-port response-port" data-anchor="response" role="img" aria-label="Response to caller" title="Response to caller">${icon('arrowUp')}</span>` : last ? `<span class="node-port response-port" data-anchor="response-origin" role="img" aria-label="Response output from last processor" title="Response output from last processor">${icon('arrowDown')}</span>` : '';
+    return `<button class="node${view.selectedId === node.id ? ' selected' : ''}" data-node="${escape(node.id)}" data-action="select" draggable="false" data-focus="node-${escape(node.id)}" aria-label="${componentName(node)}: ${escape(node.displayName)}" aria-pressed="${view.selectedId === node.id}" title="Select to edit ${escape(node.displayName)}. Shift+F10 for actions."><span class="node-symbol ${node.kind}">${icon(componentIcon(node))}</span><span class="node-label">${escape(node.displayName || componentName(node))}</span>${ports}</button>`;
   }
-  function validPlacement(kind: 'listener' | 'logger', lane: string): boolean {
+  function validPlacement(kind: 'listener' | 'logger' | 'transform', lane: string): boolean {
     const f = flow(); return !!f?.editable && canEdit() && (kind === 'listener' ? lane === 'source' && !f.source && f.kind !== 'sub-flow' : lane === 'processor' || lane === 'error' && !!f.errorHandler?.editable);
   }
-  function place(kind: 'listener' | 'logger', target: { lane: 'source' | 'processor' | 'error'; index: number }): void {
+  function place(kind: 'listener' | 'logger' | 'transform', target: { lane: 'source' | 'processor' | 'error'; index: number }): void {
     const f = flow(); if (!f || !validPlacement(kind, target.lane)) { announce('Choose a valid ' + (kind === 'listener' ? 'empty Source' : 'Processor or Error Handler') + ' location.', true); return; }
     selectedPalette = undefined;
     edit({ kind: 'insert', flowId: f.id, component: kind, ...(kind === 'logger' ? { index: target.index, ...(target.lane === 'error' ? { lane: 'error' as const } : {}) } : {}) });
@@ -190,13 +194,13 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
     return `${toolbar()}${document.model.flows.length > 1 ? `<div class="real-flow-selector"><label for="real-flow-select">Flow</label><select id="real-flow-select" data-control="flow" data-focus="flow-selector">${document.model.flows.map(x => `<option value="${escape(x.id)}" ${x.id === f.id ? 'selected' : ''}>${escape(x.name)}${x.editable ? '' : ' · unsupported'}</option>`).join('')}</select></div>` : ''}
       <div class="flow-scroll" data-scroll="canvas"><div class="flow-card${f.kind === 'sub-flow' ? ' subflow-card' : ''}" style="zoom:${view.zoom / 100}" role="group" aria-label="${escape(f.name)} integration flow"><div class="flow-heading">${button('toggleFlow', collapsedFlows.has(f.id) ? '▸' : '▾', undefined, false, 'icon-button', `aria-label="${collapsedFlows.has(f.id) ? 'Expand' : 'Collapse'} flow ${escape(f.name)}" aria-expanded="${!collapsedFlows.has(f.id)}"`)}${icon('code')}<span class="flow-name">${escape(f.name)}</span><span class="fixture-tag">${f.editable ? 'XML document' : 'Preserved · read only'}</span>${iconButton('renameFlow', 'Rename flow', 'edit', !f.editable || !canEdit())}</div>
       ${!collapsedFlows.has(f.id) ? `${!f.editable ? `<div class="real-unsupported"><strong>Unsupported constructs are preserved.</strong><p>${escape(f.unsupported.join(', '))}</p><p>Use Configuration XML. Visual changes to this flow are disabled.</p></div>` : ''}
-      <div class="flow-lanes"><div class="source-lane${f.kind === 'sub-flow' ? ' subflow-source' : ''}" data-drop="source" role="group" aria-label="Source lane"><span class="lane-caption">Source</span>${f.source ? renderNode(f.source) : f.kind === 'sub-flow' ? '' : ''}<span class="response-caption">Response</span></div><div class="processor-lane" data-drop="processor" role="group" aria-label="Processor lane">${f.processors.map((node, index) => `<span class="connector-arrow" aria-hidden="true"></span><span data-processor-index="${index}">${renderNode(node)}</span>`).join('')}</div>${f.editable && f.source && f.processors.length ? '<svg class="response-path" aria-hidden="true"><path/></svg>' : ''}</div>
+      <div class="flow-lanes"><div class="source-lane${f.kind === 'sub-flow' ? ' subflow-source' : ''}" data-drop="source" role="group" aria-label="Source lane"><span class="lane-caption">Source</span>${f.source ? renderNode(f.source) : f.kind === 'sub-flow' ? '' : ''}<span class="response-caption">Response</span></div><div class="processor-lane" data-drop="processor" role="group" aria-label="Processor lane">${f.processors.map((node, index) => `<span class="connector-arrow${index === 0 && f.source ? ' source-request-connector' : ''}" aria-hidden="true"></span><span data-processor-index="${index}">${renderNode(node)}</span>`).join('')}</div>${f.editable && f.source && f.processors.length ? '<svg class="request-path" aria-hidden="true"><path/></svg><svg class="response-path" aria-hidden="true"><path/></svg>' : ''}</div>
       <section class="error-section"><button class="error-toggle" data-action="toggleError" aria-expanded="${openErrors.has(f.id)}">${openErrors.has(f.id) ? '▾' : '▸'} Error handler</button>${openErrors.has(f.id) ? `<div class="error-region">${f.errorHandler ? `<strong>${escape(f.errorHandler.type)}</strong>${f.errorHandler.editable ? `<div class="error-processors" data-drop="error">${f.errorHandler.processors.map((n,i) => `${renderNode(n)}`).join('')}</div>` : `<p>${escape(f.errorHandler.summary)}</p>${button('tab-xml', 'Open handler XML', 'code')}`}` : `<p>No local error handler. Runtime default error propagation applies.</p>${button('addErrorHandler', 'Add On Error Propagate + Logger', 'plus', !f.editable || f.kind === 'sub-flow' || !canEdit())}`}</div>` : ''}</section>` : ''}</div></div>`;
 
   }
   function renderPalette(): string {
     const f = flow();
-    const items = [{ kind: 'listener', group: 'HTTP', name: 'Listener', glyph: 'globe' }, { kind: 'request', group: 'HTTP', name: 'Request', glyph: 'request' }, { kind: 'logger', group: 'Core', name: 'Logger', glyph: 'logger' }];
+    const items = [{ kind: 'listener', group: 'HTTP', name: 'Listener', glyph: 'globe' }, { kind: 'request', group: 'HTTP', name: 'Request', glyph: 'request' }, { kind: 'logger', group: 'Core', name: 'Logger', glyph: 'logger' }, { kind:'transform', group:'Core', name:'Transform Message', glyph:'transform' }];
     return `<aside class="palette" aria-label="ZERNOVA Palette"><div class="pane-title">ZERNOVA Palette</div><div class="search-wrap">${icon('search')}<input type="search" data-control="palette-search" data-focus="palette-search" placeholder="Search components…" aria-label="Search components" value="${escape(query)}"></div><div class="palette-content" data-scroll="palette">${['HTTP', 'Core'].map(group => `<section class="palette-group" aria-label="${group} components"><div class="group-title">${group}</div>${items.filter(x => x.group === group && `${x.group} ${x.name}`.toLowerCase().includes(query.toLowerCase())).map(x => `<button class="palette-item${selectedPalette === x.kind ? ' selected' : ''}" aria-pressed="${selectedPalette === x.kind}" data-palette="${x.kind}" data-action="insert-${x.kind}" data-focus="palette-${x.kind}" ${x.kind === 'request' || !canEdit() || !f?.editable ? 'disabled' : 'draggable="false"'} title="${x.kind === 'request' ? 'HTTP Request is outside this milestone' : 'Select, then click a valid empty flow location'}"><span class="node-symbol ${x.kind}">${icon(x.glyph)}</span>${x.name}${x.kind === 'request' ? '<span class="future-label">FUTURE</span>' : ''}</button>`).join('')}</section>`).join('')}</div><div class="palette-footnote">Drag into the flow, or select a component and click a valid empty flow location.<br>Execution uses the selected runtime.</div></aside>`;
   }
   function renderLower(): string {
@@ -207,21 +211,22 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
     const draftKey = `${node?.id}:${key}`;
     const current = drafts.get(draftKey) ?? value;
     const id = `component-${key}`;
-    const attrs = `id="${id}" data-field="${key}" data-focus="${id}" ${!node?.editable || !flow()?.editable || !canEdit() ? 'disabled' : ''} maxlength="${['message', 'responseBody', 'responseHeaders'].includes(key) ? 8000 : 512}"`;
+    const attrs = `id="${id}" data-field="${key}" data-focus="${id}" ${!node?.editable || !flow()?.editable || !canEdit() ? 'disabled' : ''} maxlength="${['message', 'responseBody', 'responseHeaders', 'script'].includes(key) ? 8000 : 512}"`;
     return `<div class="form-row"><label for="${id}">${label}</label><div>${multiline ? `<textarea ${attrs} rows="2" class="expression-input">${escape(current)}</textarea>` : `<input ${attrs} value="${escape(current)}">`}</div></div>`;
   }
   function renderProperties(): string {
     const node = component();
-    if (!node) return `<div class="empty-properties">${icon('settings')}<h2>Select a component to view its properties</h2><p>Choose a Listener or Logger in your flow. Values edit this integration XML document.</p></div>`;
-    const sections = node.kind === 'listener' ? ['General', 'Responses', 'Help'] : ['General', 'Help'];
+    if (!node) return `<div class="empty-properties">${icon('settings')}<h2>Select a component to view its properties</h2><p>Choose a Listener, Logger or Transform Message in your flow. Values edit this integration XML document.</p></div>`;
+    const sections = node.kind === 'listener' ? ['General', 'Responses', 'Help'] : node.kind === 'transform' ? ['General'] : ['General', 'Help'];
     if (!sections.includes(view.section)) view.section = 'General';
     const locked = !node.editable || !flow()?.editable || !canEdit();
     const index = flow()?.processors.findIndex(n => n.id === node.id) ?? -1;
-    const actions = node.kind === 'logger' ? `${iconButton('duplicate', 'Duplicate Logger', 'copy', locked)}${iconButton('moveLeft', 'Move Logger earlier', 'arrowLeft', locked || index <= 0)}${iconButton('moveRight', 'Move Logger later', 'arrowRight', locked || index >= (flow()?.processors.length ?? 0) - 1)}` : '';
-    return `<section class="property-main" aria-label="${node.kind === 'listener' ? 'HTTP Listener' : 'Logger'} properties"><div class="property-heading">${icon(node.kind === 'listener' ? 'globe' : 'logger')}<span>${node.kind === 'listener' ? 'HTTP Listener' : 'Logger'}</span><span class="fixture-tag">${locked ? 'Preserved · read only' : 'Real XML properties'}</span>${actions}${iconButton('deleteNode', node.kind === 'listener' ? 'Remove Listener' : 'Delete Logger', 'trash', locked)}</div><div class="property-detail"><nav class="section-nav" aria-label="Property sections">${sections.map(s => `<button class="${s === view.section ? 'active' : ''}" data-action="section" data-section="${s}" aria-current="${s === view.section ? 'page' : 'false'}" data-focus="section-${s}">${s}</button>`).join('')}</nav><div class="property-form" data-scroll="properties">${renderFields(node)}</div></div></section>`;
+    const actions = node.kind !== 'listener' ? `${iconButton('duplicate', 'Duplicate processor', 'copy', locked)}${iconButton('moveLeft', 'Move processor earlier', 'arrowLeft', locked || index <= 0)}${iconButton('moveRight', 'Move processor later', 'arrowRight', locked || index >= (flow()?.processors.length ?? 0) - 1)}` : '';
+    return `<section class="property-main" aria-label="${componentName(node)} properties"><div class="property-heading">${icon(componentIcon(node))}<span>${componentName(node)}</span><span class="fixture-tag">${locked ? 'Preserved · read only' : 'Real XML properties'}</span>${actions}${iconButton('deleteNode', node.kind === 'listener' ? 'Remove Listener' : 'Delete processor', 'trash', locked)}</div><div class="property-detail"><nav class="section-nav" aria-label="Property sections">${sections.map(s => `<button class="${s === view.section ? 'active' : ''}" data-action="section" data-section="${s}" aria-current="${s === view.section ? 'page' : 'false'}" data-focus="section-${s}">${s}</button>`).join('')}</nav><div class="property-form" data-scroll="properties">${renderFields(node)}</div></div></section>`;
   }
   function renderFields(node: Component): string {
-    if (view.section === 'Help') return `<div class="section-placeholder"><h3>${node.kind === 'listener' ? 'HTTP Listener' : 'Core Logger'}</h3><p>These fields edit the real XML document. Save before building; Run / Redeploy will ask how to handle unsaved documents.</p><p>Expressions run only in the bundled ZERNOVA Runtime. Static XML diagnostics cannot prove expression correctness.</p><p>${node.kind === 'listener' ? 'HTTP only. TLS, advanced settings and connection testing are unavailable. Configure the successful response under Responses.' : 'Literal text and DataWeave expressions are supported by the runtime. Open Console → Application logs to read actual Logger output.'}</p></div>`;
+    if (node.kind === 'transform') return `${field('Display Name','displayName',node.displayName)}${field('DataWeave payload script','script',node.script,true)}${field('Output MIME type','mimeType',node.mimeType)}<p class="ui-note">Write a DataWeave expression or a %dw 2.0 script, without the surrounding #[ ]. The script replaces the payload. Example: %dw 2.0, output application/json, ---, {message: \"Hello from ZERNOVA\"}. Existing HTTP response bodies can override the payload.</p>${button('useTransformResponse','Use payload for HTTP response','response',!flow()?.source || !canEdit())}<p class="ui-note">This sets the Listener response body to #[payload]. Configure response headers/MIME type under Listener Responses.</p>`;
+    if (view.section === 'Help') return `<div class="section-placeholder"><h3>${componentName(node)}</h3><p>These fields edit the real XML document. Save before building; Run / Redeploy will ask how to handle unsaved documents.</p><p>Expressions run only in the bundled ZERNOVA Runtime. Static XML diagnostics cannot prove expression correctness.</p><p>${node.kind === 'listener' ? 'HTTP only. TLS, advanced settings and connection testing are unavailable. Configure the successful response under Responses.' : 'Literal text and DataWeave expressions are supported by the runtime. Open Console → Application logs to read actual Logger output.'}</p></div>`;
     if (node.kind === 'listener' && view.section === 'Responses') return `${field('Success status', 'responseStatus', node.responseStatus)}${field('Response body', 'responseBody', node.responseBody, true)}${field('Response headers', 'responseHeaders', node.responseHeaders, true)}<p class="ui-note">Body and headers accept runtime expressions. For the milestone use <code>#['Hello from ZERNOVA']</code> and <code>#[{'Content-Type': 'text/plain; charset=UTF-8'}]</code>. Error-response and TLS settings remain XML-only where already present; no replacement response processor is added.</p>`;
     if (node.kind === 'listener') return `${field('Display Name', 'displayName', node.displayName)}<div class="form-row"><label for="listener-config">Connector configuration</label><div class="field-group"><select id="listener-config" data-field="configId" data-focus="listener-config" ${!node.editable || !flow()?.editable || !canEdit() ? 'disabled' : ''}><option value="">Select a configuration…</option>${document?.model.configs.map(c => `<option value="${escape(c.id)}" ${c.id === node.configId ? 'selected' : ''}>${escape(c.name)}</option>`).join('')}</select>${iconButton('createConfig', 'Create HTTP Listener configuration', 'plus', !canEdit())}${iconButton('editListenerConfig', 'Edit HTTP Listener configuration', 'edit', !node.configId || !canEdit())}</div></div>${field('Path', 'path', node.path)}${field('Allowed methods', 'allowedMethods', node.allowedMethods)}<p class="ui-note">Methods: ${HTTP_METHODS.join(', ')}. Separate multiple methods with commas. Configure the HTTP response under Responses. A configured listener is not evidence that an endpoint is running.</p>`;
     return `${field('Display Name', 'displayName', node.displayName)}${field('Message', 'message', node.message, true)}<div class="form-row"><label for="logger-level">Level</label><select id="logger-level" data-field="level" data-focus="logger-level" ${!node.editable || !flow()?.editable || !canEdit() ? 'disabled' : ''}>${LOG_LEVELS.map(s => `<option ${node.level === s ? 'selected' : ''}>${s}</option>`).join('')}</select></div>${field('Category', 'category', node.category)}<p class="ui-note">Logger executes inside the runtime. Example: <code>#['ZERNOVA_TEST ' ++ (attributes.queryParams.testId default 'missing')]</code>.</p>`;
@@ -236,7 +241,7 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
     return `<section class="real-console" aria-label="Real runtime and build output"><div class="real-console-actions">${button('runtime-build', 'Build', 'code', busy)}${button('runtime-run', 'Run / Redeploy', 'logger', busy, 'primary')}${button('runtime-status', 'Status', undefined, busy)}${button('runtime-logs', 'Refresh logs', undefined, busy)}${button('followLogs', 'Follow latest')}${button('runtime-stopApplication', 'Undeploy', undefined, busy)}${button('runtime-stopRuntime', 'Stop runtime', undefined, busy)}${button('runtime-cancel', 'Cancel', undefined, !busy)}</div>${runtime.lastError ? `<div class="real-conflict" role="alert"><strong>Operation failed</strong><p>${escape(runtime.lastError)}</p></div>` : ''}<nav class="real-output-tabs" role="tablist" aria-label="Output source">${[['build', 'Build output'], ['logs', 'Application logs · live'], ['runtime', 'Runtime output'], ['status', 'Runtime status']].map(([id, name]) => `<button class="tab${view.consoleTab === id ? ' active' : ''}" role="tab" aria-selected="${view.consoleTab === id}" data-action="console-${id}" data-focus="console-${id}">${name}</button>`).join('')}</nav><pre class="real-output" data-scroll="console-${view.consoleTab}" tabindex="0" aria-label="${view.consoleTab === 'logs' ? 'Application runtime logs' : view.consoleTab === 'build' ? 'Actual build output' : 'Runtime status JSON'}">${escape(log || (view.consoleTab === 'logs' ? 'Following application logs automatically. Send a request to execute your Logger; no entries have been written yet.' : 'No operation output yet.'))}</pre></section>`;
   }
   function renderOutline(): string {
-    return `<div class="lower-placeholder" data-scroll="outline"><h3>${escape(document?.projectName ?? 'Project')}</h3>${document?.model.flows.map(f => `<h4>${escape(f.name)}${f.editable ? '' : ' · read only'}</h4>${[...(f.source ? [f.source] : []), ...f.processors].map(n => `<button class="outline-row" data-action="outline-select" data-flow="${escape(f.id)}" data-node="${escape(n.id)}">${icon(n.kind === 'listener' ? 'globe' : 'logger')}${escape(n.displayName)}</button>`).join('')}`).join('') ?? ''}</div>`;
+    return `<div class="lower-placeholder" data-scroll="outline"><h3>${escape(document?.projectName ?? 'Project')}</h3>${document?.model.flows.map(f => `<h4>${escape(f.name)}${f.editable ? '' : ' · read only'}</h4>${[...(f.source ? [f.source] : []), ...f.processors].map(n => `<button class="outline-row" data-action="outline-select" data-flow="${escape(f.id)}" data-node="${escape(n.id)}">${icon(componentIcon(n))}${escape(n.displayName)}</button>`).join('')}`).join('') ?? ''}</div>`;
   }
   function renderGlobals(): string {
     const configs = document?.model.configs ?? [];
@@ -266,13 +271,18 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
     const row = (key: keyof typeof d, label: string) => `<div class="form-row"><label for="dialog-${key}">${label}</label><input id="dialog-${key}" data-draft="${key}" data-focus="dialog-${key}" value="${escape(d[key])}" maxlength="512"></div>`;
     return `<div class="dialog-backdrop"><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="config-dialog-title"><div class="dialog-title"><span id="config-dialog-title">HTTP Listener configuration</span>${iconButton('cancelDialog', 'Close configuration editor', 'close')}</div><nav class="dialog-tabs" role="tablist" aria-label="HTTP configuration sections"><button class="tab active" role="tab" aria-selected="true">General</button><button class="tab" disabled title="TLS is outside this milestone">TLS</button><button class="tab" disabled title="Advanced settings are outside this milestone">Advanced</button></nav><div class="dialog-body" data-scroll="dialog">${row('name', 'Name')}<div class="form-row"><label for="dialog-protocol">Protocol</label><select id="dialog-protocol" data-draft="protocol" data-focus="dialog-protocol"><option>HTTP</option></select></div>${row('host', 'Host')}${row('port', 'Port')}${row('basePath', 'Base path')}${configDialog.error ? `<p class="form-error" role="alert">${escape(configDialog.error)}</p>` : ''}<p class="ui-note">Local testing supports localhost and 127.0.0.1. Static fields may reference application properties; the runtime validates their resolved values.</p></div><div class="dialog-scope">Save applies changes to this document. XML changes are autosaved.</div><footer class="dialog-actions"><button disabled title="An inbound Listener is verified by deployment and an actual HTTP request">Test Connection</button><span class="test-explanation">Inbound Listener · use a real request</span><span class="bar-spacer"></span>${button('cancelDialog', 'Cancel')}${button('saveDialog', 'Save', undefined, false, 'primary')}</footer></section></div>`;
   }
+  const menuIcons: Record<string,string> = { save:'save','runtime-run':'play','runtime-debug':'debug','runtime-configureRun':'settings','runtime-configureDebug':'settings','runtime-build':'build','runtime-logs':'logger','runtime-stopRuntime':'stop','tab-flow':'fit','tab-xml':'code' };
   function renderMenu(): string {
-    if (contextMenu?.kind === 'canvas') return `<div class="context-menu" role="menu" aria-label="Integration actions" style="left:${Math.max(0,Math.min(contextMenu.x, window.innerWidth - 240))}px;top:${Math.max(0,Math.min(contextMenu.y, window.innerHeight - 320))}px">${[['save','Save'],['runtime-run','Run / Deploy'],['runtime-debug','Debug application'],['runtime-configureRun','Run configuration…'],['runtime-build','Build application'],['runtime-logs','Application logs'],['runtime-stopRuntime','Stop runtime'],['tab-flow','Message Flow'],['tab-xml','Configuration XML']].map(([a,n]) => button(a,n,undefined,!!runtime.busy && a.startsWith('runtime-'),'','role="menuitem"')).join('')}</div>`;
+    if (contextMenu?.kind === 'run' || contextMenu?.kind === 'debug') {
+      const debug = contextMenu.kind === 'debug';
+      return `<div class="context-menu" role="menu" aria-label="${debug ? 'Debug' : 'Run'} options" style="left:${Math.max(0,Math.min(contextMenu.x,window.innerWidth-250))}px;top:${contextMenu.y}px">${button(debug ? 'runtime-debug' : 'runtime-run',debug ? 'Debug application' : 'Run / Deploy',debug ? 'debug' : 'play',!!runtime.busy,'','role="menuitem"')}${button(debug ? 'runtime-configureDebug' : 'runtime-configureRun',debug ? 'Debug configuration…' : 'Run configuration…','settings',!!runtime.busy,'','role="menuitem"')}</div>`;
+    }
+    if (contextMenu?.kind === 'canvas') return `<div class="context-menu" role="menu" aria-label="Integration actions" style="left:${Math.max(0,Math.min(contextMenu.x, window.innerWidth - 260))}px;top:${Math.max(0,Math.min(contextMenu.y, window.innerHeight - 370))}px">${[['save','Save'],['runtime-run','Run / Deploy'],['runtime-debug','Debug application'],['runtime-configureRun','Run configuration…'],['runtime-configureDebug','Debug configuration…'],['runtime-build','Build application'],['runtime-logs','Application logs'],['runtime-stopRuntime','Stop runtime'],['tab-flow','Message Flow'],['tab-xml','Configuration XML']].map(([a,n]) => button(a,n,menuIcons[a],!!runtime.busy && a.startsWith('runtime-'),'','role="menuitem"')).join('')}</div>`;
     if (contextMenu?.kind === 'config') return `<div class="context-menu" role="menu" aria-label="Global configuration actions" style="left:${Math.max(0,Math.min(contextMenu.x,window.innerWidth-230))}px;top:${Math.max(0,Math.min(contextMenu.y,window.innerHeight-180))}px">${button('editConfig','Open configuration','edit',false,'','role="menuitem"')}${button('deleteConfig','Delete configuration','trash',!canEdit(),'','role="menuitem"')}${button('createConfig','New configuration','plus',!canEdit(),'','role="menuitem"')}</div>`;
     const c = component();
     if (!contextMenu || !c) return '';
     const locked = !c.editable || !flow()?.editable || !canEdit();
-    return `<div class="context-menu" role="menu" aria-label="Component actions" style="left:${Math.min(contextMenu.x, window.innerWidth - 230)}px;top:${Math.min(contextMenu.y, window.innerHeight - 220)}px">${button('showProperties', 'Open Properties', 'properties', false, '', 'role="menuitem"')}${c.kind === 'logger' ? button('duplicate', 'Duplicate Logger', 'copy', locked, '', 'role="menuitem"') + button('moveLeft', 'Move earlier', 'arrowLeft', locked, '', 'role="menuitem"') + button('moveRight', 'Move later', 'arrowRight', locked, '', 'role="menuitem"') : ''}${button('deleteNode', c.kind === 'logger' ? 'Delete Logger' : 'Remove Listener', 'trash', locked, '', 'role="menuitem"')}</div>`;
+    return `<div class="context-menu" role="menu" aria-label="Component actions" style="left:${Math.min(contextMenu.x, window.innerWidth - 230)}px;top:${Math.min(contextMenu.y, window.innerHeight - 220)}px">${button('showProperties', 'Open Properties', 'properties', false, '', 'role="menuitem"')}${c.kind !== 'listener' ? button('duplicate', 'Duplicate processor', 'copy', locked, '', 'role="menuitem"') + button('moveLeft', 'Move earlier', 'arrowLeft', locked, '', 'role="menuitem"') + button('moveRight', 'Move later', 'arrowRight', locked, '', 'role="menuitem"') : ''}${button('deleteNode', c.kind !== 'listener' ? 'Delete processor' : 'Remove Listener', 'trash', locked, '', 'role="menuitem"')}</div>`;
   }
   function setView(fn: () => void): void { fn(); persist(); render(); }
   root.addEventListener('click', event => {
@@ -282,6 +292,7 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
     if (!el && selectedPalette && view.tab === 'flow' && !target.closest('[data-node]')) { const lane = target.closest<HTMLElement>('[data-drop]'); if (lane && validPlacement(selectedPalette, lane.dataset.drop!)) { dropPlacement({kind:selectedPalette},lane,target,event.clientX); return; } }
     if (!el || (el as HTMLButtonElement).disabled) { if (contextMenu) { contextMenu = undefined; render(); } return; }
     const name = el.dataset.action!;
+    if (name === 'runMenu' || name === 'debugMenu') { const kind=name === 'runMenu' ? 'run' : 'debug'; const rect=el.getBoundingClientRect(); contextMenu=contextMenu?.kind === kind ? undefined : {id:'',kind,x:rect.left,y:rect.bottom+5}; render(); root.querySelector<HTMLElement>('.context-menu [role=menuitem]')?.focus(); return; }
     if (name !== 'selectConfig' && !name.startsWith('insert-')) contextMenu = undefined;
     if (name.startsWith('runtime-')) { action(name.slice(8)); return; }
     if (name.startsWith('tab-')) { setView(() => { view.tab = name.slice(4) as EditTab; }); return; }
@@ -289,6 +300,7 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
     if (name.startsWith('console-')) { setView(() => { view.consoleTab = name.slice(8) as ViewState['consoleTab']; }); return; }
     const f = flow(), c = component();
     switch (name) {
+      case 'useTransformResponse': if (f?.source) edit({kind:'updateComponent',id:f.source.id,values:{responseBody:'#[payload]'}}); break;
       case 'followLogs': view.lower = 'console'; view.consoleTab = 'logs'; render(); { const logs = root.querySelector<HTMLElement>('[data-scroll="console-logs"]'); if (logs) logs.scrollTop = logs.scrollHeight; } break;
       case 'toggleFlow': if (f) setView(() => { collapsedFlows.has(f.id) ? collapsedFlows.delete(f.id) : collapsedFlows.add(f.id); }); break;
       case 'toggleError': if (f) setView(() => { openErrors.has(f.id) ? openErrors.delete(f.id) : openErrors.add(f.id); }); break;
@@ -305,9 +317,9 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
         const op: XmlOperation = flowDialog.id ? { kind: 'renameFlow', flowId: flowDialog.id, name: flowDialog.name } : { kind: 'createFlow', name: flowDialog.name };
         closeDialog(); edit(op); break;
       } break;
-      case 'insert-listener': case 'insert-logger': { const kind = name === 'insert-listener' ? 'listener' : 'logger'; setView(() => { selectedPalette = selectedPalette === kind ? undefined : kind; }); break; }
-      case 'duplicate': if (c?.kind === 'logger') { contextMenu = undefined; edit({ kind: 'duplicateLogger', id: c.id }); } break;
-      case 'moveLeft': case 'moveRight': if (c?.kind === 'logger') { contextMenu = undefined; edit({ kind: 'moveLogger', id: c.id, direction: name === 'moveLeft' ? -1 : 1 }); } break;
+      case 'insert-listener': case 'insert-logger': case 'insert-transform': { const kind = name === 'insert-listener' ? 'listener' : name === 'insert-transform' ? 'transform' : 'logger'; setView(() => { selectedPalette = selectedPalette === kind ? undefined : kind; }); break; }
+      case 'duplicate': if (c && c.kind !== 'listener') { contextMenu = undefined; edit({ kind: 'duplicateProcessor', id: c.id }); } break;
+      case 'moveLeft': case 'moveRight': if (c && c.kind !== 'listener') { contextMenu = undefined; edit({ kind: 'moveProcessor', id: c.id, direction: name === 'moveLeft' ? -1 : 1 }); } break;
       case 'deleteNode': if (c) { contextMenu = undefined; edit({ kind: 'deleteComponent', id: c.id }); } break;
       case 'showProperties': contextMenu = undefined; setView(() => { view.lower = 'properties'; }); break;
       case 'createConfig': openConfig(); break;
@@ -391,8 +403,8 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
     if (configDialog || flowDialog || deleteDialog || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)) return;
     const c = component();
     if (['Delete', 'Backspace'].includes(event.key) && view.tab === 'flow' && c && c.editable && flow()?.editable) { event.preventDefault(); edit({ kind: 'deleteComponent', id: c.id }); return; }
-    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'd' && c?.kind === 'logger') { event.preventDefault(); edit({ kind: 'duplicateLogger', id: c.id }); return; }
-    if (event.altKey && ['ArrowLeft', 'ArrowRight'].includes(event.key) && c?.kind === 'logger') { event.preventDefault(); edit({ kind: 'moveLogger', id: c.id, direction: event.key === 'ArrowLeft' ? -1 : 1 }); return; }
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'd' && c && c.kind !== 'listener') { event.preventDefault(); edit({ kind: 'duplicateProcessor', id: c.id }); return; }
+    if (event.altKey && ['ArrowLeft', 'ArrowRight'].includes(event.key) && c && c.kind !== 'listener') { event.preventDefault(); edit({ kind: 'moveProcessor', id: c.id, direction: event.key === 'ArrowLeft' ? -1 : 1 }); return; }
     const tab = target.closest<HTMLElement>('[role="tab"]');
     if (tab && ['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
       event.preventDefault(); const items = [...tab.parentElement!.querySelectorAll<HTMLButtonElement>('[role="tab"]:not(:disabled)')]; const index = items.indexOf(tab as HTMLButtonElement); const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + items.length) % items.length; items[next]?.focus(); items[next]?.click();
@@ -405,7 +417,7 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
     root.querySelector('.placement-ghost')?.remove(); root.classList.remove('pointer-placing');
     root.querySelectorAll('.drop-valid').forEach(x => x.classList.remove('drop-valid'));
   }
-  function dropPlacement(item: { kind?: 'listener' | 'logger'; id?: string }, lane: HTMLElement, target: HTMLElement, clientX: number): void {
+  function dropPlacement(item: { kind?: 'listener' | 'logger' | 'transform'; id?: string }, lane: HTMLElement, target: HTMLElement, clientX: number): void {
     const f = flow(); if (!f) return;
     const name = lane.dataset.drop as 'source' | 'processor' | 'error';
     const list = name === 'error' ? f.errorHandler?.processors ?? [] : f.processors;
@@ -416,14 +428,14 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
     else if (item.id && name !== 'source') {
       const from = list.findIndex(x => x.id === item.id), to = moveToInsertion(from,index,list.length);
       if (from < 0) announce('Move components within their existing processor/error-handler lane.', true);
-      else if (from !== to) for (let i=0;i<Math.abs(to-from);i++) edit({kind:'moveLogger',id:item.id,direction:to<from?-1:1});
+      else if (from !== to) for (let i=0;i<Math.abs(to-from);i++) edit({kind:'moveProcessor',id:item.id,direction:to<from?-1:1});
     }
   }
   root.addEventListener('pointerdown', event => {
     const element = (event.target as HTMLElement).closest<HTMLElement>('[data-palette],[data-node]');
     if (!element || event.button !== 0 || (element as HTMLButtonElement).disabled || !canEdit()) return;
     if (element.dataset.node && !componentById(element.dataset.node)?.editable) return;
-    pointerPlacement = { item: element.dataset.palette ? { kind: element.dataset.palette as 'listener' | 'logger' } : {id:element.dataset.node}, element, startX:event.clientX,startY:event.clientY,active:false };
+    pointerPlacement = { item: element.dataset.palette ? { kind: element.dataset.palette as 'listener' | 'logger' | 'transform' } : {id:element.dataset.node}, element, startX:event.clientX,startY:event.clientY,active:false };
     element.setPointerCapture(event.pointerId);
   });
   root.addEventListener('pointermove', event => {
@@ -431,7 +443,7 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
     if (!drag.active && Math.hypot(event.clientX-drag.startX,event.clientY-drag.startY)<6) return;
     event.preventDefault(); drag.active=true; root.classList.add('pointer-placing');
     let ghost=root.querySelector<HTMLElement>('.placement-ghost');
-    if(!ghost){ghost=window.document.createElement('div');ghost.className='placement-ghost';ghost.textContent=drag.item.kind==='listener'?'HTTP Listener':drag.item.kind==='logger'?'Logger':'Move component';root.append(ghost);}
+    if(!ghost){ghost=window.document.createElement('div');ghost.className='placement-ghost';ghost.textContent=drag.item.kind==='listener'?'HTTP Listener':drag.item.kind==='logger'?'Logger':drag.item.kind==='transform'?'Transform Message':'Move component';root.append(ghost);}
     ghost.style.left=(event.clientX+14)+'px';ghost.style.top=(event.clientY+14)+'px';
     root.querySelectorAll('.drop-valid').forEach(x=>x.classList.remove('drop-valid'));
     const lane=window.document.elementFromPoint(event.clientX,event.clientY)?.closest<HTMLElement>('[data-drop]');
@@ -447,7 +459,7 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
   });
   root.addEventListener('pointercancel',clearPlacement);
   function componentById(id:string): Component|undefined {return [flow()?.source,...(flow()?.processors??[]),...(flow()?.errorHandler?.processors??[])].find(n=>n?.id===id)??undefined;}
-  root.addEventListener('dragstart', event => { const el = (event.target as HTMLElement).closest<HTMLElement>('[draggable="true"]'); if (!el) return; drag = el.dataset.palette ? { kind: el.dataset.palette as 'listener' | 'logger' } : { id: el.dataset.node }; event.dataTransfer?.setData('application/x-zernova-component', JSON.stringify(drag)); });
+  root.addEventListener('dragstart', event => { const el = (event.target as HTMLElement).closest<HTMLElement>('[draggable="true"]'); if (!el) return; drag = el.dataset.palette ? { kind: el.dataset.palette as 'listener' | 'logger' | 'transform' } : { id: el.dataset.node }; event.dataTransfer?.setData('application/x-zernova-component', JSON.stringify(drag)); });
   root.addEventListener('dragover', event => {
     const lane = (event.target as HTMLElement).closest<HTMLElement>('[data-drop]');
     if (!lane || !drag) return;
@@ -467,7 +479,7 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
       const from = list.findIndex(x => x.id === item.id); const node = (event.target as HTMLElement).closest<HTMLElement>('[data-node]');
       const to = Math.min(list.length - 1, node ? list.findIndex(x => x.id === node.dataset.node) : index);
       if (from < 0) announce('Move components within their existing processor/error-handler lane.', true);
-      else if (from !== to) for (let i = 0; i < Math.abs(to - from); i++) edit({ kind: 'moveLogger', id: item.id, direction: to < from ? -1 : 1 });
+      else if (from !== to) for (let i = 0; i < Math.abs(to - from); i++) edit({ kind: 'moveProcessor', id: item.id, direction: to < from ? -1 : 1 });
     }
   });
   root.addEventListener('pointerdown', event => { const el = (event.target as HTMLElement).closest<HTMLElement>('[data-resize]'); if (!el) return; event.preventDefault(); const key = el.dataset.resize as 'paletteWidth' | 'propertiesHeight'; resize = { key, start: key === 'propertiesHeight' ? event.clientY : event.clientX, value: view[key] }; el.setPointerCapture(event.pointerId); });

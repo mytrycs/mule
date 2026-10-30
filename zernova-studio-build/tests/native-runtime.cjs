@@ -16,7 +16,7 @@ const {freshFetch:fetch,waitForHttpReady}=require('./http-client.cjs');
  await fs.cp(path.resolve('tests/fixtures/native-hello'),project,{recursive:true});
  const app='hello-zernova',xml=path.join(project,'src/main/zernova/hello.xml');
  const initial=await fs.readFile(xml,'utf8');
- const r=new BundledRuntime({bundle,instance,project,application:app,runConfiguration:{environment:'acceptance',variables:{TEST_ZERNOVA_ENV:'present'},properties:{'acceptance.profile':'configured'},debugPort:18282},debug:true,onOutput:t=>process.stdout.write(t)});
+ const r=new BundledRuntime({bundle,instance,project,application:app,runConfiguration:{environment:'acceptance',variables:{TEST_ZERNOVA_ENV:'present'},properties:{'acceptance.profile':'configured'},debugPort:18282,initialHeapMB:128,maximumHeapMB:512,jvmArguments:['-ea','-XX:+UseG1GC'],workingDirectory:'${project}',inheritEnvironment:false},debug:true,onOutput:t=>process.stdout.write(t)});
  const port=18281,rows=[];let artifact;
  const persist=async()=>fs.writeFile(path.join(output,'results.json'),JSON.stringify({target,platform:process.platform,architecture:process.arch,node:process.version,os:os.release(),bundle,instance,project,completed:rows.length,passed:rows.filter(x=>x.status==='PASS').length,failed:rows.filter(x=>x.status==='FAIL').length,cases:rows},null,2)+'\n');
  async function test(name,fn){try{const detail=await fn();rows.push({name,status:'PASS',detail});console.log('PASS '+name)}catch(e){rows.push({name,status:'FAIL',error:String(e.stack||e)});throw e}finally{await persist()}}
@@ -41,6 +41,7 @@ const {freshFetch:fetch,waitForHttpReady}=require('./http-client.cjs');
    await test('Cancelled package cannot replace the valid artifact',async()=>{const abort=new AbortController();abort.abort();await assert.rejects(r.package(project,abort.signal),/cancelled/i);assert.equal((await validateArtifact(artifact.artifact)).sha256,artifact.sha256)});
    await test('Occupied port is rejected without killing its owner',async()=>{const server=net.createServer();await new Promise((ok,no)=>{server.once('error',no);server.listen(port,'127.0.0.1',ok)});try{await assert.rejects(r.start(port),/unavailable/i);assert(server.listening)}finally{await new Promise(ok=>server.close(ok))}});
    await test('Real source-built engine startup',()=>r.start(port));
+   await test('Configured JVM heap, options and working directory reach the child',async()=>{const state=JSON.parse(await fs.readFile(path.join(instance,'state.json'),'utf8'));const launch=JSON.parse(await fs.readFile(path.join(instance,'runs',state.run_id,'launch.json'),'utf8'));assert(launch.args.includes('-Xms128m'));assert(launch.args.includes('-Xmx512m'));assert(launch.args.includes('-ea'));assert(launch.args.includes('-XX:+UseG1GC'));assert.equal(launch.workingDirectory,project);assert.equal(state.config.heap_mb,512);return{initialHeapMB:128,maximumHeapMB:512,vmOptions:true,workingDirectory:project}});
    await test('JDWP debugger handshake is available on loopback',async()=>{
      await new Promise((resolve,reject)=>{const s=net.createConnection({host:'127.0.0.1',port:18282});let data='';s.setTimeout(5000,()=>s.destroy(new Error('Debugger handshake timed out')));s.on('error',reject);s.on('connect',()=>s.write('JDWP-Handshake'));s.on('data',b=>{data+=b.toString();if(data.length>=14){try{assert.equal(data.slice(0,14),'JDWP-Handshake');s.end();resolve()}catch(e){s.destroy();reject(e)}}})});return{host:'127.0.0.1',debugPort:18282,handshake:true};
    });
@@ -52,7 +53,7 @@ const {freshFetch:fetch,waitForHttpReady}=require('./http-client.cjs');
    await test('Orders POST JSON transformation, configuration, validation and correlation',async()=>{
      const previousRun=(await r.status()).run_id;
      await r.undeploy();
-     await fs.writeFile(xml,(await fs.readFile('tests/fixtures/orders-api/src/main/zernova/orders.xml','utf8')).replace('</flow>', `<logger level="INFO" message="#['ZERNOVA_PROFILE ' ++ p('zernova.env') ++ ' ' ++ p('acceptance.profile') ++ ' ' ++ p('TEST_ZERNOVA_ENV')]"/></flow>`));
+     await fs.writeFile(xml,(await fs.readFile('tests/fixtures/orders-api/src/main/zernova/orders.xml','utf8')).replace('</flow>', `<logger level="INFO" message="#['ZERNOVA_PROFILE ' ++ p('zernova.env') ++ ' ' ++ p('acceptance.profile') ++ ' ' ++ p('TEST_ZERNOVA_ENV') ++ ' ' ++ p('user.dir')]"/></flow>`));
      await fs.copyFile('tests/fixtures/orders-api/src/main/resources/orders.properties',path.join(project,'src/main/resources/orders.properties'));
      artifact=await r.package();await r.deploy(artifact.artifact);
      const replacementRun=(await r.status()).run_id;assert.notEqual(replacementRun,previousRun,'Replacement must use fresh project JVM services');
@@ -61,7 +62,7 @@ const {freshFetch:fetch,waitForHttpReady}=require('./http-client.cjs');
      const response=await fetch(`http://127.0.0.1:${port}/orders?testId=${id}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:'order-123'}),signal:AbortSignal.timeout(10000)});
      const text=await response.text();assert.equal(response.status,200,text);const body=JSON.parse(text);assert.deepEqual(body,{id:'order-123',status:'accepted',currency:'USD'});
      assert((await r.logs()).lines.some(line=>line.includes('ZERNOVA_TEST '+id)));
-     assert((await r.logs()).lines.some(line=>line.includes('ZERNOVA_PROFILE acceptance configured present')),'Configured environment/properties did not reach runtime');
+     assert((await r.logs()).lines.some(line=>line.includes('ZERNOVA_PROFILE acceptance configured present '+project)),'Configured environment/properties did not reach runtime');
      const invalid=await fetch(`http://127.0.0.1:${port}/orders`,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}',signal:AbortSignal.timeout(10000)});
      assert.equal(invalid.status,400,await invalid.text());
      return{status:response.status,body,invalidStatus:invalid.status,correlatedLogger:true,previousRun,replacementRun};

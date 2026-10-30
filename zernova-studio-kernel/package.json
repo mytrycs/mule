@@ -2,7 +2,7 @@
   "name": "zernova-studio-kernel-preview",
   "displayName": "ZERNOVA Studio",
   "description": "ZERNOVA Studio development alpha with bundled ZERNOVA Runtime and patched Java 17.",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "publisher": "zernova-preview",
   "license": "SEE LICENSE IN LICENSE.txt",
   "private": true,
@@ -128,7 +128,7 @@
         "command": "zernovaKernelStudio.stopRuntime",
         "category": "ZERNOVA",
         "title": "Stop Project Runtime",
-        "icon": "$(stop-circle)"
+        "icon": "$(debug-stop)"
       },
       {
         "command": "zernovaKernelStudio.cancel",
@@ -156,11 +156,17 @@
         "command": "zernovaKernelStudio.configureRun",
         "category": "ZERNOVA",
         "title": "Run Configuration\u2026",
-        "icon": "$(settings-gear)"
+        "icon": "$(gear)"
       },
       {
         "command": "zernovaKernelStudio.manualSave",
-        "title": "ZERNOVA: Save and Apply Redeploy Setting"
+        "title": "ZERNOVA: Save and Apply Redeploy Setting",
+        "icon": "$(save)"
+      },
+      {
+        "command": "zernovaKernelStudio.configureDebug",
+        "title": "ZERNOVA: Debug Configuration",
+        "icon": "$(gear)"
       }
     ],
     "viewsContainers": {
@@ -266,6 +272,11 @@
           "command": "zernovaKernelStudio.stopRuntime",
           "when": "resourceExtname == .xml && resourcePath =~ /src[\\\\/]main[\\\\/]zernova[\\\\/]/",
           "group": "9_zernova@5"
+        },
+        {
+          "command": "zernovaKernelStudio.configureDebug",
+          "when": "resourceExtname == .xml && resourcePath =~ /src[\\\\/]main[\\\\/]zernova[\\\\/]/",
+          "group": "9_zernova@2a"
         }
       ]
     },

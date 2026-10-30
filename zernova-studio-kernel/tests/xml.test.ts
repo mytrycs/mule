@@ -14,7 +14,7 @@ function fixture(): string {
   return act(xml, { kind: 'insert', flowId: 'flow:helloFlow', component: 'logger' });
 }
 function source(xml: string) { return parseIntegration(xml).flows[0].source!; }
-function logger(xml: string, index = 0) { return parseIntegration(xml).flows[0].processors[index]; }
+function logger(xml: string, index = 0) { const node=parseIntegration(xml).flows[0].processors[index]; assert(node.kind === 'logger'); return node; }
 
 test('new real document contains no flow or fixture and accepts explicit flow creation', () => {
   const initial = createIntegrationXml(), parsed = parseIntegration(initial);
@@ -106,11 +106,11 @@ test('comments, CDATA, Unicode, unknown attributes and unrelated formatting surv
 });
 
 test('unsupported constructs make their flow read-only but remain intact while another flow is edited', () => {
-  const other = '<flow name="other"><set-payload value="#[{x:1}]"/><logger message="old"/></flow>';
+  const other = '<flow name="other"><set-variable variableName="owner" value="#[{x:1}]"/><logger message="old"/></flow>';
   let xml = fixture().replace('</zernova>', '  ' + other + '\n</zernova>');
   const model = parseIntegration(xml);
   assert.equal(model.flows[1].editable, false);
-  assert.deepEqual(model.flows[1].unsupported, ['set-payload']);
+  assert.deepEqual(model.flows[1].unsupported, ['set-variable']);
   assert.throws(() => act(xml, { kind: 'insert', flowId: 'flow:other', component: 'logger' }), /unsupported/);
   xml = act(xml, { kind: 'updateComponent', id: logger(xml).id, values: { category: 'io.owner' } });
   assert.ok(xml.includes(other));
@@ -187,8 +187,8 @@ test('legacy Logger acquires doc:id for future stable selection while preserving
 
 test('Listener cannot be duplicated/moved and editing a field from another kind is refused', () => {
   const xml = fixture(), id = source(xml).id;
-  assert.throws(() => act(xml, { kind: 'duplicateLogger', id }), /Only a Logger/);
-  assert.throws(() => act(xml, { kind: 'moveLogger', id, direction: 1 }), /Only a Logger/);
+  assert.throws(() => act(xml, { kind: 'duplicateLogger', id }), /Only processors/);
+  assert.throws(() => act(xml, { kind: 'moveLogger', id, direction: 1 }), /Only processors/);
   assert.throws(() => act(xml, { kind: 'updateComponent', id, values: { message: 'not a Listener field' } }), /does not belong/);
   assert.throws(() => act(xml, { kind: 'updateComponent', id: logger(xml).id, values: { level: 'INVALID' } }), /Choose TRACE/);
 });
@@ -291,7 +291,7 @@ test('Error handler round-trip keeps main and error processors separate and inse
   const errorLogger = f.errorHandler!.processors[0];
   xml = act(xml, { kind: 'updateComponent', id: errorLogger.id, values: { message: 'Changed error logger' } });
   xml = act(xml, { kind: 'moveLogger', id: errorLogger.id, direction: 1 });
-  assert.equal(parseIntegration(xml).flows[0].errorHandler!.processors[1].message, 'Changed error logger');
+  const changedError=parseIntegration(xml).flows[0].errorHandler!.processors[1]; assert(changedError.kind === 'logger'); assert.equal(changedError.message, 'Changed error logger');
   xml = act(xml, { kind: 'deleteComponent', id: errorLogger.id });
   assert.equal(parseIntegration(xml).flows[0].errorHandler!.processors.length, 1);
 });
@@ -303,8 +303,26 @@ test('Invalid error destinations and duplicate handlers are rejected without los
   assert(parseXmlOperation({ kind: 'insert', flowId: 'flow:helloFlow', component: 'logger', lane: 'error', index: 0 }));
 });
 test('Custom error handlers survive normal flow edits without pretending to support their internals', () => {
-  const xml = fixture().replace('</flow>', '<error-handler><on-error-propagate type="ANY"><set-payload value="original"/></on-error-propagate></error-handler></flow>');
+  const xml = fixture().replace('</flow>', '<error-handler><on-error-propagate type="ANY"><set-variable variableName="owner" value="original"/></on-error-propagate></error-handler></flow>');
   const f = parseIntegration(xml).flows[0]; assert(f.editable); assert.equal(f.errorHandler!.editable, false);
   const next = act(xml, { kind: 'insert', flowId: f.id, component: 'logger' });
-  assert(next.includes('<set-payload value="original"/>'));
+  assert(next.includes('<set-variable variableName="owner" value="original"/>'));
+});
+
+test('Transform Message scripts round-trip without disturbing unrelated XML, and participate in processor operations', () => {
+  let xml=fixture().replace('</zernova>','<!-- keep owner comment -->\n</zernova>');
+  const inserted=applyOperation(xml,{kind:'insert',flowId:'flow:helloFlow',component:'transform',index:0});xml=inserted.text;
+  const script='%dw 2.0\noutput application/json\n---\n{message: "hello & <world>", incoming: payload}';
+  const operation={kind:'updateComponent' as const,id:inserted.selectionId!,values:{script,mimeType:'application/json'}};
+  assert(parseXmlOperation(operation));xml=act(xml,operation);
+  let node=parseIntegration(xml).flows[0].processors[0];assert(node.kind==='transform');assert.equal(node.script,script);assert.equal(node.mimeType,'application/json');assert(xml.includes('keep owner comment'));
+  xml=act(xml,{kind:'duplicateProcessor',id:node.id});assert.equal(parseIntegration(xml).flows[0].processors.length,3);
+  xml=act(xml,{kind:'moveProcessor',id:node.id,direction:1});assert.equal(parseIntegration(xml).flows[0].processors[1].id,node.id);
+  xml=act(xml,{kind:'deleteComponent',id:node.id});assert.equal(parseIntegration(xml).flows[0].processors.length,2);
+});
+test('Existing native set-payload and handler transforms remain executable editable XML', () => {
+  let xml=act(fixture(),{kind:'createErrorHandler',flowId:'flow:helloFlow'});
+  xml=act(xml,{kind:'insert',flowId:'flow:helloFlow',component:'transform',lane:'error'});
+  const model=parseIntegration(xml);assert(model.flows[0].editable);assert(model.flows[0].errorHandler!.editable);assert.equal(model.flows[0].errorHandler!.processors[1].kind,'transform');
+  const node=model.flows[0].errorHandler!.processors[1];xml=act(xml,{kind:'updateComponent',id:node.id,values:{script:''}});assert(parseIntegration(xml).diagnostics.some(d=>d.code==='transform-script'));
 });

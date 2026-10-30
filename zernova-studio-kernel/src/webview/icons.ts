@@ -1,5 +1,11 @@
 /** Original compact line icons; no MuleSoft or Studio artwork. */
 const paths: Record<string, string> = {
+  save: '<path d="M4 3h13l4 4v14H3V3zM7 3v6h10V3M7 21v-8h10v8"/>',
+  build: '<path d="m4 21 9-9M9 3l4 4 4-1 4 4-6 6-4-4 1-4-4-4z"/>',
+  transform: '<path d="M3 6h6l6 12h6M3 18h6l6-12h6m-4-4 4 4-4 4m0 4 4 4-4 4"/>',
+  response: '<circle cx="12" cy="12" r="9"/><path d="M18 12H6l4-4m-4 4 4 4"/>',
+  arrowUp: '<path d="M12 21V3m-6 6 6-6 6 6"/>',
+  arrowDown: '<path d="M12 3v18m-6-6 6 6 6-6"/>',
   play: '<path d="m7 3 14 9-14 9z"/>',
   stop: '<rect x="5" y="5" width="14" height="14" rx="1"/>',
   debug: '<path d="M8 7h8v10a4 4 0 0 1-8 0zM9 3l3 4 3-4M3 10h5m8 0h5M3 16h5m8 0h5M5 22l4-3m6 0 4 3M12 9v11"/>',

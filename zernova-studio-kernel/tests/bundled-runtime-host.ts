@@ -59,7 +59,7 @@ export async function run() {
   };
   try {
     await check('Installed VSIX and actual custom editor', async () => {
-      assert(subject.extensionPath.startsWith(path.join(root, 'extensions'))); assert.equal(subject.packageJSON.version, '0.4.2');
+      assert(subject.extensionPath.startsWith(path.join(root, 'extensions'))); assert.equal(subject.packageJSON.version, '0.4.3');
       await vscode.commands.executeCommand('zernovaKernelStudio.openIntegration', file);
       for (let i = 0; i < 50 && !api.getProjectDiagnostics().documents.documents.includes(file.toString()); i++) await new Promise(resolve => setTimeout(resolve, 100));
       assert(api.getProjectDiagnostics().documents.documents.includes(file.toString()), 'The actual custom editor must resolve this project, including Windows drive-letter casing');
@@ -97,6 +97,17 @@ export async function run() {
       assert(await doc.save());
       for(let i=0;i<1800;i++){const state=api.getRuntimeDiagnostics()[0];if(await runId()!==before && !state.busy && state.application==='DEPLOYED') break; await new Promise(resolve=>setTimeout(resolve,100));}
       assert.notEqual(await runId(),before); assert.equal(api.getRuntimeDiagnostics()[0].phase,'Deployed · endpoint unverified'); return request();
+    });
+    await check('Transform Message creates native DataWeave XML and returns actual JSON', async () => {
+      await config.update('redeployOnSave',false,vscode.ConfigurationTarget.WorkspaceFolder);
+      let transformed=applyOperation(xml,{kind:'insert',flowId:'flow:studioFlow',component:'transform',index:1});
+      const script='%dw 2.0\noutput application/json\n---\n{message: "Hello from Transform", testId: attributes.queryParams.testId, environment: p("zernova.env")}';
+      let text=applyOperation(transformed.text,{kind:'updateComponent',id:transformed.selectionId!,values:{script,mimeType:'application/json'}}).text;
+      text=applyOperation(text,{kind:'updateComponent',id:parseIntegration(text).flows[0].source!.id,values:{responseBody:'#[payload]',responseHeaders:"#[{'Content-Type': 'application/json'}]"}}).text;
+      await edit(text);const state=await command('run');assert.equal(state.application,'DEPLOYED');
+      await waitForHttpReady(`http://localhost:${port}/hello`);const id='TRANSFORM-'+randomUUID();const response=await fetch(`http://localhost:${port}/hello?testId=${id}`);const body=JSON.parse(await response.text());
+      assert.equal(response.status,200);assert.deepEqual(body,{message:'Hello from Transform',testId:id,environment:'development'});
+      return {nativeDataWeave:true,status:response.status,body};
     });
     await check('Listener-only run failure stays in Console and retains the deployed app', async () => {
       await config.update('redeployOnSave',false,vscode.ConfigurationTarget.WorkspaceFolder);

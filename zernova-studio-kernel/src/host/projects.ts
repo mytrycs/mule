@@ -124,20 +124,34 @@ export class ProjectManager implements vscode.Disposable {
     void vscode.window.showInformationMessage('Studio uses its bundled ZERNOVA Runtime and Java. No external tools are required for core and HTTP projects.');
     return true;
   }
-  getRunConfiguration(project: Project): RunConfiguration {
-    const value = { ...defaultRunConfiguration(), ...this.context.workspaceState.get<RunConfiguration>('zernova.run.' + project.root) };
+  getRunConfiguration(project: Project, debug = false): RunConfiguration {
+    const value = { ...defaultRunConfiguration(), ...(debug ? this.context.workspaceState.get<RunConfiguration>('zernova.debug.' + project.root) ?? this.context.workspaceState.get<RunConfiguration>('zernova.run.' + project.root) : this.context.workspaceState.get<RunConfiguration>('zernova.run.' + project.root)) };
     if (vscode.workspace.getWorkspaceFolder(vscode.Uri.file(project.root))) value.redeployOnSave = vscode.workspace.getConfiguration('zernovaKernelStudio', vscode.Uri.file(project.root)).get<boolean>('redeployOnSave', false);
     return value;
   }
-  async configureRun(project: Project): Promise<boolean> {
-    const current = this.getRunConfiguration(project);
-    return await studioForm('ZERNOVA Run Configuration', [
-      { key: 'redeployOnSave', label: 'Redeploy on manual save', value: String(current.redeployOnSave === true), options: [{value:'false',label:'No'}, {value:'true',label:'Yes'}], hint: 'Only when deployed and build inputs changed. Background XML autosaves never redeploy. Java sources still require supported build capabilities.' },
-      { key: 'environment', label: 'Environment', value: current.environment, hint: 'Exposed as the zernova.env system property.' },
-      { key: 'variables', label: 'Environment variables', value: Object.entries(current.variables).map(([k,v]) => k + '=' + v).join('\n'), multiline: true, hint: 'One NAME=value per line. Stored in this workspace profile; do not put production secrets here.' },
-      { key: 'properties', label: 'Application properties (Maven-style -D)', value: Object.entries(current.properties).map(([k,v]) => '-D' + k + '=' + v).join('\n'), multiline: true, hint: 'One -Dname=value per line. Passed to the runtime JVM and listener preflight. This offline builder does not execute Maven goals.' },
-      { key: 'debugPort', label: 'Java debugger port (localhost only)', value: String(current.debugPort) },
-    ], async fields => { const value = parseRunFields(fields); await this.context.workspaceState.update('zernova.run.' + project.root, value); if (vscode.workspace.getWorkspaceFolder(vscode.Uri.file(project.root))) await vscode.workspace.getConfiguration('zernovaKernelStudio', vscode.Uri.file(project.root)).update('redeployOnSave', value.redeployOnSave, vscode.ConfigurationTarget.WorkspaceFolder); this.changed.fire(); return true; }) ?? false;
+  async configureRun(project: Project, debug = false): Promise<boolean> {
+    const current = this.getRunConfiguration(project,debug);
+    const yesNo = [{value:'false',label:'No'},{value:'true',label:'Yes'}];
+    return await studioForm(debug ? 'ZERNOVA Debug Configuration' : 'ZERNOVA Run Configuration', [
+      { key:'environment',label:'Environment',value:current.environment,section:'General',hint:'Exposed as the zernova.env system property.' },
+      { key:'workingDirectory',label:'Working directory',value:current.workingDirectory ?? '',section:'General',hint:'Empty uses the private runtime directory. Use ${project} or ${workspaceFolder} for the project root, or an existing relative/absolute directory.' },
+      { key:'redeployOnSave',label:'Redeploy on manual save',value:String(current.redeployOnSave===true),options:yesNo,section:'General',hint:'Shared project preference. Only explicit saves of changed build inputs redeploy a deployed app.' },
+      { key:'variables',label:'Environment variables',value:Object.entries(current.variables).map(([k,v])=>k+'='+v).join('\n'),multiline:true,section:'Environment',hint:'One NAME=value per line. Local workspace/profile storage; do not store production secrets.' },
+      { key:'inheritEnvironment',label:'Inherit host environment',value:String(current.inheritEnvironment!==false),options:yesNo,section:'Environment',hint:'No retains essential operating-system variables and the explicit variables above. Java bootstrap injection variables are always excluded.' },
+      { key:'initialHeapMB',label:'Initial heap (MB)',value:String(current.initialHeapMB),section:'Java VM' },
+      { key:'maximumHeapMB',label:'Maximum heap (MB)',value:String(current.maximumHeapMB),section:'Java VM' },
+      { key:'properties',label:'Application system properties (-D)',value:Object.entries(current.properties).map(([k,v])=>'-D'+k+'='+v).join('\n'),multiline:true,section:'Java VM',hint:'One -Dname=value per line. These are JVM properties; Maven goals are not executed.' },
+      { key:'jvmArguments',label:'Additional JVM options',value:(current.jvmArguments ?? []).join('\n'),multiline:true,section:'Java VM',hint:'One literal option per line, for example -ea or -XX:+UseG1GC. GC, diagnostics, stack and module-opening options are supported. JRE, agents, classpath and bootstrap are managed by Studio.' },
+      { key:'startupTimeoutSeconds',label:'Runtime startup timeout (seconds)',value:String(current.startupTimeoutSeconds),section:'Lifecycle' },
+      { key:'deploymentTimeoutSeconds',label:'Application deployment timeout (seconds)',value:String(current.deploymentTimeoutSeconds),section:'Lifecycle' },
+      { key:'stopTimeoutSeconds',label:'Runtime shutdown timeout (seconds)',value:String(current.stopTimeoutSeconds),section:'Lifecycle' },
+      ...(debug ? [{ key:'debugPort',label:'Java debugger port (localhost only)',value:String(current.debugPort),section:'Debug',hint:'Used by Debug launch. The debugger listens only on loopback; startup does not suspend.' }] : []),
+    ], async fields => {
+      const value = parseRunFields({...fields,debugPort:fields.debugPort ?? String(current.debugPort)});
+      await this.context.workspaceState.update((debug ? 'zernova.debug.' : 'zernova.run.') + project.root,value);
+      if (vscode.workspace.getWorkspaceFolder(vscode.Uri.file(project.root))) await vscode.workspace.getConfiguration('zernovaKernelStudio',vscode.Uri.file(project.root)).update('redeployOnSave',value.redeployOnSave,vscode.ConfigurationTarget.WorkspaceFolder);
+      this.changed.fire(); return true;
+    }, `Application: ${project.artifactId}. ${debug ? 'Debug' : 'Run'} settings apply on the next launch/redeployment. The compatible bundled Java and runtime entry point are managed by ZERNOVA Studio.`) ?? false;
   }
   async createProject(): Promise<Project | undefined> {
     return studioForm('New ZERNOVA Project', [

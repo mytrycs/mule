@@ -19,3 +19,9 @@ test('Redeploy on manual save is opt-in and validates Yes/No values', () => {
   assert.equal(parseRunFields({...fields,redeployOnSave:'true'}).redeployOnSave,true);
   assert.throws(()=>parseRunFields({...fields,redeployOnSave:'sometimes'}));
 });
+test('Java launch settings validate heap, VM options, environment inheritance and timeouts', () => {
+  const fields={environment:'qa',debugPort:'15005',variables:'TEST_ENV=present',properties:'-Dmessage=hello',initialHeapMB:'128',maximumHeapMB:'512',jvmArguments:'-ea\n-XX:+UseG1GC\n-Xlog:gc',workingDirectory:'${project}',inheritEnvironment:'false',startupTimeoutSeconds:'90',deploymentTimeoutSeconds:'100',stopTimeoutSeconds:'30'};
+  const value=parseRunFields(fields);assert.equal(value.initialHeapMB,128);assert.equal(value.maximumHeapMB,512);assert.deepEqual(value.jvmArguments,['-ea','-XX:+UseG1GC','-Xlog:gc']);assert.equal(value.inheritEnvironment,false);assert.equal(value.workingDirectory,'${project}');
+  for(const jvmArguments of ['-javaagent:/tmp/foreign.jar','-XX:OnError=touch /tmp/should-not-execute','-Xmx128m','-Dunsafe=1','@args.txt','--module=foreign']) assert.throws(()=>parseRunFields({...fields,jvmArguments}));
+  assert.throws(()=>parseRunFields({...fields,maximumHeapMB:'64'}));assert.throws(()=>parseRunFields({...fields,startupTimeoutSeconds:'0'}));
+});

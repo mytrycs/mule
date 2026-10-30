@@ -1,0 +1,8 @@
+{
+  "minZernovaVersion": "0.4.0",
+  "requiredProduct": "ZERNOVA",
+  "javaSpecificationVersions": [
+    "17"
+  ],
+  "redeploymentEnabled": false
+}

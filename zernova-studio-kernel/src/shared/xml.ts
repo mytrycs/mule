@@ -21,24 +21,28 @@ export interface RealLogger {
   id: string; kind: 'logger'; displayName: string; message: string; level: RealLogLevel; category: string;
   expressionMode: boolean; notes: string; editable: boolean;
 }
-export type RealComponent = RealListener | RealLogger;
-export interface RealErrorHandler { type: string; summary: string; editable: boolean; processors: RealLogger[] }
-export interface RealFlow { id: string; name: string; kind?: 'flow' | 'sub-flow'; source: RealListener | null; processors: RealLogger[]; editable: boolean; unsupported: string[]; errorHandler?: RealErrorHandler }
+export interface RealTransform {
+  id: string; kind: 'transform'; displayName: string; script: string; mimeType: string; editable: boolean;
+}
+export type RealProcessor = RealLogger | RealTransform;
+export type RealComponent = RealListener | RealProcessor;
+export interface RealErrorHandler { type: string; summary: string; editable: boolean; processors: RealProcessor[] }
+export interface RealFlow { id: string; name: string; kind?: 'flow' | 'sub-flow'; source: RealListener | null; processors: RealProcessor[]; editable: boolean; unsupported: string[]; errorHandler?: RealErrorHandler }
 export interface IntegrationModel { valid: boolean; flows: RealFlow[]; configs: RealHttpConfig[]; diagnostics: XmlDiagnostic[] }
 export interface ComponentValues {
   displayName?: string; configId?: string; path?: string; allowedMethods?: string; message?: string;
-  level?: string; category?: string; responseStatus?: string; responseBody?: string; responseHeaders?: string;
+  script?: string; mimeType?: string; level?: string; category?: string; responseStatus?: string; responseBody?: string; responseHeaders?: string;
 }
 export interface ConfigValues { name: string; protocol: 'HTTP'; host: string; port: string; basePath: string }
 export type XmlOperation =
   | { kind: 'createFlow'; name: string }
   | { kind: 'renameFlow'; flowId: string; name: string }
-  | { kind: 'insert'; flowId: string; component: 'listener' | 'logger'; index?: number; lane?: 'error' }
+  | { kind: 'insert'; flowId: string; component: 'listener' | 'logger' | 'transform'; index?: number; lane?: 'error' }
   | { kind: 'createErrorHandler'; flowId: string }
   | { kind: 'updateComponent'; id: string; values: ComponentValues }
   | { kind: 'deleteComponent'; id: string }
-  | { kind: 'duplicateLogger'; id: string }
-  | { kind: 'moveLogger'; id: string; direction: -1 | 1 }
+  | { kind: 'duplicateLogger' | 'duplicateProcessor'; id: string }
+  | { kind: 'moveLogger' | 'moveProcessor'; id: string; direction: -1 | 1 }
   | { kind: 'saveConfig'; id?: string; values: ConfigValues }
   | { kind: 'deleteConfig'; id: string };
 export interface SourceEdit { start: number; end: number; text: string }
@@ -194,7 +198,7 @@ function parseInternal(text: string): Parsed {
   for (const [flowIndex, n] of tree.root.children.filter(n => is(n, CORE_NS, 'flow') || is(n, CORE_NS, 'sub-flow')).entries()) {
     const name = value(n, 'name'), id = 'flow:' + name;
     const sources = n.children.filter(c => is(c, HTTP_NS, 'listener'));
-    const unsupported = n.children.filter(c => !is(c, HTTP_NS, 'listener') && !is(c, CORE_NS, 'logger') && !is(c, CORE_NS, 'error-handler')).map(c => c.name);
+    const unsupported = n.children.filter(c => !is(c, HTTP_NS, 'listener') && !is(c, CORE_NS, 'logger') && !is(c, CORE_NS, 'set-payload') && !is(c, CORE_NS, 'error-handler')).map(c => c.name);
     const flow: RealFlow = { id, name, kind: n.local as 'flow' | 'sub-flow', source: null, processors: [], editable: unsupported.length === 0 && sources.length <= 1 && (sources.length === 0 || n.children[0] === sources[0]) && (n.local !== 'sub-flow' || sources.length === 0), unsupported };
     model.flows.push(flow); parsed.flowNodes.set(id, n);
     if (!name || flowNames.has(name)) issue('Flow names must be present and unique: ' + name, n.start, n.openEnd, 'flow-name');
@@ -202,7 +206,7 @@ function parseInternal(text: string): Parsed {
     if (sources.length > 1 || (sources.length === 1 && n.children[0] !== sources[0])) issue('A flow supports one Listener in its first source position.', n.start, n.openEnd, 'source-position');
     if (unsupported.length) issue('Unsupported flow content is preserved; visual component edits for this flow are disabled: ' + unsupported.join(', '), n.start, n.openEnd, 'unsupported', 'warning');
     const handler = child(n, CORE_NS, 'error-handler'), onError = handler?.children[0];
-    if (handler) flow.errorHandler = { type: onError?.local ?? 'custom', summary: handler.children.map(c => c.name).join(', '), editable: handler.children.length === 1 && !!onError && [CORE_NS].includes(onError.uri) && ['on-error-propagate', 'on-error-continue'].includes(onError.local) && onError.children.every(c => is(c, CORE_NS, 'logger')), processors: [] };
+    if (handler) flow.errorHandler = { type: onError?.local ?? 'custom', summary: handler.children.map(c => c.name).join(', '), editable: handler.children.length === 1 && !!onError && [CORE_NS].includes(onError.uri) && ['on-error-propagate', 'on-error-continue'].includes(onError.local) && onError.children.every(c => is(c, CORE_NS, 'logger') || is(c, CORE_NS, 'set-payload')), processors: [] };
     const components = [...n.children, ...(flow.errorHandler?.editable ? onError!.children : [])];
     for (const [componentIndex, c] of components.entries()) {
       const componentId = namespacedAttribute(c, DOC_NS, 'id')?.value ?? `legacy:${flowIndex}:${componentIndex}:${c.local}`;
@@ -215,6 +219,13 @@ function parseInternal(text: string): Parsed {
         if (!listener.path || !dynamic(listener.path) && !listener.path.startsWith('/')) issue('Listener path must begin with / or use a runtime property/expression.', c.start, c.openEnd, 'listener-path');
         if (!dynamic(listener.allowedMethods) && !listener.allowedMethods.split(',').every(method => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'].includes(method.trim()))) issue('Use valid comma-separated HTTP methods.', c.start, c.openEnd, 'listener-methods');
         if (!dynamic(listener.responseStatus) && (!/^\d{3}$/.test(listener.responseStatus) || Number(listener.responseStatus) < 100 || Number(listener.responseStatus) > 599)) issue('Response status must be an HTTP code from 100 to 599 or a runtime expression/property.', response?.start ?? c.start, response?.openEnd ?? c.openEnd, 'response-status');
+      } else if (is(c, CORE_NS, 'set-payload')) {
+        const raw = value(c, 'value');
+        const transform: RealTransform = { id: componentId, kind:'transform', displayName:namespacedAttribute(c,DOC_NS,'name')?.value ?? 'Transform Message', script:raw.startsWith('#[') && raw.endsWith(']') ? raw.slice(2,-1) : JSON.stringify(raw), mimeType:value(c,'mimeType','application/java'), editable:flow.editable && c.children.length === 0 };
+        if (c.parent === onError) flow.errorHandler!.processors.push(transform); else flow.processors.push(transform);
+        parsed.nodes.set(componentId,c);
+        if (!transform.script.trim()) issue('Transform Message requires a DataWeave payload script.',c.start,c.openEnd,'transform-script');
+        if (!transform.mimeType.trim()) issue('Transform Message requires an output MIME type.',c.start,c.openEnd,'transform-mime');
       } else if (is(c, CORE_NS, 'logger')) {
         const rawLevel = value(c, 'level', 'INFO');
         const logger: RealLogger = { id: componentId, kind: 'logger', displayName: namespacedAttribute(c, DOC_NS, 'name')?.value ?? 'Logger', message: value(c, 'message'), level: rawLevel as RealLogLevel, category: value(c, 'category'), expressionMode: value(c, 'message').startsWith('#['), notes: '', editable: flow.editable && c.children.length === 0 };
@@ -285,7 +296,7 @@ function ensureNamespaces(text: string, operation: XmlOperation): string {
   const parsed = parseInternal(text), root = parsed.root;
   if (!parsed.model.valid || !root) throw new XmlEditError('Repair XML syntax before visual editing. Source has been preserved.');
   const edits: SourceEdit[] = [];
-  const docNeeded = ['insert', 'updateComponent', 'duplicateLogger', 'moveLogger', 'createErrorHandler'].includes(operation.kind);
+  const docNeeded = ['insert', 'updateComponent', 'duplicateLogger', 'moveLogger', 'duplicateProcessor', 'moveProcessor', 'createErrorHandler'].includes(operation.kind);
   const httpNeeded = operation.kind === 'saveConfig' || operation.kind === 'insert' && operation.component === 'listener';
   const namespaces: [string, string][] = [...(docNeeded ? [[DOC_NS, 'doc'] as [string,string]] : []), ...(httpNeeded ? [[HTTP_NS, 'http'] as [string,string], [XSI_NS, 'xsi'] as [string,string]] : [])];
   for (const [uri, preferred] of namespaces) {
@@ -356,7 +367,7 @@ export function applyOperation(original: string, operation: XmlOperation): XmlEd
     insertChildren(text, node, `<${q('error-handler')}><${q('on-error-propagate')} type="ANY"><${q('logger')} ${qname(node, DOC_NS, 'id')}="${selectionId}" ${qname(node, DOC_NS, 'name')}="Log error" level="ERROR" message="#[error.description]"/></${q('on-error-propagate')}></${q('error-handler')}>`, edits);
   } else if (operation.kind === 'insert') {
     const { node, flow } = supportedFlow(parsed, operation.flowId);
-    if (operation.lane === 'error' && (operation.component !== 'logger' || !flow.errorHandler?.editable)) throw new XmlEditError('Select a supported error-handler processor slot.');
+    if (operation.lane === 'error' && (operation.component === 'listener' || !flow.errorHandler?.editable)) throw new XmlEditError('Select a supported error-handler processor slot.');
     if (flow.kind === 'sub-flow' && operation.component === 'listener') throw new XmlEditError('A subflow cannot contain an HTTP Listener. Add the Listener to its calling flow.');
     selectionId = newId();
     const docName = qname(node, DOC_NS, 'name'), docId = qname(node, DOC_NS, 'id');
@@ -369,15 +380,17 @@ export function applyOperation(original: string, operation: XmlOperation): XmlEd
     } else {
       const processors = operation.lane === 'error' ? flow.errorHandler!.processors : flow.processors;
       const parent = operation.lane === 'error' ? child(node, CORE_NS, 'error-handler')!.children[0] : node;
-      if (processors.length >= 100) throw new XmlEditError('This milestone supports up to 100 Loggers per flow.');
-      const markup = `<${qname(node, CORE_NS, 'logger')} ${docName}="Logger" ${docId}="${selectionId}" level="INFO" category="io.zernova.acceptance" message="${escapedAttribute("#['ZERNOVA_TEST ' ++ (attributes.queryParams.testId default 'missing')]")}"/>`;
+      if (processors.length >= 100) throw new XmlEditError('This milestone supports up to 100 processors per lane.');
+      const markup = operation.component === 'transform'
+        ? `<${qname(node, CORE_NS, 'set-payload')} ${docName}="Transform Message" ${docId}="${selectionId}" mimeType="application/json" value="${escapedAttribute('#[%dw 2.0\noutput application/json\n---\npayload]')}"/>`
+        : `<${qname(node, CORE_NS, 'logger')} ${docName}="Logger" ${docId}="${selectionId}" level="INFO" category="io.zernova.acceptance" message="${escapedAttribute("#['ZERNOVA_TEST ' ++ (attributes.queryParams.testId default 'missing')]")}"/>`;
       const index = operation.index ?? processors.length;
-      if (!Number.isInteger(index) || index < 0 || index > processors.length) throw new XmlEditError('Invalid Logger insertion position.');
+      if (!Number.isInteger(index) || index < 0 || index > processors.length) throw new XmlEditError('Invalid processor insertion position.');
       insertChildren(text, parent, markup, edits, processors[index] ? parsed.nodes.get(processors[index].id) : operation.lane === 'error' ? undefined : child(node, CORE_NS, 'error-handler'));
     }
   } else if (operation.kind === 'updateComponent') {
     const { component, node } = componentAndFlow(parsed, operation.id), next = operation.values;
-    const allowed = component.kind === 'listener' ? ['displayName', 'configId', 'path', 'allowedMethods', 'responseStatus', 'responseBody', 'responseHeaders'] : ['displayName', 'message', 'level', 'category'];
+    const allowed = component.kind === 'listener' ? ['displayName', 'configId', 'path', 'allowedMethods', 'responseStatus', 'responseBody', 'responseHeaders'] : component.kind === 'transform' ? ['displayName', 'script', 'mimeType'] : ['displayName', 'message', 'level', 'category'];
     if (Object.keys(next).some(k => !allowed.includes(k))) throw new XmlEditError('This field does not belong to the selected component.');
     selectionId = namespacedAttribute(node, DOC_NS, 'id')?.value ?? newId();
     setDocAttribute(node, 'id', selectionId, edits);
@@ -390,6 +403,9 @@ export function applyOperation(original: string, operation: XmlOperation): XmlEd
       if (next.path !== undefined) setAttribute(node, 'path', next.path, edits);
       if (next.allowedMethods !== undefined) setAttribute(node, 'allowedMethods', next.allowedMethods, edits);
       updateResponse(text, node, next, edits);
+    } else if (component.kind === 'transform') {
+      if (next.script !== undefined) setAttribute(node,'value', '#[' + next.script + ']',edits);
+      if (next.mimeType !== undefined) setAttribute(node,'mimeType',next.mimeType,edits);
     } else {
       if (next.message !== undefined) setAttribute(node, 'message', next.message, edits);
       if (next.level !== undefined) { if (!LOG_LEVELS_REAL.includes(next.level as RealLogLevel)) throw new XmlEditError('Choose TRACE, DEBUG, INFO, WARN or ERROR.'); setAttribute(node, 'level', next.level, edits); }
@@ -397,21 +413,22 @@ export function applyOperation(original: string, operation: XmlOperation): XmlEd
     }
   } else if (operation.kind === 'deleteComponent') {
     const { node } = componentAndFlow(parsed, operation.id); edits.push({ start: node.start, end: node.end, text: '' });
-  } else if (operation.kind === 'duplicateLogger') {
+  } else if ((operation.kind === 'duplicateLogger' || operation.kind === 'duplicateProcessor')) {
     const { component, node, flow } = componentAndFlow(parsed, operation.id);
-    if (component.kind !== 'logger') throw new XmlEditError('Only a Logger can be duplicated.');
-    if (flow.processors.length >= 100) throw new XmlEditError('This milestone supports up to 100 Loggers per flow.');
+    if (component.kind === 'listener') throw new XmlEditError('Only processors can be duplicated.');
+    const lane = flow.processors.some(p=>p.id === component.id) ? flow.processors : flow.errorHandler?.processors ?? [];
+    if (lane.length >= 100) throw new XmlEditError('This milestone supports up to 100 processors per lane.');
     selectionId = newId();
     const local: SourceEdit[] = [];
     setDocAttribute(node, 'id', selectionId, local);
     const snippet = applyEdits(text.slice(node.start, node.end), local.map(e => ({ ...e, start: e.start - node.start, end: e.end - node.start })));
     edits.push({ start: node.end, end: node.end, text: eol(text) + indentation(text, node) + snippet });
-  } else if (operation.kind === 'moveLogger') {
+  } else if ((operation.kind === 'moveLogger' || operation.kind === 'moveProcessor')) {
     const { component, node, flow } = componentAndFlow(parsed, operation.id);
-    if (component.kind !== 'logger') throw new XmlEditError('Only a Logger can be reordered.');
+    if (component.kind === 'listener') throw new XmlEditError('Only processors can be reordered.');
     const processors = flow.processors.some(p => p.id === component.id) ? flow.processors : flow.errorHandler?.processors ?? [];
     const index = processors.findIndex(p => p.id === component.id), adjacent = processors[index + operation.direction];
-    if (!adjacent) throw new XmlEditError('The Logger is already at that edge of the processor lane.');
+    if (!adjacent) throw new XmlEditError('The component is already at that edge of the processor lane.');
     const other = parsed.nodes.get(adjacent.id)!;
     const stabilized = (target: Element, id: string): string => { const changes: SourceEdit[] = []; setDocAttribute(target, 'id', id, changes); return applyEdits(text.slice(target.start, target.end), changes.map(e => ({ ...e, start: e.start - target.start, end: e.end - target.start }))); };
     selectionId = namespacedAttribute(node, DOC_NS, 'id')?.value ?? newId();

@@ -76,7 +76,7 @@ export class BundledRuntime {
     this.runtime = path.join(this.instance, 'runtime'); this.control = path.join(this.instance, 'control');
     this.runConfiguration = validateRunConfiguration(options.runConfiguration ?? defaultRunConfiguration()); this.debug = options.debug === true;
     this.output = options.onOutput ?? (() => {});
-    this.startupMs = options.startupTimeoutMs ?? 120000; this.deployMs = options.deploymentTimeoutMs ?? 120000; this.stopMs = options.stopTimeoutMs ?? 45000;
+    this.startupMs = options.startupTimeoutMs ?? this.runConfiguration.startupTimeoutSeconds! * 1000; this.deployMs = options.deploymentTimeoutMs ?? this.runConfiguration.deploymentTimeoutSeconds! * 1000; this.stopMs = options.stopTimeoutMs ?? this.runConfiguration.stopTimeoutSeconds! * 1000;
     for (const value of [this.startupMs, this.deployMs, this.stopMs]) if (!Number.isInteger(value) || value < 500 || value > 300000) throw new Error('Invalid lifecycle timeout.');
   }
   identity(): Omit<PortableStatus, 'process' | 'runtime' | 'work_directory' | 'healthy' | 'applications'> {
@@ -226,6 +226,9 @@ export class BundledRuntime {
     cancelled(signal);
     if (await this.alive()) { const state = (await this.state())!; if (state.config.http_port !== port) throw new Error('Stop the project runtime before changing its port.'); return this.status(); }
     await checkPort(port); const info = await bundleInfo(this.bundle); await this.ensureEngine(signal); const java = await javaExecutable(this.bundle, signal);
+    const workingDirectory = !this.runConfiguration.workingDirectory ? this.runtime : path.resolve(this.project,this.runConfiguration.workingDirectory.replaceAll('${project}',this.project).replaceAll('${workspaceFolder}',this.project));
+    if (!(await fs.stat(workingDirectory)).isDirectory()) throw new Error('Working directory is not a directory: ' + workingDirectory);
+    if (this.debug) await checkPort(this.runConfiguration.debugPort);
     await fs.mkdir(this.control, { recursive: true, mode: 0o700 }); await ordinaryDirectory(this.control);
     const runId = randomUUID(), token = randomBytes(32).toString('hex');
     await fs.writeFile(path.join(this.control, 'auth.token'), token, { mode: 0o600 });
@@ -234,17 +237,19 @@ export class BundledRuntime {
     const logdir = path.join(this.instance, 'runs', runId); await fs.mkdir(logdir, { recursive: true, mode: 0o700 });
     const logfile = path.join(logdir, 'console.log'), output = await fs.open(logfile, 'wx', 0o600);
     await output.write(`ZERNOVA Runtime ${RUNTIME_VERSION} — bundled source-built development engine\nCopyright (c) 2003-2015 MuleSoft Inc.\nPowered by Mule. MuleSoft is Open for Integration. http://www.MuleSoft.com\n`);
-    const args = javaArguments(this.bundle, this.runtime, this.control, info.controlAgent, port);
-    args.unshift(...Object.entries({ ...this.runConfiguration.properties, 'zernova.env': this.runConfiguration.environment }).map(([k,v]) => `-D${k}=${v}`));
-    if (this.debug) { await checkPort(this.runConfiguration.debugPort); args.unshift(`-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=127.0.0.1:${this.runConfiguration.debugPort}`); }
-    await writeJson(path.join(logdir, 'launch.json'), { executable: java.executable, args, target: info.target, javaVersion: java.version, networkUsed: false });
+    const args = javaArguments(this.bundle, this.runtime, this.control, info.controlAgent, port, this.runConfiguration.maximumHeapMB);
+    args[0] = `-Xms${this.runConfiguration.initialHeapMB}m`;
+    args.splice(args.findIndex(a => a.startsWith('--module=')),0,...this.runConfiguration.jvmArguments!,...Object.entries({ ...this.runConfiguration.properties, 'zernova.env': this.runConfiguration.environment }).map(([k,v]) => `-D${k}=${v}`));
+    if (this.debug) { args.unshift(`-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=127.0.0.1:${this.runConfiguration.debugPort}`); }
+    await writeJson(path.join(logdir, 'launch.json'), { executable: java.executable, args, target: info.target, javaVersion: java.version, workingDirectory, networkUsed: false });
+    const inherited = this.runConfiguration.inheritEnvironment ? cleanEnvironment() : Object.fromEntries(Object.entries(cleanEnvironment()).filter(([key]) => ['SystemRoot','SYSTEMROOT','WINDIR','TEMP','TMP','HOME'].includes(key)));
     let spawnError: Error | undefined;
-    const child = spawn(java.executable, args, { cwd: this.runtime, env: { ...cleanEnvironment(), ...this.runConfiguration.variables }, shell: false, detached: true, windowsHide: true, stdio: ['ignore', output.fd, output.fd] });
+    const child = spawn(java.executable, args, { cwd: workingDirectory, env: { ...inherited, ...this.runConfiguration.variables }, shell: false, detached: true, windowsHide: true, stdio: ['ignore', output.fd, output.fd] });
     child.on('error', e => { spawnError = e; });
     await new Promise<void>((resolve, reject) => { child.once('spawn', resolve); child.once('error', reject); }).finally(() => output.close());
     if (!child.pid) throw new Error('The bundled runtime did not receive a process identity.');
     children.set(this.instance, child); child.unref();
-    const state: RuntimeState = { schema_version: 2, pid: child.pid, run_id: runId, console_log: logfile, runtime_ready: false, started_utc: new Date().toISOString(), config: { http_host: '127.0.0.1', http_port: port, heap_mb: 768 } };
+    const state: RuntimeState = { schema_version: 2, pid: child.pid, run_id: runId, console_log: logfile, runtime_ready: false, started_utc: new Date().toISOString(), config: { http_host: '127.0.0.1', http_port: port, heap_mb: this.runConfiguration.maximumHeapMB! } };
     await writeJson(path.join(this.instance, 'state.json'), state);
     this.output(`Starting bundled ZERNOVA Runtime on ${info.target}; console: ${logfile}\n`);
     try {

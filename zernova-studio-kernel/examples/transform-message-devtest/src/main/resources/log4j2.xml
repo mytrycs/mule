@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Appenders>
+    <RollingFile name="ApplicationFile" fileName="${sys:zernova.home}/logs/zernova-app-transform-message-devtest.log" filePattern="${sys:zernova.home}/logs/zernova-app-transform-message-devtest.%i.log">
+      <PatternLayout pattern="%d{ISO8601} %-5p [%t] %c: %m%n"/>
+      <Policies><SizeBasedTriggeringPolicy size="10 MB"/></Policies><DefaultRolloverStrategy max="5"/>
+    </RollingFile>
+  </Appenders>
+  <Loggers><AsyncRoot level="INFO"><AppenderRef ref="ApplicationFile"/></AsyncRoot></Loggers>
+</Configuration>

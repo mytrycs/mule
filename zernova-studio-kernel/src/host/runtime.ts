@@ -68,7 +68,7 @@ export class RuntimeManager implements vscode.Disposable {
       const hash = await sourceHash(project.root);
       if (hash === this.context.workspaceState.get<string>('zernova.deployedHash.' + project.root)) return;
       this.append(project, 'buildOutput', `\nManual save: rebuilding and redeploying ${path.basename(uri.fsPath)}.\n`);
-      await this.execute('run', project);
+      await this.execute(this.context.workspaceState.get<string>('zernova.launchMode.' + project.root) === 'debug' ? 'debug' : 'run', project);
     }).catch(error => { this.reportError(project, error); });
     this.manualSaveTasks.set(project.root, task);
     try { await task; } finally { if (this.manualSaveTasks.get(project.root) === task) this.manualSaveTasks.delete(project.root); }
@@ -122,11 +122,11 @@ export class RuntimeManager implements vscode.Disposable {
     if (!choice) throw new Error('Build cancelled: unsaved documents were not saved. No existing artifact was deployed.');
     for (const doc of dirty) if (!await saveAutomatically(doc)) throw new Error(`Could not save ${doc.uri.fsPath}. No application was built or deployed.`);
   }
-  private async projectPort(project: Project): Promise<number> {
+  private async projectPort(project: Project, debug = false): Promise<number> {
     const source = path.join(project.root, 'src/main/zernova');
     const files = (await fs.readdir(source)).filter(name => name.endsWith('.xml'));
     if (!files.length) throw new Error('src/main/zernova is empty. Create Integration XML, create a flow, then add and configure an HTTP Listener and Logger before building.');
-    const run = this.projects.getRunConfiguration(project);
+    const run = this.projects.getRunConfiguration(project,debug);
     const properties: Record<string, string> = { ...run.variables, ...run.properties, 'zernova.env': run.environment };
     const propertyFiles = new Set<string>();
     const resources = path.join(project.root, 'src/main/resources');
@@ -188,11 +188,11 @@ export class RuntimeManager implements vscode.Disposable {
     if (action === 'cancel') { this.operations.get(project.root)?.abort(); return this.state(project); }
     if (this.operations.has(project.root)) throw new Error('A project operation is already in progress.');
     this.trust(); assertSupportedHost();
-    if (action === 'configureRun') { await this.projects.configureRun(project); return this.state(project); }
+    if (action === 'configureRun' || action === 'configureDebug') { await this.projects.configureRun(project,action === 'configureDebug'); return this.state(project); }
     const debug = action === 'debug'; if (debug) action = 'run';
     if (action === 'configureRuntime') { await this.projects.configure(project); action = 'diagnostics'; }
     const controller = new AbortController(); this.operations.set(project.root, controller);
-    const backend = debug ? new BundledRuntime({ bundle: this.projects.getSettings(project).runtimeHome, instance: this.projects.getSettings(project).instanceDirectory, project: project.root, application: project.artifactId, runConfiguration: this.projects.getRunConfiguration(project), debug: true, onOutput: text => this.append(project, 'runtimeOutput', text) }) : this.backend(project), signal = controller.signal;
+    const backend = debug ? new BundledRuntime({ bundle: this.projects.getSettings(project).runtimeHome, instance: this.projects.getSettings(project).instanceDirectory, project: project.root, application: project.artifactId, runConfiguration: this.projects.getRunConfiguration(project,true), debug: true, onOutput: text => this.append(project, 'runtimeOutput', text) }) : this.backend(project), signal = controller.signal;
     const evidence = path.join(this.context.globalStorageUri.fsPath, 'runtime-evidence', createHash('sha256').update(project.root).digest('hex').slice(0, 16), new Date().toISOString().replace(/[:.]/g, '-') + '-' + action);
     await fs.mkdir(evidence, { recursive: true }); this.update(project, { busy: true, lastError: '', evidenceDirectory: evidence, phase: 'Checking bundled runtime' });
     let mutated = false;
@@ -203,7 +203,7 @@ export class RuntimeManager implements vscode.Disposable {
           if (action === 'diagnostics') { const result = await backend.doctor(signal); this.append(project, 'runtimeOutput', JSON.stringify(result, null, 2) + '\n'); this.update(project, { phase: 'Diagnostics passed' }); }
           else if (action === 'build' || action === 'run') {
             await this.saveProjectDocuments(project); Object.assign(project, await this.projects.load(project.root));
-            const port = await this.projectPort(project); if (debug && port === this.projects.getRunConfiguration(project).debugPort) throw new Error('Listener and debugger ports must be different.'); await this.metadata(project);
+            const port = await this.projectPort(project,debug); if (debug && port === this.projects.getRunConfiguration(project,true).debugPort) throw new Error('Listener and debugger ports must be different.'); await this.metadata(project);
             this.update(project, { phase: 'Building offline', port, artifact: undefined, artifactSha256: undefined, buildOutput: '' });
             const artifact = await backend.package(project.root, signal);
             this.append(project, 'buildOutput', JSON.stringify(artifact, null, 2) + '\n');
@@ -219,6 +219,7 @@ export class RuntimeManager implements vscode.Disposable {
               this.update(project, { phase: 'Starting runtime' }); mutated = true; await backend.start(port, signal);
               this.update(project, { phase: 'Deploying' }); await backend.deploy(artifact.artifact, project.artifactId, signal);
               await this.context.workspaceState.update('zernova.deployedHash.' + project.root, artifact.sourceHash);
+              await this.context.workspaceState.update('zernova.launchMode.' + project.root,debug ? 'debug' : 'run');
               this.update(project, { phase: 'Deployed · endpoint unverified' });
             }
           } else if (action === 'stopApplication') await backend.undeploy(project.artifactId, signal);
@@ -235,7 +236,7 @@ export class RuntimeManager implements vscode.Disposable {
       this.reportError(project, error); this.update(project, { phase: signal.aborted ? 'Cancelled' : 'Failed' }); throw error;
     } finally { this.operations.delete(project.root); this.update(project, { busy: false }); if (this.pendingManualSaves.delete(project.root)) void this.manualSaved(project, vscode.Uri.file(path.join(project.root, 'pom.xml'))); await fs.writeFile(path.join(evidence, 'state.json'), JSON.stringify(this.state(project), null, 2)); }
     if (debug) {
-      const port = this.projects.getRunConfiguration(project).debugPort;
+      const port = this.projects.getRunConfiguration(project,true).debugPort;
       if (vscode.extensions.getExtension('vscjava.vscode-java-debug')) {
         await vscode.debug.startDebugging(vscode.workspace.getWorkspaceFolder(vscode.Uri.file(project.root)), { type: 'java', name: 'ZERNOVA · ' + project.name, request: 'attach', hostName: '127.0.0.1', port });
       } else await studioForm('ZERNOVA Java Debugger', [], async () => true, `The runtime is running with JDWP on localhost:${port}. Attach a Java debugger to this port. Install the VS Code Debugger for Java extension to attach from Studio. This supports Java breakpoints; XML flow stepping is not yet implemented.`);
