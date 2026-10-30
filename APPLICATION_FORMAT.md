@@ -36,7 +36,7 @@ bounded migration tool, not a compatibility guarantee for all Mule applications.
 The visual designer edits HTTP Listener/core Logger flows and Logger subflows.
 Unsupported XML is retained and made read-only in the visual projection. Cards
 use intrinsic content width and return paths attach to the last actual processor
-symbol. A subflow has no HTTP source and does not draw a fictitious Listener.
+component boundary. A subflow has no HTTP source and does not draw a fictitious Listener.
 
 Required upstream licenses, authorship and historical issue references remain
 accurate. Internal inherited engine Maven module names/launch compatibility

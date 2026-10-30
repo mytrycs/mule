@@ -303,7 +303,6 @@ button.icon-button:hover { background: var(--z-hover); border-color: var(--z-bor
   .property-form > .form-row { grid-template-columns: 125px minmax(90px, 1fr); }
   .flow-scroll { padding: 14px 11px; }
   .source-lane { width: 153px; min-width: 153px; padding-left: 42px; }
-  .response-path { left: 91px; }
   .connector-arrow { min-width: 24px; }
 }
 @media (max-width: 820px) {
@@ -322,7 +321,6 @@ button.icon-button:hover { background: var(--z-hover); border-color: var(--z-bor
   .lower-tabs .fixture-tag { display: none; }
   .flow-card { min-width: 350px; }
   .source-lane { width: 142px; min-width: 142px; padding-left: 32px; }
-  .response-path { left: 81px; }
   .node { width: 85px; min-width: 85px; }
   .tab { padding-left: 9px; padding-right: 9px; font-size: 10px; }
   .canvas-toolbar .hint { font-size: 10px; }
