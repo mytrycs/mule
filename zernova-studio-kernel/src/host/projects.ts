@@ -2,14 +2,10 @@ import * as vscode from 'vscode';
 import * as fs from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
-import { tmpdir } from 'node:os';
 import * as sax from 'sax';
 
 export interface Project { root: string; name: string; groupId: string; artifactId: string; version: string; }
-export interface RuntimeSettings {
-  schemaVersion: 1; runtimeHome: string; javaHome: string; mavenHome: string; mavenRepository: string;
-  offline: boolean; instanceDirectory: string;
-}
+export interface RuntimeSettings { schemaVersion: 2; runtimeHome: string; instanceDirectory: string; offline: true; }
 const PROJECTS_KEY = 'zernovaKernelStudio.projects.v1';
 const SETTINGS_KEY = 'zernovaKernelStudio.runtimeProfiles.v1';
 const SELECTED_KEY = 'zernovaKernelStudio.selectedProject.v1';
@@ -33,10 +29,6 @@ export function isInside(root: string, file: string): boolean {
   const relative = path.relative(root, file);
   return relative === '' || (!relative.startsWith('..' + path.sep) && relative !== '..' && !path.isAbsolute(relative));
 }
-export function instancePath(root: string): string {
-  return path.join(tmpdir(), `zernova-studio-${process.getuid?.() ?? 'user'}-${createHash('sha256').update(root).digest('hex').slice(0, 16)}`);
-}
-
 /** Parse the bounded Maven coordinates without interpreting a POM as executable input. */
 export function parseProjectPom(text: string): Pick<Project, 'groupId' | 'artifactId' | 'version'> {
   const parser = sax.parser(true, { xmlns: true });
@@ -56,15 +48,6 @@ async function directory(value: string, label: string): Promise<string | undefin
   try { if (!(await fs.stat(value)).isDirectory()) return `${label} is not a directory.`; } catch { return `${label} does not exist on this extension host.`; }
   return undefined;
 }
-async function runtimeDirectory(value: string): Promise<string | undefined> {
-  const invalid = await directory(value, 'Runtime Foundation directory'); if (invalid) return invalid;
-  for (const rel of ['bin/zernova', 'scripts/build-app.sh', 'var/prepared.json', 'var/prepared-manifest.json']) {
-    try { if (!(await fs.stat(path.join(value, rel))).isFile()) throw new Error(); }
-    catch { return `Missing ${rel}. Extract and prepare ZERNOVA Runtime Foundation first; no runtime binaries are included in the VSIX.`; }
-  }
-  return undefined;
-}
-
 export class ProjectManager implements vscode.Disposable {
   private readonly changed = new vscode.EventEmitter<void>();
   readonly onDidChange = this.changed.event;
@@ -82,13 +65,11 @@ export class ProjectManager implements vscode.Disposable {
   }
   projectForUri(uri?: vscode.Uri): Project | undefined { const root = uri ? this.rootForUri(uri)?.fsPath : undefined; return root ? this.projects.get(root) : undefined; }
   nameForUri(uri: vscode.Uri): string { return this.projectForUri(uri)?.name ?? path.basename(path.dirname(uri.fsPath)); }
-  getSettings(project: Project): RuntimeSettings | undefined {
-    return this.context.globalState.get<Record<string, RuntimeSettings>>(SETTINGS_KEY, {})[project.root];
+  getSettings(project: Project): RuntimeSettings {
+    return { schemaVersion: 2, runtimeHome: path.join(this.context.extensionUri.fsPath, 'runtime'),
+      instanceDirectory: path.join(this.context.globalStorageUri.fsPath, 'instances', createHash('sha256').update(project.root).digest('hex').slice(0, 20)), offline: true };
   }
-  async saveSettings(project: Project, settings: RuntimeSettings): Promise<void> {
-    const all = this.context.globalState.get<Record<string, RuntimeSettings>>(SETTINGS_KEY, {});
-    await this.context.globalState.update(SETTINGS_KEY, { ...all, [project.root]: settings }); this.changed.fire();
-  }
+  async saveSettings(_project: Project, _settings: RuntimeSettings): Promise<void> { this.changed.fire(); }
   async initialize(): Promise<void> {
     const paths = new Set<string>(this.context.globalState.get<string[]>(PROJECTS_KEY, []));
     for (const folder of vscode.workspace.workspaceFolders ?? []) if (folder.uri.scheme === 'file') paths.add(folder.uri.fsPath);
@@ -125,45 +106,9 @@ export class ProjectManager implements vscode.Disposable {
     const root = await vscode.window.showInputBox({ title: 'Open ZERNOVA Project', prompt: 'Project directory containing pom.xml and mule-artifact.json', ignoreFocusOut: true, validateInput: value => directory(value, 'Project directory') });
     return root === undefined ? undefined : this.load(root);
   }
-  async promptSettings(projectRoot: string, previous?: RuntimeSettings): Promise<RuntimeSettings | undefined> {
-    const runtimeHome = await vscode.window.showInputBox({ title: 'Configure ZERNOVA Runtime (1/5)', prompt: 'Runtime Foundation directory on this extension host', value: previous?.runtimeHome, ignoreFocusOut: true, validateInput: runtimeDirectory });
-    if (runtimeHome === undefined) return;
-    const prepared = JSON.parse(await fs.readFile(path.join(runtimeHome, 'var/prepared.json'), 'utf8')) as Record<string, unknown>;
-    const javaHome = await vscode.window.showInputBox({ title: 'Configure ZERNOVA Runtime (2/5)', prompt: 'Java 17 JDK directory', value: previous?.javaHome ?? (typeof prepared.java_home === 'string' ? prepared.java_home : ''), ignoreFocusOut: true, validateInput: value => directory(value, 'JDK directory') });
-    if (javaHome === undefined) return;
-    const mavenHome = await vscode.window.showInputBox({ title: 'Configure ZERNOVA Runtime (3/5)', prompt: 'Apache Maven 3.9.11 directory', value: previous?.mavenHome ?? (typeof prepared.maven_home === 'string' ? prepared.maven_home : ''), ignoreFocusOut: true, validateInput: value => directory(value, 'Maven directory') });
-    if (mavenHome === undefined) return;
-    const mavenRepository = await vscode.window.showInputBox({ title: 'Configure ZERNOVA Runtime (4/5)', prompt: 'Maven dependency cache directory', value: previous?.mavenRepository ?? path.join(runtimeHome, 'var/maven-repository'), ignoreFocusOut: true, validateInput: value => !path.isAbsolute(value) || value.includes('\0') ? 'Use an absolute cache path on this extension host.' : undefined });
-    if (mavenRepository === undefined) return;
-    const mode = await vscode.window.showQuickPick([{ label: 'Offline — use prepared cache', offline: true }, { label: 'Online — allow Maven downloads', offline: false }], { title: 'Configure ZERNOVA Runtime (5/5)', placeHolder: 'Maven dependency mode', ignoreFocusOut: true });
-    if (!mode) return;
-    return { schemaVersion: 1, runtimeHome: await fs.realpath(runtimeHome), javaHome: await fs.realpath(javaHome), mavenHome: await fs.realpath(mavenHome), mavenRepository: path.resolve(mavenRepository), offline: mode.offline, instanceDirectory: instancePath(projectRoot) };
-  }
-  async configure(project: Project): Promise<boolean> {
-    const previous = this.getSettings(project);
-    const settings = await this.promptSettings(project.root, previous);
-    if (!settings) return false;
-    if (previous && JSON.stringify(previous) !== JSON.stringify(settings)) {
-      // Existing instances must first be stopped using the settings that own them.
-      try {
-        const live = JSON.parse(await fs.readFile(path.join(previous.instanceDirectory, 'state.json'), 'utf8'));
-        if (live.pid) {
-          const raw = await fs.readFile(`/proc/${Number(live.pid)}/stat`, 'utf8').catch(() => '');
-          const fields = raw.slice(raw.lastIndexOf(')') + 2).split(' ');
-          const command = (await fs.readFile(`/proc/${Number(live.pid)}/cmdline`).catch(() => Buffer.alloc(0))).toString().split('\0');
-          if (fields[19] === live.start_ticks && fields[0] !== 'Z' && command.includes(`-Dzernova.instance.token=${live.token}`) && command.includes(`-Dmule.base=${path.join(previous.instanceDirectory, 'runtime')}`)) throw new Error('Stop this project runtime before changing its tool/runtime selections.');
-        }
-      } catch (error) { if (!(error instanceof Error && 'code' in error && (error as NodeJS.ErrnoException).code === 'ENOENT')) throw error; }
-      if (previous.runtimeHome !== settings.runtimeHome) {
-        const marker = path.join(previous.instanceDirectory, 'studio-owner.json');
-        try {
-          const owner = JSON.parse(await fs.readFile(marker, 'utf8'));
-          if (owner.schemaVersion !== 1 || owner.projectRoot !== project.root || owner.runtimeHome !== previous.runtimeHome) throw new Error('Existing runtime ownership marker does not match this project.');
-          await fs.writeFile(marker, JSON.stringify({ ...owner, runtimeHome: settings.runtimeHome }, null, 2) + '\n');
-        } catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error; }
-      }
-    }
-    await this.saveSettings(project, settings); return true;
+  async configure(_project: Project): Promise<boolean> {
+    void vscode.window.showInformationMessage('Studio uses its bundled ZERNOVA Runtime and Java. No external tools are required for core and HTTP projects.');
+    return true;
   }
   async createProject(): Promise<Project | undefined> {
     const parent = await vscode.window.showInputBox({ title: 'New ZERNOVA Project (1/6)', prompt: 'Parent directory (absolute path)', value: vscode.workspace.workspaceFolders?.find(f => f.uri.scheme === 'file')?.uri.fsPath, ignoreFocusOut: true, validateInput: value => directory(value, 'Parent directory') });
@@ -174,17 +119,16 @@ export class ProjectManager implements vscode.Disposable {
       return undefined;
     } });
     if (name === undefined) return;
-    const groupId = await vscode.window.showInputBox({ title: 'New ZERNOVA Project (3/6)', prompt: 'Maven groupId', value: 'io.zernova', ignoreFocusOut: true, validateInput: v => groupPattern.test(v) ? undefined : 'Use a dotted Maven group such as io.zernova.' });
+    const groupId = await vscode.window.showInputBox({ title: 'New ZERNOVA Project (3/6)', prompt: 'Maven groupId', value: 'com.zernova', ignoreFocusOut: true, validateInput: v => groupPattern.test(v) ? undefined : 'Use a dotted Maven group such as io.zernova.' });
     if (groupId === undefined) return;
     const artifactId = await vscode.window.showInputBox({ title: 'New ZERNOVA Project (4/6)', prompt: 'Maven artifactId', value: name, ignoreFocusOut: true, validateInput: v => artifactPattern.test(v) && !v.includes('..') ? undefined : 'Use a Maven artifact name without spaces or parent-path segments.' });
     if (artifactId === undefined) return;
     const version = await vscode.window.showInputBox({ title: 'New ZERNOVA Project (5/6)', prompt: 'Maven version', value: '1.0.0', ignoreFocusOut: true, validateInput: v => versionPattern.test(v) ? undefined : 'Use an explicit version such as 1.0.0 or 1.0.0-SNAPSHOT.' });
     if (version === undefined) return;
-    const configure = await vscode.window.showQuickPick([{ label: 'Configure runtime now', now: true }, { label: 'Configure later — edit only', now: false }], { title: 'New ZERNOVA Project (6/6)', placeHolder: 'Project runtime and tools', ignoreFocusOut: true });
+    const configure = await vscode.window.showQuickPick([{ label: 'Use bundled runtime · offline', now: true }, { label: 'Create project · edit first', now: false }], { title: 'New ZERNOVA Project (6/6)', placeHolder: 'Create project', ignoreFocusOut: true });
     if (!configure) return;
     const canonicalParent = await fs.realpath(parent), root = path.join(canonicalParent, name);
-    const settings = configure.now ? await this.promptSettings(root) : undefined;
-    if (configure.now && !settings) return;
+    const settings = this.getSettings({ root, name, groupId, artifactId, version });
     await fs.access(canonicalParent, fs.constants.W_OK);
     await fs.mkdir(root); // Exclusive creation: EEXIST is never overwritten.
     try {
@@ -221,13 +165,14 @@ export function projectFiles(p: Project): Record<string, string> {
   <packaging>mule-application</packaging>
   <name>${xmlEscape(p.name)}</name>
   <properties><project.build.sourceEncoding>UTF-8</project.build.sourceEncoding><maven.compiler.source>17</maven.compiler.source><maven.compiler.target>17</maven.compiler.target></properties>
-  <build><plugins><plugin><groupId>org.mule.tools.maven</groupId><artifactId>mule-maven-plugin</artifactId><version>4.10.3</version><extensions>true</extensions><configuration><classifier>mule-application</classifier><runtimeVersion>4.12.0</runtimeVersion></configuration></plugin></plugins></build>
-  <dependencies><dependency><groupId>org.mule.connectors</groupId><artifactId>mule-http-connector</artifactId><version>1.12.2</version><classifier>mule-plugin</classifier></dependency></dependencies>
+  <build><plugins><plugin><groupId>org.mule.tools.maven</groupId><artifactId>mule-maven-plugin</artifactId><version>4.10.3</version><extensions>true</extensions><configuration><classifier>mule-application</classifier><runtimeVersion>4.10.0</runtimeVersion></configuration></plugin></plugins></build>
+  <dependencies><dependency><groupId>com.zernova.connectors</groupId><artifactId>mule-http-connector</artifactId><version>1.12.2</version><classifier>mule-plugin</classifier></dependency></dependencies>
   <repositories><repository><id>mulesoft-public</id><url>https://repository.mulesoft.org/nexus/content/repositories/public/</url></repository></repositories>
   <pluginRepositories><pluginRepository><id>mulesoft-public</id><url>https://repository.mulesoft.org/nexus/content/repositories/public/</url></pluginRepository></pluginRepositories>
 </project>
 `,
-    'mule-artifact.json': JSON.stringify({ minMuleVersion: '4.9.0', requiredProduct: 'MULE', javaSpecificationVersions: ['17'], redeploymentEnabled: false }, null, 2) + '\n',
+    'zernova-app.json': JSON.stringify({ schemaVersion: 1, name: p.artifactId, group: p.groupId, version: p.version, dependencies: ['http'] }, null, 2) + '\n',
+    'mule-artifact.json': JSON.stringify({ minMuleVersion: '4.10.0', requiredProduct: 'MULE', javaSpecificationVersions: ['17'], redeploymentEnabled: false }, null, 2) + '\n',
     'src/main/resources/application.properties': '# Project resource defaults. Listener configuration is edited in the integration XML.\n',
     'src/main/resources/log4j2.xml': `<?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
@@ -241,6 +186,6 @@ export function projectFiles(p: Project): Record<string, string> {
 </Configuration>
 `,
     '.gitignore': 'target/\n*.log\n.DS_Store\n',
-    'README.md': `# ${p.name}\n\nCreated by ZERNOVA Studio 0.2.0 for ZERNOVA Runtime 0.1.0-preview.1 (Mule Kernel 4.12.0, Java 17).\n\nThe src/main/mule directory is intentionally empty. Use **ZERNOVA: New Integration XML**, then **Create Flow** and add HTTP Listener plus core Logger. Save, configure the project runtime/tools, then use **ZERNOVA: Build and Run Application**.\n\nRuntime paths and credentials are not committed here. Configure each project separately on its extension host. Runtime execution is currently supported only on Linux x86-64.\n\nMule Maven Plugin 4.10.3 requests target 4.12.0; the Phase 1 contract records its internal framework as 4.13.0. Real execution must still be checked against Kernel 4.12.0. HTTP connector 1.12.2 is resolved normally by Maven.\n\nApplication logs use the runtime app log path and INFO root threshold. TRACE/DEBUG Logger messages are subject to that logging threshold. No runtime or connector binaries are included in this source project.\n`,
+    'README.md': `# ${p.name}\n\nCreated by ZERNOVA Studio 0.3.0 with bundled Runtime 0.3.0-dev.2 (4.10 source baseline, Java 17).\n\nCreate Integration XML, create a flow and add an HTTP Listener and Logger. Save and click Run. The offline builder supports core/XML/resources and the bundled HTTP profile; it rejects custom Java and additional dependencies. Runtime state stays outside the project.\n`,
   };
 }

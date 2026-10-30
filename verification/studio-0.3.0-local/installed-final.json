@@ -1,0 +1,70 @@
+{
+  "platform": "darwin",
+  "arch": "x64",
+  "vscode": "1.145.0-insider",
+  "rows": [
+    {
+      "name": "Installed VSIX and actual custom editor",
+      "status": "PASS",
+      "detail": {
+        "extensionPath": "/Users/roz/.zernova-studio-tests/2026-10-30T12-18-23-129Z/extensions/zernova-preview.zernova-studio-kernel-preview-0.3.0",
+        "model": "studioFlow"
+      }
+    },
+    {
+      "name": "Bundled Java/runtime diagnostics with invalid external tool paths",
+      "status": "PASS",
+      "detail": {
+        "phase": "Diagnostics passed",
+        "offline": true
+      }
+    },
+    {
+      "name": "Studio offline build produces a fresh application",
+      "status": "PASS",
+      "detail": {
+        "artifact": "/Users/roz/.zernova-studio-tests/2026-10-30T12-18-23-129Z/workspace/target/studio-local-test-1.0.0.zapp",
+        "sha256": "d22a2cda780df831162ba2ee2917d910c86a53768ce06abc5e811c5284ef0aaf"
+      }
+    },
+    {
+      "name": "Studio Run deploys to the renamed source-built engine",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "body": "Hello from ZERNOVA",
+        "correlatedLogger": true
+      }
+    },
+    {
+      "name": "XML edits save and redeploy without the old route",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "body": "Hello from ZERNOVA",
+        "correlatedLogger": true
+      }
+    },
+    {
+      "name": "Stop Application undeploys and retains the private runtime",
+      "status": "PASS"
+    },
+    {
+      "name": "Stop Runtime shuts down the owned engine",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid XML is diagnosed and cannot deploy a stale artifact",
+      "status": "PASS"
+    },
+    {
+      "name": "Restored document runs again and stops cleanly",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "body": "Hello from ZERNOVA",
+        "correlatedLogger": true
+      }
+    }
+  ]
+}

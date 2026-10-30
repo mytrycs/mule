@@ -26,7 +26,7 @@ attribution remains visible.
 
 See [NAMESPACE_MIGRATION.md](NAMESPACE_MIGRATION.md) for the reproducible build,
 validation evidence and sample application commands. The approved 0.2.0 Studio
-source is in `zernova-studio-kernel/`; its UI integration is a later test phase.
+source is in `zernova-studio-kernel/`; its local Mac integration is verified in `zernova-studio-kernel/STUDIO_LOCAL_VERIFICATION.md`.
 
 ## Preserved upstream README
 

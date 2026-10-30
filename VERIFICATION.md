@@ -28,8 +28,9 @@ Node 22.23.3. Runtime version: **0.3.0-dev.2**; engine source baseline:
   redeployment, real expression/configuration failures, shutdown and restart.
 - Standalone CLI verified in separate processes: doctor, build/run, status,
   real HTTP 200 response, logs, authenticated stop and final `STOPPED` state.
-- The imported Studio source matches all **79 files** from the supplied 0.2.0
-  ZIP byte-for-byte. The root engine license remains unchanged.
+- At the original import checkpoint, all **79 Studio files** matched the supplied
+  0.2.0 ZIP byte-for-byte. Subsequent 0.3.0 host integration is documented
+  separately below. The root engine license remains unchanged.
 
 The inherited skipped container test is
 `actualContainerClassLoaderNotAccessibleThroughParents`, disabled upstream for
@@ -73,6 +74,6 @@ provenance explicitly records `sourceBuildDirty: true`; it does not claim that
 the original baseline commit contains the renamed source.
 
 XML/deployment compatibility identifiers, legacy method/field names and required
-upstream attribution remain intentionally preserved. Installed Studio integration
-and customer release packaging remain the next phase; this verification does
-not claim a finished Studio release.
+upstream attribution remain intentionally preserved. Subsequent local Mac Studio integration is recorded in
+`zernova-studio-kernel/STUDIO_LOCAL_VERIFICATION.md`. Cross-platform installed
+Studio and customer release packaging remain separate gates.

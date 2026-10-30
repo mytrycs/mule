@@ -1,0 +1,23 @@
+{
+  "designerEditSavedToXml": true,
+  "httpFromActualRunButton": {
+    "route": "/studio-ui",
+    "status": 200,
+    "body": "Hello from ZERNOVA",
+    "testId": "STUDIO-UI-083b5067-6ec6-4500-926b-17b69f298001",
+    "action": "Actual Studio visual edit, Save and Run / Redeploy button"
+  },
+  "freshCorrelationVisibleInStudioLogs": true,
+  "createdProjectViaWizard": {
+    "path": "/Users/roz/.zernova-studio-tests/2026-10-30T12-18-23-129Z/created-in-studio",
+    "metadata": {
+      "schemaVersion": 1,
+      "name": "created-in-studio",
+      "group": "com.zernova",
+      "version": "1.0.0",
+      "dependencies": [
+        "http"
+      ]
+    }
+  }
+}

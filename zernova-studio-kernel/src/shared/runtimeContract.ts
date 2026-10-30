@@ -1,4 +1,4 @@
-/** Contract 1 of the inspected ZERNOVA Runtime Foundation CLI, not webview input. */
+/** Bundled source-built runtime contract; never accepted as webview input. */
 export interface RuntimeStatus {
   process: 'RUNNING' | 'STOPPED'; runtime: 'READY' | 'STARTING' | 'STOPPED'; pid?: number; run_id?: string;
   work_directory: string; healthy: boolean;
@@ -6,8 +6,8 @@ export interface RuntimeStatus {
 }
 const record = (value: unknown): value is Record<string, unknown> => !!value && typeof value === 'object' && !Array.isArray(value);
 export function assertRuntimeIdentity(value: unknown): asserts value is Record<string, unknown> {
-  if (!record(value) || value.schema_version !== 1 || value.product !== 'ZERNOVA Runtime' || value.distribution_version !== '0.1.0-preview.1' || value.kernel_version !== '4.12.0' || value.dataweave_version !== '2.12.0' || value.build_mode !== 'binary-based-overlay') {
-    throw new Error('Unexpected Runtime Foundation identity. This Studio release targets ZERNOVA 0.1.0-preview.1 / Kernel 4.12.0 / DataWeave 2.12.0.');
+  if (!record(value) || value.schema_version !== 2 || value.product !== 'ZERNOVA Runtime' || value.distribution_version !== '0.3.0-dev.2' || value.kernel_version !== '4.10.0-SNAPSHOT' || value.dataweave_version !== '2.10.0' || value.build_mode !== 'source-built-development') {
+    throw new Error('Unexpected bundled runtime identity. Studio requires ZERNOVA 0.3.0-dev.2 / the source-built 4.10 baseline / DataWeave 2.10.0.');
   }
 }
 export function parseRuntimeStatus(value: unknown, expectedDirectory: string): RuntimeStatus {

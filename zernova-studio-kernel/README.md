@@ -1,3 +1,22 @@
+# ZERNOVA Studio 0.3.0 — local runtime integration
+
+This Mac x64 development package contains the ZERNOVA Runtime 0.3.0-dev.2,
+Java 17 and the HTTP profile. Install the VSIX, open or create a project, design
+an HTTP Listener/Logger flow, save and run. External Java, Maven and runtime
+paths are not required for the supported offline builder.
+
+Use the integration editor's Console tab for Build, Run, logs, undeploy and stop.
+The builder supports core XML/resources and the bundled HTTP connector. Custom
+Java or additional Maven dependencies are rejected rather than silently omitted.
+Runtime state is private and stored outside the application project.
+
+Local installed-host validation is recorded in STUDIO_LOCAL_VERIFICATION.md.
+This package is for local development testing; cross-platform installed-Studio
+release verification remains separate. The original 0.2.0 interface and document
+editing behavior are retained.
+
+## Preserved 0.2.0 documentation
+
 # ZERNOVA Studio
 
 **Mule-Kernel Studio · 0.2.0 · HTTP Listener → Logger milestone**

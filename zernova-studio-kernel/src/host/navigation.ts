@@ -122,7 +122,7 @@ class RuntimeTree implements vscode.TreeDataProvider<RealItem>, vscode.Disposabl
     if (!project) return [{ id: 'runtime-none', label: 'Open a real project to configure runtime', icon: 'info' }, { id: 'runtime-preview', label: 'Design Preview is isolated', icon: 'beaker' }];
     const state = this.runtime.state(project);
     return [{ id: 'runtime-project', label: project.name, icon: 'project' }, { id: 'runtime-phase', label: state.phase, icon: state.lastError ? 'error' : 'info' },
-      { id: 'runtime-configure', label: 'Configure Runtime and Tools', icon: 'settings-gear', command: 'zernovaKernelStudio.configureRuntime' },
+      { id: 'runtime-configure', label: 'Bundled Runtime and Java', icon: 'settings-gear', command: 'zernovaKernelStudio.configureRuntime' },
       { id: 'runtime-doctor', label: 'Runtime Diagnostics', icon: 'checklist', command: 'zernovaKernelStudio.diagnostics' },
       { id: 'runtime-status', label: 'Refresh Runtime Status', icon: 'refresh', command: 'zernovaKernelStudio.status' },
       { id: 'runtime-logs', label: 'Show Application Logs', icon: 'output', command: 'zernovaKernelStudio.logs' },

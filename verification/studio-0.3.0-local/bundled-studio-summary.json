@@ -1,0 +1,46 @@
+{
+  "platform": "darwin-x64",
+  "runtime": "0.3.0-dev.2",
+  "studio": "0.3.0",
+  "vscode": "1.145.0-insider",
+  "unitTests": {
+    "passed": 59,
+    "failed": 0
+  },
+  "installedHost": {
+    "passed": 9,
+    "failed": 0
+  },
+  "manualUi": {
+    "designerEditSavedToXml": true,
+    "httpFromActualRunButton": {
+      "route": "/studio-ui",
+      "status": 200,
+      "body": "Hello from ZERNOVA",
+      "testId": "STUDIO-UI-083b5067-6ec6-4500-926b-17b69f298001",
+      "action": "Actual Studio visual edit, Save and Run / Redeploy button"
+    },
+    "freshCorrelationVisibleInStudioLogs": true,
+    "createdProjectViaWizard": {
+      "path": "/Users/roz/.zernova-studio-tests/2026-10-30T12-18-23-129Z/created-in-studio",
+      "metadata": {
+        "schemaVersion": 1,
+        "name": "created-in-studio",
+        "group": "com.zernova",
+        "version": "1.0.0",
+        "dependencies": [
+          "http"
+        ]
+      }
+    }
+  },
+  "vsix": {
+    "path": "dist/zernova-studio-kernel-preview-0.3.0-darwin-x64.vsix",
+    "sha256": "174bda100e9ae2c20b08708f5e1d8a8852ad9190174c15c773115182e4cd6c86",
+    "bytes": 198964801,
+    "target": "darwin-x64",
+    "installedHostAndRuntimeMatchPackagedBytes": true
+  },
+  "finalRuntimeState": "STOPPED",
+  "repackScope": "Final repack adds verification and dependency license documentation; host, webview and runtime integrity manifest match the installed tested package byte-for-byte."
+}

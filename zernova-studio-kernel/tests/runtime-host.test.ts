@@ -3,13 +3,13 @@ import assert from 'node:assert/strict';
 import { runProcess } from '../src/host/process';
 import { assertRuntimeIdentity, parseRuntimeStatus } from '../src/shared/runtimeContract';
 
-const identity = { schema_version: 1, product: 'ZERNOVA Runtime', distribution_version: '0.1.0-preview.1', kernel_version: '4.12.0', dataweave_version: '2.12.0', build_mode: 'binary-based-overlay' };
+const identity = { schema_version: 2, product: 'ZERNOVA Runtime', distribution_version: '0.3.0-dev.2', kernel_version: '4.10.0-SNAPSHOT', dataweave_version: '2.10.0', build_mode: 'source-built-development' };
 const state = () => ({ ...identity, process: 'RUNNING', runtime: 'READY', healthy: true, work_directory: '/tmp/zernova-studio-test', applications: { owner: { name: 'owner', state: 'DEPLOYED', healthy: true, deployment: 'DEPLOYED', endpoint: 'NOT_CHECKED' } } });
 
 test('observed runtime identity is pinned separately from the plugin build framework', () => {
   assert.doesNotThrow(() => assertRuntimeIdentity(identity));
   assert.throws(() => assertRuntimeIdentity({ ...identity, kernel_version: '4.13.0' }), /Unexpected/);
-  assert.throws(() => assertRuntimeIdentity({ ...identity, schema_version: 2 }), /Unexpected/);
+  assert.throws(() => assertRuntimeIdentity({ ...identity, schema_version: 1 }), /Unexpected/);
 });
 test('process running never upgrades failed app health', () => {
   const value = state(); value.healthy = false; value.applications.owner = { name: 'owner', state: 'UNHEALTHY', healthy: false, deployment: 'FAILED', endpoint: 'NOT_CHECKED' };

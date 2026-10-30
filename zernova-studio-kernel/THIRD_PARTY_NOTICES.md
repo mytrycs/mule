@@ -1,3 +1,22 @@
+# Studio 0.3.0 bundled-component notices
+
+This development package includes the original Studio implementation plus the
+ZERNOVA source-built runtime, Java 17 and HTTP libraries. Their original licenses
+and notices remain in `runtime/engine`, `runtime/java`, `runtime/connectors` and
+`runtime/notices`; corresponding runtime source is in `runtime/sources`.
+The Studio development license does not replace any component's existing license.
+
+The host bundles SAX and JSZip with its transitive JavaScript dependencies.
+`licenses/npm/INVENTORY.json` records the actual bundled package versions, and
+that directory preserves their license texts. JSZip's MIT licensing option is
+used. VS Code itself is supplied by the installed editor and is not inside this
+VSIX. Maven is not included or invoked by the offline XML/resource builder.
+
+## Preserved notices from the earlier UI-only preview
+
+The following scope statements describe the earlier preview before runtime
+integration; the Studio 0.3.0 package scope is described above.
+
 # Third-party and brand notices
 
 This development VSIX contains the original ZERNOVA UI implementation, locally

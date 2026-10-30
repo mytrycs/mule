@@ -3,7 +3,7 @@
 This branch starts from `zernova/studio-bundle-0.3.0` at
 `46cae04e9b02fe64e951791f4069089a01296695`. That commit already contains the
 4.10 source-build and runtime-recovery branches. The approved Studio 0.2.0 ZIP
-is imported into `zernova-studio-kernel/` without changing its UI.
+is imported into `zernova-studio-kernel/` with its approved UI retained. Subsequent local Studio/runtime integration is recorded in `zernova-studio-kernel/STUDIO_LOCAL_VERIFICATION.md`.
 
 ## What changed
 

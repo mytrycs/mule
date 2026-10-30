@@ -1,8 +1,8 @@
 {
   "name": "zernova-studio-kernel-preview",
   "displayName": "ZERNOVA Studio",
-  "description": "ZERNOVA Studio: real XML/Maven projects, HTTP Listener and Logger, and the Mule-Kernel Runtime preview.",
-  "version": "0.2.0",
+  "description": "ZERNOVA Studio with bundled ZERNOVA Runtime 0.3.0-dev.2 and Java.",
+  "version": "0.3.0",
   "publisher": "zernova-preview",
   "license": "SEE LICENSE IN LICENSE.txt",
   "private": true,
@@ -85,7 +85,7 @@
       {
         "command": "zernovaKernelStudio.configureRuntime",
         "category": "ZERNOVA",
-        "title": "Configure Project Runtime and Tools",
+        "title": "Bundled Runtime and Java",
         "icon": "$(settings-gear)"
       },
       {
@@ -241,7 +241,7 @@
     "typecheck": "tsc --noEmit",
     "test": "node scripts/test.mjs",
     "vscode:prepublish": "npm run build",
-    "package": "vsce package --no-dependencies --allow-missing-repository --out dist/zernova-studio-kernel-preview-0.2.0.vsix",
+    "package": "vsce package --target darwin-x64 --no-dependencies --allow-missing-repository --out dist/zernova-studio-kernel-preview-0.3.0-darwin-x64.vsix",
     "test:host": "node scripts/test-host.mjs",
     "test:ui": "node scripts/test-ui.mjs"
   },

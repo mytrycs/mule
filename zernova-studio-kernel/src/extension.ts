@@ -137,7 +137,7 @@ export function activate(context: vscode.ExtensionContext) {
       await documents.open(uri);
     })),
     ...RUNTIME_ACTIONS.map(action => vscode.commands.registerCommand('zernovaKernelStudio.' + action, guarded(async candidate => {
-      const project = await projects.select(commandUri(candidate)); if (project) await runtime.execute(action as RuntimeAction, project);
+      const project = await projects.select(commandUri(candidate)); if (project) return runtime.execute(action as RuntimeAction, project);
     }))),
   );
   context.subscriptions.push(
