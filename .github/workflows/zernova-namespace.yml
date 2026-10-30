@@ -3,6 +3,11 @@ on:
   push:
     branches: ['codex/zernova-runtime-namespace-refactor']
   workflow_dispatch:
+    inputs:
+      clean_cache:
+        description: 'Rebuild dependency inputs from an empty cache'
+        type: boolean
+        default: false
 permissions:
   contents: read
   actions: read
@@ -21,6 +26,12 @@ jobs:
         run: |
           echo "JAVA_HOME=$JAVA_HOME_17_X64" >> "$GITHUB_ENV"
           echo "$JAVA_HOME_17_X64/bin" >> "$GITHUB_PATH"
+      - name: Cache adapted dependency inputs
+        if: ${{ !inputs.clean_cache }}
+        uses: actions/cache@v4
+        with:
+          path: .zernova-m2
+          key: zernova-format1-${{ runner.os }}-${{ hashFiles('zernova-build/refactor_namespace.py', 'zernova-build/bootstrap_dependencies.py', 'zernova-build/namespace-map.json', 'zernova-build/toolchain.py', 'pom.xml', 'upstream/**/pom.xml') }}
       - name: Build renamed API, kernel and standalone from tracked source
         run: bash zernova-build/build-source.sh
       - name: Verify API serialization, boot, container, launcher, HTTP and route models
@@ -56,7 +67,9 @@ jobs:
     steps:
       - name: Preserve source bytes
         shell: bash
-        run: git config --global core.autocrlf false
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.longpaths true
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
