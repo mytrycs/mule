@@ -110,9 +110,9 @@ abstract class BasePersistenceTestCase {
       "/extension/serialized-extension-model-no-catalog.json";
   protected static final String LIST_OF_SERIALIZED_EXTENSION_MODEL_JSON =
       "/extension/list-of-serialized-extension-model.json";
-  protected static final ErrorModel ANY_ERROR_MODEL = newError("ANY", "MULE").build();
+  protected static final ErrorModel ANY_ERROR_MODEL = newError("ANY", "ZERNOVA").build();
   protected static final ErrorModel CONNECTIVITY_ERROR_MODEL =
-      newError("CONNECTIVITY", "MULE").withParent(ANY_ERROR_MODEL).build();
+      newError("CONNECTIVITY", "ZERNOVA").withParent(ANY_ERROR_MODEL).build();
   protected static final ErrorModel PARENT_ERROR_MODEL =
       newError("PARENT_ERROR_MODEL", "ERROR_NAMESPACE").withParent(CONNECTIVITY_ERROR_MODEL).build();
   protected static final ErrorModel ERROR_MODEL =

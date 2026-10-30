@@ -502,7 +502,7 @@
           "classSimpleName": "ProcessorInterceptor",
           "methodName": "isErrorMappingRequired",
           "elementKind": "method",
-          "justification": "MULE-19866: interceptors should be able to decide whether to perform an extra error mapping when operation fails"
+          "justification": "ZERNOVA-19866: interceptors should be able to decide whether to perform an extra error mapping when operation fails"
         },
         {
           "code": "java.class.removed",
@@ -510,7 +510,7 @@
           "package": "com.zernova.runtime.api.profiling",
           "classSimpleName": "ProfilingDataConsumer",
           "elementKind": "interface",
-          "justification": "MULE-19749: new module for profiling API"
+          "justification": "ZERNOVA-19749: new module for profiling API"
         },
         {
           "code": "java.class.removed",
@@ -518,7 +518,7 @@
           "package": "com.zernova.runtime.api.profiling",
           "classSimpleName": "ProfilingDataConsumerDiscoveryStrategy",
           "elementKind": "interface",
-          "justification": "MULE-19749: new module for profiling API"
+          "justification": "ZERNOVA-19749: new module for profiling API"
         },
         {
           "code": "java.class.removed",
@@ -526,7 +526,7 @@
           "package": "com.zernova.runtime.api.profiling",
           "classSimpleName": "ProfilingDataProducer",
           "elementKind": "interface",
-          "justification": "MULE-19749: new module for profiling API"
+          "justification": "ZERNOVA-19749: new module for profiling API"
         },
         {
           "code": "java.class.removed",
@@ -534,7 +534,7 @@
           "package": "com.zernova.runtime.api.profiling",
           "classSimpleName": "ProfilingEventContext",
           "elementKind": "interface",
-          "justification": "MULE-19749: new module for profiling API"
+          "justification": "ZERNOVA-19749: new module for profiling API"
         },
         {
           "code": "java.class.removed",
@@ -542,7 +542,7 @@
           "package": "com.zernova.runtime.api.profiling",
           "classSimpleName": "ProfilingService",
           "elementKind": "interface",
-          "justification": "MULE-19749: new module for profiling API"
+          "justification": "ZERNOVA-19749: new module for profiling API"
         },
         {
           "code": "java.class.removed",
@@ -550,7 +550,7 @@
           "package": "com.zernova.runtime.api.profiling.type",
           "classSimpleName": "ProcessingStrategyProfilingEventType",
           "elementKind": "class",
-          "justification": "MULE-19749: new module for profiling API"
+          "justification": "ZERNOVA-19749: new module for profiling API"
         },
         {
           "code": "java.class.removed",
@@ -558,7 +558,7 @@
           "package": "com.zernova.runtime.api.profiling.type",
           "classSimpleName": "ProfilingEventType",
           "elementKind": "interface",
-          "justification": "MULE-19749: new module for profiling API"
+          "justification": "ZERNOVA-19749: new module for profiling API"
         },
         {
           "code": "java.class.removed",
@@ -566,7 +566,7 @@
           "package": "com.zernova.runtime.api.profiling.type",
           "classSimpleName": "RuntimeProfilingEventTypes",
           "elementKind": "class",
-          "justification": "MULE-19749: new module for profiling API"
+          "justification": "ZERNOVA-19749: new module for profiling API"
         },
         {
           "code": "java.class.removed",
@@ -574,7 +574,7 @@
           "package": "com.zernova.runtime.api.profiling.type.context",
           "classSimpleName": "ProcessingStrategyProfilingEventContext",
           "elementKind": "interface",
-          "justification": "MULE-19749: new module for profiling API"
+          "justification": "ZERNOVA-19749: new module for profiling API"
         },
         {
           "code": "java.annotation.added",
@@ -651,7 +651,7 @@
          "classSimpleName": "ZernovaSystemProperties",
          "fieldName": "MULE_ENABLE_STREAMING_STATISTICS",
          "elementKind": "field",
-         "justification": "MULE-19406 - Added code to honor the property with the old value if set"
+         "justification": "ZERNOVA-19406 - Added code to honor the property with the old value if set"
        },
        {
          "code": "java.annotation.added",
@@ -662,7 +662,7 @@
          "package": "com.zernova.runtime.api.el",
          "classSimpleName": "ExpressionLanguageConfiguration",
          "elementKind": "interface",
-         "justification": "MULE-19197"
+         "justification": "ZERNOVA-19197"
        },
        {
          "code": "java.field.serialVersionUIDUnchanged",
@@ -673,7 +673,7 @@
          "classSimpleName": "MediaType",
          "fieldName": "serialVersionUID",
          "elementKind": "field",
-         "justification": "MULE-19140"
+         "justification": "ZERNOVA-19140"
        },
        {
          "code": "java.method.added",
@@ -682,7 +682,7 @@
          "classSimpleName": "MediaType",
          "methodName": "isDefinedInApp",
          "elementKind": "method",
-         "justification": "MULE-19140"
+         "justification": "ZERNOVA-19140"
        },
        {
          "code": "java.method.added",
@@ -691,7 +691,7 @@
          "classSimpleName": "MediaType",
          "methodName": "parseDefinedInApp",
          "elementKind": "method",
-         "justification": "MULE-19140"
+         "justification": "ZERNOVA-19140"
        },
         {
           "code": "java.method.addedToInterface",

@@ -133,7 +133,7 @@ public class ExtensionClientSourceWithResponseTestCase extends BaseExtensionClie
 
     assertThat(error.getDescription(), equalTo(errorMessage));
     assertThat(error.getErrorType().getIdentifier(), equalTo("UNKNOWN"));
-    assertThat(error.getErrorType().getNamespace(), equalTo("MULE"));
+    assertThat(error.getErrorType().getNamespace(), equalTo("ZERNOVA"));
 
     assertSourceCallbackContextClassLoader();
   }

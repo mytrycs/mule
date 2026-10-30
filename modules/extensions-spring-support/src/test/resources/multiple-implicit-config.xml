@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:multiimplicitconfig="http://www.mulesoft.org/schema/mule/multiimplicitconfig"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/multiimplicitconfig http://www.mulesoft.org/schema/mule/multiimplicitconfig/current/mule-multiimplicitconfig.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:multiimplicitconfig="https://schemas.zernova.dev/multiimplicitconfig"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/multiimplicitconfig https://schemas.zernova.dev/multiimplicitconfig/current/zernova-multiimplicitconfig.xsd">
 
     <flow name="implicitConfig">
         <multiimplicitconfig:ble/>
     </flow>
-</mule>
+</zernova>

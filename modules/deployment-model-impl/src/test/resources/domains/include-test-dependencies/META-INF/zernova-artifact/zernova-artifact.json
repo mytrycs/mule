@@ -1,0 +1,20 @@
+{
+  "name": "Database",
+  "minZernovaVersion": "4.0.0",
+  "requiredProduct": "ZERNOVA",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [],
+      "includeTestDependencies": "true"
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  },
+  "configs": [
+    "file1.xml", "file2.xml"
+  ]
+}

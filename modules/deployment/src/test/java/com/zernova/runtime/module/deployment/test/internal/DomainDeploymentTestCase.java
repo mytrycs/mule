@@ -199,7 +199,7 @@ public class DomainDeploymentTestCase extends AbstractDeploymentTestCase {
     // change shared config name to use a wrong name
     File domainConfigFile =
         new File(domainsDir + "/" + sharedBundleDomainFileBuilder.getDeployedPath(),
-                 Paths.get("mule", DEFAULT_CONFIGURATION_RESOURCE).toString());
+                 Paths.get("zernova", DEFAULT_CONFIGURATION_RESOURCE).toString());
     String correctDomainConfigContent = IOUtils.toString(new FileInputStream(domainConfigFile));
     String wrongDomainFileContext = correctDomainConfigContent.replace("test-shared-config", "test-shared-config-wrong");
     copyInputStreamToFile(new ByteArrayInputStream(wrongDomainFileContext.getBytes()), domainConfigFile);

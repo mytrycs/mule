@@ -26,7 +26,7 @@
                         </goals>
                         <configuration>
                             <includeGroupIds>com.zernova</includeGroupIds>
-                            <excludes>**/spring.schemas,**/mule.schemas,**/registry-bootstrap.properties,**/mule.custom-property-editors,org/slf4j/**,org/apache/commons/logging/**</excludes>
+                            <excludes>**/spring.schemas,**/zernova.schemas,**/registry-bootstrap.properties,**/mule.custom-property-editors,org/slf4j/**,org/apache/commons/logging/**</excludes>
                             <excludeTypes>pom</excludeTypes>
                         </configuration>
                     </execution>

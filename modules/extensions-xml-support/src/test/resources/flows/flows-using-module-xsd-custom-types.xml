@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+<zernova xmlns="https://schemas.zernova.dev/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:modulexsd="http://www.mulesoft.org/schema/mule/module-xsd-custom-types"
+      xmlns:modulexsd="https://schemas.zernova.dev/module-xsd-custom-types"
       xsi:schemaLocation="
-      http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-      http://www.mulesoft.org/schema/mule/module-xsd-custom-types http://www.mulesoft.org/schema/mule/module-xsd-custom-types/current/mule-module-xsd-custom-types.xsd">
+      https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+      https://schemas.zernova.dev/module-xsd-custom-types https://schemas.zernova.dev/module-xsd-custom-types/current/zernova-module-xsd-custom-types.xsd">
 
     <flow name="testIsXsdType1FromPayloadFlow">
         <modulexsd:is-xsdtype1 aParameter="#[payload]" />
@@ -35,4 +35,4 @@
         <modulexsd:copy-xsdtype1 aParameter="#[ns val http://validationnamespace.raml.org --- { val#User: { val#name: 'somename', val#kind: 'somekind', val#weight: 100, val#email: 'somename@domain.com', val#userId: 'somename-id' } }]" />
     </flow>
 
-</mule>
+</zernova>

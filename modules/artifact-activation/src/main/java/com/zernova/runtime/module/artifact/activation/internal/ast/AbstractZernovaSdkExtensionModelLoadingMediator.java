@@ -63,7 +63,7 @@ public abstract class AbstractZernovaSdkExtensionModelLoadingMediator implements
         .addParameter(MULE_SDK_EXPRESSION_LANGUAGE_METADATA_SERVICE_PROPERTY_NAME, expressionLanguageMetadataService);
 
     artifactExtensionLoadingContext
-        .ifPresent(ctx -> loadingRequestBuilder.setResolveMinMuleVersion(ctx.isResolveMinMuleVersion()));
+        .ifPresent(ctx -> loadingRequestBuilder.setResolveMinZernovaVersion(ctx.isResolveMinZernovaVersion()));
     artifactCoordinates.ifPresent(loadingRequestBuilder::setArtifactCoordinates);
 
     addCustomLoadingRequestParameters(loadingRequestBuilder);

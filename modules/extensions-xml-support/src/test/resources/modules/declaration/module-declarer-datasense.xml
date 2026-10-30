@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module name="module-declarer-datasense"
 
-        xmlns="http://www.mulesoft.org/schema/mule/module"
-        xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+        xmlns="https://schemas.zernova.dev/module"
+        xmlns:zernova="https://schemas.zernova.dev/core"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+        xmlns:doc="https://schemas.zernova.dev/documentation"
         xsi:schemaLocation="
-           http://www.mulesoft.org/schema/mule/module http://www.mulesoft.org/schema/mule/module/current/mule-module.xsd
-           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+           https://schemas.zernova.dev/module https://schemas.zernova.dev/module/current/zernova-module.xsd
+           https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd">
 
     <!-- The idea of the whole module is to show that despite declaring specific types of an output or attributes, if the
     datasense propagation defines a declaration, that declared type (calculated) will be picked up instead of the one defined
@@ -17,7 +17,7 @@
             <parameter name="aParameter" type="string"/>
         </parameters>
         <body>
-            <mule:set-payload value="#[vars.aParameter as String]"/>
+            <zernova:set-payload value="#[vars.aParameter as String]"/>
         </body>
         <output type="string" doc:description="Documentation for the output [op-declares-output]"/>
     </operation>
@@ -27,7 +27,7 @@
             <parameter name="aParameter" type="string"/>
         </parameters>
         <body>
-            <mule:set-payload value="#[vars.aParameter as String]"/>
+            <zernova:set-payload value="#[vars.aParameter as String]"/>
         </body>
         <output-attributes type="number" doc:description="Documentation for the output-attribute [op-declares-attributes]"/>
     </operation>
@@ -37,7 +37,7 @@
             <parameter name="aParameter" type="string"/>
         </parameters>
         <body>
-            <mule:set-payload value="#[vars.aParameter as String]"/>
+            <zernova:set-payload value="#[vars.aParameter as String]"/>
         </body>
         <output type="any" doc:description="Documentation for the output [op-declares-output-and-attributes]"/>
         <output-attributes type="boolean" doc:description="Documentation for the output-attribute [op-declares-output-and-attributes]"/>
@@ -48,7 +48,7 @@
             <parameter name="aParameter" type="string"/>
         </parameters>
         <body>
-            <mule:set-payload value="#[vars.aParameter as String]"/>
+            <zernova:set-payload value="#[vars.aParameter as String]"/>
         </body>
     </operation>
 </module>

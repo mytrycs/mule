@@ -77,7 +77,7 @@ public class ModuleSimpleTestCase extends AbstractCeXmlExtensionZernovaArtifactF
 
   @Test
   public void testSetPayloadParamInvalidExpressionFlow() throws Exception {
-    flowRunner("testSetPayloadParamInvalidExpressionFlow").runExpectingException(errorType("MULE", "EXPRESSION"));
+    flowRunner("testSetPayloadParamInvalidExpressionFlow").runExpectingException(errorType("ZERNOVA", "EXPRESSION"));
   }
 
   @Test

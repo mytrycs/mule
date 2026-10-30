@@ -1,0 +1,21 @@
+/* Copyright (c) 2026 ZerNova. Installed subject extension; isolated test profile. */
+import { build } from 'esbuild';
+import { downloadAndUnzipVSCode, runVSCodeCommand, runTests } from '@vscode/test-electron';
+import { mkdir, writeFile, readFile, realpath } from 'node:fs/promises';
+import path from 'node:path';
+import os from 'node:os';
+const version = '1.144.0';
+const pkg = JSON.parse(await readFile('package.json', 'utf8'));
+const target = `${process.platform}-${process.arch}`;
+const root = path.join(await realpath(os.homedir()), '.zernova-studio-tests', `installed-${Date.now()}`);
+for (const dir of ['workspace', 'profile/User', 'extensions', 'harness']) await mkdir(path.join(root, dir), { recursive: true });
+await writeFile(path.join(root, 'profile/User/settings.json'), JSON.stringify({ 'telemetry.telemetryLevel': 'off', 'update.mode': 'none', 'extensions.autoUpdate': false, 'workbench.startupEditor': 'none', 'workbench.colorTheme': 'ZERNOVA Studio Light', 'chat.disableAIFeatures': true }));
+await writeFile(path.join(root, 'harness/package.json'), JSON.stringify({ name: 'installed-test-harness', publisher: 'local-tests', version: '0.0.1', engines: { vscode: '^1.96.0' }, main: 'index.cjs' }));
+await writeFile(path.join(root, 'harness/index.cjs'), 'exports.activate = () => {};');
+await build({ entryPoints: ['tests/bundled-runtime-host.ts'], bundle: true, platform: 'node', format: 'cjs', external: ['vscode'], outfile: path.join(root, 'harness/tests.cjs') });
+await mkdir('evidence', { recursive: true });
+await writeFile('evidence/active-installed-ci.json', JSON.stringify({ root, version, target }, null, 2));
+await runVSCodeCommand(['--user-data-dir', path.join(root, 'profile'), '--extensions-dir', path.join(root, 'extensions'), '--install-extension', path.resolve(`dist/zernova-studio-kernel-preview-${pkg.version}-${target}.vsix`), '--force'], { version });
+const executable = await downloadAndUnzipVSCode(version);
+await runTests({ vscodeExecutablePath: executable, extensionDevelopmentPath: path.join(root, 'harness'), extensionTestsPath: path.join(root, 'harness/tests.cjs'), extensionTestsEnv: { ZN_STUDIO_TEST_ROOT: root, JAVA_HOME: '/nonexistent-zernova-java', ZERNOVA_JAVA_HOME: '/nonexistent-zernova-java', ZERNOVA_MAVEN: '/nonexistent-zernova-maven' }, launchArgs: [path.join(root, 'workspace'), '--user-data-dir', path.join(root, 'profile'), '--extensions-dir', path.join(root, 'extensions'), '--disable-workspace-trust', '--skip-welcome', '--skip-release-notes', '--no-sandbox'] });
+for (const file of ['results.json', 'complete.json']) await writeFile(path.join('evidence', 'installed-' + file), await readFile(path.join(root, file)));

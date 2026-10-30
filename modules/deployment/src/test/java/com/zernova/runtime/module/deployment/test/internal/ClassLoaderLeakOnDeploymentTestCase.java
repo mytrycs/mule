@@ -49,18 +49,18 @@ public class ClassLoaderLeakOnDeploymentTestCase extends ClassLoaderLeakTestCase
   @Parameters(name = "Parallel: {0}, AppName: {1}, Use Plugin: {2}")
   public static List<Object[]> parameters() {
     return asList(new Object[][] {
-        {false, "empty-config-1.0.0-mule-application",
+        {false, "empty-config-1.0.0-zernova-application",
             "empty-config", NO_PLUGINS},
-        {true, "empty-config-1.0.0-mule-application",
+        {true, "empty-config-1.0.0-zernova-application",
             "empty-config", NO_PLUGINS},
-        {false, "appWithExtensionPlugin-1.0.0-mule-application",
+        {false, "appWithExtensionPlugin-1.0.0-zernova-application",
             "app-with-extension-plugin-config", HELLO_V1_PLUGIN},
-        {true, "appWithExtensionPlugin-1.0.0-mule-application",
+        {true, "appWithExtensionPlugin-1.0.0-zernova-application",
             "app-with-extension-plugin-config", HELLO_V1_PLUGIN},
-        {false, "appWithExtensionPlugin-1.0.0-mule-application",
+        {false, "appWithExtensionPlugin-1.0.0-zernova-application",
             "app-with-bridge-extension-plugin-config",
             BRIDGE_METHOD_PLUGIN},
-        {true, "appWithExtensionPlugin-1.0.0-mule-application",
+        {true, "appWithExtensionPlugin-1.0.0-zernova-application",
             "app-with-bridge-extension-plugin-config",
             BRIDGE_METHOD_PLUGIN}
     });

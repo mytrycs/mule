@@ -62,17 +62,17 @@ public class NumberParameterWithinRangeTestCase extends AbstractCoreValidationTe
 
     final Optional<ValidationResultItem> msg = runValidation("NumberParameterWithinRangeTestCase#propertyValue",
                                                              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                                                                 "<mule xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
+                                                                 "<zernova xmlns=\"https://schemas.zernova.dev/core\"\n" +
                                                                  "    xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
-                                                                 "    xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core"
+                                                                 "    xsi:schemaLocation=\"https://schemas.zernova.dev/core"
                                                                  +
-                                                                 "                         http://www.mulesoft.org/schema/mule/core/current/mule.xsd\">\n"
+                                                                 "                         https://schemas.zernova.dev/core/current/zernova.xsd\">\n"
                                                                  +
                                                                  "    <flow name=\"w-15959903Flow\" maxConcurrency=\"${maxConcurrency}\">\n"
                                                                  +
                                                                  "        <logger level=\"INFO\" />\n" +
                                                                  "    </flow>\n" +
-                                                                 "</mule>")
+                                                                 "</zernova>")
                                                                      .stream().findFirst();
 
     // No errors
@@ -83,16 +83,16 @@ public class NumberParameterWithinRangeTestCase extends AbstractCoreValidationTe
   public void valueOffRange() {
     final Optional<ValidationResultItem> msg = runValidation("NumberParameterWithinRangeTestCase#valueOffRange",
                                                              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                                                                 "<mule xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
+                                                                 "<zernova xmlns=\"https://schemas.zernova.dev/core\"\n" +
                                                                  "    xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
-                                                                 "    xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core"
+                                                                 "    xsi:schemaLocation=\"https://schemas.zernova.dev/core"
                                                                  +
-                                                                 "                         http://www.mulesoft.org/schema/mule/core/current/mule.xsd\">\n"
+                                                                 "                         https://schemas.zernova.dev/core/current/zernova.xsd\">\n"
                                                                  +
                                                                  "    <flow name=\"w-15959903Flow\" maxConcurrency=\"-1\">\n" +
                                                                  "        <logger level=\"INFO\" />\n" +
                                                                  "    </flow>\n" +
-                                                                 "</mule>")
+                                                                 "</zernova>")
                                                                      .stream().findFirst();
 
     assertThat(msg.get().getValidation().getLevel(), is(ERROR));

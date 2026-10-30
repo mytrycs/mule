@@ -22,7 +22,7 @@ public class ArtifactDescriptorConstants {
   /**
    * Default descriptor loader ID for Mule artifacts
    */
-  public static final String MULE_LOADER_ID = "mule";
+  public static final String MULE_LOADER_ID = "zernova";
 
   /**
    * Property to fill the {@link ZernovaArtifactLoaderDescriptor#getAttributes()} which defines the exported packages of a given
@@ -53,7 +53,7 @@ public class ArtifactDescriptorConstants {
    *
    * @since 4.5
    */
-  public static final String SERIALIZED_ARTIFACT_AST_LOCATION = "META-INF/mule-artifact/artifact.ast";
+  public static final String SERIALIZED_ARTIFACT_AST_LOCATION = "META-INF/zernova-artifact/artifact.ast";
 
   protected ArtifactDescriptorConstants() {
 

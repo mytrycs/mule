@@ -54,18 +54,18 @@ import java.util.zip.ZipInputStream;
  * <p>
  * valid samples:
  * <p>
- * {@code muleartifact:file:/folder/mule-plugin.zip!/classes!/org/foo/echo/aResource.txt}
+ * {@code muleartifact:file:/folder/zernova-plugin.zip!/classes!/org/foo/echo/aResource.txt}
  * <p>
- * {@code muleartifact:file:/folder/mule-plugin.zip!/lib/test-jar-with-resources.jar!/test-resource-2.txt}
+ * {@code muleartifact:file:/folder/zernova-plugin.zip!/lib/test-jar-with-resources.jar!/test-resource-2.txt}
  *
  * <p>
  * invalid samples:
  * <p>
- * {@code muleartifact:file:/folder/mule-plugin.zip}
+ * {@code muleartifact:file:/folder/zernova-plugin.zip}
  * <p>
- * {@code muleartifact:file:/folder/mule-plugin.zip!/}
+ * {@code muleartifact:file:/folder/zernova-plugin.zip!/}
  * <p>
- * {@code muleartifact:http:/folder/mule-plugin.zip!/classes/org/foo/echo/aResource.txt} (protocol is 'http')
+ * {@code muleartifact:http:/folder/zernova-plugin.zip!/classes/org/foo/echo/aResource.txt} (protocol is 'http')
  *
  * <p>
  * Notice that after the URL targeting the ZIP file, there must be several separators '!/' elements, due to the fact that this
@@ -117,9 +117,9 @@ public final class ZernovaArtifactUrlConnection extends URLConnection {
    * Returns an input stream that represents the element in the {@code url} from the farthest {@link #SEPARATOR} mark. For the
    * following {@link URL} samples:
    * <p>
-   * {@code muleartifact:file:/folder/mule-plugin.zip!/classes!/org/foo/echo/aResource.txt}
+   * {@code muleartifact:file:/folder/zernova-plugin.zip!/classes!/org/foo/echo/aResource.txt}
    * <p>
-   * {@code muleartifact:file:/folder/mule-plugin.zip!/lib/test-jar-with-resources.jar!/test-resource-2.txt}
+   * {@code muleartifact:file:/folder/zernova-plugin.zip!/lib/test-jar-with-resources.jar!/test-resource-2.txt}
    *
    * The expected input streams will be the content of "org/foo/echo/aResource.txt" and "test-resource-2.txt" respectively.
    *

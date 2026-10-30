@@ -21,7 +21,7 @@ public final class SchemaConstants {
   public static final String XSD_NAMESPACE = "http://www.w3.org/2001/XMLSchema";
 
   public static final String MULE_TLS_NAMESPACE = format(DEFAULT_NAMESPACE_URI_MASK, "tls");
-  public static final String MULE_TLS_SCHEMA_LOCATION = "http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd";
+  public static final String MULE_TLS_SCHEMA_LOCATION = "https://schemas.zernova.dev/tls/current/zernova-tls.xsd";
 
   public static final QName MULE_ABSTRACT_MESSAGE_SOURCE_TYPE =
       new QName(CORE_NAMESPACE, "abstractMessageSourceType", CORE_PREFIX);

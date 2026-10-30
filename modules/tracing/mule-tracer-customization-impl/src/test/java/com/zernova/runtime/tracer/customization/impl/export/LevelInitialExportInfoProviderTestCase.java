@@ -41,7 +41,7 @@ public class LevelInitialExportInfoProviderTestCase {
 
   private static final String HTTP_CONNECTOR_COMPONENT_NAMESPACE = "http";
   private static final String HTTP_REQUEST_COMPONENT_NAME = "request";
-  private static final String MULE_COMPONENT_NAMESPACE = "mule";
+  private static final String MULE_COMPONENT_NAMESPACE = "zernova";
   private static final String DUMMY_COMPONENT_NAME = "dummy";
   private static final String GET_CONNECTION = "get-connection";
   public static final String PARAMETER_RESOLUTION = "parameters-resolution";

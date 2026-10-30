@@ -3,7 +3,7 @@
   "description": "",
   "version": "1.2.3",
   "vendor": "Extension Producers Inc.",
-  "minMuleVersion": "4.5.0",
+  "minZernovaVersion": "4.5.0",
   "supportedJavaVersions": [
     "1.8",
     "11",
@@ -14,9 +14,9 @@
   "xmlDsl": {
     "prefix": "fully-param",
     "namespace": "http://www.mulesoft.org/schema/a/different/path/mule/fully-parameterized",
-    "schemaLocation": "http://www.mulesoft.org/schema/a/different/path/mule/fully-parameterized/current/mule-fully-param.xsd",
+    "schemaLocation": "http://www.mulesoft.org/schema/a/different/path/mule/fully-parameterized/current/zernova-fully-param.xsd",
     "schemaVersion": "1.2.3",
-    "xsdFileName": "mule-fully-param.xsd"
+    "xsdFileName": "zernova-fully-param.xsd"
   },
   "resources": [],
   "subTypes": [],
@@ -63,11 +63,11 @@
           "namespace": "FULLY-PARAM",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
-      "minMuleVersion": "4.5.0",
+      "minZernovaVersion": "4.5.0",
       "parameterGroupModels": [
         {
           "parameters": [
@@ -96,7 +96,7 @@
               },
               "allowedStereotypeModels": [],
               "semanticTerms": [],
-              "minMuleVersion": "4.5.0",
+              "minZernovaVersion": "4.5.0",
               "name": "input",
               "description": "",
               "modelProperties": {}
@@ -301,9 +301,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "error-mappings",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "sinceMuleVersion": {
@@ -347,26 +347,26 @@
   "errors": [
     {
       "error": "FULLY-PARAM:CONNECTIVITY",
-      "parent": "MULE:CONNECTIVITY",
+      "parent": "ZERNOVA:CONNECTIVITY",
       "handleable": true
     },
     {
-      "error": "MULE:CONNECTIVITY",
-      "parent": "MULE:ANY",
+      "error": "ZERNOVA:CONNECTIVITY",
+      "parent": "ZERNOVA:ANY",
       "handleable": true
     },
     {
-      "error": "MULE:ANY",
+      "error": "ZERNOVA:ANY",
       "handleable": true
     },
     {
       "error": "FULLY-PARAM:RETRY_EXHAUSTED",
-      "parent": "MULE:RETRY_EXHAUSTED",
+      "parent": "ZERNOVA:RETRY_EXHAUSTED",
       "handleable": true
     },
     {
-      "error": "MULE:RETRY_EXHAUSTED",
-      "parent": "MULE:ANY",
+      "error": "ZERNOVA:RETRY_EXHAUSTED",
+      "parent": "ZERNOVA:ANY",
       "handleable": true
     }
   ],

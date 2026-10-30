@@ -37,20 +37,20 @@ public class NamedTopLevelElementsHaveNameTestCase extends AbstractCoreValidatio
   public void namelessTopLevelElement() {
     final Optional<ValidationResultItem> msg = runValidation("NamedTopLevelElementsHaveNameTestCase#namelessTopLevelElement",
                                                              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                                                                 "<mule xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
+                                                                 "<zernova xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
                                                                  +
-                                                                 "      xmlns:heisenberg=\"http://www.mulesoft.org/schema/mule/heisenberg\"\n"
+                                                                 "      xmlns:heisenberg=\"https://schemas.zernova.dev/heisenberg\"\n"
                                                                  +
-                                                                 "      xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
-                                                                 "      xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd\n"
+                                                                 "      xmlns=\"https://schemas.zernova.dev/core\"\n" +
+                                                                 "      xsi:schemaLocation=\"https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd\n"
                                                                  +
-                                                                 "               http://www.mulesoft.org/schema/mule/heisenberg http://www.mulesoft.org/schema/mule/heisenberg/current/mule-heisenberg.xsd\">\n"
+                                                                 "               https://schemas.zernova.dev/heisenberg https://schemas.zernova.dev/heisenberg/current/zernova-heisenberg.xsd\">\n"
                                                                  +
                                                                  "\n" +
                                                                  "    <flow>\n" +
                                                                  "        <logger/>\n" +
                                                                  "    </flow>\n" +
-                                                                 "</mule>")
+                                                                 "</zernova>")
                                                                      .stream().findFirst();
 
     assertThat(msg.get().getMessage(),

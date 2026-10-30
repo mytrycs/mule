@@ -1,0 +1,15 @@
+{
+  "name": "basic",
+  "minZernovaVersion": "4.4.0",
+  "requiredProduct": "ZERNOVA",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {
+      "includeTestDependencies": "true"
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  }
+}

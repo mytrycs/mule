@@ -10,7 +10,7 @@ exports.activate = async context => {
   if (!home) throw new Error('Missing isolated document-test directory');
   const ipc = path.join(home, 'ipc');
   fs.mkdirSync(ipc, { recursive: true });
-  const file = vscode.Uri.file(path.join(home, 'workspace', 'src', 'main', 'mule', 'hello.xml'));
+  const file = vscode.Uri.file(path.join(home, 'workspace', 'src', 'main', 'zernova', 'hello.xml'));
   let lastId = '', busy = false;
   const subject = vscode.extensions.getExtension('zernova-preview.zernova-studio-kernel-preview');
   if (!subject) throw new Error('The subject VSIX must be installed independently.');

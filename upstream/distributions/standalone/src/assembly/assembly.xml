@@ -168,8 +168,8 @@
             <!-- Implementation note: this must be kept consistent with the equivalent logic in test-runner and embedded-api -->
             <includes>
                 <!-- Mule Artifact Declaration -->
-                <include>com.zernova.runtime:mule-artifact-declaration</include>
-                <include>com.zernova.runtime:mule-artifact-declaration-persistence</include>
+                <include>com.zernova.runtime:zernova-artifact-declaration</include>
+                <include>com.zernova.runtime:zernova-artifact-declaration-persistence</include>
                 <!-- Mule API -->
                 <include>com.zernova.runtime:mule-api</include>
                 <include>com.zernova.runtime:mule-profiling-api</include>
@@ -191,10 +191,10 @@
                 <include>com.zernova.sdk:mule-sdk-api</include>
                 <include>com.zernova.sdk:mule-sdk-compatibility-api</include>
                 <!-- AST -->
-                <include>com.zernova.runtime:mule-artifact-ast</include>
-                <include>com.zernova.runtime:mule-artifact-ast-dependency-graph</include>
-                <include>com.zernova.runtime:mule-artifact-ast-xml-parser</include>
-                <include>com.zernova.runtime:mule-artifact-ast-serialization</include>
+                <include>com.zernova.runtime:zernova-artifact-ast</include>
+                <include>com.zernova.runtime:zernova-artifact-ast-dependency-graph</include>
+                <include>com.zernova.runtime:zernova-artifact-ast-xml-parser</include>
+                <include>com.zernova.runtime:zernova-artifact-ast-serialization</include>
                 <include>com.zernova.runtime:mule-properties-api</include>
                 <!-- Core -->
                 <include>com.zernova.runtime:mule-core</include>
@@ -332,8 +332,8 @@
             <!-- Implementation note: this must be kept consistent with the equivalent logic in test-runner and embedded-api -->
             <excludes>
                 <!-- Mule Artifact Declaration -->  
-                <exclude>com.zernova.runtime:mule-artifact-declaration</exclude>
-                <exclude>com.zernova.runtime:mule-artifact-declaration-persistence</exclude>
+                <exclude>com.zernova.runtime:zernova-artifact-declaration</exclude>
+                <exclude>com.zernova.runtime:zernova-artifact-declaration-persistence</exclude>
                 <!--Mule API-->
                 <exclude>com.zernova.runtime:mule-api</exclude>
                 <exclude>com.zernova.runtime:mule-profiling-api</exclude>
@@ -352,10 +352,10 @@
                 <exclude>com.zernova.runtime:mule-extensions-api-persistence</exclude>
                 <exclude>com.zernova.runtime:mule-extensions-api-dsql</exclude>
                 <!-- AST -->
-                <exclude>com.zernova.runtime:mule-artifact-ast</exclude>
-                <exclude>com.zernova.runtime:mule-artifact-ast-dependency-graph</exclude>
-                <exclude>com.zernova.runtime:mule-artifact-ast-xml-parser</exclude>
-                <exclude>com.zernova.runtime:mule-artifact-ast-serialization</exclude>
+                <exclude>com.zernova.runtime:zernova-artifact-ast</exclude>
+                <exclude>com.zernova.runtime:zernova-artifact-ast-dependency-graph</exclude>
+                <exclude>com.zernova.runtime:zernova-artifact-ast-xml-parser</exclude>
+                <exclude>com.zernova.runtime:zernova-artifact-ast-serialization</exclude>
                 <exclude>com.zernova.runtime:mule-properties-api</exclude>
                 <!--Services-->
                 <exclude>com.zernova.runtime:mule-service-http-api</exclude>

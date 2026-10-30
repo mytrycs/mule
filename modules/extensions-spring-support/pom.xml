@@ -211,161 +211,161 @@
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-metadata-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-vegan-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-heisenberg-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-substitution-group-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-test-oauth-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tx-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tx-xa-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-marvel-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-subtypes-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-petstore-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-some-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-implicit-config-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-non-implicit-config-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-typed-value-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-parameter-resolver-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-implicit-exclusive-config-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-multi-implicit-config-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-values-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-sample-data-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>custom-os-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.connectors</groupId>
             <artifactId>mule-objectstore-connector</artifactId>
             <version>1.2.2</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-semantic-terms-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>test-weave-function-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -382,21 +382,21 @@
             <groupId>com.zernova.tests</groupId>
             <artifactId>classloading-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-reconnection-test-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-javax-inject-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <!--TODO: MULE-10837-->
@@ -451,12 +451,7 @@
             <groupId>com.zernova.tests.plugin</groupId>
             <artifactId>mule-tests-component-plugin</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
     </dependencies>

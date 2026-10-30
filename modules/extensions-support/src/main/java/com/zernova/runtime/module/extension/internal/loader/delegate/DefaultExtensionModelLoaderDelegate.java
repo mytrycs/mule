@@ -156,8 +156,8 @@ public class DefaultExtensionModelLoaderDelegate implements ModelLoaderDelegate 
     parser.getExternalLibraryModels().forEach(declarer::withExternalLibrary);
     parser.getExceptionHandlerFactory().map(ExceptionHandlerModelProperty::new).ifPresent(declarer::withModelProperty);
     parser.getAdditionalModelProperties().forEach(declarer::withModelProperty);
-    if (context.isResolveMinMuleVersion()) {
-      parser.getResolvedMinMuleVersion().ifPresent(resolvedMMV -> declarerWithMmv(declarer, resolvedMMV));
+    if (context.isResolveMinZernovaVersion()) {
+      parser.getResolvedMinZernovaVersion().ifPresent(resolvedMMV -> declarerWithMmv(declarer, resolvedMMV));
     }
 
     declareErrorModels(parser, declarer);

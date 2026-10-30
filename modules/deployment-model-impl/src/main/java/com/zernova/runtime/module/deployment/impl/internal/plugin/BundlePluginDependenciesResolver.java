@@ -240,7 +240,7 @@ public class BundlePluginDependenciesResolver implements PluginDependenciesResol
                   } else {
                     if (logger.isDebugEnabled()) {
                       logger.debug(format(
-                                          "Resolving mule-plugin '%s' as transitive dependency ['%s' -> '%s]'",
+                                          "Resolving zernova-plugin '%s' as transitive dependency ['%s' -> '%s]'",
                                           dependency.getDescriptor(), pluginDescriptor.getBundleDescriptor(),
                                           dependency.getDescriptor()));
                     }

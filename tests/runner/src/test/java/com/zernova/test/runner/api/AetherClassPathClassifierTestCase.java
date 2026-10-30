@@ -371,7 +371,7 @@ public class AetherClassPathClassifierTestCase extends AbstractZernovaTestCase {
     File descriptor = new File(metaInfFolder, MULE_ARTIFACT_JSON_DESCRIPTOR);
     ZernovaServiceModel muleServiceModel = new ZernovaServiceModelBuilder()
         .setName("Foo")
-        .setMinMuleVersion("4.2.0")
+        .setMinZernovaVersion("4.2.0")
         .withContracts(asList(new ZernovaServiceContractModel("org.foo.ServiceProvider", "FooService")))
         .withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptor(MULE_LOADER_ID, emptyMap()))
         .withBundleDescriptorLoader(new ZernovaArtifactLoaderDescriptor(MULE_LOADER_ID, emptyMap()))

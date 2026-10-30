@@ -1,0 +1,54 @@
+[
+  {
+    "target": "linux-x64",
+    "asset": "OpenJDK17U-jre_x64_linux_hotspot_17.0.21_9.tar.gz",
+    "release": "https://github.com/adoptium/temurin17-binaries/releases/tag/jdk-17.0.21%2B9",
+    "status": "VERIFIED_DOWNLOAD",
+    "sha256": "9f41bf88c7900c7097444a1bdeb84146ae692bc08842490ab098063c74bf9a8a",
+    "bytes": 46726088,
+    "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21%2B9/OpenJDK17U-jre_x64_linux_hotspot_17.0.21_9.tar.gz"
+  },
+  {
+    "target": "linux-arm64",
+    "asset": "OpenJDK17U-jre_aarch64_linux_hotspot_17.0.21_9.tar.gz",
+    "release": "https://github.com/adoptium/temurin17-binaries/releases/tag/jdk-17.0.21%2B9",
+    "status": "VERIFIED_DOWNLOAD",
+    "sha256": "1114f09d6174f54270c3117410b5e4022b43ebc0b43b751af08b927c55ed7bb5",
+    "bytes": 46103747,
+    "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21%2B9/OpenJDK17U-jre_aarch64_linux_hotspot_17.0.21_9.tar.gz"
+  },
+  {
+    "target": "darwin-x64",
+    "asset": "OpenJDK17U-jre_x64_mac_hotspot_17.0.21_9.tar.gz",
+    "release": "https://github.com/adoptium/temurin17-binaries/releases/tag/jdk-17.0.21%2B9",
+    "status": "VERIFIED_DOWNLOAD",
+    "sha256": "890214eb4d6c88dc06f990d5a6a3b72b91d5dffab6a0a6d8cffb98468bf26181",
+    "bytes": 37713920,
+    "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21%2B9/OpenJDK17U-jre_x64_mac_hotspot_17.0.21_9.tar.gz"
+  },
+  {
+    "target": "darwin-arm64",
+    "asset": "OpenJDK17U-jre_aarch64_mac_hotspot_17.0.21_9.tar.gz",
+    "release": "https://github.com/adoptium/temurin17-binaries/releases/tag/jdk-17.0.21%2B9",
+    "status": "VERIFIED_DOWNLOAD",
+    "sha256": "a5ab5bacd6e719d5a5570580ed14dceb2ed532208a39af927906b9742da1745e",
+    "bytes": 42822064,
+    "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21%2B9/OpenJDK17U-jre_aarch64_mac_hotspot_17.0.21_9.tar.gz"
+  },
+  {
+    "target": "win32-x64",
+    "asset": "microsoft-jdk-17.0.21.0.2-windows-x64.zip",
+    "url": "https://aka.ms/download-jdk/microsoft-jdk-17.0.21.0.2-windows-x64.zip",
+    "sha256": "49154292866386b2f4f09a3ecf3be07ab80a419149c84ec1d4419b9eec9e4b64",
+    "vendor": "Microsoft",
+    "version": "17.0.21.0.2"
+  },
+  {
+    "target": "win32-arm64",
+    "asset": "microsoft-jdk-17.0.21.0.2-windows-aarch64.zip",
+    "url": "https://aka.ms/download-jdk/microsoft-jdk-17.0.21.0.2-windows-aarch64.zip",
+    "sha256": "2c0e7679022f1666da64b586f9941e86481c6f369212e918be3e505581085336",
+    "vendor": "Microsoft",
+    "version": "17.0.21.0.2"
+  }
+]

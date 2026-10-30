@@ -1273,7 +1273,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureSplitterExceptionHandlingFeature() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(HANDLE_SPLITTER_EXCEPTION,
-                                                minMuleVersion(v4_4_0));
+                                                minZernovaVersion(v4_4_0));
   }
 
   /**
@@ -1294,7 +1294,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   public static void configurePropertiesResolverFeatureFlag() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(HONOUR_RESERVED_PROPERTIES,
-                                                minMuleVersion(v4_3_0));
+                                                minZernovaVersion(v4_3_0));
   }
 
   /**
@@ -1305,7 +1305,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureEnablePolicyIsolation() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(ENABLE_POLICY_ISOLATION,
-                                                minMuleVersion(v4_4_0));
+                                                minZernovaVersion(v4_4_0));
   }
 
   /**
@@ -1316,7 +1316,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureSeparateClassLoaderForPolicyIsolation() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(SEPARATE_CLASSLOADER_FOR_POLICY_ISOLATION,
-                                                minMuleVersion(v4_10_0));
+                                                minZernovaVersion(v4_10_0));
   }
 
   /**
@@ -1327,7 +1327,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureEntityResolverFailOnFirstErrorFeature() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(ENTITY_RESOLVER_FAIL_ON_FIRST_ERROR,
-                                                minMuleVersion(v4_4_0));
+                                                minZernovaVersion(v4_4_0));
   }
 
   /**
@@ -1338,7 +1338,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureSetVariableWithNullVale() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(SET_VARIABLE_WITH_NULL_VALUE,
-                                                minMuleVersion(v4_4_0));
+                                                minZernovaVersion(v4_4_0));
   }
 
   /**
@@ -1349,7 +1349,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureStartExtensionComponentsWithArtifactClassloader() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(START_EXTENSION_COMPONENTS_WITH_ARTIFACT_CLASSLOADER,
-                                                minMuleVersion(v4_4_0));
+                                                minZernovaVersion(v4_4_0));
   }
 
   /**
@@ -1360,7 +1360,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureRemoveShadowedImplicitInputs() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(DW_REMOVE_SHADOWED_IMPLICIT_INPUTS,
-                                                minMuleVersion(v4_4_0));
+                                                minZernovaVersion(v4_4_0));
   }
 
   /**
@@ -1371,7 +1371,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureHonourMixedContentStructure() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(DW_HONOUR_MIXED_CONTENT_STRUCTURE,
-                                                minMuleVersion(v4_5_0));
+                                                minZernovaVersion(v4_5_0));
   }
 
   /**
@@ -1382,19 +1382,19 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureEnforceErrorTypesValidation() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(ENFORCE_ERROR_TYPES_VALIDATION,
-                                                minMuleVersion(v4_5_0));
+                                                minZernovaVersion(v4_5_0));
   }
 
   private static void configureDisableAttributeParameterWhitespaceTrimming() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(DISABLE_ATTRIBUTE_PARAMETER_WHITESPACE_TRIMMING,
-                                                minMuleVersion(v4_5_0));
+                                                minZernovaVersion(v4_5_0));
   }
 
   private static void configureDisablePojoTextCdataWhitespaceTrimming() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(DISABLE_POJO_TEXT_CDATA_WHITESPACE_TRIMMING,
-                                                minMuleVersion(v4_5_0));
+                                                minZernovaVersion(v4_5_0));
   }
 
   /**
@@ -1405,7 +1405,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureDefaultErrorHandlerNotRollbackingEveryTx() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(DEFAULT_ERROR_HANDLER_NOT_ROLLBACK_IF_NOT_CORRESPONDING,
-                                                minMuleVersion(v4_5_0));
+                                                minZernovaVersion(v4_5_0));
   }
 
   /**
@@ -1416,7 +1416,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureEnforceRequiredExpressionValidation() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(ENFORCE_REQUIRED_EXPRESSION_VALIDATION,
-                                                minMuleVersion(v4_5_0));
+                                                minZernovaVersion(v4_5_0));
   }
 
   /**
@@ -1427,7 +1427,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureEnforceExpressionValidation() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(ENFORCE_EXPRESSION_VALIDATION,
-                                                minMuleVersion(v4_5_0));
+                                                minZernovaVersion(v4_5_0));
   }
 
   /**
@@ -1438,7 +1438,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureParallelForeachFlattenMessage() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(PARALLEL_FOREACH_FLATTEN_MESSAGE,
-                                                minMuleVersion(v4_5_0));
+                                                minZernovaVersion(v4_5_0));
   }
 
   /**
@@ -1449,7 +1449,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureDisableApplyObjectProcessor() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(DISABLE_APPLY_OBJECT_PROCESSOR,
-                                                minMuleVersion(v4_6_0));
+                                                minZernovaVersion(v4_6_0));
   }
 
   /**
@@ -1460,7 +1460,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureValidateAppModelWithRegionClassloader() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(VALIDATE_APPLICATION_MODEL_WITH_REGION_CLASSLOADER,
-                                                minMuleVersion(v4_5_0));
+                                                minZernovaVersion(v4_5_0));
   }
 
   /**
@@ -1471,7 +1471,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configurePrintDetailedCompositeExceptionLog() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(MULE_PRINT_DETAILED_COMPOSITE_EXCEPTION_LOG,
-                                                minMuleVersion(v4_5_0));
+                                                minZernovaVersion(v4_5_0));
   }
 
   /**
@@ -1482,7 +1482,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureHonourErrorMappingsWhenPolicyAppliedOnOperation() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(HONOUR_ERROR_MAPPINGS_WHEN_POLICY_APPLIED_ON_OPERATION,
-                                                minMuleVersion(v4_5_0));
+                                                minZernovaVersion(v4_5_0));
   }
 
   /**
@@ -1504,7 +1504,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureRethrowExceptionsInIdempotentMessageValidator() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(RETHROW_EXCEPTIONS_IN_IDEMPOTENT_MESSAGE_VALIDATOR,
-                                                minMuleVersion(v4_5_0));
+                                                minZernovaVersion(v4_5_0));
   }
 
   /**
@@ -1515,7 +1515,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureHonourInsecureTlsConfiguration() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(HONOUR_INSECURE_TLS_CONFIGURATION,
-                                                minMuleVersion(v4_5_0));
+                                                minZernovaVersion(v4_5_0));
   }
 
   /**
@@ -1537,7 +1537,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureCreateChildPolicyContextForParallelScopes() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(CREATE_CHILD_POLICY_CONTEXT_FOR_PARALLEL_SCOPES,
-                                                minMuleVersion(v4_5_0));
+                                                minZernovaVersion(v4_5_0));
   }
 
 
@@ -1549,7 +1549,7 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureForeachRouterRejectsMapExpressionFeatureFlag() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(FOREACH_ROUTER_REJECTS_MAP_EXPRESSIONS,
-                                                minMuleVersion(v4_5_0));
+                                                minZernovaVersion(v4_5_0));
   }
 
   /**
@@ -1569,46 +1569,46 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
 
   private static void configureCommonsPool2DisableJmx() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
-    featureFlaggingRegistry.registerFeatureFlag(DISABLE_JMX_FOR_COMMONS_POOL2, minMuleVersion(v4_6_0));
+    featureFlaggingRegistry.registerFeatureFlag(DISABLE_JMX_FOR_COMMONS_POOL2, minZernovaVersion(v4_6_0));
   }
 
   private static void configureDisableSchedulerLogging() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
-    featureFlaggingRegistry.registerFeatureFlag(DISABLE_SCHEDULER_LOGGING, minMuleVersion(v4_6_0));
+    featureFlaggingRegistry.registerFeatureFlag(DISABLE_SCHEDULER_LOGGING, minZernovaVersion(v4_6_0));
   }
 
   private static void configureErrorAndRollbackTxWhenTimeout() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
-    featureFlaggingRegistry.registerFeatureFlag(ERROR_AND_ROLLBACK_TX_WHEN_TIMEOUT, minMuleVersion(v4_6_1));
+    featureFlaggingRegistry.registerFeatureFlag(ERROR_AND_ROLLBACK_TX_WHEN_TIMEOUT, minZernovaVersion(v4_6_1));
   }
 
   private static void configureDisableXmlSdkImplicitConfigurationCreation() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(DISABLE_XML_SDK_IMPLICIT_CONFIGURATION_CREATION,
-                                                minMuleVersion(v4_7_0));
+                                                minZernovaVersion(v4_7_0));
   }
 
   private static void configureEnableXmlSdkReset() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
-    featureFlaggingRegistry.registerFeatureFlag(ENABLE_XML_SDK_MDC_RESET, minMuleVersion(v4_8_0));
+    featureFlaggingRegistry.registerFeatureFlag(ENABLE_XML_SDK_MDC_RESET, minZernovaVersion(v4_8_0));
   }
 
   private static void configureUnsupportedExtensionsClientRunAsync() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(UNSUPPORTED_EXTENSIONS_CLIENT_RUN_ASYNC,
-                                                minMuleVersion(v4_8_0).and(minJavaVersion(JAVA_21)));
+                                                minZernovaVersion(v4_8_0).and(minJavaVersion(JAVA_21)));
   }
 
   private static void configureEnforceImportTargetSameType() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(ENFORCE_IMPORT_TARGET_SAME_TYPE,
-                                                minMuleVersion(v4_8_0));
+                                                minZernovaVersion(v4_8_0));
   }
 
   private static void configureHonourPersistedFlowState() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(HONOUR_PERSISTED_FLOW_STATE,
-                                                minMuleVersion(v4_8_0));
+                                                minZernovaVersion(v4_8_0));
   }
 
   private static void configureDisableOptimisedNotificationHandlerDynamicResolutionUpdateBasedOnDelegate() {
@@ -1621,13 +1621,13 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
   private static void configureNtlmAvoidSendPayloadOnType1() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry
-        .registerFeatureFlag(NTLM_AVOID_SEND_PAYLOAD_ON_TYPE_1, minMuleVersion(v4_9_0));
+        .registerFeatureFlag(NTLM_AVOID_SEND_PAYLOAD_ON_TYPE_1, minZernovaVersion(v4_9_0));
   }
 
   private static void configureForkJoinCompleteChildrenOnTimeout() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry
-        .registerFeatureFlag(FORK_JOIN_COMPLETE_CHILDREN_ON_TIMEOUT, minMuleVersion(v4_10_0));
+        .registerFeatureFlag(FORK_JOIN_COMPLETE_CHILDREN_ON_TIMEOUT, minZernovaVersion(v4_10_0));
   }
 
   private static void configureEnableRepeatableStreamingBytesEagerRead() {
@@ -1636,8 +1636,8 @@ public class DefaultZernovaContext implements ZernovaContextWithRegistry, Privil
         .registerFeatureFlag(ENABLE_REPEATABLE_STREAMING_BYTES_EAGER_READ, featureContext -> false);
   }
 
-  private static Predicate<FeatureContext> minMuleVersion(ZernovaVersion version) {
-    return featureContext -> featureContext.getArtifactMinMuleVersion()
+  private static Predicate<FeatureContext> minZernovaVersion(ZernovaVersion version) {
+    return featureContext -> featureContext.getArtifactMinZernovaVersion()
         .filter(muleVersion -> muleVersion.atLeast(version)).isPresent();
   }
 

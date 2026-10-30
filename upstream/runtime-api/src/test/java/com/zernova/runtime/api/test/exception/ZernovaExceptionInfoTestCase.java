@@ -30,7 +30,7 @@ public class ZernovaExceptionInfoTestCase {
 
   @Before
   public void before() {
-    when(errorType.toString()).thenReturn("MULE:TESTING");
+    when(errorType.toString()).thenReturn("ZERNOVA:TESTING");
     muleExceptionInfo = new ZernovaExceptionInfo();
   }
 
@@ -49,7 +49,7 @@ public class ZernovaExceptionInfoTestCase {
     StringBuilder summaryMessage = new StringBuilder();
     muleExceptionInfo.addSuppressedCause(new TestZernovaException("Caused by error", errorType));
     muleExceptionInfo.addToSummaryMessage(summaryMessage);
-    assertThat(summaryMessage.toString(), containsString("Caused by             : MULE:TESTING: Caused by error"));
+    assertThat(summaryMessage.toString(), containsString("Caused by             : ZERNOVA:TESTING: Caused by error"));
   }
 
   @Test

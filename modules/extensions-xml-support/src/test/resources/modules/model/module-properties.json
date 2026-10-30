@@ -10,10 +10,10 @@
   "category": "COMMUNITY",
   "xmlDsl": {
     "prefix": "module-properties",
-    "namespace": "http://www.mulesoft.org/schema/mule/module-properties",
-    "schemaLocation": "http://www.mulesoft.org/schema/mule/module-properties/current/mule-module-properties.xsd",
+    "namespace": "https://schemas.zernova.dev/module-properties",
+    "schemaLocation": "https://schemas.zernova.dev/module-properties/current/zernova-module-properties.xsd",
     "schemaVersion": "4.0.0",
-    "xsdFileName": "mule-module-properties.xsd"
+    "xsdFileName": "zernova-module-properties.xsd"
   },
   "resources": [],
   "subTypes": [],
@@ -28,7 +28,7 @@
         "namespace": "MODULE-PROPERTIES",
         "parent": {
           "type": "MODULE_CONFIG",
-          "namespace": "MULE"
+          "namespace": "ZERNOVA"
         }
       },
       "parameterGroupModels": [
@@ -308,9 +308,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "expiration-policy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -371,7 +371,7 @@
               "namespace": "MODULE-PROPERTIES",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -454,7 +454,7 @@
                       "namespace": "MODULE-PROPERTIES",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -663,9 +663,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "error-mappings",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "sinceMuleVersion": {
@@ -733,7 +733,7 @@
               "namespace": "MODULE-PROPERTIES",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -816,7 +816,7 @@
                       "namespace": "MODULE-PROPERTIES",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -1025,9 +1025,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "error-mappings",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "sinceMuleVersion": {
@@ -1095,7 +1095,7 @@
               "namespace": "MODULE-PROPERTIES",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -1178,7 +1178,7 @@
                       "namespace": "MODULE-PROPERTIES",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -1387,9 +1387,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "error-mappings",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "sinceMuleVersion": {
@@ -1457,7 +1457,7 @@
               "namespace": "MODULE-PROPERTIES",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -1509,7 +1509,7 @@
                       "namespace": "MODULE-PROPERTIES",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -1718,9 +1718,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "error-mappings",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "sinceMuleVersion": {
@@ -1788,7 +1788,7 @@
               "namespace": "MODULE-PROPERTIES",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -1840,7 +1840,7 @@
                       "namespace": "MODULE-PROPERTIES",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -2049,9 +2049,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "error-mappings",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "sinceMuleVersion": {
@@ -2119,7 +2119,7 @@
               "namespace": "MODULE-PROPERTIES",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -2171,7 +2171,7 @@
                       "namespace": "MODULE-PROPERTIES",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -2380,9 +2380,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "error-mappings",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "sinceMuleVersion": {
@@ -2450,7 +2450,7 @@
               "namespace": "MODULE-PROPERTIES",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -2502,7 +2502,7 @@
                       "namespace": "MODULE-PROPERTIES",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -2711,9 +2711,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "error-mappings",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "sinceMuleVersion": {
@@ -2781,7 +2781,7 @@
               "namespace": "MODULE-PROPERTIES",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -2833,7 +2833,7 @@
                       "namespace": "MODULE-PROPERTIES",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -3042,9 +3042,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "error-mappings",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "sinceMuleVersion": {
@@ -3112,7 +3112,7 @@
               "namespace": "MODULE-PROPERTIES",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -3164,7 +3164,7 @@
                       "namespace": "MODULE-PROPERTIES",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -3373,9 +3373,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "error-mappings",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "sinceMuleVersion": {
@@ -3443,7 +3443,7 @@
               "namespace": "MODULE-PROPERTIES",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -3495,7 +3495,7 @@
                       "namespace": "MODULE-PROPERTIES",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -3704,9 +3704,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "error-mappings",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "sinceMuleVersion": {
@@ -3774,7 +3774,7 @@
               "namespace": "MODULE-PROPERTIES",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -3826,7 +3826,7 @@
                       "namespace": "MODULE-PROPERTIES",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -4035,9 +4035,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "error-mappings",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "sinceMuleVersion": {
@@ -4105,7 +4105,7 @@
               "namespace": "MODULE-PROPERTIES",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -4188,7 +4188,7 @@
                       "namespace": "MODULE-PROPERTIES",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -4397,9 +4397,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "error-mappings",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "sinceMuleVersion": {
@@ -4448,10 +4448,10 @@
   "modelProperties": {
     "com.zernova.runtime.extension.api.property.XmlExtensionModelProperty": {
       "namespacesDependencies": [
-        "http://www.mulesoft.org/schema/mule/petstore",
-        "http://www.mulesoft.org/schema/mule/marvel",
-        "http://www.mulesoft.org/schema/mule/module",
-        "http://www.mulesoft.org/schema/mule/core"
+        "https://schemas.zernova.dev/petstore",
+        "https://schemas.zernova.dev/marvel",
+        "https://schemas.zernova.dev/module",
+        "https://schemas.zernova.dev/core"
       ]
     }
   },

@@ -45,7 +45,7 @@ import com.zernova.test.metadata.extension.resolver.TestMetadataResolverUtils;
 @SubTypeMapping(baseType = AbstractOutputAttributes.class,
     subTypes = {AnimalsOutputAttributes.class, ShapeOutputAttributes.class})
 @SubTypeMapping(baseType = Rectangle.class, subTypes = {Square.class})
-@Xml(namespace = "http://www.mulesoft.org/schema/mule/metadata", prefix = "metadata")
+@Xml(namespace = "https://schemas.zernova.dev/metadata", prefix = "metadata")
 @Export(classes = {TestMetadataResolverUtils.class, NativeQueryOutputResolver.class})
 public class MetadataExtension {
 

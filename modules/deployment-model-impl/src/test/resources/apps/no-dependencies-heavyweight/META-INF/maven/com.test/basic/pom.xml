@@ -6,7 +6,7 @@
     <groupId>com.test</groupId>
     <artifactId>no-dependencies-heavyweight</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>mule-application</packaging>
+    <packaging>zernova-application</packaging>
 
     <name>no-dependencies-heavyweight</name>
 

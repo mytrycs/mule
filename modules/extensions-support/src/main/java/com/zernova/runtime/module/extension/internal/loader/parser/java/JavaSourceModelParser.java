@@ -21,7 +21,7 @@ import static com.zernova.runtime.module.extension.internal.loader.parser.java.s
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.stereotypes.JavaStereotypeModelParserUtils.resolveStereotype;
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.type.CustomStaticTypeUtils.getSourceAttributesType;
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.type.CustomStaticTypeUtils.getSourceOutputType;
-import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.resolveSourceMinMuleVersion;
+import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.resolveSourceMinZernovaVersion;
 import static com.zernova.runtime.module.extension.internal.loader.utils.JavaMetadataKeyIdModelParserUtils.getKeyIdResolverModelParser;
 import static com.zernova.runtime.module.extension.internal.loader.utils.JavaMetadataKeyIdModelParserUtils.parseKeyIdResolverModelParser;
 import static com.zernova.runtime.module.extension.internal.loader.utils.JavaOutputResolverModelParserUtils.parseAttributesResolverModelParser;
@@ -326,8 +326,8 @@ public class JavaSourceModelParser extends AbstractJavaExecutableComponentModelP
   }
 
   @Override
-  public Optional<MinZernovaVersionParser> getResolvedMinMuleVersion() {
-    return of(resolveSourceMinMuleVersion(sourceElement));
+  public Optional<MinZernovaVersionParser> getResolvedMinZernovaVersion() {
+    return of(resolveSourceMinZernovaVersion(sourceElement));
   }
 
   @Override

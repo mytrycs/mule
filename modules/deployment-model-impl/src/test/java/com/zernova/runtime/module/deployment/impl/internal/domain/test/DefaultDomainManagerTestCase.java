@@ -100,13 +100,13 @@ public class DefaultDomainManagerTestCase extends AbstractDomainTestCase {
 
   private BundleDescriptor createBundleDescriptor(String domainName, String version) {
     BundleDescriptor.Builder builder = new BundleDescriptor.Builder().setGroupId("com.mulesoft").setArtifactId(domainName)
-        .setClassifier("mule-domain").setType("jar").setVersion(version);
+        .setClassifier("zernova-domain").setType("jar").setVersion(version);
     return builder.build();
   }
 
 
   private Domain createDomain(String artifactId, String version) throws IOException {
-    return createDomain(artifactId, version, artifactId + "-" + version + "-mule-domain");
+    return createDomain(artifactId, version, artifactId + "-" + version + "-zernova-domain");
   }
 
   private Domain createDomain(String artifactId, String version, String artifactName) throws IOException {
@@ -143,8 +143,8 @@ public class DefaultDomainManagerTestCase extends AbstractDomainTestCase {
     BundleDescriptor descriptor2 = domain2.getDescriptor().getBundleDescriptor();
     String domainCompleteName1 = descriptor1.getArtifactFileName();
     String domainCompleteName2 = descriptor2.getArtifactFileName();
-    assertThat(domainCompleteName1, is(domainName1 + "-" + version + "-mule-domain"));
-    assertThat(domainCompleteName2, is(domainName2 + "-" + version + "-mule-domain"));
+    assertThat(domainCompleteName1, is(domainName1 + "-" + version + "-zernova-domain"));
+    assertThat(domainCompleteName2, is(domainName2 + "-" + version + "-zernova-domain"));
 
     domainManager.addDomain(domain1);
     assertThat(domainManager.contains(domainCompleteName1), is(true));
@@ -187,8 +187,8 @@ public class DefaultDomainManagerTestCase extends AbstractDomainTestCase {
   public void addTwoIdenticalDomainsWithDifferentNames() throws IOException {
     String domainId = "custom-domain";
     String version = "1.1.0";
-    String domainName1 = domainId + "-one-" + version + "-mule-domain";
-    String domainName2 = domainId + "-two-" + version + "-mule-domain";
+    String domainName1 = domainId + "-one-" + version + "-zernova-domain";
+    String domainName2 = domainId + "-two-" + version + "-zernova-domain";
     Domain domain1 = createDomain(domainId, version, domainName1);
     Domain domain2 = createDomain(domainId, version, domainName2);
 
@@ -200,8 +200,8 @@ public class DefaultDomainManagerTestCase extends AbstractDomainTestCase {
   public void getIdenticalDomainsByName() throws IOException, DomainNotFoundException {
     String domainId = "custom-domain";
     String version = "1.1.0";
-    String domainName1 = domainId + "-one-" + version + "-mule-domain";
-    String domainName2 = domainId + "-two-" + version + "-mule-domain";
+    String domainName1 = domainId + "-one-" + version + "-zernova-domain";
+    String domainName2 = domainId + "-two-" + version + "-zernova-domain";
     Domain domain1 = createDomain(domainId, version, domainName1);
     Domain domain2 = createDomain(domainId, version, domainName2);
 
@@ -218,8 +218,8 @@ public class DefaultDomainManagerTestCase extends AbstractDomainTestCase {
       throws IOException, DomainNotFoundException, AmbiguousDomainReferenceException {
     String domainId = "custom-domain";
     String version = "1.1.0";
-    String domainName1 = domainId + "-one-" + version + "-mule-domain";
-    String domainName2 = domainId + "-two-" + version + "-mule-domain";
+    String domainName1 = domainId + "-one-" + version + "-zernova-domain";
+    String domainName2 = domainId + "-two-" + version + "-zernova-domain";
     Domain domain1 = createDomain(domainId, version, domainName1);
     Domain domain2 = createDomain(domainId, version, domainName2);
 
@@ -303,7 +303,7 @@ public class DefaultDomainManagerTestCase extends AbstractDomainTestCase {
     // Cannot retrieve the domain using the descriptor that we have
     expectedException.expect(DomainNotFoundException.class);
     expectedException
-        .expectMessage("The domain 'custom-domain-1.1.0-mule-domain' was not found. Available domains: [[custom-domain-2.1.0-mule-domain]]");
+        .expectMessage("The domain 'custom-domain-1.1.0-zernova-domain' was not found. Available domains: [[custom-domain-2.1.0-zernova-domain]]");
     domainManager.getCompatibleDomain(oldBundleDescriptor);
   }
 
@@ -320,7 +320,7 @@ public class DefaultDomainManagerTestCase extends AbstractDomainTestCase {
     // Cannot retrieve the domain using the descriptor that we have
     expectedException.expect(DomainNotFoundException.class);
     expectedException
-        .expectMessage("The domain 'custom-domain-2.1.0-mule-domain' was not found. Available domains: [[custom-domain-1.1.0-mule-domain]]");
+        .expectMessage("The domain 'custom-domain-2.1.0-zernova-domain' was not found. Available domains: [[custom-domain-1.1.0-zernova-domain]]");
     domainManager.getCompatibleDomain(bundleDescriptor);
   }
 
@@ -352,7 +352,7 @@ public class DefaultDomainManagerTestCase extends AbstractDomainTestCase {
     // Cannot retrieve the domain using the descriptor that we have
     expectedException.expect(DomainNotFoundException.class);
     expectedException
-        .expectMessage("The domain 'custom-domain-1.1.1-mule-domain' was not found. Available domains: [[custom-domain-1.1.0-mule-domain]]");
+        .expectMessage("The domain 'custom-domain-1.1.1-zernova-domain' was not found. Available domains: [[custom-domain-1.1.0-zernova-domain]]");
     domainManager.getCompatibleDomain(bundleDescriptor);
   }
 

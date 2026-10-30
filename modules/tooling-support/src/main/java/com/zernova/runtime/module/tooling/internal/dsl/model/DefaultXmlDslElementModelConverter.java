@@ -320,8 +320,8 @@ public class DefaultXmlDslElementModelConverter implements XmlDslElementModelCon
   }
 
   private Element createTLS(ComponentConfiguration config, DslElementSyntax containerDsl) {
-    String namespaceURI = "http://www.mulesoft.org/schema/mule/tls";
-    String tlsSchemaLocation = "http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd";
+    String namespaceURI = "https://schemas.zernova.dev/tls";
+    String tlsSchemaLocation = "https://schemas.zernova.dev/tls/current/zernova-tls.xsd";
 
     addNamespaceDeclarationIfNeeded(TLS_PREFIX, namespaceURI, tlsSchemaLocation);
 

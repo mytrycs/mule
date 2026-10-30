@@ -97,7 +97,7 @@ public abstract class AbstractErrorHandlerTestCase extends AbstractZernovaContex
   public void testUnsuppressedErrorMustBeAccepted() throws InitialisationException {
     TemplateOnErrorHandler onErrorHandler = (TemplateOnErrorHandler) getErrorHandler();
     CoreEvent event = getCoreEventWithSuppressedError(onErrorHandler.getMuleContext());
-    onErrorHandler.setErrorType("MULE:UNSUPPRESSED");
+    onErrorHandler.setErrorType("ZERNOVA:UNSUPPRESSED");
     initialiseIfNeeded(onErrorHandler, onErrorHandler.getMuleContext());
     assertThat(onErrorHandler.accept(event), is(true));
   }
@@ -107,19 +107,19 @@ public abstract class AbstractErrorHandlerTestCase extends AbstractZernovaContex
   public void testSuppressedErrorMustBeAccepted() throws InitialisationException {
     TemplateOnErrorHandler onErrorHandler = (TemplateOnErrorHandler) getErrorHandler();
     CoreEvent event = getCoreEventWithSuppressedError(onErrorHandler.getMuleContext());
-    onErrorHandler.setErrorType("MULE:SUPPRESSED");
+    onErrorHandler.setErrorType("ZERNOVA:SUPPRESSED");
     initialiseIfNeeded(onErrorHandler, onErrorHandler.getMuleContext());
     assertThat(onErrorHandler.accept(event), is(true));
   }
 
   private CoreEvent getCoreEventWithSuppressedError(ZernovaContext muleContext) {
-    ErrorType anyErrorType = DefaultErrorTypeBuilder.builder().namespace("MULE").identifier("ANY").build();
+    ErrorType anyErrorType = DefaultErrorTypeBuilder.builder().namespace("ZERNOVA").identifier("ANY").build();
     ErrorType suppressedErrorType =
-        DefaultErrorTypeBuilder.builder().namespace("MULE").identifier("SUPPRESSED").parentErrorType(anyErrorType).build();
+        DefaultErrorTypeBuilder.builder().namespace("ZERNOVA").identifier("SUPPRESSED").parentErrorType(anyErrorType).build();
     ErrorType unsuppressedErrorType =
-        DefaultErrorTypeBuilder.builder().namespace("MULE").identifier("UNSUPPRESSED").parentErrorType(anyErrorType).build();
+        DefaultErrorTypeBuilder.builder().namespace("ZERNOVA").identifier("UNSUPPRESSED").parentErrorType(anyErrorType).build();
     ErrorType sourceResponseErrorType =
-        DefaultErrorTypeBuilder.builder().namespace("MULE").identifier("SOURCE_RESPONSE").parentErrorType(anyErrorType).build();
+        DefaultErrorTypeBuilder.builder().namespace("ZERNOVA").identifier("SOURCE_RESPONSE").parentErrorType(anyErrorType).build();
     Error errorWithSuppression = mock(PrivilegedError.class);
     Error suppressedError = mock(Error.class);
     CoreEvent event = mock(CoreEvent.class);
@@ -132,10 +132,10 @@ public abstract class AbstractErrorHandlerTestCase extends AbstractZernovaContex
     ((ContributedErrorTypeRepository) muleContext.getErrorTypeRepository()).setDelegate(errorTypeRepository);
 
     when(errorTypeRepository
-        .lookupErrorType(ComponentIdentifier.buildFromStringRepresentation("MULE:SUPPRESSED")))
+        .lookupErrorType(ComponentIdentifier.buildFromStringRepresentation("ZERNOVA:SUPPRESSED")))
             .thenReturn(Optional.of(suppressedErrorType));
     when(errorTypeRepository
-        .lookupErrorType(ComponentIdentifier.buildFromStringRepresentation("MULE:UNSUPPRESSED")))
+        .lookupErrorType(ComponentIdentifier.buildFromStringRepresentation("ZERNOVA:UNSUPPRESSED")))
             .thenReturn(Optional.of(unsuppressedErrorType));
     when(errorTypeRepository
         .getSourceResponseErrorType()).thenReturn(sourceResponseErrorType);

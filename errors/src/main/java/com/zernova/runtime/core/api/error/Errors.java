@@ -46,7 +46,7 @@ import com.zernova.runtime.api.component.ComponentIdentifier;
 @NoExtend
 public abstract class Errors {
 
-  private static final String CORE_PREFIX = "mule";
+  private static final String CORE_PREFIX = "zernova";
   public static final String CORE_NAMESPACE_NAME = CORE_PREFIX.toUpperCase();
 
   protected Errors() {

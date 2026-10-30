@@ -58,8 +58,8 @@ final class FunctionModelLoaderDelegate extends AbstractComponentModelLoaderDele
       parser.getOutputType().applyOn(function.withOutput());
       loader.getParameterModelsLoaderDelegate().declare(function, parser.getParameterGroupModelParsers(), context);
       parser.getAdditionalModelProperties().forEach(function::withModelProperty);
-      if (context.isResolveMinMuleVersion()) {
-        parser.getResolvedMinMuleVersion().ifPresent(resolvedMMV -> declarerWithMmv(function, resolvedMMV));
+      if (context.isResolveMinZernovaVersion()) {
+        parser.getResolvedMinZernovaVersion().ifPresent(resolvedMMV -> declarerWithMmv(function, resolvedMMV));
       }
       addSemanticTerms(function.getDeclaration(), parser);
 

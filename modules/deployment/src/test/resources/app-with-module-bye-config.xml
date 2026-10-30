@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xmlns:simple="http://www.mulesoft.org/schema/mule/simple"
-      xmlns:module-bye="http://www.mulesoft.org/schema/mule/module-bye"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-      http://www.mulesoft.org/schema/mule/simple http://www.mulesoft.org/schema/mule/simple/current/mule-simple.xsd
-      http://www.mulesoft.org/schema/mule/module-bye http://www.mulesoft.org/schema/mule/module-bye/current/mule-module-bye.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="https://schemas.zernova.dev/core"
+      xmlns:simple="https://schemas.zernova.dev/simple"
+      xmlns:module-bye="https://schemas.zernova.dev/module-bye"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+      https://schemas.zernova.dev/simple https://schemas.zernova.dev/simple/current/zernova-simple.xsd
+      https://schemas.zernova.dev/module-bye https://schemas.zernova.dev/module-bye/current/zernova-module-bye.xsd">
 
     <flow name="main">
         <module-bye:say-bye/>
@@ -13,4 +13,4 @@
         <set-payload value=""/>
         <logger/>
     </flow>
-</mule>
+</zernova>

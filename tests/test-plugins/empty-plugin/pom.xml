@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>test-empty-plugin</artifactId>
-    <packaging>mule-plugin</packaging>
+    <packaging>zernova-plugin</packaging>
 
     <properties>
         <javaModuleName>com.zernova.test.plugin.empty</javaModuleName>
@@ -20,7 +20,7 @@
         <plugins>
             <plugin>
                 <groupId>com.zernova.runtime.plugins</groupId>
-                <artifactId>mule-plugin-maven-plugin</artifactId>
+                <artifactId>zernova-plugin-maven-plugin</artifactId>
                 <extensions>true</extensions>
             </plugin>
         </plugins>

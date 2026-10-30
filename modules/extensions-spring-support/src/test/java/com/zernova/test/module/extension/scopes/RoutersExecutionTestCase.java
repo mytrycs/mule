@@ -180,8 +180,8 @@ public class RoutersExecutionTestCase extends AbstractExtensionFunctionalTestCas
         .withVariable("executeWhen", true)
         .withVariable("executeOther", false).run();
 
-    assertThat(internalEvent.getMessage().getPayload().getValue(), is("mule:set-payload"));
-    assertThat(internalEvent.getVariables().get("newPayload").getValue(), is("mule:set-payload"));
+    assertThat(internalEvent.getMessage().getPayload().getValue(), is("zernova:set-payload"));
+    assertThat(internalEvent.getVariables().get("newPayload").getValue(), is("zernova:set-payload"));
   }
 
   @Test
@@ -190,7 +190,7 @@ public class RoutersExecutionTestCase extends AbstractExtensionFunctionalTestCas
         .withVariable("executeWhen", false)
         .withVariable("executeOther", true).run();
 
-    assertThat(internalEvent.getMessage().getPayload().getValue(), is("mule:set-payload"));
+    assertThat(internalEvent.getMessage().getPayload().getValue(), is("zernova:set-payload"));
     assertThat(internalEvent.getVariables().get("newPayload"), is(nullValue()));
     assertThat(internalEvent.getVariables().get("newAttributes"), is(nullValue()));
   }
@@ -246,8 +246,8 @@ public class RoutersExecutionTestCase extends AbstractExtensionFunctionalTestCas
         .withVariable("executeWhen", true)
         .withVariable("executeOther", false).run();
 
-    assertThat(internalEvent.getMessage().getPayload().getValue(), is("mule:set-payload"));
-    assertThat(internalEvent.getVariables().get("newPayload").getValue(), is("mule:set-payload"));
+    assertThat(internalEvent.getMessage().getPayload().getValue(), is("zernova:set-payload"));
+    assertThat(internalEvent.getVariables().get("newPayload").getValue(), is("zernova:set-payload"));
   }
 
   @Test
@@ -256,8 +256,8 @@ public class RoutersExecutionTestCase extends AbstractExtensionFunctionalTestCas
         .withVariable("executeWhen", true)
         .withVariable("executeOther", false).run();
 
-    assertThat(internalEvent.getMessage().getPayload().getValue(), is("mule:set-payload"));
-    assertThat(internalEvent.getVariables().get("newPayload").getValue(), is("mule:set-payload"));
+    assertThat(internalEvent.getMessage().getPayload().getValue(), is("zernova:set-payload"));
+    assertThat(internalEvent.getVariables().get("newPayload").getValue(), is("zernova:set-payload"));
   }
 
   @Test

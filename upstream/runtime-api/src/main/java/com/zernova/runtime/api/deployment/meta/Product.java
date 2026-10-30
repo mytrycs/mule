@@ -23,12 +23,12 @@ public enum Product {
   /**
    * Mule Runtime CE Edition
    */
-  MULE(emptyList()),
+  ZERNOVA(emptyList()),
 
   /**
    * Mule Runtime EE Edition
    */
-  MULE_EE(asList(MULE));
+  ZERNOVA_EE(asList(ZERNOVA));
 
   private List<Product> supportedProducts;
 
@@ -56,16 +56,16 @@ public enum Product {
   public static Product getProductByName(String coreLibraryName) {
     // this only happens during test cases.
     if (coreLibraryName == null) {
-      return MULE_EE;
+      return ZERNOVA_EE;
     }
     if (coreLibraryName.equals("Mule Core")
         || coreLibraryName.equals("Mule 4 Runtime Extension model")
         || coreLibraryName.equals("Mule Manifest")) {
-      return MULE;
+      return ZERNOVA;
     } else if (coreLibraryName.equals("Mule EE Core")
         || coreLibraryName.equals("Mule 4 EE Runtime Extension model")
         || coreLibraryName.equals("Mule EE Manifest")) {
-      return MULE_EE;
+      return ZERNOVA_EE;
     }
     throw new IllegalArgumentException(format("Core library name %s could not be recognized", coreLibraryName));
   }

@@ -10,7 +10,7 @@ package com.zernova.runtime.module.deployment.test.internal;
 import static com.zernova.functional.junit4.matchers.ThrowableMessageMatcher.hasMessage;
 import static com.zernova.runtime.api.config.ZernovaRuntimeFeature.ENABLE_POLICY_ISOLATION;
 import static com.zernova.runtime.api.config.ZernovaRuntimeFeature.SEPARATE_CLASSLOADER_FOR_POLICY_ISOLATION;
-import static com.zernova.runtime.api.deployment.meta.Product.MULE;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA;
 import static com.zernova.runtime.api.notification.PolicyNotification.AFTER_NEXT;
 import static com.zernova.runtime.api.notification.PolicyNotification.BEFORE_NEXT;
 import static com.zernova.runtime.api.notification.PolicyNotification.PROCESS_END;
@@ -172,9 +172,9 @@ public class ApplicationPolicyDeploymentTestCase extends AbstractDeploymentTestC
   // Policy artifact file builders
   private final PolicyFileBuilder fooPolicyFileBuilder =
       new PolicyFileBuilder(FOO_POLICY_NAME).describedBy(new ZernovaPolicyModel.ZernovaPolicyModelBuilder()
-          .setMinMuleVersion(MIN_MULE_VERSION)
+          .setMinZernovaVersion(MIN_MULE_VERSION)
           .setName(FOO_POLICY_NAME)
-          .setRequiredProduct(MULE)
+          .setRequiredProduct(ZERNOVA)
           .withBundleDescriptorLoader(createBundleDescriptorLoader(FOO_POLICY_NAME,
                                                                    MULE_POLICY_CLASSIFIER,
                                                                    PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID))
@@ -184,9 +184,9 @@ public class ApplicationPolicyDeploymentTestCase extends AbstractDeploymentTestC
 
   private final PolicyFileBuilder policyWithPolicyIsolationFileBuilder =
       new PolicyFileBuilder(ISOLATED_POLICY_NAME).describedBy(new ZernovaPolicyModel.ZernovaPolicyModelBuilder()
-          .setMinMuleVersion(MIN_MULE_VERSION)
+          .setMinZernovaVersion(MIN_MULE_VERSION)
           .setName(ISOLATED_POLICY_NAME)
-          .setRequiredProduct(MULE)
+          .setRequiredProduct(ZERNOVA)
           .withBundleDescriptorLoader(createBundleDescriptorLoader(ISOLATED_POLICY_NAME,
                                                                    MULE_POLICY_CLASSIFIER,
                                                                    PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID))
@@ -484,8 +484,8 @@ public class ApplicationPolicyDeploymentTestCase extends AbstractDeploymentTestC
   public void failsToApplyBrokenApplicationPolicy() throws Exception {
     PolicyFileBuilder brokenPolicyFileBuilder =
         new PolicyFileBuilder(BAR_POLICY_NAME).describedBy(new ZernovaPolicyModel.ZernovaPolicyModelBuilder()
-            .setMinMuleVersion(MIN_MULE_VERSION).setName(BAR_POLICY_NAME)
-            .setRequiredProduct(MULE)
+            .setMinZernovaVersion(MIN_MULE_VERSION).setName(BAR_POLICY_NAME)
+            .setRequiredProduct(ZERNOVA)
             .withBundleDescriptorLoader(
                                         createBundleDescriptorLoader(BAR_POLICY_NAME,
                                                                      MULE_POLICY_CLASSIFIER,
@@ -1071,9 +1071,9 @@ public class ApplicationPolicyDeploymentTestCase extends AbstractDeploymentTestC
     // policy with HTTP plugin
     PolicyFileBuilder policyFileBuilder =
         new PolicyFileBuilder(FOO_POLICY_NAME).describedBy(new ZernovaPolicyModel.ZernovaPolicyModelBuilder()
-            .setMinMuleVersion(MIN_MULE_VERSION)
+            .setMinZernovaVersion(MIN_MULE_VERSION)
             .setName(FOO_POLICY_NAME)
-            .setRequiredProduct(MULE)
+            .setRequiredProduct(ZERNOVA)
             .withBundleDescriptorLoader(
                                         createBundleDescriptorLoader(FOO_POLICY_NAME,
                                                                      MULE_POLICY_CLASSIFIER,
@@ -1172,8 +1172,8 @@ public class ApplicationPolicyDeploymentTestCase extends AbstractDeploymentTestC
 
   private PolicyFileBuilder policyWithPluginAndResource() {
     ZernovaPolicyModel.ZernovaPolicyModelBuilder mulePolicyModelBuilder = new ZernovaPolicyModel.ZernovaPolicyModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName(BAZ_POLICY_NAME)
-        .setRequiredProduct(Product.MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName(BAZ_POLICY_NAME)
+        .setRequiredProduct(Product.ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader(BAZ_POLICY_NAME, MULE_POLICY_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID))
         .withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptor(MULE_LOADER_ID, emptyMap()));
@@ -1189,8 +1189,8 @@ public class ApplicationPolicyDeploymentTestCase extends AbstractDeploymentTestC
 
   private PolicyFileBuilder policyWithPluginUsingObjectStore(String version) {
     ZernovaPolicyModel.ZernovaPolicyModelBuilder mulePolicyModelBuilder = new ZernovaPolicyModel.ZernovaPolicyModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName(BAZ_POLICY_NAME)
-        .setRequiredProduct(Product.MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName(BAZ_POLICY_NAME)
+        .setRequiredProduct(Product.ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader(BAZ_POLICY_NAME, MULE_POLICY_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, version))
         .withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptor(MULE_LOADER_ID, emptyMap()));
@@ -1204,9 +1204,9 @@ public class ApplicationPolicyDeploymentTestCase extends AbstractDeploymentTestC
     ArtifactPluginFileBuilder injectedExtension = createInjectedHelloExtensionPluginFileBuilder();
 
     return new PolicyFileBuilder(FOO_POLICY_NAME).describedBy(new ZernovaPolicyModel.ZernovaPolicyModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION)
+        .setMinZernovaVersion(MIN_MULE_VERSION)
         .setName(FOO_POLICY_NAME)
-        .setRequiredProduct(MULE)
+        .setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(
                                     createBundleDescriptorLoader(FOO_POLICY_NAME,
                                                                  MULE_POLICY_CLASSIFIER,
@@ -1220,7 +1220,7 @@ public class ApplicationPolicyDeploymentTestCase extends AbstractDeploymentTestC
 
   private ArtifactPluginFileBuilder createSingleExtensionPlugin() {
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName("simpleExtensionPlugin").setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName("simpleExtensionPlugin").setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader("simpleExtensionPlugin", MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, "1.0.0"));
     mulePluginModelBuilder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder().setId(MULE_LOADER_ID)
@@ -1235,7 +1235,7 @@ public class ApplicationPolicyDeploymentTestCase extends AbstractDeploymentTestC
 
   private ArtifactPluginFileBuilder createWithErrorDeclarationExtensionPlugin() {
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName("withErrorDeclarationExtensionPlugin").setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName("withErrorDeclarationExtensionPlugin").setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader("withErrorDeclarationExtensionPlugin", MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, "1.0.0"));
     mulePluginModelBuilder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder().setId(MULE_LOADER_ID)
@@ -1250,7 +1250,7 @@ public class ApplicationPolicyDeploymentTestCase extends AbstractDeploymentTestC
 
   private ArtifactPluginFileBuilder createPolicyDependencyInjectionExtensionDependencyPlugin() {
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName("policyDependencyInjectionExtensionPlugin").setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName("policyDependencyInjectionExtensionPlugin").setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader("policyDependencyInjectionExtensionPlugin",
                                                                  MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, "1.0.0"));
@@ -1266,7 +1266,7 @@ public class ApplicationPolicyDeploymentTestCase extends AbstractDeploymentTestC
 
   private ArtifactPluginFileBuilder createPolicyConfigurationExtensionDependencyPlugin() {
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName("policyConfigurationExtensionPlugin").setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName("policyConfigurationExtensionPlugin").setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader("policyConfigurationExtensionPlugin",
                                                                  MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, "1.0.0"));
@@ -1287,12 +1287,12 @@ public class ApplicationPolicyDeploymentTestCase extends AbstractDeploymentTestC
             .compile("mule-module-hello-1.0.jar", "1.0");
 
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName("helloExtensionPlugin").setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName("helloExtensionPlugin").setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader("helloExtensionPlugin", MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, "1.0.0"));
     mulePluginModelBuilder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder().setId(MULE_LOADER_ID)
         .addProperty(EXPORTED_RESOURCES,
-                     asList("/", "META-INF/mule-hello.xsd",
+                     asList("/", "META-INF/zernova-hello.xsd",
                             "META-INF/spring.handlers",
                             "META-INF/spring.schemas"))
         .build());
@@ -1306,8 +1306,8 @@ public class ApplicationPolicyDeploymentTestCase extends AbstractDeploymentTestC
 
   private PolicyFileBuilder createPolicyIncludingByePlugin() {
     ZernovaPolicyModel.ZernovaPolicyModelBuilder mulePolicyModelBuilder = new ZernovaPolicyModel.ZernovaPolicyModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName(BAZ_POLICY_NAME)
-        .setRequiredProduct(Product.MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName(BAZ_POLICY_NAME)
+        .setRequiredProduct(Product.ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader(BAZ_POLICY_NAME, MULE_POLICY_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID))
         .withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptor(MULE_LOADER_ID, emptyMap()));

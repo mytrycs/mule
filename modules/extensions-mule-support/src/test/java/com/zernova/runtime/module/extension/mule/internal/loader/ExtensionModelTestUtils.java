@@ -138,7 +138,7 @@ public final class ExtensionModelTestUtils {
         .addParameter(MULE_SDK_RESOURCE_PROPERTY_NAME, extensionFile)
         .addParameter(MULE_SDK_EXPRESSION_LANGUAGE_METADATA_SERVICE_PROPERTY_NAME, expressionLanguageMetadataService)
         .setArtifactCoordinates(TEST_ARTIFACT_COORDINATES)
-        .setResolveMinMuleVersion(true)
+        .setResolveMinZernovaVersion(true)
         .build();
     return new ZernovaSdkPluginExtensionModelLoader().loadExtensionModel(loadingRequest);
   }

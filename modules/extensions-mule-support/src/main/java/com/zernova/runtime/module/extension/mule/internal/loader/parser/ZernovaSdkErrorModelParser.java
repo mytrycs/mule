@@ -26,7 +26,7 @@ import java.util.Optional;
  */
 public class ZernovaSdkErrorModelParser implements ErrorModelParser {
 
-  private static final String MULE = CORE_PREFIX.toUpperCase(ROOT);
+  private static final String ZERNOVA = CORE_PREFIX.toUpperCase(ROOT);
 
   private final String namespace;
   private final String type;
@@ -50,12 +50,12 @@ public class ZernovaSdkErrorModelParser implements ErrorModelParser {
    * @param namespace the error namespace.
    * @param type      the error type.
    * @param parent    a reference to the parent error parser. If {@code null}, the method #getParent will return an empty instance
-   *                  of {@link Optional}, and it will end up meaning MULE:ANY.
+   *                  of {@link Optional}, and it will end up meaning ZERNOVA:ANY.
    */
   public ZernovaSdkErrorModelParser(String namespace, String type, ErrorModelParser parent) {
     this.namespace = namespace;
     this.type = type;
-    this.isMuleError = MULE.equals(namespace);
+    this.isMuleError = ZERNOVA.equals(namespace);
     setParent(parent);
   }
 

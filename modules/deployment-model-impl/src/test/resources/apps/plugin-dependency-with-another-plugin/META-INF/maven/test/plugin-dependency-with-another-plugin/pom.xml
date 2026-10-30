@@ -6,7 +6,7 @@
 
     <groupId>test</groupId>
     <artifactId>plugin-dependency-with-another-plugin</artifactId>
-    <packaging>mule-application</packaging>
+    <packaging>zernova-application</packaging>
     <version>1.0.0</version>
 
     <dependencies>
@@ -14,7 +14,7 @@
             <groupId>com.zernova.tests</groupId>
             <artifactId>test-dependant-plugin</artifactId>
             <version>${mule.project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
         </dependency>
     </dependencies>
 

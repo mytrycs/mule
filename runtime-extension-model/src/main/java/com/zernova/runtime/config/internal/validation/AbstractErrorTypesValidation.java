@@ -82,7 +82,7 @@ public abstract class AbstractErrorTypesValidation extends AbstractErrorValidati
     if (!errorType.isPresent()) {
       if (CORE_ERROR_NAMESPACE.equals(errorTypeId.getNamespace())) {
         return of(create(component, parameter, validation,
-                         format("There's no MULE error named '%s'.", errorTypeId.getName())));
+                         format("There's no ZERNOVA error named '%s'.", errorTypeId.getName())));
       } else {
         return of(create(component, parameter, validation,
                          format("Could not find error '%s'.", errorTypeId.getName())));

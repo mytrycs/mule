@@ -28,8 +28,8 @@ import static com.zernova.runtime.module.extension.internal.loader.parser.java.s
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.stereotypes.JavaStereotypeModelParserUtils.resolveStereotype;
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.type.CustomStaticTypeUtils.getOperationAttributesType;
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.type.CustomStaticTypeUtils.getOperationOutputType;
-import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.getContainerAnnotationMinMuleVersion;
-import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.resolveOperationMinMuleVersion;
+import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.getContainerAnnotationMinZernovaVersion;
+import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.resolveOperationMinZernovaVersion;
 import static com.zernova.runtime.module.extension.internal.loader.utils.JavaInputResolverModelParserUtils.parseInputResolversModelParser;
 import static com.zernova.runtime.module.extension.internal.loader.utils.JavaMetadataKeyIdModelParserUtils.getKeyIdResolverModelParser;
 import static com.zernova.runtime.module.extension.internal.loader.utils.JavaMetadataKeyIdModelParserUtils.parseKeyIdResolverModelParser;
@@ -438,9 +438,9 @@ public class JavaOperationModelParser extends AbstractJavaExecutableComponentMod
   }
 
   @Override
-  public Optional<MinZernovaVersionParser> getResolvedMinMuleVersion() {
-    return of(resolveOperationMinMuleVersion(operationElement, this.operationContainer,
-                                             getContainerAnnotationMinMuleVersion(extensionElement,
+  public Optional<MinZernovaVersionParser> getResolvedMinZernovaVersion() {
+    return of(resolveOperationMinZernovaVersion(operationElement, this.operationContainer,
+                                             getContainerAnnotationMinZernovaVersion(extensionElement,
                                                                                   Operations.class,
                                                                                   Operations::value,
                                                                                   this.operationContainer)));

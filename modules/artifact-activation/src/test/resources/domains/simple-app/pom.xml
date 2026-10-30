@@ -5,7 +5,7 @@
     <groupId>com.test</groupId>
     <artifactId>empty-test-app</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>mule-domain</packaging>
+    <packaging>zernova-domain</packaging>
 
     <name>test-app</name>
 
@@ -29,7 +29,7 @@
                 <version>${mule.maven.plugin.version}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <classifier>mule-domain</classifier>
+                    <classifier>zernova-domain</classifier>
                     <sharedLibraries>
                         <sharedLibrary>
                             <groupId>org.apache.derby</groupId>

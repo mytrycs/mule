@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+<zernova xmlns="https://schemas.zernova.dev/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:simple-prefix="http://www.mulesoft.org/schema/a/different/path/mule/module-simple"
       xsi:schemaLocation="
-      http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-      http://www.mulesoft.org/schema/a/different/path/mule/module-simple http://www.mulesoft.org/schema/a/different/path/mule/module-simple/current/mule-simple-prefix.xsd">
+      https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+      http://www.mulesoft.org/schema/a/different/path/mule/module-simple http://www.mulesoft.org/schema/a/different/path/mule/module-simple/current/zernova-simple-prefix.xsd">
 
     <flow name="testSetPayloadHardcodedFlow">
         <simple-prefix:set-payload-hardcoded-value />
@@ -123,4 +123,4 @@
         <logger/>
     </flow>
 
-</mule>
+</zernova>

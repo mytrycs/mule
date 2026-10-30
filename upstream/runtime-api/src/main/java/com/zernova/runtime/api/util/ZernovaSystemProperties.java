@@ -459,7 +459,7 @@ public final class ZernovaSystemProperties {
 
   /**
    * When enabled, internal exceptions when processing an event in the 'idempotent-message-validator' will be rethrown instead of
-   * throwing a general MULE:DUPLICATE_MESSAGE.
+   * throwing a general ZERNOVA:DUPLICATE_MESSAGE.
    *
    * @since 4.5.0
    */
@@ -806,7 +806,7 @@ public final class ZernovaSystemProperties {
   public static final String MULE_STREAMING_MAX_BUFFER_POOL_SIZE = SYSTEM_PROPERTY_PREFIX + "streaming.bufferPoolMaxSize";
 
   /**
-   * System property key to set the maximum allowed flowStack entries for an event context, before raising a {@code MULE:CRITICAL}
+   * System property key to set the maximum allowed flowStack entries for an event context, before raising a {@code ZERNOVA:CRITICAL}
    * error.
    * <p>
    * By default, the value is set to 50.

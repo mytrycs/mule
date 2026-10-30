@@ -79,7 +79,7 @@ public final class MinZernovaVersionUtils {
    * @param extension the extension to calculate its min mule version
    * @return the minimum mule version of the given extension
    */
-  public static ResolvedMinZernovaVersion resolveExtensionMinMuleVersion(Type extension) {
+  public static ResolvedMinZernovaVersion resolveExtensionMinZernovaVersion(Type extension) {
     if (belongsToJavaPackages(extension.getTypeName())) {
       return resolveToDefaultMMV("Java type", extension.getTypeName());
     }
@@ -93,27 +93,27 @@ public final class MinZernovaVersionUtils {
       extensionMMV = resolveToDefaultMMV("Extension", extension.getName());
     }
     Optional<ResolvedMinZernovaVersion> superExtensionMMV =
-        extension.getSuperType().map(MinZernovaVersionUtils::resolveExtensionMinMuleVersion);
+        extension.getSuperType().map(MinZernovaVersionUtils::resolveExtensionMinZernovaVersion);
     superExtensionMMV.ifPresent(resolvedMMV -> extensionMMV
         .updateIfHigherMMV(resolvedMMV, getReasonSuperClass("Extension", extension.getName(), resolvedMMV)));
     if (!(extension.isAnnotatedWith(Configurations.class)
         || extension.isAnnotatedWith(com.zernova.sdk.api.annotation.Configurations.class))) {
       Optional<ResolvedMinZernovaVersion> fieldMMV =
-          extension.getFields().stream().map(f -> calculateFieldMinMuleVersion(f, new HashSet<>()))
+          extension.getFields().stream().map(f -> calculateFieldMinZernovaVersion(f, new HashSet<>()))
               .reduce(MinZernovaVersionUtils::max);
       fieldMMV.ifPresent(resolvedMMV -> extensionMMV
           .updateIfHigherMMV(resolvedMMV, getReasonField("Extension", extension.getName(), resolvedMMV)));
       Optional<ResolvedMinZernovaVersion> methodMMV =
-          extension.getEnclosingMethods().map(MinZernovaVersionUtils::calculateMethodMinMuleVersion)
+          extension.getEnclosingMethods().map(MinZernovaVersionUtils::calculateMethodMinZernovaVersion)
               .reduce(MinZernovaVersionUtils::max);
       methodMMV.ifPresent(resolvedMMV -> extensionMMV
           .updateIfHigherMMV(resolvedMMV, getReasonMethod("Extension", extension.getName(), resolvedMMV)));
     }
-    Optional<ZernovaVersion> classLevelMMV = getMinMuleVersionFromAnnotations(extension);
+    Optional<ZernovaVersion> classLevelMMV = getMinZernovaVersionFromAnnotations(extension);
     if (classLevelMMV.isPresent()) {
-      if (classLevelMMV.get().priorTo(extensionMMV.getMinMuleVersion())) {
-        return new ResolvedMinZernovaVersion(extension.getName(), extensionMMV.getMinMuleVersion(),
-                                          getReasonOverride(extensionMMV.getMinMuleVersion().toString(), "extension class",
+      if (classLevelMMV.get().priorTo(extensionMMV.getMinZernovaVersion())) {
+        return new ResolvedMinZernovaVersion(extension.getName(), extensionMMV.getMinZernovaVersion(),
+                                          getReasonOverride(extensionMMV.getMinZernovaVersion().toString(), "extension class",
                                                             classLevelMMV.get().toString(), extensionMMV.getReason()));
       } else {
         return new ResolvedMinZernovaVersion(extension.getName(), classLevelMMV.get(),
@@ -129,42 +129,42 @@ public final class MinZernovaVersionUtils {
    * methods and class inheritance.
    *
    * @param config                   the configuration, as a {@link Type}, to calculate its min mule version
-   * @param propagatedMinMuleVersion the min mule version propagated from the config's container
+   * @param propagatedMinZernovaVersion the min mule version propagated from the config's container
    * @return the minimum mule version of the given configuration
    */
-  public static ResolvedMinZernovaVersion resolveConfigurationMinMuleVersion(Type config, ZernovaVersion propagatedMinMuleVersion) {
+  public static ResolvedMinZernovaVersion resolveConfigurationMinZernovaVersion(Type config, ZernovaVersion propagatedMinZernovaVersion) {
     if (belongsToJavaPackages(config.getTypeName())) {
       return resolveToDefaultMMV("Java type", config.getTypeName());
     }
     ResolvedMinZernovaVersion configMMV = max(resolveToDefaultMMV("Configuration", config.getName()),
-                                           new ResolvedMinZernovaVersion(config.getName(), propagatedMinMuleVersion, "Configuration "
-                                               + config.getName() + " has min mule version " + propagatedMinMuleVersion
+                                           new ResolvedMinZernovaVersion(config.getName(), propagatedMinZernovaVersion, "Configuration "
+                                               + config.getName() + " has min mule version " + propagatedMinZernovaVersion
                                                + " because it was propagated from the annotation (either @Configurations or @Config) used to reference this configuration."));
     Optional<Type> superType = config.getSuperType();
     if (superType.isPresent()) {
-      ResolvedMinZernovaVersion superConfigMMV = resolveConfigurationMinMuleVersion(superType.get(), propagatedMinMuleVersion);
+      ResolvedMinZernovaVersion superConfigMMV = resolveConfigurationMinZernovaVersion(superType.get(), propagatedMinZernovaVersion);
       configMMV.updateIfHigherMMV(superConfigMMV, getReasonSuperClass("Configuration", config.getName(), superConfigMMV));
     }
     Optional<ResolvedMinZernovaVersion> annotationMMV =
-        config.getAnnotations().map(MinZernovaVersionUtils::getEnforcedMinMuleVersion)
+        config.getAnnotations().map(MinZernovaVersionUtils::getEnforcedMinZernovaVersion)
             .reduce(MinZernovaVersionUtils::max);
     annotationMMV.ifPresent(resolvedMMV -> configMMV
         .updateIfHigherMMV(resolvedMMV, getReasonAnnotated("Configuration", config.getName(), resolvedMMV)));
     Optional<ResolvedMinZernovaVersion> fieldMMV =
-        config.getFields().stream().map(f -> calculateFieldMinMuleVersion(f, new HashSet<>()))
+        config.getFields().stream().map(f -> calculateFieldMinZernovaVersion(f, new HashSet<>()))
             .reduce(MinZernovaVersionUtils::max);
     fieldMMV.ifPresent(resolvedMMV -> configMMV
         .updateIfHigherMMV(resolvedMMV, getReasonField("Configuration", config.getName(), resolvedMMV)));
     Optional<ResolvedMinZernovaVersion> methodMMV =
-        config.getEnclosingMethods().map(MinZernovaVersionUtils::calculateMethodMinMuleVersion)
+        config.getEnclosingMethods().map(MinZernovaVersionUtils::calculateMethodMinZernovaVersion)
             .reduce(MinZernovaVersionUtils::max);
     methodMMV.ifPresent(resolvedMMV -> configMMV
         .updateIfHigherMMV(resolvedMMV, getReasonMethod("Configuration", config.getName(), resolvedMMV)));
-    Optional<ZernovaVersion> classLevelMMV = getMinMuleVersionFromAnnotations(config);
+    Optional<ZernovaVersion> classLevelMMV = getMinZernovaVersionFromAnnotations(config);
     if (classLevelMMV.isPresent()) {
-      if (classLevelMMV.get().priorTo(configMMV.getMinMuleVersion())) {
-        return new ResolvedMinZernovaVersion(config.getName(), configMMV.getMinMuleVersion(),
-                                          getReasonOverride(configMMV.getMinMuleVersion().toString(), "configuration class",
+      if (classLevelMMV.get().priorTo(configMMV.getMinZernovaVersion())) {
+        return new ResolvedMinZernovaVersion(config.getName(), configMMV.getMinZernovaVersion(),
+                                          getReasonOverride(configMMV.getMinZernovaVersion().toString(), "configuration class",
                                                             classLevelMMV.get().toString(), configMMV.getReason()));
       } else {
         return new ResolvedMinZernovaVersion(config.getName(), classLevelMMV.get(),
@@ -180,17 +180,17 @@ public final class MinZernovaVersionUtils {
    * and return type.
    *
    * @param function                 the function, as a {@link MethodElement}, to calculate its min mule version
-   * @param propagatedMinMuleVersion the min mule version propagated from the function's container
+   * @param propagatedMinZernovaVersion the min mule version propagated from the function's container
    * @return the minimum mule version of the given function
    */
-  public static ResolvedMinZernovaVersion resolveFunctionMinMuleVersion(MethodElement<?> function,
-                                                                     ZernovaVersion propagatedMinMuleVersion) {
+  public static ResolvedMinZernovaVersion resolveFunctionMinZernovaVersion(MethodElement<?> function,
+                                                                     ZernovaVersion propagatedMinZernovaVersion) {
     ResolvedMinZernovaVersion resolvedMMV =
         max(resolveToDefaultMMV("Function", function.getName()),
-            new ResolvedMinZernovaVersion(function.getName(), propagatedMinMuleVersion, "Function " + function.getName()
-                + " has min mule version " + propagatedMinMuleVersion
+            new ResolvedMinZernovaVersion(function.getName(), propagatedMinZernovaVersion, "Function " + function.getName()
+                + " has min mule version " + propagatedMinZernovaVersion
                 + " because it was propagated from the @Functions annotation at the extension class used to add the function."));
-    resolvedMMV = max(resolvedMMV, calculateMethodMinMuleVersion(function));
+    resolvedMMV = max(resolvedMMV, calculateMethodMinZernovaVersion(function));
     return resolvedMMV;
   }
 
@@ -200,25 +200,25 @@ public final class MinZernovaVersionUtils {
    * and return type.
    *
    * @param operation                the operation, as a {@link MethodElement}, to calculate its min mule version
-   * @param propagatedMinMuleVersion the min mule version propagated from the operation's container
+   * @param propagatedMinZernovaVersion the min mule version propagated from the operation's container
    * @return the minimum mule version of the given operation
    */
-  public static ResolvedMinZernovaVersion resolveOperationMinMuleVersion(MethodElement<?> operation,
+  public static ResolvedMinZernovaVersion resolveOperationMinZernovaVersion(MethodElement<?> operation,
                                                                       OperationContainerElement operationContainer,
-                                                                      ZernovaVersion propagatedMinMuleVersion) {
+                                                                      ZernovaVersion propagatedMinZernovaVersion) {
     ResolvedMinZernovaVersion operationMMV = resolveToDefaultMMV("Operation", operation.getName());
-    operationMMV = max(operationMMV, new ResolvedMinZernovaVersion(operation.getName(), propagatedMinMuleVersion, "Operation "
-        + operation.getName() + " has min mule version " + propagatedMinMuleVersion
+    operationMMV = max(operationMMV, new ResolvedMinZernovaVersion(operation.getName(), propagatedMinZernovaVersion, "Operation "
+        + operation.getName() + " has min mule version " + propagatedMinZernovaVersion
         + " because it was propagated from the @Operations annotation at the extension class used to add the operation's container "
         + operationContainer.getName() + "."));
     Optional<ResolvedMinZernovaVersion> parameterMMV = operationContainer.getParameters().stream()
-        .map(MinZernovaVersionUtils::calculateMethodParameterMinMuleVersion)
+        .map(MinZernovaVersionUtils::calculateMethodParameterMinZernovaVersion)
         .reduce(MinZernovaVersionUtils::max);
     if (parameterMMV.isPresent()) {
       operationMMV.updateIfHigherMMV(parameterMMV.get(),
                                      getReasonParameter("Operation", operation.getName(), parameterMMV.get()));
     }
-    operationMMV = max(operationMMV, calculateMethodMinMuleVersion(operation));
+    operationMMV = max(operationMMV, calculateMethodMinZernovaVersion(operation));
     return operationMMV;
   }
 
@@ -230,7 +230,7 @@ public final class MinZernovaVersionUtils {
    * @param connectionProvider the connection provider, as a {@link Type}, to calculate its min mule version
    * @return the minimum mule version of the given connection provider
    */
-  public static ResolvedMinZernovaVersion resolveConnectionProviderMinMuleVersion(Type connectionProvider) {
+  public static ResolvedMinZernovaVersion resolveConnectionProviderMinZernovaVersion(Type connectionProvider) {
     if (belongsToJavaPackages(connectionProvider.getTypeName())) {
       return resolveToDefaultMMV("Java type", connectionProvider.getTypeName());
     }
@@ -240,31 +240,31 @@ public final class MinZernovaVersionUtils {
     if (superType.isPresent()) {
       if (superType.get().isAssignableTo(ConnectionProvider.class)
           || superType.get().isAssignableTo(com.zernova.sdk.api.connectivity.ConnectionProvider.class)) {
-        ResolvedMinZernovaVersion superTypeMMV = resolveConnectionProviderMinMuleVersion(superType.get());
+        ResolvedMinZernovaVersion superTypeMMV = resolveConnectionProviderMinZernovaVersion(superType.get());
         connectionProviderMMV
             .updateIfHigherMMV(superTypeMMV,
                                getReasonSuperClass("Connection Provider", connectionProvider.getName(), superTypeMMV));
       }
     }
     Optional<ResolvedMinZernovaVersion> interfaceMMV = connectionProvider.getImplementingInterfaces()
-        .map(MinZernovaVersionUtils::calculateInterfaceMinMuleVersion).reduce(MinZernovaVersionUtils::max);
+        .map(MinZernovaVersionUtils::calculateInterfaceMinZernovaVersion).reduce(MinZernovaVersionUtils::max);
     interfaceMMV.ifPresent(resolvedMMV -> connectionProviderMMV
         .updateIfHigherMMV(resolvedMMV, getReasonInterface("Connection Provider", connectionProvider.getName(), resolvedMMV)));
     Optional<ResolvedMinZernovaVersion> annotationMMV =
-        connectionProvider.getAnnotations().map(MinZernovaVersionUtils::getEnforcedMinMuleVersion)
+        connectionProvider.getAnnotations().map(MinZernovaVersionUtils::getEnforcedMinZernovaVersion)
             .reduce(MinZernovaVersionUtils::max);
     annotationMMV.ifPresent(resolvedMMV -> connectionProviderMMV
         .updateIfHigherMMV(resolvedMMV, getReasonAnnotated("Connection Provider", connectionProvider.getName(), resolvedMMV)));
     Optional<ResolvedMinZernovaVersion> fieldMMV =
-        connectionProvider.getFields().stream().map(f -> calculateFieldMinMuleVersion(f, new HashSet<>()))
+        connectionProvider.getFields().stream().map(f -> calculateFieldMinZernovaVersion(f, new HashSet<>()))
             .reduce(MinZernovaVersionUtils::max);
     fieldMMV.ifPresent(resolvedMMV -> connectionProviderMMV
         .updateIfHigherMMV(resolvedMMV, getReasonField("Connection Provider", connectionProvider.getName(), resolvedMMV)));
-    Optional<ZernovaVersion> classLevelMMV = getMinMuleVersionFromAnnotations(connectionProvider);
+    Optional<ZernovaVersion> classLevelMMV = getMinZernovaVersionFromAnnotations(connectionProvider);
     if (classLevelMMV.isPresent()) {
-      if (classLevelMMV.get().priorTo((connectionProviderMMV.getMinMuleVersion()))) {
-        return new ResolvedMinZernovaVersion(connectionProvider.getName(), connectionProviderMMV.getMinMuleVersion(),
-                                          getReasonOverride(connectionProviderMMV.getMinMuleVersion().toString(),
+      if (classLevelMMV.get().priorTo((connectionProviderMMV.getMinZernovaVersion()))) {
+        return new ResolvedMinZernovaVersion(connectionProvider.getName(), connectionProviderMMV.getMinZernovaVersion(),
+                                          getReasonOverride(connectionProviderMMV.getMinZernovaVersion().toString(),
                                                             "connection provider class", classLevelMMV.get().toString(),
                                                             connectionProviderMMV.getReason()));
       } else {
@@ -283,15 +283,15 @@ public final class MinZernovaVersionUtils {
    * @param source the connection provider, as a {@link Type}, to calculate its min mule version
    * @return the minimum mule version of the given source
    */
-  public static ResolvedMinZernovaVersion resolveSourceMinMuleVersion(SourceElement source) {
-    ResolvedMinZernovaVersion genericsMMV = calculateSourceGenericsMinMuleVersion(source.getSuperClassGenerics());
-    ResolvedMinZernovaVersion sourceMMV = calculateSourceMinMuleVersion(source);
+  public static ResolvedMinZernovaVersion resolveSourceMinZernovaVersion(SourceElement source) {
+    ResolvedMinZernovaVersion genericsMMV = calculateSourceGenericsMinZernovaVersion(source.getSuperClassGenerics());
+    ResolvedMinZernovaVersion sourceMMV = calculateSourceMinZernovaVersion(source);
     sourceMMV.updateIfHigherMMV(genericsMMV, "Source " + source.getName() + " has min mule version "
-        + genericsMMV.getMinMuleVersion() + " because it has a generic of type " + genericsMMV.getName() + ".");
+        + genericsMMV.getMinZernovaVersion() + " because it has a generic of type " + genericsMMV.getName() + ".");
     return sourceMMV;
   }
 
-  private static ResolvedMinZernovaVersion calculateSourceMinMuleVersion(Type source) {
+  private static ResolvedMinZernovaVersion calculateSourceMinZernovaVersion(Type source) {
     if (belongsToJavaPackages(source.getTypeName())) {
       return resolveToDefaultMMV("Java type", source.getTypeName());
     }
@@ -300,37 +300,37 @@ public final class MinZernovaVersionUtils {
     if (superType.isPresent()) {
       ResolvedMinZernovaVersion superTypeMMV;
       if (superType.get().isSameType(Source.class) || superType.get().isSameType(com.zernova.sdk.api.runtime.source.Source.class)) {
-        superTypeMMV = getEnforcedMinMuleVersion(superType.get());
+        superTypeMMV = getEnforcedMinZernovaVersion(superType.get());
       } else {
-        superTypeMMV = calculateSourceMinMuleVersion(superType.get());
+        superTypeMMV = calculateSourceMinZernovaVersion(superType.get());
       }
       sourceMMV.updateIfHigherMMV(superTypeMMV, getReasonSuperClass("Source", source.getName(), superTypeMMV));
     }
     Optional<ResolvedMinZernovaVersion> interfaceMMV =
-        source.getImplementingInterfaces().map(MinZernovaVersionUtils::calculateInterfaceMinMuleVersion)
+        source.getImplementingInterfaces().map(MinZernovaVersionUtils::calculateInterfaceMinZernovaVersion)
             .reduce(MinZernovaVersionUtils::max);
     interfaceMMV.ifPresent(resolvedMMV -> sourceMMV
         .updateIfHigherMMV(resolvedMMV, getReasonInterface("Source", source.getName(), resolvedMMV)));
     Optional<ResolvedMinZernovaVersion> annotationMMV =
-        source.getAnnotations().map(MinZernovaVersionUtils::getEnforcedMinMuleVersion)
+        source.getAnnotations().map(MinZernovaVersionUtils::getEnforcedMinZernovaVersion)
             .reduce(MinZernovaVersionUtils::max);
     annotationMMV.ifPresent(resolvedMMV -> sourceMMV
         .updateIfHigherMMV(resolvedMMV, getReasonAnnotated("Source", source.getName(), resolvedMMV)));
     Optional<ResolvedMinZernovaVersion> fieldMMV =
-        source.getFields().stream().map(f -> calculateFieldMinMuleVersion(f, new HashSet<>()))
+        source.getFields().stream().map(f -> calculateFieldMinZernovaVersion(f, new HashSet<>()))
             .reduce(MinZernovaVersionUtils::max);
     fieldMMV.ifPresent(resolvedMMV -> sourceMMV.updateIfHigherMMV(resolvedMMV,
                                                                   getReasonField("Source", source.getName(), resolvedMMV)));
     Optional<ResolvedMinZernovaVersion> methodMMV =
-        source.getEnclosingMethods().map(MinZernovaVersionUtils::calculateMethodMinMuleVersion)
+        source.getEnclosingMethods().map(MinZernovaVersionUtils::calculateMethodMinZernovaVersion)
             .reduce(MinZernovaVersionUtils::max);
     methodMMV.ifPresent(resolvedMMV -> sourceMMV.updateIfHigherMMV(resolvedMMV,
                                                                    getReasonMethod("Source", source.getName(), resolvedMMV)));
-    Optional<ZernovaVersion> classLevelMMV = getMinMuleVersionFromAnnotations(source);
+    Optional<ZernovaVersion> classLevelMMV = getMinZernovaVersionFromAnnotations(source);
     if (classLevelMMV.isPresent()) {
-      if (classLevelMMV.get().priorTo(sourceMMV.getMinMuleVersion())) {
-        return new ResolvedMinZernovaVersion(source.getName(), sourceMMV.getMinMuleVersion(),
-                                          getReasonOverride(sourceMMV.getMinMuleVersion().toString(), "source class",
+      if (classLevelMMV.get().priorTo(sourceMMV.getMinZernovaVersion())) {
+        return new ResolvedMinZernovaVersion(source.getName(), sourceMMV.getMinZernovaVersion(),
+                                          getReasonOverride(sourceMMV.getMinZernovaVersion().toString(), "source class",
                                                             classLevelMMV.get().toString(), sourceMMV.getReason()));
       } else {
         return new ResolvedMinZernovaVersion(source.getName(), classLevelMMV.get(),
@@ -351,7 +351,7 @@ public final class MinZernovaVersionUtils {
    * @return the min mule version of the container annotation, if the component was declared there, otherwise a 4.1.1 Mule
    *         Version.
    */
-  public static <A extends Annotation> ZernovaVersion getContainerAnnotationMinMuleVersion(Type containerElement,
+  public static <A extends Annotation> ZernovaVersion getContainerAnnotationMinZernovaVersion(Type containerElement,
                                                                                         Class<A> annotationClass,
                                                                                         Function<A, Class[]> mapper,
                                                                                         Type element) {
@@ -363,26 +363,26 @@ public final class MinZernovaVersionUtils {
     return FIRST_MULE_VERSION;
   }
 
-  private static ResolvedMinZernovaVersion calculateMethodMinMuleVersion(MethodElement<?> method) {
+  private static ResolvedMinZernovaVersion calculateMethodMinZernovaVersion(MethodElement<?> method) {
     ResolvedMinZernovaVersion methodMMV = resolveToDefaultMMV("Method", method.getName());
     Optional<ResolvedMinZernovaVersion> annotationMMV =
-        method.getAnnotations().map(MinZernovaVersionUtils::getEnforcedMinMuleVersion)
+        method.getAnnotations().map(MinZernovaVersionUtils::getEnforcedMinZernovaVersion)
             .reduce(MinZernovaVersionUtils::max);
     annotationMMV.ifPresent(resolvedMMV -> methodMMV
         .updateIfHigherMMV(resolvedMMV, getReasonAnnotated("Method", method.getName(), resolvedMMV)));
     Optional<ResolvedMinZernovaVersion> parameterMMV =
-        method.getParameters().stream().map(MinZernovaVersionUtils::calculateMethodParameterMinMuleVersion)
+        method.getParameters().stream().map(MinZernovaVersionUtils::calculateMethodParameterMinZernovaVersion)
             .reduce(MinZernovaVersionUtils::max);
     parameterMMV.ifPresent(resolvedMMV -> methodMMV
         .updateIfHigherMMV(resolvedMMV, getReasonParameter("Method", method.getName(), resolvedMMV)));
-    ResolvedMinZernovaVersion outputMMV = calculateOutputMinMuleVersion(method.getReturnType());
-    methodMMV.updateIfHigherMMV(outputMMV, "Method " + method.getName() + " has min mule version " + outputMMV.getMinMuleVersion()
+    ResolvedMinZernovaVersion outputMMV = calculateOutputMinZernovaVersion(method.getReturnType());
+    methodMMV.updateIfHigherMMV(outputMMV, "Method " + method.getName() + " has min mule version " + outputMMV.getMinZernovaVersion()
         + " because of its output type " + outputMMV.getName() + ".");
-    Optional<ZernovaVersion> operationLevelMMV = getMinMuleVersionFromAnnotations(method);
+    Optional<ZernovaVersion> operationLevelMMV = getMinZernovaVersionFromAnnotations(method);
     if (operationLevelMMV.isPresent()) {
-      if (operationLevelMMV.get().priorTo(methodMMV.getMinMuleVersion())) {
-        return new ResolvedMinZernovaVersion(method.getName(), methodMMV.getMinMuleVersion(),
-                                          getReasonOverride(methodMMV.getMinMuleVersion().toString(), "method",
+      if (operationLevelMMV.get().priorTo(methodMMV.getMinZernovaVersion())) {
+        return new ResolvedMinZernovaVersion(method.getName(), methodMMV.getMinZernovaVersion(),
+                                          getReasonOverride(methodMMV.getMinZernovaVersion().toString(), "method",
                                                             operationLevelMMV.get().toString(), methodMMV.getReason()));
       } else {
         return new ResolvedMinZernovaVersion(method.getName(), operationLevelMMV.get(), "Method " + method.getName()
@@ -393,56 +393,56 @@ public final class MinZernovaVersionUtils {
     return methodMMV;
   }
 
-  private static ResolvedMinZernovaVersion calculateInterfaceMinMuleVersion(Type interfaceType) {
-    ResolvedMinZernovaVersion interfaceMMV = getEnforcedMinMuleVersion(interfaceType);
+  private static ResolvedMinZernovaVersion calculateInterfaceMinZernovaVersion(Type interfaceType) {
+    ResolvedMinZernovaVersion interfaceMMV = getEnforcedMinZernovaVersion(interfaceType);
     if (belongsToSdkPackages(interfaceType.getTypeName())) {
       return interfaceMMV;
     }
     Optional<ResolvedMinZernovaVersion> superInterface = interfaceType.getImplementingInterfaces()
-        .map(MinZernovaVersionUtils::calculateInterfaceMinMuleVersion).reduce(MinZernovaVersionUtils::max);
+        .map(MinZernovaVersionUtils::calculateInterfaceMinZernovaVersion).reduce(MinZernovaVersionUtils::max);
     superInterface.ifPresent(resolvedMMV -> interfaceMMV
         .updateIfHigherMMV(resolvedMMV, getReasonInterface("Interface", interfaceType.getName(), resolvedMMV)));
     return interfaceMMV;
   }
 
-  private static ResolvedMinZernovaVersion calculateSourceGenericsMinMuleVersion(List<Type> sourceGenerics) {
+  private static ResolvedMinZernovaVersion calculateSourceGenericsMinZernovaVersion(List<Type> sourceGenerics) {
     Type outputType = sourceGenerics.get(0);
     Type attributesType = sourceGenerics.get(1);
-    return max(getEnforcedMinMuleVersion(attributesType), calculateOutputMinMuleVersion(outputType));
+    return max(getEnforcedMinZernovaVersion(attributesType), calculateOutputMinZernovaVersion(outputType));
   }
 
-  private static ResolvedMinZernovaVersion calculateOutputMinMuleVersion(Type outputType) {
+  private static ResolvedMinZernovaVersion calculateOutputMinZernovaVersion(Type outputType) {
     ResolvedMinZernovaVersion resolvedMMV = resolveToDefaultMMV("Output type", outputType.getName());
     if (outputType.isArray()) {
-      resolvedMMV = max(resolvedMMV, calculateOutputMinMuleVersion(outputType.getArrayComponentType().get()));
+      resolvedMMV = max(resolvedMMV, calculateOutputMinZernovaVersion(outputType.getArrayComponentType().get()));
     } else if (outputType.isAssignableTo(Iterable.class) || outputType.isAssignableTo(Iterator.class)) {
       for (TypeGeneric typeGeneric : outputType.getGenerics()) {
-        resolvedMMV = max(resolvedMMV, calculateOutputMinMuleVersion(typeGeneric.getConcreteType()));
+        resolvedMMV = max(resolvedMMV, calculateOutputMinZernovaVersion(typeGeneric.getConcreteType()));
       }
     } else if (outputType.isSameType(Result.class) || outputType.isSameType(com.zernova.sdk.api.runtime.operation.Result.class)) {
-      resolvedMMV = max(resolvedMMV, getEnforcedMinMuleVersion(outputType));
+      resolvedMMV = max(resolvedMMV, getEnforcedMinZernovaVersion(outputType));
       for (TypeGeneric MMVTypeGeneric : outputType.getGenerics()) {
-        resolvedMMV = max(resolvedMMV, getEnforcedMinMuleVersion(MMVTypeGeneric.getConcreteType()));
+        resolvedMMV = max(resolvedMMV, getEnforcedMinZernovaVersion(MMVTypeGeneric.getConcreteType()));
       }
     } else if (outputType.isSameType(PagingProvider.class)
         || outputType.isSameType(com.zernova.sdk.api.runtime.streaming.PagingProvider.class)) {
-      resolvedMMV = max(resolvedMMV, getEnforcedMinMuleVersion(outputType));
+      resolvedMMV = max(resolvedMMV, getEnforcedMinZernovaVersion(outputType));
       resolvedMMV =
-          max(resolvedMMV, getEnforcedMinMuleVersion(outputType.getGenerics().get(1).getConcreteType()));
+          max(resolvedMMV, getEnforcedMinZernovaVersion(outputType.getGenerics().get(1).getConcreteType()));
     } else {
-      resolvedMMV = getEnforcedMinMuleVersion(outputType);
+      resolvedMMV = getEnforcedMinZernovaVersion(outputType);
     }
     return resolvedMMV;
   }
 
-  private static ResolvedMinZernovaVersion calculateFieldMinMuleVersion(ExtensionParameter field,
+  private static ResolvedMinZernovaVersion calculateFieldMinZernovaVersion(ExtensionParameter field,
                                                                      Set<String> seenTypesForRecursionControl) {
     Type parameterType = field.getType();
     if (seenTypesForRecursionControl.contains(parameterType.getTypeName())) {
       // If it is a recursive type we only look at its annotations and cut the recursion.
       ResolvedMinZernovaVersion recursiveFieldMMV = resolveToDefaultMMV("Field", field.getName());
       Optional<ResolvedMinZernovaVersion> annotationMMV =
-          field.getAnnotations().map(MinZernovaVersionUtils::getEnforcedMinMuleVersion)
+          field.getAnnotations().map(MinZernovaVersionUtils::getEnforcedMinZernovaVersion)
               .reduce(MinZernovaVersionUtils::max);
       annotationMMV.ifPresent(resolvedMMV -> recursiveFieldMMV
           .updateIfHigherMMV(resolvedMMV, getReasonAnnotated("Field", field.getName(), resolvedMMV)));
@@ -450,88 +450,88 @@ public final class MinZernovaVersionUtils {
     } else {
       seenTypesForRecursionControl.add(parameterType.getTypeName());
     }
-    ResolvedMinZernovaVersion fieldMinMuleVersion = getMinMuleVersionFromAnnotations(field)
+    ResolvedMinZernovaVersion fieldMinZernovaVersion = getMinZernovaVersionFromAnnotations(field)
         .map(mmv -> new ResolvedMinZernovaVersion(field.getName(), mmv,
                                                "Field " + field.getName() + " has min mule version " + mmv
                                                    + " because it is annotated with @MinZernovaVersion."))
         .orElse(resolveToDefaultMMV("Field", field.getName()));
     // Parse sdk fields (this also catches automatically injected fields)
     if (belongsToSdkPackages(parameterType.getTypeName())) {
-      ResolvedMinZernovaVersion typeMMV = getEnforcedMinMuleVersion(parameterType);
-      fieldMinMuleVersion.updateIfHigherMMV(typeMMV, getReasonType("Field", field.getName(), typeMMV));
+      ResolvedMinZernovaVersion typeMMV = getEnforcedMinZernovaVersion(parameterType);
+      fieldMinZernovaVersion.updateIfHigherMMV(typeMMV, getReasonType("Field", field.getName(), typeMMV));
     }
     for (Type annotation : field.getAnnotations().collect(toList())) {
-      calculateFieldAnnotationMinMuleVersion(field, seenTypesForRecursionControl, parameterType, fieldMinMuleVersion, annotation);
+      calculateFieldAnnotationMinZernovaVersion(field, seenTypesForRecursionControl, parameterType, fieldMinZernovaVersion, annotation);
     }
-    return fieldMinMuleVersion;
+    return fieldMinZernovaVersion;
   }
 
-  private static void calculateFieldAnnotationMinMuleVersion(ExtensionParameter field, Set<String> seenTypesForRecursionControl,
-                                                             Type parameterType, ResolvedMinZernovaVersion fieldMinMuleVersion,
+  private static void calculateFieldAnnotationMinZernovaVersion(ExtensionParameter field, Set<String> seenTypesForRecursionControl,
+                                                             Type parameterType, ResolvedMinZernovaVersion fieldMinZernovaVersion,
                                                              Type annotation) {
     if ((annotation.isSameType(Inject.class)
         // Still need to support javax.inject for the time being...
         || annotation.isSameType(javax.inject.Inject.class))
         && !parameterType.isSameType(Optional.class)) {
       // Parse injected classes but exclude Optionals (such as ForwardCompatibilityHelper)
-      ResolvedMinZernovaVersion typeMMV = getEnforcedMinMuleVersion(parameterType);
-      fieldMinMuleVersion.updateIfHigherMMV(typeMMV, getReasonType("Field", field.getName(), typeMMV));
+      ResolvedMinZernovaVersion typeMMV = getEnforcedMinZernovaVersion(parameterType);
+      fieldMinZernovaVersion.updateIfHigherMMV(typeMMV, getReasonType("Field", field.getName(), typeMMV));
     }
     if (isParameterOrParameterGroup(annotation)) {
       ResolvedMinZernovaVersion parameterContainerMMV =
-          calculateParameterTypeMinMuleVersion(parameterType, seenTypesForRecursionControl);
-      fieldMinMuleVersion.updateIfHigherMMV(parameterContainerMMV,
+          calculateParameterTypeMinZernovaVersion(parameterType, seenTypesForRecursionControl);
+      fieldMinZernovaVersion.updateIfHigherMMV(parameterContainerMMV,
                                             getReasonFieldType(field.getName(),
-                                                               parameterContainerMMV.getMinMuleVersion().toString(),
+                                                               parameterContainerMMV.getMinZernovaVersion().toString(),
                                                                "parameter", parameterContainerMMV.getName()));
     }
     if (annotation.isSameType(Connection.class) || annotation.isSameType(com.zernova.sdk.api.annotation.param.Connection.class)) {
       // Sources inject the ConnectionProvider instead of the connection
       if (parameterType.isAssignableTo(ConnectionProvider.class)
           || parameterType.isAssignableTo(com.zernova.sdk.api.connectivity.ConnectionProvider.class)) {
-        ResolvedMinZernovaVersion connectionProviderMMV = resolveConnectionProviderMinMuleVersion(parameterType);
-        fieldMinMuleVersion.updateIfHigherMMV(connectionProviderMMV,
+        ResolvedMinZernovaVersion connectionProviderMMV = resolveConnectionProviderMinZernovaVersion(parameterType);
+        fieldMinZernovaVersion.updateIfHigherMMV(connectionProviderMMV,
                                               getReasonFieldType(field.getName(),
-                                                                 connectionProviderMMV.getMinMuleVersion().toString(),
+                                                                 connectionProviderMMV.getMinZernovaVersion().toString(),
                                                                  "connection provider", connectionProviderMMV.getName()));
       }
     }
     if (annotation.isSameType(Config.class) || annotation.isSameType(com.zernova.sdk.api.annotation.param.Config.class)) {
       ResolvedMinZernovaVersion configurationMMV =
-          resolveConfigurationMinMuleVersion(parameterType, getEnforcedMinMuleVersion(annotation).getMinMuleVersion());
-      fieldMinMuleVersion.updateIfHigherMMV(configurationMMV,
-                                            getReasonFieldType(field.getName(), configurationMMV.getMinMuleVersion().toString(),
+          resolveConfigurationMinZernovaVersion(parameterType, getEnforcedMinZernovaVersion(annotation).getMinZernovaVersion());
+      fieldMinZernovaVersion.updateIfHigherMMV(configurationMMV,
+                                            getReasonFieldType(field.getName(), configurationMMV.getMinZernovaVersion().toString(),
                                                                "configuration", configurationMMV.getName()));
     }
-    ResolvedMinZernovaVersion annotationMMV = getEnforcedMinMuleVersion(annotation);
-    fieldMinMuleVersion.updateIfHigherMMV(annotationMMV, getReasonAnnotated("Field", field.getName(), annotationMMV));
+    ResolvedMinZernovaVersion annotationMMV = getEnforcedMinZernovaVersion(annotation);
+    fieldMinZernovaVersion.updateIfHigherMMV(annotationMMV, getReasonAnnotated("Field", field.getName(), annotationMMV));
   }
 
-  private static ResolvedMinZernovaVersion calculateMethodParameterMinMuleVersion(ExtensionParameter methodParameter) {
+  private static ResolvedMinZernovaVersion calculateMethodParameterMinZernovaVersion(ExtensionParameter methodParameter) {
     ResolvedMinZernovaVersion methodParameterMMV = resolveToDefaultMMV("Parameter", methodParameter.getName());
     Optional<ResolvedMinZernovaVersion> configAnnotationMMV =
         methodParameter.getAnnotations()
             .filter(a -> a.isAssignableTo(Config.class) || a.isAssignableTo(com.zernova.sdk.api.annotation.param.Config.class))
-            .findFirst().map(MinZernovaVersionUtils::getEnforcedMinMuleVersion);
+            .findFirst().map(MinZernovaVersionUtils::getEnforcedMinZernovaVersion);
     if (configAnnotationMMV.isPresent()) {
       ResolvedMinZernovaVersion configMMV =
-          resolveConfigurationMinMuleVersion(methodParameter.getType(), configAnnotationMMV.get().getMinMuleVersion());
+          resolveConfigurationMinZernovaVersion(methodParameter.getType(), configAnnotationMMV.get().getMinZernovaVersion());
       methodParameterMMV
           .updateIfHigherMMV(configMMV, "Parameter " + methodParameter.getName() + " has min mule version "
-              + configMMV.getMinMuleVersion() + " because it references a config of type " + configMMV.getName() + ".");
+              + configMMV.getMinZernovaVersion() + " because it references a config of type " + configMMV.getName() + ".");
     }
     Optional<ResolvedMinZernovaVersion> annotationMMV =
-        methodParameter.getAnnotations().map(MinZernovaVersionUtils::getEnforcedMinMuleVersion).reduce(MinZernovaVersionUtils::max);
+        methodParameter.getAnnotations().map(MinZernovaVersionUtils::getEnforcedMinZernovaVersion).reduce(MinZernovaVersionUtils::max);
     annotationMMV.ifPresent(resolvedMMV -> methodParameterMMV
         .updateIfHigherMMV(resolvedMMV, getReasonAnnotated("Parameter", methodParameter.getName(), resolvedMMV)));
     ResolvedMinZernovaVersion parameterTypeMMV;
     // Parse sdk fields (this also catches automatically injected fields)
     if (belongsToSdkPackages(methodParameter.getType().getTypeName())) {
-      parameterTypeMMV = getEnforcedMinMuleVersion(methodParameter.getType());
+      parameterTypeMMV = getEnforcedMinZernovaVersion(methodParameter.getType());
     } else { // The parameter is of custom type
       if (methodParameter.getAnnotations()
           .noneMatch(a -> a.isSameType(Connection.class) || a.isSameType(com.zernova.sdk.api.annotation.param.Connection.class))) {
-        parameterTypeMMV = calculateParameterTypeMinMuleVersion(methodParameter.getType(), new HashSet<>());
+        parameterTypeMMV = calculateParameterTypeMinZernovaVersion(methodParameter.getType(), new HashSet<>());
       } else {
         parameterTypeMMV = resolveToDefaultMMV("Type", methodParameter.getType().getName());
       }
@@ -541,13 +541,13 @@ public final class MinZernovaVersionUtils {
     return methodParameterMMV;
   }
 
-  private static ResolvedMinZernovaVersion calculateParameterTypeMinMuleVersion(Type parameterType,
+  private static ResolvedMinZernovaVersion calculateParameterTypeMinZernovaVersion(Type parameterType,
                                                                              Set<String> seenTypesForRecursionControl) {
-    Optional<ZernovaVersion> minMuleVersionAnnotation = getMinMuleVersionFromAnnotations(parameterType);
-    if (minMuleVersionAnnotation.isPresent()) {
-      String reason = "Type " + parameterType.getName() + " has min mule version " + minMuleVersionAnnotation.get()
+    Optional<ZernovaVersion> minZernovaVersionAnnotation = getMinZernovaVersionFromAnnotations(parameterType);
+    if (minZernovaVersionAnnotation.isPresent()) {
+      String reason = "Type " + parameterType.getName() + " has min mule version " + minZernovaVersionAnnotation.get()
           + " because it is annotated with @MinZernovaVersion.";
-      return new ResolvedMinZernovaVersion(parameterType.getName(), minMuleVersionAnnotation.get(), reason);
+      return new ResolvedMinZernovaVersion(parameterType.getName(), minZernovaVersionAnnotation.get(), reason);
     }
     ResolvedMinZernovaVersion parameterMMV = resolveToDefaultMMV("Type", parameterType.getName());
 
@@ -556,7 +556,7 @@ public final class MinZernovaVersionUtils {
     try {
       fieldMMV = parameterType.getFields().stream()
           .filter(MinZernovaVersionUtils::isAnnotatedWithParameterOrParameterGroup)
-          .map(f -> calculateFieldMinMuleVersion(f, seenTypesForRecursionControl)).reduce(MinZernovaVersionUtils::max);
+          .map(f -> calculateFieldMinZernovaVersion(f, seenTypesForRecursionControl)).reduce(MinZernovaVersionUtils::max);
     } catch (Throwable t) {
       if (isLinkageError(t)) {
         LOGGER
@@ -570,7 +570,7 @@ public final class MinZernovaVersionUtils {
     fieldMMV.ifPresent(resolvedMMV -> parameterMMV
         .updateIfHigherMMV(resolvedMMV, getReasonField("Type", parameterType.getName(), resolvedMMV)));
     Optional<ResolvedMinZernovaVersion> annotationMMV =
-        parameterType.getAnnotations().map(MinZernovaVersionUtils::getEnforcedMinMuleVersion)
+        parameterType.getAnnotations().map(MinZernovaVersionUtils::getEnforcedMinZernovaVersion)
             .reduce(MinZernovaVersionUtils::max);
     annotationMMV.ifPresent(resolvedMMV -> parameterMMV
         .updateIfHigherMMV(resolvedMMV, getReasonAnnotated("Type", parameterType.getName(), resolvedMMV)));
@@ -578,12 +578,12 @@ public final class MinZernovaVersionUtils {
   }
 
   public static void declarerWithMmv(HasMinZernovaVersionDeclarer<?> declarer, MinZernovaVersionParser resolvedMMV) {
-    declarer.withMinMuleVersion(resolvedMMV.getMinMuleVersion());
+    declarer.withMinZernovaVersion(resolvedMMV.getMinZernovaVersion());
     LOGGER.debug(resolvedMMV.getReason());
   }
 
   public static void declarationWithMmv(WithMinZernovaVersionDeclaration declaration, MinZernovaVersionParser resolvedMMV) {
-    declaration.withMinMuleVersion(resolvedMMV.getMinMuleVersion());
+    declaration.withMinZernovaVersion(resolvedMMV.getMinZernovaVersion());
     LOGGER.debug(resolvedMMV.getReason());
   }
 
@@ -600,26 +600,26 @@ public final class MinZernovaVersionUtils {
     return false;
   }
 
-  private static ResolvedMinZernovaVersion getEnforcedMinMuleVersion(Type type) {
+  private static ResolvedMinZernovaVersion getEnforcedMinZernovaVersion(Type type) {
     if (type.isAnnotatedWith(DoNotEnforceMinZernovaVersion.class)) {
       return new ResolvedMinZernovaVersion(type.getName(), FIRST_MULE_VERSION,
                                         type.getName() + " has the default base min mule version " + FIRST_MULE_VERSION
                                             + " because it is annotated with @DoNotEnforceMinZernovaVersion.");
     }
-    Optional<ZernovaVersion> mmv = getMinMuleVersionFromAnnotations(type);
+    Optional<ZernovaVersion> mmv = getMinZernovaVersionFromAnnotations(type);
     return mmv
         .map(muleVersion -> new ResolvedMinZernovaVersion(type.getName(), muleVersion,
                                                        type.getName() + " was introduced in Mule " + muleVersion + "."))
         .orElseGet(() -> resolveToDefaultMMV("Type", type.getName()));
   }
 
-  private static Optional<ZernovaVersion> getMinMuleVersionFromAnnotations(WithAnnotations type) {
+  private static Optional<ZernovaVersion> getMinZernovaVersionFromAnnotations(WithAnnotations type) {
     return type.getValueFromAnnotation(MinZernovaVersion.class)
         .map(fetcher -> new ZernovaVersion(fetcher.getStringValue(MinZernovaVersion::value)));
   }
 
   private static ResolvedMinZernovaVersion max(ResolvedMinZernovaVersion currentMax, ResolvedMinZernovaVersion candidate) {
-    if (currentMax.getMinMuleVersion().atLeast(candidate.getMinMuleVersion())) {
+    if (currentMax.getMinZernovaVersion().atLeast(candidate.getMinZernovaVersion())) {
       return currentMax;
     }
     return candidate;
@@ -661,18 +661,18 @@ public final class MinZernovaVersionUtils {
   }
 
   private static String getReasonAnnotated(String component, String name, ResolvedMinZernovaVersion annotationMMV) {
-    return component + " " + name + " has min mule version " + annotationMMV.getMinMuleVersion()
+    return component + " " + name + " has min mule version " + annotationMMV.getMinZernovaVersion()
         + " because it is annotated with "
         + annotationMMV.getName() + ".";
   }
 
   private static String getReasonSuperClass(String component, String name, ResolvedMinZernovaVersion superClassMMV) {
-    return component + " " + name + " has min mule version " + superClassMMV.getMinMuleVersion() + " because of its super class "
+    return component + " " + name + " has min mule version " + superClassMMV.getMinZernovaVersion() + " because of its super class "
         + superClassMMV.getName() + ".";
   }
 
   private static String getReasonField(String component, String name, ResolvedMinZernovaVersion fieldMMV) {
-    return component + " " + name + " has min mule version " + fieldMMV.getMinMuleVersion() + " because of its field "
+    return component + " " + name + " has min mule version " + fieldMMV.getMinZernovaVersion() + " because of its field "
         + fieldMMV.getName() + ".";
   }
 
@@ -682,22 +682,22 @@ public final class MinZernovaVersionUtils {
   }
 
   private static String getReasonInterface(String component, String name, ResolvedMinZernovaVersion interfaceMMV) {
-    return component + " " + name + " has min mule version " + interfaceMMV.getMinMuleVersion()
+    return component + " " + name + " has min mule version " + interfaceMMV.getMinZernovaVersion()
         + " because it implements interface " + interfaceMMV.getName() + ".";
   }
 
   private static String getReasonParameter(String component, String name, ResolvedMinZernovaVersion parameterMMV) {
-    return component + " " + name + " has min mule version " + parameterMMV.getMinMuleVersion() + " because of its parameter "
+    return component + " " + name + " has min mule version " + parameterMMV.getMinZernovaVersion() + " because of its parameter "
         + parameterMMV.getName() + ".";
   }
 
   private static String getReasonType(String component, String name, ResolvedMinZernovaVersion typeMMV) {
-    return component + " " + name + " has min mule version " + typeMMV.getMinMuleVersion() + " because it is of type "
+    return component + " " + name + " has min mule version " + typeMMV.getMinZernovaVersion() + " because it is of type "
         + typeMMV.getName() + ".";
   }
 
   private static String getReasonMethod(String component, String name, ResolvedMinZernovaVersion methodMMV) {
-    return component + " " + name + " has min mule version " + methodMMV.getMinMuleVersion() + " because of its method "
+    return component + " " + name + " has min mule version " + methodMMV.getMinZernovaVersion() + " because of its method "
         + methodMMV.getName() + ".";
   }
 

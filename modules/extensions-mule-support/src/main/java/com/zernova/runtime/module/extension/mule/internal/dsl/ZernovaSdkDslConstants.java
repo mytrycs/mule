@@ -20,7 +20,7 @@ import com.zernova.runtime.api.component.ComponentIdentifier;
 @NoImplement
 public interface ZernovaSdkDslConstants {
 
-  public static final String MULE_SDK_EXTENSION_DSL_NAMESPACE_URI = "http://www.mulesoft.org/schema/mule/mule-extension";
+  public static final String MULE_SDK_EXTENSION_DSL_NAMESPACE_URI = "https://schemas.zernova.dev/mule-extension";
   public static final String MULE_SDK_EXTENSION_DSL_NAMESPACE = "extension";
 
   String MULE_SDK_EXTENSION_DESCRIPTION_CONSTRUCT_NAME = "description";
@@ -37,7 +37,7 @@ public interface ZernovaSdkDslConstants {
 
   String MULE_SDK_EXTENSION_DSL_ERRORS_CONSTRUCT_NAME = "errors";
   String MULE_SDK_EXTENSION_DSL_ERROR_CONSTRUCT_NAME = "error";
-  String MULE_SDK_EXTENSION_DSL_XSD_FILE_NAME = "mule-extension.xsd";
+  String MULE_SDK_EXTENSION_DSL_XSD_FILE_NAME = "zernova-extension.xsd";
   String MULE_SDK_EXTENSION_DSL_SCHEMA_LOCATION =
       buildSchemaLocation(MULE_SDK_EXTENSION_DSL_NAMESPACE, MULE_SDK_EXTENSION_DSL_XSD_FILE_NAME);
 

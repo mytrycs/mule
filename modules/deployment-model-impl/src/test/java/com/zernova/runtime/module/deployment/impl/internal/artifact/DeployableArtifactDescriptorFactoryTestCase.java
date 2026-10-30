@@ -183,7 +183,7 @@ public abstract class DeployableArtifactDescriptorFactoryTestCase<D extends Depl
     assertThat(desc.getClassLoaderConfiguration().getUrls().length, equalTo(2));
     assertThat(toFile(desc.getClassLoaderConfiguration().getUrls()[0]).getPath(), equalTo(getArtifactFolder().toString()));
     Path expectedPathEnd =
-        get(getArtifactRootFolder(), "test", "repository", "org", "mule", "test", "shared", "1.0.0", "shared-1.0.0.jar");
+        get(getArtifactRootFolder(), "test", "repository", "org", "zernova", "test", "shared", "1.0.0", "shared-1.0.0.jar");
     assertThat(toFile(desc.getClassLoaderConfiguration().getUrls()[1]).getPath(), endsWith(expectedPathEnd.toString()));
     assertThat(desc.getClassLoaderConfiguration().getExportedPackages(), contains("org.foo"));
     assertThat(desc.getClassLoaderConfiguration().getExportedResources(),
@@ -202,7 +202,7 @@ public abstract class DeployableArtifactDescriptorFactoryTestCase<D extends Depl
     assertThat(toFile(desc.getClassLoaderConfiguration().getUrls()[0]).getPath(), equalTo(getArtifactFolder().toString()));
     assertThat(desc.getClassLoaderConfiguration().getExportedPackages(), is(empty()));
     Path expectedPathEnd =
-        get(getArtifactRootFolder(), "test", "repository", "org", "mule", "test", "runtime", "1.0.0", "runtime-1.0.0.jar");
+        get(getArtifactRootFolder(), "test", "repository", "org", "zernova", "test", "runtime", "1.0.0", "runtime-1.0.0.jar");
     assertThat(toFile(desc.getClassLoaderConfiguration().getUrls()[1]).getPath(), endsWith(expectedPathEnd.toString()));
   }
 
@@ -211,7 +211,7 @@ public abstract class DeployableArtifactDescriptorFactoryTestCase<D extends Depl
     String artifactPath = getArtifactRootFolder() + "/no-dependencies";
     D desc = createArtifactDescriptor(artifactPath);
 
-    assertThat(desc.getMinMuleVersion(), is(new ZernovaVersion("4.0.0")));
+    assertThat(desc.getMinZernovaVersion(), is(new ZernovaVersion("4.0.0")));
     assertThat(desc.getConfigResources(), hasSize(1));
     assertThat(desc.getConfigResources(), hasItem(getDefaultConfigurationResourceLocation()));
 
@@ -383,12 +383,12 @@ public abstract class DeployableArtifactDescriptorFactoryTestCase<D extends Depl
     String content =
         readFile(getClass()
             .getResourceAsStream(root
-                + "/plugin-dependency-with-additional-dependencies-lightweight-local-repository/META-INF/mule-artifact/classloader-model.json"));
+                + "/plugin-dependency-with-additional-dependencies-lightweight-local-repository/META-INF/zernova-artifact/classloader-model.json"));
 
     String content2 =
         readFile(getClass()
             .getResourceAsStream(root
-                + "/plugin-dependency-with-additional-dependencies-lightweight-local-repository/META-INF/mule-artifact/com/zernova/tests/test-dependant-plugin/4.2.0-SNAPSHOT/classloader-model.json"));
+                + "/plugin-dependency-with-additional-dependencies-lightweight-local-repository/META-INF/zernova-artifact/com/zernova/tests/test-dependant-plugin/4.2.0-SNAPSHOT/classloader-model.json"));
 
     System.setProperty("outputDirectory",
                        getClass().getProtectionDomain().getCodeSource().getLocation().toString());
@@ -399,12 +399,12 @@ public abstract class DeployableArtifactDescriptorFactoryTestCase<D extends Depl
 
     writeFile(getClass()
         .getResource(root
-            + "/plugin-dependency-with-additional-dependencies-lightweight-local-repository/META-INF/mule-artifact/classloader-model.json")
+            + "/plugin-dependency-with-additional-dependencies-lightweight-local-repository/META-INF/zernova-artifact/classloader-model.json")
         .getPath(),
               replacedContent);
     writeFile(getClass()
         .getResource(root
-            + "/plugin-dependency-with-additional-dependencies-lightweight-local-repository/META-INF/mule-artifact/com/zernova/tests/test-dependant-plugin/4.2.0-SNAPSHOT/classloader-model.json")
+            + "/plugin-dependency-with-additional-dependencies-lightweight-local-repository/META-INF/zernova-artifact/com/zernova/tests/test-dependant-plugin/4.2.0-SNAPSHOT/classloader-model.json")
         .getPath(),
               replacedContent2);
   }
@@ -684,7 +684,7 @@ public abstract class DeployableArtifactDescriptorFactoryTestCase<D extends Depl
 
     assertThat(stream(pluginClassLoderModel.getUrls()).map(URL::getPath).collect(toList()),
                contains(
-                        containsString("plugin-with-transitive-dependencies-different-classifier-1.0.0-mule-plugin.jar"),
+                        containsString("plugin-with-transitive-dependencies-different-classifier-1.0.0-zernova-plugin.jar"),
                         containsString("library-1.0.0.jar"),
                         containsString("library-1.0.0-test-jar.jar")));
   }

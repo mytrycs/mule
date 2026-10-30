@@ -55,6 +55,7 @@ __pycache__/
 
 .zernova-bootstrap/
 .zernova-bootstrap-m2/
+.zernova-tools/
 **/.zernova-namespace-relocation.json
 zernova-studio-build/source-hash-check.json
 zernova-studio-build/vsix-layout-regression.json
@@ -67,3 +68,8 @@ zernova-studio-kernel/dist/
 zernova-studio-kernel/evidence/
 
 **/.vscode-test/
+
+.zernova-m2-v030/
+
+zernova-studio-build/runtime-inputs/
+zernova-studio-build/runtime-v030/

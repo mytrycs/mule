@@ -20,7 +20,7 @@ import com.zernova.api.annotation.NoExtend;
 import java.util.List;
 
 /**
- * This object matches the mule-artifact.json element within a service artifact. The describer holds information that has been
+ * This object matches the zernova-artifact.json element within a service artifact. The describer holds information that has been
  * picked up from the JSON file (and the pom.xml when implemented).
  *
  * @since 1.0
@@ -37,11 +37,11 @@ public class ZernovaServiceModel extends AbstractZernovaArtifactModel {
     // Nothing to do, this is just for allowing instantiation to GSON
   }
 
-  private ZernovaServiceModel(String name, String minMuleVersion, Product product,
+  private ZernovaServiceModel(String name, String minZernovaVersion, Product product,
                            ZernovaArtifactLoaderDescriptor classLoaderModelLoaderDescriptor,
                            ZernovaArtifactLoaderDescriptor bundleDescriptorLoader,
                            List<ZernovaServiceContractModel> contracts) {
-    super(name, minMuleVersion, product, classLoaderModelLoaderDescriptor, bundleDescriptorLoader);
+    super(name, minZernovaVersion, product, classLoaderModelLoaderDescriptor, bundleDescriptorLoader);
     checkArgument(contracts != null && !contracts.isEmpty(), "service must fulfill at least one contract");
 
     this.contracts = unmodifiableList(contracts);
@@ -91,10 +91,10 @@ public class ZernovaServiceModel extends AbstractZernovaArtifactModel {
     @Override
     public ZernovaServiceModel build() {
       checkArgument(!isBlank(getName()), "name cannot be a blank");
-      checkArgument(getMinMuleVersion() != null, "minMuleVersion cannot be null");
+      checkArgument(getMinZernovaVersion() != null, "minZernovaVersion cannot be null");
       checkArgument(getBundleDescriptorLoader() != null, "bundleDescriber cannot be null");
 
-      return new ZernovaServiceModel(getName(), getMinMuleVersion(),
+      return new ZernovaServiceModel(getName(), getMinZernovaVersion(),
                                   getRequiredProduct(),
                                   getClassLoaderModelDescriptorLoader(),
                                   getBundleDescriptorLoader(), contracts);

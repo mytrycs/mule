@@ -35,7 +35,7 @@ public class DefaultExpressionModuleBuilderTestCase extends AbstractZernovaTestC
   public static final String ID = "id";
 
   private TypedValue<String> typedValue = new TypedValue<>("", STRING);
-  private ModuleNamespace namespace = new ModuleNamespace("org", "mule", "mymodule");
+  private ModuleNamespace namespace = new ModuleNamespace("org", "zernova", "mymodule");
 
   @Test
   public void shouldCreateTheModuleCorrectly() {

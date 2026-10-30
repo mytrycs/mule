@@ -82,7 +82,7 @@ public class ValidatorModelValidatorTestCase {
 
     when(operationModel.getStereotype()).thenReturn(validationStereotype);
 
-    ErrorModel errorModel = new ImmutableErrorModel(ZernovaErrors.VALIDATION.name(), "MULE", true, null);
+    ErrorModel errorModel = new ImmutableErrorModel(ZernovaErrors.VALIDATION.name(), "ZERNOVA", true, null);
     if (childError) {
       errorModel = new ImmutableErrorModel("customValidation", "customExtension", true, errorModel);
     }

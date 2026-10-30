@@ -133,9 +133,9 @@ public class AggregatedErrorsCharacteristic extends Characteristic<List<ErrorMod
       // extension. If you want to raise an error from such namespace, you need to use the <operation:raise-error>
       // component.
       // 2. The namespace of some existing extension: It's not allowed by the same AST validation.
-      // 3. The core namespace ("MULE"): It is allowed.
+      // 3. The core namespace ("ZERNOVA"): It is allowed.
       // 4. Some original namespace (not present in any extension), as "INTERNAL": In this case, there isn't any syntax
-      // to make that error not-a-child of "MULE:ANY".
+      // to make that error not-a-child of "ZERNOVA:ANY".
       //
       // Therefore, we have 2 cases here:
       if (CORE_ERROR_NAMESPACE.equals(targetErrorId.getNamespace())) {
@@ -143,7 +143,7 @@ public class AggregatedErrorsCharacteristic extends Characteristic<List<ErrorMod
         return new ZernovaSdkErrorModelParser(MULE_CORE_ERROR_TYPE_REPOSITORY.getErrorType(targetErrorId)
             .orElseThrow(() -> new IllegalArgumentException(format("Error doesn't exist %s", targetErrorId))));
       } else {
-        // It's from a namespace that doesn't belong to any extension (parent is MULE:ANY, we pass a null)
+        // It's from a namespace that doesn't belong to any extension (parent is ZERNOVA:ANY, we pass a null)
         return new ZernovaSdkErrorModelParser(targetErrorId.getNamespace(), targetErrorId.getName(), null);
       }
     }

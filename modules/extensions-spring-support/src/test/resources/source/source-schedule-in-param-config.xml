@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:petstore="https://schemas.zernova.dev/petstore"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
 
-               http://www.mulesoft.org/schema/mule/petstore http://www.mulesoft.org/schema/mule/petstore/current/mule-petstore.xsd">
+               https://schemas.zernova.dev/petstore https://schemas.zernova.dev/petstore/current/zernova-petstore.xsd">
 
     <object name="adopt" class="com.zernova.test.module.extension.source.SourceScheduleInParamTestCase$AdoptionProcessor"/>
 
@@ -92,4 +92,4 @@
         <logger level="INFO" message="#[payload]"/>
     </flow>
 
-</mule>
+</zernova>

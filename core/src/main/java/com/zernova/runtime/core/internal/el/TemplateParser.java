@@ -37,7 +37,7 @@ public final class TemplateParser {
   public static final String ANT_TEMPLATE_STYLE = "ant";
   public static final String SQUARE_TEMPLATE_STYLE = "square";
   public static final String CURLY_TEMPLATE_STYLE = "curly";
-  public static final String WIGGLY_MULE_TEMPLATE_STYLE = "mule";
+  public static final String WIGGLY_MULE_TEMPLATE_STYLE = "zernova";
   private static final String NULL_AS_STRING = "null";
   private static final char START_EXPRESSION = '#';
   private static final char OPEN_EXPRESSION = '[';

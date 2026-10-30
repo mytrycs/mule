@@ -20,7 +20,7 @@ const projects: PreviewItem[] = [{
   ...item('project', 'zernova-hello-integration', 'project', [
     item('src', 'src', 'folder', [
       item('main', 'main', 'folder', [
-        item('mule', 'mule', 'folder', [item('hello.xml', 'hello.xml', 'code', undefined, 'workbench')]),
+        item('zernova', 'zernova', 'folder', [item('hello.xml', 'hello.xml', 'code', undefined, 'workbench')]),
         item('java', 'java', 'folder'),
         item('resources', 'resources', 'folder', [
           item('mappings', 'mappings', 'folder', [item('hello.dwl', 'hello.dwl', 'symbol-operator', undefined, 'dataweave')]),
@@ -30,7 +30,7 @@ const projects: PreviewItem[] = [{
       item('test', 'test', 'folder'),
     ]),
     { ...item('pom', 'pom.xml', 'code', undefined, 'xml'), tooltip: 'Illustrative Maven project resource. Opens the bounded XML preview, not an application build.' },
-    { ...item('descriptor', 'mule-artifact.json', 'json', undefined, 'workbench'), tooltip: 'Illustrative Mule application descriptor; requiredProduct remains MULE. No descriptor is written.' },
+    { ...item('descriptor', 'zernova-artifact.json', 'json', undefined, 'workbench'), tooltip: 'Illustrative ZERNOVA application descriptor; requiredProduct remains ZERNOVA. No descriptor is written.' },
   ]),
   description: 'Fixture',
   tooltip: 'Synthetic preview project. These tree items are not files in the current workspace.',
@@ -46,9 +46,9 @@ const scenarios: PreviewItem[] = [
 ];
 const runtime: PreviewItem[] = [
   { id: 'not-connected', label: 'No runtime connected', icon: 'debug-disconnect', tooltip: 'Design preview only. This extension does not discover, start or communicate with a runtime.' },
-  { id: 'target', label: 'ZERNOVA 0.1.0-preview.1', icon: 'info', description: 'Reported target' },
-  { id: 'kernel', label: 'Mule Kernel 4.12.0', icon: 'symbol-module', description: 'Future target' },
-  { id: 'dataweave', label: 'DataWeave 2.12.0', icon: 'symbol-operator', description: 'Future target' },
+  { id: 'target', label: 'ZERNOVA 0.4.0-alpha.1', icon: 'info', description: 'Reported target' },
+  { id: 'kernel', label: 'ZERNOVA Runtime 0.4.0-alpha.1', icon: 'symbol-module', description: 'Future target' },
+  { id: 'dataweave', label: 'DataWeave 2.10.0', icon: 'symbol-operator', description: 'Future target' },
 ];
 
 class PreviewTree implements vscode.TreeDataProvider<PreviewItem> {
@@ -106,7 +106,7 @@ class ProjectTree implements vscode.TreeDataProvider<RealItem>, vscode.Disposabl
     if (element.command) result.command = { command: element.command, title: element.label };
     else if (element.uri?.fsPath === element.project?.root) result.command = { command: 'zernovaKernelStudio.selectProject', title: 'Select Project', arguments: [element.uri] };
     else if (!element.directory && element.uri) {
-      const integration = element.project && path.dirname(element.uri.fsPath) === path.join(element.project.root, 'src/main/mule') && element.uri.fsPath.endsWith('.xml');
+      const integration = element.project && path.dirname(element.uri.fsPath) === path.join(element.project.root, 'src/main/zernova') && element.uri.fsPath.endsWith('.xml');
       result.command = { command: integration ? 'zernovaKernelStudio.openIntegration' : 'vscode.open', title: 'Open ' + element.label, arguments: [element.uri] };
     }
     return result;

@@ -7,7 +7,7 @@
 /* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package com.zernova.runtime.module.artifact.activation.internal.maven;
 
-import static com.zernova.runtime.api.deployment.meta.Product.MULE_EE;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA_EE;
 import static com.zernova.runtime.api.i18n.I18nMessageFactory.createStaticMessage;
 import static com.zernova.runtime.module.artifact.activation.api.deployable.ArtifactModelResolver.applicationModelResolver;
 import static com.zernova.runtime.module.artifact.activation.api.deployable.ArtifactModelResolver.domainModelResolver;
@@ -157,14 +157,14 @@ public class MavenDeployableProjectModelBuilder extends AbstractMavenDeployableP
   private ZernovaApplicationModel buildApplicationModel(ZernovaApplicationModel applicationModel, List<String> allResources,
                                                      Set<String> muleConfigs, List<String> packages) {
     ZernovaApplicationModel.ZernovaApplicationModelBuilder builder = new ZernovaApplicationModel.ZernovaApplicationModelBuilder()
-        .setName(applicationModel.getName() != null ? applicationModel.getName() : "mule")
-        .setMinMuleVersion(applicationModel.getMinMuleVersion())
-        .setRequiredProduct(applicationModel.getRequiredProduct() != null ? applicationModel.getRequiredProduct() : MULE_EE)
+        .setName(applicationModel.getName() != null ? applicationModel.getName() : "zernova")
+        .setMinZernovaVersion(applicationModel.getMinZernovaVersion())
+        .setRequiredProduct(applicationModel.getRequiredProduct() != null ? applicationModel.getRequiredProduct() : ZERNOVA_EE)
         .withClassLoaderModelDescriptorLoader(createClassLoaderModelDescriptorLoader(applicationModel
             .getClassLoaderModelLoaderDescriptor(), allResources, packages))
         .withBundleDescriptorLoader(applicationModel.getBundleDescriptorLoader() != null
             ? applicationModel.getBundleDescriptorLoader()
-            : new ZernovaArtifactLoaderDescriptor("mule", emptyMap()))
+            : new ZernovaArtifactLoaderDescriptor("zernova", emptyMap()))
         .setDomain(applicationModel.getDomain().orElse(null));
 
     builder.setConfigs(applicationModel.getConfigs() != null ? applicationModel.getConfigs() : muleConfigs);
@@ -178,14 +178,14 @@ public class MavenDeployableProjectModelBuilder extends AbstractMavenDeployableP
   private ZernovaDomainModel buildDomainModel(ZernovaDomainModel domainModel, List<String> allResources,
                                            Set<String> muleConfigs, List<String> packages) {
     ZernovaDomainModel.ZernovaDomainModelBuilder builder = new ZernovaDomainModel.ZernovaDomainModelBuilder()
-        .setName(domainModel.getName() != null ? domainModel.getName() : "mule")
-        .setMinMuleVersion(domainModel.getMinMuleVersion())
-        .setRequiredProduct(domainModel.getRequiredProduct() != null ? domainModel.getRequiredProduct() : MULE_EE)
+        .setName(domainModel.getName() != null ? domainModel.getName() : "zernova")
+        .setMinZernovaVersion(domainModel.getMinZernovaVersion())
+        .setRequiredProduct(domainModel.getRequiredProduct() != null ? domainModel.getRequiredProduct() : ZERNOVA_EE)
         .withClassLoaderModelDescriptorLoader(createClassLoaderModelDescriptorLoader(domainModel
             .getClassLoaderModelLoaderDescriptor(), allResources, packages))
         .withBundleDescriptorLoader(domainModel.getBundleDescriptorLoader() != null
             ? domainModel.getBundleDescriptorLoader()
-            : new ZernovaArtifactLoaderDescriptor("mule", emptyMap()));
+            : new ZernovaArtifactLoaderDescriptor("zernova", emptyMap()));
 
     builder.setConfigs(domainModel.getConfigs() != null ? domainModel.getConfigs() : muleConfigs);
     builder.setRedeploymentEnabled(domainModel.isRedeploymentEnabled());
@@ -206,7 +206,7 @@ public class MavenDeployableProjectModelBuilder extends AbstractMavenDeployableP
 
   private ZernovaArtifactLoaderDescriptor createClassLoaderModelDescriptorLoader(ZernovaArtifactLoaderDescriptor classLoaderModelLoaderDescriptor,
                                                                               List<String> resources, List<String> packages) {
-    final String id = classLoaderModelLoaderDescriptor != null ? classLoaderModelLoaderDescriptor.getId() : "mule";
+    final String id = classLoaderModelLoaderDescriptor != null ? classLoaderModelLoaderDescriptor.getId() : "zernova";
     Map<String, Object> attributes =
         classLoaderModelLoaderDescriptor != null && classLoaderModelLoaderDescriptor.getAttributes() != null
             ? classLoaderModelLoaderDescriptor.getAttributes()

@@ -839,7 +839,7 @@ public abstract class AbstractProcessingStrategyTestCase extends AbstractZernova
 
   protected void startFlow() throws InitialisationException, ZernovaException {
     flow.setAnnotations(ImmutableMap.of(LOCATION_KEY, from("flow"), ANNOTATION_NAME,
-                                        ComponentIdentifier.buildFromStringRepresentation("mule:flow")));
+                                        ComponentIdentifier.buildFromStringRepresentation("zernova:flow")));
     flow.initialise();
     flow.start();
   }
@@ -898,7 +898,7 @@ public abstract class AbstractProcessingStrategyTestCase extends AbstractZernova
 
     @Override
     public ComponentIdentifier getIdentifier() {
-      return ComponentIdentifier.buildFromStringRepresentation("mule:multiple-invocation-latched-processor");
+      return ComponentIdentifier.buildFromStringRepresentation("zernova:multiple-invocation-latched-processor");
     }
 
   }
@@ -1041,7 +1041,7 @@ public abstract class AbstractProcessingStrategyTestCase extends AbstractZernova
 
     @Override
     public ComponentIdentifier getIdentifier() {
-      return ComponentIdentifier.buildFromStringRepresentation("mule:thread-tracking-processor");
+      return ComponentIdentifier.buildFromStringRepresentation("zernova:thread-tracking-processor");
     }
 
   }
@@ -1138,7 +1138,7 @@ public abstract class AbstractProcessingStrategyTestCase extends AbstractZernova
 
     @Override
     public ComponentIdentifier getIdentifier() {
-      return ComponentIdentifier.buildFromStringRepresentation("mule:annotated-async-processor");
+      return ComponentIdentifier.buildFromStringRepresentation("zernova:annotated-async-processor");
     }
   }
 

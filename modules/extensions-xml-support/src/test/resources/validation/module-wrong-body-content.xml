@@ -2,22 +2,22 @@
 <module name="module-wrong-body-content"
         prefix="simple-prefix"
         namespace="http://www.mulesoft.org/schema/a/different/path/mule/module-wrong-body-content"
-        xmlns="http://www.mulesoft.org/schema/mule/module"
-        xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+        xmlns="https://schemas.zernova.dev/module"
+        xmlns:zernova="https://schemas.zernova.dev/core"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="
-           http://www.mulesoft.org/schema/mule/module http://www.mulesoft.org/schema/mule/module/current/mule-module.xsd
-           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+           https://schemas.zernova.dev/module https://schemas.zernova.dev/module/current/zernova-module.xsd
+           https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd">
 
     <property name="a-property" type="string"/>
 
-    <mule:fake-request-config fake-name="pointeless value" basePath="pointeless value">
-        <mule:fake-request-connection fake-host="pointeless value" fake-protocol="pointeless value" fake-port="pointeless value"/>
-    </mule:fake-request-config>
+    <zernova:fake-request-config fake-name="pointeless value" basePath="pointeless value">
+        <zernova:fake-request-connection fake-host="pointeless value" fake-protocol="pointeless value" fake-port="pointeless value"/>
+    </zernova:fake-request-config>
     
     <operation name="operation-with-non-valid-body">
         <body>
-            <mule:non-existing-operation non-existing-attribute="pointeless value"/>
+            <zernova:non-existing-operation non-existing-attribute="pointeless value"/>
         </body>
     </operation>
     

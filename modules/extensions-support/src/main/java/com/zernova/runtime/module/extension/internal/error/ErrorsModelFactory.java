@@ -58,7 +58,7 @@ public class ErrorsModelFactory {
     return Stream.of(errorTypesEnum).map(def -> toParser(errorExtensionNamespace, def)).collect(toList());
   }
 
-  private static final String MULE = CORE_PREFIX.toUpperCase();
+  private static final String ZERNOVA = CORE_PREFIX.toUpperCase();
   private final String extensionNamespace;
   private final Map<String, ErrorModel> errorModelMap;
 
@@ -170,7 +170,7 @@ public class ErrorsModelFactory {
   }
 
   private String getErrorNamespace(ErrorTypeDefinition<?> errorType) {
-    return isMuleError(errorType) ? MULE : extensionNamespace;
+    return isMuleError(errorType) ? ZERNOVA : extensionNamespace;
   }
 
   private void detectCycleReferences(DefaultDirectedGraph<?, ?> graph) {
@@ -208,7 +208,7 @@ public class ErrorsModelFactory {
   }
 
   private void initErrorModelMap(Map<String, ErrorModel> errorModelMap) {
-    errorModelMap.put(toIdentifier(ANY), newError(ANY.getType(), MULE).build());
+    errorModelMap.put(toIdentifier(ANY), newError(ANY.getType(), ZERNOVA).build());
   }
 
   private Graph<ErrorModelParser, DefaultEdge> toGraph(List<ErrorModelParser> extensionErrorParsers) {

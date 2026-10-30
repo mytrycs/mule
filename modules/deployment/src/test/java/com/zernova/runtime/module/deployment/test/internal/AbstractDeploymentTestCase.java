@@ -7,7 +7,7 @@
 /* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package com.zernova.runtime.module.deployment.test.internal;
 
-import static com.zernova.runtime.api.deployment.meta.Product.MULE;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA;
 import static com.zernova.runtime.api.i18n.I18nMessageFactory.createStaticMessage;
 import static com.zernova.runtime.container.api.ZernovaFoldersUtil.getDomainFolder;
 import static com.zernova.runtime.container.api.ZernovaFoldersUtil.getServicesFolder;
@@ -234,7 +234,7 @@ public abstract class AbstractDeploymentTestCase extends AbstractZernovaTestCase
 
   // Resources
   protected static final String MULE_CONFIG_XML_FILE = "mule-config.xml";
-  private static final String MULE_DOMAIN_CONFIG_XML_FILE = "mule-domain-config.xml";
+  private static final String MULE_DOMAIN_CONFIG_XML_FILE = "zernova-domain-config.xml";
   protected static final String EMPTY_APP_CONFIG_XML = "/empty-config.xml";
   private static final String BAD_APP_CONFIG_XML = "/bad-app-config.xml";
   protected static final String EMPTY_DOMAIN_CONFIG_XML = "/empty-domain-config.xml";
@@ -1271,9 +1271,9 @@ public abstract class AbstractDeploymentTestCase extends AbstractZernovaTestCase
                                                       Map<String, Object> loaderDescriptorAttributes,
                                                       AbstractDependencyFileBuilder<?>... dependencies) {
     ZernovaPolicyModelBuilder policyModelBuilder = new ZernovaPolicyModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION)
+        .setMinZernovaVersion(MIN_MULE_VERSION)
         .setName(policyName)
-        .setRequiredProduct(MULE)
+        .setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader(policyName,
                                                                  MULE_POLICY_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID))

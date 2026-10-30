@@ -26,7 +26,7 @@
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-implicit-exclusive-config-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
         </dependency>
     </dependencies>
 </project>

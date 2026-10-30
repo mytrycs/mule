@@ -49,8 +49,8 @@ public class ExtensionWithProvidedDependencyTestCase {
     ExtensionModel extension = loadExtension(ProvidedDependencyExtension.class, new SmallMap<>());
 
     assertThat(extension.getName(), is(ProvidedDependencyExtension.NAME));
-    assertThat(extension.getMinMuleVersion().isPresent(), is(true));
-    assertThat(extension.getMinMuleVersion().get().toString(), is("4.1.1"));
+    assertThat(extension.getMinZernovaVersion().isPresent(), is(true));
+    assertThat(extension.getMinZernovaVersion().get().toString(), is("4.1.1"));
 
     assertThat(extension.getConfigurationModel("config").isPresent(), is(true));
     ConfigurationModel configurationModel = extension.getConfigurationModel("config").get();
@@ -58,8 +58,8 @@ public class ExtensionWithProvidedDependencyTestCase {
     OperationModel operationModel =
         configurationModel.getOperationModel("dummyOperation")
             .orElseThrow(() -> new RuntimeException("'dummyOperation' not found"));
-    assertThat(operationModel.getMinMuleVersion().isPresent(), is(true));
-    assertThat(operationModel.getMinMuleVersion().get().toString(), is("4.1.1"));
+    assertThat(operationModel.getMinZernovaVersion().isPresent(), is(true));
+    assertThat(operationModel.getMinZernovaVersion().get().toString(), is("4.1.1"));
   }
 
   public static ExtensionModel loadExtension(Class<?> clazz, Map<String, Object> params) {
@@ -70,7 +70,7 @@ public class ExtensionWithProvidedDependencyTestCase {
     // this util should get dropped once the ticket gets implemented.
     final DslResolvingContext dslResolvingContext = getDefault(singleton(ZernovaExtensionModelProvider.getExtensionModel()));
     return new DefaultJavaExtensionModelLoader().loadExtensionModel(builder(clazz.getClassLoader(), dslResolvingContext)
-        .setResolveMinMuleVersion(true)
+        .setResolveMinZernovaVersion(true)
         .addParameters(params)
         .build());
   }

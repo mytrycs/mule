@@ -70,7 +70,7 @@
       ],
       "stereotype": {
         "type": "PROCESSOR",
-        "namespace": "MULE"
+        "namespace": "ZERNOVA"
       },
       "deprecationModel": {
         "message": "This operation is deprecated",
@@ -692,7 +692,7 @@
                   "namespace": "TEST",
                   "parent": {
                     "type": "MODULE_CONFIG",
-                    "namespace": "MULE"
+                    "namespace": "ZERNOVA"
                   }
                 }
               ],
@@ -849,7 +849,7 @@
       "semanticTerms": [],
       "stereotype": {
         "type": "PROCESSOR",
-        "namespace": "MULE"
+        "namespace": "ZERNOVA"
       },
       "parameterGroupModels": [
         {
@@ -910,7 +910,7 @@
               "allowedStereotypes": [
                 {
                   "type": "PROCESSOR",
-                  "namespace": "MULE"
+                  "namespace": "ZERNOVA"
                 }
               ],
               "nestedComponents": [],
@@ -927,7 +927,7 @@
               "allowedStereotypes": [
                 {
                   "type": "PROCESSOR",
-                  "namespace": "MULE"
+                  "namespace": "ZERNOVA"
                 }
               ],
               "nestedComponents": [],
@@ -993,7 +993,7 @@
               "allowedStereotypes": [
                 {
                   "type": "PROCESSOR",
-                  "namespace": "MULE"
+                  "namespace": "ZERNOVA"
                 }
               ],
               "nestedComponents": [],
@@ -1013,7 +1013,7 @@
       "semanticTerms": [],
       "stereotype": {
         "type": "PROCESSOR",
-        "namespace": "MULE"
+        "namespace": "ZERNOVA"
       },
       "parameterGroupModels": [],
       "name": "choice",
@@ -1040,7 +1040,7 @@
       "semanticTerms": [],
       "stereotype": {
         "type": "CONNECTION",
-        "namespace": "MULE"
+        "namespace": "ZERNOVA"
       },
       "parameterGroupModels": [
         {
@@ -1769,7 +1769,7 @@
                     "namespace": "TEST",
                     "parent": {
                       "type": "MODULE_CONFIG",
-                      "namespace": "MULE"
+                      "namespace": "ZERNOVA"
                     }
                   }
                 ],
@@ -1827,7 +1827,7 @@
       ],
       "stereotype": {
         "type": "SOURCE",
-        "namespace": "MULE"
+        "namespace": "ZERNOVA"
       },
       "parameterGroupModels": [
         {
@@ -1956,16 +1956,16 @@
     },
     {
       "error": "ERROR_NAMESPACE:PARENT_ERROR_MODEL",
-      "parent": "MULE:CONNECTIVITY",
+      "parent": "ZERNOVA:CONNECTIVITY",
       "handleable": true
     },
     {
-      "error": "MULE:CONNECTIVITY",
-      "parent": "MULE:ANY",
+      "error": "ZERNOVA:CONNECTIVITY",
+      "parent": "ZERNOVA:ANY",
       "handleable": true
     },
     {
-      "error": "MULE:ANY",
+      "error": "ZERNOVA:ANY",
       "handleable": true
     }
   ],

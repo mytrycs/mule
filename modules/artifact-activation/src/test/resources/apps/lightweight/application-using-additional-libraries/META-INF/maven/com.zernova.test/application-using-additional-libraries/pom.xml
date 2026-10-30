@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.zernova.test</groupId>
     <artifactId>application-using-additional-libraries</artifactId>
-    <packaging>mule-application</packaging>
+    <packaging>zernova-application</packaging>
     <version>1.0.0</version>
 
     <name>Mule Runtime Tooling Client :: Reusable application with additional dependencies</name>
@@ -19,7 +19,7 @@
                 <version>${mule.maven.plugin.version}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <classifier>mule-plugin</classifier>
+                    <classifier>zernova-plugin</classifier>
                     <additionalPluginDependencies>
                         <plugin>
                             <groupId>com.zernova.connectors</groupId>
@@ -43,7 +43,7 @@
             <groupId>com.zernova.connectors</groupId>
             <artifactId>mule-db-connector</artifactId>
             <version>${mule.db.connector.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
         </dependency>
     </dependencies>
 </project>

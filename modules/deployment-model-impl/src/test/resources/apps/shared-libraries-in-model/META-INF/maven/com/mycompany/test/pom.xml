@@ -5,22 +5,22 @@
 	<groupId>com.mycompany</groupId>
 	<artifactId>test</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>mule-application</packaging>
+    <packaging>zernova-application</packaging>
 
 	<name>test</name>
 
     <dependencies>
         <dependency>
             <groupId>com.zernova.group</groupId>
-            <artifactId>mule-plugin-a</artifactId>
+            <artifactId>zernova-plugin-a</artifactId>
             <version>1.0.0</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
         </dependency>
         <dependency>
             <groupId>com.zernova.group</groupId>
-            <artifactId>mule-plugin-b</artifactId>
+            <artifactId>zernova-plugin-b</artifactId>
             <version>1.0.0</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
         </dependency>
     </dependencies>
     <build>

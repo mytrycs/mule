@@ -21,7 +21,7 @@ import java.util.Set;
 
 /**
  * {@link ExtensionModelValidator} which applies to {@link ExtensionModel}s which are XML based, as those that contain usages of
- * configuration properties. If the developer wants to use constants, then it must rely on <mule:global-property/>'s than in the
+ * configuration properties. If the developer wants to use constants, then it must rely on <zernova:global-property/>'s than in the
  * properties file.
  *
  * @since 4.1.2
@@ -29,7 +29,7 @@ import java.util.Set;
 public class ForbiddenConfigurationPropertiesValidator implements ExtensionModelValidator {
 
   public static final String CONFIGURATION_PROPERTY_NOT_SUPPORTED_FORMAT_MESSAGE =
-      "Configuration properties is not supported, either use <mule:global-property ../>, ${file::file.txt} or <module:property/> instead. Offending global element '%s'";
+      "Configuration properties is not supported, either use <zernova:global-property ../>, ${file::file.txt} or <module:property/> instead. Offending global element '%s'";
 
   @Override
   public void validate(ExtensionModel extensionModel, ProblemsReporter problemsReporter) {

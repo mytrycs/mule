@@ -38,7 +38,7 @@ public final class ExtensionErrorUtils {
 
   private static boolean isValidationError(ErrorModel errorModel) {
     if (VALIDATION.getType().equals(errorModel.getType()) &&
-        "MULE".equals(errorModel.getNamespace())) {
+        "ZERNOVA".equals(errorModel.getNamespace())) {
       return true;
     }
 

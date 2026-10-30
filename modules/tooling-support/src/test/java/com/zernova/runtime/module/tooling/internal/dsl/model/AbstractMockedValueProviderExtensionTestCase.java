@@ -119,8 +119,8 @@ public abstract class AbstractMockedValueProviderExtensionTestCase extends Abstr
   private static final Logger LOGGER = getLogger(AbstractMockedValueProviderExtensionTestCase.class);
 
   protected static final String NAMESPACE = "vp-mockns";
-  protected static final String NAMESPACE_URI = "http://www.mulesoft.org/schema/mule/vp-mockns";
-  protected static final String SCHEMA_LOCATION = "http://www.mulesoft.org/schema/mule/vp-mockns/current/vp-mule-mockns.xsd";
+  protected static final String NAMESPACE_URI = "https://schemas.zernova.dev/vp-mockns";
+  protected static final String SCHEMA_LOCATION = "https://schemas.zernova.dev/vp-mockns/current/vp-zernova-mockns.xsd";
   protected static final String PARAMETER_IN_GROUP_NAME = "parameterInGroup";
   protected static final String PARAMETER_IN_GROUP_DEFAULT_VALUE = "parameterInGroup";
   protected static final String CUSTOM_PARAMETER_GROUP_NAME = "customParameterGroupName";
@@ -389,7 +389,7 @@ public abstract class AbstractMockedValueProviderExtensionTestCase extends Abstr
                                        emptyList(),
                                        null,
                                        XmlDslModel.builder()
-                                           .setXsdFileName("mule-mockns.xsd")
+                                           .setXsdFileName("zernova-mockns.xsd")
                                            .setPrefix(NAMESPACE)
                                            .setNamespace(NAMESPACE_URI)
                                            .setSchemaLocation(SCHEMA_LOCATION)

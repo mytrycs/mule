@@ -22,18 +22,18 @@ import java.util.Optional;
 public class FeatureContext {
 
   private final String artifactName;
-  private ZernovaVersion artifactMinMuleVersion;
+  private ZernovaVersion artifactMinZernovaVersion;
 
-  public FeatureContext(ZernovaVersion artifactMinMuleVersion, String artifactName) {
+  public FeatureContext(ZernovaVersion artifactMinZernovaVersion, String artifactName) {
     this.artifactName = artifactName;
     // Feature flags must evaluate against non suffixed versions
-    if (artifactMinMuleVersion != null) {
-      this.artifactMinMuleVersion = artifactMinMuleVersion.withoutSuffixes();
+    if (artifactMinZernovaVersion != null) {
+      this.artifactMinZernovaVersion = artifactMinZernovaVersion.withoutSuffixes();
     }
   }
 
-  public Optional<ZernovaVersion> getArtifactMinMuleVersion() {
-    return ofNullable(artifactMinMuleVersion);
+  public Optional<ZernovaVersion> getArtifactMinZernovaVersion() {
+    return ofNullable(artifactMinZernovaVersion);
   }
 
   public String getArtifactName() {

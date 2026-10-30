@@ -121,7 +121,7 @@ public class SimpleRegistry extends AbstractRegistry implements Injector {
     FeatureFlaggingRegistry ffRegistry = getInstance();
     return new FeatureFlaggingServiceBuilder()
         .withContext(muleContext)
-        .withContext(new FeatureContext(muleContext.getConfiguration().getMinMuleVersion().orElse(null),
+        .withContext(new FeatureContext(muleContext.getConfiguration().getMinZernovaVersion().orElse(null),
                                         resolveArtifactName(muleContext)))
         .withMuleContextFlags(ffRegistry.getFeatureConfigurations())
         .withFeatureContextFlags(ffRegistry.getFeatureFlagConfigurations())

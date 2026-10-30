@@ -28,7 +28,7 @@ public class TestXmlNamespaceInfoProvider implements XmlNamespaceInfoProvider {
 
       @Override
       public String getNamespaceUriPrefix() {
-        return "http://www.mulesoft.org/schema/mule/test";
+        return "https://schemas.zernova.dev/test";
       }
 
       @Override

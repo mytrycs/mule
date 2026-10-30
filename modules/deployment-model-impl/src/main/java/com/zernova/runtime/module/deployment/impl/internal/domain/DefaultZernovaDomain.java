@@ -224,8 +224,8 @@ public class DefaultZernovaDomain extends AbstractDeployableArtifact<DomainDescr
       try (Scanner scanner = new Scanner(getArtifactClassLoader().getClassLoader().getResourceAsStream(configResourceFile))) {
         while (scanner.hasNextLine()) {
           final String lineFromFile = scanner.nextLine();
-          if (lineFromFile.contains("<mule ")) {
-            throw new ZernovaRuntimeException(createStaticMessage("Domain configuration file can not be created using core namespace. Use mule-domain namespace instead."));
+          if (lineFromFile.contains("<zernova ")) {
+            throw new ZernovaRuntimeException(createStaticMessage("Domain configuration file can not be created using core namespace. Use zernova-domain namespace instead."));
           }
         }
       }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule-domain xmlns="http://www.mulesoft.org/schema/mule/domain"
+<zernova-domain xmlns="https://schemas.zernova.dev/domain"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xmlns:goodbye="http://www.mulesoft.org/schema/mule/goodbye"
-             xsi:schemaLocation="http://www.mulesoft.org/schema/mule/domain http://www.mulesoft.org/schema/mule/domain/current/mule-domain.xsd
-                            http://www.mulesoft.org/schema/mule/goodbye http://www.mulesoft.org/schema/mule/goodbye/current/mule-goodbye.xsd">
+             xmlns:goodbye="https://schemas.zernova.dev/goodbye"
+             xsi:schemaLocation="https://schemas.zernova.dev/domain https://schemas.zernova.dev/domain/current/zernova-domain.xsd
+                            https://schemas.zernova.dev/goodbye https://schemas.zernova.dev/goodbye/current/zernova-goodbye.xsd">
 
     <goodbye:config name="Elvis"/>
-</mule-domain>
+</zernova-domain>

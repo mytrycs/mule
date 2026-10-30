@@ -69,7 +69,7 @@ public class ImmutableExtensionModel extends AbstractComplexModel implements Ext
   private final Set<ExternalLibraryModel> externalLibraries;
   private final Set<NotificationModel> notifications;
   private final ArtifactCoordinates artifactCoordinates;
-  private final ZernovaVersion minMuleVersion;
+  private final ZernovaVersion minZernovaVersion;
   private final Set<String> supportedJavaVersions;
 
   /**
@@ -343,7 +343,7 @@ public class ImmutableExtensionModel extends AbstractComplexModel implements Ext
    * @param deprecationModel      a {@link DeprecationModel} describing if the extension is deprecated. A null value means it is
    *                              not deprecated.
    * @param artifactCoordinates   The extension's {@link ArtifactCoordinates}
-   * @param minMuleVersion        the min mule version of the extension
+   * @param minZernovaVersion        the min mule version of the extension
    * @param supportedJavaVersions the Java versions supported by this extension
    * @throws IllegalArgumentException if {@code configurations} or {@link ParameterModel} are {@code null} or contain instances
    *                                  with non unique names, or if {@code name} is blank.
@@ -374,7 +374,7 @@ public class ImmutableExtensionModel extends AbstractComplexModel implements Ext
                                  Set<NotificationModel> notifications,
                                  DeprecationModel deprecationModel,
                                  ArtifactCoordinates artifactCoordinates,
-                                 ZernovaVersion minMuleVersion,
+                                 ZernovaVersion minZernovaVersion,
                                  Set<String> supportedJavaVersions) {
     super(name, description, operationModels, connectionProviders, sourceModels, displayModel, modelProperties, deprecationModel);
     this.configurations = copy(configurationModels);
@@ -400,7 +400,7 @@ public class ImmutableExtensionModel extends AbstractComplexModel implements Ext
     this.functions = copy(functions);
     this.notifications = copy(notifications);
     this.artifactCoordinates = artifactCoordinates;
-    this.minMuleVersion = minMuleVersion;
+    this.minZernovaVersion = minZernovaVersion;
     this.supportedJavaVersions = copy(supportedJavaVersions);
   }
 
@@ -587,8 +587,8 @@ public class ImmutableExtensionModel extends AbstractComplexModel implements Ext
    * {@inheritDoc}
    */
   @Override
-  public Optional<ZernovaVersion> getMinMuleVersion() {
-    return ofNullable(minMuleVersion);
+  public Optional<ZernovaVersion> getMinZernovaVersion() {
+    return ofNullable(minZernovaVersion);
   }
 
   /**
@@ -638,7 +638,7 @@ public class ImmutableExtensionModel extends AbstractComplexModel implements Ext
         ", externalLibraries=" + externalLibraries +
         ", notifications=" + notifications +
         ", artifactCoordinates=" + artifactCoordinates +
-        ", minMuleVersion=" + minMuleVersion +
+        ", minZernovaVersion=" + minZernovaVersion +
         "} " + super.toString();
   }
 }

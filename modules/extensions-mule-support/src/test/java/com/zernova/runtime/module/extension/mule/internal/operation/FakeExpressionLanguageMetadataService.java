@@ -111,7 +111,7 @@ public class FakeExpressionLanguageMetadataService implements ExpressionLanguage
 
     String mulePrefix = muleAndRest[0];
     String extensionPlusAlias = muleAndRest[1];
-    assert mulePrefix.equals("mule");
+    assert mulePrefix.equals("zernova");
 
     // ExtensionPrefix::TypeAlias
     String[] extensionAndAlias = extensionPlusAlias.split("::");

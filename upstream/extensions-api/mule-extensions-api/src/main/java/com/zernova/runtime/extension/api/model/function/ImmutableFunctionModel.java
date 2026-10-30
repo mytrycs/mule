@@ -31,7 +31,7 @@ public class ImmutableFunctionModel extends AbstractParameterizedModel implement
 
   private final OutputModel output;
   private final DeprecationModel deprecationModel;
-  private final ZernovaVersion minMuleVersion;
+  private final ZernovaVersion minZernovaVersion;
 
   /**
    * Creates a new instance with the given state
@@ -87,7 +87,7 @@ public class ImmutableFunctionModel extends AbstractParameterizedModel implement
    * @param modelProperties      A {@link Set} of custom properties which extend this model
    * @param deprecationModel     a {@link DeprecationModel} describing if the function is deprecated. A null value means it is not
    *                             deprecated.
-   * @param minMuleVersion       the min mule version of the function
+   * @param minZernovaVersion       the min mule version of the function
    * @throws IllegalArgumentException if {@code name} is blank or {@code executorFactory} is {@code null}
    * @since 1.5
    */
@@ -98,11 +98,11 @@ public class ImmutableFunctionModel extends AbstractParameterizedModel implement
                                 DisplayModel displayModel,
                                 Set<ModelProperty> modelProperties,
                                 DeprecationModel deprecationModel,
-                                ZernovaVersion minMuleVersion) {
+                                ZernovaVersion minZernovaVersion) {
     super(name, description, parameterGroupModels, displayModel, modelProperties);
     this.output = output;
     this.deprecationModel = deprecationModel;
-    this.minMuleVersion = minMuleVersion;
+    this.minZernovaVersion = minZernovaVersion;
   }
 
   @Override
@@ -124,8 +124,8 @@ public class ImmutableFunctionModel extends AbstractParameterizedModel implement
    * {@inheritDoc}
    */
   @Override
-  public Optional<ZernovaVersion> getMinMuleVersion() {
-    return ofNullable(minMuleVersion);
+  public Optional<ZernovaVersion> getMinZernovaVersion() {
+    return ofNullable(minZernovaVersion);
   }
 
   @Override
@@ -133,7 +133,7 @@ public class ImmutableFunctionModel extends AbstractParameterizedModel implement
     return "ImmutableFunctionModel{" +
         "output=" + output +
         ", deprecationModel=" + deprecationModel +
-        ", minMuleVersion=" + minMuleVersion +
+        ", minZernovaVersion=" + minZernovaVersion +
         "} " + super.toString();
   }
 }

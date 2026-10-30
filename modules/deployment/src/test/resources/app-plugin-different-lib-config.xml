@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+<zernova xmlns="https://schemas.zernova.dev/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:callback="http://www.mulesoft.org/schema/mule/callback"
+      xmlns:callback="https://schemas.zernova.dev/callback"
       xsi:schemaLocation="
-            http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/callback http://www.mulesoft.org/schema/mule/callback/current/mule-callback.xsd">
+            https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+            https://schemas.zernova.dev/callback https://schemas.zernova.dev/callback/current/zernova-callback.xsd">
 
     <flow name="main">
         <callback:callback class="org.foo.Plugin1Echo"/>
@@ -14,4 +14,4 @@
              class from the app is used instead of the class from the plugin which should not be visible to the app-->
         <callback:callback class="org.foo.echo.Plugin2Echo"/>
     </flow>
-</mule>
+</zernova>

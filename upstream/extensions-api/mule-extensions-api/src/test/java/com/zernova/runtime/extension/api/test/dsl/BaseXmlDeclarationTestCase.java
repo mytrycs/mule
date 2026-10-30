@@ -77,8 +77,8 @@ import org.mockito.junit.MockitoRule;
 public abstract class BaseXmlDeclarationTestCase {
 
   static final String PREFIX = "mockns";
-  static final String NAMESPACE = "http://www.mulesoft.org/schema/mule/mockns";
-  static final String SCHEMA_LOCATION = "http://www.mulesoft.org/schema/mule/mockns/current/mule-mockns.xsd";
+  static final String NAMESPACE = "https://schemas.zernova.dev/mockns";
+  static final String SCHEMA_LOCATION = "https://schemas.zernova.dev/mockns/current/zernova-mockns.xsd";
   static final String PARAMETER_NAME = "myCamelCaseName";
   static final String COLLECTION_NAME = "myCamelCaseNames";
   static final String SINGULARIZABLE_PARAMETER_NAME = "singularizableNames";
@@ -90,10 +90,10 @@ public abstract class BaseXmlDeclarationTestCase {
   static final BaseTypeBuilder TYPE_BUILDER = BaseTypeBuilder.create(JAVA);
   static final String EXTENSIBLE_TYPE_LIST_NAME = "extensibleTypeList";
   static final String IMPORT_PREFIX = "importns";
-  static final String IMPORT_NAMESPACE = "http://www.mulesoft.org/schema/mule/importns";
-  static final String IMPORT_SCHEMA_LOCATION = "http://www.mulesoft.org/schema/mule/importns/current/mule-importns.xsd";
+  static final String IMPORT_NAMESPACE = "https://schemas.zernova.dev/importns";
+  static final String IMPORT_SCHEMA_LOCATION = "https://schemas.zernova.dev/importns/current/zernova-importns.xsd";
   static final String IMPORT_WITH_XML_SCHEMA_LOCATION =
-      "http://www.mulesoft.org/schema/mule/importns/current/mule-import-extension-with-xml.xsd";
+      "https://schemas.zernova.dev/importns/current/zernova-import-extension-with-xml.xsd";
 
   static final String IMPORT_EXTENSION_NAME = "importExtension";
   static final String IMPORT_EXTENSION_NAME_WITH_XML = "importExtensionWithXml";
@@ -528,7 +528,7 @@ public abstract class BaseXmlDeclarationTestCase {
 
   protected XmlDslModel createXmlDslModel() {
     return XmlDslModel.builder()
-        .setXsdFileName("mule-mockns.xsd")
+        .setXsdFileName("zernova-mockns.xsd")
         .setPrefix(PREFIX)
         .setNamespace(NAMESPACE)
         .setSchemaLocation(SCHEMA_LOCATION)
@@ -538,7 +538,7 @@ public abstract class BaseXmlDeclarationTestCase {
 
   protected XmlDslModel createImportedXmlDslModel() {
     return XmlDslModel.builder()
-        .setXsdFileName("mule-importns.xsd")
+        .setXsdFileName("zernova-importns.xsd")
         .setPrefix(IMPORT_PREFIX)
         .setNamespace(IMPORT_NAMESPACE)
         .setSchemaLocation(IMPORT_SCHEMA_LOCATION)

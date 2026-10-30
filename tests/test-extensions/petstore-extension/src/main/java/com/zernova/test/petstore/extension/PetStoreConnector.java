@@ -41,7 +41,7 @@ import java.util.concurrent.atomic.AtomicInteger;
     PetStoreSimpleSourceWithSdkApi.class, PetStoreListSourceLegacyCallback.class, InvalidIgnoredSource.class})
 @com.zernova.sdk.api.annotation.Sources({NumberPetAdoptionSource.class, WatermarkingPetAdoptionSource.class,
     PetStoreListSource.class, PetAdoptionLimitingSource.class})
-@Xml(namespace = "http://www.mulesoft.org/schema/mule/petstore", prefix = "petstore")
+@Xml(namespace = "https://schemas.zernova.dev/petstore", prefix = "petstore")
 public class PetStoreConnector {
 
   /**

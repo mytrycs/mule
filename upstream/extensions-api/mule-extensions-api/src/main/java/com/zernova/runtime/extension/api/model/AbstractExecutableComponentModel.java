@@ -291,7 +291,7 @@ public abstract class AbstractExecutableComponentModel extends AbstractComponent
    * @param sampleDataProviderModel A nullable {@link SampleDataProviderModel} which describes the component's sample data
    *                                capabilities
    * @param semanticTerms           a {@link Set} of semantic terms which describe the component's meaning and effect
-   * @param minMuleVersion          the min mule version of the component
+   * @param minZernovaVersion          the min mule version of the component
    * @throws IllegalArgumentException if {@code name} is blank
    * @since 1.5.0
    */
@@ -313,10 +313,10 @@ public abstract class AbstractExecutableComponentModel extends AbstractComponent
                                              DeprecationModel deprecationModel,
                                              SampleDataProviderModel sampleDataProviderModel,
                                              Set<String> semanticTerms,
-                                             ZernovaVersion minMuleVersion) {
+                                             ZernovaVersion minZernovaVersion) {
     super(name, description, parameterGroupModels, nestedComponents, displayModel, errors, stereotype, visibility,
           modelProperties,
-          deprecationModel, semanticTerms, minMuleVersion);
+          deprecationModel, semanticTerms, minZernovaVersion);
     this.output = output;
     this.outputAttributes = outputAttributes;
     this.requiresConnection = requiresConnection;

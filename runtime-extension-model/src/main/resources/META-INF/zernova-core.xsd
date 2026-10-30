@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsd:schema xmlns="https://schemas.zernova.dev/core"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="https://schemas.zernova.dev/core"
+            attributeFormDefault="unqualified"
+            elementFormDefault="qualified">
+
+    <xsd:include schemaLocation="https://schemas.zernova.dev/core/current/zernova-core-common.xsd"/>
+
+</xsd:schema>

@@ -29,8 +29,8 @@ public class ApplicationDescriptor extends DeployableArtifactDescriptor {
 
   public static final String DEFAULT_CONFIGURATION_RESOURCE = "mule-config.xml";
   public static final String REPOSITORY_FOLDER = "repository";
-  public static final String MULE_APPLICATION_CLASSIFIER = "mule-application";
-  public static final String MULE_DOMAIN_CLASSIFIER = "mule-domain";
+  public static final String MULE_APPLICATION_CLASSIFIER = "zernova-application";
+  public static final String MULE_DOMAIN_CLASSIFIER = "zernova-domain";
 
   private String encoding;
   private Map<String, String> appProperties = new HashMap<>();

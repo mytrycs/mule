@@ -7,7 +7,7 @@
     <groupId>com.zernova.test</groupId>
     <artifactId>db-plugin-with-additional-dep</artifactId>
     <version>1.0.0</version>
-    <packaging>mule-application</packaging>
+    <packaging>zernova-application</packaging>
 
     <build>
         <plugins>
@@ -25,7 +25,7 @@
             <groupId>com.zernova.test</groupId>
             <artifactId>application-using-additional-libraries</artifactId>
             <version>1.0.0</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
         </dependency>
     </dependencies>
 

@@ -6,7 +6,7 @@
     <groupId>com.test</groupId>
     <artifactId>basic</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>mule-domain</packaging>
+    <packaging>zernova-domain</packaging>
 
     <name>basic</name>
 
@@ -38,7 +38,7 @@
             <groupId>com.zernova.connectors</groupId>
             <artifactId>mule-sockets-connector</artifactId>
             <version>${mule.sockets.connector.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
         </dependency>
     </dependencies>
 

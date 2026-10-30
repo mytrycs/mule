@@ -160,8 +160,8 @@ public class ZernovaConfigurationDelegate implements ZernovaConfiguration {
   }
 
   @Override
-  public Optional<ZernovaVersion> getMinMuleVersion() {
-    return getDelegate().getMinMuleVersion();
+  public Optional<ZernovaVersion> getMinZernovaVersion() {
+    return getDelegate().getMinZernovaVersion();
   }
 
   @Override

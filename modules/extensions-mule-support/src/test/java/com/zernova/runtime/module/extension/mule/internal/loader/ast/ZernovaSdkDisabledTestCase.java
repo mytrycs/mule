@@ -70,7 +70,7 @@ public class ZernovaSdkDisabledTestCase extends AbstractZernovaSdkAstTestCase {
   public void whenMuleSdkIsDisabledTheNamespaceThisIsNotResolved() {
     var thrown = assertThrows(ZernovaRuntimeException.class, () -> getArtifactAst("validation/app-using-namespace-this.xml"));
     assertThat(thrown.getMessage(),
-               containsString("Can't resolve http://www.mulesoft.org/schema/mule/this/current/mule-this.xsd, A dependency or plugin might be missing"));
+               containsString("Can't resolve https://schemas.zernova.dev/this/current/zernova-this.xsd, A dependency or plugin might be missing"));
   }
 
   private void assertAllValidationsLevel(ValidationResult validationResult, Level expectedValidationLevel) {

@@ -10,10 +10,10 @@
   "category": "COMMUNITY",
   "xmlDsl": {
     "prefix": "module-stereotypes",
-    "namespace": "http://www.mulesoft.org/schema/mule/module-stereotypes",
-    "schemaLocation": "http://www.mulesoft.org/schema/mule/module-stereotypes/current/mule-module-stereotypes.xsd",
+    "namespace": "https://schemas.zernova.dev/module-stereotypes",
+    "schemaLocation": "https://schemas.zernova.dev/module-stereotypes/current/zernova-module-stereotypes.xsd",
     "schemaVersion": "4.0.0",
-    "xsdFileName": "mule-module-stereotypes.xsd"
+    "xsdFileName": "zernova-module-stereotypes.xsd"
   },
   "resources": [],
   "subTypes": [],
@@ -48,7 +48,7 @@
         },
         "QName": {
           "value": {
-            "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+            "namespaceURI": "https://schemas.zernova.dev/tls",
             "localPart": "context",
             "prefix": "tls"
           }
@@ -100,7 +100,7 @@
               "infrastructureType": {},
               "QName": {
                 "value": {
-                  "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                  "namespaceURI": "https://schemas.zernova.dev/tls",
                   "localPart": "trust-store",
                   "prefix": "tls"
                 }
@@ -233,7 +233,7 @@
               "infrastructureType": {},
               "QName": {
                 "value": {
-                  "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                  "namespaceURI": "https://schemas.zernova.dev/tls",
                   "localPart": "key-store",
                   "prefix": "tls"
                 }
@@ -391,7 +391,7 @@
                   "infrastructureType": {},
                   "QName": {
                     "value": {
-                      "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                      "namespaceURI": "https://schemas.zernova.dev/tls",
                       "localPart": "standard-revocation-check",
                       "prefix": "tls"
                     }
@@ -474,7 +474,7 @@
                   "infrastructureType": {},
                   "QName": {
                     "value": {
-                      "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                      "namespaceURI": "https://schemas.zernova.dev/tls",
                       "localPart": "custom-ocsp-responder",
                       "prefix": "tls"
                     }
@@ -519,7 +519,7 @@
                   "infrastructureType": {},
                   "QName": {
                     "value": {
-                      "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                      "namespaceURI": "https://schemas.zernova.dev/tls",
                       "localPart": "crl-file",
                       "prefix": "tls"
                     }
@@ -574,7 +574,7 @@
         "namespace": "MODULE-STEREOTYPES",
         "parent": {
           "type": "MODULE_CONFIG",
-          "namespace": "MULE"
+          "namespace": "ZERNOVA"
         }
       },
       "parameterGroupModels": [
@@ -610,7 +610,7 @@
                   "namespace": "MARVEL",
                   "parent": {
                     "type": "MODULE_CONFIG",
-                    "namespace": "MULE"
+                    "namespace": "ZERNOVA"
                   }
                 }
               ],
@@ -650,7 +650,7 @@
                   "namespace": "HEISENBERG",
                   "parent": {
                     "type": "MODULE_CONFIG",
-                    "namespace": "MULE"
+                    "namespace": "ZERNOVA"
                   }
                 },
                 {
@@ -658,7 +658,7 @@
                   "namespace": "MARVEL",
                   "parent": {
                     "type": "MODULE_CONFIG",
-                    "namespace": "MULE"
+                    "namespace": "ZERNOVA"
                   }
                 }
               ],
@@ -698,7 +698,7 @@
                   "namespace": "MARVEL",
                   "parent": {
                     "type": "MODULE_CONFIG",
-                    "namespace": "MULE"
+                    "namespace": "ZERNOVA"
                   }
                 }
               ],
@@ -856,9 +856,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "expiration-policy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -919,7 +919,7 @@
               "namespace": "MODULE-STEREOTYPES",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -953,11 +953,11 @@
                   "allowedStereotypeModels": [
                     {
                       "type": "FLOW",
-                      "namespace": "MULE"
+                      "namespace": "ZERNOVA"
                     },
                     {
                       "type": "SUB_FLOW",
-                      "namespace": "MULE"
+                      "namespace": "ZERNOVA"
                     }
                   ],
                   "semanticTerms": [],
@@ -1011,7 +1011,7 @@
                       "namespace": "MODULE-STEREOTYPES",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -1220,9 +1220,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "error-mappings",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "sinceMuleVersion": {
@@ -1290,7 +1290,7 @@
               "namespace": "MODULE-STEREOTYPES",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -1373,7 +1373,7 @@
                       "namespace": "MODULE-STEREOTYPES",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -1582,9 +1582,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "error-mappings",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "sinceMuleVersion": {
@@ -1628,7 +1628,7 @@
             "namespace": "MODULE-STEREOTYPES",
             "parent": {
               "type": "CONNECTION",
-              "namespace": "MULE"
+              "namespace": "ZERNOVA"
             }
           },
           "parameterGroupModels": [
@@ -1664,7 +1664,7 @@
                       "namespace": "MARVEL",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -1704,7 +1704,7 @@
                       "namespace": "HEISENBERG",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -1749,10 +1749,10 @@
   "modelProperties": {
     "com.zernova.runtime.extension.api.property.XmlExtensionModelProperty": {
       "namespacesDependencies": [
-        "http://www.mulesoft.org/schema/mule/petstore",
-        "http://www.mulesoft.org/schema/mule/marvel",
-        "http://www.mulesoft.org/schema/mule/module",
-        "http://www.mulesoft.org/schema/mule/core"
+        "https://schemas.zernova.dev/petstore",
+        "https://schemas.zernova.dev/marvel",
+        "https://schemas.zernova.dev/module",
+        "https://schemas.zernova.dev/core"
       ]
     }
   },

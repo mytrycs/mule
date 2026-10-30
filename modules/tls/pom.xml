@@ -79,7 +79,7 @@
             <groupId>com.zernova.tests.plugin</groupId>
             <artifactId>mule-tests-component-plugin</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>

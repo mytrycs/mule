@@ -7,7 +7,7 @@
 /* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package com.zernova.runtime.module.deployment.impl.internal.builder;
 
-import static com.zernova.runtime.api.deployment.meta.Product.MULE;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA;
 import static com.zernova.runtime.container.internal.ClasspathModuleDiscoverer.EXPORTED_CLASS_PACKAGES_PROPERTY;
 import static com.zernova.runtime.container.internal.ClasspathModuleDiscoverer.EXPORTED_RESOURCE_PROPERTY;
 import static com.zernova.runtime.container.internal.ClasspathModuleDiscoverer.PRIVILEGED_ARTIFACTS_PROPERTY;
@@ -122,8 +122,8 @@ public class ArtifactPluginFileBuilder extends AbstractArtifactFileBuilder<Artif
 
       final ZernovaPluginModel.ZernovaPluginModelBuilder builder = new ZernovaPluginModel.ZernovaPluginModelBuilder();
       builder.setName(getArtifactId())
-          .setMinMuleVersion("4.0.0")
-          .setRequiredProduct(MULE);
+          .setMinZernovaVersion("4.0.0")
+          .setRequiredProduct(ZERNOVA);
       ZernovaArtifactLoaderDescriptorBuilder classLoaderModelDescriptorBuilder =
           new ZernovaArtifactLoaderDescriptorBuilder().setId(MULE_LOADER_ID);
       if (properties.containsKey(EXPORTED_CLASS_PACKAGES_PROPERTY)) {

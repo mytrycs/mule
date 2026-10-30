@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/marvel http://www.mulesoft.org/schema/mule/marvel/current/mule-marvel.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:marvel="https://schemas.zernova.dev/marvel"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/marvel https://schemas.zernova.dev/marvel/current/zernova-marvel.xsd">
 
     <marvel:dr-strange-config name="drStrange" />
 
@@ -13,4 +13,4 @@
         <logger />
     </flow>
 
-</mule>
+</zernova>

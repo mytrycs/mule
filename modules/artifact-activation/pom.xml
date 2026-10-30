@@ -88,7 +88,7 @@
         </dependency>
         <dependency>
             <groupId>com.zernova.runtime</groupId>
-            <artifactId>mule-artifact-ast-xml-parser</artifactId>
+            <artifactId>zernova-artifact-ast-xml-parser</artifactId>
         </dependency>
         <dependency>
             <groupId>com.zernova.runtime</groupId>

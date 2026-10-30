@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:module-using-raise-error="http://www.mulesoft.org/schema/mule/module-using-raise-error"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/module-using-raise-error http://www.mulesoft.org/schema/mule/module-using-raise-error/current/mule-module-using-raise-error.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:module-using-raise-error="https://schemas.zernova.dev/module-using-raise-error"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/module-using-raise-error https://schemas.zernova.dev/module-using-raise-error/current/zernova-module-using-raise-error.xsd">
 
     <flow name="simple">
         <module-using-raise-error:fail-raise-error/>
@@ -51,4 +51,4 @@
         <module-using-raise-error:fail-custom-exception content="#[vars.food]"/>
     </flow>
 
-</mule>
+</zernova>

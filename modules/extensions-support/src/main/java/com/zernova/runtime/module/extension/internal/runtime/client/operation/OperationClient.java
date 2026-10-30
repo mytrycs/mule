@@ -730,8 +730,8 @@ public class OperationClient implements Lifecycle {
     }
 
     @Override
-    public Optional<ZernovaVersion> getMinMuleVersion() {
-      return delegate.getMinMuleVersion();
+    public Optional<ZernovaVersion> getMinZernovaVersion() {
+      return delegate.getMinZernovaVersion();
     }
 
     @Override

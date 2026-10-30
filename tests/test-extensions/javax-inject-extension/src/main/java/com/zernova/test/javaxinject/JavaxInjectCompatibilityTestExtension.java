@@ -21,7 +21,7 @@ import javax.inject.Inject;
 
 @Extension(name = JavaxInjectCompatibilityTestExtension.JAVAX_INJECT_COMPATIBILITY_TEST_EXTENSION)
 @Xml(prefix = "javax-inject",
-    namespace = "http://www.mulesoft.org/schema/mule/javax-inject")
+    namespace = "https://schemas.zernova.dev/javax-inject")
 @JavaVersionSupport({JAVA_21, JAVA_17})
 @Configurations(JavaxInjectCompatibilityTestConfiguration.class)
 @ExpressionFunctions(JavaxInjectCompatibilityTestFunction.class)

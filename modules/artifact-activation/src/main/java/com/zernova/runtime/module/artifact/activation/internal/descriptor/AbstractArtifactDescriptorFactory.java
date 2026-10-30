@@ -35,7 +35,7 @@ public abstract class AbstractArtifactDescriptorFactory<M extends AbstractZernov
     this.artifactLocation = artifactLocation;
 
     this.artifactDescriptorValidator = artifactDescriptorValidatorBuilder
-        .validateMinMuleVersion()
+        .validateMinZernovaVersion()
         .validateMuleProduct()
         .validateVersionFormat()
         .validateSupportedJavaVersions()
@@ -49,7 +49,7 @@ public abstract class AbstractArtifactDescriptorFactory<M extends AbstractZernov
 
     BundleDescriptor bundleDescriptor = getBundleDescriptor();
     descriptor.setBundleDescriptor(bundleDescriptor);
-    descriptor.setMinMuleVersion(new ZernovaVersion(artifactModel.getMinMuleVersion()));
+    descriptor.setMinZernovaVersion(new ZernovaVersion(artifactModel.getMinZernovaVersion()));
     descriptor.setRequiredProduct(artifactModel.getRequiredProduct());
 
     ClassLoaderConfiguration classLoaderConfiguration =

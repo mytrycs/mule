@@ -13,8 +13,8 @@ import static com.zernova.runtime.module.extension.internal.loader.parser.java.Z
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.ParameterDeclarationContext.forConfig;
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.lib.JavaExternalLibModelParserUtils.parseExternalLibraryModels;
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.stereotypes.JavaStereotypeModelParserUtils.resolveStereotype;
-import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.getContainerAnnotationMinMuleVersion;
-import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.resolveConfigurationMinMuleVersion;
+import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.getContainerAnnotationMinZernovaVersion;
+import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.resolveConfigurationMinZernovaVersion;
 
 import static java.lang.String.format;
 import static java.util.Collections.sort;
@@ -192,9 +192,9 @@ public class JavaConfigurationModelParser extends AbstractJavaModelParser implem
   }
 
   @Override
-  public Optional<MinZernovaVersionParser> getResolvedMinMuleVersion() {
-    return of(resolveConfigurationMinMuleVersion(configElement,
-                                                 getContainerAnnotationMinMuleVersion(extensionElement,
+  public Optional<MinZernovaVersionParser> getResolvedMinZernovaVersion() {
+    return of(resolveConfigurationMinZernovaVersion(configElement,
+                                                 getContainerAnnotationMinZernovaVersion(extensionElement,
                                                                                       Configurations.class,
                                                                                       Configurations::value,
                                                                                       configElement)));

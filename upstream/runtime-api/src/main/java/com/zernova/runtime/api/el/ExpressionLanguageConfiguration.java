@@ -52,6 +52,6 @@ public interface ExpressionLanguageConfiguration {
    *
    * @since 1.5.0
    */
-  Optional<ZernovaVersion> getMinMuleVersion();
+  Optional<ZernovaVersion> getMinZernovaVersion();
 
 }

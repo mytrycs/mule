@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module name="module-global-element-default-params"
-        xmlns="http://www.mulesoft.org/schema/mule/module"
-        xmlns:tns="http://www.mulesoft.org/schema/mule/module-global-element-default-params"
-        xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore"
+        xmlns="https://schemas.zernova.dev/module"
+        xmlns:tns="https://schemas.zernova.dev/module-global-element-default-params"
+        xmlns:petstore="https://schemas.zernova.dev/petstore"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="
-           http://www.mulesoft.org/schema/mule/module http://www.mulesoft.org/schema/mule/module/current/mule-module.xsd
-           http://www.mulesoft.org/schema/mule/module-global-element-default-params http://www.mulesoft.org/schema/mule/module-global-element-default-params/current/mule-module-global-element-default-params.xsd
-           http://www.mulesoft.org/schema/mule/petstore http://www.mulesoft.org/schema/mule/petstore/current/mule-petstore.xsd">
+           https://schemas.zernova.dev/module https://schemas.zernova.dev/module/current/zernova-module.xsd
+           https://schemas.zernova.dev/module-global-element-default-params https://schemas.zernova.dev/module-global-element-default-params/current/zernova-module-global-element-default-params.xsd
+           https://schemas.zernova.dev/petstore https://schemas.zernova.dev/petstore/current/zernova-petstore.xsd">
 
     <property name="username" type="string" defaultValue="john"/>
     <property name="password" type="string" defaultValue="notDoe"/>

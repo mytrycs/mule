@@ -2,21 +2,21 @@
 <module name="module-using-core"
         doc:description="This module relies entirely in runtime provided components (no other Plugin dependencies)"
 
-        xmlns="http://www.mulesoft.org/schema/mule/module"
-        xmlns:mule="http://www.mulesoft.org/schema/mule/core"
-        xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-        xmlns:tns="http://www.mulesoft.org/schema/mule/module-using-core"
+        xmlns="https://schemas.zernova.dev/module"
+        xmlns:zernova="https://schemas.zernova.dev/core"
+        xmlns:doc="https://schemas.zernova.dev/documentation"
+        xmlns:tns="https://schemas.zernova.dev/module-using-core"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="
-           http://www.mulesoft.org/schema/mule/module http://www.mulesoft.org/schema/mule/module/current/mule-module.xsd
-           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-           http://www.mulesoft.org/schema/mule/module-using-core http://www.mulesoft.org/schema/mule/module-using-core/current/mule-module-using-core.xsd">
+           https://schemas.zernova.dev/module https://schemas.zernova.dev/module/current/zernova-module.xsd
+           https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+           https://schemas.zernova.dev/module-using-core https://schemas.zernova.dev/module-using-core/current/zernova-module-using-core.xsd">
 
     <property name="echoMessage" type="string"/>
 
     <operation name="echo-set-payload" doc:description="Sets the payload to parametrized value">
         <body>
-            <mule:set-payload value="#[vars.echoMessage]" mimeType="text/plain" encoding="UTF-8"/>
+            <zernova:set-payload value="#[vars.echoMessage]" mimeType="text/plain" encoding="UTF-8"/>
         </body>
         <output type="string" doc:description="Payload's output"/>
     </operation>

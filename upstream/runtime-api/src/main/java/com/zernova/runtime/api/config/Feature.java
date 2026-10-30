@@ -38,7 +38,7 @@ public interface Feature {
 
   /**
    * A comma-separated list of versions (must include all the different minors) since this feature will be enabled by default. Any
-   * relevant artifact (application, policy... etc) with a minMuleVersion matching this list will have this {@link Feature}
+   * relevant artifact (application, policy... etc) with a minZernovaVersion matching this list will have this {@link Feature}
    * enabled by default.
    *
    * @return A comma-separated list of versions, ex <code>"4.4.0, 4.3.0-202103"</code>.

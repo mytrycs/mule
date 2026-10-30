@@ -302,7 +302,7 @@ public class ImmutableOperationModel extends AbstractExecutableComponentModel im
    * @param sampleDataProviderModel A nullable {@link SampleDataProviderModel} which describes the component's sample data
    *                                capabilities
    * @param semanticTerms           a {@link Set} of semantic terms which describe the operation's meaning and effect
-   * @param minMuleVersion          the min mule version for the operation
+   * @param minZernovaVersion          the min mule version for the operation
    * @throws IllegalArgumentException if {@code name} is blank or {@code executorFactory} is {@code null}
    * @since 1.5.0
    */
@@ -325,10 +325,10 @@ public class ImmutableOperationModel extends AbstractExecutableComponentModel im
                                  DeprecationModel deprecationModel,
                                  SampleDataProviderModel sampleDataProviderModel,
                                  Set<String> semanticTerms,
-                                 ZernovaVersion minMuleVersion) {
+                                 ZernovaVersion minZernovaVersion) {
     super(name, description, parameterGroupModels, output, outputAttributes, requiresConnection, transactional, supportsStreaming,
           displayModel, errors, stereotype, visibility, modelProperties, nestedComponents, notifications, deprecationModel,
-          sampleDataProviderModel, semanticTerms, minMuleVersion);
+          sampleDataProviderModel, semanticTerms, minZernovaVersion);
     this.blocking = blocking;
     this.executionType = executionType;
   }

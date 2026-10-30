@@ -386,17 +386,17 @@ public enum ZernovaRuntimeFeature implements Feature {
    * @since 4.5.0, 4.4.0-202210
    */
   SUPPRESS_ERRORS(
-      "When enabled, error suppression will happen. This will affect, for example, the Web Service Consumer connector and the Until Successful scope that will always report errors from their corresponding namespaces (MULE and WSC). Suppressed errors will be treated as underlying causes.",
+      "When enabled, error suppression will happen. This will affect, for example, the Web Service Consumer connector and the Until Successful scope that will always report errors from their corresponding namespaces (ZERNOVA and WSC). Suppressed errors will be treated as underlying causes.",
       "W-11308645", "4.5.0, 4.4.0-202210, 4.3.0-202210", SUPPRESS_ERRORS_PROPERTY),
 
   /**
    * When enabled, internal exceptions when processing an event in the 'idempotent-message-validator' will be rethrown instead of
-   * raising a general MULE:DUPLICATE_MESSAGE.
+   * raising a general ZERNOVA:DUPLICATE_MESSAGE.
    *
    * @since 4.5.0
    */
   RETHROW_EXCEPTIONS_IN_IDEMPOTENT_MESSAGE_VALIDATOR(
-      "When enabled, internal exceptions when processing an event in the 'idempotent-message-validator' will be rethrown instead of throwing a general MULE:DUPLICATE_MESSAGE.",
+      "When enabled, internal exceptions when processing an event in the 'idempotent-message-validator' will be rethrown instead of throwing a general ZERNOVA:DUPLICATE_MESSAGE.",
       "W-11529823", "4.5.0", RETHROW_EXCEPTIONS_IN_IDEMPOTENT_MESSAGE_VALIDATOR_PROPERTY),
 
   /**

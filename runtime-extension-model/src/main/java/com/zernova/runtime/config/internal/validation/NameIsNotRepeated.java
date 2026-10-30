@@ -38,7 +38,7 @@ import com.google.common.collect.ImmutableSet;
  */
 public class NameIsNotRepeated implements Validation {
 
-  private static final String MULE_ROOT_ELEMENT = "mule";
+  private static final String MULE_ROOT_ELEMENT = "zernova";
 
   public static final String TEST_NAMESPACE = "test";
 

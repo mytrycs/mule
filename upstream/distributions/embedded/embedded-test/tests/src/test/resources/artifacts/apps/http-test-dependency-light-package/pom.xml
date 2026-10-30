@@ -7,7 +7,7 @@
     <groupId>test</groupId>
     <artifactId>http-test-dependency</artifactId>
     <version>1.0.0</version>
-    <packaging>mule-application</packaging>
+    <packaging>zernova-application</packaging>
 
     <properties>
         <h2.version>1.3.164</h2.version>
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>com.zernova.connectors</groupId>
             <artifactId>mule-http-connector</artifactId>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
     </dependencies>

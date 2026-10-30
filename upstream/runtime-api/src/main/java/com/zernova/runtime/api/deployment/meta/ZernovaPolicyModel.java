@@ -21,7 +21,7 @@ import com.zernova.runtime.api.util.JavaConstants;
 import java.util.Set;
 
 /**
- * This object matches the mule-artifact.json element within a policy. The describer holds information that has being picked up
+ * This object matches the zernova-artifact.json element within a policy. The describer holds information that has being picked up
  * from the JSON file (and the pom.xml when implemented).
  *
  * @since 1.0
@@ -35,12 +35,12 @@ public class ZernovaPolicyModel extends AbstractZernovaArtifactModel {
     // Nothing to do, this is just for allowing instantiation to GSON
   }
 
-  private ZernovaPolicyModel(String name, String minMuleVersion,
+  private ZernovaPolicyModel(String name, String minZernovaVersion,
                           Product product,
                           ZernovaArtifactLoaderDescriptor classLoaderModelLoaderDescriptor,
                           ZernovaArtifactLoaderDescriptor bundleDescriptor,
                           Set<String> supportedJavaVersions) {
-    super(name, minMuleVersion, product, classLoaderModelLoaderDescriptor, bundleDescriptor);
+    super(name, minZernovaVersion, product, classLoaderModelLoaderDescriptor, bundleDescriptor);
     this.supportedJavaVersions = supportedJavaVersions;
   }
 
@@ -82,11 +82,11 @@ public class ZernovaPolicyModel extends AbstractZernovaArtifactModel {
     @Override
     public ZernovaPolicyModel build() {
       checkArgument(!isBlank(getName()), "name cannot be a blank");
-      checkArgument(getMinMuleVersion() != null, "minMuleVersion cannot be null");
+      checkArgument(getMinZernovaVersion() != null, "minZernovaVersion cannot be null");
       checkArgument(getBundleDescriptorLoader() != null, "bundleDescriber cannot be null");
 
       return new ZernovaPolicyModel(getName(),
-                                 getMinMuleVersion(),
+                                 getMinZernovaVersion(),
                                  getRequiredProduct(),
                                  getClassLoaderModelDescriptorLoader(),
                                  getBundleDescriptorLoader(),

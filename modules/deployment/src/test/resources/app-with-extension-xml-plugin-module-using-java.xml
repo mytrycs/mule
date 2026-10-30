@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xmlns:module-using-java="http://www.mulesoft.org/schema/mule/module-using-java"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-      http://www.mulesoft.org/schema/mule/module-using-java http://www.mulesoft.org/schema/mule/module-using-java/current/mule-module-using-java.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="https://schemas.zernova.dev/core"
+      xmlns:module-using-java="https://schemas.zernova.dev/module-using-java"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+      https://schemas.zernova.dev/module-using-java https://schemas.zernova.dev/module-using-java/current/zernova-module-using-java.xsd">
 
     <flow name="main">
         <module-using-java:execute-java-class/>
     </flow>
-</mule>
+</zernova>

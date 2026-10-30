@@ -134,8 +134,8 @@ public class ParameterModelParserDecorator implements ParameterModelParser {
   }
 
   @Override
-  public Optional<MinZernovaVersionParser> getResolvedMinMuleVersion() {
-    return decoratee.getResolvedMinMuleVersion();
+  public Optional<MinZernovaVersionParser> getResolvedMinZernovaVersion() {
+    return decoratee.getResolvedMinZernovaVersion();
   }
 
   @Override

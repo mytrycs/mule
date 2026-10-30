@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module name="module-using-errormapping"
-        xmlns="http://www.mulesoft.org/schema/mule/module"
-        xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore"
-        xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+        xmlns="https://schemas.zernova.dev/module"
+        xmlns:petstore="https://schemas.zernova.dev/petstore"
+        xmlns:zernova="https://schemas.zernova.dev/core"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="
-           http://www.mulesoft.org/schema/mule/module http://www.mulesoft.org/schema/mule/module/current/mule-module.xsd
-           http://www.mulesoft.org/schema/mule/petstore http://www.mulesoft.org/schema/mule/petstore/current/mule-petstore.xsd
-           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+           https://schemas.zernova.dev/module https://schemas.zernova.dev/module/current/zernova-module.xsd
+           https://schemas.zernova.dev/petstore https://schemas.zernova.dev/petstore/current/zernova-petstore.xsd
+           https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd">
 
     <petstore:config name="config" cashierName="cashierName">
         <petstore:connection username="john" password="doe"/>
@@ -22,7 +22,7 @@
         </parameters>
         <body>
             <petstore:fail petNames="#[vars.petNames]">
-                <mule:error-mapping sourceType="CONNECTIVITY"/>
+                <zernova:error-mapping sourceType="CONNECTIVITY"/>
             </petstore:fail>
         </body>
         <output type="string"/>
@@ -37,13 +37,13 @@
             <parameter name="amount" type="number" defaultValue="3"/>
         </parameters>
         <body>
-            <mule:foreach collection="#[(1 to vars.amount) as Array]">
-                <mule:foreach collection="#[(vars.amount to 1) as Array]">
+            <zernova:foreach collection="#[(1 to vars.amount) as Array]">
+                <zernova:foreach collection="#[(vars.amount to 1) as Array]">
                     <petstore:fail petNames="#[vars.petNames]">
-                        <mule:error-mapping sourceType="CONNECTIVITY"/>
+                        <zernova:error-mapping sourceType="CONNECTIVITY"/>
                     </petstore:fail>
-                </mule:foreach>
-            </mule:foreach>
+                </zernova:foreach>
+            </zernova:foreach>
         </body>
         <output type="string"/>
         <errors>

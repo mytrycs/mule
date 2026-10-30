@@ -17,6 +17,7 @@ import static org.mockito.Mockito.when;
 
 import com.zernova.runtime.api.meta.ZernovaVersion;
 import com.zernova.runtime.module.artifact.api.descriptor.ArtifactDescriptor;
+import com.zernova.runtime.module.artifact.api.descriptor.ApplicationDescriptor;
 import com.zernova.runtime.module.artifact.api.descriptor.ArtifactDescriptorCreateException;
 import com.zernova.tck.junit4.AbstractZernovaTestCase;
 
@@ -25,9 +26,19 @@ import org.junit.jupiter.api.Test;
 class MinZernovaVersionArtifactDescriptorValidatorTestCase extends AbstractZernovaTestCase {
 
   @Test
+  void applicationUsesIndependentProductVersion() {
+    final var descriptor = new ApplicationDescriptor("zernova-http-app");
+    descriptor.setMinZernovaVersion(new ZernovaVersion("0.4.0"));
+    final var validator = new MinZernovaVersionArtifactDescriptorValidator(false, () -> "4.10.0");
+    validator.validate(descriptor);
+    descriptor.setMinZernovaVersion(new ZernovaVersion("0.5.0"));
+    assertThrows(ArtifactDescriptorCreateException.class, () -> validator.validate(descriptor));
+  }
+
+  @Test
   void validationOk() {
     final var descriptor = mock(ArtifactDescriptor.class);
-    when(descriptor.getMinMuleVersion()).thenReturn(new ZernovaVersion("4.6"));
+    when(descriptor.getMinZernovaVersion()).thenReturn(new ZernovaVersion("4.6"));
     when(descriptor.getName()).thenReturn("test");
 
     final var validator = new MinZernovaVersionArtifactDescriptorValidator(false, () -> "4.9");
@@ -37,7 +48,7 @@ class MinZernovaVersionArtifactDescriptorValidatorTestCase extends AbstractZerno
   @Test
   void validationFailure() {
     final var descriptor = mock(ArtifactDescriptor.class);
-    when(descriptor.getMinMuleVersion()).thenReturn(new ZernovaVersion("4.99999"));
+    when(descriptor.getMinZernovaVersion()).thenReturn(new ZernovaVersion("4.99999"));
     when(descriptor.getName()).thenReturn("test");
 
     final var validator = new MinZernovaVersionArtifactDescriptorValidator(false, () -> "4.9");
@@ -47,9 +58,9 @@ class MinZernovaVersionArtifactDescriptorValidatorTestCase extends AbstractZerno
   }
 
   @Test
-  void validateMinMuleVersionWithSemanticVersion() {
+  void validateMinZernovaVersionWithSemanticVersion() {
     final var descriptor = mock(ArtifactDescriptor.class);
-    when(descriptor.getMinMuleVersion()).thenReturn(new ZernovaVersion("4.9.1"));
+    when(descriptor.getMinZernovaVersion()).thenReturn(new ZernovaVersion("4.9.1"));
     when(descriptor.getName()).thenReturn("test");
 
     final var validator = new MinZernovaVersionArtifactDescriptorValidator(true, () -> "4.9.0");

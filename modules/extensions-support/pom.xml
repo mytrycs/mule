@@ -109,7 +109,7 @@
         </dependency>
         <dependency>
             <groupId>com.zernova.runtime</groupId>
-            <artifactId>mule-artifact-ast</artifactId>
+            <artifactId>zernova-artifact-ast</artifactId>
         </dependency>
         <dependency>
             <groupId>com.zernova.runtime</groupId>
@@ -255,42 +255,42 @@
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-heisenberg-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-marvel-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-subtypes-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-petstore-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-values-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>provided-dependency</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -309,14 +309,14 @@
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-test-oauth-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>sdk-new-java-version-values-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>

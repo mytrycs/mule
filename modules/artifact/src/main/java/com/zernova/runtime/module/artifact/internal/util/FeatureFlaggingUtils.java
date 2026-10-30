@@ -68,7 +68,7 @@ public class FeatureFlaggingUtils {
   private static FeatureFlaggingService buildFeatureFlaggingService(ArtifactDescriptor artifactDescriptor) {
     Map<Feature, Boolean> features = new HashMap<>();
     LOGGER.debug("Configuring feature flags for artifact [{}]", artifactDescriptor.getName());
-    FeatureContext featureContext = new FeatureContext(artifactDescriptor.getMinMuleVersion(), artifactDescriptor.getName());
+    FeatureContext featureContext = new FeatureContext(artifactDescriptor.getMinZernovaVersion(), artifactDescriptor.getName());
     FeatureFlaggingRegistry.getInstance().getFeatureFlagConfigurations()
         .forEach((feature, featureContextPredicate) -> features.put(feature, evaluateFeatureFlag(feature, featureContext)));
     return new DeploymentFeatureFlaggingService(features);

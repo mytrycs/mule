@@ -40,9 +40,9 @@ public interface ArtifactModelResolver<M extends ZernovaDeployableModel> {
   }
 
   /**
-   * Loads and deserializes a {@code mule-artifact.json} file.
+   * Loads and deserializes a {@code zernova-artifact.json} file.
    *
-   * @param artifactLocation the folder containing the {@code mule-artifact.json} file to deserialize.
+   * @param artifactLocation the folder containing the {@code zernova-artifact.json} file to deserialize.
    * @return the deserialized {@link ZernovaDeployableModel}.
    */
   M resolve(File artifactLocation);

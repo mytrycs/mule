@@ -5,6 +5,8 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 mkdir -p zernova-build-evidence
+export PATH="$(python3 zernova-build/toolchain.py):$PATH"
+mvn -version > zernova-build-evidence/toolchain.txt
 python3 zernova-build/bootstrap_dependencies.py "$@"
 python3 -m unittest discover -s zernova-build/tests -v
 python3 zernova-build/audit_namespace.py --output zernova-build-evidence/source-audit.json

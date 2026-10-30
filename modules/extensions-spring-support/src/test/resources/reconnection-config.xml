@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:reconnection="http://www.mulesoft.org/schema/mule/reconnection"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
+<zernova xmlns:reconnection="https://schemas.zernova.dev/reconnection"
+      xmlns="https://schemas.zernova.dev/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-      http://www.mulesoft.org/schema/mule/reconnection http://www.mulesoft.org/schema/mule/reconnection/current/mule-reconnection.xsd">
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+      https://schemas.zernova.dev/reconnection https://schemas.zernova.dev/reconnection/current/zernova-reconnection.xsd">
 
     <object name="capture" class="com.zernova.test.module.extension.reconnection.ReconnectionTestCase$CaptureProcessor"/>
 
@@ -98,4 +98,4 @@
         <flow-ref name="capture"/>
     </flow>
 
-</mule>
+</zernova>

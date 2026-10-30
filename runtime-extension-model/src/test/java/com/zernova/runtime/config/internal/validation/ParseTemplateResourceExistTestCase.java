@@ -41,17 +41,17 @@ public class ParseTemplateResourceExistTestCase extends AbstractCoreValidationTe
   public void unexistentLocation() {
     final Optional<ValidationResultItem> msg = runValidation("ParseTemplateResourceExistTestCase#unexistentLocation",
                                                              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                                                                 "<mule xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
+                                                                 "<zernova xmlns=\"https://schemas.zernova.dev/core\"\n" +
                                                                  "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" \n" +
-                                                                 "xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core "
+                                                                 "xsi:schemaLocation=\"https://schemas.zernova.dev/core "
                                                                  +
-                                                                 "http://www.mulesoft.org/schema/mule/core/current/mule.xsd\" >\n"
+                                                                 "https://schemas.zernova.dev/core/current/zernova.xsd\" >\n"
                                                                  +
                                                                  "<flow name=\"test-projectFlow\" >\n" +
                                                                  "<parse-template outputMimeType=\"text/html\" location=\"unexistent.txt\" />\n"
                                                                  +
                                                                  "</flow>\n" +
-                                                                 "</mule>")
+                                                                 "</zernova>")
                                                                      .stream().findFirst();
 
     assertThat(msg.get().getValidation().getLevel(), is(ERROR));
@@ -63,17 +63,17 @@ public class ParseTemplateResourceExistTestCase extends AbstractCoreValidationTe
   public void locationInResourcesFolder() {
     final Optional<ValidationResultItem> msg = runValidation("ParseTemplateResourceExistTestCase#locationInResourcesFolder",
                                                              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                                                                 "<mule xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
+                                                                 "<zernova xmlns=\"https://schemas.zernova.dev/core\"\n" +
                                                                  "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" \n" +
-                                                                 "xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core "
+                                                                 "xsi:schemaLocation=\"https://schemas.zernova.dev/core "
                                                                  +
-                                                                 "http://www.mulesoft.org/schema/mule/core/current/mule.xsd\" >\n"
+                                                                 "https://schemas.zernova.dev/core/current/zernova.xsd\" >\n"
                                                                  +
                                                                  "<flow name=\"test-projectFlow\" >\n" +
                                                                  "<parse-template outputMimeType=\"text/html\" location=\"template.txt\" />\n"
                                                                  +
                                                                  "</flow>\n" +
-                                                                 "</mule>")
+                                                                 "</zernova>")
                                                                      .stream().findFirst();
 
     // No errors
@@ -89,17 +89,17 @@ public class ParseTemplateResourceExistTestCase extends AbstractCoreValidationTe
 
     final Optional<ValidationResultItem> msg = runValidation("ParseTemplateResourceExistTestCase#locationWithAbsolutePath",
                                                              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                                                                 "<mule xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
+                                                                 "<zernova xmlns=\"https://schemas.zernova.dev/core\"\n" +
                                                                  "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" \n" +
-                                                                 "xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core "
+                                                                 "xsi:schemaLocation=\"https://schemas.zernova.dev/core "
                                                                  +
-                                                                 "http://www.mulesoft.org/schema/mule/core/current/mule.xsd\" >\n"
+                                                                 "https://schemas.zernova.dev/core/current/zernova.xsd\" >\n"
                                                                  +
                                                                  "<flow name=\"test-projectFlow\" >\n" +
                                                                  "<parse-template outputMimeType=\"text/html\" location=\""
                                                                  + absolutePath + "\" />\n" +
                                                                  "</flow>\n" +
-                                                                 "</mule>")
+                                                                 "</zernova>")
                                                                      .stream().findFirst();
 
     // No errors

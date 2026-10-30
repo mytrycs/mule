@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:some="http://www.mulesoft.org/schema/mule/some"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/some http://www.mulesoft.org/schema/mule/some/current/mule-some.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:some="https://schemas.zernova.dev/some"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/some https://schemas.zernova.dev/some/current/zernova-some.xsd">
 
     <flow name="dslTrueSomeParameter">
         <some:one-required-parameter-resolver-operation-dsl-true>
@@ -381,4 +381,4 @@
         </some:say-hi-parameter-group-dsl>
     </flow>
 
-</mule>
+</zernova>

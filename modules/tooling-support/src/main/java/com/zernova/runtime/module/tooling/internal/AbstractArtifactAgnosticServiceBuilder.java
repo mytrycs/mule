@@ -9,7 +9,7 @@ package com.zernova.runtime.module.tooling.internal;
 
 import static com.zernova.maven.pom.parser.api.model.BundleScope.valueOf;
 import static com.zernova.maven.pom.parser.api.model.MavenModelBuilderProvider.discoverProvider;
-import static com.zernova.runtime.api.deployment.meta.Product.MULE;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA;
 import static com.zernova.runtime.api.util.Preconditions.checkState;
 import static com.zernova.runtime.container.api.ZernovaFoldersUtil.getExecutionFolder;
 import static com.zernova.runtime.module.artifact.api.descriptor.ArtifactDescriptor.META_INF;
@@ -184,13 +184,13 @@ public abstract class AbstractArtifactAgnosticServiceBuilder<T extends ArtifactA
                                                                             configs,
                                                                             muleVersion.toCompleteNumericVersion()));
 
-      try (FileWriter fileWriter = new FileWriter(new File(destinationFolder, "mule-artifact.json"))) {
+      try (FileWriter fileWriter = new FileWriter(new File(destinationFolder, "zernova-artifact.json"))) {
         fileWriter.write(artifactJson);
       }
 
       ApplicationDescriptor artifactDescriptor =
           defaultApplicationFactory.createArtifactDescriptor(applicationFolder, of(deploymentProperties));
-      artifactDescriptor.setMinMuleVersion(muleVersion);
+      artifactDescriptor.setMinZernovaVersion(muleVersion);
       artifactDescriptor.setArtifactDeclaration(artifactDeclaration);
       artifactDescriptor.setAppProperties(artifactProperties);
       return defaultApplicationFactory.createArtifact(artifactDescriptor);
@@ -204,12 +204,12 @@ public abstract class AbstractArtifactAgnosticServiceBuilder<T extends ArtifactA
                                                      newArrayList(classLoaderConfiguration.getExportedResources()),
                                                      "exportedPackages",
                                                      newArrayList(classLoaderConfiguration.getExportedPackages()));
-    ZernovaArtifactLoaderDescriptor muleArtifactLoaderDescriptor = new ZernovaArtifactLoaderDescriptor("mule", attributes);
+    ZernovaArtifactLoaderDescriptor muleArtifactLoaderDescriptor = new ZernovaArtifactLoaderDescriptor("zernova", attributes);
     ZernovaApplicationModel.ZernovaApplicationModelBuilder builder = new ZernovaApplicationModel.ZernovaApplicationModelBuilder();
     builder.setName(appName)
-        .setMinMuleVersion(muleVersion)
-        .setRequiredProduct(MULE)
-        .withBundleDescriptorLoader(new ZernovaArtifactLoaderDescriptor("mule", emptyMap()))
+        .setMinZernovaVersion(muleVersion)
+        .setRequiredProduct(ZERNOVA)
+        .withBundleDescriptorLoader(new ZernovaArtifactLoaderDescriptor("zernova", emptyMap()))
         .withClassLoaderModelDescriptorLoader(muleArtifactLoaderDescriptor)
         .setConfigs(configs);
     return builder.build();
@@ -231,7 +231,7 @@ public abstract class AbstractArtifactAgnosticServiceBuilder<T extends ArtifactA
 
   private BundleDescriptor createTempBundleDescriptor() {
     return new BundleDescriptor.Builder().setArtifactId(TMP_APP_ARTIFACT_ID).setGroupId(TMP_APP_GROUP_ID)
-        .setVersion(TMP_APP_VERSION).setClassifier("mule-application").build();
+        .setVersion(TMP_APP_VERSION).setClassifier("zernova-application").build();
   }
 
   private T getThis() {

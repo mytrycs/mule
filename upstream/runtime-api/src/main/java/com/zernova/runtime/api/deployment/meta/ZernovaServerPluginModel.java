@@ -19,7 +19,7 @@ import com.zernova.api.annotation.NoExtend;
 import java.util.Optional;
 
 /**
- * This object matches the mule-artifact.json element within a server plugin. The describer holds information that has been picked
+ * This object matches the zernova-artifact.json element within a server plugin. The describer holds information that has been picked
  * up from the JSON file (and the pom.xml when implemented).
  *
  * @since 1.0
@@ -36,11 +36,11 @@ public class ZernovaServerPluginModel extends AbstractZernovaArtifactModel {
     // Nothing to do, this is just for allowing instantiation to GSON
   }
 
-  private ZernovaServerPluginModel(String name, String minMuleVersion, Product product,
+  private ZernovaServerPluginModel(String name, String minZernovaVersion, Product product,
                                 ZernovaArtifactLoaderDescriptor classLoaderModelLoaderDescriptor,
                                 ZernovaArtifactLoaderDescriptor extensionModelLoaderDescriptor,
                                 ZernovaArtifactLoaderDescriptor bundleDescriptor, String pluginClassName) {
-    super(name, minMuleVersion, product, classLoaderModelLoaderDescriptor, bundleDescriptor);
+    super(name, minZernovaVersion, product, classLoaderModelLoaderDescriptor, bundleDescriptor);
     this.extensionModelLoaderDescriptor = extensionModelLoaderDescriptor;
     this.pluginClassName = pluginClassName;
   }
@@ -91,10 +91,10 @@ public class ZernovaServerPluginModel extends AbstractZernovaArtifactModel {
     public ZernovaServerPluginModel build() {
       checkArgument(!isBlank(getName()), "name cannot be a blank");
       checkArgument(!isBlank(pluginClassName), "pluginClassName cannot be blank");
-      checkArgument(getMinMuleVersion() != null, "minMuleVersion cannot be null");
+      checkArgument(getMinZernovaVersion() != null, "minZernovaVersion cannot be null");
       checkArgument(getBundleDescriptorLoader() != null, "bundleDescriber cannot be null");
 
-      return new ZernovaServerPluginModel(getName(), getMinMuleVersion(), getRequiredProduct(),
+      return new ZernovaServerPluginModel(getName(), getMinZernovaVersion(), getRequiredProduct(),
                                        getClassLoaderModelDescriptorLoader(),
                                        extensionModelDescriptorBuilder.isPresent() ? extensionModelDescriptorBuilder.get().build()
                                            : null,

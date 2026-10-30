@@ -1,0 +1,26 @@
+{
+  "minZernovaVersion": "4.0.0",
+  "requiredProduct": "ZERNOVA",
+  "extensionModelLoaderDescriptor": {
+    "id": "crafted",
+    "attributes": {
+      "type": "com.zernova.test.crafted.extension.TestExtensionLoadingDelegate",
+      "version": "4.0.0-SNAPSHOT"
+    }
+  },
+  "name": "crafted-extension",
+  "minZernovaVersion": "4.0.0",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {
+      "exportedPackages": [
+      ],
+      "exportedResources": [
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  }
+}

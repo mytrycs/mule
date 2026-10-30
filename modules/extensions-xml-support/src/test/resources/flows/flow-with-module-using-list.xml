@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+<zernova xmlns="https://schemas.zernova.dev/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:module-using-list="http://www.mulesoft.org/schema/mule/module-using-list"
+      xmlns:module-using-list="https://schemas.zernova.dev/module-using-list"
       xsi:schemaLocation="
-          http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-          http://www.mulesoft.org/schema/mule/module-using-list http://www.mulesoft.org/schema/mule/module-using-list/current/mule-module-using-list.xsd">
+          https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+          https://schemas.zernova.dev/module-using-list https://schemas.zernova.dev/module-using-list/current/zernova-module-using-list.xsd">
 
     <module-using-list:config name="petstoreConfigRef"/>
 
@@ -12,4 +12,4 @@
         <module-using-list:do-get-pets owner="john" config-ref="petstoreConfigRef"/>
     </flow>
 
-</mule>
+</zernova>

@@ -57,7 +57,7 @@ import java.util.stream.Stream;
  */
 public final class JavaErrorModelParserUtils {
 
-  private static final String MULE = CORE_PREFIX.toUpperCase(ROOT);
+  private static final String ZERNOVA = CORE_PREFIX.toUpperCase(ROOT);
 
   /**
    * Parses the error types defined at the extension level
@@ -177,7 +177,7 @@ public final class JavaErrorModelParserUtils {
                                            ErrorTypeDefinition<?> errorTypeDefinition,
                                            Map<ErrorTypeDefinition, ErrorModelParser> cycleControl) {
     JavaErrorModelParser parser =
-        new JavaErrorModelParser(errorTypeDefinition, isMuleError(errorTypeDefinition) ? MULE : extensionNamespace);
+        new JavaErrorModelParser(errorTypeDefinition, isMuleError(errorTypeDefinition) ? ZERNOVA : extensionNamespace);
     cycleControl.put(errorTypeDefinition, parser);
     parser.setParent(errorTypeDefinition.getParent().map(p -> {
       ErrorModelParser parentParser = cycleControl.get(p);

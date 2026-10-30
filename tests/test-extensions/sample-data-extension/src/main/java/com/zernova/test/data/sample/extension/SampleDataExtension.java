@@ -32,7 +32,7 @@ import com.zernova.test.data.sample.extension.source.SimpleTestSampleDataListene
 
 @Extension(name = SampleDataExtension.EXTENSION_NAME)
 @JavaVersionSupport({JAVA_21, JAVA_17})
-@Xml(namespace = "http://www.mulesoft.org/schema/mule/sample-data", prefix = "sample-data")
+@Xml(namespace = "https://schemas.zernova.dev/sample-data", prefix = "sample-data")
 @ConnectionProviders(SampleDataConnectionProvider.class)
 @Operations(SampleDataOperations.class)
 @Sources({SimpleTestSampleDataListener.class, ConnectedTestSampleDataListener.class, ConfigTestSampleDataListener.class,

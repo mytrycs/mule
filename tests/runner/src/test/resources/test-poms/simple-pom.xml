@@ -8,6 +8,6 @@
     <groupId>com.zernova.tests</groupId>
     <artifactId>simple-pom</artifactId>
     <version>1.0.0</version>
-    <packaging>mule-plugin</packaging>
+    <packaging>zernova-plugin</packaging>
 
 </project>

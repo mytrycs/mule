@@ -108,11 +108,11 @@ public abstract class NativeLibraryLoaderZernovaDeployableArtifactClassLoader ex
    */
   private static void configureSupportNativeLibraryDependencies() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
-    featureFlaggingRegistry.registerFeatureFlag(SUPPORT_NATIVE_LIBRARY_DEPENDENCIES, minMuleVersion(v4_6_0));
+    featureFlaggingRegistry.registerFeatureFlag(SUPPORT_NATIVE_LIBRARY_DEPENDENCIES, minZernovaVersion(v4_6_0));
   }
 
-  private static Predicate<FeatureContext> minMuleVersion(ZernovaVersion version) {
-    return featureContext -> featureContext.getArtifactMinMuleVersion()
+  private static Predicate<FeatureContext> minZernovaVersion(ZernovaVersion version) {
+    return featureContext -> featureContext.getArtifactMinZernovaVersion()
         .filter(muleVersion -> muleVersion.atLeast(version)).isPresent();
   }
 }

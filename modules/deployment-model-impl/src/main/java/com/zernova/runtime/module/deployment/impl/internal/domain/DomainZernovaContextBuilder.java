@@ -49,7 +49,7 @@ public class DomainZernovaContextBuilder extends DefaultZernovaContextBuilder {
     defaultMuleConfiguration.setId(domainId);
     if (executionClassLoader instanceof ZernovaArtifactClassLoader) {
       defaultMuleConfiguration
-          .setMinMuleVersion(((ZernovaArtifactClassLoader) executionClassLoader).getArtifactDescriptor().getMinMuleVersion());
+          .setMinZernovaVersion(((ZernovaArtifactClassLoader) executionClassLoader).getArtifactDescriptor().getMinZernovaVersion());
     }
     return defaultMuleConfiguration;
   }

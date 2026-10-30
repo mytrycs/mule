@@ -96,7 +96,7 @@ public class ContainerClassLoaderFactory {
     final List<ZernovaContainerModule> muleModules = preFilteredContainerClassLoaderCreator.getMuleModules();
 
     return new DefaultZernovaContainerClassLoaderWrapper(createArtifactClassLoader(parentClassLoader, muleModules,
-                                                                                new ArtifactDescriptor("mule")));
+                                                                                new ArtifactDescriptor("zernova")));
   }
 
   /**

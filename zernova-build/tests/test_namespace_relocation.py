@@ -16,6 +16,31 @@ class NamespaceRelocationTest(unittest.TestCase):
     def setUp(self):
         self.relocation = MODULE.Relocation({'MuleProbe': 'ZernovaProbe', 'DefaultMuleProbe': 'DefaultZernovaProbe'})
 
+    def test_application_format_contract_and_idempotence(self):
+        relocation = MODULE.Relocation({}, application_format=True)
+        original = '<m:mule xmlns:m="http://www.mulesoft.org/schema/mule/core"><m:flow/></m:mule>'
+        converted = relocation.text(original)
+        self.assertEqual(converted, '<m:zernova xmlns:m="https://schemas.zernova.dev/core"><m:flow/></m:zernova>')
+        self.assertEqual(relocation.text('<mule/>'), '<zernova/>')
+        self.assertEqual(relocation.text(converted), converted)
+        self.assertEqual(relocation.text('MULE-1234'), 'MULE-1234')
+        self.assertEqual(relocation.text('META-INF/mule-artifact/mule-artifact.json'),
+                         'META-INF/zernova-artifact/zernova-artifact.json')
+        self.assertEqual(relocation.text('http\\://www.mulesoft.org/schema/mule/core/current/mule.xsd'),
+                         'https\\://schemas.zernova.dev/core/current/zernova.xsd')
+
+    def test_application_contract_bytecode_without_legacy_java_packages(self):
+        relocation = MODULE.Relocation({}, application_format=True)
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / 'Contract.java'
+            source.write_text('public class Contract { public static String getMinMuleVersion() { return "mule"; } public static void main(String[] args) throws Exception { System.out.print(Contract.class.getMethod(args[0]).invoke(null)); } }')
+            subprocess.run(['javac', '--release', '17', str(source)], check=True, capture_output=True)
+            bytecode = root / 'Contract.class'
+            bytecode.write_bytes(relocation.classfile(bytecode.read_bytes()))
+            result = subprocess.run(['java', '-cp', str(root), 'Contract', 'getMinZernovaVersion'], check=True, capture_output=True, text=True)
+            self.assertEqual(result.stdout, 'zernova')
+
     def test_descriptor_paths_modules_and_coordinates(self):
         for old, new in [
             ('Lorg/mule/runtime/MuleProbe;', 'Lcom/zernova/runtime/ZernovaProbe;'),

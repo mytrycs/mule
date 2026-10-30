@@ -13,7 +13,7 @@
             <groupId>com.zernova.tests</groupId>
             <artifactId>test-empty-plugin</artifactId>
             <version>${mule.project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
         </dependency>
     </dependencies>
 

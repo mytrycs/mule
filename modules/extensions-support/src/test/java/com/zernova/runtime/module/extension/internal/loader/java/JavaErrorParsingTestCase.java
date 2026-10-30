@@ -53,7 +53,7 @@ import org.junit.rules.ExpectedException;
 public class JavaErrorParsingTestCase extends AbstractZernovaTestCase {
 
   private static final String HEISENBERG = "HEISENBERG";
-  private static final String MULE_NAMESPACE = "MULE";
+  private static final String MULE_NAMESPACE = "ZERNOVA";
   private static final String TYPE = "type";
 
   @Rule

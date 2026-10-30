@@ -56,7 +56,7 @@ public class CoreMessages extends I18nMessageFactory {
     return factory.createMessage(BUNDLE_PATH, 6, version);
   }
 
-  public static I18nMessage minMuleVersionNotMet(String minVersion) {
+  public static I18nMessage minZernovaVersionNotMet(String minVersion) {
     return factory.createMessage(BUNDLE_PATH, 344, minVersion);
   }
 

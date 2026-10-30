@@ -143,10 +143,10 @@ public class ImmutableNestedComponentModel extends AbstractComponentModel implem
                                        Set<ModelProperty> modelProperties,
                                        DeprecationModel deprecationModel,
                                        Set<String> semanticTerms,
-                                       ZernovaVersion minMuleVersion) {
+                                       ZernovaVersion minZernovaVersion) {
     super(name, description, parameterGroupModels, nestedComponents, displayModel, errors, stereotype, visibility,
           modelProperties,
-          deprecationModel, semanticTerms, minMuleVersion);
+          deprecationModel, semanticTerms, minZernovaVersion);
     this.isRequired = minOccurs > 0;
     this.minOccurs = minOccurs;
     this.maxOccurs = maxOccurs;

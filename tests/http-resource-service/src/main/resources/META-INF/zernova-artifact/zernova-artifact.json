@@ -1,0 +1,19 @@
+{
+  "name": "Resource HTTP service",
+  "minZernovaVersion": "4.2.0",
+  "requiredProduct": "ZERNOVA",
+  "contracts": [
+    {
+      "serviceProviderClassName": "com.zernova.test.http.ResourceHttpServiceProvider",
+      "contractClassName": "com.zernova.runtime.http.api.HttpService"
+    }
+  ],
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {}
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  }
+}

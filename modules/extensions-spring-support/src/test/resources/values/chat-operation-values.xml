@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:values="http://www.mulesoft.org/schema/mule/values"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/values http://www.mulesoft.org/schema/mule/values/current/mule-values.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:values="https://schemas.zernova.dev/values"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/values https://schemas.zernova.dev/values/current/zernova-values.xsd">
 
     <values:chat-config name="config">
         <values:chat-connection/>
@@ -49,4 +49,4 @@
         </values:with-json-body-parameter-with-multi-level-field>
     </flow>
 
-</mule>
+</zernova>

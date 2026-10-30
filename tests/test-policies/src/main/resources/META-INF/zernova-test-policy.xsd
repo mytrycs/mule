@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="https://schemas.zernova.dev/test-policy"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:zernova="https://schemas.zernova.dev/core"
+            xmlns:schemadoc="https://schemas.zernova.dev/schemadoc"
+            targetNamespace="https://schemas.zernova.dev/test-policy"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:import namespace="https://schemas.zernova.dev/core"
+                schemaLocation="https://schemas.zernova.dev/core/current/zernova.xsd" />
+
+    <xsd:annotation>
+        <xsd:documentation>
+            Mule Utilities for Testing Policies.
+        </xsd:documentation>
+        <xsd:appinfo>
+            <schemadoc:short-name>Test Policies</schemadoc:short-name>
+            <schemadoc:page-title>Test Policies Module</schemadoc:page-title>
+        </xsd:appinfo>
+    </xsd:annotation>
+
+    <xsd:element name="execute-next" type="zernova:abstractMessageProcessorType" substitutionGroup="zernova:abstract-message-processor"/>
+
+    <xsd:element name="proxy" type="testPolicyType" substitutionGroup="zernova:abstract-shared-extension"/>
+
+    <xsd:complexType name="testPolicyType">
+        <xsd:complexContent>
+            <xsd:extension base="zernova:abstractExtensionType">
+                <xsd:sequence>
+                    <xsd:element name="source" minOccurs="0" maxOccurs="1">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:choice minOccurs="1" maxOccurs="unbounded">
+                                    <xsd:group ref="zernova:messageProcessorOrMixedContentMessageProcessor"/>
+                                </xsd:choice>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="operation" minOccurs="0" maxOccurs="1">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:choice minOccurs="1" maxOccurs="unbounded">
+                                    <xsd:group ref="zernova:messageProcessorOrMixedContentMessageProcessor"/>
+                                </xsd:choice>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+                <xsd:attribute name="name">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            The name used to identify this policy.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="custom-processor" type="customMessageProcessorType" substitutionGroup="zernova:abstract-message-processor"/>
+
+    <xsd:complexType name="customMessageProcessorType">
+        <xsd:complexContent>
+            <xsd:extension base="zernova:abstractMessageProcessorType">
+                <xsd:sequence>
+                    <xsd:group ref="zernova:propertiesGroup"/>
+                </xsd:sequence>
+                <xsd:attribute name="class" type="zernova:substitutableClass" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+</xsd:schema>

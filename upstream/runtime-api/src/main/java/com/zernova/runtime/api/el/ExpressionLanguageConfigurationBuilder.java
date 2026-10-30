@@ -23,7 +23,7 @@ public class ExpressionLanguageConfigurationBuilder {
 
   private String appId;
 
-  private Optional<ZernovaVersion> minMuleVersion;
+  private Optional<ZernovaVersion> minZernovaVersion;
 
   ExpressionLanguageConfigurationBuilder() {}
 
@@ -42,13 +42,13 @@ public class ExpressionLanguageConfigurationBuilder {
     return this;
   }
 
-  public ExpressionLanguageConfigurationBuilder minMuleVersion(Optional<ZernovaVersion> minMuleVersion) {
-    this.minMuleVersion = minMuleVersion;
+  public ExpressionLanguageConfigurationBuilder minZernovaVersion(Optional<ZernovaVersion> minZernovaVersion) {
+    this.minZernovaVersion = minZernovaVersion;
     return this;
   }
 
   public ExpressionLanguageConfiguration build() {
-    return new DefaultExpressionLanguageConfiguration(charset, featureFlaggingService, appId, minMuleVersion);
+    return new DefaultExpressionLanguageConfiguration(charset, featureFlaggingService, appId, minZernovaVersion);
   }
 
 }

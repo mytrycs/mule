@@ -1,0 +1,33 @@
+{
+  "version": "1.1.0",
+  "artifactCoordinates": {
+    "groupId": "com.mycompany",
+    "artifactId": "test",
+    "version": "1.0.0-SNAPSHOT",
+    "type": "pom",
+    "classifier": "zernova-application"
+  },
+  "dependencies": [
+    {
+      "artifactCoordinates": {
+        "groupId": "com.zernova.group",
+        "artifactId": "zernova-plugin-a",
+        "version": "1.0.0",
+        "type": "jar",
+        "classifier": "zernova-plugin"
+      },
+      "uri": "repository/com/zernova/group/zernova-plugin-a/1.0.0/zernova-plugin-a-1.0.0-zernova-plugin.jar",
+      "isShared": true
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "com.zernova.group",
+        "artifactId": "zernova-plugin-b",
+        "version": "1.0.0",
+        "type": "jar",
+        "classifier": "zernova-plugin"
+      },
+      "uri": "repository/com/zernova/group/zernova-plugin-b/1.0.0/zernova-plugin-b-1.0.0-zernova-plugin.jar"
+    }
+  ]
+}

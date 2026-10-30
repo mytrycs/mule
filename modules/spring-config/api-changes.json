@@ -301,7 +301,7 @@
           "methodName": "createConfigurationBuilder",
           "parameterIndex": "1",
           "elementKind": "parameter",
-          "justification": "MULE-19204: Api used for testing and its uses updated"
+          "justification": "ZERNOVA-19204: Api used for testing and its uses updated"
         },
         {
           "code": "java.annotation.removed",

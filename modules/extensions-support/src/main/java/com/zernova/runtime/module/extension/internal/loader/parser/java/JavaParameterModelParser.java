@@ -337,7 +337,7 @@ public class JavaParameterModelParser implements ParameterModelParser, HasExtens
   }
 
   @Override
-  public Optional<MinZernovaVersionParser> getResolvedMinMuleVersion() {
+  public Optional<MinZernovaVersionParser> getResolvedMinZernovaVersion() {
     return empty();
   }
 

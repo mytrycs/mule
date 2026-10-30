@@ -1,0 +1,29 @@
+{
+  "extensionModelLoaderDescriptor": {
+    "id": "java",
+    "attributes": {
+      "type": "com.zernova.test.resource.extension.ResourceExtension",
+      "version": "4.2.0-SNAPSHOT"
+    }
+  },
+  "name": "Resource",
+  "requiredProduct": "ZERNOVA",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {
+      "privilegedExportedPackages": [],
+      "privilegedArtifactIds": [],
+      "exportedPackages": [
+        "com.zernova.test.resource.extension"
+      ],
+      "exportedResources": [
+        "stuff.json"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  },
+  "minZernovaVersion": "4.1.1"
+}

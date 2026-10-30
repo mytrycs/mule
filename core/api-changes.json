@@ -3585,7 +3585,7 @@
           "classSimpleName": "SystemUtils",
           "methodName": "getCommandLineOptions",
           "elementKind": "method",
-          "justification": "MULE-1947: Moved this method to mule-module-launcher"
+          "justification": "ZERNOVA-1947: Moved this method to mule-module-launcher"
         },
         {
           "code": "java.annotation.added",
@@ -3596,7 +3596,7 @@
           "package": "com.zernova.runtime.core.api.util",
           "classSimpleName": "SystemUtils",
           "elementKind": "class",
-          "justification": "MULE-1947: It had a private constructor previously, couldn be instantiated anyway."
+          "justification": "ZERNOVA-1947: It had a private constructor previously, couldn be instantiated anyway."
         },
         {
           "code": "java.class.noLongerInheritsFromClass",
@@ -3606,7 +3606,7 @@
           "package": "com.zernova.runtime.core.privileged.exception",
           "classSimpleName": "TemplateOnErrorHandler",
           "elementKind": "class",
-          "justification": "MULE-19595: Used only by OnErrorCheckLogHandler, already adapted."
+          "justification": "ZERNOVA-19595: Used only by OnErrorCheckLogHandler, already adapted."
         },
         {
           "code": "java.class.nonFinalClassInheritsFromNewClass",
@@ -3616,7 +3616,7 @@
           "package": "com.zernova.runtime.core.privileged.exception",
           "classSimpleName": "TemplateOnErrorHandler",
           "elementKind": "class",
-          "justification": "MULE-19595: Used only by OnErrorCheckLogHandler, already adapted."
+          "justification": "ZERNOVA-19595: Used only by OnErrorCheckLogHandler, already adapted."
         },
         {
           "code": "java.class.removed",
@@ -3783,7 +3783,7 @@
           "package": "com.zernova.runtime.core.privileged.exception",
           "classSimpleName": "ErrorTypeLocator",
           "elementKind": "class",
-          "justification": "MULE-18993: Had to make constructor protected"
+          "justification": "ZERNOVA-18993: Had to make constructor protected"
         },
         {
           "code": "java.method.visibilityReduced",
@@ -3795,7 +3795,7 @@
           "classSimpleName": "EventProcessingException",
           "methodName": "storeErrorTypeInfo",
           "elementKind": "method",
-          "justification": "MULE-19139: Method should be private"
+          "justification": "ZERNOVA-19139: Method should be private"
         },
         {
           "code": "java.class.nonFinalClassInheritsFromNewClass",
@@ -3805,7 +3805,7 @@
           "package": "com.zernova.runtime.core.api.exception",
           "classSimpleName": "Errors",
           "elementKind": "class",
-          "justification": "MULE-18992: Moved to another module."
+          "justification": "ZERNOVA-18992: Moved to another module."
         },
         {
           "code": "java.class.removed",
@@ -3813,7 +3813,7 @@
           "package": "com.zernova.runtime.core.api.extension",
           "classSimpleName": "CoreRuntimeExtensionModelProvider",
           "elementKind": "class",
-          "justification": "MULE-18992: Moved to another module."
+          "justification": "ZERNOVA-18992: Moved to another module."
         },
         {
           "code": "java.method.removed",
@@ -3840,7 +3840,7 @@
           "classSimpleName": "AbstractCursorStreamProviderFactory",
           "methodName": "of",
           "elementKind": "method",
-          "justification": "TODO MULE-18676: this is a false positive because AbstractCursorStreamProviderFactory has @NoExtend annotation."
+          "justification": "TODO ZERNOVA-18676: this is a false positive because AbstractCursorStreamProviderFactory has @NoExtend annotation."
         },
         {
           "code": "java.method.finalMethodAddedToNonFinalClass",
@@ -3849,7 +3849,7 @@
           "classSimpleName": "AbstractCursorStreamProviderFactory",
           "methodName": "of",
           "elementKind": "method",
-          "justification": "TODO MULE-18676: this is a false positive because AbstractCursorStreamProviderFactory has @NoExtend annotation."
+          "justification": "TODO ZERNOVA-18676: this is a false positive because AbstractCursorStreamProviderFactory has @NoExtend annotation."
         },
         {
           "code": "java.class.removed",
@@ -3857,7 +3857,7 @@
           "package": "com.zernova.runtime.core.privileged.interception",
           "classSimpleName": "ReactiveInterceptor",
           "elementKind": "interface",
-          "justification": "MULE-18177: This should have neven been made privileged"
+          "justification": "ZERNOVA-18177: This should have neven been made privileged"
         }
       ]
     }
@@ -5192,7 +5192,7 @@
           "package": "com.zernova.runtime.core.privileged.execution",
           "classSimpleName": "EndPhaseTemplate",
           "elementKind": "interface",
-          "justification": "MULE-17390: Dead and unused code that hurts performance"
+          "justification": "ZERNOVA-17390: Dead and unused code that hurts performance"
         },
         {
           "code": "java.class.removed",
@@ -5200,7 +5200,7 @@
           "package": "com.zernova.runtime.core.privileged.execution",
           "classSimpleName": "FlowProcessingPhaseTemplate",
           "elementKind": "interface",
-          "justification": "MULE-17390: Dead and unused code that hurts performance"
+          "justification": "ZERNOVA-17390: Dead and unused code that hurts performance"
         },
         {
           "code": "java.class.removed",
@@ -5208,7 +5208,7 @@
           "package": "com.zernova.runtime.core.privileged.execution",
           "classSimpleName": "MessageProcessContext",
           "elementKind": "interface",
-          "justification": "MULE-17390: Dead and unused code that hurts performance"
+          "justification": "ZERNOVA-17390: Dead and unused code that hurts performance"
         },
         {
           "code": "java.class.removed",
@@ -5216,7 +5216,7 @@
           "package": "com.zernova.runtime.core.privileged.execution",
           "classSimpleName": "MessageProcessTemplate",
           "elementKind": "interface",
-          "justification": "MULE-17390: Dead and unused code that hurts performance"
+          "justification": "ZERNOVA-17390: Dead and unused code that hurts performance"
         },
         {
           "code": "java.class.removed",
@@ -5224,7 +5224,7 @@
           "package": "com.zernova.runtime.core.privileged.execution",
           "classSimpleName": "MessageProcessingManager",
           "elementKind": "interface",
-          "justification": "MULE-17390: Dead and unused code that hurts performance"
+          "justification": "ZERNOVA-17390: Dead and unused code that hurts performance"
         },
         {
           "code": "java.class.removed",
@@ -5232,7 +5232,7 @@
           "package": "com.zernova.runtime.core.privileged.execution",
           "classSimpleName": "RequestResponseFlowProcessingPhaseTemplate",
           "elementKind": "interface",
-          "justification": "MULE-17390: Dead and unused code that hurts performance"
+          "justification": "ZERNOVA-17390: Dead and unused code that hurts performance"
         },
         {
           "code": "java.class.removed",
@@ -5240,7 +5240,7 @@
           "package": "com.zernova.runtime.core.privileged.execution",
           "classSimpleName": "ValidationPhaseTemplate",
           "elementKind": "interface",
-          "justification": "MULE-17390: Dead and unused code that hurts performance"
+          "justification": "ZERNOVA-17390: Dead and unused code that hurts performance"
         }
       ]
     }
@@ -7882,20 +7882,20 @@
           "code": "java.class.nonPublicPartOfAPI",
           "old": "class com.zernova.runtime.core.privileged.processor.chain.AbstractMessageProcessorChainBuilder",
           "new": "class com.zernova.runtime.core.privileged.processor.chain.AbstractMessageProcessorChainBuilder",
-          "justification": "MULE-14279: API broken by MULE-14171"
+          "justification": "ZERNOVA-14279: API broken by ZERNOVA-14171"
         },
         {
           "code": "java.method.addedToInterface",
           "new": "method void com.zernova.runtime.core.privileged.processor.chain.MessageProcessorChainBuilder::setProcessingStrategy(com.zernova.runtime.core.api.processor.strategy.ProcessingStrategy)",
           "package": "com.zernova.runtime.core.privileged.processor.chain",
-          "justification": "MULE-14279: API broken by MULE-14171"
+          "justification": "ZERNOVA-14279: API broken by ZERNOVA-14171"
         },
         {
           "code": "java.annotation.added",
           "old": "interface com.zernova.runtime.core.api.source.scheduler.Scheduler",
           "new": "interface com.zernova.runtime.core.api.source.scheduler.Scheduler",
           "annotationType": "com.zernova.runtime.extension.api.annotation.Alias",
-          "justification": "Make interface MetadataType consistent with schema declaration in mule-core-common.xsd when loading the type DSL"
+          "justification": "Make interface MetadataType consistent with schema declaration in zernova-core-common.xsd when loading the type DSL"
         },
         {
           "code": "java.method.addedToInterface",

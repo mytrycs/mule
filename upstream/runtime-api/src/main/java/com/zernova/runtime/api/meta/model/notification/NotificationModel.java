@@ -21,7 +21,7 @@ public interface NotificationModel {
 
   /**
    * Gets the namespace of notification. Represents the origin of who fires this notification, so it could be the namespace of an
-   * extension or the {@code MULE} namespace.
+   * extension or the {@code ZERNOVA} namespace.
    *
    * @return The namespace of the error
    */

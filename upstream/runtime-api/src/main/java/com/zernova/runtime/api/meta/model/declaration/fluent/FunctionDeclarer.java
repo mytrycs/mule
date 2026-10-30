@@ -66,8 +66,8 @@ public class FunctionDeclarer extends ParameterizedWithMinZernovaVersionDeclarer
    * {@inheritDoc}
    */
   @Override
-  public FunctionDeclarer withMinMuleVersion(ZernovaVersion minMuleVersion) {
-    declaration.withMinMuleVersion(minMuleVersion);
+  public FunctionDeclarer withMinZernovaVersion(ZernovaVersion minZernovaVersion) {
+    declaration.withMinZernovaVersion(minZernovaVersion);
     return this;
   }
 }

@@ -32,7 +32,7 @@ import com.zernova.test.implicit.config.extension.extension.internal.ImplicitSta
 @Extension(name = "implicit")
 @JavaVersionSupport({JAVA_21, JAVA_17})
 @Operations({ImplicitOperations.class, ImplicitStatefulOperation.class})
-@Xml(namespace = "http://www.mulesoft.org/schema/mule/implicit", prefix = "implicit")
+@Xml(namespace = "https://schemas.zernova.dev/implicit", prefix = "implicit")
 @ConnectionProviders(ImplicitConnectionProvider.class)
 public class ImplicitConfigExtension implements Initialisable, Startable, ZernovaContextAware {
 

@@ -114,7 +114,7 @@ public interface ParameterModelParser
   /**
    * @return a {@link ZernovaVersion} representing the minimum mule version this component can run on
    */
-  Optional<MinZernovaVersionParser> getResolvedMinMuleVersion();
+  Optional<MinZernovaVersionParser> getResolvedMinZernovaVersion();
 
   /**
    * @return the parameter's {@link InputResolverModelParser} if dynamic metadata were defined

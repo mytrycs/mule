@@ -25,14 +25,14 @@
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-heisenberg-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
         </dependency>
 
         <dependency>
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-vegan-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
         </dependency>
     </dependencies>
 

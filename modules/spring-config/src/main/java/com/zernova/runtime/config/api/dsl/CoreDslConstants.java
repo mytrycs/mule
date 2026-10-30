@@ -22,8 +22,8 @@ import com.zernova.runtime.api.component.ComponentIdentifier;
 @NoImplement
 public interface CoreDslConstants {
 
-  String MULE_ROOT_ELEMENT = "mule";
-  String MULE_DOMAIN_ROOT_ELEMENT = "mule-domain";
+  String MULE_ROOT_ELEMENT = "zernova";
+  String MULE_DOMAIN_ROOT_ELEMENT = "zernova-domain";
   String RAISE_ERROR = "raise-error";
   String FLOW_ELEMENT = "flow";
   String FLOW_REF_ELEMENT = "flow-ref";

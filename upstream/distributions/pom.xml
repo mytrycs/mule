@@ -102,7 +102,7 @@
             <dependency><groupId>com.zernova.tests</groupId><artifactId>mule-tests</artifactId><version>4.10.0-SNAPSHOT</version><type>pom</type></dependency>
             <dependency><groupId>com.zernova.tests</groupId><artifactId>mule-tests-allure</artifactId><version>4.10.0-SNAPSHOT</version><type>jar</type></dependency>
             <dependency><groupId>com.zernova.tests</groupId><artifactId>mule-tests-unit</artifactId><version>4.10.0-SNAPSHOT</version><type>jar</type></dependency>
-            <dependency><groupId>com.zernova.tests.plugin</groupId><artifactId>mule-tests-component-plugin</artifactId><version>4.10.0-SNAPSHOT</version><type>mule-plugin</type></dependency>
+            <dependency><groupId>com.zernova.tests.plugin</groupId><artifactId>mule-tests-component-plugin</artifactId><version>4.10.0-SNAPSHOT</version><type>zernova-plugin</type></dependency>
             <dependency><groupId>com.zernova.tests</groupId><artifactId>mule-tests-functional</artifactId><version>4.10.0-SNAPSHOT</version><type>jar</type></dependency>
             <dependency><groupId>com.zernova.tests</groupId><artifactId>mule-tests-infrastructure</artifactId><version>4.10.0-SNAPSHOT</version><type>jar</type></dependency>
             <dependency><groupId>com.zernova.tests</groupId><artifactId>mule-tests-performance</artifactId><version>4.10.0-SNAPSHOT</version><type>jar</type></dependency>
@@ -141,17 +141,17 @@
             <dependency><groupId>com.zernova.tests</groupId><artifactId>mule-resource-extension</artifactId><version>4.10.0-SNAPSHOT</version><type>jar</type></dependency>
             <dependency><groupId>com.zernova.tests</groupId><artifactId>custom-os-extension</artifactId><version>4.10.0-SNAPSHOT</version><type>jar</type></dependency>
             <dependency><groupId>com.zernova.tests</groupId><artifactId>mule-semantic-terms-extension</artifactId><version>4.10.0-SNAPSHOT</version><type>jar</type></dependency>
-            <dependency><groupId>com.zernova.tests</groupId><artifactId>test-reusable-app</artifactId><version>4.10.0-SNAPSHOT</version><type>mule-application</type></dependency>
+            <dependency><groupId>com.zernova.tests</groupId><artifactId>test-reusable-app</artifactId><version>4.10.0-SNAPSHOT</version><type>zernova-application</type></dependency>
             <dependency><groupId>com.zernova.tests</groupId><artifactId>provided-dependency</artifactId><version>4.10.0-SNAPSHOT</version><type>jar</type></dependency>
             <dependency><groupId>com.zernova.tests</groupId><artifactId>mule-javax-inject-extension</artifactId><version>4.10.0-SNAPSHOT</version><type>jar</type></dependency>
             <dependency><groupId>com.zernova.tests</groupId><artifactId>sdk-new-java-version-values-extension</artifactId><version>4.10.0-SNAPSHOT</version><type>jar</type></dependency>
             <dependency><groupId>com.zernova.tests</groupId><artifactId>mule-module-test-plugins</artifactId><version>4.10.0-SNAPSHOT</version><type>pom</type></dependency>
-            <dependency><groupId>com.zernova.tests</groupId><artifactId>test-empty-plugin</artifactId><version>4.10.0-SNAPSHOT</version><type>mule-plugin</type></dependency>
-            <dependency><groupId>com.zernova.tests</groupId><artifactId>test-dependant-plugin</artifactId><version>4.10.0-SNAPSHOT</version><type>mule-plugin</type></dependency>
+            <dependency><groupId>com.zernova.tests</groupId><artifactId>test-empty-plugin</artifactId><version>4.10.0-SNAPSHOT</version><type>zernova-plugin</type></dependency>
+            <dependency><groupId>com.zernova.tests</groupId><artifactId>test-dependant-plugin</artifactId><version>4.10.0-SNAPSHOT</version><type>zernova-plugin</type></dependency>
             <dependency><groupId>com.zernova.tests</groupId><artifactId>mule-module-test-policy</artifactId><version>4.10.0-SNAPSHOT</version><type>jar</type></dependency>
             <dependency><groupId>com.zernova.tests</groupId><artifactId>mule-module-test-services</artifactId><version>4.10.0-SNAPSHOT</version><type>jar</type></dependency>
             <dependency><groupId>com.zernova.tests</groupId><artifactId>mule-tests-runner</artifactId><version>4.10.0-SNAPSHOT</version><type>jar</type></dependency>
-            <dependency><groupId>com.zernova.tests</groupId><artifactId>test-processor-chains</artifactId><version>4.10.0-SNAPSHOT</version><type>mule-plugin</type></dependency>
+            <dependency><groupId>com.zernova.tests</groupId><artifactId>test-processor-chains</artifactId><version>4.10.0-SNAPSHOT</version><type>zernova-plugin</type></dependency>
             <dependency><groupId>com.zernova.tests</groupId><artifactId>mule-tests-model</artifactId><version>4.10.0-SNAPSHOT</version><type>jar</type></dependency>
             <dependency><groupId>com.zernova.tests</groupId><artifactId>mule-http-resource-service</artifactId><version>4.10.0-SNAPSHOT</version><type>mule-service</type></dependency>
             <dependency><groupId>com.zernova.tests</groupId><artifactId>mule-module-core-functional-tests</artifactId><version>4.10.0-SNAPSHOT</version><type>jar</type></dependency>

@@ -62,12 +62,12 @@ public class NameIsNotRepeatedTestCase extends AbstractCoreValidationTestCase {
 
   protected String getConfigDsl() {
     return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-        "<mule xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
+        "<zernova xmlns=\"https://schemas.zernova.dev/core\"\n" +
         "      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
-        "      xmlns:test=\"http://www.mulesoft.org/schema/mule/test\"\n" +
-        "      xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd\n"
+        "      xmlns:test=\"https://schemas.zernova.dev/test\"\n" +
+        "      xsi:schemaLocation=\"https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd\n"
         +
-        "               http://www.mulesoft.org/schema/mule/test http://www.mulesoft.org/schema/mule/test/current/mule-test.xsd\">\n"
+        "               https://schemas.zernova.dev/test https://schemas.zernova.dev/test/current/zernova-test.xsd\">\n"
         +
         "\n" +
         "    <test:config name=\"" + REPEATED_GLOBAL_NAME + "\"/>\n" +
@@ -76,6 +76,6 @@ public class NameIsNotRepeatedTestCase extends AbstractCoreValidationTestCase {
         "        <logger/>\n" +
         "    </flow>\n" +
         "    \n" +
-        "</mule>";
+        "</zernova>";
   }
 }

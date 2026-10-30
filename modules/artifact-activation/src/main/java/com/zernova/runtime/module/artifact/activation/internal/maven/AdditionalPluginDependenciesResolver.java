@@ -48,7 +48,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class AdditionalPluginDependenciesResolver {
 
-  protected static final String MULE_APPLICATION_CLASSIFIER = "mule-application";
+  protected static final String MULE_APPLICATION_CLASSIFIER = "zernova-application";
 
   private final File temporaryFolder;
   private final Map<ArtifactCoordinates, Supplier<MavenPomModel>> pomModels;

@@ -28,6 +28,6 @@ import com.zernova.test.heisenberg.extension.HeisenbergErrors;
 @Export(classes = CustomConnectionException.class)
 @Sources({SomeEmittingSource.class, AnotherEmittingSource.class, YetAnotherEmittingSource.class,
     ParameterEmittingSource.class, ExclusiveOptionalsEmittingSource.class, AnotherExclusiveOptionalsEmittingSource.class})
-@Xml(namespace = "http://www.mulesoft.org/schema/mule/some", prefix = "some")
+@Xml(namespace = "https://schemas.zernova.dev/some", prefix = "some")
 public class SomeExtension {
 }

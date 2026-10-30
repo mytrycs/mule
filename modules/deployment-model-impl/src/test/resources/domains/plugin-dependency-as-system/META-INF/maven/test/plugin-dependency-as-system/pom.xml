@@ -20,9 +20,9 @@
             <groupId>${dependencyGroupId}</groupId>
             <artifactId>${dependencyArtifactId}</artifactId>
             <version>${dependencyVersion}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>system</scope>
-            <systemPath>${muleRuntimeConfig.maven.repositoryLocation}/${dependencyGroupIdFolder}/${dependencyArtifactId}/${dependencyVersion}/${dependencyArtifactId}-${dependencyVersion}-mule-plugin.jar</systemPath>
+            <systemPath>${muleRuntimeConfig.maven.repositoryLocation}/${dependencyGroupIdFolder}/${dependencyArtifactId}/${dependencyVersion}/${dependencyArtifactId}-${dependencyVersion}-zernova-plugin.jar</systemPath>
         </dependency>
     </dependencies>
 </project>

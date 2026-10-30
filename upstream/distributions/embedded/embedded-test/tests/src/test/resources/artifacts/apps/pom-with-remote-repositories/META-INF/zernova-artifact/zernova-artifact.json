@@ -1,0 +1,16 @@
+{
+  "name": "pom-with-remote-repositories",
+  "minZernovaVersion": "4.1.1",
+  "requiredProduct": "ZERNOVA",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": []
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  }
+}

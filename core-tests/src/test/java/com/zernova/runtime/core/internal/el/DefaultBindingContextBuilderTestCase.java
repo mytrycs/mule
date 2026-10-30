@@ -37,7 +37,7 @@ public class DefaultBindingContextBuilderTestCase extends AbstractZernovaTestCas
 
   private final BindingContext.Builder builder = new DefaultBindingContextBuilder();
   private final TypedValue<String> typedValue = new TypedValue<>("", STRING);
-  private final ModuleNamespace namespace = new ModuleNamespace("org", "mule", "mymodule");
+  private final ModuleNamespace namespace = new ModuleNamespace("org", "zernova", "mymodule");
 
   @Test
   public void addsBinding() {

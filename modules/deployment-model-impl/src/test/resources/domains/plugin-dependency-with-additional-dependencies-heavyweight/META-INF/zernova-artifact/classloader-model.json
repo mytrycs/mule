@@ -1,0 +1,58 @@
+{
+  "additionalPluginDependencies": [
+    {
+      "groupId": "com.zernova.tests",
+      "artifactId": "test-empty-plugin",
+      "additionalDependencies": [
+        {
+          "artifactCoordinates": {
+            "groupId": "org.apache.commons",
+            "artifactId": "commons-collections4",
+            "version": "${commonsCollectionsVersion}",
+            "type": "jar"
+          },
+          "uri": "repository/org/apache/commons/commons-collections4/${commonsCollectionsVersion}/commons-collections4-${commonsCollectionsVersion}.jar"
+        },
+        {
+          "artifactCoordinates": {
+            "groupId": "commons-io",
+            "artifactId": "commons-io",
+            "version": "${commonsIoVersion}",
+            "type": "jar"
+          },
+          "uri": "repository/commons-io/commons-io/${commonsIoVersion}/commons-io-${commonsIoVersion}.jar"
+        }
+      ]
+    }
+  ],
+  "version": "1.1.0",
+  "artifactCoordinates": {
+    "groupId": "test",
+    "artifactId": "plugin-dependency-with-additional-dependencies",
+    "version": "1.0.0",
+    "type": "jar",
+    "classifier": "zernova-application"
+  },
+  "dependencies": [
+    {
+      "artifactCoordinates": {
+        "groupId": "com.zernova.tests",
+        "artifactId": "test-empty-plugin",
+        "version": "4.2.0-SNAPSHOT",
+        "type": "jar",
+        "classifier": "zernova-plugin"
+      },
+      "uri": "repository/com/zernova/tests/test-empty-plugin/4.2.0-SNAPSHOT/test-empty-plugin-4.2.0-SNAPSHOT-zernova-plugin.jar"
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "com.zernova.tests",
+        "artifactId": "test-dependant-plugin",
+        "version": "4.2.0-SNAPSHOT",
+        "type": "jar",
+        "classifier": "zernova-plugin"
+      },
+      "uri": "repository/com/zernova/tests/test-dependant-plugin/4.2.0-SNAPSHOT/test-dependant-plugin-4.2.0-SNAPSHOT-zernova-plugin.jar"
+    }
+  ]
+}

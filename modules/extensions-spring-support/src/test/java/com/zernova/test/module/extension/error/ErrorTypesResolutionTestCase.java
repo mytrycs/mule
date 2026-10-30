@@ -41,7 +41,7 @@ public class ErrorTypesResolutionTestCase extends AbstractExtensionFunctionalTes
 
   @Test
   public void underlyingErrorIsRespected() throws Exception {
-    expectedError.expectErrorType("MULE", "STREAM_MAXIMUM_SIZE_EXCEEDED");
+    expectedError.expectErrorType("ZERNOVA", "STREAM_MAXIMUM_SIZE_EXCEEDED");
     flowRunner("withUnderlyingConnectorError").run();
   }
 

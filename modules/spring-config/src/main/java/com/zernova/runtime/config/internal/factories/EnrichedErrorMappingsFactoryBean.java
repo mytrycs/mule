@@ -61,7 +61,7 @@ public class EnrichedErrorMappingsFactoryBean extends AbstractComponentFactory<E
     final Optional<ErrorType> lookupErrorType = errorTypeRepository.lookupErrorType(errorIdentifier);
     if (CORE_ERROR_NS.equals(errorIdentifier.getNamespace())) {
       return lookupErrorType
-          .orElseThrow(() -> new ZernovaRuntimeException(createStaticMessage(format("There's no MULE error named '%s'.",
+          .orElseThrow(() -> new ZernovaRuntimeException(createStaticMessage(format("There's no ZERNOVA error named '%s'.",
                                                                                  errorIdentifier.getName()))));
     }
 

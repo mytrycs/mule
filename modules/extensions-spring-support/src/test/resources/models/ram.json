@@ -10,10 +10,10 @@
   "category": "COMMUNITY",
   "xmlDsl": {
     "prefix": "ram",
-    "namespace": "http://www.mulesoft.org/schema/mule/ram",
-    "schemaLocation": "http://www.mulesoft.org/schema/mule/ram/current/mule-ram.xsd",
+    "namespace": "https://schemas.zernova.dev/ram",
+    "schemaLocation": "https://schemas.zernova.dev/ram/current/zernova-ram.xsd",
     "schemaVersion": "@mule.runtime.version@",
-    "xsdFileName": "mule-ram.xsd"
+    "xsdFileName": "zernova-ram.xsd"
   },
   "resources": [],
   "subTypes": [
@@ -70,7 +70,7 @@
         "namespace": "RAM",
         "parent": {
           "type": "MODULE_CONFIG",
-          "namespace": "MULE"
+          "namespace": "ZERNOVA"
         }
       },
       "parameterGroupModels": [
@@ -224,9 +224,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "expiration-policy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -452,9 +452,9 @@
           "notifications": [],
           "nestedComponents": [],
           "errors": [
-            "MULE:ANY",
-            "MULE:CONNECTIVITY",
-            "MULE:RETRY_EXHAUSTED",
+            "ZERNOVA:ANY",
+            "ZERNOVA:CONNECTIVITY",
+            "ZERNOVA:RETRY_EXHAUSTED",
             "RAM:BAD_REQUEST",
             "RAM:BAD_RESPONSE",
             "RAM:CANNOT_DISPATCH",
@@ -475,7 +475,7 @@
               "namespace": "RAM",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -527,7 +527,7 @@
                       "namespace": "RAM",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -1052,9 +1052,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "error-mappings",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "sinceMuleVersion": {
@@ -1242,9 +1242,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -1365,7 +1365,7 @@
             "namespace": "RAM",
             "parent": {
               "type": "CONNECTION",
-              "namespace": "MULE"
+              "namespace": "ZERNOVA"
             }
           },
           "parameterGroupModels": [
@@ -1745,9 +1745,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "reconnection",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -1959,9 +1959,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "pooling-profile",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -2022,62 +2022,62 @@
   "notifications": [],
   "errors": [
     {
-      "error": "MULE:ANY",
+      "error": "ZERNOVA:ANY",
       "handleable": true
     },
     {
-      "error": "MULE:CONNECTIVITY",
-      "parent": "MULE:ANY",
+      "error": "ZERNOVA:CONNECTIVITY",
+      "parent": "ZERNOVA:ANY",
       "handleable": true
     },
     {
-      "error": "MULE:RETRY_EXHAUSTED",
-      "parent": "MULE:ANY",
+      "error": "ZERNOVA:RETRY_EXHAUSTED",
+      "parent": "ZERNOVA:ANY",
       "handleable": true
     },
     {
       "error": "RAM:BAD_REQUEST",
-      "parent": "MULE:ANY",
+      "parent": "ZERNOVA:ANY",
       "handleable": true
     },
     {
       "error": "RAM:BAD_RESPONSE",
-      "parent": "MULE:ANY",
+      "parent": "ZERNOVA:ANY",
       "handleable": true
     },
     {
       "error": "RAM:CANNOT_DISPATCH",
-      "parent": "MULE:ANY",
+      "parent": "ZERNOVA:ANY",
       "handleable": true
     },
     {
       "error": "RAM:CONNECTIVITY",
-      "parent": "MULE:CONNECTIVITY",
+      "parent": "ZERNOVA:CONNECTIVITY",
       "handleable": true
     },
     {
       "error": "RAM:ENCODING",
-      "parent": "MULE:ANY",
+      "parent": "ZERNOVA:ANY",
       "handleable": true
     },
     {
       "error": "RAM:INVALID_WSDL",
-      "parent": "MULE:ANY",
+      "parent": "ZERNOVA:ANY",
       "handleable": true
     },
     {
       "error": "RAM:RETRY_EXHAUSTED",
-      "parent": "MULE:RETRY_EXHAUSTED",
+      "parent": "ZERNOVA:RETRY_EXHAUSTED",
       "handleable": true
     },
     {
       "error": "RAM:SOAP_FAULT",
-      "parent": "MULE:ANY",
+      "parent": "ZERNOVA:ANY",
       "handleable": true
     },
     {
       "error": "RAM:TIMEOUT",
-      "parent": "MULE:ANY",
+      "parent": "ZERNOVA:ANY",
       "handleable": true
     }
   ],

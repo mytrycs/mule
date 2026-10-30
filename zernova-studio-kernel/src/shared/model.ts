@@ -383,15 +383,15 @@ export function serializeXml(state: PreviewState): string {
   const lines = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<!-- DESIGN PREVIEW: sample state only; not saved to a project. -->',
-    '<mule xmlns="http://www.mulesoft.org/schema/mule/core"',
-    '      xmlns:http="http://www.mulesoft.org/schema/mule/http"',
-    '      xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"',
+    '<zernova xmlns="https://schemas.zernova.dev/core"',
+    '      xmlns:http="https://schemas.zernova.dev/http"',
+    '      xmlns:doc="https://schemas.zernova.dev/documentation"',
     '      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
     '      xsi:schemaLocation="',
-    '        http://www.mulesoft.org/schema/mule/core',
-    '        http://www.mulesoft.org/schema/mule/core/current/mule.xsd',
-    '        http://www.mulesoft.org/schema/mule/http',
-    '        http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">',
+    '        https://schemas.zernova.dev/core',
+    '        https://schemas.zernova.dev/core/current/zernova.xsd',
+    '        https://schemas.zernova.dev/http',
+    '        https://schemas.zernova.dev/http/current/zernova-http.xsd">',
     '',
   ];
   for (const config of state.globalConfigs) {
@@ -415,7 +415,7 @@ export function serializeXml(state: PreviewState): string {
     lines.push(`            message="${x(logger.message)}" category="${x(logger.category)}" />`);
   }
   if (!state.flow.source && !state.flow.processors.length) lines.push('    <!-- Empty fixture flow. Add a source and processors in Message Flow. -->');
-  lines.push('  </flow>', '</mule>');
+  lines.push('  </flow>', '</zernova>');
   return lines.join('\n');
 }
 

@@ -11,8 +11,8 @@ import static com.zernova.runtime.module.extension.internal.loader.parser.java.J
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.JavaExtensionModelParserUtils.getParameterGroupParsers;
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.ParameterDeclarationContext.forFunction;
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.semantics.SemanticTermsParserUtils.addCustomTerms;
-import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.getContainerAnnotationMinMuleVersion;
-import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.resolveFunctionMinMuleVersion;
+import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.getContainerAnnotationMinZernovaVersion;
+import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.resolveFunctionMinZernovaVersion;
 
 import static java.lang.String.format;
 import static java.util.Objects.hash;
@@ -139,9 +139,9 @@ public class JavaFunctionModelParser extends AbstractJavaExecutableComponentMode
   }
 
   @Override
-  public Optional<MinZernovaVersionParser> getResolvedMinMuleVersion() {
-    return of(resolveFunctionMinMuleVersion(functionElement,
-                                            getContainerAnnotationMinMuleVersion(extensionElement,
+  public Optional<MinZernovaVersionParser> getResolvedMinZernovaVersion() {
+    return of(resolveFunctionMinZernovaVersion(functionElement,
+                                            getContainerAnnotationMinZernovaVersion(extensionElement,
                                                                                  ExpressionFunctions.class,
                                                                                  ExpressionFunctions::value,
                                                                                  functionElement

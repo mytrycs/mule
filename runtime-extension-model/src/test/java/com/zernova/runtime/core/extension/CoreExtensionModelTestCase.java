@@ -108,7 +108,7 @@ import io.qameta.allure.Issue;
 
 public class CoreExtensionModelTestCase {
 
-  private static final ErrorModel errorMuleAny = newError("ANY", "MULE").build();
+  private static final ErrorModel errorMuleAny = newError("ANY", "ZERNOVA").build();
 
   private static ExtensionModel coreExtensionModel;
 
@@ -130,11 +130,11 @@ public class CoreExtensionModelTestCase {
   @Test
   public void consistentWithSchema() {
     assertThat(coreExtensionModel.getXmlDslModel().getPrefix(), is(CORE_PREFIX));
-    assertThat(coreExtensionModel.getXmlDslModel().getNamespace(), is("http://www.mulesoft.org/schema/mule/core"));
+    assertThat(coreExtensionModel.getXmlDslModel().getNamespace(), is("https://schemas.zernova.dev/core"));
     assertThat(coreExtensionModel.getXmlDslModel().getSchemaLocation(),
-               is("http://www.mulesoft.org/schema/mule/core/current/mule.xsd"));
+               is("https://schemas.zernova.dev/core/current/zernova.xsd"));
     assertThat(coreExtensionModel.getXmlDslModel().getSchemaVersion(), is(MULE_VERSION));
-    assertThat(coreExtensionModel.getXmlDslModel().getXsdFileName(), is("mule.xsd"));
+    assertThat(coreExtensionModel.getXmlDslModel().getXsdFileName(), is("zernova.xsd"));
   }
 
   @Test
@@ -275,7 +275,7 @@ public class CoreExtensionModelTestCase {
 
   private void assertSteretorype(StereotypeModel stereotypeModel, String type, StereotypeModel parent) {
     assertThat(stereotypeModel.getType(), equalTo(type));
-    assertThat(stereotypeModel.getNamespace(), equalTo("MULE"));
+    assertThat(stereotypeModel.getNamespace(), equalTo("ZERNOVA"));
     if (parent != null) {
       assertThat(stereotypeModel.getParent().get(), is(parent));
     } else {

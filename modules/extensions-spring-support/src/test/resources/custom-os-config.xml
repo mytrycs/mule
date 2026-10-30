@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:custom-os="http://www.mulesoft.org/schema/mule/custom-os"
-      xmlns:os="http://www.mulesoft.org/schema/mule/os"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-            http://www.mulesoft.org/schema/mule/custom-os http://www.mulesoft.org/schema/mule/custom-os/current/mule-custom-os.xsd
-            http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:custom-os="https://schemas.zernova.dev/custom-os"
+      xmlns:os="https://schemas.zernova.dev/os"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+            https://schemas.zernova.dev/custom-os https://schemas.zernova.dev/custom-os/current/zernova-custom-os.xsd
+            https://schemas.zernova.dev/os https://schemas.zernova.dev/os/current/zernova-os.xsd">
 
     <os:config name="ObjectStore_Config">
         <custom-os:connection />
@@ -20,4 +20,4 @@
         <custom-os:retrieve key="key" />
     </flow>
 
-</mule>
+</zernova>

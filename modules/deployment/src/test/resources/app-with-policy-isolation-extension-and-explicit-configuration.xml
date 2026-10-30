@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xmlns:policy-configuration="http://www.mulesoft.org/schema/mule/policy-configuration"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-      http://www.mulesoft.org/schema/mule/policy-configuration http://www.mulesoft.org/schema/mule/policy-configuration/current/mule-policy-configuration.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="https://schemas.zernova.dev/core"
+      xmlns:policy-configuration="https://schemas.zernova.dev/policy-configuration"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+      https://schemas.zernova.dev/policy-configuration https://schemas.zernova.dev/policy-configuration/current/zernova-policy-configuration.xsd">
 
     <policy-configuration:config name="test" configurationParameter="non default value"/>
 
@@ -11,4 +11,4 @@
         <set-payload value=""/>
         <policy-configuration:check-explicit-configuration config-ref="test"/>
     </flow>
-</mule>
+</zernova>

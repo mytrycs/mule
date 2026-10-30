@@ -31,7 +31,7 @@ import com.zernova.test.nonimplicit.config.extension.extension.internal.NonImpli
 @Extension(name = "Non Implicit")
 @JavaVersionSupport({JAVA_21, JAVA_17})
 @Operations({NonImplicitOperations.class})
-@Xml(namespace = "http://www.mulesoft.org/schema/mule/implicit", prefix = "non-implicit")
+@Xml(namespace = "https://schemas.zernova.dev/implicit", prefix = "non-implicit")
 @ConnectionProviders(NonImplicitConnectionProvider.class)
 @NoImplicit
 public class NonImplicitConfigExtension implements Initialisable, Startable, ZernovaContextAware {

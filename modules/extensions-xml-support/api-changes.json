@@ -78,7 +78,7 @@
           "classSimpleName": "XmlExtensionModelLoader",
           "fieldName": "RESOURCES_PATHS",
           "elementKind": "field",
-          "justification": "MULE-15085: added field to read the exported resources to the ExtensionModel"
+          "justification": "ZERNOVA-15085: added field to read the exported resources to the ExtensionModel"
         }
       ]
     }

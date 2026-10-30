@@ -39,13 +39,13 @@ import io.qameta.allure.Story;
 public class OperationDoesNotHaveFlowRefTestCase extends AbstractCoreValidationTestCase {
 
   private static final String XML_NAMESPACE_DEF = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-      "<mule xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
+      "<zernova xmlns=\"https://schemas.zernova.dev/core\"\n" +
       "      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
-      "      xmlns:operation=\"http://www.mulesoft.org/schema/mule/operation\"" +
+      "      xmlns:operation=\"https://schemas.zernova.dev/operation\"" +
       "      xsi:schemaLocation=\"\n" +
-      "       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd" +
-      "       http://www.mulesoft.org/schema/mule/operation http://www.mulesoft.org/schema/mule/operation/current/mule-operation.xsd\">\n";
-  private static final String XML_CLOSE = "</mule>";
+      "       https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd" +
+      "       https://schemas.zernova.dev/operation https://schemas.zernova.dev/operation/current/zernova-operation.xsd\">\n";
+  private static final String XML_CLOSE = "</zernova>";
 
   @Override
   protected Validation getValidation() {

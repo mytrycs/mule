@@ -172,7 +172,7 @@ public class ZernovaExtensionModelDeclarer {
 
   private static final String BUSINESS_EVENTS = "Business Events";
   private static final String TRACKING_NAMESPACE = "tracking";
-  private static final String TRACKING_NAMESPACE_URI = "http://www.mulesoft.org/schema/mule/ee/tracking";
+  private static final String TRACKING_NAMESPACE_URI = "https://schemas.zernova.dev/ee/tracking";
 
   private final ComponentMetadataConfigurerFactory configurerFactory;
 
@@ -251,7 +251,7 @@ public class ZernovaExtensionModelDeclarer {
   private void declareObject(ExtensionDeclarer extensionDeclarer) {
     ConstructDeclarer object = extensionDeclarer.withConstruct("object")
         .allowingTopLevelDefinition()
-        .withStereotype(newStereotype("OBJECT", "MULE").withParent(APP_CONFIG).build())
+        .withStereotype(newStereotype("OBJECT", "ZERNOVA").withParent(APP_CONFIG).build())
         .describedAs("Element to declare a java object. Objects declared globally can be referenced from other parts of the " +
             "configuration or recovered programmatically through com.zernova.runtime.api.artifact.Registry.")
         .withDeprecation(new ImmutableDeprecationModel("Only meant to be used for backwards compatibility.", "4.0", "5.0"));
@@ -1241,7 +1241,7 @@ public class ZernovaExtensionModelDeclarer {
     parameter.addModelProperty(new InfrastructureParameterModelProperty(sequence));
   }
 
-  // See the "abstract-configuration-element" in the mule-core-common.xsd file. It represents the same placeholder.
+  // See the "abstract-configuration-element" in the zernova-core-common.xsd file. It represents the same placeholder.
   private void declareConfigurationElementsPlaceholder(ConstructDeclarer configuration) {
     configuration.withOptionalComponent("abstractConfigurationElement")
         .withAllowedStereotypes(CONFIGURATION_ELEMENT)
@@ -1324,7 +1324,7 @@ public class ZernovaExtensionModelDeclarer {
   private void declareNotifications(ExtensionDeclarer extensionDeclarer) {
     ConstructDeclarer notificationsConstructDeclarer = extensionDeclarer.withConstruct("notifications")
         .allowingTopLevelDefinition()
-        .withStereotype(newStereotype("NOTIFICATIONS", "MULE").withParent(APP_CONFIG).build())
+        .withStereotype(newStereotype("NOTIFICATIONS", "ZERNOVA").withParent(APP_CONFIG).build())
         .describedAs("Registers listeners for notifications and associates interfaces with particular events.")
         .withDeprecation(new ImmutableDeprecationModel("Only meant to be used for backwards compatibility.", "4.0", "5.0"));
 

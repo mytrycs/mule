@@ -39,13 +39,13 @@ public class InsecureTLSValidationTestCase extends AbstractCoreValidationTestCas
   public void TLSInsecureValidation() {
     final Optional<ValidationResultItem> msg = runValidation("InsecureTLSValidationTestCase#TLSInsecureValidation",
                                                              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                                                                 "<mule xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
-                                                                 "      xmlns:tls=\"http://www.mulesoft.org/schema/mule/tls\"\n" +
+                                                                 "<zernova xmlns=\"https://schemas.zernova.dev/core\"\n" +
+                                                                 "      xmlns:tls=\"https://schemas.zernova.dev/tls\"\n" +
                                                                  "      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
                                                                  +
-                                                                 "      xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd\n"
+                                                                 "      xsi:schemaLocation=\"https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd\n"
                                                                  +
-                                                                 "                           http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd\">\n"
+                                                                 "                           https://schemas.zernova.dev/tls https://schemas.zernova.dev/tls/current/zernova-tls.xsd\">\n"
                                                                  +
                                                                  "\n" +
                                                                  "    <tls:context name=\"TLS_Context\">\n" +
@@ -55,7 +55,7 @@ public class InsecureTLSValidationTestCase extends AbstractCoreValidationTestCas
                                                                  +
                                                                  "     </tls:context>\n" +
                                                                  "    \n" +
-                                                                 "</mule>")
+                                                                 "</zernova>")
                                                                      .stream().findFirst();
 
     assertThat(msg.get().getValidation().getLevel(), is(WARN));

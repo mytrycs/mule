@@ -37,7 +37,7 @@ public class AbstractDomainTestCase extends AbstractZernovaTestCase {
       new SystemProperty(MULE_HOME_DIRECTORY_PROPERTY, temporaryFolder.getRoot().getCanonicalPath());
   protected final File muleHomeFolder;
   protected final ArtifactClassLoader containerClassLoader =
-      new ZernovaArtifactClassLoader("mule", new ArtifactDescriptor("mule"), new URL[0],
+      new ZernovaArtifactClassLoader("zernova", new ArtifactDescriptor("zernova"), new URL[0],
                                   getClass().getClassLoader(),
                                   new ZernovaClassLoaderLookupPolicy(emptyMap(), emptySet()));
 

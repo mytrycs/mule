@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:module-tls-config="http://www.mulesoft.org/schema/mule/module-tls-config"
-      xmlns:module-tls-config-with-default="http://www.mulesoft.org/schema/mule/module-tls-config-with-default"
-      xmlns:module-tls-config-required="http://www.mulesoft.org/schema/mule/module-tls-config-required"
-      xmlns:module-tls-config-required-with-default="http://www.mulesoft.org/schema/mule/module-tls-config-required-with-default"
-      xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:module-tls-config="https://schemas.zernova.dev/module-tls-config"
+      xmlns:module-tls-config-with-default="https://schemas.zernova.dev/module-tls-config-with-default"
+      xmlns:module-tls-config-required="https://schemas.zernova.dev/module-tls-config-required"
+      xmlns:module-tls-config-required-with-default="https://schemas.zernova.dev/module-tls-config-required-with-default"
+      xmlns:tls="https://schemas.zernova.dev/tls"
+      xmlns="https://schemas.zernova.dev/core"
       xsi:schemaLocation="
-       http://www.mulesoft.org/schema/mule/module-tls-config http://www.mulesoft.org/schema/mule/module-tls-config/current/mule-module-tls-config.xsd
-       http://www.mulesoft.org/schema/mule/module-tls-config-with-default http://www.mulesoft.org/schema/mule/module-tls-config-with-default/current/mule-module-tls-config-with-default.xsd
-       http://www.mulesoft.org/schema/mule/module-tls-config-required http://www.mulesoft.org/schema/mule/module-tls-config-required/current/mule-module-tls-config-required.xsd
-       http://www.mulesoft.org/schema/mule/module-tls-config-required-with-default http://www.mulesoft.org/schema/mule/module-tls-config-required-with-default/current/mule-module-tls-config-required-with-default.xsd
-       http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd
-       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+       https://schemas.zernova.dev/module-tls-config https://schemas.zernova.dev/module-tls-config/current/zernova-module-tls-config.xsd
+       https://schemas.zernova.dev/module-tls-config-with-default https://schemas.zernova.dev/module-tls-config-with-default/current/zernova-module-tls-config-with-default.xsd
+       https://schemas.zernova.dev/module-tls-config-required https://schemas.zernova.dev/module-tls-config-required/current/zernova-module-tls-config-required.xsd
+       https://schemas.zernova.dev/module-tls-config-required-with-default https://schemas.zernova.dev/module-tls-config-required-with-default/current/zernova-module-tls-config-required-with-default.xsd
+       https://schemas.zernova.dev/tls https://schemas.zernova.dev/tls/current/zernova-tls.xsd
+       https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd">
 
     <tls:context name="myTlsContext" enabledProtocols="TLSv1.2">
         <tls:trust-store path="ssltest-cacerts.jks" password="changeit"/>
@@ -79,4 +79,4 @@
     <flow name="getHeisenbergConnectionRequiredWithDefaultNoTls">
         <module-tls-config-required-with-default:get-heisenberg-connection config-ref="requiredWithDefaultNoTls" />
     </flow>
-</mule>
+</zernova>

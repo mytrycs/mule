@@ -35,22 +35,22 @@ public class DefaultExtensionDiscoveryRequest implements ExtensionDiscoveryReque
   private final boolean enrichDescriptions;
   private final boolean ocsEnabled;
   private final boolean forceExtensionValidation;
-  private final boolean resolveMinMuleVersion;
+  private final boolean resolveMinZernovaVersion;
   private final Map<String, Object> customParameters;
 
   public DefaultExtensionDiscoveryRequest(Collection<ArtifactPluginDescriptor> artifactPlugins,
                                           Set<ExtensionModel> parentArtifactExtensions,
                                           boolean parallelDiscovery,
                                           boolean enrichDescriptions,
-                                          boolean resolveMinMuleVersion) {
-    this(artifactPlugins, parentArtifactExtensions, parallelDiscovery, enrichDescriptions, false, false, resolveMinMuleVersion,
+                                          boolean resolveMinZernovaVersion) {
+    this(artifactPlugins, parentArtifactExtensions, parallelDiscovery, enrichDescriptions, false, false, resolveMinZernovaVersion,
          emptyMap());
   }
 
   public DefaultExtensionDiscoveryRequest(Collection<ArtifactPluginDescriptor> artifactPlugins,
                                           Set<ExtensionModel> parentArtifactExtensions, boolean parallelDiscovery,
                                           boolean enrichDescriptions, boolean ocsEnabled, boolean forceExtensionValidation,
-                                          boolean resolveMinMuleVersion,
+                                          boolean resolveMinZernovaVersion,
                                           Map<String, Object> customParameters) {
     this.artifactPlugins = artifactPlugins;
     this.parentArtifactExtensions = parentArtifactExtensions;
@@ -58,7 +58,7 @@ public class DefaultExtensionDiscoveryRequest implements ExtensionDiscoveryReque
     this.enrichDescriptions = enrichDescriptions;
     this.ocsEnabled = ocsEnabled;
     this.forceExtensionValidation = forceExtensionValidation;
-    this.resolveMinMuleVersion = resolveMinMuleVersion;
+    this.resolveMinZernovaVersion = resolveMinZernovaVersion;
     this.customParameters = unmodifiableMap(customParameters);
   }
 
@@ -103,7 +103,7 @@ public class DefaultExtensionDiscoveryRequest implements ExtensionDiscoveryReque
   }
 
   @Override
-  public boolean isResolveMinMuleVersion() {
-    return resolveMinMuleVersion;
+  public boolean isResolveMinZernovaVersion() {
+    return resolveMinZernovaVersion;
   }
 }

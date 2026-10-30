@@ -19,7 +19,7 @@ import static com.zernova.runtime.module.extension.internal.loader.parser.java.e
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.lib.JavaExternalLibModelParserUtils.parseExternalLibraryModels;
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.notification.NotificationModelParserUtils.parseLegacyNotifications;
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.notification.NotificationModelParserUtils.parseNotifications;
-import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.resolveExtensionMinMuleVersion;
+import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.resolveExtensionMinZernovaVersion;
 import static com.zernova.runtime.module.extension.internal.loader.utils.ExtensionNamespaceUtils.getExtensionsNamespace;
 import static com.zernova.runtime.module.extension.internal.loader.utils.ModelLoaderUtils.getXmlDslModel;
 import static com.zernova.sdk.api.meta.JavaVersion.valueOf;
@@ -462,8 +462,8 @@ public class JavaExtensionModelParser extends AbstractJavaModelParser implements
   }
 
   @Override
-  public Optional<MinZernovaVersionParser> getResolvedMinMuleVersion() {
-    return of(resolveExtensionMinMuleVersion(extensionElement));
+  public Optional<MinZernovaVersionParser> getResolvedMinZernovaVersion() {
+    return of(resolveExtensionMinZernovaVersion(extensionElement));
   }
 
   @Override

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/heisenberg http://www.mulesoft.org/schema/mule/heisenberg/current/mule-heisenberg.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:heisenberg="https://schemas.zernova.dev/heisenberg"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/heisenberg https://schemas.zernova.dev/heisenberg/current/zernova-heisenberg.xsd">
 
     <configuration-properties file="heisenberg.properties"/>
 
@@ -54,7 +54,7 @@
     </flow>
 
     <flow name="twoRoutesRouter">
-        <heisenberg:two-routes-router processorName="mule:set-payload">
+        <heisenberg:two-routes-router processorName="zernova:set-payload">
             <heisenberg:when message="myString" execute="#[vars.executeWhen]">
                 <set-variable variableName="newPayload" value="#[payload]"/>
                 <set-variable variableName="newAttributes" value="#[attributes]"/>
@@ -67,7 +67,7 @@
     </flow>
 
     <flow name="twoRoutesRouterNone">
-        <heisenberg:two-routes-router processorName="mule:set-payload">
+        <heisenberg:two-routes-router processorName="zernova:set-payload">
             <heisenberg:when message="myString" execute="false">
                 <set-variable variableName="newPayload" value="#[payload]"/>
             </heisenberg:when>
@@ -87,7 +87,7 @@
     </flow>
 
     <flow name="munitSpy">
-        <heisenberg:spy processor="mule:set-payload*">
+        <heisenberg:spy processor="zernova:set-payload*">
             <heisenberg:with-attributes>
                 <heisenberg:attribute attributeName="value1" whereValue="1"/>
                 <heisenberg:attribute attributeName="value2" whereValue="2"/>
@@ -102,7 +102,7 @@
     </flow>
 
     <flow name="munitSpyNoBefore">
-        <heisenberg:spy processor="mule:set-payload*">
+        <heisenberg:spy processor="zernova:set-payload*">
             <heisenberg:with-attributes>
                 <heisenberg:attribute attributeName="value1" whereValue="1"/>
                 <heisenberg:attribute attributeName="value2" whereValue="2"/>
@@ -115,7 +115,7 @@
     </flow>
 
     <flow name="munitSpyNoAfter">
-        <heisenberg:spy processor="mule:set-payload*">
+        <heisenberg:spy processor="zernova:set-payload*">
             <heisenberg:with-attributes>
                 <heisenberg:attribute attributeName="value1" whereValue="1"/>
                 <heisenberg:attribute attributeName="value2" whereValue="2"/>
@@ -128,7 +128,7 @@
     </flow>
 
     <flow name="munitSpyNoAttributes">
-        <heisenberg:spy processor="mule:set-payload*"/>
+        <heisenberg:spy processor="zernova:set-payload*"/>
     </flow>
 
     <flow name="voidRouter">
@@ -156,7 +156,7 @@
     </flow>
 
     <flow name="twoRoutesRouterLazilyStarted" initialState="stopped">
-        <heisenberg:two-routes-router processorName="mule:set-payload">
+        <heisenberg:two-routes-router processorName="zernova:set-payload">
             <heisenberg:when message="myString" execute="#[vars.executeWhen]">
                 <set-variable variableName="newPayload" value="#[payload]"/>
                 <set-variable variableName="newAttributes" value="#[attributes]"/>
@@ -168,7 +168,7 @@
     </flow>
 
     <flow name="twoRoutesRouterWithCustomOperationLazilyStarted" initialState="stopped">
-        <heisenberg:two-routes-router processorName="mule:set-payload">
+        <heisenberg:two-routes-router processorName="zernova:set-payload">
             <heisenberg:when message="myString" execute="#[vars.executeWhen]">
                 <set-variable variableName="newPayload" value="#[payload]"/>
                 <set-variable variableName="newAttributes" value="#[attributes]"/>
@@ -181,7 +181,7 @@
     </flow>
 
     <flow name="routerLifecycleIsAttachedToFlowLifecycle" initialState="stopped">
-        <heisenberg:two-routes-router processorName="mule:set-payload">
+        <heisenberg:two-routes-router processorName="zernova:set-payload">
             <heisenberg:when message="myString" execute="#[vars.executeWhen]">
                 <set-variable variableName="newPayload" value="#[payload]"/>
                 <heisenberg:lifecycle-validator expected="start"/>
@@ -192,4 +192,4 @@
         </heisenberg:two-routes-router>
     </flow>
 
-</mule>
+</zernova>

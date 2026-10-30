@@ -7,7 +7,7 @@
     <groupId>test</groupId>
     <artifactId>http-echo</artifactId>
     <version>1.0.0</version>
-    <packaging>mule-application</packaging>
+    <packaging>zernova-application</packaging>
 
     <dependencyManagement>
         <dependencies>
@@ -25,7 +25,7 @@
         <dependency>
             <groupId>com.zernova.connectors</groupId>
             <artifactId>mule-http-connector</artifactId>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>

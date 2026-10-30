@@ -87,7 +87,7 @@ public class ArtifactDeclarationJsonSerializerTestCase {
 
   @Test
   public void equalsTopLevelParameterShouldIncludeParameters() {
-    ElementDeclarer core = ElementDeclarer.forExtension("mule");
+    ElementDeclarer core = ElementDeclarer.forExtension("zernova");
     ParameterObjectValue parameterObjectValue = ParameterObjectValue.builder()
         .withParameter("otherName", "simpleParam")
         .build();
@@ -113,7 +113,7 @@ public class ArtifactDeclarationJsonSerializerTestCase {
 
   private ArtifactDeclaration createArtifact() {
 
-    ElementDeclarer core = ElementDeclarer.forExtension("mule");
+    ElementDeclarer core = ElementDeclarer.forExtension("zernova");
     ElementDeclarer db = ElementDeclarer.forExtension("Database");
     ElementDeclarer http = ElementDeclarer.forExtension("HTTP");
     ElementDeclarer sockets = ElementDeclarer.forExtension("Sockets");
@@ -131,7 +131,7 @@ public class ArtifactDeclarationJsonSerializerTestCase {
             .withRefName("referableHandler")
             .withComponent(core.newRoute("onErrorContinue")
                 .withParameterGroup(group -> group
-                    .withParameter("type", createStringParameter("MULE:SOURCE_RESPONSE"))
+                    .withParameter("type", createStringParameter("ZERNOVA:SOURCE_RESPONSE"))
                     .withParameter("logException", createBooleanParameter("false"))
                     .withParameter("enableNotifications", createBooleanParameter("false")))
                 .withComponent(core.newOperation("logger")
@@ -416,7 +416,7 @@ public class ArtifactDeclarationJsonSerializerTestCase {
                 .withComponent(core.newConstruct("errorHandler")
                     .withComponent(core.newRoute("onErrorContinue")
                         .withParameterGroup(newParameterGroup()
-                            .withParameter("type", createStringParameter("MULE:ANY"))
+                            .withParameter("type", createStringParameter("ZERNOVA:ANY"))
                             .getDeclaration())
                         .withComponent(core.newOperation("logger").getDeclaration())
                         .getDeclaration())

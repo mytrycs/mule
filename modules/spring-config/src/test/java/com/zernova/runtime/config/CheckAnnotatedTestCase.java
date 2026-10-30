@@ -50,11 +50,11 @@ public class CheckAnnotatedTestCase extends AbstractZernovaTestCase {
   }
 
   /**
-   * Check that all direct mule-specific children of the <mule/> element support Studio annotations
+   * Check that all direct mule-specific children of the <zernova/> element support Studio annotations
    */
   @Test
   public void testElementTypes() throws Exception {
-    schema = createDOM(this.getClass().getClassLoader().getResourceAsStream("META-INF/mule-core-common.xsd"));
+    schema = createDOM(this.getClass().getClassLoader().getResourceAsStream("META-INF/zernova-core-common.xsd"));
     top = schema.getDocumentElement();
     Element muleRootElements = findElement(top, "group", "muleRootElements");
     assertNotNull(muleRootElements);

@@ -482,7 +482,7 @@ public final class XmlExtensionLoaderDelegate {
     return new LazyValue<>(() -> {
       final Map<String, ConfigurationProperty> globalProperties = new HashMap<>();
 
-      // Root element is the mule:module
+      // Root element is the zernova:module
       ast.topLevelComponentsStream()
           .flatMap(comp -> comp.directChildrenStream())
           .filter(comp -> GLOBAL_PROPERTY.equals(comp.getIdentifier().getName()))

@@ -28,7 +28,7 @@ public class ErrorModelToIdentifierSerializer {
    * entire error model hierarchy, if it exist.
    *
    * @param errorIdentifier      Error following the following structure {@code nameSpace:errorType}, example:
-   *                             {@code MULE:CONNECTIVITY}
+   *                             {@code ZERNOVA:CONNECTIVITY}
    * @param errorModelRepository Repository of already built {@link ErrorModel error models}
    * @return An {@link ErrorModel} representing the given errorIdentifier
    */
@@ -45,7 +45,7 @@ public class ErrorModelToIdentifierSerializer {
    * Deserializes an error model identifier into an {@link ErrorModel}.
    *
    * @param errorIdentifier Error following the following structure {@code nameSpace:errorType}, example:
-   *                        {@code MULE:CONNECTIVITY}
+   *                        {@code ZERNOVA:CONNECTIVITY}
    * @return An {@link ErrorModel} representing the given errorIdentifier
    */
   public static ErrorModel deserialize(String errorIdentifier) {

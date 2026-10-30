@@ -3,7 +3,7 @@
   "description": "",
   "version": "@mule.runtime.version@",
   "vendor": "Mulesoft",
-  "minMuleVersion": "4.1.1",
+  "minZernovaVersion": "4.1.1",
   "supportedJavaVersions": [
     "21",
     "17"
@@ -11,10 +11,10 @@
   "category": "COMMUNITY",
   "xmlDsl": {
     "prefix": "reconnection",
-    "namespace": "http://www.mulesoft.org/schema/mule/reconnection",
-    "schemaLocation": "http://www.mulesoft.org/schema/mule/reconnection/current/mule-reconnection.xsd",
+    "namespace": "https://schemas.zernova.dev/reconnection",
+    "schemaLocation": "https://schemas.zernova.dev/reconnection/current/zernova-reconnection.xsd",
     "schemaVersion": "@mule.runtime.version@",
-    "xsdFileName": "mule-reconnection.xsd"
+    "xsdFileName": "zernova-reconnection.xsd"
   },
   "resources": [],
   "subTypes": [],
@@ -29,9 +29,9 @@
         "typeId": "com.zernova.runtime.api.scheduler.SchedulingStrategy",
         "QName": {
           "value": {
-            "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+            "namespaceURI": "https://schemas.zernova.dev/core",
             "localPart": "scheduling-strategy",
-            "prefix": "mule"
+            "prefix": "zernova"
           }
         },
         "extensibleType": {},
@@ -104,7 +104,7 @@
         },
         "QName": {
           "value": {
-            "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+            "namespaceURI": "https://schemas.zernova.dev/tls",
             "localPart": "context",
             "prefix": "tls"
           }
@@ -156,7 +156,7 @@
               "infrastructureType": {},
               "QName": {
                 "value": {
-                  "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                  "namespaceURI": "https://schemas.zernova.dev/tls",
                   "localPart": "trust-store",
                   "prefix": "tls"
                 }
@@ -289,7 +289,7 @@
               "infrastructureType": {},
               "QName": {
                 "value": {
-                  "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                  "namespaceURI": "https://schemas.zernova.dev/tls",
                   "localPart": "key-store",
                   "prefix": "tls"
                 }
@@ -447,7 +447,7 @@
                   "infrastructureType": {},
                   "QName": {
                     "value": {
-                      "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                      "namespaceURI": "https://schemas.zernova.dev/tls",
                       "localPart": "standard-revocation-check",
                       "prefix": "tls"
                     }
@@ -530,7 +530,7 @@
                   "infrastructureType": {},
                   "QName": {
                     "value": {
-                      "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                      "namespaceURI": "https://schemas.zernova.dev/tls",
                       "localPart": "custom-ocsp-responder",
                       "prefix": "tls"
                     }
@@ -575,7 +575,7 @@
                   "infrastructureType": {},
                   "QName": {
                     "value": {
-                      "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                      "namespaceURI": "https://schemas.zernova.dev/tls",
                       "localPart": "crl-file",
                       "prefix": "tls"
                     }
@@ -630,7 +630,7 @@
         "namespace": "RECONNECTION",
         "parent": {
           "type": "MODULE_CONFIG",
-          "namespace": "MULE"
+          "namespace": "ZERNOVA"
         }
       },
       "parameterGroupModels": [
@@ -813,9 +813,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "expiration-policy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -838,7 +838,7 @@
         }
       ],
       "externalLibraryModels": [],
-      "minMuleVersion": "4.1.1",
+      "minZernovaVersion": "4.1.1",
       "operations": [
         {
           "blocking": true,
@@ -901,11 +901,11 @@
               "namespace": "RECONNECTION",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
-          "minMuleVersion": "4.1.1",
+          "minZernovaVersion": "4.1.1",
           "parameterGroupModels": [
             {
               "parameters": [
@@ -954,7 +954,7 @@
                       "namespace": "RECONNECTION",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -1163,9 +1163,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "error-mappings",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "sinceMuleVersion": {
@@ -1353,9 +1353,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -1454,11 +1454,11 @@
               "namespace": "RECONNECTION",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
-          "minMuleVersion": "4.1.1",
+          "minZernovaVersion": "4.1.1",
           "parameterGroupModels": [
             {
               "parameters": [
@@ -1620,7 +1620,7 @@
                       "namespace": "RECONNECTION",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -1704,7 +1704,7 @@
                           "typeId": "repeatable-file-store-iterable",
                           "QName": {
                             "value": {
-                              "namespaceURI": "http://www.mulesoft.org/schema/mule/ee/core",
+                              "namespaceURI": "https://schemas.zernova.dev/ee/core",
                               "localPart": "repeatable-file-store-iterable",
                               "prefix": "ee"
                             }
@@ -1795,9 +1795,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-object-streaming-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -2005,9 +2005,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "error-mappings",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "sinceMuleVersion": {
@@ -2195,9 +2195,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -2286,11 +2286,11 @@
               "namespace": "RECONNECTION",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
-          "minMuleVersion": "4.1.1",
+          "minZernovaVersion": "4.1.1",
           "parameterGroupModels": [
             {
               "parameters": [
@@ -2452,7 +2452,7 @@
                       "namespace": "RECONNECTION",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -2536,7 +2536,7 @@
                           "typeId": "repeatable-file-store-iterable",
                           "QName": {
                             "value": {
-                              "namespaceURI": "http://www.mulesoft.org/schema/mule/ee/core",
+                              "namespaceURI": "https://schemas.zernova.dev/ee/core",
                               "localPart": "repeatable-file-store-iterable",
                               "prefix": "ee"
                             }
@@ -2627,9 +2627,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-object-streaming-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -2837,9 +2837,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "error-mappings",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "sinceMuleVersion": {
@@ -3027,9 +3027,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -3069,10 +3069,10 @@
             "namespace": "RECONNECTION",
             "parent": {
               "type": "CONNECTION",
-              "namespace": "MULE"
+              "namespace": "ZERNOVA"
             }
           },
-          "minMuleVersion": "4.5.0",
+          "minZernovaVersion": "4.5.0",
           "parameterGroupModels": [
             {
               "parameters": [
@@ -3273,9 +3273,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "reconnection",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -3340,11 +3340,11 @@
               "namespace": "RECONNECTION",
               "parent": {
                 "type": "SOURCE",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
-          "minMuleVersion": "4.4.0",
+          "minZernovaVersion": "4.4.0",
           "parameterGroupModels": [
             {
               "parameters": [
@@ -3424,7 +3424,7 @@
                       "namespace": "RECONNECTION",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -3576,9 +3576,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-redelivery-policy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -3763,9 +3763,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -3829,11 +3829,11 @@
               "namespace": "RECONNECTION",
               "parent": {
                 "type": "SOURCE",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
-          "minMuleVersion": "4.4.0",
+          "minZernovaVersion": "4.4.0",
           "parameterGroupModels": [
             {
               "parameters": [
@@ -3913,7 +3913,7 @@
                       "namespace": "RECONNECTION",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -4065,9 +4065,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-redelivery-policy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -4252,9 +4252,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -4318,11 +4318,11 @@
               "namespace": "RECONNECTION",
               "parent": {
                 "type": "SOURCE",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
-          "minMuleVersion": "4.1.1",
+          "minZernovaVersion": "4.1.1",
           "parameterGroupModels": [
             {
               "parameters": [
@@ -4402,7 +4402,7 @@
                       "namespace": "RECONNECTION",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -4554,9 +4554,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-redelivery-policy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -4741,9 +4741,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -4788,7 +4788,7 @@
         "namespace": "RECONNECTION",
         "parent": {
           "type": "MODULE_CONFIG",
-          "namespace": "MULE"
+          "namespace": "ZERNOVA"
         }
       },
       "parameterGroupModels": [
@@ -4838,7 +4838,7 @@
         }
       ],
       "externalLibraryModels": [],
-      "minMuleVersion": "4.1.1",
+      "minZernovaVersion": "4.1.1",
       "operations": [],
       "connectionProviders": [
         {
@@ -4852,10 +4852,10 @@
             "namespace": "RECONNECTION",
             "parent": {
               "type": "CONNECTION",
-              "namespace": "MULE"
+              "namespace": "ZERNOVA"
             }
           },
-          "minMuleVersion": "4.1.1",
+          "minZernovaVersion": "4.1.1",
           "parameterGroupModels": [
             {
               "parameters": [
@@ -5056,9 +5056,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "reconnection",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -5142,11 +5142,11 @@
               "namespace": "RECONNECTION",
               "parent": {
                 "type": "SOURCE",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
-          "minMuleVersion": "4.1.1",
+          "minZernovaVersion": "4.1.1",
           "parameterGroupModels": [
             {
               "parameters": [
@@ -5226,7 +5226,7 @@
                       "namespace": "RECONNECTION",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -5378,9 +5378,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-redelivery-policy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -5565,9 +5565,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -5611,7 +5611,7 @@
         "namespace": "RECONNECTION",
         "parent": {
           "type": "MODULE_CONFIG",
-          "namespace": "MULE"
+          "namespace": "ZERNOVA"
         }
       },
       "parameterGroupModels": [
@@ -5661,7 +5661,7 @@
         }
       ],
       "externalLibraryModels": [],
-      "minMuleVersion": "4.1.1",
+      "minZernovaVersion": "4.1.1",
       "operations": [],
       "connectionProviders": [
         {
@@ -5675,10 +5675,10 @@
             "namespace": "RECONNECTION",
             "parent": {
               "type": "CONNECTION",
-              "namespace": "MULE"
+              "namespace": "ZERNOVA"
             }
           },
-          "minMuleVersion": "4.1.1",
+          "minZernovaVersion": "4.1.1",
           "parameterGroupModels": [
             {
               "parameters": [
@@ -5879,9 +5879,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "reconnection",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -6093,9 +6093,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "pooling-profile",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -6166,11 +6166,11 @@
               "namespace": "RECONNECTION",
               "parent": {
                 "type": "SOURCE",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
-          "minMuleVersion": "4.1.1",
+          "minZernovaVersion": "4.1.1",
           "parameterGroupModels": [
             {
               "parameters": [
@@ -6250,7 +6250,7 @@
                       "namespace": "RECONNECTION",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -6292,9 +6292,9 @@
                     },
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "scheduling-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     }
                   }
@@ -6442,9 +6442,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-redelivery-policy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -6629,9 +6629,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -6708,11 +6708,11 @@
           "namespace": "RECONNECTION",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
-      "minMuleVersion": "4.1.1",
+      "minZernovaVersion": "4.1.1",
       "parameterGroupModels": [
         {
           "parameters": [
@@ -6819,9 +6819,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "error-mappings",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "sinceMuleVersion": {
@@ -6864,27 +6864,27 @@
   "notifications": [],
   "errors": [
     {
-      "error": "MULE:ANY",
+      "error": "ZERNOVA:ANY",
       "handleable": true
     },
     {
-      "error": "MULE:CONNECTIVITY",
-      "parent": "MULE:ANY",
+      "error": "ZERNOVA:CONNECTIVITY",
+      "parent": "ZERNOVA:ANY",
       "handleable": true
     },
     {
-      "error": "MULE:RETRY_EXHAUSTED",
-      "parent": "MULE:ANY",
+      "error": "ZERNOVA:RETRY_EXHAUSTED",
+      "parent": "ZERNOVA:ANY",
       "handleable": true
     },
     {
       "error": "RECONNECTION:CONNECTIVITY",
-      "parent": "MULE:CONNECTIVITY",
+      "parent": "ZERNOVA:CONNECTIVITY",
       "handleable": true
     },
     {
       "error": "RECONNECTION:RETRY_EXHAUSTED",
-      "parent": "MULE:RETRY_EXHAUSTED",
+      "parent": "ZERNOVA:RETRY_EXHAUSTED",
       "handleable": true
     }
   ],

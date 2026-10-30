@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module name="module-resources"
-        xmlns="http://www.mulesoft.org/schema/mule/module"
+        xmlns="https://schemas.zernova.dev/module"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="
-           http://www.mulesoft.org/schema/mule/module http://www.mulesoft.org/schema/mule/module/current/mule-module.xsd">
+           https://schemas.zernova.dev/module https://schemas.zernova.dev/module/current/zernova-module.xsd">
     <!-- =================================================================================================================
     ============ This smart connector is empty as it will be used just to export resources (such as DWL files) ===========
     ============================================= And it must remain empty ===============================================

@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class ZernovaPluginBasedLoaderFinder {
 
-  static final String META_INF_MULE_PLUGIN = "META-INF/mule-artifact.json";
+  static final String META_INF_MULE_PLUGIN = "META-INF/zernova-artifact.json";
 
   private static final ZernovaPluginModelJsonSerializer mulePluginSerializer = new ZernovaPluginModelJsonSerializer();
   private final ZernovaPluginModel mulePlugin;

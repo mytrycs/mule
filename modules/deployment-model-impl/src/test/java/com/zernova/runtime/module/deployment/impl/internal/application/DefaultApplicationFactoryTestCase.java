@@ -89,7 +89,7 @@ public class DefaultApplicationFactoryTestCase extends AbstractZernovaTestCase {
   private static final String APP_NAME = "test-app";
   private static final String FAKE_ARTIFACT_PLUGIN = "fake-artifact-plugin";
   public static final String APP_ID = "test-app-id";
-  private static final String DOMAIN_ARTIFACT_FILE_NAME = "test-domain-1.0.0-mule-domain";
+  private static final String DOMAIN_ARTIFACT_FILE_NAME = "test-domain-1.0.0-zernova-domain";
 
   private final ApplicationClassLoaderBuilderFactory applicationClassLoaderBuilderFactory =
       mock(ApplicationClassLoaderBuilderFactory.class);

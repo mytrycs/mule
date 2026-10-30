@@ -56,7 +56,7 @@ class TlsExtensionModelDeclarer {
             .setPrefix(TLS_PREFIX)
             .setNamespace(MULE_TLS_NAMESPACE)
             .setSchemaVersion(MULE_VERSION)
-            .setXsdFileName("mule-tls.xsd")
+            .setXsdFileName("zernova-tls.xsd")
             .setSchemaLocation(MULE_TLS_SCHEMA_LOCATION)
             .build());
 

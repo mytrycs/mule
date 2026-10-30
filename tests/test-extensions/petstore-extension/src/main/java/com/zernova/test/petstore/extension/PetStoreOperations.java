@@ -78,9 +78,9 @@ public class PetStoreOperations {
     // legacy and decoupled context feature flag set.
     getInstance()
         .registerFeature(LEGACY_FEATURE_ONE,
-                         c -> c.getConfiguration().getMinMuleVersion().isPresent()
-                             && !c.getConfiguration().getMinMuleVersion().get().newerThan("4.2.2"));
-    getInstance().registerFeatureFlag(LEGACY_FEATURE_TWO, featureContext -> featureContext.getArtifactMinMuleVersion()
+                         c -> c.getConfiguration().getMinZernovaVersion().isPresent()
+                             && !c.getConfiguration().getMinZernovaVersion().get().newerThan("4.2.2"));
+    getInstance().registerFeatureFlag(LEGACY_FEATURE_TWO, featureContext -> featureContext.getArtifactMinZernovaVersion()
         .filter(muleVersion -> !muleVersion.newerThan("4.2.2")).isPresent());
   }
 

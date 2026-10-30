@@ -434,25 +434,25 @@ public class RegionClassLoaderTestCase extends AbstractZernovaTestCase {
 
   @Test
   public void findsExportedResourceFromSpecificArtifact() {
-    getResourceFromExportingArtifact(format(SPECIFIC_RESOURCE_FORMAT, ARTIFACT_VERSION, "mule-plugin", "jar", RESOURCE_NAME),
+    getResourceFromExportingArtifact(format(SPECIFIC_RESOURCE_FORMAT, ARTIFACT_VERSION, "zernova-plugin", "jar", RESOURCE_NAME),
                                      PLUGIN_LOADED_RESOURCE);
   }
 
   @Test
   public void findsExportedResourceFromSpecificArtifactWithNoVersion() {
-    getResourceFromExportingArtifact(format(SPECIFIC_RESOURCE_FORMAT, "*", "mule-plugin", "jar", RESOURCE_NAME),
+    getResourceFromExportingArtifact(format(SPECIFIC_RESOURCE_FORMAT, "*", "zernova-plugin", "jar", RESOURCE_NAME),
                                      PLUGIN_LOADED_RESOURCE);
   }
 
   @Test
   public void findsExportedResourceFromSpecificArtifactWithWrongVersion() {
-    getResourceFromExportingArtifact(format(SPECIFIC_RESOURCE_FORMAT, "1.2.0", "mule-plugin", "jar", RESOURCE_NAME),
+    getResourceFromExportingArtifact(format(SPECIFIC_RESOURCE_FORMAT, "1.2.0", "zernova-plugin", "jar", RESOURCE_NAME),
                                      PLUGIN_LOADED_RESOURCE);
   }
 
   @Test
   public void doesNotFindNonExportedResourceFromSpecificArtifact() {
-    getResourceFromExportingArtifact(format(SPECIFIC_RESOURCE_FORMAT, ARTIFACT_VERSION, "mule-plugin", "jar",
+    getResourceFromExportingArtifact(format(SPECIFIC_RESOURCE_FORMAT, ARTIFACT_VERSION, "zernova-plugin", "jar",
                                             NON_EXPORTED_RESOURCE_NAME),
                                      null);
   }
@@ -657,7 +657,7 @@ public class RegionClassLoaderTestCase extends AbstractZernovaTestCase {
         .setArtifactId(SPECIFIC_ARTIFACT_ID)
         .setVersion(ARTIFACT_VERSION)
         .setBaseVersion(ARTIFACT_VERSION)
-        .setClassifier("mule-plugin")
+        .setClassifier("zernova-plugin")
         .setType("jar")
         .build());
     when(pluginClassloader.findResource(RESOURCE_NAME)).thenReturn(PLUGIN_LOADED_RESOURCE);

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xs:schema xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.mulesoft.org/schema/mule/reconnection" attributeFormDefault="unqualified" elementFormDefault="qualified">
+<xs:schema xmlns:zernova="https://schemas.zernova.dev/core" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="https://schemas.zernova.dev/reconnection" attributeFormDefault="unqualified" elementFormDefault="qualified">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace"></xs:import>
-  <xs:import namespace="http://www.mulesoft.org/schema/mule/core" schemaLocation="http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></xs:import>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-shared-extension" name="config">
+  <xs:import namespace="https://schemas.zernova.dev/core" schemaLocation="https://schemas.zernova.dev/core/current/zernova.xsd"></xs:import>
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstract-shared-extension" name="config">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractExtensionType">
+        <xs:extension base="zernova:abstractExtensionType">
           <xs:annotation>
             <xs:documentation>Default configuration</xs:documentation>
           </xs:annotation>
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstractConnectionProvider"></xs:element>
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:expiration-policy"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstractConnectionProvider"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:expiration-policy"></xs:element>
           </xs:sequence>
-          <xs:attribute type="mule:expressionString" use="required" name="configId"></xs:attribute>
+          <xs:attribute type="zernova:expressionString" use="required" name="configId"></xs:attribute>
           <xs:attribute type="xs:string" use="required" name="name">
             <xs:annotation>
               <xs:documentation>The identifier of this element used to reference it in other components</xs:documentation>
@@ -24,26 +24,26 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstractConnectionProvider" name="connection">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstractConnectionProvider" name="connection">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractConnectionProviderType">
+        <xs:extension base="zernova:abstractConnectionProviderType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:reconnection"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:reconnection"></xs:element>
           </xs:sequence>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/reconnection" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="FallibleReconnectableSourceType" substitutionGroup="mule:abstract-message-source" name="fallible-reconnectable-source"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/reconnection" xmlns:zernova="https://schemas.zernova.dev/core" type="FallibleReconnectableSourceType" substitutionGroup="zernova:abstract-message-source" name="fallible-reconnectable-source"></xs:element>
   <xs:complexType name="FallibleReconnectableSourceType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageSourceType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractMessageSourceType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-redelivery-policy"></xs:element>
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-redelivery-policy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:substitutableBoolean" use="optional" name="primaryNodeOnly">
+        <xs:attribute type="zernova:substitutableBoolean" use="optional" name="primaryNodeOnly">
           <xs:annotation>
             <xs:documentation>Whether this source should only be executed on the primary node when runnning in Cluster</xs:documentation>
           </xs:annotation>
@@ -56,15 +56,15 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/reconnection" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="NonReconnectableSourceType" substitutionGroup="mule:abstract-message-source" name="non-reconnectable-source"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/reconnection" xmlns:zernova="https://schemas.zernova.dev/core" type="NonReconnectableSourceType" substitutionGroup="zernova:abstract-message-source" name="non-reconnectable-source"></xs:element>
   <xs:complexType name="NonReconnectableSourceType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageSourceType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractMessageSourceType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-redelivery-policy"></xs:element>
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-redelivery-policy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:substitutableBoolean" use="optional" name="primaryNodeOnly">
+        <xs:attribute type="zernova:substitutableBoolean" use="optional" name="primaryNodeOnly">
           <xs:annotation>
             <xs:documentation>Whether this source should only be executed on the primary node when runnning in Cluster</xs:documentation>
           </xs:annotation>
@@ -77,15 +77,15 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/reconnection" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ReconectionSourceType" substitutionGroup="mule:abstract-message-source" name="reconection-source"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/reconnection" xmlns:zernova="https://schemas.zernova.dev/core" type="ReconectionSourceType" substitutionGroup="zernova:abstract-message-source" name="reconection-source"></xs:element>
   <xs:complexType name="ReconectionSourceType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageSourceType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractMessageSourceType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-redelivery-policy"></xs:element>
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-redelivery-policy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:substitutableBoolean" use="optional" name="primaryNodeOnly">
+        <xs:attribute type="zernova:substitutableBoolean" use="optional" name="primaryNodeOnly">
           <xs:annotation>
             <xs:documentation>Whether this source should only be executed on the primary node when runnning in Cluster</xs:documentation>
           </xs:annotation>
@@ -98,12 +98,12 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/reconnection" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetRetryPolicyTemplateType" substitutionGroup="mule:abstract-operator" name="get-retry-policy-template"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/reconnection" xmlns:zernova="https://schemas.zernova.dev/core" type="GetRetryPolicyTemplateType" substitutionGroup="zernova:abstract-operator" name="get-retry-policy-template"></xs:element>
   <xs:complexType name="GetRetryPolicyTemplateType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
         </xs:sequence>
         <xs:attribute type="xs:string" use="required" name="config-ref">
           <xs:annotation>
@@ -115,7 +115,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -123,16 +123,16 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/reconnection" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="PagedOperationType" substitutionGroup="mule:abstract-operator" name="paged-operation"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/reconnection" xmlns:zernova="https://schemas.zernova.dev/core" type="PagedOperationType" substitutionGroup="zernova:abstract-operator" name="paged-operation"></xs:element>
   <xs:complexType name="PagedOperationType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-object-streaming-strategy"></xs:element>
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-object-streaming-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:expressionInt" use="required" name="failOn"></xs:attribute>
-        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/reconnection" type="com.zernova.runtime.extension.api.error.MuleErrorsEnumType" use="required" name="withErrorType"></xs:attribute>
+        <xs:attribute type="zernova:expressionInt" use="required" name="failOn"></xs:attribute>
+        <xs:attribute xmlns="https://schemas.zernova.dev/reconnection" type="com.zernova.runtime.extension.api.error.MuleErrorsEnumType" use="required" name="withErrorType"></xs:attribute>
         <xs:attribute type="xs:string" use="required" name="config-ref">
           <xs:annotation>
             <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
@@ -143,7 +143,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -151,16 +151,16 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/reconnection" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="StickyPagedOperationType" substitutionGroup="mule:abstract-operator" name="sticky-paged-operation"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/reconnection" xmlns:zernova="https://schemas.zernova.dev/core" type="StickyPagedOperationType" substitutionGroup="zernova:abstract-operator" name="sticky-paged-operation"></xs:element>
   <xs:complexType name="StickyPagedOperationType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-object-streaming-strategy"></xs:element>
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-object-streaming-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:expressionInt" use="required" name="failOn"></xs:attribute>
-        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/reconnection" type="com.zernova.runtime.extension.api.error.MuleErrorsEnumType" use="required" name="withErrorType"></xs:attribute>
+        <xs:attribute type="zernova:expressionInt" use="required" name="failOn"></xs:attribute>
+        <xs:attribute xmlns="https://schemas.zernova.dev/reconnection" type="com.zernova.runtime.extension.api.error.MuleErrorsEnumType" use="required" name="withErrorType"></xs:attribute>
         <xs:attribute type="xs:string" use="required" name="config-ref">
           <xs:annotation>
             <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
@@ -171,7 +171,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -179,12 +179,12 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-shared-extension" name="failing-connection-config">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstract-shared-extension" name="failing-connection-config">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractExtensionType">
+        <xs:extension base="zernova:abstractExtensionType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstractConnectionProvider"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstractConnectionProvider"></xs:element>
           </xs:sequence>
           <xs:attribute type="xs:string" use="required" name="name">
             <xs:annotation>
@@ -195,26 +195,26 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstractConnectionProvider" name="failing-connection">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstractConnectionProvider" name="failing-connection">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractConnectionProviderType">
+        <xs:extension base="zernova:abstractConnectionProviderType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:reconnection"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:reconnection"></xs:element>
           </xs:sequence>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/reconnection" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="Failing-connection-sourceType" substitutionGroup="mule:abstract-message-source" name="failing-connection-source"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/reconnection" xmlns:zernova="https://schemas.zernova.dev/core" type="Failing-connection-sourceType" substitutionGroup="zernova:abstract-message-source" name="failing-connection-source"></xs:element>
   <xs:complexType name="Failing-connection-sourceType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageSourceType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractMessageSourceType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-redelivery-policy"></xs:element>
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-redelivery-policy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:substitutableBoolean" use="optional" name="primaryNodeOnly">
+        <xs:attribute type="zernova:substitutableBoolean" use="optional" name="primaryNodeOnly">
           <xs:annotation>
             <xs:documentation>Whether this source should only be executed on the primary node when runnning in Cluster</xs:documentation>
           </xs:annotation>
@@ -227,12 +227,12 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-shared-extension" name="sync-config">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstract-shared-extension" name="sync-config">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractExtensionType">
+        <xs:extension base="zernova:abstractExtensionType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstractConnectionProvider"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstractConnectionProvider"></xs:element>
           </xs:sequence>
           <xs:attribute type="xs:string" use="required" name="name">
             <xs:annotation>
@@ -243,28 +243,28 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstractConnectionProvider" name="long-disconnection">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstractConnectionProvider" name="long-disconnection">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractConnectionProviderType">
+        <xs:extension base="zernova:abstractConnectionProviderType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:reconnection"></xs:element>
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:pooling-profile"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:reconnection"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:pooling-profile"></xs:element>
           </xs:sequence>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/reconnection" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="Sync-sourceType" substitutionGroup="mule:abstract-message-source" name="sync-source"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/reconnection" xmlns:zernova="https://schemas.zernova.dev/core" type="Sync-sourceType" substitutionGroup="zernova:abstract-message-source" name="sync-source"></xs:element>
   <xs:complexType name="Sync-sourceType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageSourceType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractMessageSourceType">
         <xs:sequence minOccurs="1" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-redelivery-policy"></xs:element>
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
-          <xs:element minOccurs="1" maxOccurs="1" ref="mule:scheduling-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-redelivery-policy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="1" maxOccurs="1" ref="zernova:scheduling-strategy"></xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:substitutableBoolean" use="optional" name="primaryNodeOnly">
+        <xs:attribute type="zernova:substitutableBoolean" use="optional" name="primaryNodeOnly">
           <xs:annotation>
             <xs:documentation>Whether this source should only be executed on the primary node when runnning in Cluster</xs:documentation>
           </xs:annotation>
@@ -277,10 +277,10 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/reconnection" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="SwitchConnectionType" substitutionGroup="mule:abstract-operator" name="switch-connection"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/reconnection" xmlns:zernova="https://schemas.zernova.dev/core" type="SwitchConnectionType" substitutionGroup="zernova:abstract-operator" name="switch-connection"></xs:element>
   <xs:complexType name="SwitchConnectionType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -310,7 +310,7 @@
         </xs:restriction>
       </xs:simpleType>
       <xs:simpleType>
-        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+        <xs:restriction xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:propertyPlaceholderType"></xs:restriction>
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>

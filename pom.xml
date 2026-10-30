@@ -5,7 +5,7 @@
 
     <parent>
         <groupId>com.zernova</groupId>
-        <artifactId>mule-plugin-mgmt-parent-pom</artifactId>
+        <artifactId>zernova-plugin-mgmt-parent-pom</artifactId>
         <version>4.10.0</version>
         <relativePath/>
     </parent>
@@ -119,7 +119,7 @@
     </contributors>
     <issueManagement>
         <system>jira</system>
-        <url>https://www.mulesoft.org/jira/projects/MULE/issues/</url>
+        <url>https://www.mulesoft.org/jira/projects/ZERNOVA/issues/</url>
     </issueManagement>
 
     <!-- Build -->
@@ -273,7 +273,7 @@
     </dependencyManagement>
 
     <distributionManagement>
-        <downloadUrl>http://www.mulesoft.org/display/MULE/Download</downloadUrl>
+        <downloadUrl>http://www.mulesoft.org/display/ZERNOVA/Download</downloadUrl>
         <repository>
             <id>mule-releases</id>
             <name>Mule Release Repository</name>
@@ -297,7 +297,7 @@
 
     <pluginRepositories>
         <pluginRepository>
-            <id>mule-plugin</id>
+            <id>zernova-plugin</id>
             <name>Mule Repository</name>
             <url>https://repository.mulesoft.org/nexus/content/repositories/public/</url>
         </pluginRepository>
@@ -423,7 +423,7 @@
                     <configuration>
                         <archive>
                             <!--
-                                Disabled for http://mule.mulesoft.org/jira/browse/MULE-1153
+                                Disabled for http://mule.mulesoft.org/jira/browse/ZERNOVA-1153
                                 and http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4408526
                              -->
                             <index>false</index>
@@ -504,7 +504,7 @@
                 </plugin>
                 <plugin>
                     <groupId>com.zernova.runtime.plugins</groupId>
-                    <artifactId>mule-plugin-maven-plugin</artifactId>
+                    <artifactId>zernova-plugin-maven-plugin</artifactId>
                     <version>${mule.app.plugins.maven.plugin.version}</version>
                     <extensions>true</extensions>
                 </plugin>
@@ -823,7 +823,7 @@ license, a copy of which is included in the root LICENSE.txt file.]]></inlineHea
             <dependencies>
                 <dependency>
                     <groupId>com.zernova.runtime</groupId>
-                    <artifactId>mule-artifact-ast-serialization</artifactId>
+                    <artifactId>zernova-artifact-ast-serialization</artifactId>
                     <scope>test</scope>
                     <exclusions>
                         <exclusion>

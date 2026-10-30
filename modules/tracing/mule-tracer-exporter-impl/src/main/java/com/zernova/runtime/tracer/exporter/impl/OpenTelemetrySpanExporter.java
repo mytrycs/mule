@@ -84,7 +84,7 @@ import io.opentelemetry.sdk.trace.samplers.SamplingResult;
  */
 public class OpenTelemetrySpanExporter implements SpanExporter, SpanData, ReadableSpan, Attributes {
 
-  private static final String MULE_INSTRUMENTATION_LIBRARY = "mule";
+  private static final String MULE_INSTRUMENTATION_LIBRARY = "zernova";
   private static final String MULE_INSTRUMENTATION_LIBRARY_VERSION = "1.0.0";
   public static final InstrumentationLibraryInfo INSTRUMENTATION_LIBRARY_INFO =
       create(MULE_INSTRUMENTATION_LIBRARY, MULE_INSTRUMENTATION_LIBRARY_VERSION);

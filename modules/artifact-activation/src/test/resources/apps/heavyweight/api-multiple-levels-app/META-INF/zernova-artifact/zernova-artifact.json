@@ -1,0 +1,14 @@
+{
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "api-multiple-levels-app",
+  "minZernovaVersion": "4.4.0",
+  "requiredProduct": "ZERNOVA",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova"
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  }
+}

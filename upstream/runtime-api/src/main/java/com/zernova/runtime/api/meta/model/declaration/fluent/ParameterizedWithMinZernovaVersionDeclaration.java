@@ -25,7 +25,7 @@ public abstract class ParameterizedWithMinZernovaVersionDeclaration<T extends Pa
     extends ParameterizedDeclaration<T>
     implements WithMinZernovaVersionDeclaration {
 
-  private ZernovaVersion minMuleVersion;
+  private ZernovaVersion minZernovaVersion;
 
   /**
    * Creates a new instance
@@ -40,15 +40,15 @@ public abstract class ParameterizedWithMinZernovaVersionDeclaration<T extends Pa
    * {@inheritDoc}
    */
   @Override
-  public Optional<ZernovaVersion> getMinMuleVersion() {
-    return ofNullable(minMuleVersion);
+  public Optional<ZernovaVersion> getMinZernovaVersion() {
+    return ofNullable(minZernovaVersion);
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public void withMinMuleVersion(ZernovaVersion minMuleVersion) {
-    this.minMuleVersion = minMuleVersion;
+  public void withMinZernovaVersion(ZernovaVersion minZernovaVersion) {
+    this.minZernovaVersion = minZernovaVersion;
   }
 }

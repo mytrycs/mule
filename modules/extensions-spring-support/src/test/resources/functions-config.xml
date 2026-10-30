@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:fn="http://www.mulesoft.org/schema/mule/fn"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/fn http://www.mulesoft.org/schema/mule/fn/current/mule-fn.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:fn="https://schemas.zernova.dev/fn"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/fn https://schemas.zernova.dev/fn/current/zernova-fn.xsd">
 
     <flow name="staticGlobalEcho">
         <fn:evaluate>
@@ -68,4 +68,4 @@
         <set-payload value="#[%dw 2.0 output application/java --- payload.^raw as String]"/>
     </flow>
 
-</mule>
+</zernova>

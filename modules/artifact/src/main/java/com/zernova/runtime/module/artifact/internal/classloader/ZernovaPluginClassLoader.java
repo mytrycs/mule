@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Implementation of the ArtifactClassLoader interface for {@code mule-plugin}s, that manages shutdown listeners and has resource
+ * Implementation of the ArtifactClassLoader interface for {@code zernova-plugin}s, that manages shutdown listeners and has resource
  * releasers.
  */
 public class ZernovaPluginClassLoader extends ZernovaArtifactClassLoader implements WithAttachedClassLoaders {

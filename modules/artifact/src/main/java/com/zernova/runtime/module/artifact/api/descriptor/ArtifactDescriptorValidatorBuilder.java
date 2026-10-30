@@ -20,15 +20,15 @@ import java.util.List;
 import java.util.function.Supplier;
 
 /**
- * Builder that allows to create a {@link ArtifactDescriptorValidator} with different aspects: from checking minMuleVersion to
+ * Builder that allows to create a {@link ArtifactDescriptorValidator} with different aspects: from checking minZernovaVersion to
  * checking the artifact version format.
  *
  * @since 4.1
  */
 public final class ArtifactDescriptorValidatorBuilder {
 
-  private boolean minMuleVersionArtifactDescriptorValidator;
-  private boolean validateMinMuleVersionWithSemanticVersioning;
+  private boolean minZernovaVersionArtifactDescriptorValidator;
+  private boolean validateMinZernovaVersionWithSemanticVersioning;
   private Supplier<String> muleRuntimeVersionSupplier;
 
   private boolean validateMuleProduct;
@@ -50,37 +50,37 @@ public final class ArtifactDescriptorValidatorBuilder {
   }
 
   /**
-   * Sets a validation for minMuleVersion, {@link ArtifactDescriptor} created should defined the current Mule Runtime version as
-   * minMuleVersion or a prior version.
+   * Sets a validation for minZernovaVersion, {@link ArtifactDescriptor} created should defined the current Mule Runtime version as
+   * minZernovaVersion or a prior version.
    *
    * @return this
    */
-  public ArtifactDescriptorValidatorBuilder validateMinMuleVersion() {
-    this.minMuleVersionArtifactDescriptorValidator = true;
+  public ArtifactDescriptorValidatorBuilder validateMinZernovaVersion() {
+    this.minZernovaVersionArtifactDescriptorValidator = true;
     return this;
   }
 
   /**
-   * Sets a validation for minMuleVersion as {@link #validateMinMuleVersion()} but the Mule Runtime version could be provided as a
+   * Sets a validation for minZernovaVersion as {@link #validateMinZernovaVersion()} but the Mule Runtime version could be provided as a
    * supplier. Used by Tooling.
    *
    * @return this
    */
-  public ArtifactDescriptorValidatorBuilder validateMinMuleVersion(Supplier<String> muleRuntimeVersionSupplier) {
-    this.validateMinMuleVersion();
+  public ArtifactDescriptorValidatorBuilder validateMinZernovaVersion(Supplier<String> muleRuntimeVersionSupplier) {
+    this.validateMinZernovaVersion();
     this.muleRuntimeVersionSupplier = muleRuntimeVersionSupplier;
     return this;
   }
 
   /**
-   * Sets a validation for minMuleVersion as {@link #validateMinMuleVersion()} but the validation should only consider semantic
-   * version when checking the minMuleVersion vs Mule Runtime version.
+   * Sets a validation for minZernovaVersion as {@link #validateMinZernovaVersion()} but the validation should only consider semantic
+   * version when checking the minZernovaVersion vs Mule Runtime version.
    *
    * @return this
    */
-  public ArtifactDescriptorValidatorBuilder validateMinMuleVersionUsingSemanticVersion() {
-    this.validateMinMuleVersion();
-    this.validateMinMuleVersionWithSemanticVersioning = true;
+  public ArtifactDescriptorValidatorBuilder validateMinZernovaVersionUsingSemanticVersion() {
+    this.validateMinZernovaVersion();
+    this.validateMinZernovaVersionWithSemanticVersioning = true;
     return this;
   }
 
@@ -134,12 +134,12 @@ public final class ArtifactDescriptorValidatorBuilder {
   public ArtifactDescriptorValidator build() {
     List<ArtifactDescriptorValidator> validations = new ArrayList<>();
 
-    if (minMuleVersionArtifactDescriptorValidator) {
+    if (minZernovaVersionArtifactDescriptorValidator) {
       if (muleRuntimeVersionSupplier != null) {
-        validations.add(new MinZernovaVersionArtifactDescriptorValidator(validateMinMuleVersionWithSemanticVersioning,
+        validations.add(new MinZernovaVersionArtifactDescriptorValidator(validateMinZernovaVersionWithSemanticVersioning,
                                                                       muleRuntimeVersionSupplier));
       } else {
-        validations.add(new MinZernovaVersionArtifactDescriptorValidator(validateMinMuleVersionWithSemanticVersioning));
+        validations.add(new MinZernovaVersionArtifactDescriptorValidator(validateMinZernovaVersionWithSemanticVersioning));
       }
     }
     if (validateMuleProduct) {

@@ -111,7 +111,7 @@ public class ZernovaClassLoaderResourceNotFoundExceptionFactory implements Class
                    resourceType);
       } else {
         possibleResourceOwnersMessage =
-            format("The %s exists in the following context (%s) but is not exported. Try exporting the %s by modifying the mule-artifact.json file",
+            format("The %s exists in the following context (%s) but is not exported. Try exporting the %s by modifying the zernova-artifact.json file",
                    resourceType,
                    join(",", possibleResourceOwners.stream()
                        .map(cln -> cln.getId()).collect(Collectors.toList())),

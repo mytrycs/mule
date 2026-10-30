@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:test-policy="http://www.mulesoft.org/schema/mule/test-policy"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xmlns:hello="http://www.mulesoft.org/schema/mule/hello"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/test-policy http://www.mulesoft.org/schema/mule/test-policy/current/mule-test-policy.xsd
-               http://www.mulesoft.org/schema/mule/hello http://www.mulesoft.org/schema/mule/hello/current/mule-hello.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:test-policy="https://schemas.zernova.dev/test-policy"
+      xmlns="https://schemas.zernova.dev/core"
+      xmlns:hello="https://schemas.zernova.dev/hello"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/test-policy https://schemas.zernova.dev/test-policy/current/zernova-test-policy.xsd
+               https://schemas.zernova.dev/hello https://schemas.zernova.dev/hello/current/zernova-hello.xsd">
 
     <hello:config name="default" message="Hello from policy!!!"/>
 
@@ -15,4 +15,4 @@
             <hello:print-message config-ref="default"/>
         </test-policy:operation>
     </test-policy:proxy>
-</mule>
+</zernova>

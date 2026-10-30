@@ -16,7 +16,7 @@ interface AgentEndpoint { schemaVersion: 1; product: 'ZERNOVA Runtime Control'; 
 interface RuntimeState { schema_version: 2; pid: number; run_id: string; console_log: string; runtime_ready: boolean; started_utc: string; config: { http_host: '127.0.0.1'; http_port: number; heap_mb: number }; }
 interface AppRecord { sha256: string; run_id: string; log_offset: number; deployed_utc: string; }
 export interface AppStatus { name: string; state: 'NOT_DEPLOYED' | 'STOPPED' | 'DEPLOYING' | 'DEPLOYED' | 'UNHEALTHY'; healthy: boolean; deployment: 'NOT_RUNNING' | 'PENDING' | 'DEPLOYED' | 'FAILED'; endpoint: 'NOT_CHECKED'; }
-export interface PortableStatus { schema_version: 2; product: 'ZERNOVA Runtime'; distribution_version: string; kernel_version: string; dataweave_version: string; build_mode: string; process: 'RUNNING' | 'STOPPED'; runtime: 'READY' | 'STARTING' | 'STOPPED'; pid?: number; run_id?: string; work_directory: string; healthy: boolean; applications: Record<string, AppStatus>; }
+export interface PortableStatus { schema_version: 2; product: 'ZERNOVA Runtime'; distribution_version: string; kernel_version: string; upstream_baseline?: string; dataweave_version: string; build_mode: string; process: 'RUNNING' | 'STOPPED'; runtime: 'READY' | 'STARTING' | 'STOPPED'; pid?: number; run_id?: string; work_directory: string; healthy: boolean; applications: Record<string, AppStatus>; }
 export interface RuntimeOptions { bundle: string; instance: string; project: string; application: string; onOutput?: (text: string) => void; startupTimeoutMs?: number; deploymentTimeoutMs?: number; stopTimeoutMs?: number; }
 const children = new Map<string, ChildProcess>();
 const MAX_LOG = 8 * 1024 * 1024;
@@ -35,7 +35,7 @@ export async function checkPort(port: number): Promise<void> {
 export function javaArguments(bundle: string, runtime: string, control: string, agent: string, port: number, heap = 768): string[] {
   const args = [`-Xms${Math.min(heap, 256)}m`, `-Xmx${heap}m`,
     `-javaagent:${path.join(bundle, agent)}=${control}`,
-    `-Dmule.home=${runtime}`, `-Dmule.base=${runtime}`, `-Dzernova.distribution.version=${RUNTIME_VERSION}`,
+    `-Dmule.home=${runtime}`, `-Dzernova.home=${runtime}`, `-Dmule.base=${runtime}`, `-Dzernova.distribution.version=${RUNTIME_VERSION}`,
     '-Dzernova.http.host=127.0.0.1', `-Dzernova.http.port=${port}`, '-Dfile.encoding=UTF-8', '-Djava.net.preferIPv4Stack=TRUE',
     '-Dorg.glassfish.grizzly.nio.transport.TCPNIOTransport.max-receive-buffer-size=1048576',
     '-Dorg.glassfish.grizzly.nio.transport.TCPNIOTransport.max-send-buffer-size=1048576',
@@ -77,7 +77,7 @@ export class BundledRuntime {
     for (const value of [this.startupMs, this.deployMs, this.stopMs]) if (!Number.isInteger(value) || value < 500 || value > 300000) throw new Error('Invalid lifecycle timeout.');
   }
   identity(): Omit<PortableStatus, 'process' | 'runtime' | 'work_directory' | 'healthy' | 'applications'> {
-    return { schema_version: 2, product: 'ZERNOVA Runtime', distribution_version: RUNTIME_VERSION, kernel_version: ENGINE_VERSION, dataweave_version: '2.10.0', build_mode: 'source-built-development' };
+    return { schema_version: 2, product: 'ZERNOVA Runtime', distribution_version: RUNTIME_VERSION, kernel_version: RUNTIME_VERSION, upstream_baseline: ENGINE_VERSION, dataweave_version: '2.10.0', build_mode: 'source-built-development' };
   }
   async ownership(): Promise<void> {
     // Check every existing ancestor for redirection before creating private state.

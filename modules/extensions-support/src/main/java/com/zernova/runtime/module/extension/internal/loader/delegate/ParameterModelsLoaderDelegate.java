@@ -109,10 +109,10 @@ public final class ParameterModelsLoaderDelegate {
         parameterParser.getDisplayModel().ifPresent(parameter::withDisplayModel);
         parameterParser.getOAuthParameterModelProperty().ifPresent(parameter::withModelProperty);
         parameterParser.getAdditionalModelProperties().forEach(parameter::withModelProperty);
-        if (context.isResolveMinMuleVersion()) {
-          parameterParser.getResolvedMinMuleVersion()
+        if (context.isResolveMinZernovaVersion()) {
+          parameterParser.getResolvedMinZernovaVersion()
               .ifPresent(mmv -> declarerWithMmv(parameter, new ResolvedMinZernovaVersion(parameterParser.getName(),
-                                                                                      mmv.getMinMuleVersion(), mmv.getReason())));
+                                                                                      mmv.getMinZernovaVersion(), mmv.getReason())));
         }
 
         addSemanticTerms(parameter.getDeclaration(), parameterParser);

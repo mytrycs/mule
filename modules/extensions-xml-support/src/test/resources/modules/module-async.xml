@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module name="module-async"
-        xmlns="http://www.mulesoft.org/schema/mule/module"
-        xmlns:mule="http://www.mulesoft.org/schema/mule/core"
-        xmlns:test-components="http://www.mulesoft.org/schema/mule/test"
-        xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg"
+        xmlns="https://schemas.zernova.dev/module"
+        xmlns:zernova="https://schemas.zernova.dev/core"
+        xmlns:test-components="https://schemas.zernova.dev/test"
+        xmlns:heisenberg="https://schemas.zernova.dev/heisenberg"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="
-           http://www.mulesoft.org/schema/mule/module http://www.mulesoft.org/schema/mule/module/current/mule-module.xsd
-           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-           http://www.mulesoft.org/schema/mule/test http://www.mulesoft.org/schema/mule/test/current/mule-test.xsd
-           http://www.mulesoft.org/schema/mule/heisenberg http://www.mulesoft.org/schema/mule/heisenberg/current/mule-heisenberg.xsd">
+           https://schemas.zernova.dev/module https://schemas.zernova.dev/module/current/zernova-module.xsd
+           https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+           https://schemas.zernova.dev/test https://schemas.zernova.dev/test/current/zernova-test.xsd
+           https://schemas.zernova.dev/heisenberg https://schemas.zernova.dev/heisenberg/current/zernova-heisenberg.xsd">
 
     <operation name="async-non-blocking">
         <parameters>
             <parameter name="value" type="string"/>
         </parameters>
         <body>
-            <mule:async>
+            <zernova:async>
                 <heisenberg:non-blocking/>
                 <test-components:queue name="asyncResponseQueue"/>
-            </mule:async>
+            </zernova:async>
         </body>
         <output type="string"/>
     </operation>

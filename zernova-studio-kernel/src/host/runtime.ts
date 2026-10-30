@@ -63,7 +63,7 @@ export class RuntimeManager implements vscode.Disposable {
     parser.ontext = text => { if (dep && stack.length === 4) dep[stack[3]] = (dep[stack[3]] ?? '') + text; };
     parser.onclosetag = () => { if (stack.join('/') === 'project/dependencies/dependency' && dep) { deps.push(dep); dep = undefined; } stack.pop(); };
     parser.write(await fs.readFile(path.join(project.root, 'pom.xml'), 'utf8')).close();
-    if (deps.some(d => !['org.mule.connectors', 'com.zernova.connectors'].includes(d.groupId?.trim()) || d.artifactId?.trim() !== 'mule-http-connector' || d.version?.trim() !== '1.12.2' || d.classifier?.trim() !== 'mule-plugin')) throw new Error('The bundled offline builder supports core and HTTP 1.12.2 only. Additional dependencies are not silently ignored.');
+    if (deps.some(d => !['com.zernova.connectors'].includes(d.groupId?.trim()) || d.artifactId?.trim() !== 'zernova-http-connector' || d.version?.trim() !== '1.12.2' || d.classifier?.trim() !== 'zernova-plugin')) throw new Error('The bundled offline builder supports core and HTTP 1.12.2 only. Additional dependencies are not silently ignored.');
     const metadata = { schemaVersion: 1, name: project.artifactId, group: project.groupId, version: project.version, dependencies: deps.length ? ['http'] : [] };
     const file = path.join(project.root, 'zernova-app.json');
     const existing = await fs.readFile(file, 'utf8').catch(e => { if (e.code === 'ENOENT') return undefined; throw e; });
@@ -80,9 +80,9 @@ export class RuntimeManager implements vscode.Disposable {
     for (const doc of dirty) if (!await doc.save()) throw new Error(`Could not save ${doc.uri.fsPath}. No application was built or deployed.`);
   }
   private async projectPort(project: Project): Promise<number> {
-    const source = path.join(project.root, 'src/main/mule');
+    const source = path.join(project.root, 'src/main/zernova');
     const files = (await fs.readdir(source)).filter(name => name.endsWith('.xml'));
-    if (!files.length) throw new Error('src/main/mule is empty. Create Integration XML, create a flow, then add and configure an HTTP Listener and Logger before building.');
+    if (!files.length) throw new Error('src/main/zernova is empty. Create Integration XML, create a flow, then add and configure an HTTP Listener and Logger before building.');
     const properties: Record<string, string> = {};
     const propertyFiles = new Set<string>();
     const resources = path.join(project.root, 'src/main/resources');
@@ -101,7 +101,7 @@ export class RuntimeManager implements vscode.Disposable {
       if (!model.valid || issues.length) throw new Error(`Fix ${file} before building: ${issues[0]?.message ?? 'Invalid integration XML.'}`);
       const propertyParser = saxParser(true, { xmlns: true });
       propertyParser.onopentag = tag => {
-        if (tag.uri !== 'http://www.mulesoft.org/schema/mule/core' || tag.local !== 'configuration-properties') return;
+        if (tag.uri !== 'https://schemas.zernova.dev/core' || tag.local !== 'configuration-properties') return;
         const attr = tag.attributes.file as { value?: string } | undefined;
         if (typeof attr?.value !== 'string' || !/^[A-Za-z0-9_.\/-]+\.properties$/.test(attr.value) || path.isAbsolute(attr.value) || attr.value.split('/').includes('..')) throw new Error('Runtime port preflight supports explicitly declared relative .properties resources only.');
         propertyFiles.add(attr.value);

@@ -44,7 +44,7 @@ public class FunctionalTestCaseWithLazyInitTestCase extends FunctionalTestCase {
 
   @Test
   @Description("Checks that the min Mule version is present in the ZernovaConfiguration")
-  public void minMuleVersionHasBeenSet() {
-    assertThat(muleContext.getConfiguration().getMinMuleVersion().isPresent(), is(true));
+  public void minZernovaVersionHasBeenSet() {
+    assertThat(muleContext.getConfiguration().getMinZernovaVersion().isPresent(), is(true));
   }
 }

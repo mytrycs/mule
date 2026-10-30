@@ -37,10 +37,10 @@ public class ScatterGatherRoutesTestCase extends AbstractCoreValidationTestCase 
   public void scatterGatherRoutes() {
     final Optional<ValidationResultItem> msg = runValidation("ScatterGatherRoutesTestCase#scatterGatherRoutes",
                                                              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                                                                 "<mule xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
+                                                                 "<zernova xmlns=\"https://schemas.zernova.dev/core\"\n" +
                                                                  "      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
                                                                  +
-                                                                 "      xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd\">\n"
+                                                                 "      xsi:schemaLocation=\"https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd\">\n"
                                                                  +
                                                                  "\n" +
                                                                  "    <flow name=\"flow\">\n" +
@@ -51,7 +51,7 @@ public class ScatterGatherRoutesTestCase extends AbstractCoreValidationTestCase 
                                                                  "        </scatter-gather>\n" +
                                                                  "    </flow>\n" +
                                                                  "    \n" +
-                                                                 "</mule>")
+                                                                 "</zernova>")
                                                                      .stream().findFirst();
 
     assertThat(msg.get().getMessage(),

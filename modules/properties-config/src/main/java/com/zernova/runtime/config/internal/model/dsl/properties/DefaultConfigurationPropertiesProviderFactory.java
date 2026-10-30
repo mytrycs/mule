@@ -29,7 +29,7 @@ import java.util.function.UnaryOperator;
 public final class DefaultConfigurationPropertiesProviderFactory implements ConfigurationPropertiesProviderFactory {
 
   public static final String CONFIGURATION_PROPERTIES_ELEMENT = "configuration-properties";
-  private static final String CORE_PREFIX = "mule";
+  private static final String CORE_PREFIX = "zernova";
   public static final ComponentIdentifier CONFIGURATION_PROPERTIES =
       builder().namespace(CORE_PREFIX).name(CONFIGURATION_PROPERTIES_ELEMENT).build();
 

@@ -36,7 +36,7 @@ import com.zernova.test.values.extension.source.SourceWithTwoBoundActingParamete
     ConfigWithBoundValueParameter.class, ConfigWithParameterWithFieldValues.class, ChatConfiguration.class, XmlBasedConfig.class})
 @Sources({SimpleSource.class, SourceWithTwoBoundActingParameters.class})
 @Export(classes = MyPojo.class)
-@Xml(namespace = "http://www.mulesoft.org/schema/mule/values", prefix = "values")
+@Xml(namespace = "https://schemas.zernova.dev/values", prefix = "values")
 public class ValuesExtension {
 
 }

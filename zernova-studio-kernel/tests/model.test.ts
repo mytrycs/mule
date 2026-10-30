@@ -149,12 +149,12 @@ test('local form validation rejects missing values, bad path and out-of-range po
   assert.ok(validateComponent({ ...state.flow.processors[0], message: '' }).message);
 });
 
-test('XML is derived from current fields and preserves upstream identifiers', () => {
+test('XML is derived from current fields and uses ZERNOVA application identifiers', () => {
   const state = createInitialState(); state.flow.source!.path = '/changed'; state.flow.processors[0].level = 'WARN';
   const xml = serializeXml(state);
   assert.match(xml, /path="\/changed"/); assert.match(xml, /level="WARN"/);
-  assert.match(xml, /http:\/\/www\.mulesoft\.org\/schema\/mule\/core/);
-  assert.match(xml, /xmlns:http="http:\/\/www\.mulesoft\.org\/schema\/mule\/http"/);
+  assert.match(xml, /https:\/\/schemas\.zernova\.dev\/core/);
+  assert.match(xml, /xmlns:http="https:\/\/schemas\.zernova\.dev\/http"/);
   assert.match(xml, /doc:name="Log request"/);
   assert.doesNotMatch(xml, /ee:transform|zernova\.org\/schema|ZEL/);
   assert.match(xml, /DESIGN PREVIEW/);

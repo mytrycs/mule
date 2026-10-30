@@ -135,14 +135,14 @@ public final class ExtensionModelLoadingRequest {
     }
 
     /**
-     * Enables or disables minMuleVersion calculation for each extension element.
+     * Enables or disables minZernovaVersion calculation for each extension element.
      *
-     * @param resolveMinMuleVersion whether the {@link #getResolvedMinMuleVersion() minMuleVersion resolution} has to be
+     * @param resolveMinZernovaVersion whether the {@link #getResolvedMinZernovaVersion() minZernovaVersion resolution} has to be
      *                              performed.
      * @return {@code this} builder
      */
-    public Builder setResolveMinMuleVersion(boolean resolveMinMuleVersion) {
-      product.resolveMinMuleVersion = resolveMinMuleVersion;
+    public Builder setResolveMinZernovaVersion(boolean resolveMinZernovaVersion) {
+      product.resolveMinZernovaVersion = resolveMinZernovaVersion;
 
       return this;
     }
@@ -172,7 +172,7 @@ public final class ExtensionModelLoadingRequest {
   private ArtifactCoordinates artifactCoordinates;
   private boolean ocsEnabled = false;
   private boolean forceExtensionValidation = false;
-  private boolean resolveMinMuleVersion = false;
+  private boolean resolveMinZernovaVersion = false;
 
   private ExtensionModelLoadingRequest(ClassLoader extensionClassLoader, DslResolvingContext dslResolvingContext) {
     checkArgument(extensionClassLoader != null, "extension classLoader cannot be null");
@@ -212,11 +212,11 @@ public final class ExtensionModelLoadingRequest {
   }
 
   /**
-   * @return whether the {@link HasMinZernovaVersion#getMinMuleVersion() minMuleVersion} of each component must be calculated.
+   * @return whether the {@link HasMinZernovaVersion#getMinZernovaVersion() minZernovaVersion} of each component must be calculated.
    * @since 1.9
    */
-  public boolean isResolveMinMuleVersion() {
-    return resolveMinMuleVersion;
+  public boolean isResolveMinZernovaVersion() {
+    return resolveMinZernovaVersion;
   }
 
   /**

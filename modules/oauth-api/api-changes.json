@@ -797,7 +797,7 @@
           "classSimpleName": "OAuthAuthorizationCodeDancerBuilder",
           "methodName": "encodeClientCredentialsInBody",
           "elementKind": "method",
-          "justification": "Needed to fix an issue in the OAuth module. (MULE-15539)"
+          "justification": "Needed to fix an issue in the OAuth module. (ZERNOVA-15539)"
         }
       ]
     }

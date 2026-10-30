@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:typed-value="http://www.mulesoft.org/schema/mule/typed-value"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/typed-value http://www.mulesoft.org/schema/mule/typed-value/current/mule-typed-value.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:typed-value="https://schemas.zernova.dev/typed-value"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/typed-value https://schemas.zernova.dev/typed-value/current/zernova-typed-value.xsd">
 
 
     <typed-value:config name="dynamicConfig" stringTypedValue="#[payload]">
@@ -24,4 +24,4 @@
         <typed-value:typed-value-on-config config-ref="staticConfig" />
     </flow>
 
-</mule>
+</zernova>

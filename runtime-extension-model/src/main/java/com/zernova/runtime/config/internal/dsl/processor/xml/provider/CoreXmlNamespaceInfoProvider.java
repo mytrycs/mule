@@ -27,7 +27,7 @@ public class CoreXmlNamespaceInfoProvider implements XmlNamespaceInfoProvider {
 
       @Override
       public String getNamespaceUriPrefix() {
-        return "http://www.mulesoft.org/schema/mule/core";
+        return "https://schemas.zernova.dev/core";
       }
 
       @Override

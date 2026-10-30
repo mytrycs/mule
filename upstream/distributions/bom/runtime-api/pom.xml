@@ -36,13 +36,13 @@
             </dependency>
             <dependency>
                 <groupId>com.zernova.runtime</groupId>
-                <artifactId>mule-artifact-ast-dependency-graph</artifactId>
+                <artifactId>zernova-artifact-ast-dependency-graph</artifactId>
                 <version>${muleAstVersion}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>com.zernova.runtime</groupId>
-                <artifactId>mule-artifact-ast-xml-parser</artifactId>
+                <artifactId>zernova-artifact-ast-xml-parser</artifactId>
                 <version>${muleAstVersion}</version>
                 <scope>provided</scope>
             </dependency>

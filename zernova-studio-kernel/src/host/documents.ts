@@ -156,7 +156,7 @@ export class IntegrationEditorProvider implements vscode.CustomTextEditorProvide
     if (!old || operation.kind === 'saveConfig' && old.name === operation.values.name) return;
     const project = this.options.projectRoot?.(document.uri);
     if (!project) throw new XmlEditError('Open this integration as a ZERNOVA project before renaming or deleting a shared configuration.');
-    const files = await vscode.workspace.findFiles(new vscode.RelativePattern(project, 'src/main/mule/**/*.xml'), '**/target/**', 201);
+    const files = await vscode.workspace.findFiles(new vscode.RelativePattern(project, 'src/main/zernova/**/*.xml'), '**/target/**', 201);
     if (files.length > 200) throw new XmlEditError('Project has more than 200 integration documents. Automatic shared-configuration rename/delete is disabled.');
     for (const uri of files) {
       if (uri.toString() === document.uri.toString()) continue;

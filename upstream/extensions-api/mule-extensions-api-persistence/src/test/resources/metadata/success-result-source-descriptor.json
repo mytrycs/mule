@@ -576,7 +576,7 @@
                   "namespace": "TEST",
                   "parent": {
                     "type": "MODULE_CONFIG",
-                    "namespace": "MULE"
+                    "namespace": "ZERNOVA"
                   }
                 }
               ],
@@ -639,9 +639,9 @@
     "visibility": "PUBLIC",
     "stereotype": {
       "type": "SOURCE",
-      "namespace": "MULE"
+      "namespace": "ZERNOVA"
     },
-    "minMuleVersion": "4.2.2",
+    "minZernovaVersion": "4.2.2",
     "parameterGroupModels": [
       {
         "parameters": [
@@ -686,7 +686,7 @@
               "deprecatedSince": "1.3.0"
             },
             "semanticTerms": [],
-            "minMuleVersion": "4.4.0",
+            "minZernovaVersion": "4.4.0",
             "name": "carName",
             "displayModel": {},
             "description": "Name of the car",

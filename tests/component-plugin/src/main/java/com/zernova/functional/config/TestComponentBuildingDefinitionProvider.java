@@ -62,7 +62,7 @@ public class TestComponentBuildingDefinitionProvider implements ComponentBuildin
     boolean runningTests = isRunningTests();
 
     if (!runningTests) {
-      throw new IllegalStateException("Internal runtime mule-test.xsd can't be used in real applications");
+      throw new IllegalStateException("Internal runtime zernova-test.xsd can't be used in real applications");
     }
 
     baseDefinition = new ComponentBuildingDefinition.Builder().withNamespace(TEST_NAMESPACE);

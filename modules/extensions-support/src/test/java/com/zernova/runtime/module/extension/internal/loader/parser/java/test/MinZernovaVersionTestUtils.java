@@ -17,9 +17,9 @@ import com.zernova.runtime.extension.internal.loader.DefaultExtensionLoadingCont
 
 public class MinZernovaVersionTestUtils {
 
-  public static ExtensionLoadingContext ctxResolvingMinMuleVersion() {
+  public static ExtensionLoadingContext ctxResolvingMinZernovaVersion() {
     ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
     return new DefaultExtensionLoadingContext(builder(contextClassLoader, getDefault(emptySet()))
-        .setResolveMinMuleVersion(true).build());
+        .setResolveMinZernovaVersion(true).build());
   }
 }

@@ -106,7 +106,7 @@ public abstract class AbstractArtifactAgnosticServiceBuilderTestCase extends Abs
 
     builder.addDependency("com.zernova.test", "test-artifact", "0.0.1", null, "jar");
     builder.addDependency("com.zernova.test", "test-not-plugin", "0.0.1", "notAPlugin", "jar");
-    builder.addDependency("com.zernova.test", "test-mule-plugin", "0.0.1", MULE_PLUGIN_CLASSIFIER, "jar");
+    builder.addDependency("com.zernova.test", "test-zernova-plugin", "0.0.1", MULE_PLUGIN_CLASSIFIER, "jar");
 
     verify(model, times(3)).addDependency(any());
     // only two invocations...
@@ -114,7 +114,7 @@ public abstract class AbstractArtifactAgnosticServiceBuilderTestCase extends Abs
     // ..and those invocations with the expected parameters
     verify(model).addSharedLibraryDependency("com.zernova.test", "test-artifact");
     verify(model).addSharedLibraryDependency("com.zernova.test", "test-not-plugin");
-    verify(model, never()).addSharedLibraryDependency(anyString(), eq("test-mule-plugin"));
+    verify(model, never()).addSharedLibraryDependency(anyString(), eq("test-zernova-plugin"));
   }
 
   protected abstract ArtifactAgnosticServiceBuilder getArtifactAgnosticServiceBuilder(DefaultApplicationFactory applicationFactory);

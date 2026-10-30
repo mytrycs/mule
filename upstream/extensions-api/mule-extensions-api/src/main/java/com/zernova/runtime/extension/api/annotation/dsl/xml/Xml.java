@@ -41,7 +41,7 @@ public @interface Xml {
 
   /**
    * Location URI for the namespace. If left empty it will default to
-   * &quot;http://www.mulesoft.org/schema/mule/&lt;&lt;extension_namespace&gt;&gt;
+   * &quot;https://schemas.zernova.dev/&lt;&lt;extension_namespace&gt;&gt;
    */
   String namespace() default "";
 

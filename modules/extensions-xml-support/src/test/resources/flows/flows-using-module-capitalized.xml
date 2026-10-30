@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+<zernova xmlns="https://schemas.zernova.dev/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:capitalized="http://www.mulesoft.org/schema/mule/module-capitalized"
+      xmlns:capitalized="https://schemas.zernova.dev/module-capitalized"
       xsi:schemaLocation="
-       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-       http://www.mulesoft.org/schema/mule/module-capitalized http://www.mulesoft.org/schema/mule/module-capitalized/current/mule-module-capitalized.xsd">
+       https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+       https://schemas.zernova.dev/module-capitalized https://schemas.zernova.dev/module-capitalized/current/zernova-module-capitalized.xsd">
 
     <flow name="test_setPayloadHardcodedValueCamelized">
         <capitalized:set-payload-hardcoded-value-camelized/>
@@ -14,4 +14,4 @@
         <capitalized:operation-started-with-capitalized-name/>
     </flow>
 
-</mule>
+</zernova>

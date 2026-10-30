@@ -5,7 +5,7 @@
     "artifactId": "mule-sockets-connector",
     "version": "1.0.0",
     "type": "jar",
-    "classifier": "mule-plugin"
+    "classifier": "zernova-plugin"
   },
   "dependencies": [
     {
@@ -87,8 +87,8 @@
   ],
   "resources": [
     "META-INF/maven/com.zernova.connectors/mule-sockets-connector/pom.xml",
-    "META-INF/mule-artifact/icon.svg",
-    "META-INF/mule-artifact/mule-artifact.json",
+    "META-INF/zernova-artifact/icon.svg",
+    "META-INF/zernova-artifact/zernova-artifact.json",
     "META-INF/sockets-extension-descriptions.xml"
   ]
 }

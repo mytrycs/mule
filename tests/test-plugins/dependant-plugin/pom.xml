@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>test-dependant-plugin</artifactId>
-    <packaging>mule-plugin</packaging>
+    <packaging>zernova-plugin</packaging>
 
     <properties>
         <javaModuleName>com.zernova.test.plugin.dependant</javaModuleName>
@@ -21,7 +21,7 @@
             <groupId>com.zernova.tests</groupId>
             <artifactId>test-empty-plugin</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
         </dependency>
     </dependencies>
 
@@ -29,7 +29,7 @@
         <plugins>
             <plugin>
                 <groupId>com.zernova.runtime.plugins</groupId>
-                <artifactId>mule-plugin-maven-plugin</artifactId>
+                <artifactId>zernova-plugin-maven-plugin</artifactId>
                 <extensions>true</extensions>
             </plugin>
         </plugins>

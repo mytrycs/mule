@@ -63,11 +63,11 @@
           "handleable": true,
           "parent": {
             "type": "CONNECTIVITY",
-            "namespace": "MULE",
+            "namespace": "ZERNOVA",
             "handleable": true,
             "parent": {
               "type": "ANY",
-              "namespace": "MULE",
+              "namespace": "ZERNOVA",
               "handleable": true
             }
           }
@@ -81,14 +81,14 @@
     "visibility": "PUBLIC",
     "stereotype": {
       "type": "PROCESSOR",
-      "namespace": "MULE"
+      "namespace": "ZERNOVA"
     },
     "deprecationModel": {
       "message": "This operation is deprecated",
       "deprecatedSince": "1.3.0",
       "toRemoveIn": "2.0.0"
     },
-    "minMuleVersion": "4.4.0",
+    "minZernovaVersion": "4.4.0",
     "parameterGroupModels": [
       {
         "parameters": [
@@ -132,7 +132,7 @@
               "message": "This is deprecated",
               "deprecatedSince": "1.3.0"
             },
-            "minMuleVersion": "4.4.0",
+            "minZernovaVersion": "4.4.0",
             "semanticTerms": [],
             "name": "carName",
             "displayModel": {},
@@ -692,7 +692,7 @@
                 "namespace": "TEST",
                 "parent": {
                   "type": "MODULE_CONFIG",
-                  "namespace": "MULE"
+                  "namespace": "ZERNOVA"
                 }
               }
             ],

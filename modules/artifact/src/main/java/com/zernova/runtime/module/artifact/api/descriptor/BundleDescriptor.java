@@ -23,7 +23,7 @@ import java.util.Optional;
  */
 public final class BundleDescriptor implements ArtifactCoordinates {
 
-  public static final String MULE_PLUGIN_CLASSIFIER = "mule-plugin";
+  public static final String MULE_PLUGIN_CLASSIFIER = "zernova-plugin";
 
   /**
    * @return a fresh {@link Builder} for creating a {@link BundleDescriptor}

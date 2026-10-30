@@ -25,7 +25,7 @@
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-values-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
         </dependency>
         <dependency>
             <groupId>com.zernova.sdk</groupId>

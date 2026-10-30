@@ -42,8 +42,8 @@ import org.slf4j.Logger;
 public class ZernovaSdkErrorsDeclarationParser {
 
   private static final Logger LOGGER = getLogger(ZernovaSdkErrorsDeclarationParser.class);
-  private static final String MULE = CORE_PREFIX.toUpperCase(getDefault());
-  private static final ComponentIdentifier MULE_ANY = parseErrorType("ANY", MULE);
+  private static final String ZERNOVA = CORE_PREFIX.toUpperCase(getDefault());
+  private static final ComponentIdentifier MULE_ANY = parseErrorType("ANY", ZERNOVA);
 
   private final ArtifactAst artifactAst;
   private final String extensionErrorNamespace;
@@ -127,9 +127,9 @@ public class ZernovaSdkErrorsDeclarationParser {
       throw new IllegalArgumentException(format("The extension with namespace '%s' can't declare the error '%s' with namespace '%s'",
                                                 extensionErrorNamespace, errorIdentifier, errorNamespace));
     }
-    if (!parentNamespace.equals(extensionErrorNamespace) && !parentNamespace.equals(MULE)) {
+    if (!parentNamespace.equals(extensionErrorNamespace) && !parentNamespace.equals(ZERNOVA)) {
       throw new IllegalArgumentException(format("The error '%s' can't declare '%s' as parent. It can only have a parent with namespace '%s' or '%s'",
-                                                errorIdentifier, parentIdentifier, extensionErrorNamespace, MULE));
+                                                errorIdentifier, parentIdentifier, extensionErrorNamespace, ZERNOVA));
     }
   }
 

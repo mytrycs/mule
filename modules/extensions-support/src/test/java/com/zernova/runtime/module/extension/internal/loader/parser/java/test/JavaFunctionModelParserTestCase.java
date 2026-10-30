@@ -7,7 +7,7 @@
 /* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package com.zernova.runtime.module.extension.internal.loader.parser.java.test;
 
-import static com.zernova.runtime.module.extension.internal.loader.parser.java.test.MinZernovaVersionTestUtils.ctxResolvingMinMuleVersion;
+import static com.zernova.runtime.module.extension.internal.loader.parser.java.test.MinZernovaVersionTestUtils.ctxResolvingMinZernovaVersion;
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.ResolvedMinZernovaVersion.FIRST_MULE_VERSION;
 import static com.zernova.test.module.extension.internal.util.ExtensionsTestUtils.TYPE_LOADER;
 
@@ -37,31 +37,31 @@ public class JavaFunctionModelParserTestCase {
   @Test
   public void getMMVForFunction() throws NoSuchMethodException {
     setParser(Functions.class.getMethod("function"), ConfigurationFunctions.class);
-    assertThat(parser.getResolvedMinMuleVersion().get().getMinMuleVersion(), is(FIRST_MULE_VERSION));
-    assertThat(parser.getResolvedMinMuleVersion().get().getReason(),
+    assertThat(parser.getResolvedMinZernovaVersion().get().getMinZernovaVersion(), is(FIRST_MULE_VERSION));
+    assertThat(parser.getResolvedMinZernovaVersion().get().getReason(),
                is("Function function has min mule version 4.1.1 because it is the default value."));
   }
 
   @Test
   public void getMMVForSdkAnnotatedFunction() throws NoSuchMethodException {
     setParser(SdkFunctions.class.getMethod("sdkFunction"), ConfigurationFunctions.class);
-    assertThat(parser.getResolvedMinMuleVersion().get().getMinMuleVersion().toString(), is("4.5.0"));
-    assertThat(parser.getResolvedMinMuleVersion().get().getReason(),
+    assertThat(parser.getResolvedMinZernovaVersion().get().getMinZernovaVersion().toString(), is("4.5.0"));
+    assertThat(parser.getResolvedMinZernovaVersion().get().getReason(),
                is("Method sdkFunction has min mule version 4.5.0 because it is annotated with Alias. Alias was introduced in Mule 4.5.0."));
   }
 
   @Test
   public void getMMVForFunctionFromConfigurationWithSdkFunctionsAnnotation() throws NoSuchMethodException {
     setParser(Functions.class.getMethod("function"), ConfigurationWithSdkFunctionsAnnotation.class);
-    assertThat(parser.getResolvedMinMuleVersion().get().getMinMuleVersion().toString(), is("4.5.0"));
-    assertThat(parser.getResolvedMinMuleVersion().get().getReason(),
+    assertThat(parser.getResolvedMinZernovaVersion().get().getMinZernovaVersion().toString(), is("4.5.0"));
+    assertThat(parser.getResolvedMinZernovaVersion().get().getReason(),
                is("Function function has min mule version 4.5.0 because it was propagated from the @Functions annotation at the extension class used to add the function."));
   }
 
   protected void setParser(Method method, Class<?> extensionClass) {
     functionElement = new FunctionWrapper(method, typeLoader);
     parser = new JavaFunctionModelParser(new ExtensionTypeWrapper<>(extensionClass, TYPE_LOADER), functionElement,
-                                         ctxResolvingMinMuleVersion());
+                                         ctxResolvingMinZernovaVersion());
   }
 
   private class Functions {

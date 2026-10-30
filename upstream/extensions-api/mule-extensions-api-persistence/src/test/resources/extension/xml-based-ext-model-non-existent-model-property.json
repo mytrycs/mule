@@ -6,10 +6,10 @@
   "category": "COMMUNITY",
   "xmlDsl": {
     "prefix": "extensionnonexistentmodelproperty",
-    "namespace": "http://www.mulesoft.org/schema/mule/extensionnonexistentmodelproperty",
-    "schemaLocation": "http://www.mulesoft.org/schema/mule/github/current/mule-extensionnonexistentmodelproperty.xsd",
+    "namespace": "https://schemas.zernova.dev/extensionnonexistentmodelproperty",
+    "schemaLocation": "https://schemas.zernova.dev/github/current/zernova-extensionnonexistentmodelproperty.xsd",
     "schemaVersion": "4.0",
-    "xsdFileName": "mule-extensionnonexistentmodelproperty.xsd"
+    "xsdFileName": "zernova-extensionnonexistentmodelproperty.xsd"
   },
   "resources": [],
   "subTypes": [],
@@ -33,10 +33,10 @@
     },
     "com.zernova.runtime.extension.api.property.XmlExtensionModelProperty": {
       "namespacesDependencies": [
-        "http://www.mulesoft.org/schema/mule/documentation",
-        "http://www.mulesoft.org/schema/mule/http",
+        "https://schemas.zernova.dev/documentation",
+        "https://schemas.zernova.dev/http",
         "http://www.w3.org/2001/XMLSchema-instance",
-        "http://www.mulesoft.org/schema/mule/core"
+        "https://schemas.zernova.dev/core"
       ]
     }
   },

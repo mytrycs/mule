@@ -74,7 +74,7 @@ public final class ExtensionModelTypeAdapter extends TypeAdapter<ExtensionModel>
   private static final String DESCRIPTION = "description";
   private static final String VERSION = "version";
   private static final String VENDOR = "vendor";
-  private static final String MIN_MULE_VERSION = "minMuleVersion";
+  private static final String MIN_MULE_VERSION = "minZernovaVersion";
   private static final String CATEGORY = "category";
   private static final String TYPES = "types";
   private static final String RESOURCES = "resources";
@@ -113,8 +113,8 @@ public final class ExtensionModelTypeAdapter extends TypeAdapter<ExtensionModel>
     out.name(DESCRIPTION).value(model.getDescription());
     out.name(VERSION).value(model.getVersion());
     out.name(VENDOR).value(model.getVendor());
-    if (model.getMinMuleVersion().isPresent()) {
-      out.name(MIN_MULE_VERSION).value(model.getMinMuleVersion().get().toCompleteNumericVersion());
+    if (model.getMinZernovaVersion().isPresent()) {
+      out.name(MIN_MULE_VERSION).value(model.getMinZernovaVersion().get().toCompleteNumericVersion());
     }
 
     JsonWriter versionsArray = out.name(SUPPORTED_JAVA_VERSIONS).beginArray();
@@ -158,9 +158,9 @@ public final class ExtensionModelTypeAdapter extends TypeAdapter<ExtensionModel>
     JsonObject json = new JsonParser().parse(in).getAsJsonObject();
 
     Set<ObjectType> types = parseTypes(TYPES, json);
-    ZernovaVersion minMuleVersion = null;
+    ZernovaVersion minZernovaVersion = null;
     if (json.has(MIN_MULE_VERSION)) {
-      minMuleVersion = new ZernovaVersion(json.get(MIN_MULE_VERSION).getAsString());
+      minZernovaVersion = new ZernovaVersion(json.get(MIN_MULE_VERSION).getAsString());
     }
 
     Map<String, NotificationModel> parsedNotifications;
@@ -214,7 +214,7 @@ public final class ExtensionModelTypeAdapter extends TypeAdapter<ExtensionModel>
                                        new LinkedHashSet<>(parsedNotifications.values()),
                                        null,
                                        coordinates,
-                                       minMuleVersion,
+                                       minZernovaVersion,
                                        parseSupportedJavaVersions(json));
   }
 

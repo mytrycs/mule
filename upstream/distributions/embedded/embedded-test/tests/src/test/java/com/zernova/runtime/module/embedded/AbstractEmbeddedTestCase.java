@@ -7,7 +7,7 @@
 /* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package com.zernova.runtime.module.embedded;
 
-import static com.zernova.runtime.module.embedded.api.Product.MULE;
+import static com.zernova.runtime.module.embedded.api.Product.ZERNOVA;
 import static com.zernova.tck.ZernovaTestUtils.testWithSystemProperty;
 import static com.zernova.test.infrastructure.maven.MavenTestUtils.installMavenArtifact;
 
@@ -221,7 +221,7 @@ public abstract class AbstractEmbeddedTestCase extends AbstractZernovaTestCase {
       embeddedTestHelper.recreateContainerFolder();
       Consumer<EmbeddedContainer.EmbeddedContainerBuilder> embeddedContainerBuilderConsumer = embeddedContainerBuilder -> {
         try {
-          embeddedContainerBuilder.product(MULE).useIsolation(useIsolation).build();
+          embeddedContainerBuilder.product(ZERNOVA).useIsolation(useIsolation).build();
         } catch (Exception e) {
           throw new RuntimeException(e);
         }
@@ -306,7 +306,7 @@ public abstract class AbstractEmbeddedTestCase extends AbstractZernovaTestCase {
   protected void runWithContainer(Consumer<EmbeddedContainer> task) {
     embeddedTestHelper.testWithDefaultSettings(embeddedContainerBuilder -> {
       try {
-        embeddedContainerBuilder.product(MULE).useIsolation(useIsolation).build();
+        embeddedContainerBuilder.product(ZERNOVA).useIsolation(useIsolation).build();
       } catch (Exception e) {
         throw new RuntimeException(e);
       }

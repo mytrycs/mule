@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xmlns:bridge="http://www.mulesoft.org/schema/mule/bridge"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-      http://www.mulesoft.org/schema/mule/bridge http://www.mulesoft.org/schema/mule/bridge/current/mule-bridge.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="https://schemas.zernova.dev/core"
+      xmlns:bridge="https://schemas.zernova.dev/bridge"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+      https://schemas.zernova.dev/bridge https://schemas.zernova.dev/bridge/current/zernova-bridge.xsd">
 
     <bridge:config name="default" message="Hello from bridge app!!!"/>
 
@@ -11,4 +11,4 @@
         <set-payload value=""/>
         <bridge:print-message config-ref="default" />
     </flow>
-</mule>
+</zernova>

@@ -7,7 +7,7 @@
 /* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package com.zernova.runtime.module.extension.internal.loader.parser.java.test;
 
-import static com.zernova.runtime.module.extension.internal.loader.parser.java.test.MinZernovaVersionTestUtils.ctxResolvingMinMuleVersion;
+import static com.zernova.runtime.module.extension.internal.loader.parser.java.test.MinZernovaVersionTestUtils.ctxResolvingMinZernovaVersion;
 
 import static java.lang.String.format;
 
@@ -91,8 +91,8 @@ public class JavaConfigurationModelParserTestCase {
   public void getMMVForLegacyImplicitConfiguration() {
     JavaConfigurationModelParser javaConfigurationModelParser =
         getParser(LegacyAnnotationsExtension.class, NoImplicitLegacyConfiguration.class);
-    assertThat(javaConfigurationModelParser.getResolvedMinMuleVersion().get().getMinMuleVersion().toString(), is("4.3"));
-    assertThat(javaConfigurationModelParser.getResolvedMinMuleVersion().get().getReason(),
+    assertThat(javaConfigurationModelParser.getResolvedMinZernovaVersion().get().getMinZernovaVersion().toString(), is("4.3"));
+    assertThat(javaConfigurationModelParser.getResolvedMinZernovaVersion().get().getReason(),
                is("Configuration NoImplicitLegacyConfiguration has min mule version 4.3 because it is annotated with NoImplicit. NoImplicit was introduced in Mule 4.3."));
   }
 
@@ -100,8 +100,8 @@ public class JavaConfigurationModelParserTestCase {
   public void getMMVForSdkImplicitConfiguration() {
     JavaConfigurationModelParser javaConfigurationModelParser =
         getParser(LegacyAnnotationsExtension.class, NoImplicitSdkConfiguration.class);
-    assertThat(javaConfigurationModelParser.getResolvedMinMuleVersion().get().getMinMuleVersion().toString(), is("4.5.0"));
-    assertThat(javaConfigurationModelParser.getResolvedMinMuleVersion().get().getReason(),
+    assertThat(javaConfigurationModelParser.getResolvedMinZernovaVersion().get().getMinZernovaVersion().toString(), is("4.5.0"));
+    assertThat(javaConfigurationModelParser.getResolvedMinZernovaVersion().get().getReason(),
                is("Configuration NoImplicitSdkConfiguration has min mule version 4.5.0 because it is annotated with NoImplicit. NoImplicit was introduced in Mule 4.5.0."));
   }
 
@@ -109,8 +109,8 @@ public class JavaConfigurationModelParserTestCase {
   public void getMMVForLegacyAnnotationConfiguration() {
     JavaConfigurationModelParser javaConfigurationModelParser =
         getParser(LegacyAnnotationsExtension.class, LegacyAnnotationConfiguration.class);
-    assertThat(javaConfigurationModelParser.getResolvedMinMuleVersion().get().getMinMuleVersion().toString(), is("4.1.1"));
-    assertThat(javaConfigurationModelParser.getResolvedMinMuleVersion().get().getReason(),
+    assertThat(javaConfigurationModelParser.getResolvedMinZernovaVersion().get().getMinZernovaVersion().toString(), is("4.1.1"));
+    assertThat(javaConfigurationModelParser.getResolvedMinZernovaVersion().get().getReason(),
                is("Configuration LegacyAnnotationConfiguration has min mule version 4.1.1 because it is the default value."));
   }
 
@@ -118,8 +118,8 @@ public class JavaConfigurationModelParserTestCase {
   public void getMMVForSdkAnnotationConfiguration() {
     JavaConfigurationModelParser javaConfigurationModelParser =
         getParser(LegacyAnnotationsExtension.class, SdkAnnotationConfiguration.class);
-    assertThat(javaConfigurationModelParser.getResolvedMinMuleVersion().get().getMinMuleVersion().toString(), is("4.5.0"));
-    assertThat(javaConfigurationModelParser.getResolvedMinMuleVersion().get().getReason(),
+    assertThat(javaConfigurationModelParser.getResolvedMinZernovaVersion().get().getMinZernovaVersion().toString(), is("4.5.0"));
+    assertThat(javaConfigurationModelParser.getResolvedMinZernovaVersion().get().getReason(),
                is("Configuration SdkAnnotationConfiguration has min mule version 4.5.0 because it is annotated with Configuration. Configuration was introduced in Mule 4.5.0."));
   }
 
@@ -127,8 +127,8 @@ public class JavaConfigurationModelParserTestCase {
   public void getMMVForParameterizedConfiguration() {
     JavaConfigurationModelParser javaConfigurationModelParser =
         getParser(LegacyAnnotationsExtension.class, ParameterizedConfiguration.class);
-    assertThat(javaConfigurationModelParser.getResolvedMinMuleVersion().get().getMinMuleVersion().toString(), is("4.4"));
-    assertThat(javaConfigurationModelParser.getResolvedMinMuleVersion().get().getReason(),
+    assertThat(javaConfigurationModelParser.getResolvedMinZernovaVersion().get().getMinZernovaVersion().toString(), is("4.4"));
+    assertThat(javaConfigurationModelParser.getResolvedMinZernovaVersion().get().getReason(),
                is("Configuration ParameterizedConfiguration has min mule version 4.4 because of its field configField. Field configField has min mule version 4.4 because it is annotated with Parameter. Parameter was introduced in Mule 4.4."));
   }
 
@@ -136,8 +136,8 @@ public class JavaConfigurationModelParserTestCase {
   public void getMMVForExtendsParameterizedConfiguration() {
     JavaConfigurationModelParser javaConfigurationModelParser =
         getParser(LegacyAnnotationsExtension.class, ExtendsParameterizedConfiguration.class);
-    assertThat(javaConfigurationModelParser.getResolvedMinMuleVersion().get().getMinMuleVersion().toString(), is("4.4"));
-    assertThat(javaConfigurationModelParser.getResolvedMinMuleVersion().get().getReason(),
+    assertThat(javaConfigurationModelParser.getResolvedMinZernovaVersion().get().getMinZernovaVersion().toString(), is("4.4"));
+    assertThat(javaConfigurationModelParser.getResolvedMinZernovaVersion().get().getReason(),
                is("Configuration ExtendsParameterizedConfiguration has min mule version 4.4 because of its super class ParameterizedConfiguration. Configuration ParameterizedConfiguration has min mule version 4.4 because of its field configField. Field configField has min mule version 4.4 because it is annotated with Parameter. Parameter was introduced in Mule 4.4."));
   }
 
@@ -145,8 +145,8 @@ public class JavaConfigurationModelParserTestCase {
   public void getMMVForAnnotatedConfiguration() {
     JavaConfigurationModelParser javaConfigurationModelParser =
         getParser(LegacyAnnotationsExtension.class, AnnotatedConfiguration.class);
-    assertThat(javaConfigurationModelParser.getResolvedMinMuleVersion().get().getMinMuleVersion().toString(), is("4.1.1"));
-    assertThat(javaConfigurationModelParser.getResolvedMinMuleVersion().get().getReason(),
+    assertThat(javaConfigurationModelParser.getResolvedMinZernovaVersion().get().getMinZernovaVersion().toString(), is("4.1.1"));
+    assertThat(javaConfigurationModelParser.getResolvedMinZernovaVersion().get().getReason(),
                is("Configuration AnnotatedConfiguration has min mule version 4.1.1 because it is the default value."));
   }
 
@@ -154,8 +154,8 @@ public class JavaConfigurationModelParserTestCase {
   public void getMMVForConfigurationFromExtensionWithSdkConfigurationsAnnotation() {
     JavaConfigurationModelParser javaConfigurationModelParser =
         getParser(SimpleLegacyExtension.class, SimpleLegacyConfiguration.class);
-    assertThat(javaConfigurationModelParser.getResolvedMinMuleVersion().get().getMinMuleVersion().toString(), is("4.5.0"));
-    assertThat(javaConfigurationModelParser.getResolvedMinMuleVersion().get().getReason(),
+    assertThat(javaConfigurationModelParser.getResolvedMinZernovaVersion().get().getMinZernovaVersion().toString(), is("4.5.0"));
+    assertThat(javaConfigurationModelParser.getResolvedMinZernovaVersion().get().getReason(),
                is("Configuration SimpleLegacyConfiguration has min mule version 4.5.0 because it was propagated from the annotation (either @Configurations or @Config) used to reference this configuration."));
   }
 
@@ -168,7 +168,7 @@ public class JavaConfigurationModelParserTestCase {
         .orElseThrow(() -> new IllegalStateException(format("Configuration %s was not found among the declared configuration in the extension",
                                                             configuration.getName(), extension.getName())));
 
-    ExtensionLoadingContext ctx = ctxResolvingMinMuleVersion();
+    ExtensionLoadingContext ctx = ctxResolvingMinZernovaVersion();
     JavaExtensionModelParser javaExtensionModelParser = new JavaExtensionModelParser(extensionElement, ctx);
     return new JavaConfigurationModelParser(javaExtensionModelParser, extensionElement, configurationElement, ctx);
   }

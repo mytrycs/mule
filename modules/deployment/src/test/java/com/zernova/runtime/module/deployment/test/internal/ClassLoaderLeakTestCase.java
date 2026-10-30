@@ -7,7 +7,7 @@
 /* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package com.zernova.runtime.module.deployment.test.internal;
 
-import static com.zernova.runtime.api.deployment.meta.Product.MULE;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA;
 import static com.zernova.runtime.deployment.model.api.artifact.ArtifactDescriptorConstants.MULE_LOADER_ID;
 import static com.zernova.runtime.module.artifact.api.descriptor.BundleDescriptor.MULE_PLUGIN_CLASSIFIER;
 import static com.zernova.runtime.module.deployment.impl.internal.policy.loader.PropertiesBundleDescriptorLoader.PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID;
@@ -94,9 +94,9 @@ public abstract class ClassLoaderLeakTestCase extends AbstractDeploymentTestCase
   // Policy artifact file builders
   private final PolicyFileBuilder fooPolicyFileBuilder =
       new PolicyFileBuilder(FOO_POLICY_NAME).describedBy(new ZernovaPolicyModel.ZernovaPolicyModelBuilder()
-          .setMinMuleVersion(MIN_MULE_VERSION)
+          .setMinZernovaVersion(MIN_MULE_VERSION)
           .setName(FOO_POLICY_NAME)
-          .setRequiredProduct(MULE)
+          .setRequiredProduct(ZERNOVA)
           .withBundleDescriptorLoader(createBundleDescriptorLoader(FOO_POLICY_NAME,
                                                                    MULE_POLICY_CLASSIFIER,
                                                                    PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID))
@@ -274,7 +274,7 @@ public abstract class ClassLoaderLeakTestCase extends AbstractDeploymentTestCase
 
   private ArtifactPluginFileBuilder createSingleExtensionPlugin() {
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName("simpleExtensionPlugin").setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName("simpleExtensionPlugin").setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader("simpleExtensionPlugin", MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, "1.0.0"));
     mulePluginModelBuilder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder().setId(MULE_LOADER_ID)

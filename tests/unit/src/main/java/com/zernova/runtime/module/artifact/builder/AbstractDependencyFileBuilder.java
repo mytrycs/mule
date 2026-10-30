@@ -44,7 +44,7 @@ import java.util.Set;
  */
 public abstract class AbstractDependencyFileBuilder<T extends AbstractDependencyFileBuilder<T>> {
 
-  private static final String MULE_PLUGIN_CLASSIFIER = "mule-plugin";
+  private static final String MULE_PLUGIN_CLASSIFIER = "zernova-plugin";
 
   private final String artifactId;
   private final List<AbstractDependencyFileBuilder> dependencies = new ArrayList<>();

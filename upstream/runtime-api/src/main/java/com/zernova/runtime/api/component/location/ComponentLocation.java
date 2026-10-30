@@ -37,7 +37,7 @@ import java.util.OptionalInt;
  * <ul>
  * <li>'processors' as partPath and no component identifier since this part is synthetic to indicate the part of the flow
  * referenced by the next index</li>
- * <li>'1' as partPath and 'mule:payload' as component identifier assuming that the second processor of the flow was a set-payload
+ * <li>'1' as partPath and 'zernova:payload' as component identifier assuming that the second processor of the flow was a set-payload
  * component</li>
  * </ul>
  *

@@ -147,7 +147,7 @@ public class MacroExpansionModuleModelTestCase extends AbstractZernovaTestCase {
     when(macroExpandableFlow.getComponentId()).thenReturn(of("flow"));
     when(macroExpandableFlow.getComponentType()).thenReturn(TypedComponentIdentifier.ComponentType.FLOW);
     when(macroExpandableFlow.getIdentifier())
-        .thenReturn(ComponentIdentifier.builder().namespace("mule").name("flow").build());
+        .thenReturn(ComponentIdentifier.builder().namespace("zernova").name("flow").build());
     when(macroExpandableFlow.getModel(ParameterizedModel.class)).thenReturn(of(mock(ParameterizedModel.class)));
     when(macroExpandableFlow.getLocation()).thenReturn(from(flowComponentId));
 

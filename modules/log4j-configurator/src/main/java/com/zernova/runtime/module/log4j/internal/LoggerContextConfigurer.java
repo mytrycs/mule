@@ -69,7 +69,7 @@ import org.apache.logging.log4j.core.layout.PatternLayout;
 final class LoggerContextConfigurer {
 
   private static final String MULE_APP_LOG_FILE_TEMPLATE = "mule-app-%s.log";
-  private static final String MULE_DOMAIN_LOG_FILE_TEMPLATE = "mule-domain-%s.log";
+  private static final String MULE_DOMAIN_LOG_FILE_TEMPLATE = "zernova-domain-%s.log";
   private static final String PATTERN_LAYOUT =
       "%-5p %d [%t] [processor: %X{processorPath}; event: %X{" + CORRELATION_ID_MDC_KEY + "}] %c: %m%n";
   private static final Function<Appender, Boolean> containerConsoleAppenderMatcher =

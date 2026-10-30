@@ -100,8 +100,8 @@ final class SourceModelLoaderDelegate extends AbstractComponentModelLoaderDelega
 
       parser.getOutputType().applyOn(sourceDeclarer.withOutput());
       parser.getAttributesOutputType().applyOn(sourceDeclarer.withOutputAttributes());
-      if (context.isResolveMinMuleVersion()) {
-        parser.getResolvedMinMuleVersion().ifPresent(resolvedMMV -> declarerWithMmv(sourceDeclarer, resolvedMMV));
+      if (context.isResolveMinZernovaVersion()) {
+        parser.getResolvedMinZernovaVersion().ifPresent(resolvedMMV -> declarerWithMmv(sourceDeclarer, resolvedMMV));
       }
 
       Optional<OutputResolverModelParser> outputResolverModelParser = parser.getOutputResolverModelParser();

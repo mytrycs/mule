@@ -68,7 +68,7 @@ public class ExtensionErrorsRegistrantTestCase extends AbstractZernovaTestCase {
   private static final String ERROR_PREFIX = EXTENSION_PREFIX.toUpperCase();
   private static final String OPERATION_NAME = "operationName";
   private static final String TEST_CONNECTIVITY_ERROR_TYPE = "TEST_CONNECTIVITY";
-  private static final String MULE = "MULE";
+  private static final String ZERNOVA = "ZERNOVA";
   private static final String ANY = "ANY";
 
   private static final ComponentIdentifier OPERATION_IDENTIFIER = builder()
@@ -77,7 +77,7 @@ public class ExtensionErrorsRegistrantTestCase extends AbstractZernovaTestCase {
       .build();
 
   private static final ErrorModel MULE_CONNECTIVITY_ERROR =
-      newError(CONNECTIVITY_ERROR_IDENTIFIER, MULE)
+      newError(CONNECTIVITY_ERROR_IDENTIFIER, ZERNOVA)
           .build();
 
   private static final ErrorModel extensionConnectivityError =
@@ -105,7 +105,7 @@ public class ExtensionErrorsRegistrantTestCase extends AbstractZernovaTestCase {
     XmlDslModel xmlDslModel = builder.build();
 
     final ErrorType anyErrorType = ErrorTypeBuilder.builder()
-        .namespace(MULE)
+        .namespace(ZERNOVA)
         .identifier(ANY)
         .build();
 
@@ -157,7 +157,7 @@ public class ExtensionErrorsRegistrantTestCase extends AbstractZernovaTestCase {
         .namespace(ERROR_PREFIX)
         .identifier(CONNECTIVITY_ERROR_IDENTIFIER)
         .parentErrorType(ErrorTypeBuilder.builder()
-            .namespace(MULE)
+            .namespace(ZERNOVA)
             .identifier(CONNECTIVITY_ERROR_IDENTIFIER)
             .parentErrorType(typeRepository.getAnyErrorType())
             .build())
@@ -180,7 +180,7 @@ public class ExtensionErrorsRegistrantTestCase extends AbstractZernovaTestCase {
     assertThat(muleConnectivityError.getIdentifier(), is(MULE_CONNECTIVITY_ERROR.getType()));
 
     ErrorType anyErrorType = muleConnectivityError.getParentErrorType();
-    assertThat(anyErrorType.getNamespace(), is(MULE));
+    assertThat(anyErrorType.getNamespace(), is(ZERNOVA));
     assertThat(anyErrorType.getIdentifier(), is(ANY));
 
     assertThat(anyErrorType.getParentErrorType(), is(nullValue()));

@@ -12,7 +12,7 @@ import com.zernova.runtime.extension.api.annotation.param.Parameter;
 
 import java.util.Objects;
 
-@TypeDsl(substitutionGroup = "mule:abstract-shared-extension")
+@TypeDsl(substitutionGroup = "zernova:abstract-shared-extension")
 public class ZernovaSGPojo {
 
   @Parameter

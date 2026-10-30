@@ -24,13 +24,13 @@ public interface WithMinZernovaVersionDeclaration {
    * @return an {@link Optional} of a {@link ZernovaVersion} which is the minimum required for the usage of the declaration, or
    *         {@link Optional#empty()} if none is required.
    */
-  Optional<ZernovaVersion> getMinMuleVersion();
+  Optional<ZernovaVersion> getMinZernovaVersion();
 
   /**
    * Use this method to specify a {@link ZernovaVersion} which is the minimum required for the usage of the declaration
    *
-   * @param minMuleVersion the minimum mule version for the declaration
+   * @param minZernovaVersion the minimum mule version for the declaration
    */
-  void withMinMuleVersion(ZernovaVersion minMuleVersion);
+  void withMinZernovaVersion(ZernovaVersion minZernovaVersion);
 
 }

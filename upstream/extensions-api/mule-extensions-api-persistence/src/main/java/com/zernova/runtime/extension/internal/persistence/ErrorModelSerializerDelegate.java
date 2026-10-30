@@ -36,7 +36,7 @@ import java.util.Set;
  */
 class ErrorModelSerializerDelegate {
 
-  private static final String MULE = "MULE";
+  private static final String ZERNOVA = "ZERNOVA";
   private static final String ERROR = "error";
   private static final String PARENT = "parent";
   private static final String HANDLEABLE = "handleable";

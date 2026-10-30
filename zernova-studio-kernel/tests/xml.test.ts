@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { applyOperation, createIntegrationXml, parseIntegration, findConfigurationReferences, CORE_NS, HTTP_NS, DOC_NS, MAX_XML_BYTES, type XmlOperation } from '../src/shared/xml';
+import { applyOperation, convertLegacyIntegrationXml, createIntegrationXml, parseIntegration, findConfigurationReferences, CORE_NS, HTTP_NS, DOC_NS, MAX_XML_BYTES, type XmlOperation } from '../src/shared/xml';
 import { parseRealMessage, parseXmlOperation } from '../src/shared/realProtocol';
 import { parseWebviewMessage } from '../src/shared/protocol';
 
@@ -86,7 +86,7 @@ test('intermediate property typing persists safely with semantic errors that cle
 });
 
 test('namespace aliases are resolved by URI and retained through edits', () => {
-  let xml = fixture().replaceAll('<mule ', '<m:mule ').replaceAll('</mule>', '</m:mule>').replaceAll('xmlns="' + CORE_NS + '"', 'xmlns:m="' + CORE_NS + '"').replaceAll('<flow ', '<m:flow ').replaceAll('</flow>', '</m:flow>').replaceAll('<logger ', '<m:logger ').replaceAll('xmlns:http=', 'xmlns:h=').replaceAll('http:', 'h:').replaceAll('xmlns:doc=', 'xmlns:d=').replaceAll('doc:', 'd:');
+  let xml = fixture().replaceAll('<zernova ', '<m:zernova ').replaceAll('</zernova>', '</m:zernova>').replaceAll('xmlns="' + CORE_NS + '"', 'xmlns:m="' + CORE_NS + '"').replaceAll('<flow ', '<m:flow ').replaceAll('</flow>', '</m:flow>').replaceAll('<logger ', '<m:logger ').replaceAll('xmlns:http=', 'xmlns:h=').replaceAll('http:', 'h:').replaceAll('xmlns:doc=', 'xmlns:d=').replaceAll('doc:', 'd:');
   // Restore namespace URIs after replacing element prefixes.
   xml = xml.replaceAll('h://', 'http://');
   assert.equal(parseIntegration(xml).valid, true);
@@ -98,7 +98,7 @@ test('namespace aliases are resolved by URI and retained through edits', () => {
 
 test('comments, CDATA, Unicode, unknown attributes and unrelated formatting survive visual changes', () => {
   const untouched = '<!-- KEEP ሰላም <tag> & raw -->\n  <custom:thing xmlns:custom="urn:custom" attr = \'A &amp; B\'><![CDATA[one < two && three > four; <!DOCTYPE literal>]]></custom:thing>';
-  let xml = fixture().replace('</mule>', '  ' + untouched + '\n</mule>').replace('level="INFO"', "odd = 'preserve' level = 'INFO'");
+  let xml = fixture().replace('</zernova>', '  ' + untouched + '\n</zernova>').replace('level="INFO"', "odd = 'preserve' level = 'INFO'");
   const before = xml;
   xml = act(xml, { kind: 'updateComponent', id: logger(xml).id, values: { level: 'WARN' } });
   assert.equal(xml, before.replace("level = 'INFO'", "level = 'WARN'"));
@@ -107,7 +107,7 @@ test('comments, CDATA, Unicode, unknown attributes and unrelated formatting surv
 
 test('unsupported constructs make their flow read-only but remain intact while another flow is edited', () => {
   const other = '<flow name="other"><set-payload value="#[{x:1}]"/><logger message="old"/></flow>';
-  let xml = fixture().replace('</mule>', '  ' + other + '\n</mule>');
+  let xml = fixture().replace('</zernova>', '  ' + other + '\n</zernova>');
   const model = parseIntegration(xml);
   assert.equal(model.flows[1].editable, false);
   assert.deepEqual(model.flows[1].unsupported, ['set-payload']);
@@ -117,7 +117,7 @@ test('unsupported constructs make their flow read-only but remain intact while a
 });
 
 test('invalid XML is diagnosed and visual edits never replace it with a valid model', () => {
-  const invalid = fixture().replace('</mule>', '</wrong>');
+  const invalid = fixture().replace('</zernova>', '</wrong>');
   assert.equal(parseIntegration(invalid).valid, false);
   assert.throws(() => act(invalid, { kind: 'createFlow', name: 'replace' }), /Repair XML syntax/);
   assert.equal(invalid.endsWith('</wrong>\n'), true);
@@ -126,20 +126,20 @@ test('invalid XML is diagnosed and visual edits never replace it with a valid mo
 });
 
 test('well-formedness supplements reject duplicate attrs, expanded aliases, multiple roots and illegal characters', () => {
-  const head = `<mule xmlns="${CORE_NS}"`;
-  for (const xml of [head + ' a="1" a="2"/>', head + ' xmlns:x="urn:same" xmlns:y="urn:same" x:a="1" y:a="2"/>', head + '/><x/>', head + '>\u0000</mule>', head + '> &#0; </mule>', head + ' a="&#0;"/>', head + '>\ud800</mule>']) {
+  const head = `<zernova xmlns="${CORE_NS}"`;
+  for (const xml of [head + ' a="1" a="2"/>', head + ' xmlns:x="urn:same" xmlns:y="urn:same" x:a="1" y:a="2"/>', head + '/><x/>', head + '>\u0000</zernova>', head + '> &#0; </zernova>', head + ' a="&#0;"/>', head + '>\ud800</zernova>']) {
     assert.equal(parseIntegration(xml).valid, false, JSON.stringify(xml));
   }
 });
 
 test('DOCTYPE/entities are rejected without fetching external resources', () => {
-  const xml = '<!DOCTYPE mule SYSTEM "https://example.invalid/never.dtd"><mule xmlns="' + CORE_NS + '"/>';
+  const xml = '<!DOCTYPE mule SYSTEM "https://example.invalid/never.dtd"><zernova xmlns="' + CORE_NS + '"/>';
   assert.equal(parseIntegration(xml).valid, false);
   assert.match(parseIntegration(xml).diagnostics[0].message, /DTD/);
 });
 
 test('oversized UTF-8 files are rejected consistently by model and bridge', () => {
-  const text = '<mule xmlns="' + CORE_NS + '">' + 'ሰ'.repeat(MAX_XML_BYTES / 2) + '</mule>';
+  const text = '<zernova xmlns="' + CORE_NS + '">' + 'ሰ'.repeat(MAX_XML_BYTES / 2) + '</zernova>';
   assert.equal(parseIntegration(text).valid, false);
   assert.match(parseIntegration(text).diagnostics[0].message, /1 MiB/);
   assert.equal(parseRealMessage({ type: 'realXml', version: 1, requestId: 'a', text }), null);
@@ -179,7 +179,7 @@ test('duplicate, reorder and delete retain Logger data and unique stable doc IDs
 });
 
 test('legacy Logger acquires doc:id for future stable selection while preserving its original attributes', () => {
-  const xml = `<mule xmlns="${CORE_NS}"><flow name="legacy"><logger message='one' odd='keep'/><logger message='two'/></flow></mule>`;
+  const xml = `<zernova xmlns="${CORE_NS}"><flow name="legacy"><logger message='one' odd='keep'/><logger message='two'/></flow></zernova>`;
   const result = applyOperation(xml, { kind: 'moveLogger', id: logger(xml).id, direction: 1 });
   assert.equal(logger(result.text).message, 'two'); assert.equal(logger(result.text, 1).message, 'one');
   assert.equal(logger(result.text, 1).id, result.selectionId); assert.ok(result.text.includes("odd='keep'"));
@@ -205,7 +205,7 @@ test('configuration rename updates supported same-document references and preser
 test('configuration deletion refuses references and rename refuses unsupported reference types', () => {
   const xml = fixture();
   assert.throws(() => act(xml, { kind: 'deleteConfig', id: 'config:HTTP_Listener_config' }), /referenced/);
-  const unknown = xml.replace('</mule>', '<thing xmlns="urn:custom" config-ref="HTTP_Listener_config"/></mule>');
+  const unknown = xml.replace('</zernova>', '<thing xmlns="urn:custom" config-ref="HTTP_Listener_config"/></zernova>');
   assert.throws(() => act(unknown, { kind: 'saveConfig', id: 'config:HTTP_Listener_config', values: { ...config, name: 'newName' } }), /outside the supported/);
   const noListener = act(xml, { kind: 'deleteComponent', id: source(xml).id });
   assert.equal(parseIntegration(act(noListener, { kind: 'deleteConfig', id: 'config:HTTP_Listener_config' })).configs.length, 0);
@@ -221,14 +221,14 @@ test('HTTP settings validate static values and preserve runtime properties as un
 });
 
 test('missing HTTP/doc namespaces and schema entries are added once without replacing existing declarations', () => {
-  let xml = `<m:mule xmlns:m="${CORE_NS}" xmlns:http="urn:not-http"><m:flow name="helloFlow"/></m:mule>`;
+  let xml = `<m:zernova xmlns:m="${CORE_NS}" xmlns:http="urn:not-http"><m:flow name="helloFlow"/></m:zernova>`;
   xml = act(xml, { kind: 'saveConfig', values: config });
   xml = act(xml, { kind: 'insert', flowId: 'flow:helloFlow', component: 'listener' });
   assert.ok(xml.includes('xmlns:http="urn:not-http"'));
   assert.ok(xml.includes('xmlns:http2="' + HTTP_NS + '"'));
   assert.equal((xml.match(/xmlns:http2=/g) ?? []).length, 1);
   assert.equal((xml.match(/xmlns:doc=/g) ?? []).length, 1);
-  assert.equal((xml.match(/current\/mule-http.xsd/g) ?? []).length, 1);
+  assert.equal((xml.match(/current\/zernova-http.xsd/g) ?? []).length, 1);
   assert.equal(parseIntegration(xml).valid, true);
 });
 
@@ -245,7 +245,7 @@ test('non-HTTP config, unknown Listener children and duplicate source positions 
 test('real protocol rejects arbitrary command/path payloads, unknown fields and stale-version shapes', () => {
   assert.equal(parseRealMessage({ type: 'realAction', action: 'run', executable: '/bin/sh' }), null);
   assert.equal(parseRealMessage({ type: 'realAction', action: 'executeCommand' }), null);
-  assert.equal(parseRealMessage({ type: 'realXml', requestId: 'a', version: -1, text: '<mule/>' }), null);
+  assert.equal(parseRealMessage({ type: 'realXml', requestId: 'a', version: -1, text: '<zernova/>' }), null);
   assert.equal(parseRealMessage({ type: 'realXml', requestId: 'a', version: 1, text: '', uri: 'file:///tmp/elsewhere' }), null);
   assert.equal(parseRealMessage({ type: 'realXml', version: 1, text: '' }), null);
   assert.equal(parseXmlOperation({ kind: 'updateComponent', id: 'a', values: { shell: 'anything' } }), null);
@@ -258,4 +258,22 @@ test('preview and real protocols remain isolated capability surfaces', () => {
   assert.equal(parseWebviewMessage({ type: 'realXml', requestId: 'x', version: 1, text: '' }), null);
   assert.equal(parseRealMessage({ type: 'saveState', state: {} }), null);
   assert.equal(parseRealMessage({ type: 'resetPreview' }), null);
+});
+
+test('legacy import changes XML contracts without rewriting application data', () => {
+  const old = `<mule xmlns="http://www.mulesoft.org/schema/mule/core"><!-- <mule> stays history --><flow name="legacy"><logger message="mule"/><set-payload><![CDATA[<mule xmlns="http://www.mulesoft.org/schema/mule/core">]]></set-payload></flow></mule>`;
+  const converted = convertLegacyIntegrationXml(old);
+  assert.ok(converted.startsWith('<zernova xmlns="' + CORE_NS + '">'));
+  assert.ok(converted.endsWith('</zernova>'));
+  assert.ok(converted.includes('<!-- <mule> stays history -->'));
+  assert.ok(converted.includes('message="mule"'));
+  assert.ok(converted.includes('<![CDATA[<mule xmlns="http://www.mulesoft.org/schema/mule/core">]]>'));
+  assert.equal(parseIntegration(converted).valid, true);
+});
+test('subflows grow the same processor model and reject listener insertion', () => {
+  let xml = createIntegrationXml().replace('</zernova>', '<sub-flow name="logging"><logger message="one"/></sub-flow></zernova>');
+  assert.equal(parseIntegration(xml).flows[0].kind, 'sub-flow');
+  xml = act(xml, { kind: 'insert', flowId: 'flow:logging', component: 'logger' });
+  assert.equal(parseIntegration(xml).flows[0].processors.length, 2);
+  assert.throws(() => act(xml, { kind: 'insert', flowId: 'flow:logging', component: 'listener' }), /subflow cannot contain/);
 });

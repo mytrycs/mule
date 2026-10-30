@@ -18,7 +18,7 @@ import com.zernova.runtime.extension.api.annotation.param.display.Text;
 @Extension(name = "secure")
 @Operations(SecureOperations.class)
 @ConnectionProviders(SecureConnectionProvider.class)
-@Xml(namespace = "http://www.mulesoft.org/schema/mule/secure", prefix = "secure")
+@Xml(namespace = "https://schemas.zernova.dev/secure", prefix = "secure")
 public class SecureConnector {
 
   @Parameter

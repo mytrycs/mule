@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xmlns:simple="http://www.mulesoft.org/schema/mule/simple"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-      http://www.mulesoft.org/schema/mule/simple http://www.mulesoft.org/schema/mule/simple/current/mule-simple.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="https://schemas.zernova.dev/core"
+      xmlns:simple="https://schemas.zernova.dev/simple"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+      https://schemas.zernova.dev/simple https://schemas.zernova.dev/simple/current/zernova-simple.xsd">
 
     <flow name="main">
         <set-payload value=""/>
@@ -17,4 +17,4 @@
             </error-handler>
         </try>
     </flow>
-</mule>
+</zernova>

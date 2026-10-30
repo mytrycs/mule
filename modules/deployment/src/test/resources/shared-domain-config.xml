@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule-domain xmlns="http://www.mulesoft.org/schema/mule/domain"
+<zernova-domain xmlns="https://schemas.zernova.dev/domain"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xmlns:test="http://www.mulesoft.org/schema/mule/test"
+             xmlns:test="https://schemas.zernova.dev/test"
              xsi:schemaLocation="
-                http://www.mulesoft.org/schema/mule/domain http://www.mulesoft.org/schema/mule/domain/current/mule-domain.xsd
-                http://www.mulesoft.org/schema/mule/test http://www.mulesoft.org/schema/mule/test/current/mule-test.xsd">
+                https://schemas.zernova.dev/domain https://schemas.zernova.dev/domain/current/zernova-domain.xsd
+                https://schemas.zernova.dev/test https://schemas.zernova.dev/test/current/zernova-test.xsd">
 
     <test:shared-config name="test-shared-config"/>
 
-</mule-domain>
+</zernova-domain>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+<zernova xmlns="https://schemas.zernova.dev/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:module-content="http://www.mulesoft.org/schema/mule/module-content"
+      xmlns:module-content="https://schemas.zernova.dev/module-content"
       xsi:schemaLocation="
-       http://www.mulesoft.org/schema/mule/core     http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-      http://www.mulesoft.org/schema/mule/module-content http://www.mulesoft.org/schema/mule/module-content/current/mule-module-content.xsd">
+       https://schemas.zernova.dev/core     https://schemas.zernova.dev/core/current/zernova.xsd
+      https://schemas.zernova.dev/module-content https://schemas.zernova.dev/module-content/current/zernova-module-content.xsd">
 
     <flow name="testSetPayloadUsingContent">
         <module-content:set-payload-using-content-parameter>
@@ -47,4 +47,4 @@
             <module-content:primary-camel-case-too>#['smart' ++ ' connector primary']</module-content:primary-camel-case-too>
         </module-content:set-payload-using-content-and-primary-camel-case-and-simple-parameter>
     </flow>
-</mule>
+</zernova>

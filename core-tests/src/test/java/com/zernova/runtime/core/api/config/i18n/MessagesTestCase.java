@@ -95,7 +95,7 @@ import static com.zernova.runtime.core.api.config.i18n.CoreMessages.messageIsOfT
 import static com.zernova.runtime.core.api.config.i18n.CoreMessages.messageRejectedByFilter;
 import static com.zernova.runtime.core.api.config.i18n.CoreMessages.methodWithNumParamsNotFoundOnObject;
 import static com.zernova.runtime.core.api.config.i18n.CoreMessages.methodWithParamsNotFoundOnObject;
-import static com.zernova.runtime.core.api.config.i18n.CoreMessages.minMuleVersionNotMet;
+import static com.zernova.runtime.core.api.config.i18n.CoreMessages.minZernovaVersionNotMet;
 import static com.zernova.runtime.core.api.config.i18n.CoreMessages.modelDeprecated;
 import static com.zernova.runtime.core.api.config.i18n.CoreMessages.nestedRetry;
 import static com.zernova.runtime.core.api.config.i18n.CoreMessages.noCatchAllEndpointSet;
@@ -215,8 +215,8 @@ public class MessagesTestCase {
   }
 
   @Test
-  public void minMuleVersionNotMetMessage() {
-    I18nMessage message = minMuleVersionNotMet("4.5.0");
+  public void minZernovaVersionNotMetMessage() {
+    I18nMessage message = minZernovaVersionNotMet("4.5.0");
     assertThat(message.getMessage(), is("This module requires at least Mule Version 4.5.0"));
   }
 

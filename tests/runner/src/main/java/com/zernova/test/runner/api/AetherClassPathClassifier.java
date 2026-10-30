@@ -130,7 +130,7 @@ public class AetherClassPathClassifier implements ClassPathClassifier, AutoClose
   private static final String LOGGING_ARTIFACT_ID = "mule-module-logging";
   private static final String LOG4J_CONFIGURATOR_ARTIFACT_ID = "mule-module-log4j-configurator";
 
-  private static final String MULE_ARTIFACT_JSON_PATH = "META-INF/mule-artifact/mule-artifact.json";
+  private static final String MULE_ARTIFACT_JSON_PATH = "META-INF/zernova-artifact/zernova-artifact.json";
 
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -664,7 +664,7 @@ public class AetherClassPathClassifier implements ClassPathClassifier, AutoClose
       muleArtifactJsonEntry = pluginClassifiedJar.getJarEntry(MULE_ARTIFACT_JSON_PATH);
     } catch (IOException e) {
       throw new IllegalStateException("Error trying to check if JarFile '" + pluginClassifiedFile.getPath()
-          + "' has the mule-artifact.json inside the folder " + MULE_ARTIFACT_JSON_PATH);
+          + "' has the zernova-artifact.json inside the folder " + MULE_ARTIFACT_JSON_PATH);
     }
     return muleArtifactJsonEntry != null;
   }

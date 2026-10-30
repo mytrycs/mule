@@ -95,7 +95,7 @@ public class SourcePolicyProcessorTestCase extends AbstractPolicyProcessorTestCa
                                                   .appendLocationPart("source", of(TypedComponentIdentifier.builder()
                                                       .identifier(ComponentIdentifier.builder()
                                                           .namespace("http-policy")
-                                                          .namespaceUri("http://www.mulesoft.org/schema/mule/http-policy")
+                                                          .namespaceUri("https://schemas.zernova.dev/http-policy")
                                                           .name(SOURCE_POLICY_PART_IDENTIFIER).build())
                                                       .type(UNKNOWN)
                                                       .build()),

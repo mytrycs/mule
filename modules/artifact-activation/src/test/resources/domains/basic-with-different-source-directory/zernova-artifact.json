@@ -1,0 +1,17 @@
+{
+  "name": "test-app",
+  "minZernovaVersion": "4.4.0",
+  "requiredProduct": "ZERNOVA",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {
+      "exportedPackages": [
+        "org.test"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  }
+}

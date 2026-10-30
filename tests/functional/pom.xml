@@ -28,12 +28,12 @@
 
         <dependency>
             <groupId>com.zernova.runtime</groupId>
-            <artifactId>mule-artifact-ast-xml-parser</artifactId>
+            <artifactId>zernova-artifact-ast-xml-parser</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.zernova.runtime</groupId>
-            <artifactId>mule-artifact-ast-serialization</artifactId> 
+            <artifactId>zernova-artifact-ast-serialization</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -111,7 +111,7 @@
             <groupId>com.zernova.tests.plugin</groupId>
             <artifactId>mule-tests-component-plugin</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>provided</scope>
         </dependency>
 

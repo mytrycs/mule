@@ -80,7 +80,7 @@ public class ExtensionDeclaration extends NamedDeclaration<ExtensionDeclaration>
   private final Map<MetadataType, Set<MetadataType>> subTypes = new LinkedHashMap<>();
   private DeprecationModel deprecation;
   private ArtifactCoordinates artifactCoordinates;
-  private ZernovaVersion minMuleVersion;
+  private ZernovaVersion minZernovaVersion;
   private Set<String> supportedJavaVersions = emptySet();
 
   /**
@@ -462,16 +462,16 @@ public class ExtensionDeclaration extends NamedDeclaration<ExtensionDeclaration>
    * {@inheritDoc}
    */
   @Override
-  public Optional<ZernovaVersion> getMinMuleVersion() {
-    return ofNullable(minMuleVersion);
+  public Optional<ZernovaVersion> getMinZernovaVersion() {
+    return ofNullable(minZernovaVersion);
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public void withMinMuleVersion(ZernovaVersion minMuleVersion) {
-    this.minMuleVersion = minMuleVersion;
+  public void withMinZernovaVersion(ZernovaVersion minZernovaVersion) {
+    this.minZernovaVersion = minZernovaVersion;
   }
 
   /**

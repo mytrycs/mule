@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:operation="http://www.mulesoft.org/schema/mule/operation"
-      xmlns:this="http://www.mulesoft.org/schema/mule/this"
-      xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel"
-      xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-        http://www.mulesoft.org/schema/mule/marvel http://www.mulesoft.org/schema/mule/marvel/current/mule-marvel.xsd
-        http://www.mulesoft.org/schema/mule/operation http://www.mulesoft.org/schema/mule/operation/current/mule-operation.xsd
-        http://www.mulesoft.org/schema/mule/heisenberg http://www.mulesoft.org/schema/mule/heisenberg/current/mule-heisenberg.xsd
-        http://www.mulesoft.org/schema/mule/this http://www.mulesoft.org/schema/mule/this/current/mule-this.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:operation="https://schemas.zernova.dev/operation"
+      xmlns:this="https://schemas.zernova.dev/this"
+      xmlns:marvel="https://schemas.zernova.dev/marvel"
+      xmlns:heisenberg="https://schemas.zernova.dev/heisenberg"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+        https://schemas.zernova.dev/marvel https://schemas.zernova.dev/marvel/current/zernova-marvel.xsd
+        https://schemas.zernova.dev/operation https://schemas.zernova.dev/operation/current/zernova-operation.xsd
+        https://schemas.zernova.dev/heisenberg https://schemas.zernova.dev/heisenberg/current/zernova-heisenberg.xsd
+        https://schemas.zernova.dev/this https://schemas.zernova.dev/this/current/zernova-this.xsd">
 
     <operation:def name="helloWorld" displayName="Hello World operation" summary="Returns a polite greeting">
         <operation:parameters>
@@ -320,7 +320,7 @@
             <operation:payload-type type="string"/>
         </operation:output>
         <operation:body>
-            <marvel:fire-missile at="#[%dw 2.0 import java!org::mule::test::marvel::model::Villain --- Villain::new()]" config-ref="#[params.missileLauncherConfig]"/>
+            <marvel:fire-missile at="#[%dw 2.0 import java!org::zernova::test::marvel::model::Villain --- Villain::new()]" config-ref="#[params.missileLauncherConfig]"/>
         </operation:body>
     </operation:def>
-</mule>
+</zernova>

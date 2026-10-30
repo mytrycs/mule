@@ -211,7 +211,7 @@ public class LightweightDeployableProjectModelBuilderTestCase extends AbstractZe
         if (bundleDescriptor.getType().equals("pom")) {
           return new File(project, artifactId + "-" + version + ".pom");
         } else {
-          return new File(project, artifactId + "-" + version + "-mule-application.jar");
+          return new File(project, artifactId + "-" + version + "-zernova-application.jar");
         }
       }
       return null;

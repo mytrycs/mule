@@ -67,9 +67,9 @@ public class ErrorBuilderTestCase extends AbstractZernovaTestCase {
   private static final String EXCEPTION_MESSAGE = "message";
   private static final String SUPPRESSED_EXCEPTION_MESSAGE = "suppressed message";
   private final ErrorType mockErrorType = mock(ErrorType.class);
-  private final ErrorType anyError = DefaultErrorTypeBuilder.builder().namespace("MULE").identifier("ANY").build();
+  private final ErrorType anyError = DefaultErrorTypeBuilder.builder().namespace("ZERNOVA").identifier("ANY").build();
   private final ErrorType testError =
-      DefaultErrorTypeBuilder.builder().namespace("MULE").identifier("TEST").parentErrorType(anyError).build();
+      DefaultErrorTypeBuilder.builder().namespace("ZERNOVA").identifier("TEST").parentErrorType(anyError).build();
 
   @Rule
   public ExpectedException expectedException = none();
@@ -244,11 +244,11 @@ public class ErrorBuilderTestCase extends AbstractZernovaTestCase {
   public void givesStringRepresentation() {
     Error error = getComposedErrorMessageAwareWithSuppressionException();
     assertThat(error.toString(),
-               is(equalToIgnoringLineBreaks("\norg.mule.runtime.core.internal.message.ErrorBuilder$DeserializableErrorImplementation\n"
+               is(equalToIgnoringLineBreaks("\ncom.zernova.runtime.core.internal.message.ErrorBuilder$DeserializableErrorImplementation\n"
                    + "{\n"
                    + "  description=suppressed message\n"
                    + "  detailedDescription=message\n"
-                   + "  errorType=MULE:TEST\n"
+                   + "  errorType=ZERNOVA:TEST\n"
                    + "  cause=com.zernova.runtime.core.internal.message.ErrorBuilderTestCase$TestZernovaException\n"
                    + "  errorMessage=\n"
                    + "com.zernova.runtime.core.internal.message.DefaultMessageBuilder$MessageImplementation\n"
@@ -263,7 +263,7 @@ public class ErrorBuilderTestCase extends AbstractZernovaTestCase {
                    + "{\n"
                    + "  description=suppressed message\n"
                    + "  detailedDescription=suppressed message\n"
-                   + "  errorType=MULE:TEST\n"
+                   + "  errorType=ZERNOVA:TEST\n"
                    + "  cause=com.zernova.runtime.core.internal.message.ErrorBuilderTestCase$TestZernovaException\n"
                    + "  errorMessage=-\n"
                    + "  suppressedErrors=[]\n"
@@ -274,7 +274,7 @@ public class ErrorBuilderTestCase extends AbstractZernovaTestCase {
                    + "{\n"
                    + "  description=unknown description\n"
                    + "  detailedDescription=unknown description\n"
-                   + "  errorType=MULE:TEST\n"
+                   + "  errorType=ZERNOVA:TEST\n"
                    + "  cause=java.lang.RuntimeException\n"
                    + "  errorMessage=-\n"
                    + "  suppressedErrors=[]\n"
@@ -284,7 +284,7 @@ public class ErrorBuilderTestCase extends AbstractZernovaTestCase {
                    + "{\n"
                    + "  description=unknown description\n"
                    + "  detailedDescription=unknown description\n"
-                   + "  errorType=MULE:TEST\n"
+                   + "  errorType=ZERNOVA:TEST\n"
                    + "  cause=java.io.IOException\n"
                    + "  errorMessage=-\n"
                    + "  suppressedErrors=[]\n"

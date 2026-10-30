@@ -3,6 +3,8 @@ import * as fs from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import * as sax from 'sax';
+import { convertLegacyIntegrationXml } from '../shared/xml';
+import { walkFiles } from '../../../zernova-studio-build/src/portable/bundle';
 
 export interface Project { root: string; name: string; groupId: string; artifactId: string; version: string; }
 export interface RuntimeSettings { schemaVersion: 2; runtimeHome: string; instanceDirectory: string; offline: true; }
@@ -15,14 +17,14 @@ const versionPattern = /^[0-9][A-Za-z0-9_.-]{0,49}$/;
 const xmlEscape = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 
 export const NEW_INTEGRATION_XML = `<?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
-      xmlns:http="http://www.mulesoft.org/schema/mule/http"
-      xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<zernova xmlns="https://schemas.zernova.dev/core"
+      xmlns:http="https://schemas.zernova.dev/http"
+      xmlns:doc="https://schemas.zernova.dev/documentation"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd https://schemas.zernova.dev/http https://schemas.zernova.dev/http/current/zernova-http.xsd">
   <configuration-properties file="application.properties"/>
   <!-- Create a flow in ZERNOVA Studio. This document is initially empty. -->
-</mule>
+</zernova>
 `;
 
 export function isInside(root: string, file: string): boolean {
@@ -80,13 +82,13 @@ export class ProjectManager implements vscode.Disposable {
   async load(candidate: string, select = true): Promise<Project> {
     const root = await fs.realpath(candidate);
     const coords = parseProjectPom(await fs.readFile(path.join(root, 'pom.xml'), 'utf8'));
-    const descriptor = JSON.parse(await fs.readFile(path.join(root, 'mule-artifact.json'), 'utf8'));
-    if (descriptor.requiredProduct !== 'MULE') throw new Error('Expected mule-artifact.json with requiredProduct: MULE. The old native Runtime format is not supported.');
-    if (!(await fs.stat(path.join(root, 'src/main/mule'))).isDirectory()) throw new Error('Expected src/main/mule directory.');
+    const descriptor = JSON.parse(await fs.readFile(path.join(root, 'zernova-artifact.json'), 'utf8'));
+    if (descriptor.requiredProduct !== 'ZERNOVA') throw new Error('Expected zernova-artifact.json with requiredProduct: ZERNOVA. The old native Runtime format is not supported.');
+    if (!(await fs.stat(path.join(root, 'src/main/zernova'))).isDirectory()) throw new Error('Expected src/main/zernova directory.');
     const project = { root, name: path.basename(root), ...coords };
     this.projects.set(root, project);
     if (!this.watchers.has(root)) {
-      const watcher = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(vscode.Uri.file(root), 'src/main/mule/*.xml'));
+      const watcher = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(vscode.Uri.file(root), 'src/main/zernova/*.xml'));
       watcher.onDidCreate(() => this.changed.fire()); watcher.onDidDelete(() => this.changed.fire()); this.watchers.set(root, watcher);
     }
     if (select) { this.selected = root; await this.context.workspaceState.update(SELECTED_KEY, root); }
@@ -103,8 +105,16 @@ export class ProjectManager implements vscode.Disposable {
     return selected?.project;
   }
   async openProject(): Promise<Project | undefined> {
-    const root = await vscode.window.showInputBox({ title: 'Open ZERNOVA Project', prompt: 'Project directory containing pom.xml and mule-artifact.json', ignoreFocusOut: true, validateInput: value => directory(value, 'Project directory') });
+    const root = await vscode.window.showInputBox({ title: 'Open ZERNOVA Project', prompt: 'Project directory containing pom.xml and zernova-artifact.json', ignoreFocusOut: true, validateInput: value => directory(value, 'Project directory') });
     return root === undefined ? undefined : this.load(root);
+  }
+  async importLegacyProject(): Promise<Project | undefined> {
+    const source = await vscode.window.showInputBox({ title: 'Import legacy XML project (1/2)', prompt: 'Source project directory. Conversion creates a separate ZERNOVA project.', ignoreFocusOut: true, validateInput: value => directory(value, 'Source directory') });
+    if (source === undefined) return;
+    const destination = await vscode.window.showInputBox({ title: 'Import legacy XML project (2/2)', prompt: 'New destination directory (must not exist)', value: source + '-zernova', ignoreFocusOut: true });
+    if (destination === undefined) return;
+    await importLegacyProject(source, destination);
+    return this.load(destination);
   }
   async configure(_project: Project): Promise<boolean> {
     void vscode.window.showInformationMessage('Studio uses its bundled ZERNOVA Runtime and Java. No external tools are required for core and HTTP projects.');
@@ -132,22 +142,22 @@ export class ProjectManager implements vscode.Disposable {
     await fs.access(canonicalParent, fs.constants.W_OK);
     await fs.mkdir(root); // Exclusive creation: EEXIST is never overwritten.
     try {
-      for (const dir of ['src/main/mule', 'src/main/java', 'src/main/resources', 'src/test']) await fs.mkdir(path.join(root, dir), { recursive: true });
+      for (const dir of ['src/main/zernova', 'src/main/java', 'src/main/resources', 'src/test']) await fs.mkdir(path.join(root, dir), { recursive: true });
       const files = projectFiles({ root, name, groupId, artifactId, version });
       for (const [relative, content] of Object.entries(files)) await fs.writeFile(path.join(root, relative), content, { flag: 'wx' });
     } catch (error) { await fs.rm(root, { recursive: true, force: true }); throw error; }
     const project = await this.load(root); if (settings) await this.saveSettings(project, settings);
-    void vscode.window.showInformationMessage(`Created ${name}. src/main/mule is empty. Use ZERNOVA: New Integration XML, then Create Flow before building.`);
+    void vscode.window.showInformationMessage(`Created ${name}. src/main/zernova is empty. Use ZERNOVA: New Integration XML, then Create Flow before building.`);
     return project;
   }
   async newIntegration(project: Project): Promise<vscode.Uri | undefined> {
-    const filename = await vscode.window.showInputBox({ title: 'New Integration XML', prompt: 'XML filename inside src/main/mule', value: 'hello.xml', ignoreFocusOut: true, validateInput: async value => {
+    const filename = await vscode.window.showInputBox({ title: 'New Integration XML', prompt: 'XML filename inside src/main/zernova', value: 'hello.xml', ignoreFocusOut: true, validateInput: async value => {
       if (!/^[A-Za-z][A-Za-z0-9_.-]{0,100}\.xml$/.test(value) || value.includes('..')) return 'Use a filename such as hello.xml; directories and parent-path segments are not allowed.';
-      try { await fs.lstat(path.join(project.root, 'src/main/mule', value)); return 'This file already exists. Open it from Projects.'; } catch (error) { return (error as NodeJS.ErrnoException).code === 'ENOENT' ? undefined : 'Unable to check destination.'; }
+      try { await fs.lstat(path.join(project.root, 'src/main/zernova', value)); return 'This file already exists. Open it from Projects.'; } catch (error) { return (error as NodeJS.ErrnoException).code === 'ENOENT' ? undefined : 'Unable to check destination.'; }
     } });
     if (filename === undefined) return;
-    const directory = await fs.realpath(path.join(project.root, 'src/main/mule'));
-    if (!isInside(project.root, directory)) throw new Error('The Mule source directory resolves outside this project.');
+    const directory = await fs.realpath(path.join(project.root, 'src/main/zernova'));
+    if (!isInside(project.root, directory)) throw new Error('The ZERNOVA source directory resolves outside this project.');
     const uri = vscode.Uri.file(path.join(directory, filename));
     await fs.writeFile(uri.fsPath, NEW_INTEGRATION_XML, { flag: 'wx' }); this.changed.fire(); return uri;
   }
@@ -162,22 +172,20 @@ export function projectFiles(p: Project): Record<string, string> {
   <groupId>${xmlEscape(p.groupId)}</groupId>
   <artifactId>${xmlEscape(p.artifactId)}</artifactId>
   <version>${xmlEscape(p.version)}</version>
-  <packaging>mule-application</packaging>
+  <packaging>zernova-application</packaging>
   <name>${xmlEscape(p.name)}</name>
   <properties><project.build.sourceEncoding>UTF-8</project.build.sourceEncoding><maven.compiler.source>17</maven.compiler.source><maven.compiler.target>17</maven.compiler.target></properties>
-  <build><plugins><plugin><groupId>org.mule.tools.maven</groupId><artifactId>mule-maven-plugin</artifactId><version>4.10.3</version><extensions>true</extensions><configuration><classifier>mule-application</classifier><runtimeVersion>4.10.0</runtimeVersion></configuration></plugin></plugins></build>
-  <dependencies><dependency><groupId>com.zernova.connectors</groupId><artifactId>mule-http-connector</artifactId><version>1.12.2</version><classifier>mule-plugin</classifier></dependency></dependencies>
-  <repositories><repository><id>mulesoft-public</id><url>https://repository.mulesoft.org/nexus/content/repositories/public/</url></repository></repositories>
-  <pluginRepositories><pluginRepository><id>mulesoft-public</id><url>https://repository.mulesoft.org/nexus/content/repositories/public/</url></pluginRepository></pluginRepositories>
+  <!-- Built offline by ZERNOVA Studio; no external Maven plugin required. -->
+  <dependencies><dependency><groupId>com.zernova.connectors</groupId><artifactId>zernova-http-connector</artifactId><version>1.12.2</version><classifier>zernova-plugin</classifier></dependency></dependencies>
 </project>
 `,
     'zernova-app.json': JSON.stringify({ schemaVersion: 1, name: p.artifactId, group: p.groupId, version: p.version, dependencies: ['http'] }, null, 2) + '\n',
-    'mule-artifact.json': JSON.stringify({ minMuleVersion: '4.10.0', requiredProduct: 'MULE', javaSpecificationVersions: ['17'], redeploymentEnabled: false }, null, 2) + '\n',
+    'zernova-artifact.json': JSON.stringify({ minZernovaVersion: '0.4.0', requiredProduct: 'ZERNOVA', javaSpecificationVersions: ['17'], redeploymentEnabled: false }, null, 2) + '\n',
     'src/main/resources/application.properties': '# Project resource defaults. Listener configuration is edited in the integration XML.\n',
     'src/main/resources/log4j2.xml': `<?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
   <Appenders>
-    <RollingFile name="ApplicationFile" fileName="\${sys:mule.home}/logs/mule-app-${xmlEscape(p.artifactId)}.log" filePattern="\${sys:mule.home}/logs/mule-app-${xmlEscape(p.artifactId)}.%i.log">
+    <RollingFile name="ApplicationFile" fileName="\${sys:zernova.home}/logs/zernova-app-${xmlEscape(p.artifactId)}.log" filePattern="\${sys:zernova.home}/logs/zernova-app-${xmlEscape(p.artifactId)}.%i.log">
       <PatternLayout pattern="%d{ISO8601} %-5p [%t] %c: %m%n"/>
       <Policies><SizeBasedTriggeringPolicy size="10 MB"/></Policies><DefaultRolloverStrategy max="5"/>
     </RollingFile>
@@ -186,6 +194,43 @@ export function projectFiles(p: Project): Record<string, string> {
 </Configuration>
 `,
     '.gitignore': 'target/\n*.log\n.DS_Store\n',
-    'README.md': `# ${p.name}\n\nCreated by ZERNOVA Studio 0.3.0 with bundled Runtime 0.3.0-dev.2 (4.10 source baseline, Java 17).\n\nCreate Integration XML, create a flow and add an HTTP Listener and Logger. Save and click Run. The offline builder supports core/XML/resources and the bundled HTTP profile; it rejects custom Java and additional dependencies. Runtime state stays outside the project.\n`,
+    'README.md': `# ${p.name}\n\nCreated by ZERNOVA Studio 0.4.0 with bundled Runtime 0.4.0-alpha.1 (4.10 source baseline, Java 17).\n\nCreate Integration XML, create a flow and add an HTTP Listener and Logger. Save and click Run. The offline builder supports core/XML/resources and the bundled HTTP profile; it rejects custom Java and additional dependencies. Runtime state stays outside the project.\n`,
   };
+}
+
+/** Bounded conversion into a new directory. The source project is never edited. */
+export async function importLegacyProject(sourceInput: string, destination: string): Promise<void> {
+  const source = await fs.realpath(sourceInput);
+  if (!path.isAbsolute(destination) || destination.includes('\0')) throw new Error('Use an absolute destination directory.');
+  await fs.access(destination).then(() => { throw new Error('Import destination already exists.'); }, error => { if (error.code !== 'ENOENT') throw error; });
+  const coords = parseProjectPom(await fs.readFile(path.join(source, 'pom.xml'), 'utf8'));
+  const descriptor = JSON.parse(await fs.readFile(path.join(source, 'mule-artifact.json'), 'utf8'));
+  if (descriptor.requiredProduct !== 'MULE') throw new Error('Expected a legacy Mule application descriptor.');
+  const java = path.join(source, 'src/main/java');
+  if (await fs.stat(java).then(() => true, () => false)) if ((await walkFiles(java)).length) throw new Error('Import currently supports XML/resources and HTTP only. Custom Java needs a separate migration.');
+  const pom = await fs.readFile(path.join(source, 'pom.xml'), 'utf8');
+  const parser = sax.parser(true, { xmlns: true }); const stack: string[] = []; const dependencies: Record<string, string>[] = []; let dep: Record<string, string> | undefined;
+  parser.ondoctype = () => { throw new Error('POM DTD is not supported.'); };
+  parser.onopentag = tag => { stack.push(tag.local); if (stack.join('/') === 'project/dependencies/dependency') dep = {}; };
+  parser.ontext = text => { if (dep && stack.length === 4) dep[stack[3]] = (dep[stack[3]] ?? '') + text; };
+  parser.onclosetag = () => { if (stack.join('/') === 'project/dependencies/dependency' && dep) { dependencies.push(dep); dep = undefined; } stack.pop(); };
+  parser.write(pom).close();
+  if (dependencies.some(d => d.artifactId?.trim() !== 'mule-http-connector' || !['org.mule.connectors', 'com.zernova.connectors'].includes(d.groupId?.trim()))) throw new Error('Import supports the bundled HTTP profile only; additional dependencies require migration.');
+  const files = new Map<string, string | Buffer>(Object.entries(projectFiles({ root: destination, name: path.basename(destination), ...coords })));
+  const converted: string[] = [];
+  const integrations = path.join(source, 'src/main/mule');
+  for (const name of await walkFiles(integrations)) {
+    if (!name.endsWith('.xml')) throw new Error('Unexpected integration source: ' + name);
+    files.set('src/main/zernova/' + name, convertLegacyIntegrationXml(await fs.readFile(path.join(integrations, name), 'utf8'))); converted.push(name);
+  }
+  if (!converted.length) throw new Error('No legacy integration XML found.');
+  const resources = path.join(source, 'src/main/resources');
+  if (await fs.stat(resources).then(() => true, () => false)) for (const name of await walkFiles(resources)) {
+    if (/\.(jar|class|dll|so|dylib)$/i.test(name) || name.startsWith('META-INF/')) throw new Error('Unsupported executable/reserved resource: ' + name);
+    const bytes = await fs.readFile(path.join(resources, name));
+    files.set('src/main/resources/' + name, name === 'log4j2.xml' ? bytes.toString('utf8').replaceAll('sys:mule.home', 'sys:zernova.home') : bytes);
+  }
+  files.set('migration-report.json', JSON.stringify({ formatVersion: 1, source, converted, runtime: '0.4.0-alpha.1', dependencyProfile: 'bundled HTTP 1.12.2', notes: ['Maven plugins and tests are not executed or copied.', 'Unsupported XML is preserved; review diagnostics and test behavior.'] }, null, 2) + '\n');
+  await fs.mkdir(destination);
+  for (const [name, data] of files) { const target = path.join(destination, name); await fs.mkdir(path.dirname(target), { recursive: true }); await fs.writeFile(target, data, { flag: 'wx' }); }
 }

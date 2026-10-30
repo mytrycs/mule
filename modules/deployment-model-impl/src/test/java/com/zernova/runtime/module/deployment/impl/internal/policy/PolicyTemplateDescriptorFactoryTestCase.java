@@ -9,7 +9,7 @@ package com.zernova.runtime.module.deployment.impl.internal.policy;
 
 import static com.zernova.maven.client.api.model.MavenConfiguration.newMavenConfigurationBuilder;
 import static com.zernova.runtime.api.artifact.ArtifactType.POLICY;
-import static com.zernova.runtime.api.deployment.meta.Product.MULE;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA;
 import static com.zernova.runtime.core.api.util.FileUtils.unzip;
 import static com.zernova.runtime.module.artifact.api.descriptor.AbstractArtifactDescriptorFactory.ARTIFACT_DESCRIPTOR_DOES_NOT_EXISTS_ERROR;
 import static com.zernova.runtime.module.artifact.api.descriptor.AbstractArtifactDescriptorFactory.invalidBundleDescriptorLoaderIdError;
@@ -155,8 +155,8 @@ public class PolicyTemplateDescriptorFactoryTestCase extends AbstractZernovaTest
   public void readsRuntimeLibs() throws Exception {
     ZernovaPolicyModelBuilder mulePolicyModelBuilder = new ZernovaPolicyModelBuilder()
         .setName(POLICY_NAME)
-        .setMinMuleVersion("4.0.0")
-        .setRequiredProduct(MULE)
+        .setMinZernovaVersion("4.0.0")
+        .setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createPolicyBundleDescriptorLoader(PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID));
     mulePolicyModelBuilder
         .withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptor(FILE_SYSTEM_POLICY_MODEL_LOADER_ID, emptyMap()));
@@ -181,8 +181,8 @@ public class PolicyTemplateDescriptorFactoryTestCase extends AbstractZernovaTest
   public void assignsBundleDescriptor() throws Exception {
     ZernovaPolicyModelBuilder mulePolicyModelBuilder = new ZernovaPolicyModelBuilder()
         .setName(POLICY_NAME)
-        .setMinMuleVersion("4.0.0")
-        .setRequiredProduct(MULE)
+        .setMinZernovaVersion("4.0.0")
+        .setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createPolicyBundleDescriptorLoader(PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID))
         .withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptor(MULE_LOADER_ID, emptyMap()));
 
@@ -208,8 +208,8 @@ public class PolicyTemplateDescriptorFactoryTestCase extends AbstractZernovaTest
   public void readsPlugin() throws Exception {
     ZernovaPolicyModelBuilder policyModelBuilder = new ZernovaPolicyModelBuilder()
         .setName(POLICY_NAME)
-        .setMinMuleVersion("4.0.0")
-        .setRequiredProduct(MULE)
+        .setMinZernovaVersion("4.0.0")
+        .setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createPolicyBundleDescriptorLoader(PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID))
         .withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptor(MULE_LOADER_ID, emptyMap()));
 
@@ -245,8 +245,8 @@ public class PolicyTemplateDescriptorFactoryTestCase extends AbstractZernovaTest
   public void detectsInvalidClassLoaderModelLoaderId() throws Exception {
     ZernovaPolicyModelBuilder mulePolicyModelBuilder = new ZernovaPolicyModelBuilder()
         .setName(POLICY_NAME)
-        .setMinMuleVersion("4.0.0")
-        .setRequiredProduct(MULE)
+        .setMinZernovaVersion("4.0.0")
+        .setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createPolicyBundleDescriptorLoader(PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID))
         .withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptor(INVALID_LOADER_ID, emptyMap()));
 
@@ -267,8 +267,8 @@ public class PolicyTemplateDescriptorFactoryTestCase extends AbstractZernovaTest
   public void detectsInvalidBundleDescriptorLoaderId() throws Exception {
     ZernovaPolicyModelBuilder mulePolicyModelBuilder = new ZernovaPolicyModelBuilder()
         .setName(POLICY_NAME)
-        .setMinMuleVersion("4.0.0")
-        .setRequiredProduct(MULE)
+        .setMinZernovaVersion("4.0.0")
+        .setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createPolicyBundleDescriptorLoader(INVALID_LOADER_ID))
         .withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptor(FILE_SYSTEM_POLICY_MODEL_LOADER_ID, emptyMap()));
 

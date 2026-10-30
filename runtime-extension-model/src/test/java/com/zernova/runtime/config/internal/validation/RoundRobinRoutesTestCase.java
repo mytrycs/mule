@@ -39,10 +39,10 @@ public class RoundRobinRoutesTestCase extends AbstractCoreValidationTestCase {
   public void roundRobinRoutes() {
     final Optional<ValidationResultItem> msg = runValidation("RoundRobinRoutesTestCase#roundRobinRoutes",
                                                              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                                                                 "<mule xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
+                                                                 "<zernova xmlns=\"https://schemas.zernova.dev/core\"\n" +
                                                                  "      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
                                                                  +
-                                                                 "      xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd\">\n"
+                                                                 "      xsi:schemaLocation=\"https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd\">\n"
                                                                  +
                                                                  "\n" +
                                                                  "    <flow name=\"flow\">\n" +
@@ -53,7 +53,7 @@ public class RoundRobinRoutesTestCase extends AbstractCoreValidationTestCase {
                                                                  "        </round-robin>\n" +
                                                                  "    </flow>\n" +
                                                                  "    \n" +
-                                                                 "</mule>")
+                                                                 "</zernova>")
                                                                      .stream().findFirst();
 
     assertThat(msg.get().getValidation().getLevel(), is(WARN));

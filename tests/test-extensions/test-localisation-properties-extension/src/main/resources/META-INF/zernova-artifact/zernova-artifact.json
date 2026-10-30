@@ -1,0 +1,28 @@
+{
+  "minZernovaVersion": "4.0.0",
+  "requiredProduct": "ZERNOVA",
+  "extensionModelLoaderDescriptor": {
+    "id": "crafted",
+    "attributes": {
+      "type": "com.zernova.test.crafted.localisation.properties.extension.TestLocalisationPropertiesExtensionLoadingDelegate",
+      "version": "4.0.0"
+    }
+  },
+  "name": "crafted-localisation-properties",
+  "minZernovaVersion": "4.0.0",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {
+      "exportedPackages": [
+        "com.zernova.test.crafted.localisation.properties.extension"
+      ],
+      "exportedResources": [
+        "META-INF/services/com.zernova.runtime.properties.api.ConfigurationPropertiesProviderFactory"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  }
+}

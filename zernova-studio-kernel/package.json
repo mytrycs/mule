@@ -1,8 +1,8 @@
 {
   "name": "zernova-studio-kernel-preview",
   "displayName": "ZERNOVA Studio",
-  "description": "ZERNOVA Studio with bundled ZERNOVA Runtime 0.3.0-dev.2 and Java.",
-  "version": "0.3.0",
+  "description": "ZERNOVA Studio alpha with bundled ZERNOVA Runtime 0.4.0-alpha.1 and Java.",
+  "version": "0.4.0",
   "publisher": "zernova-preview",
   "license": "SEE LICENSE IN LICENSE.txt",
   "private": true,
@@ -140,6 +140,11 @@
         "command": "zernovaKernelStudio.selectProject",
         "category": "ZERNOVA",
         "title": "Select Project"
+      },
+      {
+        "command": "zernovaKernelStudio.importLegacyProject",
+        "category": "ZERNOVA",
+        "title": "Import Legacy XML Project"
       }
     ],
     "viewsContainers": {
@@ -229,7 +234,7 @@
         "displayName": "ZERNOVA Integration",
         "selector": [
           {
-            "filenamePattern": "**/src/main/mule/*.xml"
+            "filenamePattern": "**/src/main/zernova/*.xml"
           }
         ],
         "priority": "option"
@@ -240,8 +245,8 @@
     "build": "node scripts/build.mjs",
     "typecheck": "tsc --noEmit",
     "test": "node scripts/test.mjs",
-    "vscode:prepublish": "npm run build",
-    "package": "vsce package --target darwin-x64 --no-dependencies --allow-missing-repository --out dist/zernova-studio-kernel-preview-0.3.0-darwin-x64.vsix",
+    "vscode:prepublish": "npm run build && node scripts/verify-package.mjs",
+    "package": "node scripts/package.mjs",
     "test:host": "node scripts/test-host.mjs",
     "test:ui": "node scripts/test-ui.mjs"
   },

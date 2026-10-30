@@ -154,7 +154,7 @@ public class ApplicationTestCase extends AbstractEmbeddedTestCase {
   @Test
   public void applicationWithTestDependency() throws Exception {
     BundleDescriptor bundleDescriptor =
-        getApplicationBundleDescriptor("http-test-dependency", of("mule-application-light-package"));
+        getApplicationBundleDescriptor("http-test-dependency", of("zernova-application-light-package"));
     doWithinApplication(bundleDescriptor, getAppFolder("http-test-dependency-light-package"), createRetryTestOperation(port -> {
       try {
         String httpBody = "Something";
@@ -171,7 +171,7 @@ public class ApplicationTestCase extends AbstractEmbeddedTestCase {
   @Description("Embedded runs an application returning mule.home property")
   public void applicationRespondingMuleHome() throws Exception {
     BundleDescriptor bundleDescriptor =
-        getApplicationBundleDescriptor("http-mule-home", of("mule-application"));
+        getApplicationBundleDescriptor("http-mule-home", of("zernova-application"));
     doWithinApplication(bundleDescriptor, getAppFolder("http-mule-home"), createRetryTestOperation(port -> {
       try {
         HttpResponse<String> response = get(format("http://localhost:%s/", port)).asString();

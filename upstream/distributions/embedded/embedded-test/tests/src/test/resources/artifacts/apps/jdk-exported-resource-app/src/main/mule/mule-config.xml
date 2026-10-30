@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+<zernova xmlns="https://schemas.zernova.dev/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:http="http://www.mulesoft.org/schema/mule/http"
-      xmlns:java="http://www.mulesoft.org/schema/mule/java"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/java http://www.mulesoft.org/schema/mule/java/current/mule-java.xsd
-               http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+      xmlns:http="https://schemas.zernova.dev/http"
+      xmlns:java="https://schemas.zernova.dev/java"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/java https://schemas.zernova.dev/java/current/zernova-java.xsd
+               https://schemas.zernova.dev/http https://schemas.zernova.dev/http/current/zernova-http.xsd">
 
     <http:listener-config name="httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="${httpPort}"/>
@@ -16,4 +16,4 @@
         <java:invoke-static class="com.zernova.test.ResourceGetter" method="getJdkResource()"/>
         <logger level="INFO"  message="#[payload]"/>
     </flow>
-</mule>
+</zernova>

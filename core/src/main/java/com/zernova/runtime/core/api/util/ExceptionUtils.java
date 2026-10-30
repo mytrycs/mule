@@ -278,7 +278,7 @@ public class ExceptionUtils {
   }
 
   /**
-   * Checks if an error type is MULE:UNKNOWN
+   * Checks if an error type is ZERNOVA:UNKNOWN
    */
   public static boolean isUnknownMuleError(ErrorType type) {
     return type.getNamespace().equals(CORE_NAMESPACE_NAME) && type.getIdentifier().equals(UNKNOWN_ERROR_IDENTIFIER);

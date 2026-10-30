@@ -88,13 +88,13 @@ public class ConstructForwarderDecorator extends ConstructDeclaration {
   }
 
   @Override
-  public Optional<ZernovaVersion> getMinMuleVersion() {
-    return this.delegate.getMinMuleVersion();
+  public Optional<ZernovaVersion> getMinZernovaVersion() {
+    return this.delegate.getMinZernovaVersion();
   }
 
   @Override
-  public void withMinMuleVersion(ZernovaVersion minMuleVersion) {
-    this.delegate.withMinMuleVersion(minMuleVersion);
+  public void withMinZernovaVersion(ZernovaVersion minZernovaVersion) {
+    this.delegate.withMinZernovaVersion(minZernovaVersion);
   }
 
   @Override

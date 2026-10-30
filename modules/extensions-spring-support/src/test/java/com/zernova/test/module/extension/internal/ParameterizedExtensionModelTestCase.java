@@ -78,7 +78,7 @@ public abstract class ParameterizedExtensionModelTestCase extends AbstractZernov
     };
 
     ExtensionModelLoadingRequest.Builder builder = builder(pluginClassLoader, dslResolvingContext)
-        .setResolveMinMuleVersion(true)
+        .setResolveMinZernovaVersion(true)
         .addParameters(params);
     if (coordinates != null) {
       builder.setArtifactCoordinates(coordinates);

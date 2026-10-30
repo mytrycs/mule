@@ -32,7 +32,7 @@ public class JavaXmlModelDeclarationTestCase extends AbstractZernovaTestCase {
 
   private static final String NAMESPACE = "namespace";
   private static final String NAMESPACE_LOCATION = "NAMESPACE_LOCATION";
-  private static final String DEFAULT_NAMESPACE_LOCATION_MASK = "http://www.mulesoft.org/schema/mule/%s";
+  private static final String DEFAULT_NAMESPACE_LOCATION_MASK = "https://schemas.zernova.dev/%s";
   private static final String DEFAULT_SCHEMA_LOCATION_MASK = "%s/current/%s";
   private static final String XSD_FILENAME_MASK = "mule-%s.xsd";
 

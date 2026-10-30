@@ -237,7 +237,7 @@ public class DefaultExpressionManagerTestCase extends AbstractZernovaContextTest
   @Description("Verifies that parsing works for log template scenarios for DW using the message.")
   public void parseLogMessage() throws ZernovaException {
     String expectedOutput =
-        "current message is \norg.mule.runtime.core.internal.message.DefaultMessageBuilder$MessageImplementation\n{"
+        "current message is \ncom.zernova.runtime.core.internal.message.DefaultMessageBuilder$MessageImplementation\n{"
             + "\n  payload=test\n  mediaType=*/*\n  attributes=<not set>\n  attributesMediaType=*/*\n}";
     assertThat(expressionManager.parseLogTemplate("current message is #[message]", testEvent(), TEST_CONNECTOR_LOCATION,
                                                   NULL_BINDING_CONTEXT),

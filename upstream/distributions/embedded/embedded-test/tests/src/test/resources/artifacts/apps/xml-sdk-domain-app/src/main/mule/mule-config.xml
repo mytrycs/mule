@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+<zernova xmlns="https://schemas.zernova.dev/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:http="http://www.mulesoft.org/schema/mule/http"
-      xmlns:sc="http://www.mulesoft.org/schema/mule/module-using-core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-               http://www.mulesoft.org/schema/mule/module-using-core http://www.mulesoft.org/schema/mule/module-using-core/current/mule-module-using-core.xsd">
+      xmlns:http="https://schemas.zernova.dev/http"
+      xmlns:sc="https://schemas.zernova.dev/module-using-core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/http https://schemas.zernova.dev/http/current/zernova-http.xsd
+               https://schemas.zernova.dev/module-using-core https://schemas.zernova.dev/module-using-core/current/zernova-module-using-core.xsd">
 
     <flow name="main">
         <http:listener path="/" config-ref="httpListenerConfig"/>
         <sc:echo-set-payload config-ref="moduleConfig"/>
     </flow>
 
-</mule>
+</zernova>

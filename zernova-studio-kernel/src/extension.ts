@@ -119,6 +119,7 @@ export function activate(context: vscode.ExtensionContext) {
   };
   context.subscriptions.push(
     vscode.commands.registerCommand('zernovaKernelStudio.newProject', guarded(async () => { const project = await projects.createProject(); if (project) await vscode.commands.executeCommand('workbench.view.extension.zernovaKernelStudio'); return project?.root; })),
+    vscode.commands.registerCommand('zernovaKernelStudio.importLegacyProject', guarded(async () => { const project = await projects.importLegacyProject(); if (project) await vscode.commands.executeCommand('workbench.view.extension.zernovaKernelStudio'); return project?.root; })),
     vscode.commands.registerCommand('zernovaKernelStudio.openProject', guarded(async () => { const project = await projects.openProject(); if (project) { await runtime.reconcile(project); await vscode.commands.executeCommand('workbench.view.extension.zernovaKernelStudio'); } return project?.root; })),
     vscode.commands.registerCommand('zernovaKernelStudio.selectProject', guarded(async candidate => { const uri = explicitUri(candidate); const project = await projects.select(uri, !uri); if (project) { projects.refresh(); await runtime.reconcile(project); } })),
     vscode.commands.registerCommand('zernovaKernelStudio.newIntegration', guarded(async candidate => {
@@ -129,9 +130,9 @@ export function activate(context: vscode.ExtensionContext) {
       let uri = commandUri(candidate);
       if (!uri || !uri.fsPath.endsWith('.xml')) {
         const project = await projects.select(uri); if (!project) return;
-        const files = (await fs.readdir(path.join(project.root, 'src/main/mule'))).filter(name => name.endsWith('.xml'));
+        const files = (await fs.readdir(path.join(project.root, 'src/main/zernova'))).filter(name => name.endsWith('.xml'));
         const choice = await vscode.window.showQuickPick(files, { title: 'Open Integration in Studio', placeHolder: files.length ? 'Select an integration XML document' : 'No XML files exist. Use New Integration XML.' });
-        if (!choice) return; uri = vscode.Uri.file(path.join(project.root, 'src/main/mule', choice));
+        if (!choice) return; uri = vscode.Uri.file(path.join(project.root, 'src/main/zernova', choice));
       }
       if (!projects.projectForUri(uri)) throw new Error('Open the containing ZERNOVA project first.');
       await documents.open(uri);

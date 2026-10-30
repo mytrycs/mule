@@ -43,7 +43,7 @@ public interface ArtifactDescriptorFactoryProvider {
   }
 
   /**
-   * Creates a resolver that is used to determine the correct initialization order of the mule-plugin dependencies of an artifact.
+   * Creates a resolver that is used to determine the correct initialization order of the zernova-plugin dependencies of an artifact.
    *
    * @param artifactPluginDescriptorFactory factory to create {@link ArtifactPluginDescriptor} when there's a missing dependency
    *                                        to resolve

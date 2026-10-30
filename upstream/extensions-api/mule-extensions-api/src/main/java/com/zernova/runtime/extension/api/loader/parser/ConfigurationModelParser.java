@@ -106,6 +106,6 @@ public interface ConfigurationModelParser extends StereotypeModelParser, Additio
    * @return a {@link MinZernovaVersionParser} that contains the minimum mule version this component can run on and the reason why
    *         that version was assigned.
    */
-  Optional<MinZernovaVersionParser> getResolvedMinMuleVersion();
+  Optional<MinZernovaVersionParser> getResolvedMinZernovaVersion();
 
 }

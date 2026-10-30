@@ -65,7 +65,7 @@ public class PropertyOverridesTestCase extends AbstractZernovaTestCase {
     assertEquals("country", appProps.get("peru"));
     assertEquals("austin", appProps.get("texas.capital"));
     assertEquals("4", appProps.get("peru.capital.numberOfletters"));
-    assertEquals("runtime", appProps.get("mule"));
+    assertEquals("runtime", appProps.get("zernova"));
     assertEquals("ipaas", appProps.get("mule.ion"));
 
     try {
@@ -77,7 +77,7 @@ public class PropertyOverridesTestCase extends AbstractZernovaTestCase {
       assertEquals("nation", appProps.get("peru"));
       assertEquals("austin", appProps.get("texas.capital"));
       assertEquals("4", appProps.get("peru.capital.numberOfletters"));
-      assertEquals("wayCool", appProps.get("mule"));
+      assertEquals("wayCool", appProps.get("zernova"));
       assertEquals("ipaas", appProps.get("mule.ion"));
       assertEquals("evenCooler", appProps.get("mule.mmc"));
 
@@ -88,7 +88,7 @@ public class PropertyOverridesTestCase extends AbstractZernovaTestCase {
       assertEquals("nation", appProps.get("peru"));
       assertNull(appProps.get("texas.capital"));
       assertNull(appProps.get("peru.capital.numberOfletters"));
-      assertEquals("wayCool", appProps.get("mule"));
+      assertEquals("wayCool", appProps.get("zernova"));
       assertNull(appProps.get("mule.ion"));
       assertEquals("evenCooler", appProps.get("mule.mmc"));
     } finally {

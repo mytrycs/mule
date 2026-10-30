@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
-      xmlns:module-properties="http://www.mulesoft.org/schema/mule/module-properties"
+<zernova xmlns="https://schemas.zernova.dev/core"
+      xmlns:module-properties="https://schemas.zernova.dev/module-properties"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="
-       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-       http://www.mulesoft.org/schema/mule/module-properties http://www.mulesoft.org/schema/mule/module-properties/current/mule-module-properties.xsd">
+       https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+       https://schemas.zernova.dev/module-properties https://schemas.zernova.dev/module-properties/current/zernova-module-properties.xsd">
 
     <module-properties:config name="instantiatedConfig"  configParam="some config-value-parameter" />
 
@@ -56,4 +56,4 @@
         <module-properties:call-private-nested-operations config-ref="instantiatedConfig"  inputParam="What are these?"/>
     </flow>
 
-</mule>
+</zernova>

@@ -138,7 +138,7 @@ public class ImmutableConnectionProviderModel extends AbstractStereotypedModel i
    * @param displayModel                a model which contains directive about how this provider is displayed in the UI
    * @param modelProperties             A {@link Set} of custom properties which extend this model
    * @param semanticTerms               a {@link Set} of semantic terms which describes the connection's meaning and effect
-   * @param minMuleVersion              the min mule version of the connection provider
+   * @param minZernovaVersion              the min mule version of the connection provider
    * @throws IllegalArgumentException if {@code connectionProviderFactory}, {@code configurationType} or {@code connectionType}
    *                                  are {@code null}
    * @since 1.5.0
@@ -154,9 +154,9 @@ public class ImmutableConnectionProviderModel extends AbstractStereotypedModel i
                                           Set<ModelProperty> modelProperties,
                                           DeprecationModel deprecationModel,
                                           Set<String> semanticTerms,
-                                          ZernovaVersion minMuleVersion) {
+                                          ZernovaVersion minZernovaVersion) {
     this(name, description, parameterGroupModels, connectionManagementType, supportsConnectivityTesting, false,
-         externalLibraryModels, displayModel, stereotype, modelProperties, deprecationModel, semanticTerms, minMuleVersion);
+         externalLibraryModels, displayModel, stereotype, modelProperties, deprecationModel, semanticTerms, minZernovaVersion);
   }
 
   /**
@@ -172,7 +172,7 @@ public class ImmutableConnectionProviderModel extends AbstractStereotypedModel i
    * @param displayModel                a model which contains directive about how this provider is displayed in the UI
    * @param modelProperties             A {@link Set} of custom properties which extend this model
    * @param semanticTerms               a {@link Set} of semantic terms which describes the connection's meaning and effect
-   * @param minMuleVersion              the min mule version of the connection provider
+   * @param minZernovaVersion              the min mule version of the connection provider
    * @throws IllegalArgumentException if {@code connectionProviderFactory}, {@code configurationType} or {@code connectionType}
    *                                  are {@code null}
    * @since 1.10.0
@@ -189,8 +189,8 @@ public class ImmutableConnectionProviderModel extends AbstractStereotypedModel i
                                           Set<ModelProperty> modelProperties,
                                           DeprecationModel deprecationModel,
                                           Set<String> semanticTerms,
-                                          ZernovaVersion minMuleVersion) {
-    super(name, description, parameterGroupModels, displayModel, stereotype, modelProperties, deprecationModel, minMuleVersion);
+                                          ZernovaVersion minZernovaVersion) {
+    super(name, description, parameterGroupModels, displayModel, stereotype, modelProperties, deprecationModel, minZernovaVersion);
     checkArgument(connectionManagementType != null, "connectionManagementType cannot be null");
     this.connectionManagementType = connectionManagementType;
     this.externalLibraryModels = unmodifiableSet(externalLibraryModels);

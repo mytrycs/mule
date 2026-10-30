@@ -321,7 +321,7 @@ public class ImmutableSourceModel extends AbstractExecutableComponentModel imple
    * @param sampleDataProviderModel A nullable {@link SampleDataProviderModel} which describes the component's sample data
    *                                capabilities
    * @param semanticTerms           a {@link Set} of semantic terms which describe the source's meaning and effect
-   * @param minMuleVersion          the min mule version of the source
+   * @param minZernovaVersion          the min mule version of the source
    * @since 1.5.0
    */
   public ImmutableSourceModel(String name,
@@ -346,10 +346,10 @@ public class ImmutableSourceModel extends AbstractExecutableComponentModel imple
                               DeprecationModel deprecationModel,
                               SampleDataProviderModel sampleDataProviderModel,
                               Set<String> semanticTerms,
-                              ZernovaVersion minMuleVersion) {
+                              ZernovaVersion minZernovaVersion) {
     super(name, description, parameterGroupModels, output, outputAttributes, requiresConnection, transactional,
           supportsStreaming, displayModel, errors, stereotype, visibility, modelProperties, nestedComponents, notifications,
-          deprecationModel, sampleDataProviderModel, semanticTerms, minMuleVersion);
+          deprecationModel, sampleDataProviderModel, semanticTerms, minZernovaVersion);
     this.hasResponse = hasResponse;
     this.runsOnPrimaryNodeOnly = runsOnPrimaryNodeOnly;
     this.successCallback = successCallbackModel.orElse(null);

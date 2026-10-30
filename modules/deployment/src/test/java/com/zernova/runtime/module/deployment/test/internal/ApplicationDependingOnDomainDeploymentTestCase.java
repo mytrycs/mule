@@ -47,10 +47,10 @@ public class ApplicationDependingOnDomainDeploymentTestCase extends AbstractDepl
 
   private final ApplicationFileBuilder appReferencingDomain101FileBuilder = new ApplicationFileBuilder("dummy-domain101-app-ref")
       .definedBy("empty-config.xml").dependingOn(emptyDomain100FileBuilder)
-      .deployedWith("domain", "empty-domain-1.0.1-mule-domain");
+      .deployedWith("domain", "empty-domain-1.0.1-zernova-domain");
   private final ApplicationFileBuilder appReferencingDomain100FileBuilder = new ApplicationFileBuilder("dummy-domain100-app-ref")
       .definedBy("empty-config.xml").dependingOn(emptyDomain100FileBuilder)
-      .deployedWith("domain", "empty-domain-1.0.0-mule-domain");
+      .deployedWith("domain", "empty-domain-1.0.0-zernova-domain");
 
   private final ApplicationFileBuilder appReferencingDefaultDomainFileBuilder = new ApplicationFileBuilder("app-with-default-ref")
       .definedBy("empty-config.xml").deployedWith("domain", "default");
@@ -60,11 +60,11 @@ public class ApplicationDependingOnDomainDeploymentTestCase extends AbstractDepl
 
   private final ApplicationFileBuilder incompatibleDomainNameAppFileBuilder = new ApplicationFileBuilder("bad-domain-app-ref")
       .definedBy("empty-config.xml").dependingOn(emptyDomain101FileBuilder)
-      .deployedWith("domain", "empty-domain-1.0.0-mule-domain");
+      .deployedWith("domain", "empty-domain-1.0.0-zernova-domain");
 
   private final ApplicationFileBuilder appWithDomainNameButMissingBundleDescriptor =
       new ApplicationFileBuilder("dummy-domain101-app-ref")
-          .definedBy("empty-config.xml").deployedWith("domain", "empty-domain-1.0.1-mule-domain");
+          .definedBy("empty-config.xml").deployedWith("domain", "empty-domain-1.0.1-zernova-domain");
 
   public ApplicationDependingOnDomainDeploymentTestCase(boolean parallelDeployment) {
     super(parallelDeployment);

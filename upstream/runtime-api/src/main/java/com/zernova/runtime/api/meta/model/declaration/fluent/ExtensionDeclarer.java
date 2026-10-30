@@ -399,8 +399,8 @@ public class ExtensionDeclarer extends Declarer<ExtensionDeclaration>
    * {@inheritDoc}
    */
   @Override
-  public ExtensionDeclarer withMinMuleVersion(ZernovaVersion minMuleVersion) {
-    declaration.withMinMuleVersion(minMuleVersion);
+  public ExtensionDeclarer withMinZernovaVersion(ZernovaVersion minZernovaVersion) {
+    declaration.withMinZernovaVersion(minZernovaVersion);
     return this;
   }
 

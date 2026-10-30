@@ -10,10 +10,10 @@
   ],
   "xmlDsl": {
     "prefix": "github",
-    "namespace": "http://www.mulesoft.org/schema/mule/github",
-    "schemaLocation": "http://www.mulesoft.org/schema/mule/github/current/mule-github.xsd",
+    "namespace": "https://schemas.zernova.dev/github",
+    "schemaLocation": "https://schemas.zernova.dev/github/current/zernova-github.xsd",
     "schemaVersion": "4.0",
-    "xsdFileName": "mule-github.xsd"
+    "xsdFileName": "zernova-github.xsd"
   },
   "resources": [],
   "subTypes": [],
@@ -313,9 +313,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "expiration-policy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -781,7 +781,7 @@
           "errors": [],
           "stereotype": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           },
           "parameterGroupModels": [
             {
@@ -1011,10 +1011,10 @@
   "modelProperties": {
     "com.zernova.runtime.extension.api.property.XmlExtensionModelProperty": {
       "namespacesDependencies": [
-        "http://www.mulesoft.org/schema/mule/documentation",
-        "http://www.mulesoft.org/schema/mule/http",
+        "https://schemas.zernova.dev/documentation",
+        "https://schemas.zernova.dev/http",
         "http://www.w3.org/2001/XMLSchema-instance",
-        "http://www.mulesoft.org/schema/mule/core"
+        "https://schemas.zernova.dev/core"
       ]
     }
   },

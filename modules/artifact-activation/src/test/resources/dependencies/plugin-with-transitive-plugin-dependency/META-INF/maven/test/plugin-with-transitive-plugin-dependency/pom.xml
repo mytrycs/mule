@@ -7,14 +7,14 @@
     <groupId>test</groupId>
     <artifactId>plugin-with-transitive-plugin-dependency</artifactId>
     <version>1.0.0</version>
-    <packaging>mule-plugin</packaging>
+    <packaging>zernova-plugin</packaging>
 
     <dependencies>
         <dependency>
             <groupId>test</groupId>
             <artifactId>plugin-with-transitive-dependency</artifactId>
             <version>1.0.0</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
         </dependency>
     </dependencies>
 </project>

@@ -28,7 +28,7 @@ import java.util.ServiceLoader;
  * plugins, provided for each instance of this {@link DslElementModelFactory}
  *
  * @since 4.0
- * @deprecated Use mule-artifact-ast instead.
+ * @deprecated Use zernova-artifact-ast instead.
  */
 @NoImplement
 @Deprecated(forRemoval = true, since = "4.10")

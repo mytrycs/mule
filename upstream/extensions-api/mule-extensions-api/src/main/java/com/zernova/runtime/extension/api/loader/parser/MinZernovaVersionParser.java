@@ -18,7 +18,7 @@ import com.zernova.runtime.api.meta.ZernovaVersion;
 @NoImplement
 public interface MinZernovaVersionParser {
 
-  ZernovaVersion getMinMuleVersion();
+  ZernovaVersion getMinZernovaVersion();
 
   String getReason();
 }

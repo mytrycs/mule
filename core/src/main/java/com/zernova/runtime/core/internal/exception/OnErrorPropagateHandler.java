@@ -47,7 +47,7 @@ import jakarta.inject.Inject;
  */
 public class OnErrorPropagateHandler extends TemplateOnErrorHandler {
 
-  private static final String CORE_PREFIX = "mule";
+  private static final String CORE_PREFIX = "zernova";
   private static final String ON_ERROR_PROPAGATE_ELEMENT_IDENTIFIER = "on-error-propagate";
   private static final String COMPONENT_IDENTIFIER = CORE_PREFIX + ":" + ON_ERROR_PROPAGATE_ELEMENT_IDENTIFIER;
   private final ErrorTypeMatcher redeliveryExhaustedMatcher;

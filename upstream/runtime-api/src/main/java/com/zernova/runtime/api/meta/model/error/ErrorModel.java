@@ -29,7 +29,7 @@ public interface ErrorModel {
 
   /**
    * Gets the namespace of error. This namespace represent the origin or who declares this error, so it could be the namespace of
-   * an extension or the {@code MULE} namespace.
+   * an extension or the {@code ZERNOVA} namespace.
    *
    * @return The namespace of the error
    */

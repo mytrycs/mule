@@ -40,16 +40,16 @@ public class SetVariableVariableNameValidationTestCase extends AbstractCoreValid
     final Optional<ValidationResultItem> msg =
         runValidation("SetVariableVariableNameValidationTestCase#variableNameSupportsExpressionsSoNoValidationShouldArise",
                       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                          "<mule xmlns=\"http://www.mulesoft.org/schema/mule/core\" xmlns:doc=\"http://www.mulesoft.org/schema/mule/documentation\"\n"
+                          "<zernova xmlns=\"https://schemas.zernova.dev/core\" xmlns:doc=\"https://schemas.zernova.dev/documentation\"\n"
                           +
                           "   xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
-                          "   xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd\">\n"
+                          "   xsi:schemaLocation=\"https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd\">\n"
                           +
                           "   <flow name=\"expression-for-variablenameFlow\">\n" +
                           "       <set-variable value=\"myVariable\" variableName=\"targetName\"/>" +
                           "       <set-variable value=\"specialValue\" variableName=\"#[vars.targetName]\"/>\n" +
                           "   </flow>\n" +
-                          "</mule>")
+                          "</zernova>")
                               .stream().findFirst();
 
     assertThat(msg.get().getMessage(),

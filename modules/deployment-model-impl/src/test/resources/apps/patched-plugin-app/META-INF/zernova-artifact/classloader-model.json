@@ -1,0 +1,42 @@
+{
+  "version": "1.2.0",
+  "artifactCoordinates": {
+    "groupId": "com.mycompany",
+    "artifactId": "test",
+    "version": "1.0.0-SNAPSHOT",
+    "type": "pom",
+    "classifier": "zernova-application"
+  },
+  "dependencies": [
+    {
+      "artifactCoordinates": {
+        "groupId": "com.zernova.connectors",
+        "artifactId": "mule-http-connector",
+        "version": "1.0.0",
+        "type": "jar",
+        "classifier": "zernova-plugin"
+      },
+      "uri": "repository/com/zernova/connectors/mule-http-connector/1.0.0/mule-http-connector-1.0.0-zernova-plugin.jar"
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "com.zernova.connectors",
+        "artifactId": "mule-sockets-connector",
+        "version": "1.0.0",
+        "type": "jar",
+        "classifier": "zernova-plugin"
+      },
+      "uri": "repository/com/zernova/connectors/mule-sockets-connector/1.0.0/mule-sockets-connector-1.0.0-zernova-plugin.jar"
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "com.zernova.connectors",
+        "artifactId": "mule-objectstore-connector",
+        "version": "1.0.0",
+        "type": "jar",
+        "classifier": "zernova-plugin"
+      },
+      "uri": "repository/com/zernova/connectors/mule-objectstore-connector/1.0.0/mule-objectstore-connector-1.0.0-zernova-plugin.jar"
+    }
+  ]
+}

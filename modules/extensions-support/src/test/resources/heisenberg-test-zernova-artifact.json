@@ -1,0 +1,32 @@
+{
+  "extensionModelLoaderDescriptor": {
+    "id": "java",
+    "attributes": {
+      "type": "com.zernova.test.heisenberg.extension.HeisenbergExtension",
+      "version": "${project.version}"
+    }
+  },
+  "name": "Heisenberg",
+  "requiredProduct": "ZERNOVA",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {
+      "privilegedExportedPackages": [],
+      "privilegedArtifactIds": [],
+      "exportedPackages": [
+        "com.zernova.test.heisenberg.extension.model.types",
+        "com.zernova.test.heisenberg.extension.exception",
+        "com.zernova.test.heisenberg.extension",
+        "com.zernova.test.heisenberg.extension.model.drugs",
+        "com.zernova.test.heisenberg.extension.model"
+      ],
+      "exportedResources": [
+          "methRecipe.json"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  }
+}

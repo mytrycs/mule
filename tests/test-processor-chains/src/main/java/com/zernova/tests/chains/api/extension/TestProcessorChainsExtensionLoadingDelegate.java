@@ -29,7 +29,7 @@ public class TestProcessorChainsExtensionLoadingDelegate implements ExtensionLoa
   public static final String VENDOR = "Mulesoft";
   public static final String VERSION = "1.4.0-SNAPSHOT";
   public static final ZernovaVersion MIN_MULE_VERSION = new ZernovaVersion("4.4");
-  public static final String XSD_FILE_NAME = "mule-test-processor-chains.xsd";
+  public static final String XSD_FILE_NAME = "zernova-test-processor-chains.xsd";
   private static final String UNESCAPED_LOCATION_PREFIX = "http://";
   private static final String SCHEMA_LOCATION = "www.mulesoft.org/schema/mule/test-processor-chains";
   private static final String SCHEMA_VERSION = "current";

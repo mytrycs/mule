@@ -9,7 +9,7 @@ package com.zernova.runtime.module.service.builder;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.Collections.emptyMap;
-import static com.zernova.runtime.api.deployment.meta.Product.MULE;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA;
 import static com.zernova.runtime.core.api.util.FileUtils.unzip;
 import static com.zernova.runtime.core.api.util.StringUtils.isBlank;
 import static com.zernova.runtime.module.artifact.api.descriptor.ApplicationDescriptor.REPOSITORY_FOLDER;
@@ -110,8 +110,8 @@ public class ServiceFileBuilder extends AbstractArtifactFileBuilder<ServiceFileB
     serviceDescriptor.deleteOnExit();
     ZernovaServiceModelBuilder serviceModelBuilder = new ZernovaServiceModelBuilder()
         .setName(getArtifactId())
-        .setMinMuleVersion("4.2.0")
-        .setRequiredProduct(MULE)
+        .setMinZernovaVersion("4.2.0")
+        .setRequiredProduct(ZERNOVA)
         .withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptor(MULE_LOADER_ID, emptyMap()))
         .withBundleDescriptorLoader(new ZernovaArtifactLoaderDescriptor(MULE_LOADER_ID, emptyMap()))
         .withContracts(Arrays.asList(new ZernovaServiceContractModel(serviceProviderClassName, contractClassName)));

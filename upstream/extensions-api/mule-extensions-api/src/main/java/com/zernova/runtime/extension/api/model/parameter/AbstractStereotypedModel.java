@@ -33,7 +33,7 @@ public abstract class AbstractStereotypedModel extends AbstractParameterizedMode
 
   private final StereotypeModel stereotype;
   private final DeprecationModel deprecationModel;
-  private final ZernovaVersion minMuleVersion;
+  private final ZernovaVersion minZernovaVersion;
 
   public AbstractStereotypedModel(String name, String description,
                                   List<ParameterGroupModel> parameterGroupModels,
@@ -58,11 +58,11 @@ public abstract class AbstractStereotypedModel extends AbstractParameterizedMode
                                   StereotypeModel stereotype,
                                   Set<ModelProperty> modelProperties,
                                   DeprecationModel deprecationModel,
-                                  ZernovaVersion minMuleVersion) {
+                                  ZernovaVersion minZernovaVersion) {
     super(name, description, parameterGroupModels, displayModel, modelProperties);
     this.stereotype = stereotype;
     this.deprecationModel = deprecationModel;
-    this.minMuleVersion = minMuleVersion;
+    this.minZernovaVersion = minZernovaVersion;
   }
 
   /**
@@ -87,8 +87,8 @@ public abstract class AbstractStereotypedModel extends AbstractParameterizedMode
    * {@inheritDoc}
    */
   @Override
-  public Optional<ZernovaVersion> getMinMuleVersion() {
-    return ofNullable(minMuleVersion);
+  public Optional<ZernovaVersion> getMinZernovaVersion() {
+    return ofNullable(minZernovaVersion);
   }
 
   @Override
@@ -96,7 +96,7 @@ public abstract class AbstractStereotypedModel extends AbstractParameterizedMode
     return "AbstractStereotypedModel{" +
         "stereotype=" + stereotype +
         ", deprecationModel=" + deprecationModel +
-        ", minMuleVersion=" + minMuleVersion +
+        ", minZernovaVersion=" + minZernovaVersion +
         "} " + super.toString();
   }
 }

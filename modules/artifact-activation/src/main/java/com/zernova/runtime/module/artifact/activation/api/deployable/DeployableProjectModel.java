@@ -228,7 +228,7 @@ public final class DeployableProjectModel {
   }
 
   /**
-   * Mule projects contain additional model information within the project itself (i.e.: mule-artifact.json file). Calling this
+   * Mule projects contain additional model information within the project itself (i.e.: zernova-artifact.json file). Calling this
    * getter will trigger the loading of that additional data from within the project.
    *
    * @return the additional model information from this project.

@@ -1,0 +1,28 @@
+{
+  "minZernovaVersion": "4.0.0",
+  "requiredProduct": "ZERNOVA",
+  "extensionModelLoaderDescriptor": {
+    "id": "crafted",
+    "attributes": {
+      "type": "com.zernova.test.crafted.config.properties.deprecated.extension.TestConfigPropertiesExtensionLoadingDelegate",
+      "version": "4.0.0"
+    }
+  },
+  "name": "crafted-config-properties-deprecated",
+  "minZernovaVersion": "4.0.0",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {
+      "exportedPackages": [
+        "com.zernova.test.crafted.config.properties.deprecated.extension"
+      ],
+      "exportedResources": [
+        "META-INF/services/com.zernova.runtime.config.api.dsl.model.properties.ConfigurationPropertiesProviderFactory"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  }
+}

@@ -23,7 +23,7 @@ public class ZernovaDomainModel extends ZernovaDeployableModel {
   }
 
   private ZernovaDomainModel(String name,
-                          String minMuleVersion,
+                          String minZernovaVersion,
                           Product product,
                           ZernovaArtifactLoaderDescriptor classLoaderModelLoaderDescriptor,
                           ZernovaArtifactLoaderDescriptor bundleDescriptor,
@@ -33,7 +33,7 @@ public class ZernovaDomainModel extends ZernovaDeployableModel {
                           Set<String> supportedJavaVersions,
                           String logConfigFile) {
     super(name,
-          minMuleVersion,
+          minZernovaVersion,
           product,
           classLoaderModelLoaderDescriptor,
           bundleDescriptor,
@@ -64,7 +64,7 @@ public class ZernovaDomainModel extends ZernovaDeployableModel {
                                             Set<String> supportedJavaVersions,
                                             String logConfigFile) {
       return new ZernovaDomainModel(getName(),
-                                 getMinMuleVersion(),
+                                 getMinZernovaVersion(),
                                  getRequiredProduct(),
                                  getClassLoaderModelDescriptorLoader(),
                                  getBundleDescriptorLoader(),

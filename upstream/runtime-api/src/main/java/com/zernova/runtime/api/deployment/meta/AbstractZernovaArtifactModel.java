@@ -35,7 +35,7 @@ public abstract class AbstractZernovaArtifactModel {
 
   public static final String NAME = "name";
   public static final String REQUIRED_PRODUCT = "requiredProduct";
-  public static final String MIN_MULE_VERSION = "minMuleVersion";
+  public static final String MIN_MULE_VERSION = "minZernovaVersion";
   public static final String ID = "id";
   public static final String CLASS_LOADER_MODEL_LOADER_DESCRIPTOR = "classLoaderModelLoaderDescriptor";
   public static final String BUNDLE_DESCRIPTOR_LOADER = "bundleDescriptorLoader";
@@ -49,7 +49,7 @@ public abstract class AbstractZernovaArtifactModel {
 
 
   private String name;
-  private String minMuleVersion;
+  private String minZernovaVersion;
   private Product requiredProduct;
   private ZernovaArtifactLoaderDescriptor classLoaderModelLoaderDescriptor;
   private ZernovaArtifactLoaderDescriptor bundleDescriptorLoader;
@@ -62,19 +62,19 @@ public abstract class AbstractZernovaArtifactModel {
    * Creates a new model
    *
    * @param name                             name of the artifact
-   * @param minMuleVersion                   minimum Mule Runtime version that requires to work correctly.
+   * @param minZernovaVersion                   minimum Mule Runtime version that requires to work correctly.
    * @param requiredProduct                  the target product for the artifact
    * @param classLoaderModelLoaderDescriptor describes how to create the class loader for the artifact.
    * @param bundleDescriptorLoader           indicates how to load the bundle descriptor.
    */
-  protected AbstractZernovaArtifactModel(String name, String minMuleVersion,
+  protected AbstractZernovaArtifactModel(String name, String minZernovaVersion,
                                       Product requiredProduct, ZernovaArtifactLoaderDescriptor classLoaderModelLoaderDescriptor,
                                       ZernovaArtifactLoaderDescriptor bundleDescriptorLoader) {
     checkArgument(classLoaderModelLoaderDescriptor != null, "classLoaderModelLoaderDescriptor cannot be null");
     checkArgument(bundleDescriptorLoader != null, "bundleDescriptorLoader cannot be null");
-    checkArgument(minMuleVersion == null || new ZernovaVersion(minMuleVersion).getRevision() != NO_REVISION,
-                  "descriptor minMuleVersion must have patch version specified");
-    this.minMuleVersion = minMuleVersion;
+    checkArgument(minZernovaVersion == null || new ZernovaVersion(minZernovaVersion).getRevision() != NO_REVISION,
+                  "descriptor minZernovaVersion must have patch version specified");
+    this.minZernovaVersion = minZernovaVersion;
     this.name = name;
     this.requiredProduct = requiredProduct;
     this.classLoaderModelLoaderDescriptor = classLoaderModelLoaderDescriptor;
@@ -85,8 +85,8 @@ public abstract class AbstractZernovaArtifactModel {
     return name;
   }
 
-  public String getMinMuleVersion() {
-    return minMuleVersion;
+  public String getMinZernovaVersion() {
+    return minZernovaVersion;
   }
 
   public Product getRequiredProduct() {
@@ -112,7 +112,7 @@ public abstract class AbstractZernovaArtifactModel {
     validateMandatoryFieldIsSet(descriptorName, requiredProduct, REQUIRED_PRODUCT,
                                 format("Valid values are %s",
                                        join(", ", stream(Product.values()).map(Product::name).collect(toList()))));
-    validateMandatoryFieldIsSet(descriptorName, minMuleVersion, MIN_MULE_VERSION);
+    validateMandatoryFieldIsSet(descriptorName, minZernovaVersion, MIN_MULE_VERSION);
     validateMandatoryFieldIsSet(descriptorName, classLoaderModelLoaderDescriptor, CLASS_LOADER_MODEL_LOADER_DESCRIPTOR);
     validateMandatoryFieldIsSet(descriptorName, classLoaderModelLoaderDescriptor.getId(),
                                 CLASS_LOADER_MODEL_LOADER_DESCRIPTOR_ID);

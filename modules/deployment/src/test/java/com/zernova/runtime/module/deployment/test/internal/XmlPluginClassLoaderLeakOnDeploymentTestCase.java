@@ -48,10 +48,10 @@ public class XmlPluginClassLoaderLeakOnDeploymentTestCase extends ClassLoaderLea
   @Parameters(name = "Parallel: {0}, AppName: {1}, Use Plugin: {2}")
   public static List<Object[]> parameters() {
     return asList(new Object[][] {
-        {false, "appWithExtensionPlugin-1.0.0-mule-application",
+        {false, "appWithExtensionPlugin-1.0.0-zernova-application",
             "app-with-extension-xml-plugin-module-bye",
             XML_SDK_PLUGIN},
-        {true, "appWithExtensionPlugin-1.0.0-mule-application",
+        {true, "appWithExtensionPlugin-1.0.0-zernova-application",
             "app-with-extension-xml-plugin-module-bye",
             XML_SDK_PLUGIN}
     });

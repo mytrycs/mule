@@ -7,7 +7,7 @@
     <groupId>deployment.test</groupId>
     <artifactId>plugin-with-transitive-dependencies</artifactId>
     <version>1.0.0</version>
-    <packaging>mule-plugin</packaging>
+    <packaging>zernova-plugin</packaging>
 
     <dependencies>
         <dependency>

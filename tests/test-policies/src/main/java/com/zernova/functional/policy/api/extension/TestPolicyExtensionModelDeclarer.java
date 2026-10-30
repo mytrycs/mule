@@ -44,7 +44,7 @@ class TestPolicyExtensionModelDeclarer {
             .setPrefix(TEST_POLICY_PREFIX)
             .setNamespace(TEST_POLICY_NAMESPACE)
             .setSchemaVersion(MULE_VERSION)
-            .setXsdFileName("mule-test-policy.xsd")
+            .setXsdFileName("zernova-test-policy.xsd")
             .setSchemaLocation(buildSchemaLocation(TEST_POLICY_PREFIX, TEST_POLICY_NAMESPACE))
             .build());
 

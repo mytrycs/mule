@@ -12,7 +12,7 @@ import static com.zernova.maven.client.test.MavenTestHelper.createDefaultCommuni
 import static com.zernova.maven.client.test.MavenTestHelper.getLocalRepositoryFolder;
 import static com.zernova.runtime.manifest.api.ZernovaManifest.getMuleManifest;
 import static com.zernova.runtime.module.embedded.api.EmbeddedContainer.builder;
-import static com.zernova.runtime.module.embedded.api.Product.MULE;
+import static com.zernova.runtime.module.embedded.api.Product.ZERNOVA;
 import static com.zernova.test.allure.AllureConstants.DeploymentTypeFeature.DeploymentTypeStory.EMBEDDED;
 import static com.zernova.test.allure.AllureConstants.EmbeddedApiFeature.EMBEDDED_API;
 import static com.zernova.test.allure.AllureConstants.EmbeddedApiFeature.EmbeddedApiStory.CONFIGURATION;
@@ -96,7 +96,7 @@ public class EmbeddedLifecycleTestCase {
               .build())
           .mavenConfiguration(newMavenConfigurationBuilder().localMavenRepositoryLocation(temporaryFolder.newFolder())
               .build())
-          .product(MULE)
+          .product(ZERNOVA)
           .useIsolation(useIsolation)
           .build();
       fail("Should fail to create");
@@ -121,7 +121,7 @@ public class EmbeddedLifecycleTestCase {
             .localMavenRepositoryLocation(getLocalRepositoryFolder())
             .userProperties(userProperties)
             .build())
-        .product(MULE)
+        .product(ZERNOVA)
         .useIsolation(useIsolation)
         .build();
 
@@ -185,7 +185,7 @@ public class EmbeddedLifecycleTestCase {
         .mavenConfiguration(createDefaultCommunityMavenConfigurationBuilder()
             .localMavenRepositoryLocation(getLocalRepositoryFolder())
             .build())
-        .product(MULE)
+        .product(ZERNOVA)
         .useIsolation(useIsolation);
   }
 

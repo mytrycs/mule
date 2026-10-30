@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata"
-      xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/metadata http://www.mulesoft.org/schema/mule/metadata/current/mule-metadata.xsd
-               http://www.mulesoft.org/schema/mule/vegan http://www.mulesoft.org/schema/mule/vegan/current/mule-vegan.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:metadata="https://schemas.zernova.dev/metadata"
+      xmlns:vegan="https://schemas.zernova.dev/vegan"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/metadata https://schemas.zernova.dev/metadata/current/zernova-metadata.xsd
+               https://schemas.zernova.dev/vegan https://schemas.zernova.dev/vegan/current/zernova-vegan.xsd">
 
     <metadata:config name="config" dataWithDefault="staticOverride">
         <metadata:connection/>
@@ -181,9 +181,9 @@
     </flow>
 
     <flow name="typeWithDeclaredSubtypesMetadata">
-        <metadata:type-with-declared-subtypes-metadata plainShape="#[java!org::mule::test::metadata::extension::model::shapes::Circle::new()]"
-                                                       rectangleSubtype="#[java!org::mule::test::metadata::extension::model::shapes::Rectangle::new()]"
-                                                       animal="#[java!org::mule::test::metadata::extension::model::animals::Bear::new()]"/>
+        <metadata:type-with-declared-subtypes-metadata plainShape="#[java!org::zernova::test::metadata::extension::model::shapes::Circle::new()]"
+                                                       rectangleSubtype="#[java!org::zernova::test::metadata::extension::model::shapes::Rectangle::new()]"
+                                                       animal="#[java!org::zernova::test::metadata::extension::model::animals::Bear::new()]"/>
     </flow>
 
     <flow name="resolverWithDynamicConfig">
@@ -204,7 +204,7 @@
 
     <flow name="pagedOperationMetadata">
         <metadata:paged-operation-metadata config-ref="config"
-                                           animal="#[java!org::mule::test::metadata::extension::model::animals::Bear::new()]"/>
+                                           animal="#[java!org::zernova::test::metadata::extension::model::animals::Bear::new()]"/>
     </flow>
 
     <flow name="pagedOperationMetadataResult">
@@ -370,4 +370,4 @@
         </metadata:router-with-chain-input-resolver-on-aliased-route>
     </flow>
 
-</mule>
+</zernova>

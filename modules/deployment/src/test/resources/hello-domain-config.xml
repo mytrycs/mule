@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule-domain xmlns="http://www.mulesoft.org/schema/mule/domain"
+<zernova-domain xmlns="https://schemas.zernova.dev/domain"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xmlns:hello="http://www.mulesoft.org/schema/mule/hello"
-             xsi:schemaLocation="http://www.mulesoft.org/schema/mule/domain http://www.mulesoft.org/schema/mule/domain/current/mule-domain.xsd
-             http://www.mulesoft.org/schema/mule/hello http://www.mulesoft.org/schema/mule/hello/current/mule-hello.xsd">
+             xmlns:hello="https://schemas.zernova.dev/hello"
+             xsi:schemaLocation="https://schemas.zernova.dev/domain https://schemas.zernova.dev/domain/current/zernova-domain.xsd
+             https://schemas.zernova.dev/hello https://schemas.zernova.dev/hello/current/zernova-hello.xsd">
 
     <hello:config name="default" message="Hello from domain!!!"/>
-</mule-domain>
+</zernova-domain>

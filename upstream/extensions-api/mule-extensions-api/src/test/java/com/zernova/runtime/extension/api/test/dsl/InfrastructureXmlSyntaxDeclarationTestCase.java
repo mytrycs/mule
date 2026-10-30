@@ -73,7 +73,7 @@ public class InfrastructureXmlSyntaxDeclarationTestCase extends BaseXmlDeclarati
     assumeThat(isContent(parameterModel), is(false));
 
     InfrastructureParameterModelProperty infraMP = new InfrastructureParameterModelProperty(1);
-    QNameModelProperty qNameMP = new QNameModelProperty(new QName("http://www.mulesoft.org/schema/mule/tls",
+    QNameModelProperty qNameMP = new QNameModelProperty(new QName("https://schemas.zernova.dev/tls",
                                                                   TLS_CONTEXT_ELEMENT_IDENTIFIER,
                                                                   TLS_PREFIX));
     when(parameterModel.getModelProperties()).thenReturn(ImmutableSet.of(infraMP, qNameMP));

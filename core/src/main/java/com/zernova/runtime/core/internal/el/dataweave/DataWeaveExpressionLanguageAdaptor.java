@@ -65,7 +65,7 @@ import jakarta.inject.Inject;
 public class DataWeaveExpressionLanguageAdaptor implements ExtendedExpressionLanguageAdaptor, Initialisable, Disposable {
 
   public static final String SERVER = "server";
-  public static final String MULE = "mule";
+  public static final String ZERNOVA = "zernova";
   public static final String APP = "app";
 
   private ExpressionLanguage expressionExecutor;
@@ -103,7 +103,7 @@ public class DataWeaveExpressionLanguageAdaptor implements ExtendedExpressionLan
               .defaultEncoding(artifactEncoding.getDefaultEncoding())
               .featureFlaggingService(featureFlaggingService)
               .appId(configuration.getId())
-              .minMuleVersion(configuration.getMinMuleVersion())
+              .minZernovaVersion(configuration.getMinZernovaVersion())
               .build());
 
           initialised = true;
@@ -116,7 +116,7 @@ public class DataWeaveExpressionLanguageAdaptor implements ExtendedExpressionLan
 
   private void registerGlobalBindings(Registry registry) {
     BindingContext.Builder contextBuilder = BindingContext.builder();
-    contextBuilder.addBinding(MULE,
+    contextBuilder.addBinding(ZERNOVA,
                               new TypedValue<>(new ZernovaInstanceContext(muleContext, configuration),
                                                fromType(ZernovaInstanceContext.class)));
     contextBuilder.addBinding(SERVER,

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extension xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xmlns:mule="http://www.mulesoft.org/schema/mule/core"
-           xmlns:operation="http://www.mulesoft.org/schema/mule/operation"
-           xmlns:self-referencing="http://www.mulesoft.org/schema/mule/self-referencing"
-           xmlns="http://www.mulesoft.org/schema/mule/mule-extension"
-           xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-        http://www.mulesoft.org/schema/mule/operation http://www.mulesoft.org/schema/mule/operation/current/mule-operation.xsd
-        http://www.mulesoft.org/schema/mule/self-referencing http://www.mulesoft.org/schema/mule/self-referencing/current/mule-self-referencing.xsd
-        http://www.mulesoft.org/schema/mule/mule-extension http://www.mulesoft.org/schema/mule/mule-extension/current/mule-extension.xsd">
+           xmlns:zernova="https://schemas.zernova.dev/core"
+           xmlns:operation="https://schemas.zernova.dev/operation"
+           xmlns:self-referencing="https://schemas.zernova.dev/self-referencing"
+           xmlns="https://schemas.zernova.dev/mule-extension"
+           xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+        https://schemas.zernova.dev/operation https://schemas.zernova.dev/operation/current/zernova-operation.xsd
+        https://schemas.zernova.dev/self-referencing https://schemas.zernova.dev/self-referencing/current/zernova-self-referencing.xsd
+        https://schemas.zernova.dev/mule-extension https://schemas.zernova.dev/mule-extension/current/zernova-extension.xsd">
     <description name="Self-Referencing Extension"/>
 
     <operation:def name="identityBetweenBraces">
@@ -19,7 +19,7 @@
         </operation:output>
         <operation:body>
             <self-referencing:identity input="#[params.input]"/>
-            <mule:set-payload value="#['(' ++ payload ++ ')']"/>
+            <zernova:set-payload value="#['(' ++ payload ++ ')']"/>
         </operation:body>
     </operation:def>
 
@@ -31,7 +31,7 @@
             <operation:payload-type type="any"/>
         </operation:output>
         <operation:body>
-            <mule:set-payload value="#[params.input]"/>
+            <zernova:set-payload value="#[params.input]"/>
         </operation:body>
     </operation:def>
 </extension>

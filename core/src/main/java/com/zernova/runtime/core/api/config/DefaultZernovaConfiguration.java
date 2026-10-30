@@ -66,7 +66,7 @@ public class DefaultZernovaConfiguration implements ZernovaConfiguration, Zernov
 
   protected static final Logger LOGGER = getLogger(DefaultZernovaConfiguration.class);
 
-  private ZernovaVersion minMuleVersion;
+  private ZernovaVersion minZernovaVersion;
 
   /**
    * The type of model used for the internal system model where system created services are registered
@@ -713,12 +713,12 @@ public class DefaultZernovaConfiguration implements ZernovaConfiguration, Zernov
   }
 
   @Override
-  public Optional<ZernovaVersion> getMinMuleVersion() {
-    return Optional.ofNullable(minMuleVersion);
+  public Optional<ZernovaVersion> getMinZernovaVersion() {
+    return Optional.ofNullable(minZernovaVersion);
   }
 
-  public void setMinMuleVersion(ZernovaVersion minMuleversion) {
-    this.minMuleVersion = minMuleversion;
+  public void setMinZernovaVersion(ZernovaVersion minMuleversion) {
+    this.minZernovaVersion = minMuleversion;
   }
 
   @Override

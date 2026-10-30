@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:module-using-errormapping="http://www.mulesoft.org/schema/mule/module-using-errormapping"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/module-using-errormapping http://www.mulesoft.org/schema/mule/module-using-errormapping/current/mule-module-using-errormapping.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:module-using-errormapping="https://schemas.zernova.dev/module-using-errormapping"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/module-using-errormapping https://schemas.zernova.dev/module-using-errormapping/current/zernova-module-using-errormapping.xsd">
 
     <module-using-errormapping:config name="petstoreconfig" username="john"/>
 
@@ -113,4 +113,4 @@
     <sub-flow name="aSubSubFlow">
         <flow-ref name="aSubFlow" />
     </sub-flow>
-</mule>
+</zernova>

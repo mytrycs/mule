@@ -21,10 +21,10 @@ import java.nio.file.Paths;
 @NoExtend
 public class ArtifactDescriptor {
 
-  public static final String MULE_ARTIFACT = "mule-artifact";
+  public static final String MULE_ARTIFACT = "zernova-artifact";
   public static final String META_INF = "META-INF";
 
-  public static final String MULE_ARTIFACT_JSON_DESCRIPTOR = "mule-artifact.json";
+  public static final String MULE_ARTIFACT_JSON_DESCRIPTOR = "zernova-artifact.json";
   public static final String MULE_ARTIFACT_JSON_DESCRIPTOR_LOCATION =
       Paths.get(META_INF, MULE_ARTIFACT, MULE_ARTIFACT_JSON_DESCRIPTOR).toString();
   public static final String MULE_ARTIFACT_FOLDER = Paths.get(META_INF, MULE_ARTIFACT).toString();
@@ -33,7 +33,7 @@ public class ArtifactDescriptor {
   private File rootFolder;
   private ClassLoaderConfiguration classLoaderConfiguration = ClassLoaderConfiguration.NULL_CLASSLOADER_CONFIGURATION;
   private BundleDescriptor bundleDescriptor;
-  private ZernovaVersion minMuleVersion;
+  private ZernovaVersion minZernovaVersion;
   private Product requiredProduct;
 
   /**
@@ -65,15 +65,15 @@ public class ArtifactDescriptor {
   /**
    * @return the minimal mule version required to run this artifact
    */
-  public ZernovaVersion getMinMuleVersion() {
-    return minMuleVersion;
+  public ZernovaVersion getMinZernovaVersion() {
+    return minZernovaVersion;
   }
 
   /**
-   * @param minMuleVersion the minimal mule version required to run this artifact
+   * @param minZernovaVersion the minimal mule version required to run this artifact
    */
-  public void setMinMuleVersion(ZernovaVersion minMuleVersion) {
-    this.minMuleVersion = minMuleVersion;
+  public void setMinZernovaVersion(ZernovaVersion minZernovaVersion) {
+    this.minZernovaVersion = minZernovaVersion;
   }
 
   public ClassLoaderConfiguration getClassLoaderConfiguration() {

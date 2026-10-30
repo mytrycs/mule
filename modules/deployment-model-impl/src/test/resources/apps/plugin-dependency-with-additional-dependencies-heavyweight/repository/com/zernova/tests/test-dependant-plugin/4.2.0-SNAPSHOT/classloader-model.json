@@ -5,7 +5,7 @@
     "artifactId": "test-dependant-plugin",
     "version": "4.2.0-SNAPSHOT",
     "type": "jar",
-    "classifier": "mule-plugin"
+    "classifier": "zernova-plugin"
   },
   "dependencies": [
     {
@@ -14,9 +14,9 @@
         "artifactId": "test-empty-plugin",
         "version": "4.2.0-SNAPSHOT",
         "type": "jar",
-        "classifier": "mule-plugin"
+        "classifier": "zernova-plugin"
       },
-      "uri": "repository/com/zernova/tests/test-empty-plugin/4.2.0-SNAPSHOT/test-empty-plugin-4.2.0-SNAPSHOT-mule-plugin.jar"
+      "uri": "repository/com/zernova/tests/test-empty-plugin/4.2.0-SNAPSHOT/test-empty-plugin-4.2.0-SNAPSHOT-zernova-plugin.jar"
     }
   ]
 }

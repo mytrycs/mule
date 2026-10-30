@@ -38,7 +38,7 @@
                             <includeGroupIds>
                                 com.zernova.modules
                             </includeGroupIds>
-                            <includeClassifiers>mule-plugin</includeClassifiers>
+                            <includeClassifiers>zernova-plugin</includeClassifiers>
                             <excludeArtifactIds>mule-service-http</excludeArtifactIds>
                         </configuration>
                     </execution>

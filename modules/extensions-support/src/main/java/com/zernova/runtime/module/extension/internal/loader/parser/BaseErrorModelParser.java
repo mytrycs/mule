@@ -23,7 +23,7 @@ import java.util.Optional;
  */
 public class BaseErrorModelParser implements ErrorModelParser {
 
-  private static final String MULE = CORE_PREFIX.toUpperCase(ROOT);
+  private static final String ZERNOVA = CORE_PREFIX.toUpperCase(ROOT);
 
   private final String namespace;
   private final String type;
@@ -40,7 +40,7 @@ public class BaseErrorModelParser implements ErrorModelParser {
   protected BaseErrorModelParser(String namespace, String type) {
     this.namespace = namespace;
     this.type = type;
-    this.isMuleError = MULE.equals(namespace);
+    this.isMuleError = ZERNOVA.equals(namespace);
     this.parent = null;
   }
 

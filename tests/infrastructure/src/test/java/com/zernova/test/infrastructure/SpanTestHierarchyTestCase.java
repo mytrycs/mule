@@ -54,13 +54,13 @@ public class SpanTestHierarchyTestCase extends AbstractZernovaTestCase {
 
   private static final String NO_PARENT_SPAN = "0000000000000000";
 
-  public static final String EXPECTED_FLOW_SPAN_NAME = "mule:flow";
-  public static final String EXPECTED_ASYNC_SPAN_NAME = "mule:async";
-  public static final String EXPECTED_LOGGER_SPAN_NAME = "mule:logger";
-  public static final String EXPECTED_SCATTER_GATHER_SPAN_NAME = "mule:scatter-gather";
-  public static final String EXPECTED_SCATTER_GATHER_ROUTE_SPAN_NAME = "mule:scatter-gather:route";
-  public static final String EXPECTED_SET_PAYLOAD_SPAN_NAME = "mule:set-payload";
-  public static final String EXPECTED_SET_VARIABLE_SPAN_NAME = "mule:set-variable";
+  public static final String EXPECTED_FLOW_SPAN_NAME = "zernova:flow";
+  public static final String EXPECTED_ASYNC_SPAN_NAME = "zernova:async";
+  public static final String EXPECTED_LOGGER_SPAN_NAME = "zernova:logger";
+  public static final String EXPECTED_SCATTER_GATHER_SPAN_NAME = "zernova:scatter-gather";
+  public static final String EXPECTED_SCATTER_GATHER_ROUTE_SPAN_NAME = "zernova:scatter-gather:route";
+  public static final String EXPECTED_SET_PAYLOAD_SPAN_NAME = "zernova:set-payload";
+  public static final String EXPECTED_SET_VARIABLE_SPAN_NAME = "zernova:set-variable";
 
   private static final String MULE_FLOW_SPAN_ID = "123flow123";
   private static final String ASYNC_SPAN_ID = "123async123";
@@ -85,7 +85,7 @@ public class SpanTestHierarchyTestCase extends AbstractZernovaTestCase {
 
   @Test
   public void testWhenTraceStateKeyIsExpectedButIsNotPresentAssertionShouldFail() {
-    expectedException.expectMessage("The span mule:logger has no trace state key key4");
+    expectedException.expectMessage("The span zernova:logger has no trace state key key4");
     List<CapturedExportedSpan> capturedExportedSpans = getCapturedExportedSpansWithTraceState();
 
     SpanTestHierarchy spanTestHierarchy = new SpanTestHierarchy(capturedExportedSpans);
@@ -109,7 +109,7 @@ public class SpanTestHierarchyTestCase extends AbstractZernovaTestCase {
 
   @Test
   public void testWhenSpanShouldAssertAKindAndItIsDifferentTheAssertionShouldFail() {
-    expectedException.expectMessage("The span mule:flow was expected to have the kind CLIENT but had SERVER");
+    expectedException.expectMessage("The span zernova:flow was expected to have the kind CLIENT but had SERVER");
     SpanTestHierarchy spanTestHierarchy = new SpanTestHierarchy(singletonList(mockCapturedExportedSpan(EXPECTED_FLOW_SPAN_NAME)));
     spanTestHierarchy.withRoot(EXPECTED_FLOW_SPAN_NAME)
         .addKindToAssert("CLIENT");
@@ -128,7 +128,7 @@ public class SpanTestHierarchyTestCase extends AbstractZernovaTestCase {
 
   @Test
   public void testWhenTraceStateKeyIsNotExpectedButIsPresentAssertionShouldFail() {
-    expectedException.expectMessage("The span mule:logger has trace state key key3 and it must not be present");
+    expectedException.expectMessage("The span zernova:logger has trace state key key3 and it must not be present");
     List<CapturedExportedSpan> capturedExportedSpans = getCapturedExportedSpansWithTraceState();
 
     SpanTestHierarchy spanTestHierarchy = new SpanTestHierarchy(capturedExportedSpans);
@@ -281,7 +281,7 @@ public class SpanTestHierarchyTestCase extends AbstractZernovaTestCase {
         .endChildren();
 
     expectedException.expect(AssertionError.class);
-    expectedException.expectMessage("Expected span: mule:logger was not found");
+    expectedException.expectMessage("Expected span: zernova:logger was not found");
 
     spanTestHierarchy.assertSpanTree();
   }
@@ -422,7 +422,7 @@ public class SpanTestHierarchyTestCase extends AbstractZernovaTestCase {
         .endChildren();
 
     expectedException.expect(AssertionError.class);
-    expectedException.expectMessage("Expected span: mule:logger was not found");
+    expectedException.expectMessage("Expected span: zernova:logger was not found");
 
     spanTestHierarchy.assertSpanTree();
   }
@@ -528,7 +528,7 @@ public class SpanTestHierarchyTestCase extends AbstractZernovaTestCase {
         .endChildren();
 
     expectedException.expect(AssertionError.class);
-    expectedException.expectMessage("Expected span: mule:set-payload was not found");
+    expectedException.expectMessage("Expected span: zernova:set-payload was not found");
 
     spanTestHierarchy.assertSpanTree();
   }
@@ -759,7 +759,7 @@ public class SpanTestHierarchyTestCase extends AbstractZernovaTestCase {
         .endChildren();
 
     expectedException.expect(AssertionError.class);
-    expectedException.expectMessage("Expected span: mule:logger was not found");
+    expectedException.expectMessage("Expected span: zernova:logger was not found");
 
     spanTestHierarchy.assertSpanTree();
   }

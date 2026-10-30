@@ -32,7 +32,7 @@ public class ZernovaFoldersUtil {
   public static final String CONF = "conf";
   public static final String USER_FOLDER = "user";
   public static final String PATCHES_FOLDER = "patches";
-  public static final String ARTIFACT_PATCHES_FOLDER = "mule-artifact-patches";
+  public static final String ARTIFACT_PATCHES_FOLDER = "zernova-artifact-patches";
   public static final String SERVICES_FOLDER = "services";
   private static final String MODULES_FOLDER = "modules";
   private static final String NATIVE_LIBRARIES_FOLDER = "native-libraries";

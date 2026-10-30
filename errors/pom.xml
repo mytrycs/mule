@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>com.zernova.runtime</groupId>
-            <artifactId>mule-artifact-ast</artifactId>
+            <artifactId>zernova-artifact-ast</artifactId>
         </dependency>
 
         <dependency>

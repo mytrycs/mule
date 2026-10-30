@@ -263,7 +263,7 @@ public class ZernovaSdkParameterModelParser extends BaseZernovaSdkExtensionModel
   }
 
   @Override
-  public Optional<MinZernovaVersionParser> getResolvedMinMuleVersion() {
+  public Optional<MinZernovaVersionParser> getResolvedMinZernovaVersion() {
     return of(new ZernovaSdkMinZernovaVersionParser(format("Parameter %s has min mule version %s because the Mule Sdk was introduced in that version.",
                                                      name, MIN_MULE_VERSION)));
   }

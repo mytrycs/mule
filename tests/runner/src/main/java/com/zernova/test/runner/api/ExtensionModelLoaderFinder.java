@@ -45,7 +45,7 @@ class ExtensionModelLoaderFinder {
 
   /**
    * Searches in the plugin pom.xml for the {@code testExtensionModelLoaderId} property which specifies with which loader the
-   * extension must be loaded. The main use of this is for Test Extensions that don't generate a mule-artifact.json.
+   * extension must be loaded. The main use of this is for Test Extensions that don't generate a zernova-artifact.json.
    */
   public Optional<ExtensionModelLoader> findLoaderByProperty(Artifact plugin, DependencyResolver dependencyResolver,
                                                              List<RemoteRepository> rootArtifactRemoteRepositories) {

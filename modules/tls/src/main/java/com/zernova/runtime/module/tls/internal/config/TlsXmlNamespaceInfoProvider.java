@@ -28,7 +28,7 @@ public class TlsXmlNamespaceInfoProvider implements XmlNamespaceInfoProvider {
 
       @Override
       public String getNamespaceUriPrefix() {
-        return "http://www.mulesoft.org/schema/mule/tls";
+        return "https://schemas.zernova.dev/tls";
       }
 
       @Override

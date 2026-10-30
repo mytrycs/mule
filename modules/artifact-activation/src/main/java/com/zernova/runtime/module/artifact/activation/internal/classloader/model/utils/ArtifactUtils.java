@@ -60,7 +60,7 @@ public class ArtifactUtils {
   private static BundleDependency updatePackagesResources(BundleDependency artifact) {
     if (artifact.getDescriptor().getClassifier().map(MULE_PLUGIN.toString()::equals).orElse(false)
         || artifact.getBundleUri() == null
-        // mule-domain are set with a "" URI
+        // zernova-domain are set with a "" URI
         || isBlank(artifact.getBundleUri().getPath())) {
       return artifact;
     }

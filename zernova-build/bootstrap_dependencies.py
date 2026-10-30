@@ -31,7 +31,7 @@ def main():
     marker = output / '.zernova-namespace-relocation.json'
     digest = hashlib.sha256(mapping.read_bytes()).hexdigest()
     if marker.exists():
-        if json.loads(marker.read_text())['classMapSha256'] != digest:
+        if json.loads(marker.read_text())['classMapSha256'] != digest or json.loads(marker.read_text()).get('applicationFormat') != 1:
             raise SystemExit('Namespace map changed; move .zernova-m2 aside and bootstrap again')
         print('Private ZERNOVA dependency repository is ready')
         return
@@ -46,6 +46,19 @@ def main():
         actual = subprocess.check_output(['git', '-C', str(checkout), 'rev-parse', 'HEAD'], text=True).strip()
         if actual != BASELINE:
             raise SystemExit('Unexpected bootstrap source revision')
+        # Always restore our disposable pinned checkout before adapting it. A
+        # failed attempt must not stack textual edits on the next invocation.
+        run(['git', '-C', checkout, 'reset', '--hard', BASELINE])
+        for name in ['mule-api', 'mule-extensions-api', 'mule-distributions']:
+            import shutil
+            shutil.rmtree(checkout / '.zernova-upstream' / name, ignore_errors=True)
+        spring = checkout / 'modules/extensions-spring-support/pom.xml'
+        duplicate = ('        <dependency>\n'
+                     '            <groupId>com.sun.xml.bind</groupId>\n'
+                     '            <artifactId>jaxb-impl</artifactId>\n'
+                     '            <scope>test</scope>\n'
+                     '        </dependency>')
+        spring.write_text(spring.read_text().replace(duplicate, ''))
         # Independently licensed agent code is outside the CPAL engine reactor.
         pom = checkout / 'pom.xml'
         text = pom.read_text().replace('<includes><include>**/*.java</include></includes>',
@@ -65,7 +78,7 @@ def main():
     if not repository.is_dir():
         raise SystemExit('Prepared repository does not exist')
     run([sys.executable, ROOT / 'zernova-build/refactor_namespace.py', 'repository',
-         '--input', repository, '--output', output])
+         '--input', repository, '--output', output, '--application-format'])
 
 
 if __name__ == '__main__':

@@ -158,7 +158,7 @@ public class AllStatistics {
   public static void configureComputeConnectionErrorsInStats() {
     FeatureFlaggingRegistry featureFlaggingRegistry = FeatureFlaggingRegistry.getInstance();
     featureFlaggingRegistry.registerFeatureFlag(COMPUTE_CONNECTION_ERRORS_IN_STATS,
-                                                featureContext -> featureContext.getArtifactMinMuleVersion()
+                                                featureContext -> featureContext.getArtifactMinZernovaVersion()
                                                     .filter(muleVersion -> muleVersion.atLeast(v4_4_0))
                                                     .isPresent());
   }

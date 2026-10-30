@@ -1,6 +1,6 @@
 {
   "name": "plugin-name",
-  "minMuleVersion": "4.2.3",
+  "minZernovaVersion": "4.2.3",
   "bundleDescriptorLoader": {
     "id": "bundleDescriptorLoaderId",
     "attributes": {

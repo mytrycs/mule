@@ -164,7 +164,7 @@ public class ZernovaSdkExtensionExtensionModelDeclarer {
     final ParameterGroupDeclarer<?> params = xmlDslAttributesDef.onDefaultParameterGroup();
     params.withOptionalParameter(MULE_SDK_EXTENSION_NAMESPACE_PARAMETER_NAME)
         .describedAs("Expected namespace of the extension to look for when generating the schemas. If left empty it will " +
-            "default to http://www.mulesoft.org/schema/mule/[prefix], where [prefix] is the attribute prefix attribute value.")
+            "default to https://schemas.zernova.dev/[prefix], where [prefix] is the attribute prefix attribute value.")
         .ofType(STRING_TYPE)
         .withExpressionSupport(NOT_SUPPORTED);
 

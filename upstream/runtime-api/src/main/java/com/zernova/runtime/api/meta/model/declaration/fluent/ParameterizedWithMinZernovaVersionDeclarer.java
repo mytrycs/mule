@@ -31,8 +31,8 @@ public class ParameterizedWithMinZernovaVersionDeclarer<T extends ParameterizedW
   /**
    * {@inheritDoc}
    */
-  public T withMinMuleVersion(ZernovaVersion minMuleVersion) {
-    this.declaration.withMinMuleVersion(minMuleVersion);
+  public T withMinZernovaVersion(ZernovaVersion minZernovaVersion) {
+    this.declaration.withMinZernovaVersion(minZernovaVersion);
     return (T) this;
   }
 }

@@ -72,7 +72,7 @@ public class XmlSdk1ExtensionModelDeclarer {
             .setPrefix(MODULE_DSL_NAMESPACE)
             .setNamespace(MODULE_DSL_NAMESPACE_URI)
             .setSchemaVersion(MULE_VERSION)
-            .setXsdFileName("mule-module.xsd")
+            .setXsdFileName("zernova-module.xsd")
             .setSchemaLocation(buildSchemaLocation(MODULE_DSL_NAMESPACE, MODULE_DSL_NAMESPACE_URI))
             .build());
 
@@ -134,7 +134,7 @@ public class XmlSdk1ExtensionModelDeclarer {
 
     params.withOptionalParameter("namespace")
         .describedAs("Expected namespace of the module to look for when generating the schemas. If left empty it will " +
-            "default to http://www.mulesoft.org/schema/mule/[prefix], where [prefix] is the attribute prefix attribute value.")
+            "default to https://schemas.zernova.dev/[prefix], where [prefix] is the attribute prefix attribute value.")
         .ofType(STRING_TYPE)
         .withExpressionSupport(NOT_SUPPORTED);
 

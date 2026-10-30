@@ -6,10 +6,10 @@
   "category": "COMMUNITY",
   "xmlDsl": {
     "prefix": "petstore",
-    "namespace": "http://www.mulesoft.org/schema/mule/petstore",
-    "schemaLocation": "http://www.mulesoft.org/schema/mule/petstore/current/mule-petstore.xsd",
+    "namespace": "https://schemas.zernova.dev/petstore",
+    "schemaLocation": "https://schemas.zernova.dev/petstore/current/zernova-petstore.xsd",
     "schemaVersion": "4.0.0-SNAPSHOT",
-    "xsdFileName": "mule-petstore.xsd"
+    "xsdFileName": "zernova-petstore.xsd"
   },
   "resources": [],
   "subTypes": [],
@@ -72,7 +72,7 @@
         "namespace": "PETSTORE",
         "parent": {
           "type": "MODULE_CONFIG",
-          "namespace": "MULE"
+          "namespace": "ZERNOVA"
         }
       },
       "parameterGroupModels": [
@@ -270,7 +270,7 @@
                   },
                   "QName": {
                     "value": {
-                      "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                      "namespaceURI": "https://schemas.zernova.dev/tls",
                       "localPart": "context",
                       "prefix": "tls"
                     }
@@ -753,7 +753,7 @@
                 },
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                    "namespaceURI": "https://schemas.zernova.dev/tls",
                     "localPart": "context",
                     "prefix": "tls"
                   }
@@ -866,9 +866,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "expiration-policy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -1141,7 +1141,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -1180,7 +1180,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -1442,9 +1442,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -1526,7 +1526,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -1565,7 +1565,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -1827,9 +1827,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -1911,7 +1911,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -1950,7 +1950,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -2212,9 +2212,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -2286,7 +2286,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -2352,7 +2352,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -2614,9 +2614,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -2678,7 +2678,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -2717,7 +2717,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -2860,7 +2860,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -2899,7 +2899,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -3161,9 +3161,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -3228,7 +3228,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -3357,7 +3357,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -3619,9 +3619,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -3683,7 +3683,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -3722,7 +3722,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -3882,7 +3882,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -3921,7 +3921,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -4183,9 +4183,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -4271,7 +4271,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -4412,7 +4412,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -4674,9 +4674,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -4762,7 +4762,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -4903,7 +4903,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -5165,9 +5165,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -5253,7 +5253,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -5324,7 +5324,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -5757,9 +5757,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -5845,7 +5845,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -5916,7 +5916,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -6349,9 +6349,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -6437,7 +6437,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -6578,7 +6578,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -6840,9 +6840,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -6928,7 +6928,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -6999,7 +6999,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -7432,9 +7432,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -7520,7 +7520,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -7591,7 +7591,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -8024,9 +8024,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -8112,7 +8112,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -8253,7 +8253,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -8515,9 +8515,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -8604,7 +8604,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -8670,7 +8670,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -8856,9 +8856,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-byte-streaming-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -9120,9 +9120,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -9166,7 +9166,7 @@
                 "namespace": "ZOO",
                 "parent": {
                   "type": "CONNECTION",
-                  "namespace": "MULE"
+                  "namespace": "ZERNOVA"
                 }
               }
             }
@@ -9375,7 +9375,7 @@
                       },
                       "QName": {
                         "value": {
-                          "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                          "namespaceURI": "https://schemas.zernova.dev/tls",
                           "localPart": "context",
                           "prefix": "tls"
                         }
@@ -9858,7 +9858,7 @@
                     },
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                        "namespaceURI": "https://schemas.zernova.dev/tls",
                         "localPart": "context",
                         "prefix": "tls"
                       }
@@ -10075,9 +10075,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "reconnection",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -10122,7 +10122,7 @@
             "namespace": "PETSTORE",
             "parent": {
               "type": "CONNECTION",
-              "namespace": "MULE"
+              "namespace": "ZERNOVA"
             }
           },
           "parameterGroupModels": [
@@ -10329,7 +10329,7 @@
                       },
                       "QName": {
                         "value": {
-                          "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                          "namespaceURI": "https://schemas.zernova.dev/tls",
                           "localPart": "context",
                           "prefix": "tls"
                         }
@@ -10812,7 +10812,7 @@
                     },
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                        "namespaceURI": "https://schemas.zernova.dev/tls",
                         "localPart": "context",
                         "prefix": "tls"
                       }
@@ -11029,9 +11029,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "reconnection",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -11079,7 +11079,7 @@
               "namespace": "ZOO",
               "parent": {
                 "type": "CONNECTION",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -11318,7 +11318,7 @@
                       },
                       "QName": {
                         "value": {
-                          "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                          "namespaceURI": "https://schemas.zernova.dev/tls",
                           "localPart": "context",
                           "prefix": "tls"
                         }
@@ -11801,7 +11801,7 @@
                     },
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                        "namespaceURI": "https://schemas.zernova.dev/tls",
                         "localPart": "context",
                         "prefix": "tls"
                       }
@@ -12018,9 +12018,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "reconnection",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -12228,9 +12228,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "pooling-profile",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -12276,7 +12276,7 @@
             "namespace": "PETSTORE",
             "parent": {
               "type": "CONNECTION",
-              "namespace": "MULE"
+              "namespace": "ZERNOVA"
             }
           },
           "parameterGroupModels": [
@@ -12483,7 +12483,7 @@
                       },
                       "QName": {
                         "value": {
-                          "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                          "namespaceURI": "https://schemas.zernova.dev/tls",
                           "localPart": "context",
                           "prefix": "tls"
                         }
@@ -12966,7 +12966,7 @@
                     },
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                        "namespaceURI": "https://schemas.zernova.dev/tls",
                         "localPart": "context",
                         "prefix": "tls"
                       }
@@ -13183,9 +13183,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "reconnection",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -13230,7 +13230,7 @@
             "namespace": "PETSTORE",
             "parent": {
               "type": "CONNECTION",
-              "namespace": "MULE"
+              "namespace": "ZERNOVA"
             }
           },
           "parameterGroupModels": [
@@ -13437,7 +13437,7 @@
                       },
                       "QName": {
                         "value": {
-                          "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                          "namespaceURI": "https://schemas.zernova.dev/tls",
                           "localPart": "context",
                           "prefix": "tls"
                         }
@@ -13920,7 +13920,7 @@
                     },
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                        "namespaceURI": "https://schemas.zernova.dev/tls",
                         "localPart": "context",
                         "prefix": "tls"
                       }
@@ -14137,9 +14137,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "reconnection",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -14236,7 +14236,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "SOURCE",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -14337,7 +14337,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -14405,9 +14405,9 @@
                     },
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "scheduling-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     }
                   }
@@ -14552,9 +14552,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-redelivery-policy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -14738,9 +14738,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -14817,7 +14817,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "SOURCE",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -14946,7 +14946,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -15014,9 +15014,9 @@
                     },
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "scheduling-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     }
                   }
@@ -15161,9 +15161,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-redelivery-policy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -15347,9 +15347,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -15435,7 +15435,7 @@
               "namespace": "PETSTORE",
               "parent": {
                 "type": "SOURCE",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           },
@@ -15536,7 +15536,7 @@
                       "namespace": "PETSTORE",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -15713,9 +15713,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-redelivery-policy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -15899,9 +15899,9 @@
                   "modelProperties": {
                     "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                        "namespaceURI": "https://schemas.zernova.dev/core",
                         "localPart": "abstract-reconnection-strategy",
-                        "prefix": "mule"
+                        "prefix": "zernova"
                       }
                     },
                     "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -15991,7 +15991,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -16181,7 +16181,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -16353,7 +16353,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -16546,7 +16546,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -16718,7 +16718,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -16884,7 +16884,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -17050,7 +17050,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -17251,7 +17251,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -17575,7 +17575,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -17783,7 +17783,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -18041,7 +18041,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -18258,7 +18258,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -18391,7 +18391,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -18579,7 +18579,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -18791,9 +18791,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "abstract-byte-streaming-strategy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -18933,7 +18933,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -19026,7 +19026,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -19073,10 +19073,10 @@
           "allowedStereotypes": [
             {
               "type": "VALIDATOR",
-              "namespace": "MULE",
+              "namespace": "ZERNOVA",
               "parent": {
                 "type": "PROCESSOR",
-                "namespace": "MULE"
+                "namespace": "ZERNOVA"
               }
             }
           ],
@@ -19095,7 +19095,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -19219,7 +19219,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -19406,7 +19406,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -19615,7 +19615,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -19827,7 +19827,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "PROCESSOR",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -19998,7 +19998,7 @@
             "namespace": "ZOO",
             "parent": {
               "type": "CONNECTION",
-              "namespace": "MULE"
+              "namespace": "ZERNOVA"
             }
           }
         }
@@ -20207,7 +20207,7 @@
                   },
                   "QName": {
                     "value": {
-                      "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                      "namespaceURI": "https://schemas.zernova.dev/tls",
                       "localPart": "context",
                       "prefix": "tls"
                     }
@@ -20690,7 +20690,7 @@
                 },
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                    "namespaceURI": "https://schemas.zernova.dev/tls",
                     "localPart": "context",
                     "prefix": "tls"
                   }
@@ -20907,9 +20907,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "reconnection",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -20954,7 +20954,7 @@
         "namespace": "PETSTORE",
         "parent": {
           "type": "CONNECTION",
-          "namespace": "MULE"
+          "namespace": "ZERNOVA"
         }
       },
       "parameterGroupModels": [
@@ -21161,7 +21161,7 @@
                   },
                   "QName": {
                     "value": {
-                      "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                      "namespaceURI": "https://schemas.zernova.dev/tls",
                       "localPart": "context",
                       "prefix": "tls"
                     }
@@ -21644,7 +21644,7 @@
                 },
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                    "namespaceURI": "https://schemas.zernova.dev/tls",
                     "localPart": "context",
                     "prefix": "tls"
                   }
@@ -21861,9 +21861,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "reconnection",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -21911,7 +21911,7 @@
           "namespace": "ZOO",
           "parent": {
             "type": "CONNECTION",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -22150,7 +22150,7 @@
                   },
                   "QName": {
                     "value": {
-                      "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                      "namespaceURI": "https://schemas.zernova.dev/tls",
                       "localPart": "context",
                       "prefix": "tls"
                     }
@@ -22633,7 +22633,7 @@
                 },
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                    "namespaceURI": "https://schemas.zernova.dev/tls",
                     "localPart": "context",
                     "prefix": "tls"
                   }
@@ -22850,9 +22850,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "reconnection",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -23060,9 +23060,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "pooling-profile",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -23108,7 +23108,7 @@
         "namespace": "PETSTORE",
         "parent": {
           "type": "CONNECTION",
-          "namespace": "MULE"
+          "namespace": "ZERNOVA"
         }
       },
       "parameterGroupModels": [
@@ -23315,7 +23315,7 @@
                   },
                   "QName": {
                     "value": {
-                      "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                      "namespaceURI": "https://schemas.zernova.dev/tls",
                       "localPart": "context",
                       "prefix": "tls"
                     }
@@ -23798,7 +23798,7 @@
                 },
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                    "namespaceURI": "https://schemas.zernova.dev/tls",
                     "localPart": "context",
                     "prefix": "tls"
                   }
@@ -24015,9 +24015,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "reconnection",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -24062,7 +24062,7 @@
         "namespace": "PETSTORE",
         "parent": {
           "type": "CONNECTION",
-          "namespace": "MULE"
+          "namespace": "ZERNOVA"
         }
       },
       "parameterGroupModels": [
@@ -24269,7 +24269,7 @@
                   },
                   "QName": {
                     "value": {
-                      "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                      "namespaceURI": "https://schemas.zernova.dev/tls",
                       "localPart": "context",
                       "prefix": "tls"
                     }
@@ -24752,7 +24752,7 @@
                 },
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                    "namespaceURI": "https://schemas.zernova.dev/tls",
                     "localPart": "context",
                     "prefix": "tls"
                   }
@@ -24969,9 +24969,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "reconnection",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -25068,7 +25068,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "SOURCE",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -25197,9 +25197,9 @@
                 },
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "scheduling-strategy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 }
               }
@@ -25344,9 +25344,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "abstract-redelivery-policy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -25441,7 +25441,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "SOURCE",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -25570,9 +25570,9 @@
                 },
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "scheduling-strategy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 }
               }
@@ -25717,9 +25717,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "abstract-redelivery-policy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -25814,7 +25814,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "SOURCE",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -26017,9 +26017,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "abstract-redelivery-policy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -26114,7 +26114,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "SOURCE",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -26243,9 +26243,9 @@
                 },
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "scheduling-strategy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 }
               }
@@ -26390,9 +26390,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "abstract-redelivery-policy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -26482,7 +26482,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "SOURCE",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -26658,9 +26658,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "abstract-redelivery-policy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -26772,7 +26772,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "SOURCE",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -27041,9 +27041,9 @@
                 },
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "scheduling-strategy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 }
               }
@@ -27188,9 +27188,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "abstract-redelivery-policy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -27285,7 +27285,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "SOURCE",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -27461,9 +27461,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "abstract-redelivery-policy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -27683,7 +27683,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "SOURCE",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -27891,9 +27891,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "abstract-redelivery-policy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -28072,7 +28072,7 @@
           "namespace": "PETSTORE",
           "parent": {
             "type": "SOURCE",
-            "namespace": "MULE"
+            "namespace": "ZERNOVA"
           }
         }
       },
@@ -28342,9 +28342,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "abstract-byte-streaming-strategy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -28492,9 +28492,9 @@
               "modelProperties": {
                 "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
-                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "namespaceURI": "https://schemas.zernova.dev/core",
                     "localPart": "abstract-redelivery-policy",
-                    "prefix": "mule"
+                    "prefix": "zernova"
                   }
                 },
                 "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
@@ -28603,26 +28603,26 @@
   "errors": [
     {
       "error": "PETSTORE:CONNECTIVITY",
-      "parent": "MULE:CONNECTIVITY",
+      "parent": "ZERNOVA:CONNECTIVITY",
       "handleable": true
     },
     {
-      "error": "MULE:CONNECTIVITY",
-      "parent": "MULE:ANY",
+      "error": "ZERNOVA:CONNECTIVITY",
+      "parent": "ZERNOVA:ANY",
       "handleable": true
     },
     {
-      "error": "MULE:ANY",
+      "error": "ZERNOVA:ANY",
       "handleable": true
     },
     {
-      "error": "MULE:RETRY_EXHAUSTED",
-      "parent": "MULE:ANY",
+      "error": "ZERNOVA:RETRY_EXHAUSTED",
+      "parent": "ZERNOVA:ANY",
       "handleable": true
     },
     {
       "error": "PETSTORE:RETRY_EXHAUSTED",
-      "parent": "MULE:RETRY_EXHAUSTED",
+      "parent": "ZERNOVA:RETRY_EXHAUSTED",
       "handleable": true
     },
     {
@@ -28632,7 +28632,7 @@
     },
     {
       "error": "PETSTORE:PET_ERROR",
-      "parent": "MULE:ANY",
+      "parent": "ZERNOVA:ANY",
       "handleable": true
     }
   ],
@@ -29125,7 +29125,7 @@
               },
               "QName": {
                 "value": {
-                  "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                  "namespaceURI": "https://schemas.zernova.dev/tls",
                   "localPart": "context",
                   "prefix": "tls"
                 }
@@ -29782,7 +29782,7 @@
               },
               "QName": {
                 "value": {
-                  "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                  "namespaceURI": "https://schemas.zernova.dev/tls",
                   "localPart": "context",
                   "prefix": "tls"
                 }
@@ -30325,7 +30325,7 @@
               },
               "QName": {
                 "value": {
-                  "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                  "namespaceURI": "https://schemas.zernova.dev/tls",
                   "localPart": "context",
                   "prefix": "tls"
                 }
@@ -30910,7 +30910,7 @@
                     },
                     "QName": {
                       "value": {
-                        "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                        "namespaceURI": "https://schemas.zernova.dev/tls",
                         "localPart": "context",
                         "prefix": "tls"
                       }
@@ -31523,7 +31523,7 @@
                       },
                       "QName": {
                         "value": {
-                          "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
+                          "namespaceURI": "https://schemas.zernova.dev/tls",
                           "localPart": "context",
                           "prefix": "tls"
                         }

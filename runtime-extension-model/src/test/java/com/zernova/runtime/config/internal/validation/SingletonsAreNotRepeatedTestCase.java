@@ -41,10 +41,10 @@ public class SingletonsAreNotRepeatedTestCase extends AbstractCoreValidationTest
   public void conflictingNames() {
     final Optional<ValidationResultItem> msg = runValidation("SingletonsAreNotRepeatedTestCase#conflictingNames",
                                                              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                                                                 "<mule xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
+                                                                 "<zernova xmlns=\"https://schemas.zernova.dev/core\"\n" +
                                                                  "      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
                                                                  +
-                                                                 "      xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd\">\n"
+                                                                 "      xsi:schemaLocation=\"https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd\">\n"
                                                                  +
                                                                  "\n" +
                                                                  "    <" + REPEATED_ELEMENT_NAME
@@ -54,12 +54,12 @@ public class SingletonsAreNotRepeatedTestCase extends AbstractCoreValidationTest
                                                                  "        <logger/>\n" +
                                                                  "    </flow>\n" +
                                                                  "    \n" +
-                                                                 "</mule>",
+                                                                 "</zernova>",
                                                              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                                                                 "<mule xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
+                                                                 "<zernova xmlns=\"https://schemas.zernova.dev/core\"\n" +
                                                                  "      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
                                                                  +
-                                                                 "      xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd\">\n"
+                                                                 "      xsi:schemaLocation=\"https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd\">\n"
                                                                  +
                                                                  "\n" +
                                                                  "    <flow name=\"secondFlow\">\n" +
@@ -69,7 +69,7 @@ public class SingletonsAreNotRepeatedTestCase extends AbstractCoreValidationTest
                                                                  "    <" + REPEATED_ELEMENT_NAME
                                                                  + " defaultTransactionTimeout=\"30000\"/>\n" +
                                                                  "\n" +
-                                                                 "</mule>\n" +
+                                                                 "</zernova>\n" +
                                                                  "")
                                                                      .stream().findFirst();
 

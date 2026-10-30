@@ -22,9 +22,9 @@ public interface HasMinZernovaVersionDeclarer<T> {
   /**
    * Use this method to specify a {@link ZernovaVersion} which is the minimum required for the usage of the declarer
    *
-   * @param minMuleVersion the minimum mule version for the declarer
+   * @param minZernovaVersion the minimum mule version for the declarer
    * @return {@code this} declarer
    */
-  T withMinMuleVersion(ZernovaVersion minMuleVersion);
+  T withMinZernovaVersion(ZernovaVersion minZernovaVersion);
 
 }

@@ -7,8 +7,8 @@
 /* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package com.zernova.runtime.module.extension.internal.resources;
 
-import static com.zernova.runtime.api.deployment.meta.Product.MULE;
-import static com.zernova.runtime.api.deployment.meta.Product.MULE_EE;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA_EE;
 import static com.zernova.runtime.api.meta.Category.COMMUNITY;
 import static com.zernova.runtime.module.artifact.api.descriptor.ArtifactDescriptor.MULE_ARTIFACT_JSON_DESCRIPTOR;
 import static com.zernova.runtime.module.artifact.api.descriptor.ArtifactDescriptorConstants.EXPORTED_PACKAGES;
@@ -94,9 +94,9 @@ public class ZernovaPluginDescriptorGenerator implements GeneratedResourceFactor
 
     final Optional<LicenseModelProperty> licenseModelPropertyOptional =
         extensionModel.getModelProperty(LicenseModelProperty.class);
-    builder.setRequiredProduct(extensionModel.getCategory().equals(COMMUNITY) ? MULE : MULE_EE);
+    builder.setRequiredProduct(extensionModel.getCategory().equals(COMMUNITY) ? ZERNOVA : ZERNOVA_EE);
     licenseModelPropertyOptional.ifPresent(licenseModelProperty -> {
-      builder.setRequiredProduct(licenseModelProperty.requiresEeLicense() ? MULE_EE : MULE);
+      builder.setRequiredProduct(licenseModelProperty.requiresEeLicense() ? ZERNOVA_EE : ZERNOVA);
       if (licenseModelProperty.requiresEeLicense()) {
         builder.withLicenseModel().setAllowsEvaluationLicense(licenseModelProperty.isAllowsEvaluationLicense());
         licenseModelProperty.getRequiredEntitlement().ifPresent(requiredEntitlement -> builder.withLicenseModel()
@@ -112,14 +112,14 @@ public class ZernovaPluginDescriptorGenerator implements GeneratedResourceFactor
   }
 
   /**
-   * Prevent the generation of the mule-artifact.json to override any value set explicitly by the plugin developer
+   * Prevent the generation of the zernova-artifact.json to override any value set explicitly by the plugin developer
    *
    * @param builder
    */
   private void setMetadataFromSource(final ZernovaPluginModelBuilder builder) {
     readPluginModelFromSource().ifPresent(sourcePluginModel -> {
-      if (sourcePluginModel.getMinMuleVersion() != null) {
-        builder.setMinMuleVersion(sourcePluginModel.getMinMuleVersion());
+      if (sourcePluginModel.getMinZernovaVersion() != null) {
+        builder.setMinZernovaVersion(sourcePluginModel.getMinZernovaVersion());
       }
       if (sourcePluginModel.getClassLoaderModelLoaderDescriptor() != null) {
         builder.withClassLoaderModelDescriptorLoader(sourcePluginModel.getClassLoaderModelLoaderDescriptor());
@@ -134,7 +134,7 @@ public class ZernovaPluginDescriptorGenerator implements GeneratedResourceFactor
 
     try {
       final String extensionResourcesLocation = processingEnvironment.getOptions().get(EXTENSION_RESOURCES);
-      final var path = get(extensionResourcesLocation, "META-INF", "mule-artifact", MULE_ARTIFACT_JSON_DESCRIPTOR);
+      final var path = get(extensionResourcesLocation, "META-INF", "zernova-artifact", MULE_ARTIFACT_JSON_DESCRIPTOR);
       if (!path.toFile().exists()) {
         return empty();
       }

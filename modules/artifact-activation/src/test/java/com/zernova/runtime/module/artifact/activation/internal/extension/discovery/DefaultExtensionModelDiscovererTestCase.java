@@ -57,7 +57,7 @@ public class DefaultExtensionModelDiscovererTestCase extends AbstractZernovaTest
 
   @Test
   @Issue("MULE-19858")
-  @Description("Check that not only 'mule' extension is loaded for xml sdk extension model generation, but all runtime ext models are (for instance: ee)")
+  @Description("Check that not only 'zernova' extension is loaded for xml sdk extension model generation, but all runtime ext models are (for instance: ee)")
   public void allRuntimeExtModelsDiscoveredForExtensionLoading() {
     String pluginName = "myPlugin";
     ArtifactPluginDescriptor descriptor = new ArtifactPluginDescriptor(pluginName);
@@ -65,7 +65,7 @@ public class DefaultExtensionModelDiscovererTestCase extends AbstractZernovaTest
     descriptor.setExtensionModelDescriptorProperty(loaderDescriber);
     descriptor.setBundleDescriptor(new BundleDescriptor.Builder().setGroupId("myGroup").setArtifactId(
                                                                                                       pluginName)
-        .setVersion("1.0").setClassifier("mule-plugin").build());
+        .setVersion("1.0").setClassifier("zernova-plugin").build());
 
     AtomicBoolean extensionDeclared = new AtomicBoolean();
     ExtensionModelLoader extModelLoader = new ExtensionModelLoader() {
@@ -78,7 +78,7 @@ public class DefaultExtensionModelDiscovererTestCase extends AbstractZernovaTest
       @Override
       protected void declareExtension(ExtensionLoadingContext context) {
         extensionDeclared.set(true);
-        assertThat(context.getDslResolvingContext().getExtension("mule").isPresent(), is(true));
+        assertThat(context.getDslResolvingContext().getExtension("zernova").isPresent(), is(true));
 
         context.getExtensionDeclarer()
             .named("test")

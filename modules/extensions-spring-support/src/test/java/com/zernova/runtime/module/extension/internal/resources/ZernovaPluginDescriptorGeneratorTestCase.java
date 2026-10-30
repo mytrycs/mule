@@ -48,7 +48,7 @@ public class ZernovaPluginDescriptorGeneratorTestCase extends AbstractGeneratedR
 
   @Test
   public void generate() throws Exception {
-    InputStream in = getClass().getResourceAsStream("/heisenberg-test-mule-artifact.json");
+    InputStream in = getClass().getResourceAsStream("/heisenberg-test-zernova-artifact.json");
     assertThat(in, is(notNullValue()));
     String expectedDescriptor = IOUtils.toString(in);
     Optional<GeneratedResource> resource = generator.generateResource(extensionModel);

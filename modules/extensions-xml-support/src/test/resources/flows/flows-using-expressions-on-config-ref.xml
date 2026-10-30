@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
-      xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel"
-      xmlns:module-properties="http://www.mulesoft.org/schema/mule/module-properties"
+<zernova xmlns="https://schemas.zernova.dev/core"
+      xmlns:marvel="https://schemas.zernova.dev/marvel"
+      xmlns:module-properties="https://schemas.zernova.dev/module-properties"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="
-       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-       http://www.mulesoft.org/schema/mule/marvel http://www.mulesoft.org/schema/mule/marvel/current/mule-marvel.xsd
-       http://www.mulesoft.org/schema/mule/module-properties http://www.mulesoft.org/schema/mule/module-properties/current/mule-module-properties.xsd">
+       https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+       https://schemas.zernova.dev/marvel https://schemas.zernova.dev/marvel/current/zernova-marvel.xsd
+       https://schemas.zernova.dev/module-properties https://schemas.zernova.dev/module-properties/current/zernova-module-properties.xsd">
 
     <module-properties:config name="some-config"  configParam="#['some config-value-parameter']" />
     <module-properties:config name="some-other-config"  configParam="some other config-value-parameter" />
@@ -35,4 +35,4 @@
         <module-properties:set-payload-config-param-value config-ref="#['']"/>
     </flow>
 
-</mule>
+</zernova>

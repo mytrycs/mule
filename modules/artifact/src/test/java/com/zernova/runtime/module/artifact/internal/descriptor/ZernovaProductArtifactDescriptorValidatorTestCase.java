@@ -7,8 +7,8 @@
 /* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package com.zernova.runtime.module.artifact.internal.descriptor;
 
-import static com.zernova.runtime.api.deployment.meta.Product.MULE;
-import static com.zernova.runtime.api.deployment.meta.Product.MULE_EE;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA_EE;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -29,7 +29,7 @@ class ZernovaProductArtifactDescriptorValidatorTestCase extends AbstractZernovaT
   @Test
   void supportedProduct() {
     final var descriptor = mock(ArtifactDescriptor.class);
-    when(descriptor.getRequiredProduct()).thenReturn(MULE);
+    when(descriptor.getRequiredProduct()).thenReturn(ZERNOVA);
 
     final var validator = new ZernovaProductArtifactDescriptorValidator();
     validator.validate(descriptor);
@@ -38,12 +38,12 @@ class ZernovaProductArtifactDescriptorValidatorTestCase extends AbstractZernovaT
   @Test
   void unsupportedProduct() {
     final var descriptor = mock(ArtifactDescriptor.class);
-    when(descriptor.getRequiredProduct()).thenReturn(MULE_EE);
+    when(descriptor.getRequiredProduct()).thenReturn(ZERNOVA_EE);
 
     final var validator = new ZernovaProductArtifactDescriptorValidator();
     var thrown = assertThrows(ArtifactDescriptorCreateException.class, () -> validator.validate(descriptor));
     assertThat(thrown.getMessage(),
-               is("The artifact null requires a different runtime. The artifact required runtime is MULE_EE and the runtime is MULE"));
+               is("The artifact null requires a different runtime. The artifact required runtime is ZERNOVA_EE and the runtime is ZERNOVA"));
   }
 
 }

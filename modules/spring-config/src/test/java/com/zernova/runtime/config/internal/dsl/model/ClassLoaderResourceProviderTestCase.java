@@ -40,7 +40,7 @@ public class ClassLoaderResourceProviderTestCase extends AbstractZernovaTestCase
 
   @Test
   public void sameJarResourceGetsLoaded() {
-    verifyResourceGetsLoadedSuccessfully("META-INF/mule-core.xsd");
+    verifyResourceGetsLoadedSuccessfully("META-INF/zernova-core.xsd");
   }
 
   @Test

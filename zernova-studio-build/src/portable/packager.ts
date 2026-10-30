@@ -7,9 +7,9 @@ import { createHash, randomUUID } from 'node:crypto';
 import JSZip from 'jszip';
 import { parser } from 'sax';
 import { RUNTIME_VERSION, verifyBundle, walkFiles, safeRelative, within, cancelled, readJson, fileSha, ordinaryDirectory } from './bundle';
-const CORE = 'http://www.mulesoft.org/schema/mule/core';
-const HTTP = 'http://www.mulesoft.org/schema/mule/http';
-const PREFIX = 'META-INF/mule-artifact/';
+const CORE = 'https://schemas.zernova.dev/core';
+const HTTP = 'https://schemas.zernova.dev/http';
+const PREFIX = 'META-INF/zernova-artifact/';
 const ID = /^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,99}$/;
 const MAX = 64 * 1024 * 1024;
 export interface ApplicationMetadata { schemaVersion: 1; name: string; group: string; version: string; dependencies: string[]; configs?: string[]; }
@@ -44,7 +44,7 @@ export async function sourceDirectory(project: string): Promise<string> {
 export async function sourceHash(project: string): Promise<string> {
   const digest = createHash('sha256');
   const files = (await walkFiles(path.join(project, 'src'))).map(n => 'src/' + n);
-  for (const file of ['zernova-app.json', 'pom.xml', 'mule-artifact.json']) if (await fs.stat(path.join(project, file)).then(() => true, () => false)) files.push(file);
+  for (const file of ['zernova-app.json', 'pom.xml', 'zernova-artifact.json']) if (await fs.stat(path.join(project, file)).then(() => true, () => false)) files.push(file);
   for (const file of files.sort()) { const data = await fs.readFile(path.join(project, file)); digest.update(file).update('\0').update(String(data.length)).update('\0').update(data); }
   return digest.digest('hex');
 }
@@ -52,7 +52,7 @@ function verifyXml(text: string, filename: string, http: boolean): void {
   if (/<!DOCTYPE|<!ENTITY/i.test(text) || text.includes('\0')) throw new Error('DTD/entity declarations are not accepted: ' + filename);
   const p = parser(true, { xmlns: true }); let root = false;
   p.onopentag = tag => {
-    if (!root) { root = true; if (tag.uri !== CORE || tag.local !== 'mule') throw new Error('The XML compatibility namespace must be preserved: ' + filename); }
+    if (!root) { root = true; if (tag.uri !== CORE || tag.local !== 'zernova') throw new Error('Expected a ZERNOVA XML root and namespace: ' + filename); }
     if (tag.uri === HTTP && !http) throw new Error('HTTP XML requires the included http dependency profile.');
   };
   p.write(text).close(); if (!root) throw new Error('No integration XML root: ' + filename);
@@ -80,7 +80,7 @@ export async function packageApplication(bundle: string, input: string, signal?:
     const decoder = new TextDecoder('utf-8', { fatal: true });
     verifyXml(decoder.decode(resources.get(config)!), config, meta.dependencies.length > 0);
   }
-  const model: Record<string, unknown> = { version: '1.2.0', artifactCoordinates: { groupId: meta.group, artifactId: meta.name, version: meta.version, type: 'jar', classifier: 'mule-application' }, dependencies: [], resources: [...resources.keys()].sort() };
+  const model: Record<string, unknown> = { version: '1.2.0', artifactCoordinates: { groupId: meta.group, artifactId: meta.name, version: meta.version, type: 'jar', classifier: 'zernova-application' }, dependencies: [], resources: [...resources.keys()].sort() };
   const zip = new JSZip();
   const add = (name: string, data: string | Buffer) => zip.file(name, data, { date: new Date('1980-01-01T00:00:00Z'), createFolders: false, unixPermissions: 0o100644 });
   for (const [name, data] of resources) add(name, data);
@@ -92,10 +92,10 @@ export async function packageApplication(bundle: string, input: string, signal?:
     model.dependencies = template.dependencies;
     for (const name of await walkFiles(path.join(http, 'repository'))) { cancelled(signal); add('repository/' + name, await fs.readFile(path.join(http, 'repository', name))); }
   }
-  const descriptor = { configs, secureProperties: [], redeploymentEnabled: false, name: `${meta.group}:${meta.name}:${meta.version}`, minMuleVersion: '4.10.0', requiredProduct: 'MULE', classLoaderModelLoaderDescriptor: { id: 'mule', attributes: { exportedPackages: [], exportedResources: [...resources.keys()].sort() } }, bundleDescriptorLoader: { id: 'mule', attributes: {} }, javaSpecificationVersions: ['17'] };
+  const descriptor = { configs, secureProperties: [], redeploymentEnabled: false, name: `${meta.group}:${meta.name}:${meta.version}`, minZernovaVersion: '0.4.0', requiredProduct: 'ZERNOVA', classLoaderModelLoaderDescriptor: { id: 'zernova', attributes: { exportedPackages: [], exportedResources: [...resources.keys()].sort() } }, bundleDescriptorLoader: { id: 'zernova', attributes: {} }, javaSpecificationVersions: ['17'] };
   const json = (data: unknown) => JSON.stringify(data, null, 2) + '\n';
-  add(PREFIX + 'mule-artifact.json', json(descriptor)); add(PREFIX + 'classloader-model.json', json(model));
-  add(`META-INF/maven/${meta.group}/${meta.name}/pom.xml`, `<?xml version="1.0" encoding="UTF-8"?>\n<project xmlns="http://maven.apache.org/POM/4.0.0"><modelVersion>4.0.0</modelVersion><groupId>${meta.group}</groupId><artifactId>${meta.name}</artifactId><version>${meta.version}</version><packaging>mule-application</packaging></project>\n`);
+  add(PREFIX + 'zernova-artifact.json', json(descriptor)); add(PREFIX + 'classloader-model.json', json(model));
+  add(`META-INF/maven/${meta.group}/${meta.name}/pom.xml`, `<?xml version="1.0" encoding="UTF-8"?>\n<project xmlns="http://maven.apache.org/POM/4.0.0"><modelVersion>4.0.0</modelVersion><groupId>${meta.group}</groupId><artifactId>${meta.name}</artifactId><version>${meta.version}</version><packaging>zernova-application</packaging></project>\n`);
   add(`META-INF/maven/${meta.group}/${meta.name}/pom.properties`, `groupId=${meta.group}\nartifactId=${meta.name}\nversion=${meta.version}\n`);
   add('META-INF/zernova/package.json', json({ packager: 'ZERNOVA Studio offline XML/resource assembler', version: RUNTIME_VERSION, runtimeValidation: 'DEFERRED_TO_ENGINE', expressionEvaluation: false, sourceFiles: Object.fromEntries([...resources].map(([n, b]) => [n, createHash('sha256').update(b).digest('hex')])) }));
   const target = path.join(project, 'target');
@@ -130,11 +130,11 @@ export async function validateArtifact(filename: string): Promise<{ sha256: stri
   }
   // Check decompression bounds before asking JSZip to verify every CRC.
   await JSZip.loadAsync(data, { checkCRC32: true });
-  const descriptorEntry = zip.file(PREFIX + 'mule-artifact.json'), modelEntry = zip.file(PREFIX + 'classloader-model.json');
+  const descriptorEntry = zip.file(PREFIX + 'zernova-artifact.json'), modelEntry = zip.file(PREFIX + 'classloader-model.json');
   if (!descriptorEntry || !modelEntry) throw new Error('Application deployment metadata is missing.');
   const descriptor = JSON.parse(await descriptorEntry.async('string'));
   const model = JSON.parse(await modelEntry.async('string'));
-  if (descriptor.requiredProduct !== 'MULE' || !descriptor.javaSpecificationVersions?.includes('17') || !Array.isArray(descriptor.configs) || !descriptor.configs.length) throw new Error('Application does not declare the required Java 17/kernel compatibility.');
+  if (descriptor.requiredProduct !== 'ZERNOVA' || !descriptor.javaSpecificationVersions?.includes('17') || !Array.isArray(descriptor.configs) || !descriptor.configs.length) throw new Error('Application does not declare the required Java 17/kernel compatibility.');
   if (typeof model.artifactCoordinates?.artifactId !== 'string') throw new Error('Application coordinates are missing.');
   assertAppName(model.artifactCoordinates.artifactId);
   for (const config of descriptor.configs) if (typeof config !== 'string' || !safeRelative(config) || !zip.file(config)) throw new Error('Application config is missing or unsafe.');

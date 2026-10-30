@@ -55,7 +55,7 @@ public final class ImmutableParameterModel extends AbstractNamedImmutableModel i
   private final List<StereotypeModel> allowedStereotypeModels;
   private final DeprecationModel deprecationModel;
   private Set<String> semanticTerms;
-  private final ZernovaVersion minMuleVersion;
+  private final ZernovaVersion minZernovaVersion;
 
   /**
    * Creates a new instance with the given state
@@ -260,7 +260,7 @@ public final class ImmutableParameterModel extends AbstractNamedImmutableModel i
    *                                 is not deprecated.
    * @param semanticTerms            a {@link Set} of semantic terms which describe the parameter's meaning and effect
    * @param fieldValueProviderModels {@link List} of field value provider models.
-   * @param minMuleVersion           the min mule version of the parameter
+   * @param minZernovaVersion           the min mule version of the parameter
    * @throws IllegalArgumentException if {@code required} is {@code true} and {@code defaultValue} is not {@code null} at the same
    *                                  time
    *
@@ -285,7 +285,7 @@ public final class ImmutableParameterModel extends AbstractNamedImmutableModel i
                                  DeprecationModel deprecationModel,
                                  Set<String> semanticTerms,
                                  List<FieldValueProviderModel> fieldValueProviderModels,
-                                 ZernovaVersion minMuleVersion) {
+                                 ZernovaVersion minZernovaVersion) {
     super(name, description, displayModel, modelProperties);
     this.type = type;
     this.required = required;
@@ -302,7 +302,7 @@ public final class ImmutableParameterModel extends AbstractNamedImmutableModel i
     this.deprecationModel = deprecationModel;
     this.semanticTerms = semanticTerms != null ? unmodifiableSet(semanticTerms) : emptySet();
     this.fieldValueProviderModels = unmodifiableList(fieldValueProviderModels);
-    this.minMuleVersion = minMuleVersion;
+    this.minZernovaVersion = minZernovaVersion;
   }
 
   /**
@@ -434,8 +434,8 @@ public final class ImmutableParameterModel extends AbstractNamedImmutableModel i
    * {@inheritDoc}
    */
   @Override
-  public Optional<ZernovaVersion> getMinMuleVersion() {
-    return ofNullable(minMuleVersion);
+  public Optional<ZernovaVersion> getMinZernovaVersion() {
+    return ofNullable(minZernovaVersion);
   }
 
   public String toString() {

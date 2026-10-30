@@ -21,7 +21,7 @@ class ZernovaSdkMinZernovaVersionParser implements MinZernovaVersionParser {
   }
 
   @Override
-  public ZernovaVersion getMinMuleVersion() {
+  public ZernovaVersion getMinZernovaVersion() {
     return MIN_MULE_VERSION;
   }
 

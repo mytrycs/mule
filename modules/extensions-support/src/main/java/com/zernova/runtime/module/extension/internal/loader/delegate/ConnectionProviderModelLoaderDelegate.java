@@ -56,8 +56,8 @@ final class ConnectionProviderModelLoaderDelegate extends AbstractComponentModel
       ConnectionProviderDeclaration connectionProviderDeclaration = providerDeclarer.getDeclaration();
       parser.getDeprecationModel().ifPresent(connectionProviderDeclaration::withDeprecation);
       parser.getDisplayModel().ifPresent(connectionProviderDeclaration::setDisplayModel);
-      if (context.isResolveMinMuleVersion()) {
-        parser.getResolvedMinMuleVersion()
+      if (context.isResolveMinZernovaVersion()) {
+        parser.getResolvedMinZernovaVersion()
             .ifPresent(resolvedMMV -> declarationWithMmv(connectionProviderDeclaration, resolvedMMV));
       }
 

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule-domain xmlns="http://www.mulesoft.org/schema/mule/domain"
-             xmlns:core="http://www.mulesoft.org/schema/mule/core"
+<zernova-domain xmlns="https://schemas.zernova.dev/domain"
+             xmlns:core="https://schemas.zernova.dev/core"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="
-               http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/domain http://www.mulesoft.org/schema/mule/domain/current/mule-domain.xsd">
+               https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/domain https://schemas.zernova.dev/domain/current/zernova-domain.xsd">
 
     <core:configuration-properties file="domain-config.yaml"/>
 
     <core:object name="testClass" class="OverrideMe"/>
 
-</mule-domain>
+</zernova-domain>

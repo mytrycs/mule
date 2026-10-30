@@ -98,8 +98,8 @@ import org.mockito.junit.MockitoRule;
 public abstract class AbstractDslModelTestCase extends AbstractZernovaTestCase {
 
   protected static final String NAMESPACE = "mockns";
-  protected static final String NAMESPACE_URI = "http://www.mulesoft.org/schema/mule/mockns";
-  protected static final String SCHEMA_LOCATION = "http://www.mulesoft.org/schema/mule/mockns/current/mule-mockns.xsd";
+  protected static final String NAMESPACE_URI = "https://schemas.zernova.dev/mockns";
+  protected static final String SCHEMA_LOCATION = "https://schemas.zernova.dev/mockns/current/zernova-mockns.xsd";
   protected static final String KEY_NAME = "metadataKeyParameter";
   protected static final String CONFIG_REF_NAME = "config-ref";
   protected static final String NAME_PARAM_NAME = "name";
@@ -367,7 +367,7 @@ public abstract class AbstractDslModelTestCase extends AbstractZernovaTestCase {
         .thenReturn(of(requiredForMetadataModelProperty));
 
     mockExtension = createExtension(EXTENSION_NAME, XmlDslModel.builder()
-        .setXsdFileName("mule-mockns.xsd")
+        .setXsdFileName("zernova-mockns.xsd")
         .setPrefix(NAMESPACE)
         .setNamespace(NAMESPACE_URI)
         .setSchemaLocation(SCHEMA_LOCATION)

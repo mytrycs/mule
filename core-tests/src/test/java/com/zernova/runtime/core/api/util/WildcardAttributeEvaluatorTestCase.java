@@ -24,22 +24,22 @@ public class WildcardAttributeEvaluatorTestCase extends AbstractZernovaTestCase 
 
   @Test
   public void testStartsWithWildcard() {
-    List<String> testValues = Arrays.asList("MULE", "MULEMAN", "EMULE", "MULE\\*", "\\*MULE");
-    List<String> expectedValues = Arrays.asList("MULE", "MULEMAN", "MULE\\*");
-    testScenario("MULE*", testValues, expectedValues);
+    List<String> testValues = Arrays.asList("ZERNOVA", "MULEMAN", "EMULE", "ZERNOVA\\*", "\\*ZERNOVA");
+    List<String> expectedValues = Arrays.asList("ZERNOVA", "MULEMAN", "ZERNOVA\\*");
+    testScenario("ZERNOVA*", testValues, expectedValues);
   }
 
   @Test
   public void testEndsWithWildcard() {
-    List<String> testValues = Arrays.asList("MULE", "EMULE", "MAN-MULE-MAN", "\\*MULE", "MULE\\*");
-    List<String> expectedValues = Arrays.asList("MULE", "EMULE", "\\*MULE");
-    testScenario("*MULE", testValues, expectedValues);
+    List<String> testValues = Arrays.asList("ZERNOVA", "EMULE", "MAN-ZERNOVA-MAN", "\\*ZERNOVA", "ZERNOVA\\*");
+    List<String> expectedValues = Arrays.asList("ZERNOVA", "EMULE", "\\*ZERNOVA");
+    testScenario("*ZERNOVA", testValues, expectedValues);
   }
 
   @Test
   public void testAllWildcard() {
-    List<String> testValues = Arrays.asList("MULE", "EMULE", "MAN-MULE-MAN", "\\*MULE", "MULE\\*");
-    List<String> expectedValues = Arrays.asList("MULE", "EMULE", "MAN-MULE-MAN", "\\*MULE", "MULE\\*");
+    List<String> testValues = Arrays.asList("ZERNOVA", "EMULE", "MAN-ZERNOVA-MAN", "\\*ZERNOVA", "ZERNOVA\\*");
+    List<String> expectedValues = Arrays.asList("ZERNOVA", "EMULE", "MAN-ZERNOVA-MAN", "\\*ZERNOVA", "ZERNOVA\\*");
     testScenario("*", testValues, expectedValues);
   }
 
@@ -51,9 +51,9 @@ public class WildcardAttributeEvaluatorTestCase extends AbstractZernovaTestCase 
 
   @Test
   public void testWithEscapedCharactersAndWildcards() {
-    List<String> testValues = Arrays.asList("\\*MULE", "EMULE", "MAN-MULE-MAN", "", "MULE\\*", "\\*MULE\\*");
-    List<String> expectedValues = Arrays.asList("\\*MULE", "\\*MULE\\*");
-    testScenario("\\*MULE*", testValues, expectedValues);
+    List<String> testValues = Arrays.asList("\\*ZERNOVA", "EMULE", "MAN-ZERNOVA-MAN", "", "ZERNOVA\\*", "\\*ZERNOVA\\*");
+    List<String> expectedValues = Arrays.asList("\\*ZERNOVA", "\\*ZERNOVA\\*");
+    testScenario("\\*ZERNOVA*", testValues, expectedValues);
   }
 
   @Test(expected = IllegalArgumentException.class)

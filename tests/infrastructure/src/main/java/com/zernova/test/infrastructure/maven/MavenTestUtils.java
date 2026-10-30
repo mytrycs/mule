@@ -184,11 +184,11 @@ public class MavenTestUtils {
 
   public static BundleDescriptor getApplicationBundleDescriptor(String appName, Optional<String> classifier) {
     return new BundleDescriptor.Builder().setGroupId("test").setArtifactId(appName)
-        .setVersion("1.0.0").setClassifier(classifier.orElse("mule-application")).build();
+        .setVersion("1.0.0").setClassifier(classifier.orElse("zernova-application")).build();
   }
 
   public static BundleDescriptor getDomainBundleDescriptor(String domainName) {
     return new BundleDescriptor.Builder().setGroupId("test").setArtifactId(domainName)
-        .setVersion("1.0.0").setClassifier("mule-domain").build();
+        .setVersion("1.0.0").setClassifier("zernova-domain").build();
   }
 }

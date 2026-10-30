@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zernova-domain xmlns="https://schemas.zernova.dev/domain"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:http="https://schemas.zernova.dev/http"
+             xmlns:sc="https://schemas.zernova.dev/module-using-core"
+             xsi:schemaLocation="https://schemas.zernova.dev/http https://schemas.zernova.dev/http/current/zernova-http.xsd
+               https://schemas.zernova.dev/domain https://schemas.zernova.dev/domain/current/zernova-domain.xsd
+               https://schemas.zernova.dev/module-using-core https://schemas.zernova.dev/module-using-core/current/zernova-module-using-core.xsd">
+
+    <http:listener-config name="httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="${httpPort}"/>
+    </http:listener-config>
+
+    <sc:config name="moduleConfig" echoMessage="test-message"/>
+
+</zernova-domain>

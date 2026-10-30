@@ -36,7 +36,7 @@ import java.util.Optional;
 /**
  * {@link ExtensionModelValidator} which applies to {@link ExtensionModel}s which are XML based, as those that contain usages of
  * {@link #RAISE_ERROR_IDENTIFIER} or {@link #ERROR_MAPPING_IDENTIFIER} within an {@link OperationModel}, where each prefix must
- * either match {@code MULE} or the current namespace of the <module/> (which maps to the {@link XmlDslModel#getPrefix()}).
+ * either match {@code ZERNOVA} or the current namespace of the <module/> (which maps to the {@link XmlDslModel#getPrefix()}).
  *
  * @since 4.0
  */

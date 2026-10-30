@@ -22,7 +22,7 @@ import static com.zernova.runtime.module.extension.internal.loader.parser.java.c
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.lib.JavaExternalLibModelParserUtils.parseExternalLibraryModels;
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.semantics.SemanticTermsParserUtils.addCustomTerms;
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.stereotypes.JavaStereotypeModelParserUtils.resolveStereotype;
-import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.resolveConnectionProviderMinMuleVersion;
+import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.resolveConnectionProviderMinZernovaVersion;
 import static com.zernova.runtime.module.extension.internal.util.IntrospectionUtils.getAnnotatedFieldsStream;
 
 import static java.lang.String.format;
@@ -234,8 +234,8 @@ public class JavaConnectionProviderModelParser implements ConnectionProviderMode
   }
 
   @Override
-  public Optional<MinZernovaVersionParser> getResolvedMinMuleVersion() {
-    return of(resolveConnectionProviderMinMuleVersion(element));
+  public Optional<MinZernovaVersionParser> getResolvedMinZernovaVersion() {
+    return of(resolveConnectionProviderMinZernovaVersion(element));
   }
 
   @Override

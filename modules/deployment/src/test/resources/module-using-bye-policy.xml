@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:test-policy="http://www.mulesoft.org/schema/mule/test-policy"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xmlns:module-using-bye="http://www.mulesoft.org/schema/mule/module-using-bye"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/test-policy http://www.mulesoft.org/schema/mule/test-policy/current/mule-test-policy.xsd
-               http://www.mulesoft.org/schema/mule/module-using-bye http://www.mulesoft.org/schema/mule/module-using-bye/current/mule-module-using-bye.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:test-policy="https://schemas.zernova.dev/test-policy"
+      xmlns="https://schemas.zernova.dev/core"
+      xmlns:module-using-bye="https://schemas.zernova.dev/module-using-bye"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/test-policy https://schemas.zernova.dev/test-policy/current/zernova-test-policy.xsd
+               https://schemas.zernova.dev/module-using-bye https://schemas.zernova.dev/module-using-bye/current/zernova-module-using-bye.xsd">
 
     <test-policy:proxy name="module-using-bye-policy">
         <test-policy:operation>
@@ -17,4 +17,4 @@
             <test-policy:execute-next/>
         </test-policy:operation>
     </test-policy:proxy>
-</mule>
+</zernova>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:implicit="http://www.mulesoft.org/schema/mule/implicit"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/implicit http://www.mulesoft.org/schema/mule/implicit/current/mule-implicit.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:implicit="https://schemas.zernova.dev/implicit"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/implicit https://schemas.zernova.dev/implicit/current/zernova-implicit.xsd">
     
     <flow name="implicitConnection">
         <implicit:get-connection />
     </flow>
-</mule>
+</zernova>

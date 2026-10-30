@@ -24,8 +24,8 @@ import java.util.Set;
 public class DomainDescriptor extends DeployableArtifactDescriptor {
 
   public static final String DEFAULT_DOMAIN_NAME = "default";
-  public static final String DEFAULT_CONFIGURATION_RESOURCE = "mule-domain-config.xml";
-  public static final String MULE_DOMAIN_CLASSIFIER = "mule-domain";
+  public static final String DEFAULT_CONFIGURATION_RESOURCE = "zernova-domain-config.xml";
+  public static final String MULE_DOMAIN_CLASSIFIER = "zernova-domain";
 
   /**
    * Creates a new domain descriptor

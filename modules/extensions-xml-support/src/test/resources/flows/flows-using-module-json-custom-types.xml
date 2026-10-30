@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+<zernova xmlns="https://schemas.zernova.dev/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:modulejson="http://www.mulesoft.org/schema/mule/module-json-custom-types"
+      xmlns:modulejson="https://schemas.zernova.dev/module-json-custom-types"
       xsi:schemaLocation="
-      http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-      http://www.mulesoft.org/schema/mule/module-json-custom-types http://www.mulesoft.org/schema/mule/module-json-custom-types/current/mule-module-json-custom-types.xsd">
+      https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+      https://schemas.zernova.dev/module-json-custom-types https://schemas.zernova.dev/module-json-custom-types/current/zernova-module-json-custom-types.xsd">
 
     <flow name="testIsJsonType1FromPayloadFlow">
         <modulejson:is-jsontype1 aParameter="#[payload]"/>
@@ -87,4 +87,4 @@
             <modulejson:input-data><![CDATA[Test]]></modulejson:input-data>
         </modulejson:operation-with-input-data>
     </flow>
-</mule>
+</zernova>

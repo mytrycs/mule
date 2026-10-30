@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+<zernova xmlns="https://schemas.zernova.dev/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:capitalizedededede="http://www.mulesoft.org/schema/mule/capitalized"
+      xmlns:capitalizedededede="https://schemas.zernova.dev/capitalized"
       xsi:schemaLocation="
-      http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-      http://www.mulesoft.org/schema/mule/capitalized http://www.mulesoft.org/schema/mule/capitalized/current/mule-capitalizedwithspacesinthename.xsd">
+      https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+      https://schemas.zernova.dev/capitalized https://schemas.zernova.dev/capitalized/current/zernova-capitalizedwithspacesinthename.xsd">
 
     <capitalizedededede:config name="a-name" a-property="a value" _theUnderscoreProperty="underscore property value"/>
 
@@ -22,4 +22,4 @@
         <capitalizedededede:set-payload-with-name-parameter config-ref="a-name" name="the name parameter"/>
     </flow>
 
-</mule>
+</zernova>

@@ -60,7 +60,7 @@ public class DeployableProjectModelValidationsTestCase extends AbstractZernovaTe
         .setGroupId("com.zernova.sample")
         .setArtifactId("test-app")
         .setVersion("0.0.1")
-        .setClassifier("mule-application")
+        .setClassifier("zernova-application")
         .build();
   }
 
@@ -214,7 +214,7 @@ public class DeployableProjectModelValidationsTestCase extends AbstractZernovaTe
 
     expected.expect(ArtifactActivationException.class);
     expected
-        .expectMessage(" * Mule Plugin 'com.zernova.sample:test-plugin-a:mule-plugin' is depended upon in the project multiple times with versions ('0.0.1, 0.1.0') in the dependency graph.");
+        .expectMessage(" * Mule Plugin 'com.zernova.sample:test-plugin-a:zernova-plugin' is depended upon in the project multiple times with versions ('0.0.1, 0.1.0') in the dependency graph.");
     new DeployableProjectModel(emptyList(), emptyList(), emptyList(),
                                appDescriptor,
                                () -> null,

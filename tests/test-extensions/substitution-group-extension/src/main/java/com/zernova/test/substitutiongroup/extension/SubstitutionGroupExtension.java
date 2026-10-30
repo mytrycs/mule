@@ -18,7 +18,7 @@ import com.zernova.sdk.api.annotation.JavaVersionSupport;
 
 @Extension(name = "substitutionGroup")
 @JavaVersionSupport({JAVA_21, JAVA_17})
-@Xml(namespace = "http://www.mulesoft.org/schema/mule/sg", prefix = "sg")
+@Xml(namespace = "https://schemas.zernova.dev/sg", prefix = "sg")
 @Export(classes = {SomeExportedPojo.class})
 public class SubstitutionGroupExtension {
 

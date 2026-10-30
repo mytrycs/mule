@@ -138,7 +138,7 @@ public class ImmutableConstructModel extends AbstractComponentModel implements C
    * @param modelProperties          A {@link Set} of custom properties which extend this model
    * @param deprecationModel         a {@link DeprecationModel} describing if the construct is deprecated. A null value means it
    *                                 is not deprecated.
-   * @param minMuleVersion           the min mule version of the construct model.
+   * @param minZernovaVersion           the min mule version of the construct model.
    * @throws IllegalArgumentException if {@code name} is blank or {@code executorFactory} is {@code null}
    */
   public ImmutableConstructModel(String name,
@@ -153,10 +153,10 @@ public class ImmutableConstructModel extends AbstractComponentModel implements C
                                  Set<ModelProperty> modelProperties,
                                  DeprecationModel deprecationModel,
                                  Set<String> semanticTerms,
-                                 ZernovaVersion minMuleVersion) {
+                                 ZernovaVersion minZernovaVersion) {
     super(name, description, parameterGroupModels, nestedComponents, displayModel, errors, stereotype, visibility,
           modelProperties,
-          deprecationModel, semanticTerms, minMuleVersion);
+          deprecationModel, semanticTerms, minZernovaVersion);
     this.allowsTopLevelDefinition = allowsTopLevelDefinition;
   }
 

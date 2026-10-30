@@ -66,17 +66,17 @@ public class JavaParameterModelParserTestCase {
   }
 
   @Test
-  public void minMuleVersionParameter() throws Exception {
+  public void minZernovaVersionParameter() throws Exception {
     JavaParameterModelParser javaParameterModelParser = getParser("parameter");
-    Optional<MinZernovaVersionParser> minMuleVersion = javaParameterModelParser.getResolvedMinMuleVersion();
-    assertThat(minMuleVersion.isPresent(), is(false));
+    Optional<MinZernovaVersionParser> minZernovaVersion = javaParameterModelParser.getResolvedMinZernovaVersion();
+    assertThat(minZernovaVersion.isPresent(), is(false));
   }
 
   @Test
-  public void minMuleVersionSdkParameter() throws Exception {
+  public void minZernovaVersionSdkParameter() throws Exception {
     JavaParameterModelParser javaParameterModelParser = getParser("sdkOAuthParameter");
-    Optional<MinZernovaVersionParser> minMuleVersion = javaParameterModelParser.getResolvedMinMuleVersion();
-    assertThat(minMuleVersion.isPresent(), is(false));
+    Optional<MinZernovaVersionParser> minZernovaVersion = javaParameterModelParser.getResolvedMinZernovaVersion();
+    assertThat(minZernovaVersion.isPresent(), is(false));
   }
 
   protected Optional<OAuthParameterModelProperty> getOAuthParameterModelPropertyFromParameterName(String parameterName)

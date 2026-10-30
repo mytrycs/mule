@@ -22,7 +22,7 @@ import static com.zernova.runtime.api.deployment.meta.AbstractZernovaArtifactMod
 import static com.zernova.runtime.api.deployment.meta.AbstractZernovaArtifactModel.MIN_MULE_VERSION;
 import static com.zernova.runtime.api.deployment.meta.AbstractZernovaArtifactModel.NAME;
 import static com.zernova.runtime.api.deployment.meta.AbstractZernovaArtifactModel.REQUIRED_PRODUCT;
-import static com.zernova.runtime.api.deployment.meta.Product.MULE;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA;
 
 import com.zernova.runtime.api.deployment.meta.ZernovaDeployableModel;
 import com.zernova.runtime.api.deployment.meta.ZernovaServerPluginModel;
@@ -63,7 +63,7 @@ public class ZernovaArtifactModelJsonSerializerTestCase {
   @BeforeClass
   public static void setUp() {
     VALID_JSON.addProperty(NAME, "someName");
-    VALID_JSON.addProperty(REQUIRED_PRODUCT, MULE.toString());
+    VALID_JSON.addProperty(REQUIRED_PRODUCT, ZERNOVA.toString());
     VALID_JSON.addProperty(MIN_MULE_VERSION, "someVersion");
     JsonObject id = new JsonObject();
     id.addProperty(ID, "someId");
@@ -139,8 +139,8 @@ public class ZernovaArtifactModelJsonSerializerTestCase {
   }
 
   @Test
-  public void mandatoryFieldsCheckIsFalseIfMinMuleVersionNotSet() throws Exception {
-    json.remove("minMuleVersion");
+  public void mandatoryFieldsCheckIsFalseIfMinZernovaVersionNotSet() throws Exception {
+    json.remove("minZernovaVersion");
     ZernovaDeployableModel muleArtifactModel = this.serializer.deserialize(json.toString());
     expectedException.expect(IllegalStateException.class);
     muleArtifactModel.validateModel(DESCRIPTOR_NAME);

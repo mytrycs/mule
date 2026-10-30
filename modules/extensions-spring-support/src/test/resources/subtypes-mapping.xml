@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:subtypes="http://www.mulesoft.org/schema/mule/subtypes"
-      xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg"
-      xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-      http://www.mulesoft.org/schema/mule/heisenberg http://www.mulesoft.org/schema/mule/heisenberg/current/mule-heisenberg.xsd
-      http://www.mulesoft.org/schema/mule/vegan http://www.mulesoft.org/schema/mule/vegan/current/mule-vegan.xsd
-      http://www.mulesoft.org/schema/mule/subtypes http://www.mulesoft.org/schema/mule/subtypes/current/mule-subtypes.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:subtypes="https://schemas.zernova.dev/subtypes"
+      xmlns:heisenberg="https://schemas.zernova.dev/heisenberg"
+      xmlns:vegan="https://schemas.zernova.dev/vegan"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+      https://schemas.zernova.dev/heisenberg https://schemas.zernova.dev/heisenberg/current/zernova-heisenberg.xsd
+      https://schemas.zernova.dev/vegan https://schemas.zernova.dev/vegan/current/zernova-vegan.xsd
+      https://schemas.zernova.dev/subtypes https://schemas.zernova.dev/subtypes/current/zernova-subtypes.xsd">
 
     <subtypes:config name="config" twoPojos="#[[]]">
         <subtypes:connection>
@@ -66,7 +66,7 @@
             <subtypes:weapon-map key="revolverChild">
                 <subtypes:revolver bullets="1"/>
             </subtypes:weapon-map>
-            <subtypes:weapon-map key="revolverMEL" value="#[java!org::mule::test::subtypes::extension::Revolver::new()]"/>
+            <subtypes:weapon-map key="revolverMEL" value="#[java!org::zernova::test::subtypes::extension::Revolver::new()]"/>
         </subtypes:weapon-maps>
     </subtypes:config>
 
@@ -156,7 +156,7 @@
     </flow>
 
     <flow name="duplicatedOperationParameterAndTypeNames">
-        <subtypes:no-global-pojo noGlobalPojo="#[java!org::mule::test::subtypes::extension::NoGlobalPojo::new()]"/>
+        <subtypes:no-global-pojo noGlobalPojo="#[java!org::zernova::test::subtypes::extension::NoGlobalPojo::new()]"/>
     </flow>
 
     <flow name="pojoIsUsedInMapAndAlone">
@@ -213,4 +213,4 @@
     </flow>
 
     <subtypes:revolver name="sledgeHammer's" bullets="1"/>
-</mule>
+</zernova>

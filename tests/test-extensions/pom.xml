@@ -62,12 +62,12 @@
                     <executions>
                         <execution>
                             <!-- Generate the jar with the classifier in addition to the standard jar -->
-                            <id>default-mule-plugin-jar</id>
+                            <id>default-zernova-plugin-jar</id>
                             <goals>
                                 <goal>jar</goal>
                             </goals>
                             <configuration>
-                                <classifier>mule-plugin</classifier>
+                                <classifier>zernova-plugin</classifier>
                                 <archive>
                                     <manifestEntries>
                                         <Automatic-Module-Name>${javaModuleName}</Automatic-Module-Name>

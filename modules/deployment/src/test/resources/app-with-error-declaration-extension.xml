@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xmlns:with-error-declaration="http://www.mulesoft.org/schema/mule/with-error-declaration"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-      http://www.mulesoft.org/schema/mule/with-error-declaration http://www.mulesoft.org/schema/mule/with-error-declaration/current/mule-with-error-declaration.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="https://schemas.zernova.dev/core"
+      xmlns:with-error-declaration="https://schemas.zernova.dev/with-error-declaration"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+      https://schemas.zernova.dev/with-error-declaration https://schemas.zernova.dev/with-error-declaration/current/zernova-with-error-declaration.xsd">
 
     <flow name="main">
         <set-payload value=""/>
         <with-error-declaration:print-message/>
     </flow>
-</mule>
+</zernova>

@@ -51,7 +51,7 @@ public class ExceptionHandlerManagerTestCase {
 
   private static final String EXTENSION_NAME = "Extension";
   private static final String EXTENSION_NAMESPACE = "EXTENSION";
-  private static final String MULE_NAMESPACE = "MULE";
+  private static final String MULE_NAMESPACE = "ZERNOVA";
   private static final String CONNECTIVITY_ERROR_TYPE = "CONNECTIVITY";
   private static final String ERROR_MESSAGE = "ERROR MESSAGE";
   private static final String EXTENSION_NAME_WITH_SPACES = "extension With Spaces";

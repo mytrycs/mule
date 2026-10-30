@@ -3,14 +3,14 @@
   "secureProperties": [],
   "redeploymentEnabled": true,
   "name": "empty-app",
-  "minMuleVersion": "4.0.0",
-  "requiredProduct": "MULE",
+  "minZernovaVersion": "4.0.0",
+  "requiredProduct": "ZERNOVA",
   "classLoaderModelLoaderDescriptor": {
-    "id": "mule",
+    "id": "zernova",
     "attributes": {}
   },
   "bundleDescriptorLoader": {
-    "id": "mule",
+    "id": "zernova",
     "attributes": {}
   }
 }

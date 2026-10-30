@@ -16,7 +16,7 @@ import java.util.Collection;
 
 public class ModuleXmlNamespaceInfoProvider implements XmlNamespaceInfoProvider {
 
-  public static final String MODULE_DSL_NAMESPACE_URI = "http://www.mulesoft.org/schema/mule/module";
+  public static final String MODULE_DSL_NAMESPACE_URI = "https://schemas.zernova.dev/module";
   public static final String MODULE_DSL_NAMESPACE = "module";
   public static final String MODULE_ROOT_NODE_NAME = "module";
 

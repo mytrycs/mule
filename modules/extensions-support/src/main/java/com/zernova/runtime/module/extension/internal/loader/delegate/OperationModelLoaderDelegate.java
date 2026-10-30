@@ -132,8 +132,8 @@ final class OperationModelLoaderDelegate extends AbstractComponentModelLoaderDel
 
     parser.getDeprecationModel().ifPresent(operation::withDeprecation);
     parser.getDisplayModel().ifPresent(d -> operation.getDeclaration().setDisplayModel(d));
-    if (context.isResolveMinMuleVersion()) {
-      parser.getResolvedMinMuleVersion().ifPresent(resolvedMMV -> declarerWithMmv(operation, resolvedMMV));
+    if (context.isResolveMinZernovaVersion()) {
+      parser.getResolvedMinZernovaVersion().ifPresent(resolvedMMV -> declarerWithMmv(operation, resolvedMMV));
     }
     loader.getParameterModelsLoaderDelegate().declare(operation, parser.getParameterGroupModelParsers(), context);
     addSemanticTerms(operation.getDeclaration(), parser);

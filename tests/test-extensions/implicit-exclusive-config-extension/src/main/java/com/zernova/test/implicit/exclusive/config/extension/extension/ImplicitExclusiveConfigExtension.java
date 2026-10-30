@@ -18,7 +18,7 @@ import com.zernova.sdk.api.annotation.JavaVersionSupport;
 
 @Extension(name = "implicitExclusive")
 @JavaVersionSupport({JAVA_21, JAVA_17})
-@Xml(namespace = "http://www.mulesoft.org/schema/mule/implicitexclusive", prefix = "implicitexclusive")
+@Xml(namespace = "https://schemas.zernova.dev/implicitexclusive", prefix = "implicitexclusive")
 @Configurations(value = {BlaConfig.class, BleConfig.class, NonImplicitConfig.class, ImplicitConfigWithOptionalParameter.class})
 @Export(classes = ConfigWithNumber.class)
 public class ImplicitExclusiveConfigExtension {

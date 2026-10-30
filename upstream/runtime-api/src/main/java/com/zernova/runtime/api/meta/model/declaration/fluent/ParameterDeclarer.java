@@ -220,8 +220,8 @@ public class ParameterDeclarer<T extends ParameterDeclarer>
    * {@inheritDoc}
    */
   @Override
-  public T withMinMuleVersion(ZernovaVersion minMuleVersion) {
-    declaration.withMinMuleVersion(minMuleVersion);
+  public T withMinZernovaVersion(ZernovaVersion minZernovaVersion) {
+    declaration.withMinZernovaVersion(minZernovaVersion);
     return (T) this;
   }
 }

@@ -1,0 +1,6 @@
+https\://schemas.zernova.dev/schemadoc/current/zernova-schemadoc.xsd=META-INF/zernova-schemadoc.xsd
+https\://schemas.zernova.dev/core/current/zernova-core.xsd=META-INF/zernova-core.xsd
+https\://schemas.zernova.dev/core/current/zernova-core-common.xsd=META-INF/zernova-core-common.xsd
+https\://schemas.zernova.dev/domain/current/zernova-domain.xsd=META-INF/zernova-domain.xsd
+https\://schemas.zernova.dev/tls/current/zernova-tls.xsd=META-INF/zernova-tls.xsd
+https\://schemas.zernova.dev/operation/current/zernova-operation.xsd=META-INF/zernova-operation.xsd

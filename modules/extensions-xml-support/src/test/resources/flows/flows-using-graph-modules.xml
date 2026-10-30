@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+<zernova xmlns="https://schemas.zernova.dev/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:module-c="http://www.mulesoft.org/schema/mule/module-c"
-      xmlns:module-x="http://www.mulesoft.org/schema/mule/module-x"
-      xmlns:module-y="http://www.mulesoft.org/schema/mule/module-y"
-      xmlns:module-z="http://www.mulesoft.org/schema/mule/module-z"
-      xmlns:module-b="http://www.mulesoft.org/schema/mule/module-b"
+      xmlns:module-c="https://schemas.zernova.dev/module-c"
+      xmlns:module-x="https://schemas.zernova.dev/module-x"
+      xmlns:module-y="https://schemas.zernova.dev/module-y"
+      xmlns:module-z="https://schemas.zernova.dev/module-z"
+      xmlns:module-b="https://schemas.zernova.dev/module-b"
       xsi:schemaLocation="
-       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-       http://www.mulesoft.org/schema/mule/module-c http://www.mulesoft.org/schema/mule/module-c/current/mule-module-c.xsd
-       http://www.mulesoft.org/schema/mule/module-x http://www.mulesoft.org/schema/mule/module-x/current/mule-module-x.xsd
-       http://www.mulesoft.org/schema/mule/module-y http://www.mulesoft.org/schema/mule/module-y/current/mule-module-y.xsd
-       http://www.mulesoft.org/schema/mule/module-z http://www.mulesoft.org/schema/mule/module-z/current/mule-module-z.xsd
-       http://www.mulesoft.org/schema/mule/module-b http://www.mulesoft.org/schema/mule/module-b/current/mule-module-b.xsd">
+       https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+       https://schemas.zernova.dev/module-c https://schemas.zernova.dev/module-c/current/zernova-module-c.xsd
+       https://schemas.zernova.dev/module-x https://schemas.zernova.dev/module-x/current/zernova-module-x.xsd
+       https://schemas.zernova.dev/module-y https://schemas.zernova.dev/module-y/current/zernova-module-y.xsd
+       https://schemas.zernova.dev/module-z https://schemas.zernova.dev/module-z/current/zernova-module-z.xsd
+       https://schemas.zernova.dev/module-b https://schemas.zernova.dev/module-b/current/zernova-module-b.xsd">
 
     <flow name="testUsingModuleB_Op1">
         <module-b:op1/>
@@ -41,4 +41,4 @@
     <flow name="testUsingModuleZ_Op1">
         <module-z:op1/>
     </flow>
-</mule>
+</zernova>

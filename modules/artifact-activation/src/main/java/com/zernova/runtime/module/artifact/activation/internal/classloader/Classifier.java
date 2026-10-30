@@ -12,11 +12,11 @@ package com.zernova.runtime.module.artifact.activation.internal.classloader;
  */
 public enum Classifier {
 
-  MULE_APPLICATION("mule-application"),
+  MULE_APPLICATION("zernova-application"),
 
-  MULE_DOMAIN("mule-domain"),
+  MULE_DOMAIN("zernova-domain"),
 
-  MULE_PLUGIN("mule-plugin");
+  MULE_PLUGIN("zernova-plugin");
 
   public static Classifier fromString(String name) {
     for (Classifier classifier : Classifier.values()) {

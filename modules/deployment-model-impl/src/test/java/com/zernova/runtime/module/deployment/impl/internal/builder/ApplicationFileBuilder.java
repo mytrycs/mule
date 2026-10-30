@@ -7,7 +7,7 @@
 /* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package com.zernova.runtime.module.deployment.impl.internal.builder;
 
-import static com.zernova.runtime.api.deployment.meta.Product.MULE;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA;
 import static com.zernova.runtime.deployment.model.api.DeployableArtifactDescriptor.PROPERTY_CONFIG_RESOURCES;
 import static com.zernova.runtime.deployment.model.api.DeployableArtifactDescriptor.PROPERTY_REDEPLOYMENT_ENABLED;
 import static com.zernova.runtime.deployment.model.api.application.ApplicationDescriptor.DEFAULT_CONFIGURATION_RESOURCE;
@@ -46,7 +46,7 @@ import java.util.Properties;
 public class ApplicationFileBuilder extends DeployableFileBuilder<ApplicationFileBuilder> {
 
   private final Properties properties = new Properties();
-  private String minMuleVersion = "4.0.0";
+  private String minZernovaVersion = "4.0.0";
 
   /**
    * Creates a new builder
@@ -139,13 +139,13 @@ public class ApplicationFileBuilder extends DeployableFileBuilder<ApplicationFil
   }
 
   /**
-   * Add the minMuleVersion to the mule-artifact.json file.
+   * Add the minZernovaVersion to the zernova-artifact.json file.
    *
-   * @param minMuleVersion of the artifact to be constructed
+   * @param minZernovaVersion of the artifact to be constructed
    * @return the same builder instance
    */
-  public ApplicationFileBuilder withMinMuleVersion(String minMuleVersion) {
-    this.minMuleVersion = minMuleVersion;
+  public ApplicationFileBuilder withMinZernovaVersion(String minZernovaVersion) {
+    this.minZernovaVersion = minZernovaVersion;
     return this;
   }
 
@@ -161,7 +161,7 @@ public class ApplicationFileBuilder extends DeployableFileBuilder<ApplicationFil
     Object redeploymentEnabled = deployProperties.get(PROPERTY_REDEPLOYMENT_ENABLED);
     Object configResources = deployProperties.get(PROPERTY_CONFIG_RESOURCES);
     File applicationDescriptor = createApplicationJsonDescriptorFile(ofNullable(((String) deployProperties.get("domain"))),
-                                                                     minMuleVersion,
+                                                                     minZernovaVersion,
                                                                      redeploymentEnabled == null
                                                                          ? empty()
                                                                          : ofNullable(Boolean
@@ -173,7 +173,7 @@ public class ApplicationFileBuilder extends DeployableFileBuilder<ApplicationFil
     return customResources;
   }
 
-  private File createApplicationJsonDescriptorFile(Optional<String> domain, String minMuleVersion,
+  private File createApplicationJsonDescriptorFile(Optional<String> domain, String minZernovaVersion,
                                                    Optional<Boolean> redeploymentEnabled, Optional<String> configResources,
                                                    Optional<String> exportedPackages, Optional<String> exportedResources) {
     File applicationDescriptor = new File(getTempFolder(), getArtifactId() + "application.json");
@@ -182,8 +182,8 @@ public class ApplicationFileBuilder extends DeployableFileBuilder<ApplicationFil
         new ZernovaApplicationModel.ZernovaApplicationModelBuilder();
     muleApplicationModelBuilder
         .setName(getArtifactId())
-        .setMinMuleVersion(minMuleVersion)
-        .setRequiredProduct(MULE);
+        .setMinZernovaVersion(minZernovaVersion)
+        .setRequiredProduct(ZERNOVA);
     domain.ifPresent(muleApplicationModelBuilder::setDomain);
     redeploymentEnabled.ifPresent(muleApplicationModelBuilder::setRedeploymentEnabled);
     configResources.ifPresent(configs -> {

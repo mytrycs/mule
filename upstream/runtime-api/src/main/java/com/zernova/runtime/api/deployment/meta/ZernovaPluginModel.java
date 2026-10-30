@@ -21,7 +21,7 @@ import com.zernova.runtime.api.meta.model.ExtensionModel;
 import java.util.Optional;
 
 /**
- * This object matches the mule-artifact.json element within a plugin. The describer holds information that has being picked up
+ * This object matches the zernova-artifact.json element within a plugin. The describer holds information that has being picked up
  * from the JSON file (and the pom.xml when implemented). There's no extra logic, such as calculating the URLs needed to feed a
  * class loader or the {@link ExtensionModel} for the current plugin.
  *
@@ -39,12 +39,12 @@ public class ZernovaPluginModel extends AbstractZernovaArtifactModel {
     // Nothing to do, this is just for allowing instantiation to GSON
   }
 
-  private ZernovaPluginModel(String name, String minMuleVersion, Product product,
+  private ZernovaPluginModel(String name, String minZernovaVersion, Product product,
                           ZernovaArtifactLoaderDescriptor classLoaderModelLoaderDescriptor,
                           ZernovaArtifactLoaderDescriptor extensionModelLoaderDescriptor,
                           ZernovaArtifactLoaderDescriptor bundleDescriptor,
                           LicenseModel license) {
-    super(name, minMuleVersion, product, classLoaderModelLoaderDescriptor, bundleDescriptor);
+    super(name, minZernovaVersion, product, classLoaderModelLoaderDescriptor, bundleDescriptor);
     this.extensionModelLoaderDescriptor = extensionModelLoaderDescriptor;
     this.license = license;
   }
@@ -101,7 +101,7 @@ public class ZernovaPluginModel extends AbstractZernovaArtifactModel {
       checkArgument(!isBlank(getName()), "name cannot be a blank");
       checkArgument(getBundleDescriptorLoader() != null, "bundleDescriber cannot be null");
 
-      return new ZernovaPluginModel(getName(), getMinMuleVersion(), getRequiredProduct(),
+      return new ZernovaPluginModel(getName(), getMinZernovaVersion(), getRequiredProduct(),
                                  getClassLoaderModelDescriptorLoader(),
                                  extensionModelDescriptorBuilder.isPresent() ? extensionModelDescriptorBuilder.get().build()
                                      : null,

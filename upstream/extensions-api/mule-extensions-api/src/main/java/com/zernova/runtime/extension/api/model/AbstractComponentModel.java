@@ -144,7 +144,7 @@ public abstract class AbstractComponentModel extends AbstractStereotypedModel
    * @param deprecationModel     a {@link DeprecationModel} describing if the component is deprecated. A null value means it is
    *                             not deprecated.
    * @param semanticTerms        a {@link Set} of semantic terms which describe the component's meaning and effect
-   * @param minMuleVersion       the min mule version of the component
+   * @param minZernovaVersion       the min mule version of the component
    * @throws IllegalArgumentException if {@code name} is blank
    * @since 1.5.0
    */
@@ -159,8 +159,8 @@ public abstract class AbstractComponentModel extends AbstractStereotypedModel
                                    Set<ModelProperty> modelProperties,
                                    DeprecationModel deprecationModel,
                                    Set<String> semanticTerms,
-                                   ZernovaVersion minMuleVersion) {
-    super(name, description, parameterGroupModels, displayModel, stereotype, modelProperties, deprecationModel, minMuleVersion);
+                                   ZernovaVersion minZernovaVersion) {
+    super(name, description, parameterGroupModels, displayModel, stereotype, modelProperties, deprecationModel, minZernovaVersion);
 
     this.nestedComponents = copy(nestedComponents);
     this.errors = ImmutableSet.copyOf(errors);

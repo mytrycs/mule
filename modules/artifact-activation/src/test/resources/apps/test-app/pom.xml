@@ -5,7 +5,7 @@
     <groupId>com.test</groupId>
     <artifactId>test-app</artifactId>
     <version>1.2.${revision}</version>
-    <packaging>mule-application</packaging>
+    <packaging>zernova-application</packaging>
 
     <name>test-app</name>
 
@@ -35,7 +35,7 @@
                 <version>${mule.maven.plugin.version}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <classifier>mule-application</classifier>
+                    <classifier>zernova-application</classifier>
                 </configuration>
             </plugin>
         </plugins>

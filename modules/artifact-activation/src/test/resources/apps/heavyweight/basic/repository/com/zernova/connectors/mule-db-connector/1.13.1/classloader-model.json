@@ -5,7 +5,7 @@
     "artifactId": "mule-db-connector",
     "version": "1.13.1",
     "type": "jar",
-    "classifier": "mule-plugin"
+    "classifier": "zernova-plugin"
   },
   "dependencies": [
     {
@@ -401,7 +401,7 @@
     "META-INF/maven/com.zernova.connectors/mule-db-client/pom.properties",
     "META-INF/maven/com.zernova.connectors/mule-db-client/pom.xml",
     "META-INF/maven/com.zernova.connectors/mule-db-connector/pom.xml",
-    "META-INF/mule-artifact/icon.svg",
-    "META-INF/mule-artifact/mule-artifact.json"
+    "META-INF/zernova-artifact/icon.svg",
+    "META-INF/zernova-artifact/zernova-artifact.json"
   ]
 }

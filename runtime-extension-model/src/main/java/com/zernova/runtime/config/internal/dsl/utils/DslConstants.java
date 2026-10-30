@@ -22,12 +22,12 @@ public interface DslConstants {
   /**
    * This is the namespace prefix for core elements in the configuration.
    */
-  String CORE_PREFIX = "mule";
+  String CORE_PREFIX = "zernova";
 
   /**
    * Format mask for the default location of a schema
    */
-  String DEFAULT_NAMESPACE_URI_MASK = "http://www.mulesoft.org/schema/mule/%s";
+  String DEFAULT_NAMESPACE_URI_MASK = "https://schemas.zernova.dev/%s";
 
   /**
    * Namespace for Mule core elements

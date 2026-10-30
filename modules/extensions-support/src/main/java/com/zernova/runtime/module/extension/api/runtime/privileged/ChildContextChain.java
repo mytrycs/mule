@@ -27,7 +27,7 @@ public interface ChildContextChain extends Chain {
    *
    * @since 4.7
    */
-  QName CHAIN_OWNER_LOCATION_KEY = new QName("http://www.mulesoft.org/schema/mule/parser-metadata", "CHAIN_OWNER_LOCATION");
+  QName CHAIN_OWNER_LOCATION_KEY = new QName("https://schemas.zernova.dev/parser-metadata", "CHAIN_OWNER_LOCATION");
 
   /**
    * Same as {@link Chain#process(Consumer, BiConsumer)}, setting the correlation id within the execution as the the one passed.

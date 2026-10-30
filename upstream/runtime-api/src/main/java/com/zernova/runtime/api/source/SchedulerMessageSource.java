@@ -33,7 +33,7 @@ public interface SchedulerMessageSource extends Stoppable, Startable {
   /**
    * {@link ComponentIdentifier} of an scheduler message source.
    */
-  ComponentIdentifier SCHEDULER_MESSAGE_SOURCE_IDENTIFIER = buildFromStringRepresentation("mule:scheduler");
+  ComponentIdentifier SCHEDULER_MESSAGE_SOURCE_IDENTIFIER = buildFromStringRepresentation("zernova:scheduler");
 
   /**
    * Triggers the execution of the flow where the scheduler message source is located.

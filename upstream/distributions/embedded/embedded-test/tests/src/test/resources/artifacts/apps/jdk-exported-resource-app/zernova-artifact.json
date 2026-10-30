@@ -1,0 +1,17 @@
+{
+  "name": "jdk-resource",
+  "minZernovaVersion": "4.0.0",
+  "requiredProduct": "ZERNOVA",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {
+      "exportedPackages": ["com.zernova.test"],
+      "exportedResources": [],
+      "includeTestDependencies": "true"
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  }
+}

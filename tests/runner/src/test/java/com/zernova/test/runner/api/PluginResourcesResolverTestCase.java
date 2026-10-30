@@ -72,19 +72,19 @@ public class PluginResourcesResolverTestCase extends AbstractZernovaTestCase {
   public void resolvePluginResourcesForMulePlugin() throws Exception {
     ZernovaPluginModelBuilder builder = new ZernovaPluginModelBuilder();
     builder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder()
-        .setId("mule")
+        .setId("zernova")
         .addProperty(EXPORTED_PACKAGES, newArrayList(ORG_MULE_TEST_RUNNER, ORG_MULE_TEST_RUNNER_API))
         .addProperty(EXPORTED_RESOURCES, newArrayList(META_INF_RESOURCE_PROPERTIES, META_INF_ANOTHER_RESOURCE_PROPERTIES))
         .build());
     builder.withBundleDescriptorLoader(new ZernovaArtifactLoaderDescriptor(MULE_LOADER_ID, emptyMap()));
     ZernovaPluginModel mulePluginModel = builder
         .setName("samplePlugin")
-        .setMinMuleVersion("4.0.0")
+        .setMinZernovaVersion("4.0.0")
         .build();
     String mulePluginModelJson = new ZernovaPluginModelJsonSerializer().serialize(mulePluginModel);
 
     File pluginPropertiesFile =
-        new File(new File(new File(temporaryFolder.getRoot(), "META-INF"), "mule-artifact"), MULE_ARTIFACT_JSON_DESCRIPTOR);
+        new File(new File(new File(temporaryFolder.getRoot(), "META-INF"), "zernova-artifact"), MULE_ARTIFACT_JSON_DESCRIPTOR);
     writeStringToFile(pluginPropertiesFile, mulePluginModelJson);
     URL classPathUrl = temporaryFolder.getRoot().toURI().toURL();
     List<URL> urls = newArrayList(classPathUrl);

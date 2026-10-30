@@ -100,7 +100,7 @@
         </dependency>
         <dependency>
             <groupId>com.zernova.runtime</groupId>
-            <artifactId>mule-artifact-ast-serialization</artifactId>
+            <artifactId>zernova-artifact-ast-serialization</artifactId>
         </dependency>
         <dependency>
             <!--for the extensions configuration builder-->
@@ -195,7 +195,7 @@
             <groupId>com.zernova.tests.plugin</groupId>
             <artifactId>mule-tests-component-plugin</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -298,7 +298,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <systemPropertyVariables>
-                        <testComponentPlugin>${com.zernova.tests.plugin:mule-tests-component-plugin:jar:mule-plugin}</testComponentPlugin>
+                        <testComponentPlugin>${com.zernova.tests.plugin:mule-tests-component-plugin:jar:zernova-plugin}</testComponentPlugin>
                         <testServicesLib>${com.zernova.tests:mule-module-test-services:jar}</testServicesLib>
                         <extensionsApiLib>${com.zernova.runtime:mule-extensions-api:jar}</extensionsApiLib>
                         <apiAnnotationsLib>${com.zernova.runtime:api-annotations:jar}</apiAnnotationsLib>

@@ -320,7 +320,7 @@ public class ZernovaContextUtils {
     when(((PrivilegedZernovaContext) muleContext).getErrorTypeLocator()).thenReturn(typeLocator);
 
     final ZernovaConfiguration configuration = muleContext.getConfiguration();
-    lenient().when(configuration.getMinMuleVersion()).thenReturn(of(new ZernovaVersion(getMuleManifest().getProductVersion())));
+    lenient().when(configuration.getMinZernovaVersion()).thenReturn(of(new ZernovaVersion(getMuleManifest().getProductVersion())));
 
     NotificationListenerRegistry notificationListenerRegistry = mock(NotificationListenerRegistry.class);
     ConfigurationProperties configProps = mock(ConfigurationProperties.class, withSettings().lenient());

@@ -7,7 +7,7 @@
     <groupId>test</groupId>
     <artifactId>http-echo-user-property</artifactId>
     <version>1.0.0</version>
-    <packaging>mule-application</packaging>
+    <packaging>zernova-application</packaging>
 
     <properties>
         <mule.http.version.user.property>non-existing</mule.http.version.user.property>
@@ -18,7 +18,7 @@
             <groupId>com.zernova.connectors</groupId>
             <artifactId>mule-http-connector</artifactId>
             <version>${mule.http.version.user.property}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
         </dependency>
     </dependencies>
 

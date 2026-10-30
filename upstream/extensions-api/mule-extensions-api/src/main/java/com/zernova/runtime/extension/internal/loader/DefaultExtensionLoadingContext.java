@@ -183,8 +183,8 @@ public final class DefaultExtensionLoadingContext implements ExtensionLoadingCon
   }
 
   @Override
-  public boolean isResolveMinMuleVersion() {
-    return request.isResolveMinMuleVersion();
+  public boolean isResolveMinZernovaVersion() {
+    return request.isResolveMinZernovaVersion();
   }
 
   /**

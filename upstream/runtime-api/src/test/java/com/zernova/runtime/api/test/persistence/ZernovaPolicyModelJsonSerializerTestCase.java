@@ -50,7 +50,7 @@ public class ZernovaPolicyModelJsonSerializerTestCase extends AbstractZernovaArt
   @Test
   public void serializesModel() throws IOException {
     final String describerName = "policy-name";
-    final String describerMinMuleVersion = "4.2.3";
+    final String describerMinZernovaVersion = "4.2.3";
     final String describerClassLoaderModelId = "classLoaderModelLoaderID";
 
     Map<String, Object> bundleDescriptorAttributes = new HashMap<>();
@@ -60,7 +60,7 @@ public class ZernovaPolicyModelJsonSerializerTestCase extends AbstractZernovaArt
     final ZernovaPolicyModelBuilder mulePolicyModelBuilder =
         new ZernovaPolicyModelBuilder()
             .setName(describerName)
-            .setMinMuleVersion(describerMinMuleVersion)
+            .setMinZernovaVersion(describerMinZernovaVersion)
             .withBundleDescriptorLoader(new ZernovaArtifactLoaderDescriptor(BUNDLE_DESCRIPTOR_LOADER_ID,
                                                                          bundleDescriptorAttributes));
     mulePolicyModelBuilder
@@ -70,7 +70,7 @@ public class ZernovaPolicyModelJsonSerializerTestCase extends AbstractZernovaArt
     String actual = mulePolicyModelJsonSerializer.serialize(mulePolicyModelBuilder.build());
     final JsonObject actualElement = new JsonParser().parse(actual).getAsJsonObject();
     assertThat(actualElement.get("name").getAsString(), is(describerName));
-    assertThat(actualElement.get("minMuleVersion").getAsString(), is(describerMinMuleVersion));
+    assertThat(actualElement.get("minZernovaVersion").getAsString(), is(describerMinZernovaVersion));
 
     JsonObject classLoaderModelDescriptor = actualElement.get("classLoaderModelLoaderDescriptor").getAsJsonObject();
     assertThat(classLoaderModelDescriptor.get(ID).getAsString(), is(describerClassLoaderModelId));
@@ -94,7 +94,7 @@ public class ZernovaPolicyModelJsonSerializerTestCase extends AbstractZernovaArt
 
     ZernovaPolicyModel deserialized = mulePolicyModelJsonSerializer.deserialize(IOUtils.toString(resource));
 
-    assertNameAndMinMuleVersion(deserialized);
+    assertNameAndMinZernovaVersion(deserialized);
     assertClassLoaderModel(deserialized);
     assertBundleDescriptorLoader(deserialized.getBundleDescriptorLoader());
   }
@@ -108,9 +108,9 @@ public class ZernovaPolicyModelJsonSerializerTestCase extends AbstractZernovaArt
     assertThat(deserialized.getSupportedJavaVersions(), containsInAnyOrder("1.8", "11", "17"));
   }
 
-  private void assertNameAndMinMuleVersion(ZernovaPolicyModel deserialize) {
+  private void assertNameAndMinZernovaVersion(ZernovaPolicyModel deserialize) {
     assertThat(deserialize.getName(), is("plugin-name"));
-    assertThat(deserialize.getMinMuleVersion(), is("4.2.3"));
+    assertThat(deserialize.getMinZernovaVersion(), is("4.2.3"));
   }
 
   private void assertClassLoaderModel(ZernovaPolicyModel deserialize) {

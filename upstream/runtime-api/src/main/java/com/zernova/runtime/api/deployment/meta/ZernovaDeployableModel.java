@@ -48,7 +48,7 @@ public abstract class ZernovaDeployableModel extends AbstractZernovaArtifactMode
    * Creates a new model
    *
    * @param name                             name of the artifact
-   * @param minMuleVersion                   minimum Mule Runtime version that requires to work correctly.
+   * @param minZernovaVersion                   minimum Mule Runtime version that requires to work correctly.
    * @param product                          the target product for this artifact
    * @param classLoaderModelLoaderDescriptor describes how to create the class loader for the artifact.
    * @param bundleDescriptorLoader           indicates how to load the bundle descriptor.
@@ -62,7 +62,7 @@ public abstract class ZernovaDeployableModel extends AbstractZernovaArtifactMode
    *                                         of the default. May be null.
    */
   protected ZernovaDeployableModel(String name,
-                                String minMuleVersion,
+                                String minZernovaVersion,
                                 Product product,
                                 ZernovaArtifactLoaderDescriptor classLoaderModelLoaderDescriptor,
                                 ZernovaArtifactLoaderDescriptor bundleDescriptorLoader,
@@ -72,7 +72,7 @@ public abstract class ZernovaDeployableModel extends AbstractZernovaArtifactMode
                                 Set<String> supportedJavaVersions,
                                 String logConfigFile) {
     super(name,
-          minMuleVersion,
+          minZernovaVersion,
           product,
           classLoaderModelLoaderDescriptor,
           bundleDescriptorLoader);
@@ -163,7 +163,7 @@ public abstract class ZernovaDeployableModel extends AbstractZernovaArtifactMode
     @Override
     public final M build() {
       checkArgument(!isBlank(getName()), "name cannot be a blank");
-      checkArgument(getMinMuleVersion() != null, "minMuleVersion cannot be null");
+      checkArgument(getMinZernovaVersion() != null, "minZernovaVersion cannot be null");
       checkArgument(getBundleDescriptorLoader() != null, "bundleDescriber cannot be null");
       return doCreateModel(configs, redeploymentEnabled, secureProperties, supportedJavaVersions, logConfigFile);
     }

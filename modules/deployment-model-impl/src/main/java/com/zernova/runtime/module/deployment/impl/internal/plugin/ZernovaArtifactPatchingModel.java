@@ -34,7 +34,7 @@ import com.google.gson.JsonParseException;
 
 public class ZernovaArtifactPatchingModel {
 
-  private static final String MULE_ARTIFACT_PATCH_JSON_FILE_NAME = "mule-artifact-patch.json";
+  private static final String MULE_ARTIFACT_PATCH_JSON_FILE_NAME = "zernova-artifact-patch.json";
 
   private static final Map<String, ZernovaArtifactPatchingModel> loadedModelByJar = new HashMap<>();
 

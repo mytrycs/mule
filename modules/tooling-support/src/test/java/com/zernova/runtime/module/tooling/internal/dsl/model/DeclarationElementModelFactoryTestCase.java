@@ -197,7 +197,7 @@ public class DeclarationElementModelFactoryTestCase extends AbstractDslModelTest
     when(emptyConfig.getConnectionProviders()).thenReturn(emptyList());
 
     mockExtension = createExtension(EXTENSION_NAME, XmlDslModel.builder()
-        .setXsdFileName("mule-mockns.xsd")
+        .setXsdFileName("zernova-mockns.xsd")
         .setPrefix(NAMESPACE)
         .setNamespace(NAMESPACE_URI)
         .setSchemaLocation(SCHEMA_LOCATION)
@@ -221,7 +221,7 @@ public class DeclarationElementModelFactoryTestCase extends AbstractDslModelTest
     when(connectionProvider.getParameterGroupModels()).thenReturn(emptyList());
 
     mockExtension = createExtension(EXTENSION_NAME, XmlDslModel.builder()
-        .setXsdFileName("mule-mockns.xsd")
+        .setXsdFileName("zernova-mockns.xsd")
         .setPrefix(NAMESPACE)
         .setNamespace(NAMESPACE_URI)
         .setSchemaLocation(SCHEMA_LOCATION)

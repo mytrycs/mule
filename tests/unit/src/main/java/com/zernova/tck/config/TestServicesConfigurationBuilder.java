@@ -169,7 +169,7 @@ public class TestServicesConfigurationBuilder extends AbstractConfigurationBuild
       // Force initialization of internal DataWeave stuff
       // This way we avoid doing some heavy initialization on the test itself,
       // which may cause trouble when evaluation expressions in places with small timeouts
-      exprLanguage.evaluate("{dataWeave: 'is'} ++ {mule: 'default EL'}", NULL_BINDING_CONTEXT);
+      exprLanguage.evaluate("{dataWeave: 'is'} ++ {zernova: 'default EL'}", NULL_BINDING_CONTEXT);
 
       cachedExprLanguageFactory = new DefaultExpressionLanguageFactoryService() {
 

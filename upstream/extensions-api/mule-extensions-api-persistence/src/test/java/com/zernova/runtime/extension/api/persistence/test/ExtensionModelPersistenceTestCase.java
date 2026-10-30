@@ -169,16 +169,16 @@ public class ExtensionModelPersistenceTestCase extends BasePersistenceTestCase {
   }
 
   @Test
-  public void operationMinMuleVersionCorrectlyDeserialized() {
+  public void operationMinZernovaVersionCorrectlyDeserialized() {
     OperationModel operation = deserializedExtensionModel.getOperationModel(GET_CAR_OPERATION_NAME).get();
-    assertThat(operation.getMinMuleVersion(), is(getCarOperation.getMinMuleVersion()));
+    assertThat(operation.getMinZernovaVersion(), is(getCarOperation.getMinZernovaVersion()));
   }
 
   @Test
-  public void connectionProviderMinMuleVersionCorrectlyDeserialized() {
+  public void connectionProviderMinZernovaVersionCorrectlyDeserialized() {
     ConnectionProviderModel deserializedConnectionProvider = deserializedExtensionModel.getConnectionProviders().get(0);
     ConnectionProviderModel originalConnectionProvider = originalExtensionModel.getConnectionProviders().get(0);
-    assertThat(deserializedConnectionProvider.getMinMuleVersion(), is(originalConnectionProvider.getMinMuleVersion()));
+    assertThat(deserializedConnectionProvider.getMinZernovaVersion(), is(originalConnectionProvider.getMinZernovaVersion()));
   }
 
   private Set<String> getExtensionTypeIds(JsonObject jsonExtensionModel) {

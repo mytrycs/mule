@@ -4,16 +4,16 @@
         namespace="http://www.mulesoft.org/schema/a/different/path/mule/module-calling-operations-within-module"
         xmlns:tns="http://www.mulesoft.org/schema/a/different/path/mule/module-calling-operations-within-module"
 
-        xmlns="http://www.mulesoft.org/schema/mule/module"
-        xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+        xmlns="https://schemas.zernova.dev/module"
+        xmlns:zernova="https://schemas.zernova.dev/core"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="
-           http://www.mulesoft.org/schema/mule/module http://www.mulesoft.org/schema/mule/module/current/mule-module.xsd
-           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+           https://schemas.zernova.dev/module https://schemas.zernova.dev/module/current/zernova-module.xsd
+           https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd">
 
     <operation name="set-payload-thru-internal-set-payload-hardcoded-value">
         <body>
-            <mule:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
+            <zernova:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
             <tns:internal-set-payload-hardcoded-value />
         </body>
         <output type="string"/>
@@ -21,7 +21,7 @@
 
     <operation name="set-payload-thru-set-payload-thru-internal-set-payload-hardcoded-value">
         <body>
-            <mule:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
+            <zernova:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
             <tns:set-payload-thru-internal-set-payload-hardcoded-value />
         </body>
         <output type="string"/>
@@ -29,9 +29,9 @@
 
     <operation name="set-payload-thru-internal-set-payload-hardcoded-value-two-times">
         <body>
-            <mule:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
+            <zernova:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
             <tns:internal-set-payload-hardcoded-value />
-            <mule:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
+            <zernova:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
             <tns:internal-set-payload-hardcoded-value />
         </body>
         <output type="string"/>
@@ -42,7 +42,7 @@
             <parameter name="exposedParameter" type="string"/>
         </parameters>
         <body>
-            <mule:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
+            <zernova:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
             <tns:internal-set-payload-param-value aParameter="#[vars.exposedParameter]" />
         </body>
         <output type="string"/>
@@ -53,7 +53,7 @@
             <parameter name="exposed-content" type="string" role="CONTENT"/>
         </parameters>
         <body>
-            <mule:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
+            <zernova:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
             <tns:internal-set-payload-param-value aParameter="#[vars['exposed-content']]" />
         </body>
         <output type="string"/>
@@ -64,7 +64,7 @@
             <parameter name="exposedParameter" type="string"/>
         </parameters>
         <body>
-            <mule:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
+            <zernova:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
             <tns:internal-set-payload-using-content-parameter>
                 <tns:content>#[vars.exposedParameter]</tns:content>
             </tns:internal-set-payload-using-content-parameter>
@@ -77,7 +77,7 @@
             <parameter name="exposed-content" type="string" role="CONTENT"/>
         </parameters>
         <body>
-            <mule:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
+            <zernova:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
             <tns:internal-set-payload-using-content-parameter>
                 <tns:content>#[vars['exposed-content']]</tns:content>
             </tns:internal-set-payload-using-content-parameter>
@@ -105,7 +105,7 @@
             <parameter name="exposedParameter" type="string"/>
         </parameters>
         <body>
-            <mule:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
+            <zernova:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
             <tns:internal-op1 op1Parameter="#[vars.exposedParameter]" />
         </body>
         <output type="string"/>
@@ -116,7 +116,7 @@
             <parameter name="exposedParameter" type="string"/>
         </parameters>
         <body>
-            <mule:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
+            <zernova:set-payload value="doesnt care what I put here, internal operation will override it =^]"/>
             <tns:internal-op1 op1Parameter="#[vars.exposedParameter]"/>
             <tns:internal-op1 op1Parameter="#[payload]"/>
             <tns:internal-op1 op1Parameter="#[payload]"/>
@@ -129,12 +129,12 @@
             <parameter name="amount" type="number"/>
         </parameters>
         <body>
-            <mule:set-variable variableName="collected" value="" />
-            <mule:foreach collection="#[(1 to vars.amount) as Array]">
+            <zernova:set-variable variableName="collected" value="" />
+            <zernova:foreach collection="#[(1 to vars.amount) as Array]">
                 <tns:internal-op1 op1Parameter="#[payload]"/>
-                <mule:set-variable variableName="collected" value="#[vars.collected ++ payload]" />
-            </mule:foreach>
-            <mule:set-payload value="#[vars.collected]"/>
+                <zernova:set-variable variableName="collected" value="#[vars.collected ++ payload]" />
+            </zernova:foreach>
+            <zernova:set-payload value="#[vars.collected]"/>
         </body>
         <output type="string"/>
     </operation>
@@ -144,16 +144,16 @@
             <parameter name="amount" type="number"/>
         </parameters>
         <body>
-            <mule:set-variable variableName="collected" value="" />
-            <mule:foreach collection="#[(1 to vars.amount) as Array]">
+            <zernova:set-variable variableName="collected" value="" />
+            <zernova:foreach collection="#[(1 to vars.amount) as Array]">
                 <tns:internal-op1 op1Parameter="#[payload]"/>
-                <mule:set-variable variableName="collected" value="#[vars.collected ++ payload]" />
-                <mule:foreach collection="#[(vars.amount to 1) as Array]">
+                <zernova:set-variable variableName="collected" value="#[vars.collected ++ payload]" />
+                <zernova:foreach collection="#[(vars.amount to 1) as Array]">
                     <tns:internal-op1 op1Parameter="#[payload]"/>
-                    <mule:set-variable variableName="collected" value="#[vars.collected ++ payload]" />
-                </mule:foreach>
-            </mule:foreach>
-            <mule:set-payload value="#[vars.collected]"/>
+                    <zernova:set-variable variableName="collected" value="#[vars.collected ++ payload]" />
+                </zernova:foreach>
+            </zernova:foreach>
+            <zernova:set-payload value="#[vars.collected]"/>
         </body>
         <output type="string"/>
     </operation>
@@ -166,7 +166,7 @@
     -->
     <operation name="internal-set-payload-hardcoded-value" visibility="PRIVATE">
         <body>
-            <mule:set-payload value="hardcoded value"/>
+            <zernova:set-payload value="hardcoded value"/>
         </body>
         <output type="string"/>
     </operation>
@@ -176,7 +176,7 @@
             <parameter name="aParameter" type="string"/>
         </parameters>
         <body>
-            <mule:set-payload value="#[vars.aParameter]"/>
+            <zernova:set-payload value="#[vars.aParameter]"/>
         </body>
         <output type="string"/>
     </operation>
@@ -186,7 +186,7 @@
             <parameter name="content" type="string" role="CONTENT"/>
         </parameters>
         <body>
-            <mule:set-payload value="#[vars.content]"/>
+            <zernova:set-payload value="#[vars.content]"/>
         </body>
         <output type="string"/>
     </operation>
@@ -198,7 +198,7 @@
             <parameter name="primary" type="string" role="PRIMARY"/>
         </parameters>
         <body>
-            <mule:set-payload value="#['attribute value:[' ++ vars.parameter1 ++ '], value of content:[' ++ vars.content ++ '], value of primary:[' ++ vars.primary ++ ']']"/>
+            <zernova:set-payload value="#['attribute value:[' ++ vars.parameter1 ++ '], value of content:[' ++ vars.content ++ '], value of primary:[' ++ vars.primary ++ ']']"/>
         </body>
         <output type="string"/>
     </operation>
@@ -228,7 +228,7 @@
             <parameter name="op3Parameter" type="string"/>
         </parameters>
         <body>
-            <mule:set-payload value="#['{op3, we will stop calling operations here (any user calling more than 3 nested operations can go and code it in Java) ' ++ vars.op3Parameter ++ '}']"/>
+            <zernova:set-payload value="#['{op3, we will stop calling operations here (any user calling more than 3 nested operations can go and code it in Java) ' ++ vars.op3Parameter ++ '}']"/>
         </body>
         <output type="string"/>
     </operation>

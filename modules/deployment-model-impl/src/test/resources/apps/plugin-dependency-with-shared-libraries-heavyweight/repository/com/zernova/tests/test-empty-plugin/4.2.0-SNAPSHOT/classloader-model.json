@@ -5,7 +5,7 @@
     "artifactId": "test-empty-plugin",
     "version": "4.2.0-SNAPSHOT",
     "type": "jar",
-    "classifier": "mule-plugin"
+    "classifier": "zernova-plugin"
   },
   "dependencies": []
 }

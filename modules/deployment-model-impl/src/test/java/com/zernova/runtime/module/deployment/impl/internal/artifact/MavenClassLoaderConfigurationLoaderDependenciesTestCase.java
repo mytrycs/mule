@@ -131,7 +131,7 @@ public class MavenClassLoaderConfigurationLoaderDependenciesTestCase extends Mav
                             .setArtifactId(model.getArtifactId())
                             .setVersion(model.getVersion())
                             .setType("jar")
-                            .setClassifier("mule-application")
+                            .setClassifier("zernova-application")
                             .build());
     return mavenClassLoaderConfigurationLoader.load(artifactFile, attributes, APP);
   }

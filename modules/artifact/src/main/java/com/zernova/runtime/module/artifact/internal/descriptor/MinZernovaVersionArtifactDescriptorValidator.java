@@ -16,40 +16,41 @@ import com.zernova.runtime.api.meta.ZernovaVersion;
 import com.zernova.runtime.module.artifact.api.descriptor.ArtifactDescriptor;
 import com.zernova.runtime.module.artifact.api.descriptor.ArtifactDescriptorCreateException;
 import com.zernova.runtime.module.artifact.api.descriptor.ArtifactDescriptorValidator;
+import com.zernova.runtime.module.artifact.api.descriptor.ApplicationDescriptor;
 
 import java.util.function.Supplier;
 
 /**
- * Validator for {@link ArtifactDescriptor#getMinMuleVersion()}. By default compares versions using {@code major.minor.patch} but
+ * Validator for {@link ArtifactDescriptor#getMinZernovaVersion()}. By default compares versions using {@code major.minor.patch} but
  * can be configured to do the comparison using semantic version.
  *
  * @since 4.1
  */
 public class MinZernovaVersionArtifactDescriptorValidator implements ArtifactDescriptorValidator {
 
-  private boolean validateMinMuleVersionWithSemanticVersion;
+  private boolean validateMinZernovaVersionWithSemanticVersion;
   private Supplier<String> muleRuntimeVersionSupplier = () -> getMuleManifest().getProductVersion();
 
   /**
    * Creates an instance of this validator.
    *
-   * @param validateMinMuleVersionWithSemanticVersion {@code true} uses semantic version for checking
-   *                                                  {@link ArtifactDescriptor#getMinMuleVersion()}.
+   * @param validateMinZernovaVersionWithSemanticVersion {@code true} uses semantic version for checking
+   *                                                  {@link ArtifactDescriptor#getMinZernovaVersion()}.
    */
-  public MinZernovaVersionArtifactDescriptorValidator(boolean validateMinMuleVersionWithSemanticVersion) {
-    this.validateMinMuleVersionWithSemanticVersion = validateMinMuleVersionWithSemanticVersion;
+  public MinZernovaVersionArtifactDescriptorValidator(boolean validateMinZernovaVersionWithSemanticVersion) {
+    this.validateMinZernovaVersionWithSemanticVersion = validateMinZernovaVersionWithSemanticVersion;
   }
 
   /**
    * Creates an instance of this validator.
    *
-   * @param validateMinMuleVersionWithSemanticVersion {@code true} uses semantic version for checking
-   *                                                  {@link ArtifactDescriptor#getMinMuleVersion()}.
+   * @param validateMinZernovaVersionWithSemanticVersion {@code true} uses semantic version for checking
+   *                                                  {@link ArtifactDescriptor#getMinZernovaVersion()}.
    * @param muleRuntimeVersionSupplier                {@link Supplier} to get Mule Runtime version. Non null.
    */
-  public MinZernovaVersionArtifactDescriptorValidator(boolean validateMinMuleVersionWithSemanticVersion,
+  public MinZernovaVersionArtifactDescriptorValidator(boolean validateMinZernovaVersionWithSemanticVersion,
                                                    Supplier<String> muleRuntimeVersionSupplier) {
-    this(validateMinMuleVersionWithSemanticVersion);
+    this(validateMinZernovaVersionWithSemanticVersion);
     requireNonNull(muleRuntimeVersionSupplier, "muleRuntimeVersionSupplier cannot be null");
 
     this.muleRuntimeVersionSupplier = muleRuntimeVersionSupplier;
@@ -57,26 +58,31 @@ public class MinZernovaVersionArtifactDescriptorValidator implements ArtifactDes
 
   @Override
   public void validate(ArtifactDescriptor descriptor) {
-    ZernovaVersion minMuleVersion = descriptor.getMinMuleVersion();
+    ZernovaVersion minZernovaVersion = descriptor.getMinZernovaVersion();
     ZernovaVersion runtimeVersion = new ZernovaVersion(muleRuntimeVersionSupplier.get());
+    // Applications target the independent ZERNOVA product version. Adapted
+    // connector metadata still declares its upstream SDK compatibility floor.
+    if (descriptor instanceof ApplicationDescriptor) {
+      runtimeVersion = new ZernovaVersion("0.4.0");
+    }
     runtimeVersion = new ZernovaVersion(runtimeVersion.toCompleteNumericVersion().replace("-" + runtimeVersion.getSuffix(), ""));
-    if (validateMinMuleVersionWithSemanticVersion) {
-      minMuleVersion = toBaseVersion(minMuleVersion);
+    if (validateMinZernovaVersionWithSemanticVersion) {
+      minZernovaVersion = toBaseVersion(minZernovaVersion);
       runtimeVersion = toBaseVersion(runtimeVersion);
     }
 
-    doValidation(descriptor, minMuleVersion, runtimeVersion);
+    doValidation(descriptor, minZernovaVersion, runtimeVersion);
   }
 
   private ZernovaVersion toBaseVersion(ZernovaVersion version) {
     return new ZernovaVersion(version.getMajor() + "." + version.getMinor());
   }
 
-  private void doValidation(ArtifactDescriptor descriptor, ZernovaVersion minMuleVersion, ZernovaVersion runtimeVersion) {
-    if (runtimeVersion.priorTo(minMuleVersion)) {
+  private void doValidation(ArtifactDescriptor descriptor, ZernovaVersion minZernovaVersion, ZernovaVersion runtimeVersion) {
+    if (runtimeVersion.priorTo(minZernovaVersion)) {
       throw new ArtifactDescriptorCreateException(format("Artifact %s requires a newer runtime version. Artifact required version is %s and Mule Runtime version is %s",
                                                          descriptor.getName(),
-                                                         descriptor.getMinMuleVersion().toCompleteNumericVersion(),
+                                                         descriptor.getMinZernovaVersion().toCompleteNumericVersion(),
                                                          runtimeVersion.toCompleteNumericVersion()));
     }
   }

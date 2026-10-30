@@ -16,7 +16,7 @@ await writeFile(path.join(root, 'harness/package.json'), JSON.stringify({ name: 
 await build({ entryPoints: ['tests/bundled-runtime-host.ts'], bundle: true, platform: 'node', format: 'cjs', external: ['vscode'], outfile: path.join(root, 'harness/tests.cjs') });
 await writeFile(path.join(root, 'harness/index.cjs'), `exports.activate = async () => { try { await require('./tests.cjs').run(); } catch (error) { require('node:fs').writeFileSync(${JSON.stringify(path.join(root, 'fatal.txt'))}, String(error.stack || error)); } };`);
 const cli = process.env.ZERNOVA_VSCODE_CLI || '/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code';
-const vsix = path.resolve('dist/zernova-studio-kernel-preview-0.3.0-darwin-x64.vsix');
+const vsix = path.resolve('dist/zernova-studio-kernel-preview-0.4.0-darwin-x64.vsix');
 const options = ['--user-data-dir', path.join(root, 'profile'), '--extensions-dir', path.join(root, 'extensions')];
 const installed = spawnSync(cli, [...options, '--install-extension', vsix, '--force'], { encoding: 'utf8', timeout: 120000 });
 await writeFile(path.join(root, 'install.json'), JSON.stringify({ exitCode: installed.status, stdout: installed.stdout, stderr: installed.stderr }, null, 2));

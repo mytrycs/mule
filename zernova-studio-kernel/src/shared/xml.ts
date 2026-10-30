@@ -4,9 +4,9 @@
  */
 import { parser as saxParser } from 'sax';
 
-export const CORE_NS = 'http://www.mulesoft.org/schema/mule/core';
-export const HTTP_NS = 'http://www.mulesoft.org/schema/mule/http';
-export const DOC_NS = 'http://www.mulesoft.org/schema/mule/documentation';
+export const CORE_NS = 'https://schemas.zernova.dev/core';
+export const HTTP_NS = 'https://schemas.zernova.dev/http';
+export const DOC_NS = 'https://schemas.zernova.dev/documentation';
 export const XSI_NS = 'http://www.w3.org/2001/XMLSchema-instance';
 export const MAX_XML_BYTES = 1024 * 1024;
 export const LOG_LEVELS_REAL = ['TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR'] as const;
@@ -22,7 +22,7 @@ export interface RealLogger {
   expressionMode: boolean; notes: string; editable: boolean;
 }
 export type RealComponent = RealListener | RealLogger;
-export interface RealFlow { id: string; name: string; source: RealListener | null; processors: RealLogger[]; editable: boolean; unsupported: string[] }
+export interface RealFlow { id: string; name: string; kind?: 'flow' | 'sub-flow'; source: RealListener | null; processors: RealLogger[]; editable: boolean; unsupported: string[] }
 export interface IntegrationModel { valid: boolean; flows: RealFlow[]; configs: RealHttpConfig[]; diagnostics: XmlDiagnostic[] }
 export interface ComponentValues {
   displayName?: string; configId?: string; path?: string; allowedMethods?: string; message?: string;
@@ -118,6 +118,30 @@ function lexicalTree(text: string): { root?: Element; all: Element[]; rootCount:
   return { root, all, rootCount };
 }
 
+/** Explicit legacy import. Edit only XML names and namespace/schema attributes;
+ * comments, CDATA, expressions and ordinary attribute values remain untouched. */
+export function convertLegacyIntegrationXml(text: string): string {
+  if (byteLength(text) > MAX_XML_BYTES || /<!DOCTYPE|<!ENTITY/i.test(text) || !validXmlCharacters(text)) throw new XmlEditError('Legacy XML exceeds the supported size or uses unsupported declarations.');
+  saxParser(true, { xmlns: true, strictEntities: true }).write(text).close();
+  const tree = lexicalTree(text), root = tree.root;
+  const legacy = 'http://www.mulesoft.org/schema/mule';
+  if (!root || tree.rootCount !== 1 || root.uri !== legacy + '/core' || root.local !== 'mule') throw new XmlEditError('Expected one legacy Mule XML root.');
+  const edits: SourceEdit[] = [];
+  const prefix = root.name.includes(':') ? root.name.slice(0, root.name.indexOf(':') + 1) : '';
+  edits.push({ start: root.start + 1, end: root.start + 1 + root.name.length, text: prefix + 'zernova' });
+  if (!root.selfClosing) edits.push({ start: root.closeStart + 2, end: root.closeStart + 2 + root.name.length, text: prefix + 'zernova' });
+  for (const node of tree.all) for (const attr of node.attributes) {
+    if (attr.name === 'xmlns' || attr.name.startsWith('xmlns:') || attr.name.endsWith(':schemaLocation')) {
+      let next = attr.value.split(legacy).join('https://schemas.zernova.dev');
+      next = next.replace(/\/mule((?:-[\w-]+)?\.xsd)/g, '/zernova$1');
+      if (next !== attr.value) edits.push({ start: attr.valueStart, end: attr.valueEnd, text: escapedAttribute(next, attr.quote) });
+    }
+  }
+  for (const edit of edits.sort((a, b) => b.start - a.start)) text = text.slice(0, edit.start) + edit.text + text.slice(edit.end);
+  if (!parseIntegration(text).valid) throw new XmlEditError('Converted XML did not pass ZERNOVA parsing.');
+  return text;
+}
+
 function validXmlCharacters(text: string): boolean {
   for (const character of text) { const c = character.codePointAt(0)!; if (!(c === 9 || c === 10 || c === 13 || c >= 0x20 && c <= 0xd7ff || c >= 0xe000 && c <= 0xfffd || c >= 0x10000 && c <= 0x10ffff)) return false; }
   return true;
@@ -149,7 +173,7 @@ function parseInternal(text: string): Parsed {
     }
   }
   parsed.root = tree.root; parsed.all = tree.all;
-  if (!tree.root || !is(tree.root, CORE_NS, 'mule')) { issue('The root must be mule in the Mule core namespace.'); return parsed; }
+  if (!tree.root || !is(tree.root, CORE_NS, 'zernova')) { issue('The root must be zernova in the ZERNOVA core namespace.'); return parsed; }
   model.valid = true;
   const docIds = new Set<string>();
   for (const n of tree.all) { const id = namespacedAttribute(n, DOC_NS, 'id')?.value; if (id && docIds.has(id)) issue('Duplicate documentation ID: ' + id, n.start, n.openEnd, 'duplicate-id'); if (id) docIds.add(id); }
@@ -165,11 +189,11 @@ function parseInternal(text: string): Parsed {
     if (config.protocol !== 'HTTP') { config.editable = false; issue('HTTPS/TLS is preserved but outside this milestone.', n.start, n.openEnd, 'unsupported', 'warning'); }
   }
   const flowNames = new Set<string>();
-  for (const [flowIndex, n] of tree.root.children.filter(n => is(n, CORE_NS, 'flow')).entries()) {
+  for (const [flowIndex, n] of tree.root.children.filter(n => is(n, CORE_NS, 'flow') || is(n, CORE_NS, 'sub-flow')).entries()) {
     const name = value(n, 'name'), id = 'flow:' + name;
     const sources = n.children.filter(c => is(c, HTTP_NS, 'listener'));
     const unsupported = n.children.filter(c => !is(c, HTTP_NS, 'listener') && !is(c, CORE_NS, 'logger')).map(c => c.name);
-    const flow: RealFlow = { id, name, source: null, processors: [], editable: unsupported.length === 0 && sources.length <= 1 && (sources.length === 0 || n.children[0] === sources[0]), unsupported };
+    const flow: RealFlow = { id, name, kind: n.local as 'flow' | 'sub-flow', source: null, processors: [], editable: unsupported.length === 0 && sources.length <= 1 && (sources.length === 0 || n.children[0] === sources[0]) && (n.local !== 'sub-flow' || sources.length === 0), unsupported };
     model.flows.push(flow); parsed.flowNodes.set(id, n);
     if (!name || flowNames.has(name)) issue('Flow names must be present and unique: ' + name, n.start, n.openEnd, 'flow-name');
     flowNames.add(name);
@@ -206,7 +230,7 @@ function parseInternal(text: string): Parsed {
 
 export function parseIntegration(text: string): IntegrationModel { return parseInternal(text).model; }
 export function createIntegrationXml(): string {
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<mule xmlns="${CORE_NS}"\n      xmlns:http="${HTTP_NS}"\n      xmlns:doc="${DOC_NS}"\n      xmlns:xsi="${XSI_NS}"\n      xsi:schemaLocation="${CORE_NS} ${CORE_NS}/current/mule.xsd ${HTTP_NS} ${HTTP_NS}/current/mule-http.xsd">\n</mule>\n`;
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<zernova xmlns="${CORE_NS}"\n      xmlns:http="${HTTP_NS}"\n      xmlns:doc="${DOC_NS}"\n      xmlns:xsi="${XSI_NS}"\n      xsi:schemaLocation="${CORE_NS} ${CORE_NS}/current/zernova.xsd ${HTTP_NS} ${HTTP_NS}/current/zernova-http.xsd">\n</zernova>\n`;
 }
 
 export class XmlEditError extends Error { constructor(message: string) { super(message); this.name = 'XmlEditError'; } }
@@ -269,8 +293,8 @@ function ensureNamespaces(text: string, operation: XmlOperation): string {
     const schema = namespacedAttribute(root, XSI_NS, 'schemaLocation'), pairs = (schema?.value ?? '').trim().split(/\s+/).filter(Boolean);
     if (pairs.length % 2) throw new XmlEditError('schemaLocation must contain namespace/location pairs. Repair it in XML first.');
     const namespacesInSchema = new Set(pairs.filter((_, index) => index % 2 === 0));
-    if (!namespacesInSchema.has(CORE_NS)) pairs.push(CORE_NS, CORE_NS + '/current/mule.xsd');
-    if (!namespacesInSchema.has(HTTP_NS)) pairs.push(HTTP_NS, HTTP_NS + '/current/mule-http.xsd');
+    if (!namespacesInSchema.has(CORE_NS)) pairs.push(CORE_NS, CORE_NS + '/current/zernova.xsd');
+    if (!namespacesInSchema.has(HTTP_NS)) pairs.push(HTTP_NS, HTTP_NS + '/current/zernova-http.xsd');
     if (!schema || pairs.length !== schema.value.trim().split(/\s+/).length) setAttribute(root, schema?.name ?? qname(root, XSI_NS, 'schemaLocation'), pairs.join(' '), edits);
   }
   return applyEdits(text, edits);
@@ -321,6 +345,7 @@ export function applyOperation(original: string, operation: XmlOperation): XmlEd
     setAttribute(node, 'name', operation.name, edits); selectionId = 'flow:' + operation.name;
   } else if (operation.kind === 'insert') {
     const { node, flow } = supportedFlow(parsed, operation.flowId);
+    if (flow.kind === 'sub-flow' && operation.component === 'listener') throw new XmlEditError('A subflow cannot contain an HTTP Listener. Add the Listener to its calling flow.');
     selectionId = newId();
     const docName = qname(node, DOC_NS, 'name'), docId = qname(node, DOC_NS, 'id');
     if (operation.component === 'listener') {

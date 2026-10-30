@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore"
-      xmlns:test="http://www.mulesoft.org/schema/mule/test"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-                http://www.mulesoft.org/schema/mule/test http://www.mulesoft.org/schema/mule/test/current/mule-test.xsd
-               http://www.mulesoft.org/schema/mule/petstore http://www.mulesoft.org/schema/mule/petstore/current/mule-petstore.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:petstore="https://schemas.zernova.dev/petstore"
+      xmlns:test="https://schemas.zernova.dev/test"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+                https://schemas.zernova.dev/test https://schemas.zernova.dev/test/current/zernova-test.xsd
+               https://schemas.zernova.dev/petstore https://schemas.zernova.dev/petstore/current/zernova-petstore.xsd">
 
     <object name="adopt" class="com.zernova.test.module.extension.source.PollingSourceWatermarkTestCase$AdoptionProcessor"/>
 
@@ -60,4 +60,4 @@
         <flow-ref name="adopt"/>
     </flow>
 
-</mule>
+</zernova>

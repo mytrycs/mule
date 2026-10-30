@@ -174,7 +174,7 @@ public interface ZernovaConfiguration {
    *
    * @since 4.4.0
    */
-  Optional<ZernovaVersion> getMinMuleVersion();
+  Optional<ZernovaVersion> getMinZernovaVersion();
 
   /**
    * @return the default Correlation ID generator for every source. Empty value will be returned if internal mule correlation id

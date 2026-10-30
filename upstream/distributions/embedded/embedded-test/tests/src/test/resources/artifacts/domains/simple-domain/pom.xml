@@ -7,7 +7,7 @@
     <groupId>test</groupId>
     <artifactId>simple-domain</artifactId>
     <version>1.0.0</version>
-    <packaging>mule-domain</packaging>
+    <packaging>zernova-domain</packaging>
 
     <dependencyManagement>
         <dependencies>
@@ -25,12 +25,12 @@
         <dependency>
             <groupId>com.zernova.connectors</groupId>
             <artifactId>mule-http-connector</artifactId>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
         </dependency>
         <dependency>
             <groupId>com.zernova.extensions</groupId>
             <artifactId>smart-connector-using-core</artifactId>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <version>1.0.0</version>
         </dependency>
     </dependencies>

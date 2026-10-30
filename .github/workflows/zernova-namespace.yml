@@ -21,10 +21,6 @@ jobs:
         run: |
           echo "JAVA_HOME=$JAVA_HOME_17_X64" >> "$GITHUB_ENV"
           echo "$JAVA_HOME_17_X64/bin" >> "$GITHUB_PATH"
-      - uses: actions/cache@v4
-        with:
-          path: .zernova-m2
-          key: zernova-namespace-${{ runner.os }}-${{ hashFiles('zernova-build/namespace-map.json', 'zernova-build/refactor_namespace.py', 'upstream/**/pom.xml', 'pom.xml') }}
       - name: Build renamed API, kernel and standalone from tracked source
         run: bash zernova-build/build-source.sh
       - name: Verify API serialization, boot, container, launcher, HTTP and route models
@@ -36,13 +32,13 @@ jobs:
             upstream/distributions/standalone/target/mule-standalone-4.10.0-SNAPSHOT.zip
             zernova-build-evidence/source-build-exit-code.txt
             zernova-build-evidence/source-build-revision.json
-          retention-days: 7
+          retention-days: 30
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
           name: zernova-renamed-source-evidence
           path: zernova-build-evidence/
-          retention-days: 7
+          retention-days: 30
   native:
     needs: source
     strategy:
@@ -56,7 +52,7 @@ jobs:
           - { runner: windows-2025, target: win32-x64, arch: x64 }
           - { runner: windows-11-arm, target: win32-arm64, arch: arm64 }
     runs-on: ${{ matrix.runner }}
-    timeout-minutes: 25
+    timeout-minutes: 40
     steps:
       - name: Preserve source bytes
         shell: bash
@@ -83,12 +79,35 @@ jobs:
           npm ci
           npm run build:portable
           python zernova-studio-build/create-fixture.py
-          python zernova-studio-build/prepare-bootstrap-native.py "$ZN_TARGET"
+          python zernova-studio-build/prepare-inputs.py "$ZN_TARGET"
           python zernova-studio-build/prepare-native.py "$ZN_TARGET"
       - name: Run real application acceptance
         shell: bash
         working-directory: zernova-studio-build
         run: node tests/native-runtime.cjs
+      - name: Package and test installed Studio on stable VS Code
+        shell: bash
+        working-directory: zernova-studio-kernel
+        run: |
+          set -euo pipefail
+          cp -R ../zernova-studio-build/runtime runtime
+          npm ci
+          npm run typecheck
+          npm test
+          npm run package
+          if [ "${{ runner.os }}" = Linux ]; then
+            xvfb-run -a node scripts/test-installed-ci.mjs
+          else
+            node scripts/test-installed-ci.mjs
+          fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: zernova-studio-${{ matrix.target }}
+          path: |
+            zernova-studio-kernel/dist/*.vsix
+            zernova-studio-kernel/evidence/
+          retention-days: 30
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
@@ -96,4 +115,4 @@ jobs:
           path: |
             zernova-studio-build/evidence/
             zernova-build-evidence/runtime-audit.json
-          retention-days: 7
+          retention-days: 30

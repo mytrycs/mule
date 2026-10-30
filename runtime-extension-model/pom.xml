@@ -84,11 +84,11 @@
         </dependency>
         <dependency>
             <groupId>com.zernova.runtime</groupId>
-            <artifactId>mule-artifact-ast</artifactId>
+            <artifactId>zernova-artifact-ast</artifactId>
         </dependency>
         <dependency>
             <groupId>com.zernova.runtime</groupId>
-            <artifactId>mule-artifact-ast-dependency-graph</artifactId>
+            <artifactId>zernova-artifact-ast-dependency-graph</artifactId>
         </dependency>
         <dependency>
             <groupId>com.zernova.runtime</groupId>
@@ -124,7 +124,7 @@
         </dependency>
         <dependency>
             <groupId>com.zernova.runtime</groupId>
-            <artifactId>mule-artifact-ast-xml-parser</artifactId>
+            <artifactId>zernova-artifact-ast-xml-parser</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

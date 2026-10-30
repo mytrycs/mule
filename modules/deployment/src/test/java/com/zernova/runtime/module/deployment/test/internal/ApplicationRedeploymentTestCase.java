@@ -80,10 +80,10 @@ public class ApplicationRedeploymentTestCase extends AbstractApplicationDeployme
         .dependingOn(callbackExtensionPlugin)
         .containingClass(echoTestClassFile, "org/foo/EchoTest.class");
     dummyAppDescriptorWithPropsDependencyFileBuilder = appFileBuilder("dummy-app-with-props-dependencies")
-        .withMinMuleVersion("4.3.0") // MULE-19038
+        .withMinZernovaVersion("4.3.0") // MULE-19038
         .definedBy("dummy-app-with-props-dependencies-config.xml");
     dummyAppDescriptorWithStoppedFlowFileBuilder = appFileBuilder("dummy-app-with-stopped-flow-config")
-        .withMinMuleVersion("4.3.0") // MULE-19127
+        .withMinZernovaVersion("4.3.0") // MULE-19127
         .definedBy("dummy-app-with-stopped-flow-config.xml")
         .dependingOn(callbackExtensionPlugin)
         .containingClass(echoTestClassFile, "org/foo/EchoTest.class");

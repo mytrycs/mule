@@ -7,7 +7,7 @@
 /* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package com.zernova.runtime.module.deployment.test.internal;
 
-import static com.zernova.runtime.api.deployment.meta.Product.MULE;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA;
 import static com.zernova.runtime.container.api.ZernovaFoldersUtil.getMuleBaseFolder;
 import static com.zernova.runtime.container.internal.ClasspathModuleDiscoverer.EXPORTED_CLASS_PACKAGES_PROPERTY;
 import static com.zernova.runtime.container.internal.ClasspathModuleDiscoverer.EXPORTED_RESOURCE_PROPERTY;
@@ -137,10 +137,10 @@ public class ApplicationDeploymentClassloadingTestCase extends AbstractApplicati
         .containingClass(echoTestClassFile,
                          "org/foo/EchoTest.class");
     dummyAppDescriptorWithPropsDependencyFileBuilder = appFileBuilder("dummy-app-with-props-dependencies")
-        .withMinMuleVersion("4.3.0") // MULE-19038
+        .withMinZernovaVersion("4.3.0") // MULE-19038
         .definedBy("dummy-app-with-props-dependencies-config.xml");
     dummyAppDescriptorWithStoppedFlowFileBuilder = appFileBuilder("dummy-app-with-stopped-flow-config")
-        .withMinMuleVersion("4.3.0") // MULE-19127
+        .withMinZernovaVersion("4.3.0") // MULE-19127
         .definedBy("dummy-app-with-stopped-flow-config.xml")
         .dependingOn(callbackExtensionPlugin)
         .containingClass(echoTestClassFile, "org/foo/EchoTest.class");
@@ -325,7 +325,7 @@ public class ApplicationDeploymentClassloadingTestCase extends AbstractApplicati
     String extensionName = "extension-with-classloader-model-id-non-existing";
 
     ZernovaPluginModel.ZernovaPluginModelBuilder builder =
-        new ZernovaPluginModel.ZernovaPluginModelBuilder().setName(extensionName).setMinMuleVersion(MIN_MULE_VERSION);
+        new ZernovaPluginModel.ZernovaPluginModelBuilder().setName(extensionName).setMinZernovaVersion(MIN_MULE_VERSION);
     builder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder().setId("a-non-existing-ID-describer")
         .addProperty("aProperty", "aValue").build());
     builder.withBundleDescriptorLoader(createBundleDescriptorLoader(extensionName, MULE_PLUGIN_CLASSIFIER,
@@ -390,7 +390,7 @@ public class ApplicationDeploymentClassloadingTestCase extends AbstractApplicati
             .dependingOn(echoPlugin);
 
     File mavenRepoFolder = Paths.get(getMuleBaseFolder().getAbsolutePath(), "repository").toFile();
-    File testGroupIdRepoFolder = Paths.get(mavenRepoFolder.getAbsolutePath(), "org", "mule", "test").toFile();
+    File testGroupIdRepoFolder = Paths.get(mavenRepoFolder.getAbsolutePath(), "org", "zernova", "test").toFile();
 
     JarFileBuilder testJarFileDependency = new JarFileBuilder("echoTestJar", echoTestJarFile);
     copyFile(testJarFileDependency.getArtifactPomFile(),
@@ -401,14 +401,14 @@ public class ApplicationDeploymentClassloadingTestCase extends AbstractApplicati
     copyFile(echoPlugin.getArtifactPomFile(),
              Paths.get(testGroupIdRepoFolder.getAbsolutePath(), "echoPlugin", "1.0.0", "echoPlugin-1.0.0.pom").toFile());
     copyFile(echoPlugin.getArtifactFile(), Paths
-        .get(testGroupIdRepoFolder.getAbsolutePath(), "echoPlugin", "1.0.0", "echoPlugin-1.0.0-mule-plugin.jar").toFile());
+        .get(testGroupIdRepoFolder.getAbsolutePath(), "echoPlugin", "1.0.0", "echoPlugin-1.0.0-zernova-plugin.jar").toFile());
 
     copyCallbackExtensionFiles(callbackExtensionPlusPlugin3Echo, testGroupIdRepoFolder);
 
     copyFile(dependantPlugin.getArtifactPomFile(), Paths
         .get(testGroupIdRepoFolder.getAbsolutePath(), "dependantPlugin", "1.0.0", "dependantPlugin-1.0.0.pom").toFile());
     copyFile(dependantPlugin.getArtifactFile(), Paths
-        .get(testGroupIdRepoFolder.getAbsolutePath(), "dependantPlugin", "1.0.0", "dependantPlugin-1.0.0-mule-plugin.jar")
+        .get(testGroupIdRepoFolder.getAbsolutePath(), "dependantPlugin", "1.0.0", "dependantPlugin-1.0.0-zernova-plugin.jar")
         .toFile());
 
     final TestArtifactDescriptor artifactFileBuilder = appFileBuilder("plugin-depending-on-plugin-app")
@@ -428,7 +428,7 @@ public class ApplicationDeploymentClassloadingTestCase extends AbstractApplicati
         .get(testGroupIdRepoFolder.getAbsolutePath(), "callbackExtensionPlugin", "1.0.0", "callbackExtensionPlugin-1.0.0.pom")
         .toFile());
     copyFile(pluginFileBuilder.getArtifactFile(), Paths.get(testGroupIdRepoFolder.getAbsolutePath(), "callbackExtensionPlugin",
-                                                            "1.0.0", "callbackExtensionPlugin-1.0.0-mule-plugin.jar")
+                                                            "1.0.0", "callbackExtensionPlugin-1.0.0-zernova-plugin.jar")
         .toFile());
     copyFile(callbackExtensionJarFile, Paths
         .get(testGroupIdRepoFolder.getAbsolutePath(), "callbackExtension", "1.0.0", "callbackExtension-1.0.0.jar").toFile());
@@ -475,7 +475,7 @@ public class ApplicationDeploymentClassloadingTestCase extends AbstractApplicati
 
     if (lightweight) {
       File mavenRepoFolder = Paths.get(getMuleBaseFolder().getAbsolutePath(), "repository").toFile();
-      File testGroupIdRepoFolder = Paths.get(mavenRepoFolder.getAbsolutePath(), "org", "mule", "test").toFile();
+      File testGroupIdRepoFolder = Paths.get(mavenRepoFolder.getAbsolutePath(), "org", "zernova", "test").toFile();
 
       JarFileBuilder spiApiJarFileDependency = new JarFileBuilder("spi-api", spiApiJarFile);
       copyFile(spiApiJarFileDependency.getArtifactPomFile(),
@@ -501,13 +501,13 @@ public class ApplicationDeploymentClassloadingTestCase extends AbstractApplicati
       copyFile(echoPlugin.getArtifactFile(),
                Paths
                    .get(testGroupIdRepoFolder.getAbsolutePath(), "echoPlugin", "1.0.0",
-                        "echoPlugin-1.0.0-mule-plugin.jar")
+                        "echoPlugin-1.0.0-zernova-plugin.jar")
                    .toFile());
 
       copyFile(spiUserPlugin.getArtifactPomFile(),
                Paths.get(testGroupIdRepoFolder.getAbsolutePath(), "spiUserPlugin", "1.0.0", "spiUserPlugin-1.0.0.pom").toFile());
       copyFile(spiUserPlugin.getArtifactFile(),
-               Paths.get(testGroupIdRepoFolder.getAbsolutePath(), "spiUserPlugin", "1.0.0", "spiUserPlugin-1.0.0-mule-plugin.jar")
+               Paths.get(testGroupIdRepoFolder.getAbsolutePath(), "spiUserPlugin", "1.0.0", "spiUserPlugin-1.0.0-zernova-plugin.jar")
                    .toFile());
 
       copyCallbackExtensionFiles(callbackExtensionPlugin, testGroupIdRepoFolder);
@@ -998,7 +998,7 @@ public class ApplicationDeploymentClassloadingTestCase extends AbstractApplicati
 
   private ArtifactPluginFileBuilder createPrivilegedExtensionPlugin() {
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName(PRIVILEGED_EXTENSION_ARTIFACT_ID).setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName(PRIVILEGED_EXTENSION_ARTIFACT_ID).setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader(PRIVILEGED_EXTENSION_ARTIFACT_ID, MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, "1.0.0"));
     mulePluginModelBuilder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder()

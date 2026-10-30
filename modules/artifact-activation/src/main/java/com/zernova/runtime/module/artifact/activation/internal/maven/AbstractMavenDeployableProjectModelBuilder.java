@@ -302,7 +302,7 @@ public abstract class AbstractMavenDeployableProjectModelBuilder extends Abstrac
     deployableMavenBundleDependencies =
         deployableDependencyResolver.resolveDeployableDependencies(pom, isIncludeTestDependencies(), getMavenReactorResolver());
 
-    // MTF/MUnit declares the mule-plugin being tested as system scope, therefore its transitive dependencies
+    // MTF/MUnit declares the zernova-plugin being tested as system scope, therefore its transitive dependencies
     // will not be included in the dependency graph of the deployable artifact and need to be resolved separately
     deployableMavenBundleDependencies = resolveSystemScopeDependencies(mavenClient, deployableMavenBundleDependencies);
 

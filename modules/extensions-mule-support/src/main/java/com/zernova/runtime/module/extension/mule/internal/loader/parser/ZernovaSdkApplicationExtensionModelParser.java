@@ -79,7 +79,7 @@ public class ZernovaSdkApplicationExtensionModelParser extends ZernovaSdkExtensi
   }
 
   @Override
-  public Optional<MinZernovaVersionParser> getResolvedMinMuleVersion() {
+  public Optional<MinZernovaVersionParser> getResolvedMinZernovaVersion() {
     return of(new ZernovaSdkMinZernovaVersionParser(format("Application %s has min mule version %s because the Mule Sdk was introduced in that version.",
                                                      extensionName, MIN_MULE_VERSION)));
   }

@@ -48,7 +48,7 @@ public class ApplicationZernovaContextBuilder extends SupportsPropertiesZernovaC
     }
     if (executionClassLoader instanceof ZernovaArtifactClassLoader) {
       configuration
-          .setMinMuleVersion(((ZernovaArtifactClassLoader) executionClassLoader).getArtifactDescriptor().getMinMuleVersion());
+          .setMinZernovaVersion(((ZernovaArtifactClassLoader) executionClassLoader).getArtifactDescriptor().getMinZernovaVersion());
     }
     return configuration;
   }

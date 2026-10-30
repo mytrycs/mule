@@ -1,0 +1,17 @@
+{
+  "name": "Db-Additional-Dep",
+  "minZernovaVersion": "4.0.0",
+  "requiredProduct": "ZERNOVA",
+  "configs": ["testing.xml"],
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": []
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  }
+}

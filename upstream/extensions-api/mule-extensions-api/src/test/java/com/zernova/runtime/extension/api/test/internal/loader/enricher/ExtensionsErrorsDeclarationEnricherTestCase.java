@@ -93,7 +93,7 @@ public class ExtensionsErrorsDeclarationEnricherTestCase {
     assertThat(extensionError.getType(), equalTo(VALIDATION.getType()));
     ErrorModel errorParent = extensionError.getParent().get();
     assertThat(errorParent.getType(), equalTo(VALIDATION.getType()));
-    assertThat(errorParent.getNamespace(), equalTo("MULE"));
+    assertThat(errorParent.getNamespace(), equalTo("ZERNOVA"));
   }
 
   @Test
@@ -142,7 +142,7 @@ public class ExtensionsErrorsDeclarationEnricherTestCase {
 
   private ErrorModel buildValidationError() {
     return newError(VALIDATION.getType(), NAMESPACE)
-        .withParent(newError(ZernovaErrors.VALIDATION.getType(), "MULE").build())
+        .withParent(newError(ZernovaErrors.VALIDATION.getType(), "ZERNOVA").build())
         .build();
   }
 

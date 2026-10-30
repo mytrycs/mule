@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xmlns:privileged="http://www.mulesoft.org/schema/mule/privileged"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-      http://www.mulesoft.org/schema/mule/privileged http://www.mulesoft.org/schema/mule/privileged/current/mule-privileged.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="https://schemas.zernova.dev/core"
+      xmlns:privileged="https://schemas.zernova.dev/privileged"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+      https://schemas.zernova.dev/privileged https://schemas.zernova.dev/privileged/current/zernova-privileged.xsd">
 
 
     <flow name="privilegedNonBlocking">
         <privileged:do-something-async />
     </flow>
-</mule>
+</zernova>

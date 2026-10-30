@@ -228,7 +228,7 @@ public class BundlePluginDependenciesResolver {
                                                                                             .build()))
                                                                                         .build());
                   } else {
-                    throw new ArtifactActivationException(createStaticMessage(format("Transitive dependencies should be resolved by now for mule-plugin '%s', but '%s' is missing",
+                    throw new ArtifactActivationException(createStaticMessage(format("Transitive dependencies should be resolved by now for zernova-plugin '%s', but '%s' is missing",
                                                                                      pluginDescriptor.getBundleDescriptor(),
                                                                                      dependency.getDescriptor())));
                   }

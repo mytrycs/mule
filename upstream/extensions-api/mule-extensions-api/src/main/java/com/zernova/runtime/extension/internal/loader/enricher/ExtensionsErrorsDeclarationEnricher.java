@@ -114,8 +114,8 @@ public class ExtensionsErrorsDeclarationEnricher implements WalkingDeclarationEn
       if (validationErrorModel == null) {
         validationErrorModel = getValidationError(extensionDeclaration.getErrorModels()).orElse(null);
         if (validationErrorModel == null) {
-          ErrorModel parent = newError(VALIDATION.getType(), "MULE")
-              .withParent(newError(ANY.getType(), "MULE").build())
+          ErrorModel parent = newError(VALIDATION.getType(), "ZERNOVA")
+              .withParent(newError(ANY.getType(), "ZERNOVA").build())
               .build();
           validationErrorModel = newError(VALIDATION.getType(), getExtensionsNamespace(extensionDeclaration))
               .withParent(parent)

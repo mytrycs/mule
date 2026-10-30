@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module name="module-json-custom-types"
-        xmlns="http://www.mulesoft.org/schema/mule/module"
-        xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+        xmlns="https://schemas.zernova.dev/module"
+        xmlns:zernova="https://schemas.zernova.dev/core"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="
-           http://www.mulesoft.org/schema/mule/module http://www.mulesoft.org/schema/mule/module/current/mule-module.xsd
-           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+           https://schemas.zernova.dev/module https://schemas.zernova.dev/module/current/zernova-module.xsd
+           https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd">
 
     <operation name="operation-with-custom-types">
         <parameters>
             <parameter name="value" type="Type1"/>
         </parameters>
         <body>
-            <mule:set-payload value="#[vars.value]"/>
+            <zernova:set-payload value="#[vars.value]"/>
         </body>
         <output type="Type2"/>
     </operation>
@@ -22,7 +22,7 @@
             <parameter name="aParameter" type="Type1"/>
         </parameters>
         <body>
-            <mule:set-payload value="#[output application/java --- vars.aParameter is {street_type: String , street_name: String} ]"/>
+            <zernova:set-payload value="#[output application/java --- vars.aParameter is {street_type: String , street_name: String} ]"/>
         </body>
         <output type="boolean"/>
     </operation>
@@ -32,7 +32,7 @@
             <parameter name="rules" type="Type1" role="CONTENT"/>
         </parameters>
         <body>
-            <mule:set-payload value="#[output application/java --- vars.rules is {street_type: String , street_name: String} ]"/>
+            <zernova:set-payload value="#[output application/java --- vars.rules is {street_type: String , street_name: String} ]"/>
         </body>
         <output type="boolean"/>
     </operation>
@@ -42,14 +42,14 @@
             <parameter name="aParameter" type="Type2"/>
         </parameters>
         <body>
-            <mule:set-payload value="#[output application/java --- vars.aParameter is {firstName: String , lastName: String, age: Number}]"/>
+            <zernova:set-payload value="#[output application/java --- vars.aParameter is {firstName: String , lastName: String, age: Number}]"/>
         </body>
         <output type="boolean"/>
     </operation>
 
     <operation name="get-hardcoded-type1">
         <body>
-            <mule:set-payload value="#[{ 'street_type': 'Avenue', 'street_name': 'calle 7'}]" />
+            <zernova:set-payload value="#[{ 'street_type': 'Avenue', 'street_name': 'calle 7'}]" />
         </body>
         <output type="Type1"/>
     </operation>
@@ -59,7 +59,7 @@
             <parameter name="aParameter" type="Type1"/>
         </parameters>
         <body>
-            <mule:set-payload value="#[output application/java --- { 'street_type': vars.aParameter.street_type, 'street_name': vars.aParameter.street_name }]"/>
+            <zernova:set-payload value="#[output application/java --- { 'street_type': vars.aParameter.street_type, 'street_name': vars.aParameter.street_name }]"/>
         </body>
         <output type="Type1"/>
     </operation>
@@ -67,7 +67,7 @@
 
     <operation name="get-hardcoded-type1-as-json">
         <body>
-            <mule:set-payload value="#[output application/json --- { 'street_type': 'Avenue', 'street_name': 'calle 7'}]" />
+            <zernova:set-payload value="#[output application/json --- { 'street_type': 'Avenue', 'street_name': 'calle 7'}]" />
         </body>
         <output type="Type1"/>
     </operation>
@@ -77,7 +77,7 @@
             <parameter name="street" type="string"/>
         </parameters>
         <body>
-            <mule:set-payload value="#[output application/java --- vars.street == 'Avenue']" />
+            <zernova:set-payload value="#[output application/java --- vars.street == 'Avenue']" />
         </body>
         <output type="boolean"/>
     </operation>
@@ -88,9 +88,9 @@
             <parameter name="contentArray" type="TypeStringArray" role="CONTENT"/>
         </parameters>
         <body>
-            <mule:set-variable variableName="behaviourAsString" value="#[output application/java  --- vars.behaviourArray joinBy '-']" />
-            <mule:set-variable variableName="contentAsString" value="#[output application/java  --- vars.contentArray joinBy '-']" />
-            <mule:set-payload value="#[vars.behaviourAsString ++ '_' ++ vars.contentAsString]"/>
+            <zernova:set-variable variableName="behaviourAsString" value="#[output application/java  --- vars.behaviourArray joinBy '-']" />
+            <zernova:set-variable variableName="contentAsString" value="#[output application/java  --- vars.contentArray joinBy '-']" />
+            <zernova:set-payload value="#[vars.behaviourAsString ++ '_' ++ vars.contentAsString]"/>
         </body>
         <output type="string"/>
     </operation>
@@ -101,10 +101,10 @@
             <parameter name="contentArray" type="TypeStringArray" role="CONTENT"/>
         </parameters>
         <body>
-            <mule:set-variable variableName="idsAsString" value="#[output application/java  --- vars.ids joinBy '-']"/>
-            <mule:set-variable variableName="contentAsString"
+            <zernova:set-variable variableName="idsAsString" value="#[output application/java  --- vars.ids joinBy '-']"/>
+            <zernova:set-variable variableName="contentAsString"
                                value="#[output application/java  --- vars.contentArray joinBy '-']"/>
-            <mule:set-payload value="#[vars.idsAsString ++ '_' ++ vars.contentAsString]"/>
+            <zernova:set-payload value="#[vars.idsAsString ++ '_' ++ vars.contentAsString]"/>
         </body>
         <output type="string"/>
     </operation>
@@ -114,7 +114,7 @@
             <parameter name="input-data" type="input-data-type" use="REQUIRED" role="PRIMARY"/>
         </parameters>
         <body>
-            <mule:set-payload value="#[vars['input-data']]"/>
+            <zernova:set-payload value="#[vars['input-data']]"/>
         </body>
         <output type="string"/>
     </operation>

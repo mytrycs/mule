@@ -46,7 +46,7 @@ public class ErrorsInZernovaSdkPluginExtensionModelTestCase extends AbstractZern
   public static void setUp() {
     expectedErrors.put("raiseCustom", singleton("ERRORS:CUSTOM"));
     expectedErrors.put("raiseOther", singleton("ERRORS:OTHER"));
-    expectedErrors.put("silencingOneAndRaisingOther", asSet("ERRORS:OTHER", "MULE:TRANSACTION"));
+    expectedErrors.put("silencingOneAndRaisingOther", asSet("ERRORS:OTHER", "ZERNOVA:TRANSACTION"));
 
     // TODO (W-11471782): should be "ERRORS:HEISENBERG_HEALTH" and "ERRORS:HEISENBERG_OAUTH2"
     expectedErrors.put("heisenbergCureCancer", asSet("HEISENBERG:HEALTH", "HEISENBERG:OAUTH2"));
@@ -64,8 +64,8 @@ public class ErrorsInZernovaSdkPluginExtensionModelTestCase extends AbstractZern
     ExtensionModel extensionModel = getExtensionModelFrom("extensions/extension-with-errors.xml");
     Set<String> errorsAsString = getRaisedErrors(extensionModel);
     MatcherAssert.assertThat(errorsAsString,
-                             containsInAnyOrder("MULE:ANY", "MULE:RETRY_EXHAUSTED", "ERRORS:CUSTOM", "ERRORS:CONNECTIVITY",
-                                                "ERRORS:RETRY_EXHAUSTED", "MULE:CONNECTIVITY", "MULE:TRANSACTION", "ERRORS:ONE",
+                             containsInAnyOrder("ZERNOVA:ANY", "ZERNOVA:RETRY_EXHAUSTED", "ERRORS:CUSTOM", "ERRORS:CONNECTIVITY",
+                                                "ERRORS:RETRY_EXHAUSTED", "ZERNOVA:CONNECTIVITY", "ZERNOVA:TRANSACTION", "ERRORS:ONE",
                                                 "ERRORS:OTHER",
                                                 // TODO (W-11471782): should be "ERRORS:HEISENBERG_HEALTH" and
                                                 // "ERRORS:HEISENBERG_OAUTH2"

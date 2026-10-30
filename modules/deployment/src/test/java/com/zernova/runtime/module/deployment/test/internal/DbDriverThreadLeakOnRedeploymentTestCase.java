@@ -35,7 +35,7 @@ public class DbDriverThreadLeakOnRedeploymentTestCase extends DbDriverThreadLeak
   @Parameterized.Parameters(name = "Parallel: {0}, AppName: {1}, Use Plugin: {2}")
   public static List<Object[]> parameters() {
     return asList(new Object[][] {
-        {true, "appWithExtensionPlugin-1.0.0-mule-application",
+        {true, "appWithExtensionPlugin-1.0.0-zernova-application",
             "oracle-db-app"}
     });
   }

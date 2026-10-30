@@ -354,7 +354,7 @@ public final class ExtensionConstants {
    *
    * @since 1.5.0
    */
-  public static final String MULE_SDK_EXTENSION_LOADER_ID = "mule";
+  public static final String MULE_SDK_EXTENSION_LOADER_ID = "zernova";
 
   /**
    * Property name for Mule SDK {@link ExtensionModelLoader} for specifying the extension name

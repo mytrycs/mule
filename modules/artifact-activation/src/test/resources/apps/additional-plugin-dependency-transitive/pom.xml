@@ -5,7 +5,7 @@
     <groupId>com.test</groupId>
     <artifactId>test-app</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>mule-application</packaging>
+    <packaging>zernova-application</packaging>
 
     <name>test-app</name>
 
@@ -29,7 +29,7 @@
                 <version>${mule.maven.plugin.version}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <classifier>mule-application</classifier>
+                    <classifier>zernova-application</classifier>
                     <additionalPluginDependencies>
                         <plugin>
                             <groupId>com.zernova.modules</groupId>
@@ -53,7 +53,7 @@
             <groupId>com.zernova.modules</groupId>
             <artifactId>mule-spring-module</artifactId>
             <version>${mule.spring.module.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
         </dependency>
     </dependencies>
 

@@ -146,7 +146,7 @@ public class ZernovaExtensionExtensionModelTestCase extends AbstractZernovaSdkAs
 
   private ComponentAst getDescriptionComponent(ArtifactAst ast) {
     ComponentIdentifier descriptionIdentifier = ComponentIdentifier.builder()
-        .namespaceUri("http://www.mulesoft.org/schema/mule/mule-extension")
+        .namespaceUri("https://schemas.zernova.dev/mule-extension")
         .namespace("extension")
         .name("description")
         .build();

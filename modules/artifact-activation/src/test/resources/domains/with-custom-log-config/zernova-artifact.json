@@ -1,0 +1,13 @@
+{
+  "name": "basic",
+  "minZernovaVersion": "4.4.0",
+  "requiredProduct": "ZERNOVA",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova"
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  },
+  "logConfigFile": "custom-log4j2.xml"
+}

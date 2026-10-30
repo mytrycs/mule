@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+<zernova xmlns="https://schemas.zernova.dev/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel"
-      xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg"
+      xmlns:marvel="https://schemas.zernova.dev/marvel"
+      xmlns:heisenberg="https://schemas.zernova.dev/heisenberg"
 
-      xmlns:module-stereotypes="http://www.mulesoft.org/schema/mule/module-stereotypes"
+      xmlns:module-stereotypes="https://schemas.zernova.dev/module-stereotypes"
       xsi:schemaLocation="
-       http://www.mulesoft.org/schema/mule/core     http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-       http://www.mulesoft.org/schema/mule/marvel http://www.mulesoft.org/schema/mule/marvel/current/mule-marvel.xsd
-       http://www.mulesoft.org/schema/mule/heisenberg http://www.mulesoft.org/schema/mule/heisenberg/current/mule-heisenberg.xsd
-       http://www.mulesoft.org/schema/mule/module-stereotypes http://www.mulesoft.org/schema/mule/module-stereotypes/current/mule-module-stereotypes.xsd">
+       https://schemas.zernova.dev/core     https://schemas.zernova.dev/core/current/zernova.xsd
+       https://schemas.zernova.dev/marvel https://schemas.zernova.dev/marvel/current/zernova-marvel.xsd
+       https://schemas.zernova.dev/heisenberg https://schemas.zernova.dev/heisenberg/current/zernova-heisenberg.xsd
+       https://schemas.zernova.dev/module-stereotypes https://schemas.zernova.dev/module-stereotypes/current/zernova-module-stereotypes.xsd">
 
     <marvel:iron-man-config name="daIronMan">
         <marvel:odd-missile-connection />
@@ -45,4 +45,4 @@
     <flow name="simpleFlow">
         <set-payload value="a value" />
     </flow>
-</mule>
+</zernova>

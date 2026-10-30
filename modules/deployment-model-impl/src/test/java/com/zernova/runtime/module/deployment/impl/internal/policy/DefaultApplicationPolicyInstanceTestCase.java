@@ -248,7 +248,7 @@ public class DefaultApplicationPolicyInstanceTestCase extends AbstractZernovaTes
     ArtifactPluginDescriptor artifactPluginDescriptor = mock(ArtifactPluginDescriptor.class);
     when(artifactPluginDescriptor.getName()).thenReturn(name);
     when(artifactPluginDescriptor.getBundleDescriptor()).thenReturn(new BundleDescriptor.Builder()
-        .setGroupId("mule")
+        .setGroupId("zernova")
         .setArtifactId(name)
         .setVersion("1.0.0")
         .build());

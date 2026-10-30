@@ -40,7 +40,7 @@ public class ImmutableConfigurationModel extends AbstractComplexModel implements
   private final StereotypeModel stereotype;
   private final List<ParameterGroupModel> parameterGroupModels;
   private final Set<ExternalLibraryModel> externalLibraryModels;
-  private final ZernovaVersion minMuleVersion;
+  private final ZernovaVersion minZernovaVersion;
 
   /**
    * Creates a new instance with the given state
@@ -118,7 +118,7 @@ public class ImmutableConfigurationModel extends AbstractComplexModel implements
    * @param modelProperties       a {@link Set} of custom properties which extend this model
    * @param deprecationModel      a {@link DeprecationModel} describing if the configuration is deprecated. A null value means it
    *                              is not deprecated.
-   * @param minMuleVersion        the min mule version of the configuration
+   * @param minZernovaVersion        the min mule version of the configuration
    * @throws IllegalArgumentException if {@code name} is blank or {@code configurationFactory} is {@code null}
    * @since 1.5
    */
@@ -133,12 +133,12 @@ public class ImmutableConfigurationModel extends AbstractComplexModel implements
                                      StereotypeModel stereotype,
                                      Set<ModelProperty> modelProperties,
                                      DeprecationModel deprecationModel,
-                                     ZernovaVersion minMuleVersion) {
+                                     ZernovaVersion minZernovaVersion) {
     super(name, description, operationModels, connectionProviders, sourceModels, displayModel, modelProperties, deprecationModel);
     this.parameterGroupModels = unmodifiableList(new ArrayList<>(parameterGroupModels));
     this.externalLibraryModels = unmodifiableSet(externalLibraryModels);
     this.stereotype = stereotype;
-    this.minMuleVersion = minMuleVersion;
+    this.minZernovaVersion = minZernovaVersion;
   }
 
   /**
@@ -169,8 +169,8 @@ public class ImmutableConfigurationModel extends AbstractComplexModel implements
    * {@inheritDoc}
    */
   @Override
-  public Optional<ZernovaVersion> getMinMuleVersion() {
-    return ofNullable(minMuleVersion);
+  public Optional<ZernovaVersion> getMinZernovaVersion() {
+    return ofNullable(minZernovaVersion);
   }
 
   @Override
@@ -179,7 +179,7 @@ public class ImmutableConfigurationModel extends AbstractComplexModel implements
         "stereotype=" + stereotype +
         ", parameterGroupModels=" + parameterGroupModels +
         ", externalLibraryModels=" + externalLibraryModels +
-        ", minMuleVersion=" + minMuleVersion +
+        ", minZernovaVersion=" + minZernovaVersion +
         "} " + super.toString();
   }
 }

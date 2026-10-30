@@ -5,7 +5,7 @@
     <groupId>com.test</groupId>
     <artifactId>basic</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>mule-domain</packaging>
+    <packaging>zernova-domain</packaging>
 
     <name>basic</name>
 

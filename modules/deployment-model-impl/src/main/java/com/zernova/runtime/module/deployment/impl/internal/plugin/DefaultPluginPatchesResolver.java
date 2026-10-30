@@ -42,7 +42,7 @@ public class DefaultPluginPatchesResolver implements PluginPatchesResolver {
 
   private static final Logger LOGGER = getLogger(DefaultPluginPatchesResolver.class);
 
-  private static final String MULE_ARTIFACT_PATCHES_LOCATION = "lib/patches/mule-artifact-patches";
+  private static final String MULE_ARTIFACT_PATCHES_LOCATION = "lib/patches/zernova-artifact-patches";
   private static final String PATCH_FILES_EXTENSION = "jar";
 
   @Override

@@ -10,7 +10,7 @@ package com.zernova.runtime.module.deployment.test.internal;
 import static com.zernova.functional.services.TestServicesUtils.buildExpressionLanguageMetadataServiceFile;
 import static com.zernova.functional.services.TestServicesUtils.buildExpressionLanguageServiceFile;
 import static com.zernova.functional.services.TestServicesUtils.buildSchedulerServiceFile;
-import static com.zernova.runtime.api.deployment.meta.Product.MULE;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA;
 import static com.zernova.runtime.container.internal.ClasspathModuleDiscoverer.EXPORTED_CLASS_PACKAGES_PROPERTY;
 import static com.zernova.runtime.container.internal.ClasspathModuleDiscoverer.EXPORTED_RESOURCE_PROPERTY;
 import static com.zernova.runtime.extension.internal.loader.xml.XmlExtensionModelLoader.RESOURCE_XML;
@@ -505,12 +505,12 @@ public final class TestArtifactsCatalog extends ExternalResource {
     final String resources = "com/zernova/module/";
     String moduleDestination = resources + prefixModuleName + ".xml";
     ZernovaPluginModel.ZernovaPluginModelBuilder builder =
-        new ZernovaPluginModel.ZernovaPluginModelBuilder().setName(extensionName).setMinMuleVersion(MIN_MULE_VERSION);
+        new ZernovaPluginModel.ZernovaPluginModelBuilder().setName(extensionName).setMinZernovaVersion(MIN_MULE_VERSION);
     builder.withExtensionModelDescriber().setId(XmlExtensionModelLoader.DESCRIBER_ID).addProperty(RESOURCE_XML,
                                                                                                   moduleDestination);
     builder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptor(MULE_LOADER_ID, emptyMap()));
     builder.withBundleDescriptorLoader(createBundleDescriptorLoader(extensionName, MULE_PLUGIN_CLASSIFIER, MULE_LOADER_ID));
-    builder.setRequiredProduct(MULE).setMinMuleVersion(MIN_MULE_VERSION);
+    builder.setRequiredProduct(ZERNOVA).setMinZernovaVersion(MIN_MULE_VERSION);
 
     return new ArtifactPluginFileBuilder(extensionName)
         .containingResource("module-byeSource.xml", moduleDestination)
@@ -527,8 +527,8 @@ public final class TestArtifactsCatalog extends ExternalResource {
     String moduleDestination = "com/zernova/module/" + moduleFileName;
 
     ZernovaPluginModel.ZernovaPluginModelBuilder builder =
-        new ZernovaPluginModel.ZernovaPluginModelBuilder().setName(extensionName).setMinMuleVersion(MIN_MULE_VERSION)
-            .setRequiredProduct(MULE);
+        new ZernovaPluginModel.ZernovaPluginModelBuilder().setName(extensionName).setMinZernovaVersion(MIN_MULE_VERSION)
+            .setRequiredProduct(ZERNOVA);
     builder.withExtensionModelDescriber().setId(XmlExtensionModelLoader.DESCRIBER_ID).addProperty(RESOURCE_XML,
                                                                                                   moduleDestination);
     builder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder()
@@ -546,9 +546,9 @@ public final class TestArtifactsCatalog extends ExternalResource {
     final String pluginName = "exceptionPlugin";
 
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION)
+        .setMinZernovaVersion(MIN_MULE_VERSION)
         .setName(pluginName)
-        .setRequiredProduct(MULE)
+        .setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader(pluginName,
                                                                  MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID,
@@ -556,8 +556,8 @@ public final class TestArtifactsCatalog extends ExternalResource {
     mulePluginModelBuilder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder()
         .setId(MULE_LOADER_ID)
         .addProperty(EXPORTED_RESOURCES,
-                     asList("/META-INF/mule-exception.xsd",
-                            "/META-INF/mule.schemas"))
+                     asList("/META-INF/zernova-exception.xsd",
+                            "/META-INF/zernova.schemas"))
         .build());
 
     File exceptionTestClassFile = null;
@@ -573,13 +573,13 @@ public final class TestArtifactsCatalog extends ExternalResource {
     }
 
     return new ArtifactPluginFileBuilder("exceptionPlugin")
-        .containingResource("exception/META-INF/mule.schemas", "META-INF/mule.schemas")
-        .containingResource("exception/META-INF/mule-exception.xsd", "META-INF/mule-exception.xsd")
+        .containingResource("exception/META-INF/zernova.schemas", "META-INF/zernova.schemas")
+        .containingResource("exception/META-INF/zernova-exception.xsd", "META-INF/zernova-exception.xsd")
         .containingResource("exception/META-INF/services/com.zernova.runtime.dsl.api.component.ComponentBuildingDefinitionProvider",
                             "META-INF/services/com.zernova.runtime.dsl.api.component.ComponentBuildingDefinitionProvider")
         .containingClass(exceptionTestClassFile, "org/exception/CustomException.class")
         .containingClass(serviceTestClassFile, "org/exception/ExceptionComponentBuildingDefinitionProvider.class")
-        .configuredWith(EXPORTED_RESOURCE_PROPERTY, "META-INF/mule-exception.xsd,META-INF/mule.schemas")
+        .configuredWith(EXPORTED_RESOURCE_PROPERTY, "META-INF/zernova-exception.xsd,META-INF/zernova.schemas")
         .configuredWith(EXPORTED_CLASS_PACKAGES_PROPERTY, "org.exception")
         .describedBy(mulePluginModelBuilder.build());
 
@@ -587,7 +587,7 @@ public final class TestArtifactsCatalog extends ExternalResource {
 
   private static ArtifactPluginFileBuilder createHelloExtensionV1PluginFileBuilder() {
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName("helloExtensionPlugin").setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName("helloExtensionPlugin").setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader("helloExtensionPlugin", MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, "1.0.0"));
     mulePluginModelBuilder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder().setId(MULE_LOADER_ID)
@@ -605,7 +605,7 @@ public final class TestArtifactsCatalog extends ExternalResource {
     // Includes placeholder classes from both http/api/ and http/internal/ packages.
     // Useful for testing classloading behavior that may differ between API and internal classes.
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName("HTTP").setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName("HTTP").setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader("HTTP", MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, "1.0.0"));
     mulePluginModelBuilder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder().setId(MULE_LOADER_ID)
@@ -622,7 +622,7 @@ public final class TestArtifactsCatalog extends ExternalResource {
 
   private static ArtifactPluginFileBuilder createLoadClassExtensionPluginFileBuilder() {
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName("loadClassExtensionPlugin").setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName("loadClassExtensionPlugin").setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader("loadClassExtensionPlugin", MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, "1.0.0"));
     mulePluginModelBuilder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder().setId(MULE_LOADER_ID)
@@ -637,7 +637,7 @@ public final class TestArtifactsCatalog extends ExternalResource {
 
   private static ArtifactPluginFileBuilder createCallbackExtensionPluginFileBuilder() {
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName("callbackExtensionPlugin").setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName("callbackExtensionPlugin").setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader("callbackExtensionPlugin", MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, "1.0.0"));
     mulePluginModelBuilder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder().setId(MULE_LOADER_ID)
@@ -652,7 +652,7 @@ public final class TestArtifactsCatalog extends ExternalResource {
 
   private static ArtifactPluginFileBuilder createOracleExtensionPluginFileBuilder() throws URISyntaxException {
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName("oracleExtensionPlugin").setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName("oracleExtensionPlugin").setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader("oracleExtensionPlugin", MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, "1.0.0"));
     mulePluginModelBuilder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder().setId(MULE_LOADER_ID)
@@ -674,7 +674,7 @@ public final class TestArtifactsCatalog extends ExternalResource {
   private static ArtifactPluginFileBuilder createClassloaderConnectExtensionPluginFileBuilder(File jarFile, String extensionName,
                                                                                               String extensionPath) {
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName(extensionName + "Plugin").setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName(extensionName + "Plugin").setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader(extensionName + "Plugin",
                                                                  MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, "1.0.0"));
@@ -690,7 +690,7 @@ public final class TestArtifactsCatalog extends ExternalResource {
 
   private static ArtifactPluginFileBuilder createUsingObjectStorePluginFileBuilder() {
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName("usingObjectStorePlugin").setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName("usingObjectStorePlugin").setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader("usingObjectStorePlugin", MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, "1.0.0"));
     mulePluginModelBuilder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder().setId(MULE_LOADER_ID)
@@ -705,7 +705,7 @@ public final class TestArtifactsCatalog extends ExternalResource {
 
   private static ArtifactPluginFileBuilder createHelloExtensionV2PluginFileBuilder() {
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName("helloExtensionPlugin").setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName("helloExtensionPlugin").setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader("helloExtensionPlugin", MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, "2.0.0"));
     mulePluginModelBuilder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder()
@@ -720,7 +720,7 @@ public final class TestArtifactsCatalog extends ExternalResource {
 
   private static ArtifactPluginFileBuilder createGoodbyeExtensionV1PluginFileBuilder() {
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName("goodbyeExtensionPlugin").setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName("goodbyeExtensionPlugin").setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader("goodbyeExtensionPlugin", MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, "2.0.0"));
     mulePluginModelBuilder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder()
@@ -749,9 +749,9 @@ public final class TestArtifactsCatalog extends ExternalResource {
   private static ArtifactPluginFileBuilder createPluginBuilder(String artifactId, String extensionModelType, File jarFile) {
     String version = "1.0.0";
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION)
+        .setMinZernovaVersion(MIN_MULE_VERSION)
         .setName(artifactId)
-        .setRequiredProduct(MULE)
+        .setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader(artifactId, MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, version));
     mulePluginModelBuilder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder().setId(MULE_LOADER_ID)
@@ -766,7 +766,7 @@ public final class TestArtifactsCatalog extends ExternalResource {
 
   private static ArtifactPluginFileBuilder createBridgeExtensionPluginFileBuilder() {
     ZernovaPluginModel.ZernovaPluginModelBuilder mulePluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder()
-        .setMinMuleVersion(MIN_MULE_VERSION).setName("bridgeExtensionPlugin").setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setName("bridgeExtensionPlugin").setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader("bridgeExtensionPlugin", MULE_PLUGIN_CLASSIFIER,
                                                                  PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID, "1.0.0"));
     mulePluginModelBuilder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder().setId(MULE_LOADER_ID)

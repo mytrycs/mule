@@ -20,9 +20,9 @@ public abstract class AbstractDeployableProjectModelBuilder implements Deployabl
   public static final String CLASSLOADER_MODEL_JSON_PATCH_DESCRIPTOR = "classloader-model-patch.json";
 
   public static final String CLASSLOADER_MODEL_JSON_DESCRIPTOR_LOCATION =
-      "META-INF/mule-artifact/" + CLASSLOADER_MODEL_JSON_DESCRIPTOR;
+      "META-INF/zernova-artifact/" + CLASSLOADER_MODEL_JSON_DESCRIPTOR;
   public static final String CLASSLOADER_MODEL_JSON_PATCH_DESCRIPTOR_LOCATION =
-      "META-INF/mule-artifact/" + CLASSLOADER_MODEL_JSON_PATCH_DESCRIPTOR;
+      "META-INF/zernova-artifact/" + CLASSLOADER_MODEL_JSON_PATCH_DESCRIPTOR;
 
   /**
    * Determines if the given project corresponds to a heavyweight package or a lightweight one.

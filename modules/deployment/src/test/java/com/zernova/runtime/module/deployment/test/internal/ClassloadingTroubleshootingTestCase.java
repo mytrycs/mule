@@ -121,7 +121,7 @@ public class ClassloadingTroubleshootingTestCase extends AbstractDeploymentTestC
 
     assertDeploymentFailure(domainDeploymentListener, domainFileBuilder.getId());
     assertThat(toMessages(loggerDefaultArchiveDeployer.getAllLoggingEvents()),
-               hasItem("Failed to deploy artifact [domain-classloading-troubleshooting-1.0.0-mule-domain]"));
+               hasItem("Failed to deploy artifact [domain-classloading-troubleshooting-1.0.0-zernova-domain]"));
     assertExpectedContentInDomainLog(EXPECT_LOGGING_DIRECTORY + "domain-config-yaml-not-found", empty());
   }
 
@@ -144,7 +144,7 @@ public class ClassloadingTroubleshootingTestCase extends AbstractDeploymentTestC
 
     assertDeploymentFailure(domainDeploymentListener, domainFileBuilder.getId());
     assertThat(toMessages(loggerDefaultArchiveDeployer.getAllLoggingEvents()),
-               hasItem("Failed to deploy artifact [domain-classloading-troubleshooting-1.0.0-mule-domain]"));
+               hasItem("Failed to deploy artifact [domain-classloading-troubleshooting-1.0.0-zernova-domain]"));
     assertExpectedContentInDomainLog(EXPECT_LOGGING_DIRECTORY + "domain-overrideme-class-not-found", empty());
   }
 
@@ -172,7 +172,7 @@ public class ClassloadingTroubleshootingTestCase extends AbstractDeploymentTestC
     assertDeploymentFailure(applicationDeploymentListener, applicationFileBuilder.getId());
 
     assertThat(toMessages(loggerDefaultArchiveDeployer.getAllLoggingEvents()),
-               hasItem("Failed to deploy artifact [app-classloading-troubleshooting-1.0.0-mule-application]"));
+               hasItem("Failed to deploy artifact [app-classloading-troubleshooting-1.0.0-zernova-application]"));
     assertExpectedContentInAppLog(EXPECT_LOGGING_DIRECTORY + "app-overrideme2-class-not-found", OP2_MODIFIER);
   }
 
@@ -201,7 +201,7 @@ public class ClassloadingTroubleshootingTestCase extends AbstractDeploymentTestC
     assertDeploymentFailure(applicationDeploymentListener, applicationFileBuilder.getId());
 
     assertThat(toMessages(loggerDefaultArchiveDeployer.getAllLoggingEvents()),
-               hasItem("Failed to deploy artifact [app-classloading-troubleshooting-1.0.0-mule-application]"));
+               hasItem("Failed to deploy artifact [app-classloading-troubleshooting-1.0.0-zernova-application]"));
     assertExpectedContentInAppLog(EXPECT_LOGGING_DIRECTORY + "app-test-overrideme-class-not-found", OP2_MODIFIER);
   }
 
@@ -227,7 +227,7 @@ public class ClassloadingTroubleshootingTestCase extends AbstractDeploymentTestC
 
     assertDeploymentFailure(applicationDeploymentListener, applicationFileBuilder.getId());
     assertThat(toMessages(loggerDefaultArchiveDeployer.getAllLoggingEvents()),
-               hasItem("Failed to deploy artifact [app-classloading-troubleshooting-1.0.0-mule-application]"));
+               hasItem("Failed to deploy artifact [app-classloading-troubleshooting-1.0.0-zernova-application]"));
     assertExpectedContentInAppLog(EXPECT_LOGGING_DIRECTORY + "app-jms-properties-resource-not-found", OP2_MODIFIER);
   }
 

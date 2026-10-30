@@ -143,10 +143,10 @@ public interface ExtensionLoadingContext {
   boolean isForceExtensionValidation();
 
   /**
-   * @return whether the {@link HasMinZernovaVersion#getMinMuleVersion() minMuleVersion} of each component must be calculated.
+   * @return whether the {@link HasMinZernovaVersion#getMinZernovaVersion() minZernovaVersion} of each component must be calculated.
    * @since 1.9
    */
-  boolean isResolveMinMuleVersion();
+  boolean isResolveMinZernovaVersion();
 
   /**
    * @return the {@link ArtifactCoordinates} of the Extension

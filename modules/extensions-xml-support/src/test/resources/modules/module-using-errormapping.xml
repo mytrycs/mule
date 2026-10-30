@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module name="module-using-errormapping"
-        xmlns="http://www.mulesoft.org/schema/mule/module"
-        xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore"
-        xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+        xmlns="https://schemas.zernova.dev/module"
+        xmlns:petstore="https://schemas.zernova.dev/petstore"
+        xmlns:zernova="https://schemas.zernova.dev/core"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="
-           http://www.mulesoft.org/schema/mule/module http://www.mulesoft.org/schema/mule/module/current/mule-module.xsd
-           http://www.mulesoft.org/schema/mule/petstore http://www.mulesoft.org/schema/mule/petstore/current/mule-petstore.xsd
-           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+           https://schemas.zernova.dev/module https://schemas.zernova.dev/module/current/zernova-module.xsd
+           https://schemas.zernova.dev/petstore https://schemas.zernova.dev/petstore/current/zernova-petstore.xsd
+           https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd">
 
     <property name="username" type="string" />
 
@@ -24,20 +24,20 @@
             <parameter name="failExpression" type="boolean"/>
         </parameters>
         <body>
-            <mule:choice>
+            <zernova:choice>
                 <!-- TODO MULE-13638: Partial fix until there's a way to make the calling to petstore:fail breaks differently depending on the 'petNames' parametrization -->
-                <mule:when expression="#[vars.failExpression]">
+                <zernova:when expression="#[vars.failExpression]">
                     <!-- defining an expression that will always fail -->
                     <petstore:fail petNames="#[ ' ++ as Object  ]">
-                        <mule:error-mapping targetType="MODULE-USING-ERRORMAPPING:SMART_CONNECTOR_CUSTOM_ERROR_EXPRESSION" sourceType="EXPRESSION"/>
+                        <zernova:error-mapping targetType="MODULE-USING-ERRORMAPPING:SMART_CONNECTOR_CUSTOM_ERROR_EXPRESSION" sourceType="EXPRESSION"/>
                     </petstore:fail>
-                </mule:when>
-                <mule:otherwise>
+                </zernova:when>
+                <zernova:otherwise>
                     <petstore:fail petNames="#[vars.petNames]">
-                        <mule:error-mapping targetType="MODULE-USING-ERRORMAPPING:SMART_CONNECTOR_CUSTOM_ERROR_CONNECTIVITY" sourceType="CONNECTIVITY"/>
+                        <zernova:error-mapping targetType="MODULE-USING-ERRORMAPPING:SMART_CONNECTOR_CUSTOM_ERROR_CONNECTIVITY" sourceType="CONNECTIVITY"/>
                     </petstore:fail>
-                </mule:otherwise>
-            </mule:choice>
+                </zernova:otherwise>
+            </zernova:choice>
         </body>
         <output type="string"/>
         <errors>
@@ -52,7 +52,7 @@
         </parameters>
         <body>
             <petstore:fail petNames="#[vars.petNames]">
-                <mule:error-mapping targetType="MODULE-USING-ERRORMAPPING:SMART_CONNECTOR_CUSTOM_ERROR_TIMEOUT" sourceType="CONNECTIVITY"/>
+                <zernova:error-mapping targetType="MODULE-USING-ERRORMAPPING:SMART_CONNECTOR_CUSTOM_ERROR_TIMEOUT" sourceType="CONNECTIVITY"/>
             </petstore:fail>
         </body>
         <output type="string"/>
@@ -67,7 +67,7 @@
         </parameters>
         <body>
             <petstore:fail petNames="#[vars.petNames]">
-                <mule:error-mapping targetType="MODULE-USING-ERRORMAPPING:SMART_CONNECTOR_CUSTOM_ERROR_SECURITY" sourceType="CONNECTIVITY"/>
+                <zernova:error-mapping targetType="MODULE-USING-ERRORMAPPING:SMART_CONNECTOR_CUSTOM_ERROR_SECURITY" sourceType="CONNECTIVITY"/>
             </petstore:fail>
         </body>
         <output type="string"/>
@@ -78,7 +78,7 @@
 
     <operation name="simple-op">
         <body>
-            <mule:set-payload value="simple operation called" />
+            <zernova:set-payload value="simple operation called" />
         </body>
         <output type="string"/>
     </operation>

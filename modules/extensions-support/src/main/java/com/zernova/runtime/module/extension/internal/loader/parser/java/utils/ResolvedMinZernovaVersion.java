@@ -19,18 +19,18 @@ public class ResolvedMinZernovaVersion implements MinZernovaVersionParser {
 
   public static final ZernovaVersion FIRST_MULE_VERSION = new ZernovaVersion("4.1.1");
   private String componentName;
-  private ZernovaVersion minMuleVersion;
+  private ZernovaVersion minZernovaVersion;
   private String reason;
   private ResolvedMinZernovaVersion innerComponent = null;
 
-  public ResolvedMinZernovaVersion(String componentName, ZernovaVersion minMuleVersion, String reason) {
+  public ResolvedMinZernovaVersion(String componentName, ZernovaVersion minZernovaVersion, String reason) {
     this.componentName = componentName;
-    this.minMuleVersion = minMuleVersion;
+    this.minZernovaVersion = minZernovaVersion;
     this.reason = reason;
   }
 
-  public ZernovaVersion getMinMuleVersion() {
-    return minMuleVersion;
+  public ZernovaVersion getMinZernovaVersion() {
+    return minZernovaVersion;
   }
 
   public String getReason() {
@@ -45,9 +45,9 @@ public class ResolvedMinZernovaVersion implements MinZernovaVersionParser {
   }
 
   public void updateIfHigherMMV(ResolvedMinZernovaVersion candidate, String reason) {
-    if (!(this.minMuleVersion.atLeast(candidate.getMinMuleVersion()))) {
+    if (!(this.minZernovaVersion.atLeast(candidate.getMinZernovaVersion()))) {
       this.reason = reason;
-      this.minMuleVersion = candidate.getMinMuleVersion();
+      this.minZernovaVersion = candidate.getMinZernovaVersion();
       this.innerComponent = candidate;
     }
   }

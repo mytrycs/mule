@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-<!-- Something in the test-extensions parent pom prevents the mule-artifact.json form being present in the app -->
+<!-- Something in the test-extensions parent pom prevents the zernova-artifact.json form being present in the app -->
     <parent>
         <groupId>com.zernova.runtime</groupId>
         <artifactId>mule</artifactId>
@@ -14,7 +14,7 @@
 
     <groupId>com.zernova.tests</groupId>
     <artifactId>test-reusable-app</artifactId>
-    <packaging>mule-application</packaging>
+    <packaging>zernova-application</packaging>
 
     <name>ZERNOVA Reusable App Test Extension</name>
     <description>A Mule extension for testing</description>
@@ -36,7 +36,7 @@
                 <artifactId>mule-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
-                    <classifier>mule-plugin</classifier>
+                    <classifier>zernova-plugin</classifier>
                 </configuration>
             </plugin>
         </plugins>

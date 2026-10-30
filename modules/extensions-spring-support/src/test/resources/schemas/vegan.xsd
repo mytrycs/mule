@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xs:schema xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.mulesoft.org/schema/mule/vegan" attributeFormDefault="unqualified" elementFormDefault="qualified">
+<xs:schema xmlns:zernova="https://schemas.zernova.dev/core" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="https://schemas.zernova.dev/vegan" attributeFormDefault="unqualified" elementFormDefault="qualified">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace"></xs:import>
-  <xs:import namespace="http://www.mulesoft.org/schema/mule/core" schemaLocation="http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></xs:import>
+  <xs:import namespace="https://schemas.zernova.dev/core" schemaLocation="https://schemas.zernova.dev/core/current/zernova.xsd"></xs:import>
   <xs:complexType name="com.zernova.test.vegan.extension.FarmedFood">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType"></xs:extension>
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractExtensionType"></xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" type="vegan:com.zernova.test.vegan.extension.FarmedFood" substitutionGroup="mule:abstract-shared-extension" abstract="true" name="global-abstract-farmed-food"></xs:element>
-  <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" type="vegan:com.zernova.test.vegan.extension.FarmedFood" abstract="true" name="abstract-farmed-food"></xs:element>
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" xmlns:vegan="https://schemas.zernova.dev/vegan" type="vegan:com.zernova.test.vegan.extension.FarmedFood" substitutionGroup="zernova:abstract-shared-extension" abstract="true" name="global-abstract-farmed-food"></xs:element>
+  <xs:element xmlns:vegan="https://schemas.zernova.dev/vegan" type="vegan:com.zernova.test.vegan.extension.FarmedFood" abstract="true" name="abstract-farmed-food"></xs:element>
   <xs:complexType name="com.zernova.test.vegan.extension.RottenFood">
     <xs:complexContent>
-      <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.FarmedFood"></xs:extension>
+      <xs:extension xmlns:vegan="https://schemas.zernova.dev/vegan" base="vegan:com.zernova.test.vegan.extension.FarmedFood"></xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" type="vegan:com.zernova.test.vegan.extension.RottenFood" substitutionGroup="vegan:abstract-farmed-food" abstract="true" name="abstract-rotten-food"></xs:element>
-  <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" substitutionGroup="vegan:abstract-rotten-food" name="rotten-food">
+  <xs:element xmlns:vegan="https://schemas.zernova.dev/vegan" type="vegan:com.zernova.test.vegan.extension.RottenFood" substitutionGroup="vegan:abstract-farmed-food" abstract="true" name="abstract-rotten-food"></xs:element>
+  <xs:element xmlns:vegan="https://schemas.zernova.dev/vegan" substitutionGroup="vegan:abstract-rotten-food" name="rotten-food">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="vegan:com.zernova.test.vegan.extension.RottenFood"></xs:extension>
@@ -25,14 +25,14 @@
   </xs:element>
   <xs:complexType name="com.zernova.test.vegan.extension.HealthyFood.TasteProfile">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
-        <xs:attribute type="mule:expressionBoolean" use="optional" default="false" name="tasty"></xs:attribute>
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractExtensionType">
+        <xs:attribute type="zernova:expressionBoolean" use="optional" default="false" name="tasty"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="com.zernova.test.vegan.extension.HealthyFood">
     <xs:complexContent>
-      <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.FarmedFood">
+      <xs:extension xmlns:vegan="https://schemas.zernova.dev/vegan" base="vegan:com.zernova.test.vegan.extension.FarmedFood">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="taste-profile">
             <xs:complexType>
@@ -46,8 +46,8 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" substitutionGroup="vegan:global-abstract-farmed-food" abstract="true" name="abstract-healthy-food"></xs:element>
-  <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" substitutionGroup="vegan:abstract-healthy-food" name="healthy-food">
+  <xs:element xmlns:vegan="https://schemas.zernova.dev/vegan" substitutionGroup="vegan:global-abstract-farmed-food" abstract="true" name="abstract-healthy-food"></xs:element>
+  <xs:element xmlns:vegan="https://schemas.zernova.dev/vegan" substitutionGroup="vegan:abstract-healthy-food" name="healthy-food">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="vegan:com.zernova.test.vegan.extension.HealthyFood">
@@ -58,13 +58,13 @@
   </xs:element>
   <xs:complexType name="com.zernova.test.vegan.extension.GroupedFood">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractExtensionType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="food">
             <xs:complexType>
               <xs:choice minOccurs="1" maxOccurs="1">
-                <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" minOccurs="1" maxOccurs="1" ref="vegan:abstract-farmed-food"></xs:element>
-                <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" minOccurs="1" maxOccurs="1" ref="vegan:global-abstract-farmed-food"></xs:element>
+                <xs:element xmlns:vegan="https://schemas.zernova.dev/vegan" minOccurs="1" maxOccurs="1" ref="vegan:abstract-farmed-food"></xs:element>
+                <xs:element xmlns:vegan="https://schemas.zernova.dev/vegan" minOccurs="1" maxOccurs="1" ref="vegan:global-abstract-farmed-food"></xs:element>
               </xs:choice>
             </xs:complexType>
           </xs:element>
@@ -73,8 +73,8 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-shared-extension" abstract="true" name="abstract-grouped-food"></xs:element>
-  <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" substitutionGroup="vegan:abstract-grouped-food" name="grouped-food">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstract-shared-extension" abstract="true" name="abstract-grouped-food"></xs:element>
+  <xs:element xmlns:vegan="https://schemas.zernova.dev/vegan" substitutionGroup="vegan:abstract-grouped-food" name="grouped-food">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="vegan:com.zernova.test.vegan.extension.GroupedFood">
@@ -83,10 +83,10 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-shared-extension" name="pear-config">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstract-shared-extension" name="pear-config">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractExtensionType">
+        <xs:extension base="zernova:abstractExtensionType">
           <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
           <xs:attribute type="xs:string" use="required" name="name">
             <xs:annotation>
@@ -97,19 +97,19 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-shared-extension" name="apple-config">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstract-shared-extension" name="apple-config">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractExtensionType">
+        <xs:extension base="zernova:abstractExtensionType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstractConnectionProvider"></xs:element>
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:expiration-policy"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstractConnectionProvider"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:expiration-policy"></xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="main-producers">
               <xs:complexType>
                 <xs:sequence>
                   <xs:element minOccurs="0" maxOccurs="unbounded" name="main-producer">
                     <xs:complexType>
-                      <xs:attribute type="mule:expressionString" use="required" name="value"></xs:attribute>
+                      <xs:attribute type="zernova:expressionString" use="required" name="value"></xs:attribute>
                     </xs:complexType>
                   </xs:element>
                 </xs:sequence>
@@ -118,24 +118,24 @@
             <xs:element minOccurs="0" maxOccurs="1" name="sample">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.HealthyFood"></xs:extension>
+                  <xs:extension xmlns:vegan="https://schemas.zernova.dev/vegan" base="vegan:com.zernova.test.vegan.extension.HealthyFood"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="cook-book">
               <xs:complexType>
                 <xs:choice minOccurs="1" maxOccurs="1">
-                  <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" minOccurs="1" maxOccurs="1" ref="vegan:abstract-vegan-cook-book"></xs:element>
-                  <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" minOccurs="1" maxOccurs="1" ref="vegan:global-abstract-vegan-cook-book"></xs:element>
+                  <xs:element xmlns:vegan="https://schemas.zernova.dev/vegan" minOccurs="1" maxOccurs="1" ref="vegan:abstract-vegan-cook-book"></xs:element>
+                  <xs:element xmlns:vegan="https://schemas.zernova.dev/vegan" minOccurs="1" maxOccurs="1" ref="vegan:global-abstract-vegan-cook-book"></xs:element>
                 </xs:choice>
               </xs:complexType>
             </xs:element>
           </xs:sequence>
-          <xs:attribute type="mule:expressionInt" use="optional" default="10" name="timeToPeel"></xs:attribute>
-          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/vegan" type="com.zernova.test.vegan.extension.EasyToEatConfig.TimeEnumType" use="optional" default="AVERAGE" name="timeToPeelEnum"></xs:attribute>
-          <xs:attribute type="mule:expressionList" use="optional" name="mainProducers"></xs:attribute>
+          <xs:attribute type="zernova:expressionInt" use="optional" default="10" name="timeToPeel"></xs:attribute>
+          <xs:attribute xmlns="https://schemas.zernova.dev/vegan" type="com.zernova.test.vegan.extension.EasyToEatConfig.TimeEnumType" use="optional" default="AVERAGE" name="timeToPeelEnum"></xs:attribute>
+          <xs:attribute type="zernova:expressionList" use="optional" name="mainProducers"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="sample"></xs:attribute>
-          <xs:attribute type="mule:expressionString" use="optional" name="shouldNotOverride"></xs:attribute>
+          <xs:attribute type="zernova:expressionString" use="optional" name="shouldNotOverride"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="cookBook"></xs:attribute>
           <xs:attribute type="xs:string" use="required" name="name">
             <xs:annotation>
@@ -148,54 +148,54 @@
   </xs:element>
   <xs:complexType name="com.zernova.test.vegan.extension.VeganCookBook">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractExtensionType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="recipes">
             <xs:complexType>
               <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" name="recipe">
                   <xs:complexType>
-                    <xs:attribute type="mule:expressionString" use="required" name="value"></xs:attribute>
+                    <xs:attribute type="zernova:expressionString" use="required" name="value"></xs:attribute>
                   </xs:complexType>
                 </xs:element>
               </xs:sequence>
             </xs:complexType>
           </xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:expressionList" use="optional" name="recipes"></xs:attribute>
-        <xs:attribute type="mule:expressionInt" use="optional" name="numberOfPages"></xs:attribute>
+        <xs:attribute type="zernova:expressionList" use="optional" name="recipes"></xs:attribute>
+        <xs:attribute type="zernova:expressionInt" use="optional" name="numberOfPages"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" default="Enemies of Bondiola" name="editorial"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" type="vegan:com.zernova.test.vegan.extension.VeganCookBook" substitutionGroup="mule:abstract-shared-extension" abstract="true" name="global-abstract-vegan-cook-book"></xs:element>
-  <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" type="vegan:com.zernova.test.vegan.extension.VeganCookBook" abstract="true" name="abstract-vegan-cook-book"></xs:element>
-  <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" substitutionGroup="vegan:abstract-vegan-cook-book" name="vegan-cook-book">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" xmlns:vegan="https://schemas.zernova.dev/vegan" type="vegan:com.zernova.test.vegan.extension.VeganCookBook" substitutionGroup="zernova:abstract-shared-extension" abstract="true" name="global-abstract-vegan-cook-book"></xs:element>
+  <xs:element xmlns:vegan="https://schemas.zernova.dev/vegan" type="vegan:com.zernova.test.vegan.extension.VeganCookBook" abstract="true" name="abstract-vegan-cook-book"></xs:element>
+  <xs:element xmlns:vegan="https://schemas.zernova.dev/vegan" substitutionGroup="vegan:abstract-vegan-cook-book" name="vegan-cook-book">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="vegan:com.zernova.test.vegan.extension.VeganCookBook"></xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstractConnectionProvider" name="apple-connection">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstractConnectionProvider" name="apple-connection">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractConnectionProviderType">
+        <xs:extension base="zernova:abstractConnectionProviderType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:reconnection"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:reconnection"></xs:element>
           </xs:sequence>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="PaulMcCartneySourceType" substitutionGroup="mule:abstract-message-source" name="paul-mc-cartney-source"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="PaulMcCartneySourceType" substitutionGroup="zernova:abstract-message-source" name="paul-mc-cartney-source"></xs:element>
   <xs:complexType name="PaulMcCartneySourceType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageSourceType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractMessageSourceType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-redelivery-policy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-redelivery-policy"></xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:substitutableBoolean" use="optional" name="primaryNodeOnly">
+        <xs:attribute type="zernova:substitutableBoolean" use="optional" name="primaryNodeOnly">
           <xs:annotation>
             <xs:documentation>Whether this source should only be executed on the primary node when runnning in Cluster</xs:documentation>
           </xs:annotation>
@@ -208,18 +208,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="Harvest-applesType" substitutionGroup="mule:abstract-message-source" name="harvest-apples"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="Harvest-applesType" substitutionGroup="zernova:abstract-message-source" name="harvest-apples"></xs:element>
   <xs:complexType name="Harvest-applesType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageSourceType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractMessageSourceType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-redelivery-policy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-redelivery-policy"></xs:element>
           <xs:element minOccurs="0" maxOccurs="1" name="main-producers">
             <xs:complexType>
               <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" name="main-producer">
                   <xs:complexType>
-                    <xs:attribute type="mule:expressionString" use="required" name="value"></xs:attribute>
+                    <xs:attribute type="zernova:expressionString" use="required" name="value"></xs:attribute>
                   </xs:complexType>
                 </xs:element>
               </xs:sequence>
@@ -228,27 +228,27 @@
           <xs:element minOccurs="0" maxOccurs="1" name="pojo-grouped-food">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.GroupedFood"></xs:extension>
+                <xs:extension xmlns:vegan="https://schemas.zernova.dev/vegan" base="vegan:com.zernova.test.vegan.extension.GroupedFood"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
           <xs:element minOccurs="0" maxOccurs="1" name="sample">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.HealthyFood"></xs:extension>
+                <xs:extension xmlns:vegan="https://schemas.zernova.dev/vegan" base="vegan:com.zernova.test.vegan.extension.HealthyFood"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
           <xs:element minOccurs="0" maxOccurs="1" name="as-group-inline">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension base="mule:abstractExtensionType">
+                <xs:extension base="zernova:abstractExtensionType">
                   <xs:sequence>
                     <xs:element minOccurs="0" maxOccurs="1" name="food">
                       <xs:complexType>
                         <xs:choice minOccurs="1" maxOccurs="1">
-                          <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" minOccurs="1" maxOccurs="1" ref="vegan:abstract-farmed-food"></xs:element>
-                          <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" minOccurs="1" maxOccurs="1" ref="vegan:global-abstract-farmed-food"></xs:element>
+                          <xs:element xmlns:vegan="https://schemas.zernova.dev/vegan" minOccurs="1" maxOccurs="1" ref="vegan:abstract-farmed-food"></xs:element>
+                          <xs:element xmlns:vegan="https://schemas.zernova.dev/vegan" minOccurs="1" maxOccurs="1" ref="vegan:global-abstract-farmed-food"></xs:element>
                         </xs:choice>
                       </xs:complexType>
                     </xs:element>
@@ -261,20 +261,20 @@
           <xs:element minOccurs="0" maxOccurs="1" name="response">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension base="mule:abstractExtensionType">
+                <xs:extension base="zernova:abstractExtensionType">
                   <xs:sequence></xs:sequence>
-                  <xs:attribute type="mule:expressionInt" use="optional" name="timeToPeel"></xs:attribute>
+                  <xs:attribute type="zernova:expressionInt" use="optional" name="timeToPeel"></xs:attribute>
                 </xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
         </xs:sequence>
         <xs:attribute type="xs:string" use="optional" name="key"></xs:attribute>
-        <xs:attribute type="mule:substitutableName" use="optional" name="mainProducers"></xs:attribute>
+        <xs:attribute type="zernova:substitutableName" use="optional" name="mainProducers"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="shouldNotOverride"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="flowName"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="pojoGroupedFood"></xs:attribute>
-        <xs:attribute type="mule:substitutableBoolean" use="optional" name="primaryNodeOnly">
+        <xs:attribute type="zernova:substitutableBoolean" use="optional" name="primaryNodeOnly">
           <xs:annotation>
             <xs:documentation>Whether this source should only be executed on the primary node when runnning in Cluster</xs:documentation>
           </xs:annotation>
@@ -288,20 +288,20 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="EatAppleType" substitutionGroup="mule:abstract-operator" name="eat-apple"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="EatAppleType" substitutionGroup="zernova:abstract-operator" name="eat-apple"></xs:element>
   <xs:complexType name="EatAppleType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:expressionString" use="optional" name="key"></xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" name="outputMimeType">
+        <xs:attribute type="zernova:expressionString" use="optional" name="key"></xs:attribute>
+        <xs:attribute type="zernova:expressionString" use="optional" name="outputMimeType">
           <xs:annotation>
             <xs:documentation>The mime type of the payload that this operation outputs.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" name="outputEncoding">
+        <xs:attribute type="zernova:expressionString" use="optional" name="outputEncoding">
           <xs:annotation>
             <xs:documentation>The encoding of the payload that this operation outputs.</xs:documentation>
           </xs:annotation>
@@ -316,7 +316,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -324,15 +324,15 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetFruitSampleType" substitutionGroup="mule:abstract-operator" name="get-fruit-sample"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="GetFruitSampleType" substitutionGroup="zernova:abstract-operator" name="get-fruit-sample"></xs:element>
   <xs:complexType name="GetFruitSampleType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="sample">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.HealthyFood"></xs:extension>
+                <xs:extension xmlns:vegan="https://schemas.zernova.dev/vegan" base="vegan:com.zernova.test.vegan.extension.HealthyFood"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -348,7 +348,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -356,12 +356,12 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetNotOverridenParameterType" substitutionGroup="mule:abstract-operator" name="get-not-overriden-parameter"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="GetNotOverridenParameterType" substitutionGroup="zernova:abstract-operator" name="get-not-overriden-parameter"></xs:element>
   <xs:complexType name="GetNotOverridenParameterType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
-        <xs:attribute type="mule:expressionString" use="optional" name="shouldNotOverride"></xs:attribute>
+        <xs:attribute type="zernova:expressionString" use="optional" name="shouldNotOverride"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
           <xs:annotation>
             <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
@@ -372,7 +372,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -380,25 +380,25 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetProducersType" substitutionGroup="mule:abstract-operator" name="get-producers"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="GetProducersType" substitutionGroup="zernova:abstract-operator" name="get-producers"></xs:element>
   <xs:complexType name="GetProducersType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="main-producers">
             <xs:complexType>
               <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" name="main-producer">
                   <xs:complexType>
-                    <xs:attribute type="mule:expressionString" use="required" name="value"></xs:attribute>
+                    <xs:attribute type="zernova:expressionString" use="required" name="value"></xs:attribute>
                   </xs:complexType>
                 </xs:element>
               </xs:sequence>
             </xs:complexType>
           </xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:expressionList" use="optional" name="mainProducers"></xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" name="outputMimeType">
+        <xs:attribute type="zernova:expressionList" use="optional" name="mainProducers"></xs:attribute>
+        <xs:attribute type="zernova:expressionString" use="optional" name="outputMimeType">
           <xs:annotation>
             <xs:documentation>The mime type of the payload that this operation outputs.</xs:documentation>
           </xs:annotation>
@@ -413,7 +413,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -421,12 +421,12 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetTimeToPeelType" substitutionGroup="mule:abstract-operator" name="get-time-to-peel"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="GetTimeToPeelType" substitutionGroup="zernova:abstract-operator" name="get-time-to-peel"></xs:element>
   <xs:complexType name="GetTimeToPeelType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
-        <xs:attribute type="mule:expressionInt" use="optional" name="timeToPeel"></xs:attribute>
+        <xs:attribute type="zernova:expressionInt" use="optional" name="timeToPeel"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
           <xs:annotation>
             <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
@@ -437,7 +437,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -445,12 +445,12 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetTimeToPeelEnumType" substitutionGroup="mule:abstract-operator" name="get-time-to-peel-enum"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="GetTimeToPeelEnumType" substitutionGroup="zernova:abstract-operator" name="get-time-to-peel-enum"></xs:element>
   <xs:complexType name="GetTimeToPeelEnumType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
-        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/vegan" type="com.zernova.test.vegan.extension.EasyToEatConfig.TimeEnumType" use="optional" name="timeToPeelEnum"></xs:attribute>
+        <xs:attribute xmlns="https://schemas.zernova.dev/vegan" type="com.zernova.test.vegan.extension.EasyToEatConfig.TimeEnumType" use="optional" name="timeToPeelEnum"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
           <xs:annotation>
             <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
@@ -461,7 +461,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -469,12 +469,12 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetTimeToPeelLongType" substitutionGroup="mule:abstract-operator" name="get-time-to-peel-long"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="GetTimeToPeelLongType" substitutionGroup="zernova:abstract-operator" name="get-time-to-peel-long"></xs:element>
   <xs:complexType name="GetTimeToPeelLongType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
-        <xs:attribute type="mule:expressionLong" use="optional" name="timeToPeel"></xs:attribute>
+        <xs:attribute type="zernova:expressionLong" use="optional" name="timeToPeel"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
           <xs:annotation>
             <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
@@ -485,7 +485,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -493,13 +493,13 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="SpreadTheWordType" substitutionGroup="mule:abstract-operator" name="spread-the-word"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="SpreadTheWordType" substitutionGroup="zernova:abstract-operator" name="spread-the-word"></xs:element>
   <xs:complexType name="SpreadTheWordType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
-        <xs:attribute type="mule:expressionString" use="required" name="theWord"></xs:attribute>
-        <xs:attribute type="mule:substitutableInt" use="optional" default="2" name="eloquenceLevel"></xs:attribute>
+        <xs:attribute type="zernova:expressionString" use="required" name="theWord"></xs:attribute>
+        <xs:attribute type="zernova:substitutableInt" use="optional" default="2" name="eloquenceLevel"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
           <xs:annotation>
             <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
@@ -510,7 +510,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -518,19 +518,19 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-shared-extension" name="banana-config">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstract-shared-extension" name="banana-config">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractExtensionType">
+        <xs:extension base="zernova:abstractExtensionType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstractConnectionProvider"></xs:element>
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:expiration-policy"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstractConnectionProvider"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:expiration-policy"></xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="main-producers">
               <xs:complexType>
                 <xs:sequence>
                   <xs:element minOccurs="0" maxOccurs="unbounded" name="main-producer">
                     <xs:complexType>
-                      <xs:attribute type="mule:expressionString" use="required" name="value"></xs:attribute>
+                      <xs:attribute type="zernova:expressionString" use="required" name="value"></xs:attribute>
                     </xs:complexType>
                   </xs:element>
                 </xs:sequence>
@@ -539,23 +539,23 @@
             <xs:element minOccurs="0" maxOccurs="1" name="sample">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.HealthyFood"></xs:extension>
+                  <xs:extension xmlns:vegan="https://schemas.zernova.dev/vegan" base="vegan:com.zernova.test.vegan.extension.HealthyFood"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="healthy-food">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.HealthyFood"></xs:extension>
+                  <xs:extension xmlns:vegan="https://schemas.zernova.dev/vegan" base="vegan:com.zernova.test.vegan.extension.HealthyFood"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
           </xs:sequence>
-          <xs:attribute type="mule:expressionInt" use="optional" default="10" name="timeToPeel"></xs:attribute>
-          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/vegan" type="com.zernova.test.vegan.extension.EasyToEatConfig.TimeEnumType" use="optional" default="AVERAGE" name="timeToPeelEnum"></xs:attribute>
-          <xs:attribute type="mule:expressionList" use="optional" name="mainProducers"></xs:attribute>
+          <xs:attribute type="zernova:expressionInt" use="optional" default="10" name="timeToPeel"></xs:attribute>
+          <xs:attribute xmlns="https://schemas.zernova.dev/vegan" type="com.zernova.test.vegan.extension.EasyToEatConfig.TimeEnumType" use="optional" default="AVERAGE" name="timeToPeelEnum"></xs:attribute>
+          <xs:attribute type="zernova:expressionList" use="optional" name="mainProducers"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="sample"></xs:attribute>
-          <xs:attribute type="mule:expressionString" use="optional" name="shouldNotOverride"></xs:attribute>
+          <xs:attribute type="zernova:expressionString" use="optional" name="shouldNotOverride"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="healthyFood"></xs:attribute>
           <xs:attribute type="xs:string" use="required" name="name">
             <xs:annotation>
@@ -566,22 +566,22 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstractConnectionProvider" name="banana-plantain-connection">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstractConnectionProvider" name="banana-plantain-connection">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractConnectionProviderType">
+        <xs:extension base="zernova:abstractConnectionProviderType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:reconnection"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:reconnection"></xs:element>
           </xs:sequence>
-          <xs:attribute type="mule:expressionString" use="optional" default="Ecuador" name="originCountry"></xs:attribute>
+          <xs:attribute type="zernova:expressionString" use="optional" default="Ecuador" name="originCountry"></xs:attribute>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="SdkGetLunchType" substitutionGroup="mule:abstract-operator" name="sdk-get-lunch"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="SdkGetLunchType" substitutionGroup="zernova:abstract-operator" name="sdk-get-lunch"></xs:element>
   <xs:complexType name="SdkGetLunchType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
           <xs:annotation>
@@ -593,7 +593,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -601,12 +601,12 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="EatBananaType" substitutionGroup="mule:abstract-operator" name="eat-banana"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="EatBananaType" substitutionGroup="zernova:abstract-operator" name="eat-banana"></xs:element>
   <xs:complexType name="EatBananaType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
         </xs:sequence>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
           <xs:annotation>
@@ -618,7 +618,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -626,10 +626,10 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="EatPealedType" substitutionGroup="mule:abstract-operator" name="eat-pealed"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="EatPealedType" substitutionGroup="zernova:abstract-operator" name="eat-pealed"></xs:element>
   <xs:complexType name="EatPealedType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
         <xs:attribute type="xs:string" use="required" name="attributeOnlyBanana"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
@@ -642,7 +642,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -650,10 +650,10 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetConfigType" substitutionGroup="mule:abstract-operator" name="get-config"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="GetConfigType" substitutionGroup="zernova:abstract-operator" name="get-config"></xs:element>
   <xs:complexType name="GetConfigType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
           <xs:annotation>
@@ -665,7 +665,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -673,10 +673,10 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetLunchType" substitutionGroup="mule:abstract-operator" name="get-lunch"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="GetLunchType" substitutionGroup="zernova:abstract-operator" name="get-lunch"></xs:element>
   <xs:complexType name="GetLunchType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
           <xs:annotation>
@@ -688,7 +688,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -696,13 +696,13 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-shared-extension" name="grape-config">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstract-shared-extension" name="grape-config">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractExtensionType">
+        <xs:extension base="zernova:abstractExtensionType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstractConnectionProvider"></xs:element>
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:expiration-policy"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstractConnectionProvider"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:expiration-policy"></xs:element>
           </xs:sequence>
           <xs:attribute type="xs:string" use="required" name="name">
             <xs:annotation>
@@ -713,16 +713,16 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstractConnectionProvider" name="grape-connection">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstractConnectionProvider" name="grape-connection">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractConnectionProviderType">
+        <xs:extension base="zernova:abstractConnectionProviderType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:reconnection"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:reconnection"></xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="vegan-policy">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.VeganPolicy"></xs:extension>
+                  <xs:extension xmlns:vegan="https://schemas.zernova.dev/vegan" base="vegan:com.zernova.test.vegan.extension.VeganPolicy"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -734,20 +734,20 @@
   </xs:element>
   <xs:complexType name="com.zernova.test.vegan.extension.VeganPolicy">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
-        <xs:attribute type="mule:expressionBoolean" use="optional" default="false" name="meetAllowed"></xs:attribute>
-        <xs:attribute type="mule:expressionInt" use="optional" name="saltMiligrams"></xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" name="saltReplacementName"></xs:attribute>
-        <xs:attribute type="mule:expressionInt" use="optional" default="500" name="maxCalories"></xs:attribute>
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractExtensionType">
+        <xs:attribute type="zernova:expressionBoolean" use="optional" default="false" name="meetAllowed"></xs:attribute>
+        <xs:attribute type="zernova:expressionInt" use="optional" name="saltMiligrams"></xs:attribute>
+        <xs:attribute type="zernova:expressionString" use="optional" name="saltReplacementName"></xs:attribute>
+        <xs:attribute type="zernova:expressionInt" use="optional" default="500" name="maxCalories"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GrapeOperationType" substitutionGroup="mule:abstract-operator" name="grape-operation"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="GrapeOperationType" substitutionGroup="zernova:abstract-operator" name="grape-operation"></xs:element>
   <xs:complexType name="GrapeOperationType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
         </xs:sequence>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
           <xs:annotation>
@@ -759,7 +759,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -767,12 +767,12 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-shared-extension" name="kiwi-config">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstract-shared-extension" name="kiwi-config">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractExtensionType">
+        <xs:extension base="zernova:abstractExtensionType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstractConnectionProvider"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstractConnectionProvider"></xs:element>
           </xs:sequence>
           <xs:attribute type="xs:string" use="required" name="name">
             <xs:annotation>
@@ -783,23 +783,23 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstractConnectionProvider" name="kiwi-connection">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstractConnectionProvider" name="kiwi-connection">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractConnectionProviderType">
+        <xs:extension base="zernova:abstractConnectionProviderType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:reconnection"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:reconnection"></xs:element>
           </xs:sequence>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="EatKiwiType" substitutionGroup="mule:abstract-operator" name="eat-kiwi"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="EatKiwiType" substitutionGroup="zernova:abstract-operator" name="eat-kiwi"></xs:element>
   <xs:complexType name="EatKiwiType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
         </xs:sequence>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
           <xs:annotation>
@@ -811,7 +811,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -819,12 +819,12 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-shared-extension" name="peach-config">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstract-shared-extension" name="peach-config">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractExtensionType">
+        <xs:extension base="zernova:abstractExtensionType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstractConnectionProvider"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstractConnectionProvider"></xs:element>
           </xs:sequence>
           <xs:attribute type="xs:string" use="required" name="name">
             <xs:annotation>
@@ -835,26 +835,26 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstractConnectionProvider" name="connection">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstractConnectionProvider" name="connection">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractConnectionProviderType">
+        <xs:extension base="zernova:abstractConnectionProviderType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:reconnection"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:reconnection"></xs:element>
           </xs:sequence>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="Harvest-peachesType" substitutionGroup="mule:abstract-message-source" name="harvest-peaches"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="Harvest-peachesType" substitutionGroup="zernova:abstract-message-source" name="harvest-peaches"></xs:element>
   <xs:complexType name="Harvest-peachesType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageSourceType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractMessageSourceType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-redelivery-policy"></xs:element>
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-redelivery-policy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:substitutableBoolean" use="optional" name="primaryNodeOnly">
+        <xs:attribute type="zernova:substitutableBoolean" use="optional" name="primaryNodeOnly">
           <xs:annotation>
             <xs:documentation>Whether this source should only be executed on the primary node when runnning in Cluster</xs:documentation>
           </xs:annotation>
@@ -867,32 +867,32 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="AddVeganProductsDescriptionsType" substitutionGroup="mule:abstract-operator" name="add-vegan-products-descriptions"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="AddVeganProductsDescriptionsType" substitutionGroup="zernova:abstract-operator" name="add-vegan-products-descriptions"></xs:element>
   <xs:complexType name="AddVeganProductsDescriptionsType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="product-descriptions">
             <xs:complexType>
               <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" name="product-description">
                   <xs:complexType>
-                    <xs:attribute type="mule:expressionString" use="required" name="key"></xs:attribute>
-                    <xs:attribute type="mule:expressionString" use="required" name="value"></xs:attribute>
+                    <xs:attribute type="zernova:expressionString" use="required" name="key"></xs:attribute>
+                    <xs:attribute type="zernova:expressionString" use="required" name="value"></xs:attribute>
                   </xs:complexType>
                 </xs:element>
               </xs:sequence>
             </xs:complexType>
           </xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:expressionMap" use="optional" name="productDescription"></xs:attribute>
-        <xs:attribute type="mule:substitutableInt" use="optional" default="2" name="eloquenceLevel"></xs:attribute>
+        <xs:attribute type="zernova:expressionMap" use="optional" name="productDescription"></xs:attribute>
+        <xs:attribute type="zernova:substitutableInt" use="optional" default="2" name="eloquenceLevel"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="target">
           <xs:annotation>
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -900,27 +900,27 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ApplyPolicyType" substitutionGroup="mule:abstract-operator" name="apply-policy"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="ApplyPolicyType" substitutionGroup="zernova:abstract-operator" name="apply-policy"></xs:element>
   <xs:complexType name="ApplyPolicyType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="policy">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.VeganPolicy"></xs:extension>
+                <xs:extension xmlns:vegan="https://schemas.zernova.dev/vegan" base="vegan:com.zernova.test.vegan.extension.VeganPolicy"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
         </xs:sequence>
         <xs:attribute type="xs:string" use="optional" name="policy"></xs:attribute>
-        <xs:attribute type="mule:substitutableInt" use="optional" default="2" name="eloquenceLevel"></xs:attribute>
+        <xs:attribute type="zernova:substitutableInt" use="optional" default="2" name="eloquenceLevel"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="target">
           <xs:annotation>
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -928,23 +928,23 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ConsumingGroupedFoodType" substitutionGroup="mule:abstract-operator" name="consuming-grouped-food"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="ConsumingGroupedFoodType" substitutionGroup="zernova:abstract-operator" name="consuming-grouped-food"></xs:element>
   <xs:complexType name="ConsumingGroupedFoodType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="pojo-grouped-food">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.GroupedFood"></xs:extension>
+                <xs:extension xmlns:vegan="https://schemas.zernova.dev/vegan" base="vegan:com.zernova.test.vegan.extension.GroupedFood"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
           <xs:element minOccurs="0" maxOccurs="1" name="food">
             <xs:complexType>
               <xs:choice minOccurs="1" maxOccurs="1">
-                <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" minOccurs="1" maxOccurs="1" ref="vegan:abstract-farmed-food"></xs:element>
-                <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" minOccurs="1" maxOccurs="1" ref="vegan:global-abstract-farmed-food"></xs:element>
+                <xs:element xmlns:vegan="https://schemas.zernova.dev/vegan" minOccurs="1" maxOccurs="1" ref="vegan:abstract-farmed-food"></xs:element>
+                <xs:element xmlns:vegan="https://schemas.zernova.dev/vegan" minOccurs="1" maxOccurs="1" ref="vegan:global-abstract-farmed-food"></xs:element>
               </xs:choice>
             </xs:complexType>
           </xs:element>
@@ -959,7 +959,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -967,27 +967,27 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ConvinceAnimalKillerType" substitutionGroup="mule:abstract-operator" name="convince-animal-killer"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="ConvinceAnimalKillerType" substitutionGroup="zernova:abstract-operator" name="convince-animal-killer"></xs:element>
   <xs:complexType name="ConvinceAnimalKillerType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
-        <xs:attribute type="mule:substitutableInt" use="optional" default="2" name="eloquenceLevel"></xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" name="argument1"></xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" name="argument2"></xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" name="argument3"></xs:attribute>
+        <xs:attribute type="zernova:substitutableInt" use="optional" default="2" name="eloquenceLevel"></xs:attribute>
+        <xs:attribute type="zernova:expressionString" use="optional" name="argument1"></xs:attribute>
+        <xs:attribute type="zernova:expressionString" use="optional" name="argument2"></xs:attribute>
+        <xs:attribute type="zernova:expressionString" use="optional" name="argument3"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="EatWatermelonType" substitutionGroup="mule:abstract-operator" name="eat-watermelon"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="EatWatermelonType" substitutionGroup="zernova:abstract-operator" name="eat-watermelon"></xs:element>
   <xs:complexType name="EatWatermelonType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="fruit">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.tck.testmodels.fruit.WaterMelon"></xs:extension>
+                <xs:extension xmlns:vegan="https://schemas.zernova.dev/vegan" base="vegan:com.zernova.tck.testmodels.fruit.WaterMelon"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -998,7 +998,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -1008,23 +1008,23 @@
   </xs:complexType>
   <xs:complexType name="com.zernova.tck.testmodels.fruit.WaterMelon">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
-        <xs:attribute type="mule:expressionBoolean" use="optional" name="bitten"></xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" name="brand"></xs:attribute>
-        <xs:attribute type="mule:expressionDouble" use="optional" name="radius"></xs:attribute>
-        <xs:attribute type="mule:expressionInt" use="optional" name="seeds"></xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" name="state"></xs:attribute>
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractExtensionType">
+        <xs:attribute type="zernova:expressionBoolean" use="optional" name="bitten"></xs:attribute>
+        <xs:attribute type="zernova:expressionString" use="optional" name="brand"></xs:attribute>
+        <xs:attribute type="zernova:expressionDouble" use="optional" name="radius"></xs:attribute>
+        <xs:attribute type="zernova:expressionInt" use="optional" name="seeds"></xs:attribute>
+        <xs:attribute type="zernova:expressionString" use="optional" name="state"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetAllApplesType" substitutionGroup="mule:abstract-operator" name="get-all-apples"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="GetAllApplesType" substitutionGroup="zernova:abstract-operator" name="get-all-apples"></xs:element>
   <xs:complexType name="GetAllApplesType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element type="xs:string" minOccurs="0" maxOccurs="1" name="apples"></xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:expressionString" use="optional" name="outputMimeType">
+        <xs:attribute type="zernova:expressionString" use="optional" name="outputMimeType">
           <xs:annotation>
             <xs:documentation>The mime type of the payload that this operation outputs.</xs:documentation>
           </xs:annotation>
@@ -1034,7 +1034,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -1042,27 +1042,27 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetHealthyFoodType" substitutionGroup="mule:abstract-operator" name="get-healthy-food"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="GetHealthyFoodType" substitutionGroup="zernova:abstract-operator" name="get-healthy-food"></xs:element>
   <xs:complexType name="GetHealthyFoodType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="healthy-food">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.HealthyFood"></xs:extension>
+                <xs:extension xmlns:vegan="https://schemas.zernova.dev/vegan" base="vegan:com.zernova.test.vegan.extension.HealthyFood"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
         </xs:sequence>
         <xs:attribute type="xs:string" use="optional" name="healthyFood"></xs:attribute>
-        <xs:attribute type="mule:substitutableInt" use="optional" default="2" name="eloquenceLevel"></xs:attribute>
+        <xs:attribute type="zernova:substitutableInt" use="optional" default="2" name="eloquenceLevel"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="target">
           <xs:annotation>
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -1070,28 +1070,28 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetProductionType" substitutionGroup="mule:abstract-operator" name="get-production"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="GetProductionType" substitutionGroup="zernova:abstract-operator" name="get-production"></xs:element>
   <xs:complexType name="GetProductionType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="food">
             <xs:complexType>
               <xs:choice minOccurs="1" maxOccurs="1">
-                <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" minOccurs="1" maxOccurs="1" ref="vegan:abstract-farmed-food"></xs:element>
-                <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" minOccurs="1" maxOccurs="1" ref="vegan:global-abstract-farmed-food"></xs:element>
+                <xs:element xmlns:vegan="https://schemas.zernova.dev/vegan" minOccurs="1" maxOccurs="1" ref="vegan:abstract-farmed-food"></xs:element>
+                <xs:element xmlns:vegan="https://schemas.zernova.dev/vegan" minOccurs="1" maxOccurs="1" ref="vegan:global-abstract-farmed-food"></xs:element>
               </xs:choice>
             </xs:complexType>
           </xs:element>
         </xs:sequence>
         <xs:attribute type="xs:string" use="optional" name="food"></xs:attribute>
-        <xs:attribute type="mule:substitutableInt" use="optional" default="2" name="eloquenceLevel"></xs:attribute>
+        <xs:attribute type="zernova:substitutableInt" use="optional" default="2" name="eloquenceLevel"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="target">
           <xs:annotation>
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -1099,18 +1099,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="LongDigestType" substitutionGroup="mule:abstract-operator" name="long-digest"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="LongDigestType" substitutionGroup="zernova:abstract-operator" name="long-digest"></xs:element>
   <xs:complexType name="LongDigestType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
-        <xs:attribute type="mule:substitutableInt" use="optional" default="2" name="eloquenceLevel"></xs:attribute>
+        <xs:attribute type="zernova:substitutableInt" use="optional" default="2" name="eloquenceLevel"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="target">
           <xs:annotation>
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -1118,26 +1118,26 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="RegisterVeganProductsType" substitutionGroup="mule:abstract-operator" name="register-vegan-products"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="RegisterVeganProductsType" substitutionGroup="zernova:abstract-operator" name="register-vegan-products"></xs:element>
   <xs:complexType name="RegisterVeganProductsType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="products">
             <xs:complexType>
               <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" name="product">
                   <xs:complexType>
-                    <xs:attribute type="mule:expressionString" use="required" name="value"></xs:attribute>
+                    <xs:attribute type="zernova:expressionString" use="required" name="value"></xs:attribute>
                   </xs:complexType>
                 </xs:element>
               </xs:sequence>
             </xs:complexType>
           </xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:expressionList" use="optional" name="products"></xs:attribute>
-        <xs:attribute type="mule:substitutableInt" use="optional" default="2" name="eloquenceLevel"></xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" name="outputMimeType">
+        <xs:attribute type="zernova:expressionList" use="optional" name="products"></xs:attribute>
+        <xs:attribute type="zernova:substitutableInt" use="optional" default="2" name="eloquenceLevel"></xs:attribute>
+        <xs:attribute type="zernova:expressionString" use="optional" name="outputMimeType">
           <xs:annotation>
             <xs:documentation>The mime type of the payload that this operation outputs.</xs:documentation>
           </xs:annotation>
@@ -1147,7 +1147,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -1155,13 +1155,13 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="TryEatType" substitutionGroup="mule:abstract-operator" name="try-eat"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="TryEatType" substitutionGroup="zernova:abstract-operator" name="try-eat"></xs:element>
   <xs:complexType name="TryEatType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
         <xs:attribute type="xs:string" use="required" name="food"></xs:attribute>
-        <xs:attribute type="mule:expressionMap" use="optional" name="menu"></xs:attribute>
+        <xs:attribute type="zernova:expressionMap" use="optional" name="menu"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="argument1"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="argument2"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="argument3"></xs:attribute>
@@ -1170,7 +1170,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -1178,10 +1178,10 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/vegan" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="TryToEatThisListOfMapsType" substitutionGroup="mule:abstract-operator" name="try-to-eat-this-list-of-maps"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/vegan" xmlns:zernova="https://schemas.zernova.dev/core" type="TryToEatThisListOfMapsType" substitutionGroup="zernova:abstract-operator" name="try-to-eat-this-list-of-maps"></xs:element>
   <xs:complexType name="TryToEatThisListOfMapsType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element type="xs:string" minOccurs="0" maxOccurs="1" name="foods"></xs:element>
         </xs:sequence>
@@ -1193,7 +1193,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -1211,7 +1211,7 @@
         </xs:restriction>
       </xs:simpleType>
       <xs:simpleType>
-        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+        <xs:restriction xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:propertyPlaceholderType"></xs:restriction>
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>

@@ -75,8 +75,8 @@ public class ParameterModelValidatorTestCase extends AbstractZernovaTestCase {
     when(extensionModel.getName()).thenReturn("extensionModel");
     when(extensionModel.getImportedTypes()).thenReturn(emptySet());
     when(extensionModel.getXmlDslModel())
-        .thenReturn(XmlDslModel.builder().setPrefix("ns").setNamespace("http://www.mulesoft.org/schema/mule/ns")
-            .setSchemaLocation("http://www.mulesoft.org/schema/mule/heisenberg/current/mule-ns.xsd").build());
+        .thenReturn(XmlDslModel.builder().setPrefix("ns").setNamespace("https://schemas.zernova.dev/ns")
+            .setSchemaLocation("https://schemas.zernova.dev/heisenberg/current/zernova-ns.xsd").build());
 
     when(operationModel.getName()).thenReturn("dummyOperation");
 

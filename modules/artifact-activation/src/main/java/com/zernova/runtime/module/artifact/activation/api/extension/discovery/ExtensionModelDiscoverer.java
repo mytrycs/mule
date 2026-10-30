@@ -20,7 +20,7 @@ import com.zernova.runtime.module.artifact.api.classloader.ZernovaDeployableArti
 import java.util.Set;
 
 /**
- * Provides a way to discover {@link ExtensionModel}s from the Mule Runtime or from {@code mule-plugins} in the context of a
+ * Provides a way to discover {@link ExtensionModel}s from the Mule Runtime or from {@code zernova-plugins} in the context of a
  * deployable artifact.
  *
  * @since 4.5

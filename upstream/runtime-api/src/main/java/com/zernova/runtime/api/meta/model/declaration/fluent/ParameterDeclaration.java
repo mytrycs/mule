@@ -55,7 +55,7 @@ public class ParameterDeclaration extends AbstractParameterDeclaration<Parameter
   private List<FieldValueProviderModel> fieldValueProviderModels = new ArrayList<>();
   private final List<StereotypeModel> allowedStereotypeModels = new ArrayList<>();
   private DeprecationModel deprecation;
-  private ZernovaVersion minMuleVersion;
+  private ZernovaVersion minZernovaVersion;
   private final Set<String> semanticTerms = new LinkedHashSet<>();
 
   /**
@@ -212,15 +212,15 @@ public class ParameterDeclaration extends AbstractParameterDeclaration<Parameter
    * {@inheritDoc}
    */
   @Override
-  public Optional<ZernovaVersion> getMinMuleVersion() {
-    return ofNullable(minMuleVersion);
+  public Optional<ZernovaVersion> getMinZernovaVersion() {
+    return ofNullable(minZernovaVersion);
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public void withMinMuleVersion(ZernovaVersion minMuleVersion) {
-    this.minMuleVersion = minMuleVersion;
+  public void withMinZernovaVersion(ZernovaVersion minZernovaVersion) {
+    this.minZernovaVersion = minZernovaVersion;
   }
 }

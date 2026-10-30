@@ -22,7 +22,7 @@ import com.zernova.api.annotation.NoExtend;
 public abstract class AbstractZernovaArtifactModelBuilder<T extends AbstractZernovaArtifactModelBuilder, M extends AbstractZernovaArtifactModel> {
 
   private String name;
-  private String minMuleVersion;
+  private String minZernovaVersion;
   private Product product;
   private ZernovaArtifactLoaderDescriptor bundleDescriptorLoader;
   private ZernovaArtifactLoaderDescriptor classLoaderModelDescriptorLoader;
@@ -69,13 +69,13 @@ public abstract class AbstractZernovaArtifactModelBuilder<T extends AbstractZern
    * @param muleVersion of the describer
    * @return {@code this} builder
    */
-  public T setMinMuleVersion(String muleVersion) {
-    this.minMuleVersion = muleVersion;
+  public T setMinZernovaVersion(String muleVersion) {
+    this.minZernovaVersion = muleVersion;
     return getThis();
   }
 
-  public String getMinMuleVersion() {
-    return minMuleVersion;
+  public String getMinZernovaVersion() {
+    return minZernovaVersion;
   }
 
   /**

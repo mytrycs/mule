@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 /**
- * Resolves the {@link ZernovaPluginModel} by deserializing it from the {@code mule-artifact.json} within the jar of a plugin.
+ * Resolves the {@link ZernovaPluginModel} by deserializing it from the {@code zernova-artifact.json} within the jar of a plugin.
  *
  * @since 4.5
  */

@@ -20,10 +20,10 @@ project=root/'tests/fixtures/native-hello'
 (project/'zernova-app.json').write_text(json.dumps({'schemaVersion':1,'name':'hello-zernova','group':'com.zernova.example','version':'1.0.0','dependencies':['http']},indent=2)+'\n',encoding='utf-8')
 (project/'src/main/zernova/hello.xml').write_text('''<?xml version="1.0" encoding="UTF-8"?>
 <!-- ZERNOVA application. Namespaces below are engine compatibility identifiers. -->
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
- xmlns:http="http://www.mulesoft.org/schema/mule/http"
+<zernova xmlns="https://schemas.zernova.dev/core"
+ xmlns:http="https://schemas.zernova.dev/http"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+ xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd https://schemas.zernova.dev/http https://schemas.zernova.dev/http/current/zernova-http.xsd">
   <http:listener-config name="Local_HTTP">
     <http:listener-connection host="127.0.0.1" port="${zernova.http.port}"/>
   </http:listener-config>
@@ -37,7 +37,7 @@ project=root/'tests/fixtures/native-hello'
     <logger level="INFO" category="io.zernova.acceptance"
       message="#['ZERNOVA_TEST ' ++ (attributes.queryParams.testId default 'missing')]"/>
   </flow>
-</mule>
+</zernova>
 ''',encoding='utf-8')
 (project/'src/main/resources/log4j2.xml').write_text('''<?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright (c) 2026 ZerNova. Original application configuration. -->

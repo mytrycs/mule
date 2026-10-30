@@ -7,7 +7,7 @@
 /* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package com.zernova.runtime.module.deployment.test.internal;
 
-import static com.zernova.runtime.api.deployment.meta.Product.MULE;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA;
 import static com.zernova.runtime.api.util.ZernovaSystemProperties.DEPLOYMENT_APPLICATION_PROPERTY;
 import static com.zernova.runtime.container.api.ZernovaFoldersUtil.getAppNativeLibrariesTempFolder;
 import static com.zernova.runtime.container.internal.ClasspathModuleDiscoverer.EXPORTED_RESOURCE_PROPERTY;
@@ -172,16 +172,16 @@ public class ApplicationDeploymentTestCase extends AbstractApplicationDeployment
         .containingClass(echoTestClassFile,
                          "org/foo/EchoTest.class");
     dummyAppDescriptorWithPropsDependencyFileBuilder = appFileBuilder("dummy-app-with-props-dependencies")
-        .withMinMuleVersion("4.3.0") // MULE-19038
+        .withMinZernovaVersion("4.3.0") // MULE-19038
         .definedBy("dummy-app-with-props-dependencies-config.xml");
     dummyAppDescriptorWithStoppedFlowFileBuilder = appFileBuilder("dummy-app-with-stopped-flow-config")
-        .withMinMuleVersion("4.3.0") // MULE-19127
+        .withMinZernovaVersion("4.3.0") // MULE-19127
         .definedBy("dummy-app-with-stopped-flow-config.xml")
         .dependingOn(callbackExtensionPlugin)
         .containingClass(echoTestClassFile,
                          "org/foo/EchoTest.class");
-    dummyAppDescriptorWithStoppedFlowFileBuilderMinMuleVersion48 = appFileBuilder("dummy-app-with-stopped-flow-config")
-        .withMinMuleVersion("4.8.0")
+    dummyAppDescriptorWithStoppedFlowFileBuilderMinZernovaVersion48 = appFileBuilder("dummy-app-with-stopped-flow-config")
+        .withMinZernovaVersion("4.8.0")
         .definedBy("dummy-app-with-stopped-flow-config.xml")
         .dependingOn(callbackExtensionPlugin)
         .containingClass(echoTestClassFile,
@@ -884,7 +884,7 @@ public class ApplicationDeploymentTestCase extends AbstractApplicationDeployment
   public void deploysAppJustOnce() throws Exception {
     addPackedAppFromBuilder(emptyAppFileBuilder);
 
-    String appName = "empty-app-1.0.0-mule-application";
+    String appName = "empty-app-1.0.0-zernova-application";
     String apps = format("%s:%s:%s", appName, appName, appName);
 
     testWithSystemProperty(DEPLOYMENT_APPLICATION_PROPERTY, apps, () -> {
@@ -1188,14 +1188,14 @@ public class ApplicationDeploymentTestCase extends AbstractApplicationDeployment
   @Test
   @Issue("W-15750334")
   public void restartAppWithStartedFlowWithInitialStateStoppedAfter48() throws Exception {
-    final Application app = deployApplication(dummyAppDescriptorWithStoppedFlowFileBuilderMinMuleVersion48);
+    final Application app = deployApplication(dummyAppDescriptorWithStoppedFlowFileBuilderMinZernovaVersion48);
     for (Flow flow : app.getArtifactContext().getRegistry().lookupAllByType(Flow.class)) {
       flow.start();
     }
     reset(applicationDeploymentListener);
-    redeploy(deploymentService, dummyAppDescriptorWithStoppedFlowFileBuilderMinMuleVersion48.getId());
+    redeploy(deploymentService, dummyAppDescriptorWithStoppedFlowFileBuilderMinZernovaVersion48.getId());
 
-    final Application app2 = assertAppDeploymentAndStatus(dummyAppDescriptorWithStoppedFlowFileBuilderMinMuleVersion48, STARTED);
+    final Application app2 = assertAppDeploymentAndStatus(dummyAppDescriptorWithStoppedFlowFileBuilderMinZernovaVersion48, STARTED);
     for (Flow flow : app2.getArtifactContext().getRegistry().lookupAllByType(Flow.class)) {
       assertThat(flow.getLifecycleState().isStarted(), is(true));
     }
@@ -1447,14 +1447,14 @@ public class ApplicationDeploymentTestCase extends AbstractApplicationDeployment
     String extensionName = "using-java-extension";
     String moduleDestination = "com/zernova/module/" + moduleFileName;
     ZernovaPluginModel.ZernovaPluginModelBuilder builder =
-        new ZernovaPluginModel.ZernovaPluginModelBuilder().setName(extensionName).setMinMuleVersion(MIN_MULE_VERSION)
-            .setRequiredProduct(MULE);
+        new ZernovaPluginModel.ZernovaPluginModelBuilder().setName(extensionName).setMinZernovaVersion(MIN_MULE_VERSION)
+            .setRequiredProduct(ZERNOVA);
     builder.withExtensionModelDescriber().setId(XmlExtensionModelLoader.DESCRIBER_ID).addProperty(RESOURCE_XML,
                                                                                                   moduleDestination);
     builder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder()
         .addProperty(EXPORTED_PACKAGES, asList("org.foo")).setId(MULE_LOADER_ID).build());
     builder.withBundleDescriptorLoader(createBundleDescriptorLoader(extensionName, MULE_PLUGIN_CLASSIFIER, MULE_LOADER_ID));
-    builder.setRequiredProduct(MULE).setMinMuleVersion(MIN_MULE_VERSION);
+    builder.setRequiredProduct(ZERNOVA).setMinZernovaVersion(MIN_MULE_VERSION);
 
     final ArtifactPluginFileBuilder byeXmlExtensionPlugin = new ArtifactPluginFileBuilder(extensionName)
         .describedBy(builder.build())
@@ -1491,7 +1491,7 @@ public class ApplicationDeploymentTestCase extends AbstractApplicationDeployment
     final String dwExportedFile = resources + "module-resources-dwl.dwl";
     final String moduleDestination = resources + prefixModuleName + ".xml";
     final ZernovaPluginModel.ZernovaPluginModelBuilder builder =
-        new ZernovaPluginModel.ZernovaPluginModelBuilder().setName(extensionName).setMinMuleVersion(MIN_MULE_VERSION);
+        new ZernovaPluginModel.ZernovaPluginModelBuilder().setName(extensionName).setMinZernovaVersion(MIN_MULE_VERSION);
     builder.withExtensionModelDescriber().setId(XmlExtensionModelLoader.DESCRIBER_ID).addProperty(RESOURCE_XML,
                                                                                                   moduleDestination);
     builder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder()
@@ -1499,7 +1499,7 @@ public class ApplicationDeploymentTestCase extends AbstractApplicationDeployment
         .addProperty(EXPORTED_RESOURCES, asList(dwExportedFile))
         .build());
     builder.withBundleDescriptorLoader(createBundleDescriptorLoader(extensionName, MULE_PLUGIN_CLASSIFIER, MULE_LOADER_ID));
-    builder.setRequiredProduct(MULE).setMinMuleVersion(MIN_MULE_VERSION);
+    builder.setRequiredProduct(ZERNOVA).setMinZernovaVersion(MIN_MULE_VERSION);
 
     final ArtifactPluginFileBuilder resourcesXmlPluginFileBuilder = new ArtifactPluginFileBuilder(extensionName)
         .containingResource("module-resourcesSource.xml", moduleDestination)
@@ -1535,7 +1535,7 @@ public class ApplicationDeploymentTestCase extends AbstractApplicationDeployment
   public void failsToDeployWithExtensionThatHasNonExistingIdForExtensionModel() throws Exception {
     String extensionName = "extension-with-extension-model-id-non-existing";
     ZernovaPluginModel.ZernovaPluginModelBuilder builder =
-        new ZernovaPluginModel.ZernovaPluginModelBuilder().setName(extensionName).setMinMuleVersion(MIN_MULE_VERSION);
+        new ZernovaPluginModel.ZernovaPluginModelBuilder().setName(extensionName).setMinZernovaVersion(MIN_MULE_VERSION);
     builder.withExtensionModelDescriber().setId("a-non-existing-ID-describer").addProperty("aProperty", "aValue");
     builder.withBundleDescriptorLoader(createBundleDescriptorLoader(extensionName, MULE_PLUGIN_CLASSIFIER,
                                                                     PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID));

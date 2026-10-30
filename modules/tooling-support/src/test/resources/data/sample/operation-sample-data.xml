@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:sample-data="http://www.mulesoft.org/schema/mule/sample-data"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/sample-data http://www.mulesoft.org/schema/mule/sample-data/current/mule-sample-data.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:sample-data="https://schemas.zernova.dev/sample-data"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/sample-data https://schemas.zernova.dev/sample-data/current/zernova-sample-data.xsd">
 
     <sample-data:config name="config" prefix="from-conf-">
         <sample-data:connection/>
@@ -143,4 +143,4 @@
                                        withExceptionCause="false"/>
     </flow>
 
-</mule>
+</zernova>

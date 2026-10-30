@@ -1,3 +1,21 @@
+# ZERNOVA Studio 0.4.0 alpha
+
+This development package contains ZERNOVA Runtime 0.4.0-alpha.1, Java 17 and the
+HTTP dependency profile. New projects use ZERNOVA XML and `src/main/zernova`.
+Use **ZERNOVA: New ZERNOVA Project**, then **New Integration XML**, create a flow,
+add an HTTP Listener and Logger, configure the Listener, save, and click Run.
+No external Java, Maven or runtime path is needed for this supported slice.
+
+The flow width follows its components. The response line starts at the last
+processor and returns to the Listener. Legacy XML import creates a separate
+converted project. YAML, custom Java and arbitrary additional connectors are
+outside this alpha. See the repository `APPLICATION_FORMAT.md` for the contract.
+
+The sections below describe earlier implementation/verification history; their
+versions and results must not be interpreted as new 0.4.0 verification evidence.
+
+---
+
 # ZERNOVA Studio 0.3.0 — local runtime integration
 
 This Mac x64 development package contains the ZERNOVA Runtime 0.3.0-dev.2,

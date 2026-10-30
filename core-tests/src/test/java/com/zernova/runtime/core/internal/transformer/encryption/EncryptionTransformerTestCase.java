@@ -30,7 +30,7 @@ public class EncryptionTransformerTestCase extends AbstractTransformerTestCase {
   @Before
   public void setUp() throws Exception {
     strat = new PasswordBasedEncryptionStrategy();
-    strat.setPassword("mule");
+    strat.setPassword("zernova");
   }
 
   @Override

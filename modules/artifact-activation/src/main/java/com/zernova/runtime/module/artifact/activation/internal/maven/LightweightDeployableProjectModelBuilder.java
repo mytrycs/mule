@@ -97,9 +97,9 @@ public class LightweightDeployableProjectModelBuilder extends AbstractMavenDeplo
   private Supplier<ZernovaDeployableModel> getDeployableModelResolver() {
     return () -> model.orElseGet(() -> {
       if (isDomain) {
-        return domainModelResolver().resolve(new File(projectFolder, "META-INF/mule-artifact"));
+        return domainModelResolver().resolve(new File(projectFolder, "META-INF/zernova-artifact"));
       } else {
-        return applicationModelResolver().resolve(new File(projectFolder, "META-INF/mule-artifact"));
+        return applicationModelResolver().resolve(new File(projectFolder, "META-INF/zernova-artifact"));
       }
     });
   }

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module name="module-content"
-        xmlns="http://www.mulesoft.org/schema/mule/module"
-        xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+        xmlns="https://schemas.zernova.dev/module"
+        xmlns:zernova="https://schemas.zernova.dev/core"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="
-           http://www.mulesoft.org/schema/mule/module http://www.mulesoft.org/schema/mule/module/current/mule-module.xsd
-           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+           https://schemas.zernova.dev/module https://schemas.zernova.dev/module/current/zernova-module.xsd
+           https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd">
 
     <operation name="set-payload-using-content-parameter">
         <parameters>
             <parameter name="content" type="string" role="CONTENT"/>
         </parameters>
         <body>
-            <mule:set-payload value="#[vars.content]"/>
+            <zernova:set-payload value="#[vars.content]"/>
         </body>
         <output type="string"/>
     </operation>
@@ -22,7 +22,7 @@
             <parameter name="content" type="string" use="OPTIONAL" role="CONTENT"/>
         </parameters>
         <body>
-            <mule:set-payload value="#[vars.content default 'param was null']"/>
+            <zernova:set-payload value="#[vars.content default 'param was null']"/>
         </body>
         <output type="string"/>
     </operation>
@@ -33,7 +33,7 @@
             <parameter name="content" type="string" role="CONTENT"/>
         </parameters>
         <body>
-            <mule:set-payload value="#['attribute value:[' ++ vars.parameter1 ++ '], value of content (accessing map under key smart):[' ++ vars.content ++ ']']"/>
+            <zernova:set-payload value="#['attribute value:[' ++ vars.parameter1 ++ '], value of content (accessing map under key smart):[' ++ vars.content ++ ']']"/>
         </body>
         <output type="string"/>
     </operation>
@@ -43,7 +43,7 @@
             <parameter name="primary" type="string" role="PRIMARY"/>
         </parameters>
         <body>
-            <mule:set-payload value="#[vars.primary]"/>
+            <zernova:set-payload value="#[vars.primary]"/>
         </body>
         <output type="string"/>
     </operation>
@@ -55,7 +55,7 @@
             <parameter name="primary" type="string" role="PRIMARY"/>
         </parameters>
         <body>
-            <mule:set-payload value="#['attribute value:[' ++ vars.parameter1 ++ '], value of content:[' ++ vars.content ++ '], value of primary:[' ++ vars.primary ++ ']']"/>
+            <zernova:set-payload value="#['attribute value:[' ++ vars.parameter1 ++ '], value of content:[' ++ vars.content ++ '], value of primary:[' ++ vars.primary ++ ']']"/>
         </body>
         <output type="string"/>
     </operation>
@@ -67,7 +67,7 @@
             <parameter name="primaryCamelCaseToo" type="string" role="PRIMARY"/>
         </parameters>
         <body>
-            <mule:set-payload value="#['attribute value:[' ++ vars.parameter1 ++ '], value of content:[' ++ vars.contentCamelCase ++ '], value of primary:[' ++ vars.primaryCamelCaseToo ++ ']']"/>
+            <zernova:set-payload value="#['attribute value:[' ++ vars.parameter1 ++ '], value of content:[' ++ vars.contentCamelCase ++ '], value of primary:[' ++ vars.primaryCamelCaseToo ++ ']']"/>
         </body>
         <output type="string"/>
     </operation>

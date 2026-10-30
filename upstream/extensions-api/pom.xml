@@ -6,7 +6,7 @@
 
     <parent>
         <groupId>com.zernova</groupId>
-        <artifactId>mule-plugin-mgmt-parent-pom</artifactId>
+        <artifactId>zernova-plugin-mgmt-parent-pom</artifactId>
         <version>4.10.0</version>
         <relativePath/>
     </parent>
@@ -110,7 +110,7 @@
     </contributors>
     <issueManagement>
         <system>jira</system>
-        <url>http://www.mulesoft.org/jira/browse/MULE</url>
+        <url>http://www.mulesoft.org/jira/browse/ZERNOVA</url>
     </issueManagement>
 
     <scm>

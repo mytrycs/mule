@@ -70,7 +70,7 @@ public class ArtifactAstConfigurationBuilderTestCase extends AbstractZernovaTest
   public TemporaryFolder tempFolder = new TemporaryFolder();
 
   public static final String SCHEMA_VALIDATION_ERROR =
-      "Can't resolve http://www.mulesoft.org/schema/mule/invalid-namespace/current/invalid-schema.xsd, A dependency or plugin might be missing";
+      "Can't resolve https://schemas.zernova.dev/invalid-namespace/current/invalid-schema.xsd, A dependency or plugin might be missing";
 
   private ZernovaContext muleContext;
 

@@ -143,7 +143,7 @@ public class MavenDeployableProjectModelBuilderTestCase extends AbstractZernovaT
 
     assertContainsResourcePaths(deployableProjectModel,
                                 Paths.get("src", "main", "resources"),
-                                Paths.get("src", "main", "mule"));
+                                Paths.get("src", "main", "zernova"));
 
     assertThat(deployableProjectModel.getDependencies(), hasSize(3));
   }
@@ -159,7 +159,7 @@ public class MavenDeployableProjectModelBuilderTestCase extends AbstractZernovaT
 
     assertContainsResourcePaths(deployableProjectModel,
                                 Paths.get("src", "main", "resources"),
-                                Paths.get("src", "main", "mule"));
+                                Paths.get("src", "main", "zernova"));
 
     assertThat(deployableProjectModel.getDependencies(), hasSize(3));
 
@@ -186,7 +186,7 @@ public class MavenDeployableProjectModelBuilderTestCase extends AbstractZernovaT
 
     assertContainsResourcePaths(deployableProjectModel,
                                 Paths.get("src", "main", "resources"),
-                                Paths.get("src", "main", "mule"));
+                                Paths.get("src", "main", "zernova"));
 
     assertThat(deployableProjectModel.getDependencies(), hasSize(3));
 
@@ -205,7 +205,7 @@ public class MavenDeployableProjectModelBuilderTestCase extends AbstractZernovaT
 
     assertContainsResourcePaths(deployableProjectModel,
                                 Paths.get("src", "main2", "resources"),
-                                Paths.get("src", "main2", "mule"));
+                                Paths.get("src", "main2", "zernova"));
 
     assertThat(deployableProjectModel.getDependencies(), hasSize(3));
   }
@@ -221,7 +221,7 @@ public class MavenDeployableProjectModelBuilderTestCase extends AbstractZernovaT
     assertContainsResourcePaths(deployableProjectModel,
                                 Paths.get("src", "main", "resources"),
                                 Paths.get("src", "main", "resources2"),
-                                Paths.get("src", "main", "mule"));
+                                Paths.get("src", "main", "zernova"));
 
     assertThat(deployableProjectModel.getDependencies(), hasSize(3));
   }
@@ -308,7 +308,7 @@ public class MavenDeployableProjectModelBuilderTestCase extends AbstractZernovaT
 
   @Test
   @Description("Tests that even if the \"includeTestDependencies\" field is present in the class loader model loader " +
-      "descriptor in the mule-artifact.json file, test dependencies are not included unless explicitly stated.")
+      "descriptor in the zernova-artifact.json file, test dependencies are not included unless explicitly stated.")
   public void createDeployableProjectModelWithoutIncludingTestDependenciesAndIncludeTestDependenciesInMuleArtifactJson()
       throws Exception {
     DeployableProjectModel deployableProjectModel =

@@ -100,7 +100,7 @@ public class MavenClassLoaderConfigurationLoaderConfigurationTestCase extends Ma
                             .setArtifactId("artifactId")
                             .setVersion("1.0.0")
                             .setType("jar")
-                            .setClassifier("mule-application")
+                            .setClassifier("zernova-application")
                             .build());
 
     try {

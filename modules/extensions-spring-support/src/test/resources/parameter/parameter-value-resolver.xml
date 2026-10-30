@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:some="http://www.mulesoft.org/schema/mule/some"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/some http://www.mulesoft.org/schema/mule/some/current/mule-some.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:some="https://schemas.zernova.dev/some"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/some https://schemas.zernova.dev/some/current/zernova-some.xsd">
 
     <object name="capture"
             class="com.zernova.test.module.extension.parameter.value.ParameterValueResolverTestCase$CaptureProcessor"/>
@@ -23,4 +23,4 @@
         <some:retrieve-zoned-date-time zonedDateTime="2021-04-28T19:30:35+03:00"/>
     </flow>
 
-</mule>
+</zernova>

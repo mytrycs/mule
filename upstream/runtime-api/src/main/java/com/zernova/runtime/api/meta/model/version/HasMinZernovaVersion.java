@@ -26,6 +26,6 @@ public interface HasMinZernovaVersion {
    * @return an {@link Optional} {@link ZernovaVersion} which is the minimum required for the usage of the model, or
    *         {@link Optional#empty()} if none is required.
    */
-  Optional<ZernovaVersion> getMinMuleVersion();
+  Optional<ZernovaVersion> getMinZernovaVersion();
 
 }

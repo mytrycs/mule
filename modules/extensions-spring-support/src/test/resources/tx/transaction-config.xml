@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:tx="http://www.mulesoft.org/schema/mule/tx"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/tx http://www.mulesoft.org/schema/mule/tx/current/mule-tx.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:tx="https://schemas.zernova.dev/tx"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/tx https://schemas.zernova.dev/tx/current/zernova-tx.xsd">
 
 
     <tx:config name="localTx1">
@@ -163,4 +163,4 @@
             </tx:connection-exception>
         </try>
     </flow>
-</mule>
+</zernova>

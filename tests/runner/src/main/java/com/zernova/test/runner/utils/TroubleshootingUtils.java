@@ -83,7 +83,7 @@ public class TroubleshootingUtils {
   }
 
   public static Path getJarPathFromPluginJson(Path pluginJsonUrl) {
-    return getPathOfFileContaining(pluginJsonUrl, "mule-plugin.jar");
+    return getPathOfFileContaining(pluginJsonUrl, "zernova-plugin.jar");
   }
 
   public static Path getJarPathFromPluginJson(URL pluginJsonUrl) {

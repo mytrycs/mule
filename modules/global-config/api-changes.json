@@ -151,7 +151,7 @@
           "classSimpleName": "BundleDependency",
           "package": "com.zernova.maven.client.api.model",
           "elementKind": "class",
-          "justification": "MULE-19688: Need a way to allow lib clients to pass a fully build MavenClient through the MavenClientProvider."
+          "justification": "ZERNOVA-19688: Need a way to allow lib clients to pass a fully build MavenClient through the MavenClientProvider."
         },
         {
           "code": "java.class.externalClassExposedInAPI",
@@ -159,7 +159,7 @@
           "classSimpleName": "BundleDescriptor",
           "package": "com.zernova.maven.client.api.model",
           "elementKind": "class",
-          "justification": "MULE-19688: Need a way to allow lib clients to pass a fully build MavenClient through the MavenClientProvider."
+          "justification": "ZERNOVA-19688: Need a way to allow lib clients to pass a fully build MavenClient through the MavenClientProvider."
         },
         {
           "code": "java.class.externalClassExposedInAPI",
@@ -167,7 +167,7 @@
           "classSimpleName": "BundleScope",
           "package": "com.zernova.maven.client.api.model",
           "elementKind": "enum",
-          "justification": "MULE-19688: Need a way to allow lib clients to pass a fully build MavenClient through the MavenClientProvider."
+          "justification": "ZERNOVA-19688: Need a way to allow lib clients to pass a fully build MavenClient through the MavenClientProvider."
         }
       ]
     }

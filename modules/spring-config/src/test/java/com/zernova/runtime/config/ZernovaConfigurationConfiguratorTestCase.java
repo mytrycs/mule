@@ -152,7 +152,7 @@ public class ZernovaConfigurationConfiguratorTestCase extends AbstractZernovaTes
     assertThat(config.getDefaultProcessingStrategyFactory(), is(defaultConfig.getDefaultProcessingStrategyFactory()));
     assertDynamicConfigExpirationEquals(config.getDynamicConfigExpiration(), defaultConfig.getDynamicConfigExpiration());
     assertThat(config.isInheritIterableRepeatability(), is(defaultConfig.isInheritIterableRepeatability()));
-    assertThat(config.getMinMuleVersion(), is(defaultConfig.getMinMuleVersion()));
+    assertThat(config.getMinZernovaVersion(), is(defaultConfig.getMinZernovaVersion()));
     assertThat(config.getDefaultCorrelationIdGenerator(), is(defaultConfig.getDefaultCorrelationIdGenerator()));
     assertThat(config.getArtifactCoordinates(), is(defaultConfig.getArtifactCoordinates()));
 

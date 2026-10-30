@@ -91,11 +91,11 @@ public abstract class AbstractMavenClassLoaderConfigurationLoader implements Cla
   public static final String CLASSLOADER_MODEL_JSON_DESCRIPTOR = "classloader-model.json";
   public static final String CLASSLOADER_MODEL_JSON_PATCH_DESCRIPTOR = "classloader-model-patch.json";
   public static final String CLASSLOADER_MODEL_JSON_DESCRIPTOR_LOCATION =
-      Paths.get("META-INF", "mule-artifact", CLASSLOADER_MODEL_JSON_DESCRIPTOR).toString();
+      Paths.get("META-INF", "zernova-artifact", CLASSLOADER_MODEL_JSON_DESCRIPTOR).toString();
   public static final String CLASSLOADER_MODEL_JSON_PATCH_DESCRIPTOR_LOCATION =
-      Paths.get("META-INF", "mule-artifact", CLASSLOADER_MODEL_JSON_PATCH_DESCRIPTOR).toString();
-  public static final String MULE_ARTIFACT_PATCHES_LOCATION = Paths.get("lib/patches/mule-artifact-patches").toString();
-  public static final String MULE_ARTIFACT_PATCH_JSON_FILE_NAME = "mule-artifact-patch.json";
+      Paths.get("META-INF", "zernova-artifact", CLASSLOADER_MODEL_JSON_PATCH_DESCRIPTOR).toString();
+  public static final String MULE_ARTIFACT_PATCHES_LOCATION = Paths.get("lib/patches/zernova-artifact-patches").toString();
+  public static final String MULE_ARTIFACT_PATCH_JSON_FILE_NAME = "zernova-artifact-patch.json";
 
   public static final String CLASSLOADER_MODEL_MAVEN_REACTOR_RESOLVER = "_classLoaderModelMavenReactorResolver";
   public static final String CLASS_LOADER_MODEL_VERSION_120 = "1.2.0";
@@ -227,7 +227,7 @@ public abstract class AbstractMavenClassLoaderConfigurationLoader implements Cla
 
     List<URL> patches = getArtifactPatches(artifactBundleDescriptor);
 
-    // This is already filtering out mule-plugin dependencies,
+    // This is already filtering out zernova-plugin dependencies,
     // since for this case we explicitly need to consume the exported API from the plugin.
     final List<URL> dependenciesArtifactsUrls =
         loadUrls(artifactFile, classLoaderConfigurationBuilder, bundleDependencies, patches);
@@ -461,7 +461,7 @@ public abstract class AbstractMavenClassLoaderConfigurationLoader implements Cla
                                      new HashSet<>(getAttribute(attributes, PRIVILEGED_ARTIFACTS_IDS)))
         .includeTestDependencies(valueOf(getSimpleAttribute(attributes, INCLUDE_TEST_DEPENDENCIES, "false")));
 
-    // This is already filtering out mule-plugin dependencies,
+    // This is already filtering out zernova-plugin dependencies,
     // since for this case we explicitly need to consume the exported API from the plugin.
     final List<URL> dependenciesArtifactsUrls =
         loadUrls(artifactFile, classLoaderConfigurationBuilder, nonProvidedDependencies, emptyList());

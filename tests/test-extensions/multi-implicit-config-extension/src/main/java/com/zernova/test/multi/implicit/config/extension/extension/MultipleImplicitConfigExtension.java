@@ -22,7 +22,7 @@ import com.zernova.test.implicit.exclusive.config.extension.extension.NullSafeIn
 
 @Extension(name = "multiImplicitConfig")
 @JavaVersionSupport({JAVA_21, JAVA_17})
-@Xml(namespace = "http://www.mulesoft.org/schema/mule/multiimplicitconfig", prefix = "multiimplicitconfig")
+@Xml(namespace = "https://schemas.zernova.dev/multiimplicitconfig", prefix = "multiimplicitconfig")
 @Configurations(value = {BlaConfig.class, BleConfig.class, NonImplicitConfig.class, AnotherConfigThatCanBeUsedImplicitly.class})
 @Import(type = NullSafeInterface.class)
 public class MultipleImplicitConfigExtension {

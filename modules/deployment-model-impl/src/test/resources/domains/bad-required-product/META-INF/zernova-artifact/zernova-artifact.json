@@ -1,0 +1,19 @@
+{
+  "name": "Domain",
+  "minZernovaVersion": "4.0.0",
+  "requiredProduct": "MMC",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": []
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  },
+  "configs": [
+    "file1.xml", "file2.xml"
+  ]
+}

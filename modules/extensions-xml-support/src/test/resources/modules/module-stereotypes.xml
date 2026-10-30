@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module name="module-stereotypes"
-        xmlns="http://www.mulesoft.org/schema/mule/module"
-        xmlns:mule="http://www.mulesoft.org/schema/mule/core"
-        xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel"
+        xmlns="https://schemas.zernova.dev/module"
+        xmlns:zernova="https://schemas.zernova.dev/core"
+        xmlns:marvel="https://schemas.zernova.dev/marvel"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="
-           http://www.mulesoft.org/schema/mule/module http://www.mulesoft.org/schema/mule/module/current/mule-module.xsd
-           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-           http://www.mulesoft.org/schema/mule/marvel http://www.mulesoft.org/schema/mule/marvel/current/mule-marvel.xsd">
+           https://schemas.zernova.dev/module https://schemas.zernova.dev/module/current/zernova-module.xsd
+           https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+           https://schemas.zernova.dev/marvel https://schemas.zernova.dev/marvel/current/zernova-marvel.xsd">
 
     <property name="stereotypableIronManConfig" type="string" />
     <property name="stereotypableMultipleConfig" type="string" />
@@ -36,7 +36,7 @@
         </parameters>
         <body>
             <marvel:to-stream config-ref="drStrange" data="#[vars.aData]" />
-            <mule:set-payload value="#[%dw 2.0 output application/java --- payload.^raw as String]"/>
+            <zernova:set-payload value="#[%dw 2.0 output application/java --- payload.^raw as String]"/>
         </body>
         <output type="string"/>
     </operation>
@@ -46,7 +46,7 @@
             <parameter name="reference" type="string"/>
         </parameters>
         <body>
-            <mule:flow-ref name="#[vars.reference]" />
+            <zernova:flow-ref name="#[vars.reference]" />
         </body>
         <output type="any"/>
     </operation>

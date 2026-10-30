@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/heisenberg http://www.mulesoft.org/schema/mule/heisenberg/current/mule-heisenberg.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:heisenberg="https://schemas.zernova.dev/heisenberg"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/heisenberg https://schemas.zernova.dev/heisenberg/current/zernova-heisenberg.xsd">
 
     <configuration-properties file="heisenberg.properties"/>
 
@@ -37,8 +37,8 @@
     </flow>
 
     <flow name="processWeapon">
-        <set-payload value="#[java!org::mule::test::heisenberg::extension::model::Ricin::new()]"/>
-        <set-payload value="#[java!org::mule::test::module::extension::parameter::resolver::ParameterResolverOperationExecutionTestCase::setMicrogramsPerKilo(payload, 100)]"/>
+        <set-payload value="#[java!org::zernova::test::heisenberg::extension::model::Ricin::new()]"/>
+        <set-payload value="#[java!org::zernova::test::module::extension::parameter::resolver::ParameterResolverOperationExecutionTestCase::setMicrogramsPerKilo(payload, 100)]"/>
         <heisenberg:process-weapon weapon="#[payload]"/>
     </flow>
 
@@ -47,8 +47,8 @@
     </flow>
 
     <flow name="processWeaponWithDefaultValue">
-        <set-payload value="#[java!org::mule::test::heisenberg::extension::model::Ricin::new()]"/>
-        <set-payload value="#[java!org::mule::test::module::extension::parameter::resolver::ParameterResolverOperationExecutionTestCase::setMicrogramsPerKilo(payload, 100)]"/>
+        <set-payload value="#[java!org::zernova::test::heisenberg::extension::model::Ricin::new()]"/>
+        <set-payload value="#[java!org::zernova::test::module::extension::parameter::resolver::ParameterResolverOperationExecutionTestCase::setMicrogramsPerKilo(payload, 100)]"/>
         <heisenberg:process-weapon-with-default-value/>
     </flow>
 
@@ -58,15 +58,15 @@
     </flow>
 
     <flow name="processWeaponList">
-        <set-payload value="#[java!org::mule::test::heisenberg::extension::model::Ricin::new()]"/>
-        <set-payload value="#[java!org::mule::test::module::extension::parameter::resolver::ParameterResolverOperationExecutionTestCase::setMicrogramsPerKilo(payload, 100)]"/>
+        <set-payload value="#[java!org::zernova::test::heisenberg::extension::model::Ricin::new()]"/>
+        <set-payload value="#[java!org::zernova::test::module::extension::parameter::resolver::ParameterResolverOperationExecutionTestCase::setMicrogramsPerKilo(payload, 100)]"/>
         <set-payload value="#[[payload]]"/>
         <heisenberg:process-weapon-list weapons="#[payload]"/>
     </flow>
 
     <flow name="processWeaponListAsChild">
-        <set-payload value="#[java!org::mule::test::heisenberg::extension::model::Ricin::new()]"/>
-        <set-payload value="#[java!org::mule::test::module::extension::parameter::resolver::ParameterResolverOperationExecutionTestCase::setMicrogramsPerKilo(payload, 100)]"/>
+        <set-payload value="#[java!org::zernova::test::heisenberg::extension::model::Ricin::new()]"/>
+        <set-payload value="#[java!org::zernova::test::module::extension::parameter::resolver::ParameterResolverOperationExecutionTestCase::setMicrogramsPerKilo(payload, 100)]"/>
         <set-payload value="#[[payload]]"/>
         <heisenberg:process-weapon-list>
             <heisenberg:weapons>
@@ -91,4 +91,4 @@
             </heisenberg:phone-numbers>
         </heisenberg:process-address-book>
     </flow>
-</mule>
+</zernova>

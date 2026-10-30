@@ -8,7 +8,7 @@
 package com.zernova.runtime.module.deployment.impl.internal.builder;
 
 import static com.zernova.maven.pom.parser.api.model.BundleScope.PROVIDED;
-import static com.zernova.runtime.api.deployment.meta.Product.MULE;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA;
 import static com.zernova.runtime.api.util.Preconditions.checkArgument;
 import static com.zernova.runtime.container.internal.ClasspathModuleDiscoverer.EXPORTED_CLASS_PACKAGES_PROPERTY;
 import static com.zernova.runtime.container.internal.ClasspathModuleDiscoverer.EXPORTED_RESOURCE_PROPERTY;
@@ -167,7 +167,7 @@ public class DomainFileBuilder extends DeployableFileBuilder<DomainFileBuilder> 
     domainDescriptor.deleteOnExit();
     ZernovaDomainModel.ZernovaDomainModelBuilder muleDomainModelBuilder =
         new ZernovaDomainModel.ZernovaDomainModelBuilder();
-    muleDomainModelBuilder.setName(getArtifactId()).setMinMuleVersion("4.0.0").setRequiredProduct(MULE);
+    muleDomainModelBuilder.setName(getArtifactId()).setMinZernovaVersion("4.0.0").setRequiredProduct(ZERNOVA);
     redeploymentEnabled.ifPresent(muleDomainModelBuilder::setRedeploymentEnabled);
     configResources.ifPresent(configs -> {
       String[] configFiles = configs.split(",");

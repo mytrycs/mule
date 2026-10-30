@@ -495,7 +495,7 @@ public class TemplateParserTestCase extends AbstractZernovaTestCase {
   public void muleParserWithExpresionInsideWithoutLiteral() {
     TemplateParser tp = createMuleStyleParser();
     final String expression = "#[#[mule]]";
-    String expectedResult = "mule";
+    String expectedResult = "zernova";
     assertTrue(tp.isValid(expression));
     String result = tp.parse(null, expression, token -> token);
     assertEquals(expectedResult, result);

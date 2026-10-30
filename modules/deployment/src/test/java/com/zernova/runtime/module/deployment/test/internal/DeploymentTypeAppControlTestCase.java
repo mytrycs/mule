@@ -68,8 +68,8 @@ public class DeploymentTypeAppControlTestCase extends AbstractApplicationDeploym
   private static final String JAR_EXTENSION = ".jar";
   private static final String MAVEN_REPOSITORY_ID = "mulesoft-public";
   private static final String MULE_CORE_DEPENDENCY = "mule-core";
-  private static final String MULE_PLUGIN_CLASSIFIER = "mule-plugin";
-  private static final String MULE_PLUGIN_EXTENSION_NAME = "-mule-plugin.jar";
+  private static final String MULE_PLUGIN_CLASSIFIER = "zernova-plugin";
+  private static final String MULE_PLUGIN_EXTENSION_NAME = "-zernova-plugin.jar";
   private static final String MULE_PLUGIN_GROUP_ID = "com.zernova.connectors";
   private static final String MULE_PLUGIN_NAME = "mule-sockets-connector";
   private static final String MULE_PLUGIN_PROPERTY_VALUE = "org.foo";

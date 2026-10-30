@@ -377,12 +377,12 @@ public class ModelBasedTypeMetadataCacheKeyGeneratorTestCase extends AbstractMet
   public void sameComponentsOnDifferentExtensionsGenerateDifferentHash() throws Exception {
     final String newExtensionModelName = "newMockedExtension";
     final String newNamespace = "new-mockns";
-    final String newNamespaceUri = "http://www.mulesoft.org/schema/mule/new-mockns";
-    final String newSchemaLocation = "http://www.mulesoft.org/schema/mule/new-mockns/current/mule-new-mockns.xsd";
+    final String newNamespaceUri = "https://schemas.zernova.dev/new-mockns";
+    final String newSchemaLocation = "https://schemas.zernova.dev/new-mockns/current/zernova-new-mockns.xsd";
 
 
     ExtensionModel newExtensionModel = createExtension(newExtensionModelName, XmlDslModel.builder()
-        .setXsdFileName("new-mule-mockns.xsd")
+        .setXsdFileName("new-zernova-mockns.xsd")
         .setPrefix(newNamespace)
         .setNamespace(newNamespaceUri)
         .setSchemaLocation(newSchemaLocation)

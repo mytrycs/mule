@@ -120,7 +120,7 @@ public class ImmutableNestedChainModel extends ImmutableNestedComponentModel imp
    * @param deprecationModel     a {@link DeprecationModel} describing if the component is deprecated. A null value means it is
    *                             not deprecated.
    * @param semanticTerms        a {@link Set} of semantic terms which describe the component's meaning and effect
-   * @param minMuleVersion       the min mule version of the nested chain model
+   * @param minZernovaVersion       the min mule version of the nested chain model
    * @throws IllegalArgumentException if {@code name} is blank
    * @since 1.5.0
    */
@@ -137,7 +137,7 @@ public class ImmutableNestedChainModel extends ImmutableNestedComponentModel imp
                                    Set<ModelProperty> modelProperties,
                                    DeprecationModel deprecationModel,
                                    Set<String> semanticTerms,
-                                   ZernovaVersion minMuleVersion) {
+                                   ZernovaVersion minZernovaVersion) {
     this(name,
          description,
          parameterGroupModels,
@@ -151,7 +151,7 @@ public class ImmutableNestedChainModel extends ImmutableNestedComponentModel imp
          modelProperties,
          deprecationModel,
          semanticTerms,
-         minMuleVersion,
+         minZernovaVersion,
          UNKNOWN);
   }
 
@@ -171,7 +171,7 @@ public class ImmutableNestedChainModel extends ImmutableNestedComponentModel imp
    * @param deprecationModel     a {@link DeprecationModel} describing if the component is deprecated. A null value means it is
    *                             not deprecated.
    * @param semanticTerms        a {@link Set} of semantic terms which describe the component's meaning and effect
-   * @param minMuleVersion       the min mule version of the nested chain model
+   * @param minZernovaVersion       the min mule version of the nested chain model
    * @param executionOccurrence  the chain's {@link ChainExecutionOccurrence}
    * @throws IllegalArgumentException if {@code name} is blank
    * @since 1.7.0
@@ -189,7 +189,7 @@ public class ImmutableNestedChainModel extends ImmutableNestedComponentModel imp
                                    Set<ModelProperty> modelProperties,
                                    DeprecationModel deprecationModel,
                                    Set<String> semanticTerms,
-                                   ZernovaVersion minMuleVersion,
+                                   ZernovaVersion minZernovaVersion,
                                    ChainExecutionOccurrence executionOccurrence) {
     super(name,
           description,
@@ -205,7 +205,7 @@ public class ImmutableNestedChainModel extends ImmutableNestedComponentModel imp
           modelProperties,
           deprecationModel,
           semanticTerms,
-          minMuleVersion);
+          minZernovaVersion);
     this.executionOccurrence = executionOccurrence;
   }
 

@@ -52,7 +52,7 @@ public final class ZernovaExtensionModelProvider {
   public static final String MULESOFT_VENDOR = "MuleSoft, Inc.";
 
   public static final String MULE_TLS_NAMESPACE = format(DEFAULT_NAMESPACE_URI_MASK, "tls");
-  public static final String MULE_TLS_SCHEMA_LOCATION = "http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd";
+  public static final String MULE_TLS_SCHEMA_LOCATION = "https://schemas.zernova.dev/tls/current/zernova-tls.xsd";
   public static final ClassTypeLoader TYPE_LOADER = ExtensionsTypeLoaderFactory.getDefault()
       .createTypeLoader(ZernovaExtensionModelProvider.class.getClassLoader());
 
@@ -86,7 +86,7 @@ public final class ZernovaExtensionModelProvider {
     return PRIMITIVE_TYPES.get(id);
   }
 
-  private static final LazyValue<ExtensionModel> EXTENSION_MODEL = new LazyValue<>(() -> new ZernovaCoreExtensionModelLoader("mule")
+  private static final LazyValue<ExtensionModel> EXTENSION_MODEL = new LazyValue<>(() -> new ZernovaCoreExtensionModelLoader("zernova")
       .loadExtensionModel(new ZernovaExtensionModelDeclarer(configurerFactory).createExtensionModel(),
                           loadingRequest()));
 

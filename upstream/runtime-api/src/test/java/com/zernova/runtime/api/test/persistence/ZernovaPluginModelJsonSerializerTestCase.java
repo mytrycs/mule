@@ -49,7 +49,7 @@ public class ZernovaPluginModelJsonSerializerTestCase extends AbstractZernovaArt
   @Test
   public void serialize() throws IOException {
     final String describerName = "plugin-name";
-    final String describerMinMuleVersion = "4.2.3";
+    final String describerMinZernovaVersion = "4.2.3";
     final String describerExtensionModelId = "annotations";
     final String classAttributeKey = "class";
     final String classAttributeValue = "com.zernova.extension.internal.ExtensionConnector";
@@ -61,7 +61,7 @@ public class ZernovaPluginModelJsonSerializerTestCase extends AbstractZernovaArt
     bundleDescriptorAttributes.put(BUNDLE_DESCRIPTOR_LOADER_KEY_2, BUNDLE_DESCRIPTOR_LOADER_VALUE_2);
 
     final ZernovaPluginModelBuilder mulePluginModelBuilder =
-        new ZernovaPluginModelBuilder().setName(describerName).setMinMuleVersion(describerMinMuleVersion)
+        new ZernovaPluginModelBuilder().setName(describerName).setMinZernovaVersion(describerMinZernovaVersion)
             .withBundleDescriptorLoader(new ZernovaArtifactLoaderDescriptor(BUNDLE_DESCRIPTOR_LOADER_ID,
                                                                          bundleDescriptorAttributes));
     mulePluginModelBuilder.withExtensionModelDescriber().setId(describerExtensionModelId).addProperty(classAttributeKey,
@@ -72,7 +72,7 @@ public class ZernovaPluginModelJsonSerializerTestCase extends AbstractZernovaArt
     String actual = mulePluginModelJsonSerializer.serialize(mulePluginModelBuilder.build());
     final JsonObject actualElement = new JsonParser().parse(actual).getAsJsonObject();
     assertThat(actualElement.get("name").getAsString(), is(describerName));
-    assertThat(actualElement.get("minMuleVersion").getAsString(), is(describerMinMuleVersion));
+    assertThat(actualElement.get("minZernovaVersion").getAsString(), is(describerMinZernovaVersion));
     JsonObject extensionModelDescriptor = actualElement.get("extensionModelLoaderDescriptor").getAsJsonObject();
     assertThat(extensionModelDescriptor.get("id").getAsString(), is(describerExtensionModelId));
     assertThat(extensionModelDescriptor.get("attributes").getAsJsonObject().get(classAttributeKey).getAsString(),
@@ -102,7 +102,7 @@ public class ZernovaPluginModelJsonSerializerTestCase extends AbstractZernovaArt
 
     ZernovaPluginModel deserialized = mulePluginModelJsonSerializer.deserialize(IOUtils.toString(resource));
 
-    assertNameAndMinMuleVersion(deserialized);
+    assertNameAndMinZernovaVersion(deserialized);
     assertBundleDescriptorLoader(deserialized.getBundleDescriptorLoader());
     assertExtensionModel(deserialized);
   }
@@ -113,7 +113,7 @@ public class ZernovaPluginModelJsonSerializerTestCase extends AbstractZernovaArt
 
     ZernovaPluginModel deserialized = mulePluginModelJsonSerializer.deserialize(IOUtils.toString(resource));
 
-    assertNameAndMinMuleVersion(deserialized);
+    assertNameAndMinZernovaVersion(deserialized);
     assertBundleDescriptorLoader(deserialized.getBundleDescriptorLoader());
     assertThat(deserialized.getExtensionModelLoaderDescriptor().isPresent(), is(false));
     assertClassLoaderModel(deserialized);
@@ -126,7 +126,7 @@ public class ZernovaPluginModelJsonSerializerTestCase extends AbstractZernovaArt
 
     ZernovaPluginModel deserialized = mulePluginModelJsonSerializer.deserialize(IOUtils.toString(resource));
 
-    assertNameAndMinMuleVersion(deserialized);
+    assertNameAndMinZernovaVersion(deserialized);
     assertBundleDescriptorLoader(deserialized.getBundleDescriptorLoader());
     assertExtensionModel(deserialized);
     assertClassLoaderModel(deserialized);
@@ -139,14 +139,14 @@ public class ZernovaPluginModelJsonSerializerTestCase extends AbstractZernovaArt
 
     ZernovaPluginModel deserialized = mulePluginModelJsonSerializer.deserialize(IOUtils.toString(resource));
 
-    assertNameAndMinMuleVersion(deserialized);
+    assertNameAndMinZernovaVersion(deserialized);
     assertBundleDescriptorLoader(deserialized.getBundleDescriptorLoader());
     assertThat(deserialized.getExtensionModelLoaderDescriptor().isPresent(), is(false));
   }
 
-  private void assertNameAndMinMuleVersion(ZernovaPluginModel deserialize) {
+  private void assertNameAndMinZernovaVersion(ZernovaPluginModel deserialize) {
     assertThat(deserialize.getName(), is("plugin-name"));
-    assertThat(deserialize.getMinMuleVersion(), is("4.2.3"));
+    assertThat(deserialize.getMinZernovaVersion(), is("4.2.3"));
   }
 
   private void assertExtensionModel(ZernovaPluginModel deserialize) {

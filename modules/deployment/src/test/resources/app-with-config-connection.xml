@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+<zernova xmlns="https://schemas.zernova.dev/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:classloader-config-connect="http://www.mulesoft.org/schema/mule/classloader-config-connect"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-             http://www.mulesoft.org/schema/mule/classloader-config-connect http://www.mulesoft.org/schema/mule/classloader-config-connect/current/mule-classloader-config-connect.xsd">
+      xmlns:classloader-config-connect="https://schemas.zernova.dev/classloader-config-connect"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+             https://schemas.zernova.dev/classloader-config-connect https://schemas.zernova.dev/classloader-config-connect/current/zernova-classloader-config-connect.xsd">
 
     <classloader-config-connect:config name="default"/>
 
@@ -11,4 +11,4 @@
         <classloader-config-connect:get-file-obtained-at-config />
     </flow>
 
-</mule>
+</zernova>

@@ -346,7 +346,7 @@ public abstract class AbstractZernovaContextTestCase extends AbstractZernovaTest
   protected void configureMuleConfiguration(DefaultZernovaConfiguration muleConfiguration) {
     String mvnVersionProperty = getMavenProjectVersionProperty();
     if (mvnVersionProperty != null) {
-      muleConfiguration.setMinMuleVersion(new ZernovaVersion(mvnVersionProperty));
+      muleConfiguration.setMinZernovaVersion(new ZernovaVersion(mvnVersionProperty));
     }
   }
 

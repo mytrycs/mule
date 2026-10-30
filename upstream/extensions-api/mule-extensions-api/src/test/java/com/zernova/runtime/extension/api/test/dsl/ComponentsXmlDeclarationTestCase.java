@@ -222,8 +222,8 @@ public class ComponentsXmlDeclarationTestCase extends BaseXmlDeclarationTestCase
 
     DslElementSyntax result = getSyntaxResolver().resolve(importedTypeParameterModel);
 
-    assertThat(result.getContainedElement("notGlobal").get().getPrefix(), is("mule"));
-    assertThat(result.getContainedElement("notGlobal").get().getNamespace(), is("http://www.mulesoft.org/schema/mule/core"));
+    assertThat(result.getContainedElement("notGlobal").get().getPrefix(), is("zernova"));
+    assertThat(result.getContainedElement("notGlobal").get().getNamespace(), is("https://schemas.zernova.dev/core"));
     assertThat(result.getContainedElement("notGlobal").get().getElementName(), is("not-global"));
   }
 

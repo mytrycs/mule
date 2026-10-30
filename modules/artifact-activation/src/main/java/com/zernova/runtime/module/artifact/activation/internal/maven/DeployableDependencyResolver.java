@@ -21,7 +21,7 @@ import java.util.Optional;
 
 public class DeployableDependencyResolver {
 
-  private static final String MULE_DOMAIN_CLASSIFIER = "mule-domain";
+  private static final String MULE_DOMAIN_CLASSIFIER = "zernova-domain";
 
   private final MavenClient muleMavenPluginClient;
 

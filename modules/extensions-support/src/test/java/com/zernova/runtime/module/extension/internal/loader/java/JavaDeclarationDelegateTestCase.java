@@ -348,7 +348,7 @@ public class JavaDeclarationDelegateTestCase extends AbstractJavaExtensionDeclar
   }
 
   @Test
-  public void minMuleVersionIsDescribedCorrectly() {
+  public void minZernovaVersionIsDescribedCorrectly() {
     ExtensionDeclarer declarer = declarerFor(HeisenbergExtension.class);
     declarer.getDeclaration();
   }
@@ -362,7 +362,7 @@ public class JavaDeclarationDelegateTestCase extends AbstractJavaExtensionDeclar
   }
 
   @Test
-  public void minMuleVersionDefaultValueIsDescribedCorrectly() {
+  public void minZernovaVersionDefaultValueIsDescribedCorrectly() {
     ExtensionDeclarer declarer = declarerFor(PetStoreConnector.class);
     declarer.getDeclaration();
   }

@@ -1,0 +1,26 @@
+{
+  "extensionModelLoaderDescriptor": {
+    "id": "crafted",
+    "attributes": {
+      "type": "com.zernova.tests.chains.api.extension.TestProcessorChainsExtensionLoadingDelegate"
+    }
+  },
+  "name": "Mule test processor chains plugin",
+  "minZernovaVersion": "4.0.0",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {
+      "exportedPackages": [
+        "com.zernova.tests.chains.api.config"
+      ],
+      "exportedResources": [
+        "/META-INF/zernova-test-processor-chains.xsd",
+        "/META-INF/zernova.schemas"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  }
+}

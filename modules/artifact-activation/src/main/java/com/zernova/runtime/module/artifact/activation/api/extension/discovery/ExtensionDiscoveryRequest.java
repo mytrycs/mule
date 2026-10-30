@@ -96,10 +96,10 @@ public interface ExtensionDiscoveryRequest {
   boolean isForceExtensionValidation();
 
   /**
-   * @return whether the {@link HasMinZernovaVersion#getMinMuleVersion() minMuleVersion} of each component must be calculated.
+   * @return whether the {@link HasMinZernovaVersion#getMinZernovaVersion() minZernovaVersion} of each component must be calculated.
    * @since 1.9
    */
-  boolean isResolveMinMuleVersion();
+  boolean isResolveMinZernovaVersion();
 
   @NoInstantiate
   final class ExtensionDiscoveryRequestBuilder {
@@ -110,7 +110,7 @@ public interface ExtensionDiscoveryRequest {
     private boolean enrichDescriptions = true;
     private boolean ocsEnabled = false;
     private boolean forceExtensionValidation = false;
-    private boolean resolveMinMuleVersion = false;
+    private boolean resolveMinZernovaVersion = false;
     private final Map<String, Object> customParameters = new HashMap<>();
 
     public ExtensionDiscoveryRequestBuilder setArtifactPlugins(Collection<ArtifactPluginDescriptor> artifactPlugins) {
@@ -144,8 +144,8 @@ public interface ExtensionDiscoveryRequest {
     }
 
 
-    public ExtensionDiscoveryRequestBuilder setResolveMinMuleVersion(boolean resolveMinMuleVersion) {
-      this.resolveMinMuleVersion = resolveMinMuleVersion;
+    public ExtensionDiscoveryRequestBuilder setResolveMinZernovaVersion(boolean resolveMinZernovaVersion) {
+      this.resolveMinZernovaVersion = resolveMinZernovaVersion;
       return this;
     }
 
@@ -183,7 +183,7 @@ public interface ExtensionDiscoveryRequest {
                                                   enrichDescriptions,
                                                   ocsEnabled,
                                                   forceExtensionValidation,
-                                                  resolveMinMuleVersion,
+                                                  resolveMinZernovaVersion,
                                                   customParameters);
     }
   }

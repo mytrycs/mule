@@ -21,7 +21,7 @@ import java.util.Optional;
 import java.util.Properties;
 
 /**
- * Describes an artifact with classifier {@code mule-plugin}, used within an Application or Domain.
+ * Describes an artifact with classifier {@code zernova-plugin}, used within an Application or Domain.
  *
  * @since 4.5
  */
@@ -31,7 +31,7 @@ public class ArtifactPluginDescriptor extends ArtifactDescriptor {
   private static final String META_INF = "META-INF";
   public static final String MULE_PLUGIN_CLASSIFIER = BundleDescriptor.MULE_PLUGIN_CLASSIFIER;
   public static final String EXTENSION_BUNDLE_TYPE = "jar";
-  private static final String MULE_ARTIFACT = "mule-artifact";
+  private static final String MULE_ARTIFACT = "zernova-artifact";
 
   /**
    * Target path as URL for any files used at deployment time or when generating the {@link ExtensionModel}

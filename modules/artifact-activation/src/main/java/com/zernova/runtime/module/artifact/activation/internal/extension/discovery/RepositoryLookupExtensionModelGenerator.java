@@ -62,12 +62,12 @@ public class RepositoryLookupExtensionModelGenerator implements ExtensionModelGe
                                                                 artifactPluginDescriptor,
                                                                 discoveryRequest.isOCSEnabled(),
                                                                 discoveryRequest.isForceExtensionValidation(),
-                                                                discoveryRequest.isResolveMinMuleVersion()))
+                                                                discoveryRequest.isResolveMinZernovaVersion()))
         .orElse(null);
   }
 
   /**
-   * Looks for an extension using the mule-artifact.json file, where if available it will parse it using the
+   * Looks for an extension using the zernova-artifact.json file, where if available it will parse it using the
    * {@link ExtensionModelLoader} which {@link ExtensionModelLoader#getId() ID} matches the plugin's descriptor ID.
    *
    * @param extensionModelLoaderRepository {@link ExtensionModelLoaderRepository} with the available extension loaders.
@@ -91,7 +91,7 @@ public class RepositoryLookupExtensionModelGenerator implements ExtensionModelGe
                                                                ArtifactPluginDescriptor artifactPluginDescriptor,
                                                                boolean ocsEnabled,
                                                                boolean forceExtensionValidation,
-                                                               boolean resolveMinMuleVersion) {
+                                                               boolean resolveMinZernovaVersion) {
     ExtensionModelLoader loader = extensionModelLoaderRepository.getExtensionModelLoader(loaderDescriber)
         .orElseThrow(() -> new IllegalArgumentException(format("The identifier '%s' does not match with the describers available "
             + "to generate an ExtensionModel (working with the plugin '%s')", loaderDescriber.getId(), artifactName)));
@@ -102,7 +102,7 @@ public class RepositoryLookupExtensionModelGenerator implements ExtensionModelGe
         .addParameters(attributes)
         .setOCSEnabled(ocsEnabled)
         .setForceExtensionValidation(forceExtensionValidation)
-        .setResolveMinMuleVersion(resolveMinMuleVersion)
+        .setResolveMinZernovaVersion(resolveMinZernovaVersion)
         .setArtifactCoordinates(artifactPluginDescriptor.getBundleDescriptor())
         .build());
   }

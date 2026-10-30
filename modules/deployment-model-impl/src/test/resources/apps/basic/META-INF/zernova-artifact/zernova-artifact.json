@@ -1,0 +1,23 @@
+{
+  "configs": [
+    "app.xml"
+  ],
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "basic",
+  "minZernovaVersion": "4.4.0",
+  "requiredProduct": "ZERNOVA",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {
+      "exportedResources": [
+        "test-script.dwl",
+        "app.xml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  }
+}

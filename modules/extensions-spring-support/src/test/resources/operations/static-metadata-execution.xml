@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/metadata http://www.mulesoft.org/schema/mule/metadata/current/mule-metadata.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:metadata="https://schemas.zernova.dev/metadata"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/metadata https://schemas.zernova.dev/metadata/current/zernova-metadata.xsd">
 
     <flow name="receiveJsonInputStream">
         <set-payload value="#[output application/java --- write({}, 'application/json')]"/>
@@ -14,4 +14,4 @@
         </metadata:receive-json-input-stream>
     </flow>
 
-</mule>
+</zernova>

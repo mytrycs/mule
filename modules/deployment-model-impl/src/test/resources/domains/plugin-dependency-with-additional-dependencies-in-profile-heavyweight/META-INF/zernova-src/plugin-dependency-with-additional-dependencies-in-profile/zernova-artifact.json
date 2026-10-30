@@ -1,0 +1,16 @@
+{
+  "name": "plugin-dependency-with-additional-dependencies-in-profile",
+  "minZernovaVersion": "4.0.0",
+  "requiredProduct": "ZERNOVA",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": []
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  }
+}

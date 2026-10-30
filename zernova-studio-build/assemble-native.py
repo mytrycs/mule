@@ -29,7 +29,7 @@ def sha(path):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('target', choices=['darwin-x64', 'darwin-arm64', 'linux-x64', 'linux-arm64', 'win32-x64', 'win32-arm64'])
-    parser.add_argument('--inputs', type=Path, default=HERE / 'runtime-baseline')
+    parser.add_argument('--inputs', type=Path, default=HERE / 'runtime-inputs')
     parser.add_argument('--engine', type=Path, default=ROOT / 'upstream/distributions/standalone/target/mule-standalone-4.10.0-SNAPSHOT.zip')
     parser.add_argument('--output', type=Path, default=HERE / 'runtime')
     args = parser.parse_args()
@@ -67,7 +67,7 @@ def main():
                 dest.parent.mkdir(parents=True, exist_ok=True)
                 dest.write_bytes(z.read(info))
                 dest.chmod(0o755 if (info.external_attr >> 16) & 0o111 else 0o644)
-    relocation = MODULE.Relocation(json.loads((ROOT / 'zernova-build/namespace-map.json').read_text()))
+    relocation = MODULE.Relocation(json.loads((ROOT / 'zernova-build/namespace-map.json').read_text()), application_format=True)
     MODULE.relocate_tree(args.output / 'connectors', args.output / 'connectors', relocation, True)
     # Compile the current lifecycle agent; no engine bytecode is relocated here.
     control = args.output / 'control'
@@ -95,13 +95,13 @@ def main():
                      'package.json', 'package-lock.json',
                      'zernova-studio-build/RuntimeControlAgent.java', 'zernova-studio-build/LICENSE.txt',
                      'zernova-studio-build/assemble-native.py', 'zernova-studio-build/prepare-native.py',
-                     'zernova-studio-build/prepare-bootstrap-native.py', 'zernova-studio-build/cli.cjs',
+                     'zernova-studio-build/prepare-bootstrap-native.py', 'zernova-studio-build/prepare-inputs.py', 'zernova-studio-build/java-inputs.json', 'zernova-studio-build/cli.cjs',
                      'zernova-studio-build/create-fixture.py', 'zernova-studio-build/build-portable.cjs',
                      'zernova-studio-build/tests/native-runtime.cjs']:
             if (ROOT / name).is_file():
                 z.write(ROOT / name, name)
     revision = json.loads((ROOT / 'zernova-build-evidence/source-build-revision.json').read_text())
-    info = {**baseline, 'version': '0.3.0-dev.2', 'javaNamespace': 'com.zernova',
+    info = {**baseline, 'version': '0.4.0-alpha.1', 'javaNamespace': 'com.zernova',
             'sourceBuildCommit': revision['sourceRevision'], 'sourceBuildDirty': revision['dirty'],
             'sourceTreeCommit': subprocess.check_output(['git', '-C', str(ROOT), 'rev-parse', 'HEAD'], text=True).strip(),
             'inputEngineSha256': sha(args.engine), 'sourceArchive': source_archive.relative_to(args.output).as_posix(),

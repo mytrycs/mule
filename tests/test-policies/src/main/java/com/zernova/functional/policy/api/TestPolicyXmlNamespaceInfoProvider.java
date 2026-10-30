@@ -20,7 +20,7 @@ import java.util.Collection;
  */
 public class TestPolicyXmlNamespaceInfoProvider implements XmlNamespaceInfoProvider {
 
-  public static final String TEST_POLICY_NAMESPACE = "http://www.mulesoft.org/schema/mule/test-policy";
+  public static final String TEST_POLICY_NAMESPACE = "https://schemas.zernova.dev/test-policy";
   public static final String TEST_POLICY_PREFIX = "test-policy";
 
   @Override

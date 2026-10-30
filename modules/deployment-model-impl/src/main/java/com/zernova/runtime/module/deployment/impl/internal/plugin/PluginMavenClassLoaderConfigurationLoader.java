@@ -76,14 +76,14 @@ public class PluginMavenClassLoaderConfigurationLoader extends AbstractMavenClas
                                                                                 ArtifactType artifactType,
                                                                                 MavenClient mavenClient) {
     // If it is a lightweight which uses the local repository a class-loader-model.json may be present in the
-    // META-INF/mule-artifact
+    // META-INF/zernova-artifact
     if (attributes instanceof PluginExtendedClassLoaderConfigurationAttributes) {
       PluginExtendedClassLoaderConfigurationAttributes pluginExtendedClassLoaderConfigurationAttributes =
           (PluginExtendedClassLoaderConfigurationAttributes) attributes;
       BundleDescriptor pluginBundleDescriptor =
           (BundleDescriptor) pluginExtendedClassLoaderConfigurationAttributes.get(BundleDescriptor.class.getName());
       File rootFolder = pluginExtendedClassLoaderConfigurationAttributes.getDeployableArtifactDescriptor().getRootFolder();
-      // mule-plugin has been found as a dependency from another mule-plugin and not present in the deployable dependency graph
+      // zernova-plugin has been found as a dependency from another zernova-plugin and not present in the deployable dependency graph
       // (system scope dependencies)
       if (rootFolder != null) {
         File muleArtifactJson =
@@ -172,7 +172,7 @@ public class PluginMavenClassLoaderConfigurationLoader extends AbstractMavenClas
           .orElseThrow(() -> new ZernovaRuntimeException(createStaticMessage("Could not find required descriptor. Looking for: "
               + pluginBundleDescriptor + " in " + deployableArtifactDescriptorDependencies)));
 
-      // MTF/MUnit declares the mule-plugin being tested as system scope therefore its transitive dependencies
+      // MTF/MUnit declares the zernova-plugin being tested as system scope therefore its transitive dependencies
       // will not be included in the dependency graph of the deployable artifact and we need to use Mule Maven Client
       // to resolve its dependencies
       if (!SYSTEM.equals(pluginDependencyInDeployableArtifact.getScope())) {
@@ -180,19 +180,19 @@ public class PluginMavenClassLoaderConfigurationLoader extends AbstractMavenClas
       } else {
         if (logger.isWarnEnabled()) {
           logger.warn(format(
-                             "Resolving a mule-plugin '%s' with system scope in order to resolve its class loader configuration. Dependency resolution may fail due to remote repositories from the deployable artifact will not be considered. Prevent this by using compile scope instead",
+                             "Resolving a zernova-plugin '%s' with system scope in order to resolve its class loader configuration. Dependency resolution may fail due to remote repositories from the deployable artifact will not be considered. Prevent this by using compile scope instead",
                              pluginDependencyInDeployableArtifact.getDescriptor()));
         }
       }
     }
-    // Backward compatible resolution for resolving dependencies for a mule-plugin with Mule Maven Client
+    // Backward compatible resolution for resolving dependencies for a zernova-plugin with Mule Maven Client
     return resolveArtifactDependenciesUsingMavenClient(artifactFile, mavenClient);
   }
 
   private List<BundleDependency> resolveArtifactDependenciesUsingMavenClient(File artifactFile, MavenClient mavenClient) {
     if (logger.isWarnEnabled()) {
       logger.warn(format(
-                         "Resolving a mule-plugin from '%s' without the deployable resolution context in order to resolve its class loader configuration. "
+                         "Resolving a zernova-plugin from '%s' without the deployable resolution context in order to resolve its class loader configuration. "
                              +
                              "Dependency resolution may fail due to remote repositories from the deployable artifact will not be considered",
                          artifactFile));
@@ -203,7 +203,7 @@ public class PluginMavenClassLoaderConfigurationLoader extends AbstractMavenClas
 
       Optional<File> mavenRepository = getLocalMavenRepo(artifactFile, mavenClient);
 
-      // reactor to resolve the mule-plugin pom and jar file from the location provided in the system dependency.
+      // reactor to resolve the zernova-plugin pom and jar file from the location provided in the system dependency.
       com.zernova.maven.pom.parser.api.model.BundleDescriptor mavenClientBundleDescriptor =
           new com.zernova.maven.pom.parser.api.model.BundleDescriptor.Builder()
               .setGroupId(reactor.getEffectiveModel().getGroupId())
@@ -212,13 +212,13 @@ public class PluginMavenClassLoaderConfigurationLoader extends AbstractMavenClas
               .setClassifier(MULE_PLUGIN_CLASSIFIER)
               .setType(JAR)
               .build();
-      // It will collect the dependencies of the mule-plugin following the same rules that we have when it is declared
-      // as compile in a mule-application or mule-domain, without provided and test scope dependencies.
+      // It will collect the dependencies of the zernova-plugin following the same rules that we have when it is declared
+      // as compile in a zernova-application or zernova-domain, without provided and test scope dependencies.
       List<com.zernova.maven.pom.parser.api.model.BundleDependency> dependencies =
           mavenClient.resolveArtifactDependencies(ImmutableList.of(mavenClientBundleDescriptor),
                                                   mavenRepository,
                                                   of(reactor));
-      // The result will only have one dependency and that dependency will be same mule-plugin with its transitive dependencies.
+      // The result will only have one dependency and that dependency will be same zernova-plugin with its transitive dependencies.
       return collectTransitiveDependencies(new DependencyConverter().convert(dependencies.get(0)));
     }
   }

@@ -1,0 +1,33 @@
+{
+  "name": "Mule functional test plugin (TCK)",
+  "minZernovaVersion": "4.0.0",
+  "requiredProduct": "ZERNOVA",
+  "extensionModelLoaderDescriptor": {
+    "id": "crafted",
+    "attributes": {
+      "type": "com.zernova.functional.api.extension.TestComponentExtensionLoadingDelegate"
+    }
+  },
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {
+      "exportedPackages": [
+        "com.zernova.functional.api.component",
+        "com.zernova.functional.api.event",
+        "com.zernova.functional.api.exception",
+        "com.zernova.functional.api.extension",
+        "com.zernova.functional.api.flow",
+        "com.zernova.functional.api.notification",
+        "com.zernova.functional.api.registry"
+      ],
+      "exportedResources": [
+        "META-INF/zernova.schemas",
+        "META-INF/zernova-test.xsd"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  }
+}

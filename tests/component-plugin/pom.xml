@@ -8,7 +8,7 @@
     </parent>
     <groupId>com.zernova.tests.plugin</groupId>
     <artifactId>mule-tests-component-plugin</artifactId>
-    <packaging>mule-plugin</packaging>
+    <packaging>zernova-plugin</packaging>
     <name>ZERNOVA Test Framework Components (TCK)</name>
     <description>Mule test framework components (TCK)</description>
 
@@ -22,7 +22,7 @@
         <plugins>
             <plugin>
                 <groupId>com.zernova.runtime.plugins</groupId>
-                <artifactId>mule-plugin-maven-plugin</artifactId>
+                <artifactId>zernova-plugin-maven-plugin</artifactId>
                 <extensions>true</extensions>
             </plugin>
         </plugins>

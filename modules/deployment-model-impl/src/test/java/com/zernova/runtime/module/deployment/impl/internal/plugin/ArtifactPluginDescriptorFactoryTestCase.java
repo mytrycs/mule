@@ -9,7 +9,7 @@ package com.zernova.runtime.module.deployment.impl.internal.plugin;
 
 import static com.zernova.maven.client.api.model.MavenConfiguration.newMavenConfigurationBuilder;
 import static com.zernova.runtime.api.artifact.ArtifactType.PLUGIN;
-import static com.zernova.runtime.api.deployment.meta.Product.MULE;
+import static com.zernova.runtime.api.deployment.meta.Product.ZERNOVA;
 import static com.zernova.runtime.deployment.model.api.artifact.ArtifactDescriptorFactoryProvider.artifactDescriptorFactoryProvider;
 import static com.zernova.runtime.module.artifact.api.classloader.DefaultArtifactClassLoaderFilter.NULL_CLASSLOADER_FILTER;
 import static com.zernova.runtime.module.artifact.api.descriptor.AbstractArtifactDescriptorFactory.invalidBundleDescriptorLoaderIdError;
@@ -128,7 +128,7 @@ public class ArtifactPluginDescriptorFactoryTestCase extends AbstractZernovaTest
     String pluginName = "samplePlugin";
 
     ZernovaPluginModel.ZernovaPluginModelBuilder builder = new ZernovaPluginModel.ZernovaPluginModelBuilder();
-    builder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder().setId("mule").build());
+    builder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptorBuilder().setId("zernova").build());
     Map<String, Object> attributes = new HashMap<>();
     attributes.put(GROUP_ID, "com.zernova.test");
     attributes.put(ARTIFACT_ID, pluginName);
@@ -140,8 +140,8 @@ public class ArtifactPluginDescriptorFactoryTestCase extends AbstractZernovaTest
     builder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptor(MULE_LOADER_ID, emptyMap()));
     ZernovaPluginModel mulePluginModel = builder
         .setName(pluginName)
-        .setMinMuleVersion("4.0.0")
-        .setRequiredProduct(MULE)
+        .setMinZernovaVersion("4.0.0")
+        .setRequiredProduct(ZERNOVA)
         .build();
 
     ArtifactPluginFileBuilder pluginFileBuilder = new ArtifactPluginFileBuilder(PLUGIN_NAME)
@@ -169,7 +169,7 @@ public class ArtifactPluginDescriptorFactoryTestCase extends AbstractZernovaTest
   @Test
   public void detectsInvalidClassLoaderModelLoaderId() throws Exception {
     ZernovaPluginModel.ZernovaPluginModelBuilder pluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder().setName(PLUGIN_NAME)
-        .setMinMuleVersion(MIN_MULE_VERSION).setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader(PROPERTIES_BUNDLE_DESCRIPTOR_LOADER_ID));
     pluginModelBuilder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptor(INVALID_LOADER_ID, emptyMap()));
 
@@ -190,7 +190,7 @@ public class ArtifactPluginDescriptorFactoryTestCase extends AbstractZernovaTest
   @Test
   public void detectsInvalidBundleDescriptorModelLoaderId() throws Exception {
     ZernovaPluginModel.ZernovaPluginModelBuilder pluginModelBuilder = new ZernovaPluginModel.ZernovaPluginModelBuilder().setName(PLUGIN_NAME)
-        .setMinMuleVersion(MIN_MULE_VERSION).setRequiredProduct(MULE)
+        .setMinZernovaVersion(MIN_MULE_VERSION).setRequiredProduct(ZERNOVA)
         .withBundleDescriptorLoader(createBundleDescriptorLoader(INVALID_LOADER_ID))
         .withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptor(FILE_SYSTEM_POLICY_MODEL_LOADER_ID, emptyMap()));
 

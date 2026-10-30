@@ -69,10 +69,10 @@ public class TestComponentExtensionLoadingDelegate implements ExtensionLoadingDe
         .withCategory(COMMUNITY)
         .withXmlDsl(XmlDslModel.builder()
             .setPrefix("test")
-            .setNamespace("http://www.mulesoft.org/schema/mule/test")
+            .setNamespace("https://schemas.zernova.dev/test")
             .setSchemaVersion(MULE_VERSION)
-            .setXsdFileName("mule-test.xsd")
-            .setSchemaLocation(buildSchemaLocation("test", "http://www.mulesoft.org/schema/mule/test"))
+            .setXsdFileName("zernova-test.xsd")
+            .setSchemaLocation(buildSchemaLocation("test", "https://schemas.zernova.dev/test"))
             .build());
 
     declareProcessor(extensionDeclarer);

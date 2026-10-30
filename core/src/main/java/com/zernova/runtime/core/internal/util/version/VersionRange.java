@@ -92,10 +92,10 @@ public class VersionRange {
     if (isBlank(getLowerVersion())) {
       minWithin = true;
     } else {
-      final Semver minMuleVersion = new Semver(getLowerVersion(), LOOSE);
+      final Semver minZernovaVersion = new Semver(getLowerVersion(), LOOSE);
       minWithin = isLowerBoundInclusive()
-          ? minMuleVersion.isLowerThanOrEqualTo(current)
-          : minMuleVersion.isLowerThan(current);
+          ? minZernovaVersion.isLowerThanOrEqualTo(current)
+          : minZernovaVersion.isLowerThan(current);
     }
 
     final boolean maxWithin;

@@ -67,7 +67,7 @@ public class ZernovaArtifactUrlStreamHandlerTestCase extends AbstractZernovaTest
 
   @Parameterized.Parameters(name = "{0}")
   public static Collection<Object[]> data() {
-    return Arrays.asList(new Object[][] {{"mule-artifact-folder"}, {"mule artifact folder with spaces"}});
+    return Arrays.asList(new Object[][] {{"zernova-artifact-folder"}, {"mule artifact folder with spaces"}});
   }
 
   @Before

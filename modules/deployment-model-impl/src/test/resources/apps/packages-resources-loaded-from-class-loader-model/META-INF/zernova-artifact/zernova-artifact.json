@@ -1,0 +1,25 @@
+{
+  "domain": "default",
+  "configs": [
+    "test.xml"
+  ],
+  "redeploymentEnabled": true,
+  "name": "test",
+  "minZernovaVersion": "4.0.0",
+  "requiredProduct": "ZERNOVA",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {
+      "exportedPackages": [
+        "com.mycompany.api"
+      ],
+      "exportedResources": [
+        "tls.properties"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  }
+}

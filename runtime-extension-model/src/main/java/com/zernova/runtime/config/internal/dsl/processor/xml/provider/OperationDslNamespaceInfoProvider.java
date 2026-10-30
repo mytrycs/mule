@@ -27,7 +27,7 @@ public class OperationDslNamespaceInfoProvider implements XmlNamespaceInfoProvid
 
   public static final String OPERATION_DSL_NAMESPACE = OPERATION_PREFIX;
   public static final String OPERATION_DSL_NAMESPACE_URI = format(DEFAULT_NAMESPACE_URI_MASK, OPERATION_DSL_NAMESPACE);
-  public static final String OPERATION_DSL_XSD_FILE_NAME = "mule-operation.xsd";
+  public static final String OPERATION_DSL_XSD_FILE_NAME = "zernova-operation.xsd";
   public static final String OPERATION_DSL_SCHEMA_LOCATION = OPERATION_DSL_NAMESPACE + "/current/" + OPERATION_DSL_XSD_FILE_NAME;
 
   @Override

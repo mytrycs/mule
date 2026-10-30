@@ -51,13 +51,13 @@ import java.lang.annotation.Target;
  *
  * <pre>
  * {@code
- * <mule>
+ * <zernova>
  *  <ns:config name="sampleConfig">
  *
  *  <flow>
  *     <ns:request config-ref="sampleConfig">
  *  </flow>
- * </mule>
+ * </zernova>
  * }
  * </pre>
  *
@@ -66,13 +66,13 @@ import java.lang.annotation.Target;
  *
  * <pre>
  * {@code
- * <mule>
+ * <zernova>
  *  <ns:config name="sampleConfig" maxRetries=2>
  *
  *  <flow>
  *     <ns:request config-ref="sampleConfig">
  *  </flow>
- * </mule>
+ * </zernova>
  * }
  * </pre>
  *
@@ -81,13 +81,13 @@ import java.lang.annotation.Target;
  *
  * <pre>
  * {@code
- * <mule>
+ * <zernova>
  *  <ns:config name="sampleConfig" maxRetries=2>
  *
  *  <flow>
  *     <ns:request config-ref="sampleConfig" maxRetries=5>
  *  </flow>
- * </mule>
+ * </zernova>
  * }
  * </pre>
  * <p>

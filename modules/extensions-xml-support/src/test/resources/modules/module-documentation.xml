@@ -2,15 +2,15 @@
 <module name="module-documentation"
         doc:description="Documentation for the connector"
 
-        xmlns="http://www.mulesoft.org/schema/mule/module"
-        xmlns:mule="http://www.mulesoft.org/schema/mule/core"
-        xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-        xmlns:tns="http://www.mulesoft.org/schema/mule/module-documentation"
+        xmlns="https://schemas.zernova.dev/module"
+        xmlns:zernova="https://schemas.zernova.dev/core"
+        xmlns:doc="https://schemas.zernova.dev/documentation"
+        xmlns:tns="https://schemas.zernova.dev/module-documentation"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="
-           http://www.mulesoft.org/schema/mule/module http://www.mulesoft.org/schema/mule/module/current/mule-module.xsd
-           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-           http://www.mulesoft.org/schema/mule/module-documentation http://www.mulesoft.org/schema/mule/module-documentation/current/mule-module-documentation.xsd">
+           https://schemas.zernova.dev/module https://schemas.zernova.dev/module/current/zernova-module.xsd
+           https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+           https://schemas.zernova.dev/module-documentation https://schemas.zernova.dev/module-documentation/current/zernova-module-documentation.xsd">
 
     <property name="aPropertyWithDoc" type="string" doc:description="Documentation for the property"/>
     <property name="aHiddenPropertyWithDoc" type="string" password="true" doc:description="Documentation for the hidden property"/>
@@ -26,7 +26,7 @@
             <parameter name="paramWithPlacement" type="string" order="17" tab="Not General Parameter"/>
         </parameters>
         <body>
-            <mule:set-payload value="hardcoded value"/>
+            <zernova:set-payload value="hardcoded value"/>
             <tns:private-operation target="testingSyntheticParameter" someParameter="privateParameterValue"/>
         </body>
         <output type="string" doc:description="Documentation for the output"/>
@@ -46,7 +46,7 @@
             <parameter name="paramWithPlacement" type="string" order="17" tab="Not General Parameter"/>
         </parameters>
         <body>
-            <mule:set-payload value="hardcoded value"/>
+            <zernova:set-payload value="hardcoded value"/>
             <tns:private-operation target="testingSyntheticParameter" someParameter="privateParameterValue"/>
         </body>
         <output type="string" doc:description="Documentation for the output"/>
@@ -62,7 +62,7 @@
             <parameter name="someParameter" type="string"/>
         </parameters>
         <body>
-            <mule:set-payload value="private operation"/>
+            <zernova:set-payload value="private operation"/>
         </body>
         <output type="number"/>
     </operation>

@@ -21,14 +21,14 @@ class DefaultExpressionLanguageConfiguration implements ExpressionLanguageConfig
 
   private final String appId;
 
-  private final Optional<ZernovaVersion> minMuleVersion;
+  private final Optional<ZernovaVersion> minZernovaVersion;
 
   DefaultExpressionLanguageConfiguration(Charset charset, FeatureFlaggingService featureFlaggingService, String appId,
-                                         Optional<ZernovaVersion> minMuleVersion) {
+                                         Optional<ZernovaVersion> minZernovaVersion) {
     this.charset = charset;
     this.featureFlaggingService = featureFlaggingService;
     this.appId = appId;
-    this.minMuleVersion = minMuleVersion;
+    this.minZernovaVersion = minZernovaVersion;
   }
 
   @Override
@@ -47,7 +47,7 @@ class DefaultExpressionLanguageConfiguration implements ExpressionLanguageConfig
   }
 
   @Override
-  public Optional<ZernovaVersion> getMinMuleVersion() {
-    return minMuleVersion;
+  public Optional<ZernovaVersion> getMinZernovaVersion() {
+    return minZernovaVersion;
   }
 }

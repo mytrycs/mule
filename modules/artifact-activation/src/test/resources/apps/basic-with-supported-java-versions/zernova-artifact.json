@@ -1,0 +1,22 @@
+{
+  "name": "basic-with-supported-java-versions",
+  "minZernovaVersion": "4.4.0",
+  "requiredProduct": "ZERNOVA",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "zernova",
+    "attributes": {
+      "exportedResources": [
+        "app.xml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "zernova",
+    "attributes": {}
+  },
+  "supportedJavaVersions": [
+    "1.8",
+    "11",
+    "17"
+  ]
+}

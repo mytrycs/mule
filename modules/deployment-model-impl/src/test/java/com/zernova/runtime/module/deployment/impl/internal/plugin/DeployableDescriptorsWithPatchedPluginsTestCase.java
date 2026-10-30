@@ -51,7 +51,7 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class DeployableDescriptorsWithPatchedPluginsTestCase extends AbstractZernovaTestCase {
 
-  private static final String PATCHES_LOCATION = "/lib/patches/mule-artifact-patches";
+  private static final String PATCHES_LOCATION = "/lib/patches/zernova-artifact-patches";
 
   private final String deployableProjectFolder;
   private final Boolean isApplication;

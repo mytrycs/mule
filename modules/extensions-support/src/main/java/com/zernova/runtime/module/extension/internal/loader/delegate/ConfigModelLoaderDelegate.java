@@ -51,8 +51,8 @@ final class ConfigModelLoaderDelegate extends AbstractComponentModelLoaderDelega
       configParser.getDisplayModel().ifPresent(d -> configurationDeclarer.getDeclaration().setDisplayModel(d));
       configParser.getExternalLibraryModels().forEach(configurationDeclarer::withExternalLibrary);
       configParser.getAdditionalModelProperties().forEach(configurationDeclarer::withModelProperty);
-      if (context.isResolveMinMuleVersion()) {
-        configParser.getResolvedMinMuleVersion().ifPresent(resolvedMMV -> declarerWithMmv(configurationDeclarer, resolvedMMV));
+      if (context.isResolveMinZernovaVersion()) {
+        configParser.getResolvedMinZernovaVersion().ifPresent(resolvedMMV -> declarerWithMmv(configurationDeclarer, resolvedMMV));
       }
       loader.getParameterModelsLoaderDelegate().declare(configurationDeclarer, configParser.getParameterGroupParsers(), context);
 

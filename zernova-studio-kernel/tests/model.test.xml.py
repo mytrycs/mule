@@ -11,8 +11,8 @@ import xml.etree.ElementTree as ET
 fixture_path = pathlib.Path(sys.argv[1])
 cases = json.loads(fixture_path.read_text(encoding="utf-8"))
 namespaces = {
-    "core": "http://www.mulesoft.org/schema/mule/core",
-    "http": "http://www.mulesoft.org/schema/mule/http",
+    "core": "https://schemas.zernova.dev/core",
+    "http": "https://schemas.zernova.dev/http",
 }
 checks = []
 for case in cases:

@@ -140,7 +140,7 @@ public class ZernovaSdkErrorsDeclarationParserTestCase extends AbstractZernovaTe
 
   @Test
   public void parentWithNamespaceOtherThanTheExtensionOneOrMuleIsForbidden() {
-    // Given an error with a parent that has namespace other than the extension one or mule:
+    // Given an error with a parent that has namespace other than the extension one or zernova:
     // <error type="CUSTOM_ERROR" parent="OTHER_THAN_TEST_OR_MULE:PARENT" />
     ComponentAst errorAst = mockErrorAst("CUSTOM_ERROR", "OTHER_THAN_TEST_OR_MULE:PARENT");
     ArtifactAst extensionAst = mockExtensionAstWithErrors(errorAst);
@@ -148,15 +148,15 @@ public class ZernovaSdkErrorsDeclarationParserTestCase extends AbstractZernovaTe
     // When we parse it, we expect an exception.
     expected.expect(IllegalArgumentException.class);
     expected
-        .expectMessage("The error 'TEST:CUSTOM_ERROR' can't declare 'OTHER_THAN_TEST_OR_MULE:PARENT' as parent. It can only have a parent with namespace 'TEST' or 'MULE'");
+        .expectMessage("The error 'TEST:CUSTOM_ERROR' can't declare 'OTHER_THAN_TEST_OR_MULE:PARENT' as parent. It can only have a parent with namespace 'TEST' or 'ZERNOVA'");
     new ZernovaSdkErrorsDeclarationParser(extensionAst, TEST).parse();
   }
 
   @Test
   public void errorWithParentFromCore() {
-    // Given an error with a parent with namespace MULE:
-    // <error type="CUSTOM_ERROR" parent="MULE:ANY" />
-    ComponentAst errorAst = mockErrorAst("CUSTOM_ERROR", "MULE:PARENT");
+    // Given an error with a parent with namespace ZERNOVA:
+    // <error type="CUSTOM_ERROR" parent="ZERNOVA:ANY" />
+    ComponentAst errorAst = mockErrorAst("CUSTOM_ERROR", "ZERNOVA:PARENT");
     ArtifactAst extensionAst = mockExtensionAstWithErrors(errorAst);
 
     // When we parse it.
@@ -169,7 +169,7 @@ public class ZernovaSdkErrorsDeclarationParserTestCase extends AbstractZernovaTe
     ErrorModelParser errorModelParser = errorParsersMap.get(expectedErrorIdentifier);
     Optional<ErrorModelParser> parentParser = errorModelParser.getParent();
     assertThat(parentParser.isPresent(), is(true));
-    assertThat(parentParser.get().getNamespace(), is("MULE"));
+    assertThat(parentParser.get().getNamespace(), is("ZERNOVA"));
     assertThat(parentParser.get().getType(), is("PARENT"));
   }
 

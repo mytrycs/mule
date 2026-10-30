@@ -8,7 +8,7 @@
 package com.zernova.runtime.module.extension.internal.loader.parser.java.test;
 
 import static com.zernova.runtime.module.extension.api.util.ZernovaExtensionUtils.loadExtension;
-import static com.zernova.runtime.module.extension.internal.loader.parser.java.test.MinZernovaVersionTestUtils.ctxResolvingMinMuleVersion;
+import static com.zernova.runtime.module.extension.internal.loader.parser.java.test.MinZernovaVersionTestUtils.ctxResolvingMinZernovaVersion;
 import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.ResolvedMinZernovaVersion.FIRST_MULE_VERSION;
 
 import static java.lang.Class.forName;
@@ -125,56 +125,56 @@ public class JavaExtensionModelParserTestCase {
   @Test
   public void getMMVForLegacyExtension() {
     JavaExtensionModelParser parser = getParser(ExtensionUsingLegacyApi.class);
-    assertThat(parser.getResolvedMinMuleVersion().get().getMinMuleVersion(), is(FIRST_MULE_VERSION));
-    assertThat(parser.getResolvedMinMuleVersion().get().getReason(),
+    assertThat(parser.getResolvedMinZernovaVersion().get().getMinZernovaVersion(), is(FIRST_MULE_VERSION));
+    assertThat(parser.getResolvedMinZernovaVersion().get().getReason(),
                is("Extension SimpleExtension has min mule version 4.1.1 because it is the default value."));
   }
 
   @Test
   public void getMMVForSdkExtension() {
     JavaExtensionModelParser parser = getParser(ExtensionUsingSdkApi.class);
-    assertThat(parser.getResolvedMinMuleVersion().get().getMinMuleVersion().toString(), is("4.5.0"));
-    assertThat(parser.getResolvedMinMuleVersion().get().getReason(),
+    assertThat(parser.getResolvedMinZernovaVersion().get().getMinZernovaVersion().toString(), is("4.5.0"));
+    assertThat(parser.getResolvedMinZernovaVersion().get().getReason(),
                is("Extension SimpleExtension has min mule version 4.5.0 because it if annotated with the new sdk api @Extension."));
   }
 
   @Test
   public void getMMVForExtensionWithSuperExtension() {
     JavaExtensionModelParser parser = getParser(ExtensionWithSuperExtension.class);
-    assertThat(parser.getResolvedMinMuleVersion().get().getMinMuleVersion().toString(), is("4.4"));
-    assertThat(parser.getResolvedMinMuleVersion().get().getReason(),
+    assertThat(parser.getResolvedMinZernovaVersion().get().getMinZernovaVersion().toString(), is("4.4"));
+    assertThat(parser.getResolvedMinZernovaVersion().get().getReason(),
                is("Extension ExtensionWithSuperExtension has min mule version 4.4 because of its super class ParameterizedExtension. Extension ParameterizedExtension has min mule version 4.4 because of its field extensionParameter. Field extensionParameter has min mule version 4.4 because it is annotated with Parameter. Parameter was introduced in Mule 4.4."));
   }
 
   @Test
   public void getMMVForParameterizedExtension() {
     JavaExtensionModelParser parser = getParser(ParameterizedExtension.class);
-    assertThat(parser.getResolvedMinMuleVersion().get().getMinMuleVersion().toString(), is("4.4"));
-    assertThat(parser.getResolvedMinMuleVersion().get().getReason(),
+    assertThat(parser.getResolvedMinZernovaVersion().get().getMinZernovaVersion().toString(), is("4.4"));
+    assertThat(parser.getResolvedMinZernovaVersion().get().getReason(),
                is("Extension MixedConfigurationsAnnotationExtension has min mule version 4.4 because of its field extensionParameter. Field extensionParameter has min mule version 4.4 because it is annotated with Parameter. Parameter was introduced in Mule 4.4."));
   }
 
   @Test
   public void getMMVForExtensionWithConfiguration() {
     JavaExtensionModelParser parser = getParser(ExtensionWithConfiguration.class);
-    assertThat(parser.getResolvedMinMuleVersion().get().getMinMuleVersion(), is(FIRST_MULE_VERSION));
-    assertThat(parser.getResolvedMinMuleVersion().get().getReason(),
+    assertThat(parser.getResolvedMinZernovaVersion().get().getMinZernovaVersion(), is(FIRST_MULE_VERSION));
+    assertThat(parser.getResolvedMinZernovaVersion().get().getReason(),
                is("Extension MixedConfigurationsAnnotationExtension has min mule version 4.1.1 because it is the default value."));
   }
 
   @Test
   public void getMMVForExtensionAnnotatedWithMMV() {
     JavaExtensionModelParser parser = getParser(ExtensionAnnotatedWithMMV.class);
-    assertThat(parser.getResolvedMinMuleVersion().get().getMinMuleVersion().toString(), is("4.4"));
-    assertThat(parser.getResolvedMinMuleVersion().get().getReason(),
+    assertThat(parser.getResolvedMinZernovaVersion().get().getMinZernovaVersion().toString(), is("4.4"));
+    assertThat(parser.getResolvedMinZernovaVersion().get().getReason(),
                is("Calculated Min Mule Version is 4.4 which is greater than the one set at the extension class level 4.3. Overriding it. Extension ExtensionAnnotatedWithMMV has min mule version 4.4 because of its method extensionMethod. Method extensionMethod has min mule version 4.4 because it is the one set at the method level through the @MinZernovaVersion annotation."));
   }
 
   @Test
   public void getMMVForExtensionAnnotatedWithHighMMV() {
     JavaExtensionModelParser parser = getParser(ExtensionAnnotatedWithHighMMV.class);
-    assertThat(parser.getResolvedMinMuleVersion().get().getMinMuleVersion().toString(), is("4.7"));
-    assertThat(parser.getResolvedMinMuleVersion().get().getReason(),
+    assertThat(parser.getResolvedMinZernovaVersion().get().getMinZernovaVersion().toString(), is("4.7"));
+    assertThat(parser.getResolvedMinZernovaVersion().get().getReason(),
                is("Extension ExtensionAnnotatedWithHighMMV has min mule version 4.7 because it is the one set at the class level through the @MinZernovaVersion annotation."));
   }
 
@@ -182,7 +182,7 @@ public class JavaExtensionModelParserTestCase {
     ClassTypeLoader typeLoader =
         ExtensionsTypeLoaderFactory.getDefault().createTypeLoader(Thread.currentThread().getContextClassLoader());
     ExtensionTypeWrapper extensionTypeWrapper = new ExtensionTypeWrapper<>(extensionClass, typeLoader);
-    return new JavaExtensionModelParser(extensionTypeWrapper, ctxResolvingMinMuleVersion());
+    return new JavaExtensionModelParser(extensionTypeWrapper, ctxResolvingMinZernovaVersion());
   }
 
   @Extension(name = "SimpleExtension")

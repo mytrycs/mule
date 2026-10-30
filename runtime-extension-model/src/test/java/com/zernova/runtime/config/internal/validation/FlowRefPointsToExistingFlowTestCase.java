@@ -44,15 +44,15 @@ public class FlowRefPointsToExistingFlowTestCase extends AbstractCoreValidationT
   public void flowRefToNonExistentFlow() {
     final Optional<ValidationResultItem> msg = runValidation("FlowRefPointsToExistingFlowTestCase#flowRefToNonExistentFlow",
                                                              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                                                                 "<mule xmlns=\"http://www.mulesoft.org/schema/mule/core\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
+                                                                 "<zernova xmlns=\"https://schemas.zernova.dev/core\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
                                                                  +
-                                                                 "      xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd\">\n"
+                                                                 "      xsi:schemaLocation=\"https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd\">\n"
                                                                  +
                                                                  "\n" +
                                                                  "    <flow name=\"flow\">\n" +
                                                                  "        <flow-ref name=\"sub-flow-name\" />\n" +
                                                                  "    </flow>\n" +
-                                                                 "</mule>")
+                                                                 "</zernova>")
                                                                      .stream().findFirst();
 
     assertThat(msg.get().getMessage(), containsString("'flow-ref' is pointing to 'sub-flow-name' which does not exist"));
@@ -62,15 +62,15 @@ public class FlowRefPointsToExistingFlowTestCase extends AbstractCoreValidationT
   public void flowRefDynamic() {
     final Optional<ValidationResultItem> msg = runValidation("FlowRefPointsToExistingFlowTestCase#flowRefDynamic",
                                                              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                                                                 "<mule xmlns=\"http://www.mulesoft.org/schema/mule/core\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
+                                                                 "<zernova xmlns=\"https://schemas.zernova.dev/core\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
                                                                  +
-                                                                 "      xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd\">\n"
+                                                                 "      xsi:schemaLocation=\"https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd\">\n"
                                                                  +
                                                                  "\n" +
                                                                  "    <flow name=\"flow\">\n" +
                                                                  "        <flow-ref name=\"#['sub-flow-name']\" />\n" +
                                                                  "    </flow>\n" +
-                                                                 "</mule>")
+                                                                 "</zernova>")
                                                                      .stream().findFirst();
 
     assertThat(msg, is(empty()));

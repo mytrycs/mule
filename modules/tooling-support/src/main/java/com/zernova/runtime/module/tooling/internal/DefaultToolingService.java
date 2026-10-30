@@ -208,7 +208,7 @@ public class DefaultToolingService implements ToolingService {
     builder.setRedeploymentEnabled(muleApplicationModel.isRedeploymentEnabled());
     builder.setName(muleApplicationModel.getName());
     builder.setConfigs(muleApplicationModel.getConfigs());
-    builder.setMinMuleVersion(muleApplicationModel.getMinMuleVersion());
+    builder.setMinZernovaVersion(muleApplicationModel.getMinZernovaVersion());
     builder.setRequiredProduct(muleApplicationModel.getRequiredProduct());
     builder.setSecureProperties(muleApplicationModel.getSecureProperties());
     builder.setSupportedJavaVersions(muleApplicationModel.getSupportedJavaVersions());

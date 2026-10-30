@@ -46,11 +46,11 @@
         </dependency>
         <dependency>
             <groupId>com.zernova.runtime</groupId>
-            <artifactId>mule-artifact-ast</artifactId>
+            <artifactId>zernova-artifact-ast</artifactId>
         </dependency>
         <dependency>
             <groupId>com.zernova.runtime</groupId>
-            <artifactId>mule-artifact-ast-xml-parser</artifactId>
+            <artifactId>zernova-artifact-ast-xml-parser</artifactId>
         </dependency>
         <dependency>
             <!-- TODO W-18813696: remove this once and for all, we still require it for the DefaultArtifactTypeLoader and some
@@ -101,7 +101,7 @@
             <groupId>com.zernova.tests.plugin</groupId>
             <artifactId>mule-tests-component-plugin</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -126,7 +126,7 @@
             <groupId>com.zernova.tests</groupId>
             <artifactId>mule-heisenberg-extension</artifactId>
             <version>${project.version}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>test</scope>
             <exclusions>
                 <exclusion>

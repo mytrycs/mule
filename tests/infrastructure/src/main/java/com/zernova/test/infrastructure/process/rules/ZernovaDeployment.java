@@ -175,7 +175,7 @@ public class ZernovaDeployment extends ZernovaInstallation {
      * @since 4.3.0
      */
     public Builder withProcessingStrategyFactory(String factoryClassName) {
-      deployment.properties.put("-M-Dorg.mule.runtime.core.api.processor.strategy.ProcessingStrategyFactory", factoryClassName);
+      deployment.properties.put("-M-Dcom.zernova.runtime.core.api.processor.strategy.ProcessingStrategyFactory", factoryClassName);
       return this;
     }
 

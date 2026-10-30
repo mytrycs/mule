@@ -7,7 +7,7 @@
     <groupId>test</groupId>
     <artifactId>test-app</artifactId>
     <version>1.0.0</version>
-    <packaging>mule-application</packaging>
+    <packaging>zernova-application</packaging>
 
     <build>
         <plugins>

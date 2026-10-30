@@ -23,7 +23,7 @@ public class TestProcessorChainsNamespaceInfoProvider implements XmlNamespaceInf
 
       @Override
       public String getNamespaceUriPrefix() {
-        return "http://www.mulesoft.org/schema/mule/test-processor-chains";
+        return "https://schemas.zernova.dev/test-processor-chains";
       }
 
       @Override

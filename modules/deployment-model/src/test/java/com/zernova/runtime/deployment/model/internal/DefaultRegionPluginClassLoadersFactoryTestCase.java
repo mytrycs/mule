@@ -84,11 +84,11 @@ public class DefaultRegionPluginClassLoadersFactoryTestCase extends AbstractZern
   private static final BundleDescriptor PLUGIN1_BUNDLE_DESCRIPTOR =
       new BundleDescriptor.Builder().setGroupId(GROUP_ID).setArtifactId(
                                                                         PLUGIN_ID1)
-          .setVersion("1.0").setClassifier("mule-plugin").build();
+          .setVersion("1.0").setClassifier("zernova-plugin").build();
   private static final BundleDescriptor PLUGIN2_BUNDLE_DESCRIPTOR =
       new BundleDescriptor.Builder().setGroupId(GROUP_ID).setArtifactId(
                                                                         PLUGIN_ID2)
-          .setVersion("1.0").setClassifier("mule-plugin").build();
+          .setVersion("1.0").setClassifier("zernova-plugin").build();
 
   private final ModuleRepository moduleRepository = mock(ModuleRepository.class);
   private final ArtifactClassLoader containerClassLoader = createContainerClassLoader(moduleRepository);

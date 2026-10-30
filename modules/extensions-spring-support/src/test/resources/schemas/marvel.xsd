@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xs:schema xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.mulesoft.org/schema/mule/marvel" attributeFormDefault="unqualified" elementFormDefault="qualified">
+<xs:schema xmlns:zernova="https://schemas.zernova.dev/core" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="https://schemas.zernova.dev/marvel" attributeFormDefault="unqualified" elementFormDefault="qualified">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace"></xs:import>
-  <xs:import namespace="http://www.mulesoft.org/schema/mule/core" schemaLocation="http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></xs:import>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-shared-extension" name="dr-strange-config">
+  <xs:import namespace="https://schemas.zernova.dev/core" schemaLocation="https://schemas.zernova.dev/core/current/zernova.xsd"></xs:import>
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstract-shared-extension" name="dr-strange-config">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractExtensionType">
+        <xs:extension base="zernova:abstractExtensionType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstractConnectionProvider"></xs:element>
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:expiration-policy"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstractConnectionProvider"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:expiration-policy"></xs:element>
           </xs:sequence>
-          <xs:attribute type="mule:expressionString" use="optional" name="ironManConfig"></xs:attribute>
-          <xs:attribute type="mule:expressionString" use="optional" name="spellStore"></xs:attribute>
+          <xs:attribute type="zernova:expressionString" use="optional" name="ironManConfig"></xs:attribute>
+          <xs:attribute type="zernova:expressionString" use="optional" name="spellStore"></xs:attribute>
           <xs:attribute type="xs:string" use="required" name="name">
             <xs:annotation>
               <xs:documentation>The identifier of this element used to reference it in other components</xs:documentation>
@@ -22,21 +22,21 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstractConnectionProvider" name="mystic-connection">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstractConnectionProvider" name="mystic-connection">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractConnectionProviderType">
+        <xs:extension base="zernova:abstractConnectionProviderType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:reconnection"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:reconnection"></xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="target-realm">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel" base="marvel:com.zernova.test.marvel.drstrange.Realm"></xs:extension>
+                  <xs:extension xmlns:marvel="https://schemas.zernova.dev/marvel" base="marvel:com.zernova.test.marvel.drstrange.Realm"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
           </xs:sequence>
-          <xs:attribute type="mule:expressionString" use="optional" name="multipleConfig"></xs:attribute>
+          <xs:attribute type="zernova:expressionString" use="optional" name="multipleConfig"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="targetRealm"></xs:attribute>
         </xs:extension>
       </xs:complexContent>
@@ -44,46 +44,46 @@
   </xs:element>
   <xs:complexType name="com.zernova.test.marvel.drstrange.Realm">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
-        <xs:attribute type="mule:expressionString" use="required" name="realmConfig"></xs:attribute>
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractExtensionType">
+        <xs:attribute type="zernova:expressionString" use="required" name="realmConfig"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstractConnectionProvider" name="pooling-mystic-connection">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstractConnectionProvider" name="pooling-mystic-connection">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractConnectionProviderType">
+        <xs:extension base="zernova:abstractConnectionProviderType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:reconnection"></xs:element>
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:pooling-profile"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:reconnection"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:pooling-profile"></xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="target-realm">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel" base="marvel:com.zernova.test.marvel.drstrange.Realm"></xs:extension>
+                  <xs:extension xmlns:marvel="https://schemas.zernova.dev/marvel" base="marvel:com.zernova.test.marvel.drstrange.Realm"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
           </xs:sequence>
-          <xs:attribute type="mule:expressionString" use="optional" name="multipleConfig"></xs:attribute>
+          <xs:attribute type="zernova:expressionString" use="optional" name="multipleConfig"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="targetRealm"></xs:attribute>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="Bytes-casterType" substitutionGroup="mule:abstract-message-source" name="bytes-caster"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="Bytes-casterType" substitutionGroup="zernova:abstract-message-source" name="bytes-caster"></xs:element>
   <xs:complexType name="Bytes-casterType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageSourceType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractMessageSourceType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-redelivery-policy"></xs:element>
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-byte-streaming-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-redelivery-policy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-byte-streaming-strategy"></xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:substitutableLong" use="required" name="castFrequencyInMillis"></xs:attribute>
+        <xs:attribute type="zernova:substitutableLong" use="required" name="castFrequencyInMillis"></xs:attribute>
         <xs:attribute type="xs:string" use="required" name="spell"></xs:attribute>
-        <xs:attribute type="mule:substitutableInt" use="optional" default="1" name="spellSize"></xs:attribute>
+        <xs:attribute type="zernova:substitutableInt" use="optional" default="1" name="spellSize"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="nextOperationReference"></xs:attribute>
         <xs:attribute type="xs:string" use="required" name="listenerId"></xs:attribute>
-        <xs:attribute type="mule:substitutableBoolean" use="optional" name="primaryNodeOnly">
+        <xs:attribute type="zernova:substitutableBoolean" use="optional" name="primaryNodeOnly">
           <xs:annotation>
             <xs:documentation>Whether this source should only be executed on the primary node when runnning in Cluster</xs:documentation>
           </xs:annotation>
@@ -96,10 +96,10 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CrashCarType" substitutionGroup="mule:abstract-operator" name="crash-car"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="CrashCarType" substitutionGroup="zernova:abstract-operator" name="crash-car"></xs:element>
   <xs:complexType name="CrashCarType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
           <xs:annotation>
@@ -109,13 +109,13 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GetRelicsType" substitutionGroup="mule:abstract-operator" name="get-relics"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="GetRelicsType" substitutionGroup="zernova:abstract-operator" name="get-relics"></xs:element>
   <xs:complexType name="GetRelicsType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-object-streaming-strategy"></xs:element>
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-object-streaming-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
         </xs:sequence>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
           <xs:annotation>
@@ -127,7 +127,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -135,19 +135,19 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="LatchedSayMagicWordsType" substitutionGroup="mule:abstract-operator" name="latched-say-magic-words"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="LatchedSayMagicWordsType" substitutionGroup="zernova:abstract-operator" name="latched-say-magic-words"></xs:element>
   <xs:complexType name="LatchedSayMagicWordsType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-object-streaming-strategy"></xs:element>
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-object-streaming-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
           <xs:element type="xs:string" minOccurs="0" maxOccurs="1" name="values"></xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:expressionInt" use="required" name="fetchSize"></xs:attribute>
+        <xs:attribute type="zernova:expressionInt" use="required" name="fetchSize"></xs:attribute>
         <xs:attribute type="xs:string" use="required" name="latch"></xs:attribute>
         <xs:attribute type="xs:string" use="required" name="providerClosedLatch"></xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" name="outputMimeType">
+        <xs:attribute type="zernova:expressionString" use="optional" name="outputMimeType">
           <xs:annotation>
             <xs:documentation>The mime type of the payload that this operation outputs.</xs:documentation>
           </xs:annotation>
@@ -162,7 +162,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -170,13 +170,13 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ObjectToStreamType" substitutionGroup="mule:abstract-operator" name="object-to-stream"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="ObjectToStreamType" substitutionGroup="zernova:abstract-operator" name="object-to-stream"></xs:element>
   <xs:complexType name="ObjectToStreamType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-byte-streaming-strategy"></xs:element>
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-byte-streaming-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
         </xs:sequence>
         <xs:attribute type="xs:string" use="optional" default="#[payload]" name="data"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
@@ -189,7 +189,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -197,12 +197,12 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ReadStreamType" substitutionGroup="mule:abstract-operator" name="read-stream"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="ReadStreamType" substitutionGroup="zernova:abstract-operator" name="read-stream"></xs:element>
   <xs:complexType name="ReadStreamType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
         </xs:sequence>
         <xs:attribute type="xs:string" use="optional" default="#[payload]" name="stream"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
@@ -215,7 +215,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -223,17 +223,17 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="SayMagicWordsType" substitutionGroup="mule:abstract-operator" name="say-magic-words"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="SayMagicWordsType" substitutionGroup="zernova:abstract-operator" name="say-magic-words"></xs:element>
   <xs:complexType name="SayMagicWordsType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-object-streaming-strategy"></xs:element>
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-object-streaming-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
           <xs:element type="xs:string" minOccurs="0" maxOccurs="1" name="values"></xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:expressionInt" use="required" name="fetchSize"></xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" name="outputMimeType">
+        <xs:attribute type="zernova:expressionInt" use="required" name="fetchSize"></xs:attribute>
+        <xs:attribute type="zernova:expressionString" use="optional" name="outputMimeType">
           <xs:annotation>
             <xs:documentation>The mime type of the payload that this operation outputs.</xs:documentation>
           </xs:annotation>
@@ -248,7 +248,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -256,15 +256,15 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="SeekStreamType" substitutionGroup="mule:abstract-operator" name="seek-stream"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="SeekStreamType" substitutionGroup="zernova:abstract-operator" name="seek-stream"></xs:element>
   <xs:complexType name="SeekStreamType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
         </xs:sequence>
         <xs:attribute type="xs:string" use="optional" default="#[payload]" name="stream"></xs:attribute>
-        <xs:attribute type="mule:expressionInt" use="required" name="position"></xs:attribute>
+        <xs:attribute type="zernova:expressionInt" use="required" name="position"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
           <xs:annotation>
             <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
@@ -275,7 +275,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -283,15 +283,15 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ToStreamType" substitutionGroup="mule:abstract-operator" name="to-stream"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="ToStreamType" substitutionGroup="zernova:abstract-operator" name="to-stream"></xs:element>
   <xs:complexType name="ToStreamType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-byte-streaming-strategy"></xs:element>
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-byte-streaming-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="data"></xs:attribute>
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="data"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
           <xs:annotation>
             <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
@@ -302,7 +302,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -310,13 +310,13 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-operator" abstract="true" name="referable_operation"></xs:element>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" type="WithFlowReferenceType" substitutionGroup="referable_operation" name="with-flow-reference"></xs:element>
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstract-operator" abstract="true" name="referable_operation"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" type="WithFlowReferenceType" substitutionGroup="referable_operation" name="with-flow-reference"></xs:element>
   <xs:complexType name="WithFlowReferenceType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
-        <xs:attribute type="mule:expressionString" use="optional" name="flowRef"></xs:attribute>
+        <xs:attribute type="zernova:expressionString" use="optional" name="flowRef"></xs:attribute>
         <xs:attribute type="xs:string" use="required" name="name"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
           <xs:annotation>
@@ -326,16 +326,16 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-shared-extension" name="iron-man-config">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstract-shared-extension" name="iron-man-config">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractExtensionType">
+        <xs:extension base="zernova:abstractExtensionType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstractConnectionProvider"></xs:element>
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:expiration-policy"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstractConnectionProvider"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:expiration-policy"></xs:element>
           </xs:sequence>
-          <xs:attribute type="mule:expressionString" use="optional" name="ironManConfigFile"></xs:attribute>
-          <xs:attribute type="mule:expressionString" use="optional" default="com.starkindustries.Jarvis" name="aiType"></xs:attribute>
+          <xs:attribute type="zernova:expressionString" use="optional" name="ironManConfigFile"></xs:attribute>
+          <xs:attribute type="zernova:expressionString" use="optional" default="com.starkindustries.Jarvis" name="aiType"></xs:attribute>
           <xs:attribute type="xs:string" use="required" name="name">
             <xs:annotation>
               <xs:documentation>The identifier of this element used to reference it in other components</xs:documentation>
@@ -345,34 +345,34 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstractConnectionProvider" name="missile-connection">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstractConnectionProvider" name="missile-connection">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractConnectionProviderType">
+        <xs:extension base="zernova:abstractConnectionProviderType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:reconnection"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:reconnection"></xs:element>
           </xs:sequence>
-          <xs:attribute type="mule:expressionString" use="optional" name="missileConfigurationDirectory"></xs:attribute>
+          <xs:attribute type="zernova:expressionString" use="optional" name="missileConfigurationDirectory"></xs:attribute>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstractConnectionProvider" name="odd-missile-connection">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstractConnectionProvider" name="odd-missile-connection">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractConnectionProviderType">
+        <xs:extension base="zernova:abstractConnectionProviderType">
           <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" maxOccurs="1" ref="mule:reconnection"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="zernova:reconnection"></xs:element>
           </xs:sequence>
-          <xs:attribute type="mule:expressionString" use="optional" name="missileConfigurationDirectory"></xs:attribute>
+          <xs:attribute type="zernova:expressionString" use="optional" name="missileConfigurationDirectory"></xs:attribute>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ComputeFlightPlanType" substitutionGroup="mule:abstract-operator" name="compute-flight-plan"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="ComputeFlightPlanType" substitutionGroup="zernova:abstract-operator" name="compute-flight-plan"></xs:element>
   <xs:complexType name="ComputeFlightPlanType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
           <xs:annotation>
@@ -382,16 +382,16 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="FireMissileType" substitutionGroup="mule:abstract-operator" name="fire-missile"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="FireMissileType" substitutionGroup="zernova:abstract-operator" name="fire-missile"></xs:element>
   <xs:complexType name="FireMissileType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
           <xs:element minOccurs="0" maxOccurs="1" name="at">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel" base="marvel:com.zernova.test.marvel.model.Villain"></xs:extension>
+                <xs:extension xmlns:marvel="https://schemas.zernova.dev/marvel" base="marvel:com.zernova.test.marvel.model.Villain"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -407,7 +407,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -417,21 +417,21 @@
   </xs:complexType>
   <xs:complexType name="com.zernova.test.marvel.model.Villain">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
-        <xs:attribute type="mule:expressionBoolean" use="optional" name="alive"></xs:attribute>
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractExtensionType">
+        <xs:attribute type="zernova:expressionBoolean" use="optional" name="alive"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="FireMissileEpicShotType" substitutionGroup="mule:abstract-operator" name="fire-missile-epic-shot"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="FireMissileEpicShotType" substitutionGroup="zernova:abstract-operator" name="fire-missile-epic-shot"></xs:element>
   <xs:complexType name="FireMissileEpicShotType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
           <xs:element minOccurs="0" maxOccurs="1" name="at">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel" base="marvel:com.zernova.test.marvel.model.Villain"></xs:extension>
+                <xs:extension xmlns:marvel="https://schemas.zernova.dev/marvel" base="marvel:com.zernova.test.marvel.model.Villain"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -447,7 +447,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -455,16 +455,16 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="FireMissileMishapType" substitutionGroup="mule:abstract-operator" name="fire-missile-mishap"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="FireMissileMishapType" substitutionGroup="zernova:abstract-operator" name="fire-missile-mishap"></xs:element>
   <xs:complexType name="FireMissileMishapType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-reconnection-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-reconnection-strategy"></xs:element>
           <xs:element minOccurs="0" maxOccurs="1" name="at">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel" base="marvel:com.zernova.test.marvel.model.Villain"></xs:extension>
+                <xs:extension xmlns:marvel="https://schemas.zernova.dev/marvel" base="marvel:com.zernova.test.marvel.model.Villain"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -480,7 +480,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -488,10 +488,10 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-shared-extension" name="x-men-config">
+  <xs:element xmlns:zernova="https://schemas.zernova.dev/core" substitutionGroup="zernova:abstract-shared-extension" name="x-men-config">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="mule:abstractExtensionType">
+        <xs:extension base="zernova:abstractExtensionType">
           <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
           <xs:attribute type="xs:string" use="required" name="name">
             <xs:annotation>
@@ -502,19 +502,19 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="CerebroDetectNewMutantsType" substitutionGroup="mule:abstract-message-source" name="cerebro-detect-new-mutants"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="CerebroDetectNewMutantsType" substitutionGroup="zernova:abstract-message-source" name="cerebro-detect-new-mutants"></xs:element>
   <xs:complexType name="CerebroDetectNewMutantsType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageSourceType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractMessageSourceType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-redelivery-policy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-redelivery-policy"></xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:expressionString" use="optional" name="outputMimeType">
+        <xs:attribute type="zernova:expressionString" use="optional" name="outputMimeType">
           <xs:annotation>
             <xs:documentation>The mime type of the payload that this operation outputs.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:substitutableBoolean" use="optional" name="primaryNodeOnly">
+        <xs:attribute type="zernova:substitutableBoolean" use="optional" name="primaryNodeOnly">
           <xs:annotation>
             <xs:documentation>Whether this source should only be executed on the primary node when runnning in Cluster</xs:documentation>
           </xs:annotation>
@@ -522,16 +522,16 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="MagnetoBrotherhoodType" substitutionGroup="mule:abstract-message-source" name="magneto-brotherhood"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="MagnetoBrotherhoodType" substitutionGroup="zernova:abstract-message-source" name="magneto-brotherhood"></xs:element>
   <xs:complexType name="MagnetoBrotherhoodType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageSourceType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractMessageSourceType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-redelivery-policy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-redelivery-policy"></xs:element>
           <xs:element minOccurs="0" maxOccurs="1" name="response">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension base="mule:abstractExtensionType">
+                <xs:extension base="zernova:abstractExtensionType">
                   <xs:sequence>
                     <xs:element type="xs:string" minOccurs="0" maxOccurs="1" name="body"></xs:element>
                   </xs:sequence>
@@ -540,17 +540,17 @@
             </xs:complexType>
           </xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:expressionString" use="optional" name="outputMimeType">
+        <xs:attribute type="zernova:expressionString" use="optional" name="outputMimeType">
           <xs:annotation>
             <xs:documentation>The mime type of the payload that this operation outputs.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" name="outputEncoding">
+        <xs:attribute type="zernova:expressionString" use="optional" name="outputEncoding">
           <xs:annotation>
             <xs:documentation>The encoding of the payload that this operation outputs.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:substitutableBoolean" use="optional" name="primaryNodeOnly">
+        <xs:attribute type="zernova:substitutableBoolean" use="optional" name="primaryNodeOnly">
           <xs:annotation>
             <xs:documentation>Whether this source should only be executed on the primary node when runnning in Cluster</xs:documentation>
           </xs:annotation>
@@ -558,17 +558,17 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="MagnetoMutantSummonType" substitutionGroup="mule:abstract-message-source" name="magneto-mutant-summon"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="MagnetoMutantSummonType" substitutionGroup="zernova:abstract-message-source" name="magneto-mutant-summon"></xs:element>
   <xs:complexType name="MagnetoMutantSummonType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractMessageSourceType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractMessageSourceType">
         <xs:sequence minOccurs="0" maxOccurs="1">
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-redelivery-policy"></xs:element>
-          <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstract-byte-streaming-strategy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-redelivery-policy"></xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" ref="zernova:abstract-byte-streaming-strategy"></xs:element>
           <xs:element minOccurs="0" maxOccurs="1" name="response">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension base="mule:abstractExtensionType">
+                <xs:extension base="zernova:abstractExtensionType">
                   <xs:sequence>
                     <xs:element type="xs:string" minOccurs="0" maxOccurs="1" name="body"></xs:element>
                   </xs:sequence>
@@ -577,7 +577,7 @@
             </xs:complexType>
           </xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:substitutableBoolean" use="optional" name="primaryNodeOnly">
+        <xs:attribute type="zernova:substitutableBoolean" use="optional" name="primaryNodeOnly">
           <xs:annotation>
             <xs:documentation>Whether this source should only be executed on the primary node when runnning in Cluster</xs:documentation>
           </xs:annotation>
@@ -585,19 +585,19 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="AdamantiumInjectorsType" substitutionGroup="mule:abstract-operator" name="adamantium-injectors"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="AdamantiumInjectorsType" substitutionGroup="zernova:abstract-operator" name="adamantium-injectors"></xs:element>
   <xs:complexType name="AdamantiumInjectorsType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
-        <xs:attribute type="mule:expressionInt" use="required" name="injectorsToCreate"></xs:attribute>
-        <xs:attribute type="mule:expressionInt" use="required" name="injectorLoad"></xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" name="outputMimeType">
+        <xs:attribute type="zernova:expressionInt" use="required" name="injectorsToCreate"></xs:attribute>
+        <xs:attribute type="zernova:expressionInt" use="required" name="injectorLoad"></xs:attribute>
+        <xs:attribute type="zernova:expressionString" use="optional" name="outputMimeType">
           <xs:annotation>
             <xs:documentation>The mime type of the payload that this operation outputs.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" name="outputEncoding">
+        <xs:attribute type="zernova:expressionString" use="optional" name="outputEncoding">
           <xs:annotation>
             <xs:documentation>The encoding of the payload that this operation outputs.</xs:documentation>
           </xs:annotation>
@@ -607,7 +607,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -615,21 +615,21 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="AssertResponseDifferentTaskType" substitutionGroup="mule:abstract-operator" name="assert-response-different-task"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="AssertResponseDifferentTaskType" substitutionGroup="zernova:abstract-operator" name="assert-response-different-task"></xs:element>
   <xs:complexType name="AssertResponseDifferentTaskType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="1" maxOccurs="1">
           <xs:choice minOccurs="1" maxOccurs="unbounded">
-            <xs:group minOccurs="1" ref="mule:messageProcessorOrMixedContentMessageProcessor"></xs:group>
+            <xs:group minOccurs="1" ref="zernova:messageProcessorOrMixedContentMessageProcessor"></xs:group>
           </xs:choice>
         </xs:sequence>
-        <xs:attribute type="mule:expressionString" use="optional" name="outputMimeType">
+        <xs:attribute type="zernova:expressionString" use="optional" name="outputMimeType">
           <xs:annotation>
             <xs:documentation>The mime type of the payload that this operation outputs.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" name="outputEncoding">
+        <xs:attribute type="zernova:expressionString" use="optional" name="outputEncoding">
           <xs:annotation>
             <xs:documentation>The encoding of the payload that this operation outputs.</xs:documentation>
           </xs:annotation>
@@ -639,7 +639,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -647,17 +647,17 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="DisplayInterceptedCommsType" substitutionGroup="mule:abstract-operator" name="display-intercepted-comms"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="DisplayInterceptedCommsType" substitutionGroup="zernova:abstract-operator" name="display-intercepted-comms"></xs:element>
   <xs:complexType name="DisplayInterceptedCommsType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
         <xs:attribute type="xs:string" use="optional" name="target">
           <xs:annotation>
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -665,19 +665,19 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="FindInstructionsType" substitutionGroup="mule:abstract-operator" name="find-instructions"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="FindInstructionsType" substitutionGroup="zernova:abstract-operator" name="find-instructions"></xs:element>
   <xs:complexType name="FindInstructionsType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
-        <xs:attribute type="mule:expressionString" use="optional" name="instructionsFile"></xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" name="readerClass"></xs:attribute>
+        <xs:attribute type="zernova:expressionString" use="optional" name="instructionsFile"></xs:attribute>
+        <xs:attribute type="zernova:expressionString" use="optional" name="readerClass"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="target">
           <xs:annotation>
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -685,54 +685,54 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GambitChargeItemsType" substitutionGroup="mule:abstract-operator" name="gambit-charge-items"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="GambitChargeItemsType" substitutionGroup="zernova:abstract-operator" name="gambit-charge-items"></xs:element>
   <xs:complexType name="GambitChargeItemsType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element type="xs:string" minOccurs="0" maxOccurs="1" name="items"></xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GambitReluctantChargeType" substitutionGroup="mule:abstract-operator" name="gambit-reluctant-charge"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="GambitReluctantChargeType" substitutionGroup="zernova:abstract-operator" name="gambit-reluctant-charge"></xs:element>
   <xs:complexType name="GambitReluctantChargeType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element type="xs:string" minOccurs="0" maxOccurs="1" name="input"></xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="GambitReluctantChargeItemsType" substitutionGroup="mule:abstract-operator" name="gambit-reluctant-charge-items"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="GambitReluctantChargeItemsType" substitutionGroup="zernova:abstract-operator" name="gambit-reluctant-charge-items"></xs:element>
   <xs:complexType name="GambitReluctantChargeItemsType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element type="xs:string" minOccurs="0" maxOccurs="1" name="items"></xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="InterceptCommType" substitutionGroup="mule:abstract-operator" name="intercept-comm"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="InterceptCommType" substitutionGroup="zernova:abstract-operator" name="intercept-comm"></xs:element>
   <xs:complexType name="InterceptCommType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
-        <xs:attribute type="mule:expressionString" use="required" name="issuer"></xs:attribute>
+        <xs:attribute type="zernova:expressionString" use="required" name="issuer"></xs:attribute>
         <xs:attribute type="xs:string" use="required" name="comm"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ReadObjectStreamType" substitutionGroup="mule:abstract-operator" name="read-object-stream"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="ReadObjectStreamType" substitutionGroup="zernova:abstract-operator" name="read-object-stream"></xs:element>
   <xs:complexType name="ReadObjectStreamType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element type="xs:string" minOccurs="0" maxOccurs="1" name="iterator-values"></xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:expressionString" use="optional" name="outputMimeType">
+        <xs:attribute type="zernova:expressionString" use="optional" name="outputMimeType">
           <xs:annotation>
             <xs:documentation>The mime type of the payload that this operation outputs.</xs:documentation>
           </xs:annotation>
@@ -742,7 +742,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -750,13 +750,13 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ScopeverseType" substitutionGroup="mule:abstract-operator" name="scopeverse"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="ScopeverseType" substitutionGroup="zernova:abstract-operator" name="scopeverse"></xs:element>
   <xs:complexType name="ScopeverseType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="1" maxOccurs="1">
           <xs:choice minOccurs="1" maxOccurs="unbounded">
-            <xs:group minOccurs="1" ref="mule:messageProcessorOrMixedContentMessageProcessor"></xs:group>
+            <xs:group minOccurs="1" ref="zernova:messageProcessorOrMixedContentMessageProcessor"></xs:group>
           </xs:choice>
         </xs:sequence>
         <xs:attribute type="xs:string" use="optional" default="#[payload]" name="payload"></xs:attribute>
@@ -766,7 +766,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -774,12 +774,12 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="WolverineBlocklistType" substitutionGroup="mule:abstract-operator" name="wolverine-blocklist"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="WolverineBlocklistType" substitutionGroup="zernova:abstract-operator" name="wolverine-blocklist"></xs:element>
   <xs:complexType name="WolverineBlocklistType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
-        <xs:attribute type="mule:expressionString" use="optional" name="outputMimeType">
+        <xs:attribute type="zernova:expressionString" use="optional" name="outputMimeType">
           <xs:annotation>
             <xs:documentation>The mime type of the payload that this operation outputs.</xs:documentation>
           </xs:annotation>
@@ -789,7 +789,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>
@@ -797,15 +797,15 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="WolverineChillOutType" substitutionGroup="mule:abstract-operator" name="wolverine-chill-out"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="WolverineChillOutType" substitutionGroup="zernova:abstract-operator" name="wolverine-chill-out"></xs:element>
   <xs:complexType name="WolverineChillOutType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="1" maxOccurs="1" name="forest">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension base="mule:abstractExtensionType">
+                <xs:extension base="zernova:abstractExtensionType">
                   <xs:sequence minOccurs="1">
                     <xs:element type="xs:string" minOccurs="0" maxOccurs="1" name="bears"></xs:element>
                     <xs:element type="xs:string" minOccurs="1" maxOccurs="1" name="river"></xs:element>
@@ -814,14 +814,14 @@
                         <xs:sequence>
                           <xs:element minOccurs="0" maxOccurs="unbounded" name="friend">
                             <xs:complexType>
-                              <xs:attribute type="mule:expressionString" use="required" name="value"></xs:attribute>
+                              <xs:attribute type="zernova:expressionString" use="required" name="value"></xs:attribute>
                             </xs:complexType>
                           </xs:element>
                         </xs:sequence>
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
-                  <xs:attribute type="mule:expressionList" use="optional" name="friends"></xs:attribute>
+                  <xs:attribute type="zernova:expressionList" use="optional" name="friends"></xs:attribute>
                 </xs:extension>
               </xs:complexContent>
             </xs:complexType>
@@ -830,10 +830,10 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="WolverineChillOutQuickType" substitutionGroup="mule:abstract-operator" name="wolverine-chill-out-quick"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="WolverineChillOutQuickType" substitutionGroup="zernova:abstract-operator" name="wolverine-chill-out-quick"></xs:element>
   <xs:complexType name="WolverineChillOutQuickType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="1" maxOccurs="1">
           <xs:element type="xs:string" minOccurs="0" maxOccurs="1" name="bears"></xs:element>
           <xs:element type="xs:string" minOccurs="1" maxOccurs="1" name="river"></xs:element>
@@ -842,31 +842,31 @@
               <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" name="friend">
                   <xs:complexType>
-                    <xs:attribute type="mule:expressionString" use="required" name="value"></xs:attribute>
+                    <xs:attribute type="zernova:expressionString" use="required" name="value"></xs:attribute>
                   </xs:complexType>
                 </xs:element>
               </xs:sequence>
             </xs:complexType>
           </xs:element>
         </xs:sequence>
-        <xs:attribute type="mule:expressionList" use="optional" name="friends"></xs:attribute>
+        <xs:attribute type="zernova:expressionList" use="optional" name="friends"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="WolverineShredType" substitutionGroup="mule:abstract-operator" name="wolverine-shred"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="WolverineShredType" substitutionGroup="zernova:abstract-operator" name="wolverine-shred"></xs:element>
   <xs:complexType name="WolverineShredType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element type="xs:string" minOccurs="0" maxOccurs="1" name="enemies"></xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns="http://www.mulesoft.org/schema/mule/marvel" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="WoundsPassthroughType" substitutionGroup="mule:abstract-operator" name="wounds-passthrough"></xs:element>
+  <xs:element xmlns="https://schemas.zernova.dev/marvel" xmlns:zernova="https://schemas.zernova.dev/core" type="WoundsPassthroughType" substitutionGroup="zernova:abstract-operator" name="wounds-passthrough"></xs:element>
   <xs:complexType name="WoundsPassthroughType">
     <xs:complexContent>
-      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+      <xs:extension xmlns:zernova="https://schemas.zernova.dev/core" base="zernova:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element type="xs:string" minOccurs="0" maxOccurs="1" name="wounds"></xs:element>
         </xs:sequence>
@@ -875,7 +875,7 @@
             <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+        <xs:attribute type="zernova:expressionString" use="optional" default="#[payload]" name="targetValue">
           <xs:annotation>
             <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
           </xs:annotation>

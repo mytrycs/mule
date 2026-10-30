@@ -17,7 +17,7 @@ import com.zernova.api.annotation.NoExtend;
 @NoExtend
 public abstract class ZernovaStereotypeDefinition implements StereotypeDefinition {
 
-  public static final String NAMESPACE = "MULE";
+  public static final String NAMESPACE = "ZERNOVA";
 
   @Override
   public final String getNamespace() {

@@ -42,14 +42,14 @@ public class ZernovaPluginModelBuilderTestCase {
 
   @Test
   public void buildWithExtensionModelDescriptor() {
-    builder.setName(ARTIFACT_NAME).setMinMuleVersion(MULE_VERSION);
+    builder.setName(ARTIFACT_NAME).setMinZernovaVersion(MULE_VERSION);
     builder.withExtensionModelDescriber().setId(DESCRIBER_ID);
     builder.withBundleDescriptorLoader(new ZernovaArtifactLoaderDescriptor(BUNDLE_DESCRIPTOR_LOADER_ID, emptyMap()));
     builder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptor(CLASSLOADER_DESCRIPTOR_LOADER_ID, emptyMap()));
     ZernovaPluginModel mulePluginModel = builder.build();
 
     assertThat(mulePluginModel.getName(), is(ARTIFACT_NAME));
-    assertThat(mulePluginModel.getMinMuleVersion(), is(MULE_VERSION));
+    assertThat(mulePluginModel.getMinZernovaVersion(), is(MULE_VERSION));
     assertThat(mulePluginModel.getExtensionModelLoaderDescriptor().isPresent(), is(true));
     assertThat(mulePluginModel.getExtensionModelLoaderDescriptor().get().getId(), is(DESCRIBER_ID));
     assertThat(mulePluginModel.getExtensionModelLoaderDescriptor().get().getAttributes().size(), is(0));
@@ -61,13 +61,13 @@ public class ZernovaPluginModelBuilderTestCase {
 
   @Test
   public void buildWithoutExtensionModelDescriptor() {
-    builder.setName(ARTIFACT_NAME).setMinMuleVersion(MULE_VERSION);
+    builder.setName(ARTIFACT_NAME).setMinZernovaVersion(MULE_VERSION);
     builder.withBundleDescriptorLoader(new ZernovaArtifactLoaderDescriptor(BUNDLE_DESCRIPTOR_LOADER_ID, emptyMap()));
     builder.withClassLoaderModelDescriptorLoader(new ZernovaArtifactLoaderDescriptor(CLASSLOADER_DESCRIPTOR_LOADER_ID, emptyMap()));
     ZernovaPluginModel mulePluginModel = builder.build();
 
     assertThat(mulePluginModel.getName(), is(ARTIFACT_NAME));
-    assertThat(mulePluginModel.getMinMuleVersion(), is(MULE_VERSION));
+    assertThat(mulePluginModel.getMinZernovaVersion(), is(MULE_VERSION));
     assertThat(mulePluginModel.getExtensionModelLoaderDescriptor().isPresent(), is(false));
     assertThat(mulePluginModel.getBundleDescriptorLoader().getId(), equalTo(BUNDLE_DESCRIPTOR_LOADER_ID));
     assertThat(mulePluginModel.getBundleDescriptorLoader().getAttributes(), is(emptyMap()));
@@ -77,7 +77,7 @@ public class ZernovaPluginModelBuilderTestCase {
 
   @Test
   public void buildWithoutBundleDescriptorLoader() {
-    builder.setName(ARTIFACT_NAME).setMinMuleVersion(MULE_VERSION);
+    builder.setName(ARTIFACT_NAME).setMinZernovaVersion(MULE_VERSION);
     builder.withExtensionModelDescriber().setId(DESCRIBER_ID);
 
     expectedException.expect(IllegalArgumentException.class);
@@ -94,7 +94,7 @@ public class ZernovaPluginModelBuilderTestCase {
 
   @Test
   public void blankVersion() {
-    builder.setMinMuleVersion(null);
+    builder.setMinZernovaVersion(null);
 
     expectedException.expect(IllegalArgumentException.class);
     builder.build();

@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * This object matches the mule-artifact.json element within a application. The describer holds information that has being picked
+ * This object matches the zernova-artifact.json element within a application. The describer holds information that has being picked
  * up from the JSON file (and the pom.xml when implemented).
  *
  * @since 1.0
@@ -31,7 +31,7 @@ public class ZernovaApplicationModel extends ZernovaDeployableModel {
   }
 
   private ZernovaApplicationModel(String name,
-                               String minMuleVersion,
+                               String minZernovaVersion,
                                Product product,
                                ZernovaArtifactLoaderDescriptor classLoaderModelLoaderDescriptor,
                                ZernovaArtifactLoaderDescriptor bundleDescriptor,
@@ -42,7 +42,7 @@ public class ZernovaApplicationModel extends ZernovaDeployableModel {
                                Set<String> supportedJavaVersions,
                                String logConfigFile) {
     super(name,
-          minMuleVersion,
+          minZernovaVersion,
           product,
           classLoaderModelLoaderDescriptor,
           bundleDescriptor,
@@ -92,7 +92,7 @@ public class ZernovaApplicationModel extends ZernovaDeployableModel {
                                                  Set<String> supportedJavaVersions,
                                                  String logConfigFile) {
       return new ZernovaApplicationModel(getName(),
-                                      getMinMuleVersion(),
+                                      getMinZernovaVersion(),
                                       getRequiredProduct(),
                                       getClassLoaderModelDescriptorLoader(),
                                       getBundleDescriptorLoader(),

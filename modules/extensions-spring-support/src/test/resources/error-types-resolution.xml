@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+<zernova xmlns="https://schemas.zernova.dev/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/petstore http://www.mulesoft.org/schema/mule/petstore/current/mule-petstore.xsd
-                          http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+      xmlns:petstore="https://schemas.zernova.dev/petstore"
+      xsi:schemaLocation="https://schemas.zernova.dev/petstore https://schemas.zernova.dev/petstore/current/zernova-petstore.xsd
+                          https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd">
 
     <petstore:config name="config" cashierName="cashierName">
         <petstore:connection username="john" password="doe"/>
@@ -56,4 +56,4 @@
         <petstore:get-connection-age config-ref="failing-connection-config"/>
     </flow>
 
-</mule>
+</zernova>

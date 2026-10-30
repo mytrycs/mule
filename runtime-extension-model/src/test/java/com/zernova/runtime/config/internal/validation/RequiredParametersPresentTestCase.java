@@ -43,17 +43,17 @@ public class RequiredParametersPresentTestCase extends AbstractCoreValidationTes
   public void flowRefWithNoName() {
     final Optional<ValidationResultItem> msg = runValidation("RequiredParametersPresentTestCase#flowRefWithNoName",
                                                              "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                                                                 "<mule xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
+                                                                 "<zernova xmlns=\"https://schemas.zernova.dev/core\"\n" +
                                                                  "      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
                                                                  +
-                                                                 "      xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd\">\n"
+                                                                 "      xsi:schemaLocation=\"https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd\">\n"
                                                                  +
                                                                  "\n" +
                                                                  "    <flow name=\"flow\">\n" +
                                                                  "        <flow-ref/>\n" +
                                                                  "    </flow>\n" +
                                                                  "    \n" +
-                                                                 "</mule>")
+                                                                 "</zernova>")
                                                                      .stream().findFirst();
 
     assertThat(msg.get().getMessage(),
@@ -66,17 +66,17 @@ public class RequiredParametersPresentTestCase extends AbstractCoreValidationTes
     final Optional<ValidationResultItem> msg =
         runValidation("RequiredParametersPresentTestCase#numberParamWithUnresolvedProperty",
                       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                          "<mule xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
+                          "<zernova xmlns=\"https://schemas.zernova.dev/core\"\n" +
                           "      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
-                          "      xmlns:test=\"http://www.mulesoft.org/schema/mule/test\"\n" +
-                          "      xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd\n"
+                          "      xmlns:test=\"https://schemas.zernova.dev/test\"\n" +
+                          "      xsi:schemaLocation=\"https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd\n"
                           +
-                          "               http://www.mulesoft.org/schema/mule/test http://www.mulesoft.org/schema/mule/test/current/mule-test.xsd\">\n"
+                          "               https://schemas.zernova.dev/test https://schemas.zernova.dev/test/current/zernova-test.xsd\">\n"
                           +
                           "\n" +
                           "    <test:other-config name=\"cfg\" count=\"${other.count}\"/>\n" +
                           "\n" +
-                          "</mule>")
+                          "</zernova>")
                               .stream().findFirst();
 
     assertThat(msg.map(r -> r.getMessage()).orElse(null), msg.isPresent(), is(false));
@@ -87,14 +87,14 @@ public class RequiredParametersPresentTestCase extends AbstractCoreValidationTes
   public void manyRequiredMissingAllReported() {
     final List<ValidationResultItem> msgs = runValidation("RequiredParametersPresentTestCase#manyRequiredMissingAllReported",
                                                           "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                                                              "<mule xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n" +
+                                                              "<zernova xmlns=\"https://schemas.zernova.dev/core\"\n" +
                                                               "      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
-                                                              "      xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd\">\n"
+                                                              "      xsi:schemaLocation=\"https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd\">\n"
                                                               +
                                                               "\n" +
                                                               "    <global-property/>\n" +
                                                               "\n" +
-                                                              "</mule>");
+                                                              "</zernova>");
 
     assertThat(msgs, hasSize(2));
   }

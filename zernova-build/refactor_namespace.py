@@ -10,6 +10,8 @@ import argparse
 import hashlib
 import io
 import json
+import os
+from concurrent.futures import ProcessPoolExecutor
 import re
 import shutil
 import struct
@@ -24,11 +26,40 @@ TEXT = {'.java', '.xml', '.pom', '.properties', '.json', '.txt', '.MF', '.xsd', 
         '.groovy', '.sh', '.bat', '.cmd', '.md', '.vm', '.ftl', '.raml', '.wsdl'}
 
 
+def application_text(value):
+    """ZERNOVA format v1: executable XML and deployment contract identifiers.
+
+    Maven engine coordinates and upstream licenses are separate from this
+    contract. Apply the same mapping to source, connector bytecode and metadata.
+    """
+    if not any(word in value for word in ('mule', 'Mule', 'MULE')):
+        return value
+    value = value.replace('http://www.mulesoft.org/schema/mule', 'https://schemas.zernova.dev')
+    value = value.replace('http\\://www.mulesoft.org/schema/mule', 'https\\://schemas.zernova.dev')
+    for old, new in [('mule-artifact', 'zernova-artifact'), ('mule-application', 'zernova-application'),
+                     ('mule-plugin', 'zernova-plugin'), ('mule-domain', 'zernova-domain'),
+                     ('mule-src', 'zernova-src'), ('minMuleVersion', 'minZernovaVersion'),
+                     ('MinMuleVersion', 'MinZernovaVersion')]:
+        value = value.replace(old, new)
+    value = re.sub(r'mule(?=(?:-[A-Za-z0-9_-]+)?\.xsd|\.schemas)', 'zernova', value)
+    value = re.sub(r'\bMULE_EE\b', 'ZERNOVA_EE', value)
+    value = re.sub(r'\bMULE\b(?!-\d)', 'ZERNOVA', value)
+    value = re.sub(r'([\"\x27])mule\1', lambda m: m[1] + 'zernova' + m[1], value)
+    value = re.sub(r'(<\/?(?:[\w.-]+:)?)mule(?=[\s/:>])', r'\1zernova', value)
+    value = value.replace('xmlns:mule=', 'xmlns:zernova=').replace('mule:', 'zernova:')
+    if value == 'mule':
+        value = 'zernova'
+    return value
+
+
 class Relocation:
-    def __init__(self, names):
+    def __init__(self, names, application_format=False):
         self.names = dict(sorted(names.items()))
+        self.application_format = application_format
 
     def text(self, value):
+        if self.application_format:
+            value = application_text(value)
         if not any(s in value for s in ('org.mule', 'org/mule', 'Mule', 'io.zernova.studio', 'io/zernova/studio')):
             return value
         # Source Unicode escapes can immediately precede a qualified class
@@ -44,7 +75,10 @@ class Relocation:
     def classfile(self, data):
         if data[:4] != b'\xca\xfe\xba\xbe':
             raise ValueError('Invalid class file')
-        if not any(s in data for s in (b'org/mule', b'org.mule', b'Mule', b'io/zernova/studio', b'io.zernova.studio')):
+        candidates = (b'org/mule', b'org.mule', b'Mule', b'io/zernova/studio', b'io.zernova.studio')
+        if self.application_format:
+            candidates += (b'mule', b'MULE')
+        if not any(s in data for s in candidates):
             return data
         count = struct.unpack_from('>H', data, 8)[0]
         output, offset, index = bytearray(data[:10]), 10, 1
@@ -236,6 +270,26 @@ def relocate_tree(source, dest, relocation, in_place=False):
     return records
 
 
+def repository_worker_init(source, dest, names, application_format):
+    global WORKER_SOURCE, WORKER_DEST, WORKER_RELOCATION
+    WORKER_SOURCE, WORKER_DEST = Path(source), Path(dest)
+    WORKER_RELOCATION = Relocation(names, application_format)
+
+
+def repository_worker(name):
+    path = WORKER_SOURCE / name
+    new_name = WORKER_RELOCATION.text(name)
+    target = WORKER_DEST / new_name
+    old = path.read_bytes()
+    content = WORKER_RELOCATION.content(name, old)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_bytes(content)
+    shutil.copymode(path, target)
+    if old != content or name != new_name:
+        return {'from': name, 'to': new_name, 'inputSha256': hashlib.sha256(old).hexdigest(),
+                'outputSha256': hashlib.sha256(content).hexdigest()}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('operation', choices=['discover', 'tree', 'repository'])
@@ -243,21 +297,36 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--map', type=Path, default=ROOT / 'zernova-build/namespace-map.json')
     parser.add_argument('--extra', type=Path, action='append', default=[])
+    parser.add_argument('--application-format', action='store_true')
     args = parser.parse_args()
     if args.operation == 'discover':
         mapping = discover([args.input] + args.extra)
         args.output.write_text(json.dumps(mapping, indent=2) + '\n')
         print('Class renames:', len(mapping))
         return
-    relocation = Relocation(json.loads(args.map.read_text()))
+    relocation = Relocation(json.loads(args.map.read_text()), args.application_format)
     if args.operation == 'repository' and args.input.resolve() == args.output.resolve():
         raise ValueError('Dependency inputs must remain immutable; use a separate output repository')
     if args.operation == 'repository' and args.output.exists():
         raise ValueError('Output repository already exists')
-    records = relocate_tree(args.input, args.output, relocation,
-                            in_place=args.input.resolve() == args.output.resolve())
+    if args.operation == 'repository':
+        paths = [p.relative_to(args.input).as_posix() for p in sorted(args.input.rglob('*'))
+                 if p.is_file() and not any(part in SKIP for part in p.relative_to(args.input).parts)
+                 and p.suffix not in {'.sha1', '.md5', '.sha256', '.sha512', '.lastUpdated'}
+                 and p.name != '.zernova-namespace-relocation.json']
+        destinations = [relocation.text(name) for name in paths]
+        if len(set(destinations)) != len(destinations):
+            raise ValueError('Dependency relocation path collision')
+        with ProcessPoolExecutor(max_workers=int(os.environ.get('ZN_RELOCATION_JOBS', '4')),
+                                 initializer=repository_worker_init,
+                                 initargs=(str(args.input), str(args.output), relocation.names, args.application_format)) as pool:
+            records = [record for record in pool.map(repository_worker, paths, chunksize=8) if record]
+    else:
+        records = relocate_tree(args.input, args.output, relocation,
+                                in_place=args.input.resolve() == args.output.resolve())
     report = args.output / '.zernova-namespace-relocation.json'
     report.write_text(json.dumps({'schemaVersion': 1, 'namespace': 'com.zernova',
+                                 'applicationFormat': 1 if args.application_format else 0,
                                  'classMapSha256': hashlib.sha256(args.map.read_bytes()).hexdigest(),
                                  'changes': records}, indent=2) + '\n')
     print('Relocated files:', len(records))

@@ -113,7 +113,7 @@ public class ImmutableNestedRouteModel extends AbstractComponentModel implements
    * @param deprecationModel     a {@link DeprecationModel} describing if the component is deprecated. A null value means it is
    *                             not deprecated.
    * @param semanticTerms        a {@link Set} of semantic terms which describe the component's meaning and effect
-   * @param minMuleVersion       the min mule version of the route model.
+   * @param minZernovaVersion       the min mule version of the route model.
    * @throws IllegalArgumentException if {@code name} is blank
    * @since 1.5.0
    */
@@ -128,9 +128,9 @@ public class ImmutableNestedRouteModel extends AbstractComponentModel implements
                                    Set<ModelProperty> modelProperties,
                                    DeprecationModel deprecationModel,
                                    Set<String> semanticTerms,
-                                   ZernovaVersion minMuleVersion) {
+                                   ZernovaVersion minZernovaVersion) {
     super(name, description, parameterGroupModels, childComponents, displayModel, emptySet(), stereotypeModel,
-          visibility, modelProperties, deprecationModel, semanticTerms, minMuleVersion);
+          visibility, modelProperties, deprecationModel, semanticTerms, minZernovaVersion);
     this.minOccurs = minOccurs;
     this.maxOccurs = maxOccurs;
   }

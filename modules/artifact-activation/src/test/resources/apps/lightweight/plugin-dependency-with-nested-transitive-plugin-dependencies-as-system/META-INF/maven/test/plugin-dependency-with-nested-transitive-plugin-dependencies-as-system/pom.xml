@@ -23,15 +23,15 @@
             <groupId>${repeatedDependencyGroupId}</groupId>
             <artifactId>${repeatedDependencyArtifactId}</artifactId>
             <version>${repeatedDependencyVersion}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
         </dependency>
         <dependency>
             <groupId>${systemDependencyGroupId}</groupId>
             <artifactId>${systemDependencyArtifactId}</artifactId>
             <version>${systemDependencyVersion}</version>
-            <classifier>mule-plugin</classifier>
+            <classifier>zernova-plugin</classifier>
             <scope>system</scope>
-            <systemPath>${localPluginDirectory}/${systemDependencyGroupId}/${systemDependencyArtifactId}/${systemDependencyVersion}/${systemDependencyArtifactId}-${systemDependencyVersion}-mule-plugin.jar</systemPath>
+            <systemPath>${localPluginDirectory}/${systemDependencyGroupId}/${systemDependencyArtifactId}/${systemDependencyVersion}/${systemDependencyArtifactId}-${systemDependencyVersion}-zernova-plugin.jar</systemPath>
         </dependency>
     </dependencies>
 </project>

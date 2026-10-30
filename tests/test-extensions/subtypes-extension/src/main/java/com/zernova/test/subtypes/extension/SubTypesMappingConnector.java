@@ -39,7 +39,7 @@ import java.util.Map;
 @SubTypeMapping(baseType = Weapon.class, subTypes = {Revolver.class, Ricin.class})
 @SubTypeMapping(baseType = StatelessType.class, subTypes = TopLevelStatelessType.class)
 @Export(classes = {Revolver.class})
-@Xml(prefix = "subtypes", namespace = "http://www.mulesoft.org/schema/mule/subtypes")
+@Xml(prefix = "subtypes", namespace = "https://schemas.zernova.dev/subtypes")
 @Import(type = StringAttributes.class)
 public class SubTypesMappingConnector {
 

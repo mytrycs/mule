@@ -4,7 +4,7 @@
     "description": "Test extension",
     "version": "4.0.0",
     "vendor": "MuleSoft",
-    "minMuleVersion": "4.2.0",
+    "minZernovaVersion": "4.2.0",
     "supportedJavaVersions": [
       "1.8",
       "11"
@@ -77,14 +77,14 @@
         "visibility": "PUBLIC",
         "stereotype": {
           "type": "PROCESSOR",
-          "namespace": "MULE"
+          "namespace": "ZERNOVA"
         },
         "deprecationModel": {
           "message": "This operation is deprecated",
           "deprecatedSince": "1.3.0",
           "toRemoveIn": "2.0.0"
         },
-        "minMuleVersion": "4.4.0",
+        "minZernovaVersion": "4.4.0",
         "parameterGroupModels": [
           {
             "parameters": [
@@ -127,7 +127,7 @@
                   "deprecatedSince": "1.3.0"
                 },
                 "semanticTerms": [],
-                "minMuleVersion": "4.4.0",
+                "minZernovaVersion": "4.4.0",
                 "name": "carName",
                 "displayModel": {},
                 "description": "Name of the car",
@@ -689,7 +689,7 @@
                     "namespace": "TEST",
                     "parent": {
                       "type": "MODULE_CONFIG",
-                      "namespace": "MULE"
+                      "namespace": "ZERNOVA"
                     }
                   }
                 ],
@@ -798,7 +798,7 @@
             "namespace": "TEST",
             "parent": {
               "type": "PROCESSOR",
-              "namespace": "MULE"
+              "namespace": "ZERNOVA"
             }
           }
         },
@@ -955,9 +955,9 @@
                 "modelProperties": {
                   "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                     "value": {
-                      "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                      "namespaceURI": "https://schemas.zernova.dev/core",
                       "localPart": "error-mappings",
-                      "prefix": "mule"
+                      "prefix": "zernova"
                     }
                   },
                   "sinceMuleVersion": {
@@ -1029,7 +1029,7 @@
                 "allowedStereotypes": [
                   {
                     "type": "PROCESSOR",
-                    "namespace": "MULE"
+                    "namespace": "ZERNOVA"
                   }
                 ],
                 "minOccurs": 1,
@@ -1049,7 +1049,7 @@
                 "allowedStereotypes": [
                   {
                     "type": "PROCESSOR",
-                    "namespace": "MULE"
+                    "namespace": "ZERNOVA"
                   }
                 ],
                 "minOccurs": 0,
@@ -1120,7 +1120,7 @@
                 "allowedStereotypes": [
                   {
                     "type": "PROCESSOR",
-                    "namespace": "MULE"
+                    "namespace": "ZERNOVA"
                   }
                 ],
                 "minOccurs": 1,
@@ -1152,7 +1152,7 @@
             "namespace": "TEST",
             "parent": {
               "type": "PROCESSOR",
-              "namespace": "MULE"
+              "namespace": "ZERNOVA"
             }
           }
         },
@@ -1344,9 +1344,9 @@
                 "modelProperties": {
                   "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                     "value": {
-                      "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                      "namespaceURI": "https://schemas.zernova.dev/core",
                       "localPart": "error-mappings",
-                      "prefix": "mule"
+                      "prefix": "zernova"
                     }
                   },
                   "sinceMuleVersion": {
@@ -1472,9 +1472,9 @@
         "semanticTerms": [],
         "stereotype": {
           "type": "CONNECTION",
-          "namespace": "MULE"
+          "namespace": "ZERNOVA"
         },
-        "minMuleVersion": "4.3.0",
+        "minZernovaVersion": "4.3.0",
         "parameterGroupModels": [
           {
             "parameters": [
@@ -2190,7 +2190,7 @@
                       "namespace": "TEST",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -2249,9 +2249,9 @@
         "visibility": "PUBLIC",
         "stereotype": {
           "type": "SOURCE",
-          "namespace": "MULE"
+          "namespace": "ZERNOVA"
         },
-        "minMuleVersion": "4.2.2",
+        "minZernovaVersion": "4.2.2",
         "parameterGroupModels": [
           {
             "parameters": [
@@ -2294,7 +2294,7 @@
                   "deprecatedSince": "1.3.0"
                 },
                 "semanticTerms": [],
-                "minMuleVersion": "4.4.0",
+                "minZernovaVersion": "4.4.0",
                 "name": "carName",
                 "displayModel": {},
                 "description": "Name of the car",
@@ -2374,17 +2374,17 @@
     "notifications": [],
     "errors": [
       {
-        "error": "MULE:CONNECTIVITY",
-        "parent": "MULE:ANY",
+        "error": "ZERNOVA:CONNECTIVITY",
+        "parent": "ZERNOVA:ANY",
         "handleable": true
       },
       {
-        "error": "MULE:ANY",
+        "error": "ZERNOVA:ANY",
         "handleable": true
       },
       {
         "error": "ERROR_NAMESPACE:PARENT_ERROR_MODEL",
-        "parent": "MULE:CONNECTIVITY",
+        "parent": "ZERNOVA:CONNECTIVITY",
         "handleable": true
       },
       {
@@ -2612,7 +2612,7 @@
     "description": "Test extension",
     "version": "4.0.0",
     "vendor": "MuleSoft",
-    "minMuleVersion": "4.2.0",
+    "minZernovaVersion": "4.2.0",
     "supportedJavaVersions": [
       "1.8",
       "11"
@@ -2685,14 +2685,14 @@
         "visibility": "PUBLIC",
         "stereotype": {
           "type": "PROCESSOR",
-          "namespace": "MULE"
+          "namespace": "ZERNOVA"
         },
         "deprecationModel": {
           "message": "This operation is deprecated",
           "deprecatedSince": "1.3.0",
           "toRemoveIn": "2.0.0"
         },
-        "minMuleVersion": "4.4.0",
+        "minZernovaVersion": "4.4.0",
         "parameterGroupModels": [
           {
             "parameters": [
@@ -2735,7 +2735,7 @@
                   "deprecatedSince": "1.3.0"
                 },
                 "semanticTerms": [],
-                "minMuleVersion": "4.4.0",
+                "minZernovaVersion": "4.4.0",
                 "name": "carName",
                 "displayModel": {},
                 "description": "Name of the car",
@@ -3297,7 +3297,7 @@
                     "namespace": "TEST",
                     "parent": {
                       "type": "MODULE_CONFIG",
-                      "namespace": "MULE"
+                      "namespace": "ZERNOVA"
                     }
                   }
                 ],
@@ -3406,7 +3406,7 @@
             "namespace": "TEST",
             "parent": {
               "type": "PROCESSOR",
-              "namespace": "MULE"
+              "namespace": "ZERNOVA"
             }
           }
         },
@@ -3563,9 +3563,9 @@
                 "modelProperties": {
                   "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                     "value": {
-                      "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                      "namespaceURI": "https://schemas.zernova.dev/core",
                       "localPart": "error-mappings",
-                      "prefix": "mule"
+                      "prefix": "zernova"
                     }
                   },
                   "sinceMuleVersion": {
@@ -3637,7 +3637,7 @@
                 "allowedStereotypes": [
                   {
                     "type": "PROCESSOR",
-                    "namespace": "MULE"
+                    "namespace": "ZERNOVA"
                   }
                 ],
                 "minOccurs": 1,
@@ -3657,7 +3657,7 @@
                 "allowedStereotypes": [
                   {
                     "type": "PROCESSOR",
-                    "namespace": "MULE"
+                    "namespace": "ZERNOVA"
                   }
                 ],
                 "minOccurs": 0,
@@ -3727,7 +3727,7 @@
                 "allowedStereotypes": [
                   {
                     "type": "PROCESSOR",
-                    "namespace": "MULE"
+                    "namespace": "ZERNOVA"
                   }
                 ],
                 "minOccurs": 1,
@@ -3759,7 +3759,7 @@
             "namespace": "TEST",
             "parent": {
               "type": "PROCESSOR",
-              "namespace": "MULE"
+              "namespace": "ZERNOVA"
             }
           }
         },
@@ -3951,9 +3951,9 @@
                 "modelProperties": {
                   "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                     "value": {
-                      "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                      "namespaceURI": "https://schemas.zernova.dev/core",
                       "localPart": "error-mappings",
-                      "prefix": "mule"
+                      "prefix": "zernova"
                     }
                   },
                   "sinceMuleVersion": {
@@ -4079,9 +4079,9 @@
         "semanticTerms": [],
         "stereotype": {
           "type": "CONNECTION",
-          "namespace": "MULE"
+          "namespace": "ZERNOVA"
         },
-        "minMuleVersion": "4.3.0",
+        "minZernovaVersion": "4.3.0",
         "parameterGroupModels": [
           {
             "parameters": [
@@ -4797,7 +4797,7 @@
                       "namespace": "TEST",
                       "parent": {
                         "type": "MODULE_CONFIG",
-                        "namespace": "MULE"
+                        "namespace": "ZERNOVA"
                       }
                     }
                   ],
@@ -4856,9 +4856,9 @@
         "visibility": "PUBLIC",
         "stereotype": {
           "type": "SOURCE",
-          "namespace": "MULE"
+          "namespace": "ZERNOVA"
         },
-        "minMuleVersion": "4.2.2",
+        "minZernovaVersion": "4.2.2",
         "parameterGroupModels": [
           {
             "parameters": [
@@ -4901,7 +4901,7 @@
                   "deprecatedSince": "1.3.0"
                 },
                 "semanticTerms": [],
-                "minMuleVersion": "4.4.0",
+                "minZernovaVersion": "4.4.0",
                 "name": "carName",
                 "displayModel": {},
                 "description": "Name of the car",
@@ -4987,16 +4987,16 @@
       },
       {
         "error": "ERROR_NAMESPACE:PARENT_ERROR_MODEL",
-        "parent": "MULE:CONNECTIVITY",
+        "parent": "ZERNOVA:CONNECTIVITY",
         "handleable": true
       },
       {
-        "error": "MULE:CONNECTIVITY",
-        "parent": "MULE:ANY",
+        "error": "ZERNOVA:CONNECTIVITY",
+        "parent": "ZERNOVA:ANY",
         "handleable": true
       },
       {
-        "error": "MULE:ANY",
+        "error": "ZERNOVA:ANY",
         "handleable": true
       }
     ],

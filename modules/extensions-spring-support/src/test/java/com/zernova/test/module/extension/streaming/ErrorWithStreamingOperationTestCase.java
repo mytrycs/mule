@@ -30,7 +30,7 @@ public class ErrorWithStreamingOperationTestCase extends AbstractExtensionFuncti
 
   @Test
   public void connectionIsReleasedWhenOperationFails() throws Exception {
-    expectedError.expectErrorType("MULE", "UNKNOWN");
+    expectedError.expectErrorType("ZERNOVA", "UNKNOWN");
     expectedError.expectMessage(containsString("The operation failed!"));
 
     for (int i = 0; i < AMOUNT_OF_CALLS; i++) {

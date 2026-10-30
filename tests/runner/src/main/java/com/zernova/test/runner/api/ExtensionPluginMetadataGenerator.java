@@ -129,7 +129,7 @@ class ExtensionPluginMetadataGenerator {
 
     };
     DefaultZernovaConfiguration muleConfiguration = new DefaultZernovaConfiguration();
-    muleConfiguration.setMinMuleVersion(new ZernovaVersion(getProperty("maven.projectVersion")));
+    muleConfiguration.setMinZernovaVersion(new ZernovaVersion(getProperty("maven.projectVersion")));
     muleContext.setMuleConfiguration(muleConfiguration);
     try {
       initialiseIfNeeded(extensionManager, muleContext);

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsd:schema xmlns="https://schemas.zernova.dev/domain"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:zernova="https://schemas.zernova.dev/core"
+            targetNamespace="https://schemas.zernova.dev/domain"
+            attributeFormDefault="unqualified"
+            elementFormDefault="qualified">
+
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:import namespace="https://schemas.zernova.dev/core"
+                schemaLocation="https://schemas.zernova.dev/core/current/zernova.xsd"/>
+
+    <xsd:element name="zernova-domain" type="muleDomainType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Either the root element of a Mule domain configuration, or a "top-level" element in a Spring configuration that contains further Mule elements.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="muleDomainType">
+        <xsd:complexContent>
+            <xsd:extension base="zernova:annotatedType">
+                <xsd:sequence>
+                    <xsd:element name="description" type="zernova:descriptionType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Holds any kind of documentation that accompanies this domain configuration file. It is intended to be "human readable" only and is not used by the system.
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                        <xsd:group ref="sharedElements"/>
+                    </xsd:choice>
+                </xsd:sequence>
+                <xsd:attribute name="version" type ="xsd:string"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:group name="sharedElements">
+        <xsd:choice>
+            <xsd:element ref="zernova:global-property"/>
+            <xsd:element ref="zernova:configuration-properties"/>
+            <xsd:element ref="zernova:abstract-shared-connector"/>
+            <xsd:element ref="zernova:abstract-shared-transaction-manager"/>
+            <xsd:element ref="zernova:abstract-shared-extension" />
+        </xsd:choice>
+    </xsd:group>
+
+</xsd:schema>

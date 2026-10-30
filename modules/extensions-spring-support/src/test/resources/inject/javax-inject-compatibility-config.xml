@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:javax-inject="http://www.mulesoft.org/schema/mule/javax-inject"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-               http://www.mulesoft.org/schema/mule/javax-inject http://www.mulesoft.org/schema/mule/javax-inject/current/mule-javax-inject.xsd">
+<zernova xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:javax-inject="https://schemas.zernova.dev/javax-inject"
+      xmlns="https://schemas.zernova.dev/core"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd
+               https://schemas.zernova.dev/javax-inject https://schemas.zernova.dev/javax-inject/current/zernova-javax-inject.xsd">
 
     <flow name="source" initialState="stopped">
          <javax-inject:source />
-         <set-payload value="#[java!org::mule::test::module::extension::inject::JavaxInjectCompatibilityTestCase::storeData(payload)]" />
+         <set-payload value="#[java!org::zernova::test::module::extension::inject::JavaxInjectCompatibilityTestCase::storeData(payload)]" />
     </flow>
 
     <flow name="sourceConfig" initialState="stopped">
          <javax-inject:source />
-         <set-payload value="#[java!org::mule::test::module::extension::inject::JavaxInjectCompatibilityTestCase::storeData(attributes)]" />
+         <set-payload value="#[java!org::zernova::test::module::extension::inject::JavaxInjectCompatibilityTestCase::storeData(attributes)]" />
     </flow>
 
     <flow name="operation">
@@ -41,4 +41,4 @@
          <set-payload value="#[JavaxInject::execute()]" />
     </flow>
 
-</mule>
+</zernova>
