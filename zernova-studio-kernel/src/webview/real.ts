@@ -54,6 +54,8 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
   let showLogsAfterRun = false;
   let contextMenu: { id: string; kind?: 'component' | 'canvas' | 'config'; x: number; y: number } | undefined;
   let drag: { kind?: 'listener' | 'logger'; id?: string } | undefined;
+  let pointerPlacement: { item: { kind?: 'listener' | 'logger'; id?: string }; element: HTMLElement; startX: number; startY: number; active: boolean } | undefined;
+  let suppressPlacementClick = false;
   let resize: { key: 'paletteWidth' | 'propertiesHeight'; start: number; value: number } | undefined;
   let applyingFromHost = false;
 
@@ -138,6 +140,7 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
     }
   }
   function render(): void {
+    if (pointerPlacement?.active) return;
     const focus = focusSnapshot();
     const scrolls = [...root.querySelectorAll<HTMLElement>('[data-scroll]')].map(el => [el.dataset.scroll!, el.scrollTop, el.scrollLeft] as const);
     window.document.body.dataset.previewTheme = view.theme;
@@ -166,7 +169,7 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
     return `<div class="canvas-toolbar real-document-toolbar"><span class="hint" title="${escape(document?.uri)}">${icon('code')} ${escape(files?.at(-1) ?? 'Loading document…')}${document?.dirty ? ' • Unsaved' : ''}</span>${button('save', 'Save', undefined, !document)}${iconButton('undo', 'Undo document edit', 'undo', !document)}${iconButton('redo', 'Redo document edit', 'redo', !document)}${button('newFlow', 'New flow', 'plus', !canEdit())}<span class="toolbar-separator"></span>${iconButton('zoomOut', 'Zoom out', 'minus', view.zoom <= 60)}<span class="zoom-value">${view.zoom}%</span>${iconButton('zoomIn', 'Zoom in', 'plus', view.zoom >= 160)}</div>`;
   }
   function renderNode(node: Component): string {
-    return `<button class="node${view.selectedId === node.id ? ' selected' : ''}" data-node="${escape(node.id)}" data-action="select" draggable="${node.editable}" data-focus="node-${escape(node.id)}" aria-label="${node.kind === 'listener' ? 'HTTP Listener' : 'Logger'}: ${escape(node.displayName)}" aria-pressed="${view.selectedId === node.id}" title="Select to edit ${escape(node.displayName)}. Shift+F10 for actions."><span class="node-symbol ${node.kind}">${icon(node.kind === 'listener' ? 'globe' : 'logger')}</span><span class="node-label">${escape(node.displayName || (node.kind === 'listener' ? 'HTTP Listener' : 'Logger'))}</span></button>`;
+    return `<button class="node${view.selectedId === node.id ? ' selected' : ''}" data-node="${escape(node.id)}" data-action="select" draggable="false" data-focus="node-${escape(node.id)}" aria-label="${node.kind === 'listener' ? 'HTTP Listener' : 'Logger'}: ${escape(node.displayName)}" aria-pressed="${view.selectedId === node.id}" title="Select to edit ${escape(node.displayName)}. Shift+F10 for actions."><span class="node-symbol ${node.kind}">${icon(node.kind === 'listener' ? 'globe' : 'logger')}</span><span class="node-label">${escape(node.displayName || (node.kind === 'listener' ? 'HTTP Listener' : 'Logger'))}</span></button>`;
   }
   function validPlacement(kind: 'listener' | 'logger', lane: string): boolean {
     const f = flow(); return !!f?.editable && canEdit() && (kind === 'listener' ? lane === 'source' && !f.source && f.kind !== 'sub-flow' : lane === 'processor' || lane === 'error' && !!f.errorHandler?.editable);
@@ -178,7 +181,8 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
   }
   function slot(lane: 'source' | 'processor' | 'error', index = 0): string {
     const selected = selectedSlot?.lane === lane && selectedSlot.index === index;
-    return button('chooseSlot', '+', undefined, !canEdit() || !flow()?.editable || !!selectedPalette && !validPlacement(selectedPalette, lane), 'insertion-slot' + (selected ? ' selected' : ''), `data-slot="${lane}" data-index="${index}" data-drop="${lane}" aria-label="Insert component in ${lane} position ${index + 1}" aria-pressed="${selected}"`);
+    const disabled = !canEdit() || !flow()?.editable || !!selectedPalette && !validPlacement(selectedPalette, lane);
+    return `<button type="button" data-action="chooseSlot" data-focus="slot-${lane}-${index}" class="insertion-slot${selected ? ' selected' : ''}" ${disabled ? 'disabled' : ''} data-slot="${lane}" data-index="${index}" data-drop="${lane}" aria-label="Insert component in ${lane} position ${index + 1}" aria-pressed="${selected}">+</button>`;
   }
   function renderFlow(): string {
     const f = flow();
@@ -195,7 +199,7 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
   function renderPalette(): string {
     const f = flow();
     const items = [{ kind: 'listener', group: 'HTTP', name: 'Listener', glyph: 'globe' }, { kind: 'request', group: 'HTTP', name: 'Request', glyph: 'request' }, { kind: 'logger', group: 'Core', name: 'Logger', glyph: 'logger' }];
-    return `<aside class="palette" aria-label="ZERNOVA Palette"><div class="pane-title">ZERNOVA Palette${icon('plus')}</div><div class="search-wrap">${icon('search')}<input type="search" data-control="palette-search" data-focus="palette-search" placeholder="Search components…" aria-label="Search components" value="${escape(query)}"></div><div class="palette-content" data-scroll="palette">${['HTTP', 'Core'].map(group => `<section class="palette-group" aria-label="${group} components"><div class="group-title">${group}</div>${items.filter(x => x.group === group && `${x.group} ${x.name}`.toLowerCase().includes(query.toLowerCase())).map(x => `<button class="palette-item${selectedPalette === x.kind ? ' selected' : ''}" aria-pressed="${selectedPalette === x.kind}" data-palette="${x.kind}" data-action="insert-${x.kind}" data-focus="palette-${x.kind}" ${x.kind === 'request' || !canEdit() || !f?.editable ? 'disabled' : 'draggable="true"'} title="${x.kind === 'request' ? 'HTTP Request is outside this milestone' : 'Select, then choose a valid insertion slot'}"><span class="node-symbol ${x.kind}">${icon(x.glyph)}</span>${x.name}${x.kind === 'request' ? '<span class="future-label">FUTURE</span>' : ''}</button>`).join('')}</section>`).join('')}</div><div class="palette-footnote">Drag to a valid slot, or select a component and a valid slot in either order.<br>Execution uses the selected runtime.</div></aside>`;
+    return `<aside class="palette" aria-label="ZERNOVA Palette"><div class="pane-title">ZERNOVA Palette${icon('plus')}</div><div class="search-wrap">${icon('search')}<input type="search" data-control="palette-search" data-focus="palette-search" placeholder="Search components…" aria-label="Search components" value="${escape(query)}"></div><div class="palette-content" data-scroll="palette">${['HTTP', 'Core'].map(group => `<section class="palette-group" aria-label="${group} components"><div class="group-title">${group}</div>${items.filter(x => x.group === group && `${x.group} ${x.name}`.toLowerCase().includes(query.toLowerCase())).map(x => `<button class="palette-item${selectedPalette === x.kind ? ' selected' : ''}" aria-pressed="${selectedPalette === x.kind}" data-palette="${x.kind}" data-action="insert-${x.kind}" data-focus="palette-${x.kind}" ${x.kind === 'request' || !canEdit() || !f?.editable ? 'disabled' : 'draggable="false"'} title="${x.kind === 'request' ? 'HTTP Request is outside this milestone' : 'Select, then choose a valid insertion slot'}"><span class="node-symbol ${x.kind}">${icon(x.glyph)}</span>${x.name}${x.kind === 'request' ? '<span class="future-label">FUTURE</span>' : ''}</button>`).join('')}</section>`).join('')}</div><div class="palette-footnote">Drag to a valid slot, or select a component and a valid slot in either order.<br>Execution uses the selected runtime.</div></aside>`;
   }
   function renderLower(): string {
     return `<section class="lower-workarea" aria-label="Properties work area"><nav class="lower-tabs" role="tablist" aria-label="Lower work area">${[['properties', 'Properties'], ['problems', 'Problems'], ['console', 'Console'], ['outline', 'Outline']].map(([id, name]) => `<button class="tab${view.lower === id ? ' active' : ''}" role="tab" aria-selected="${view.lower === id}" data-action="lower-${id}" data-focus="lower-${id}">${id === 'properties' ? icon('properties') : ''}${name}${id === 'problems' && document?.model.diagnostics.length ? ` (${document.model.diagnostics.length})` : ''}</button>`).join('')}<span class="bar-spacer"></span><span class="fixture-tag">${document?.dirty ? 'Unsaved changes' : 'Document saved'}</span></nav><div class="lower-content">${view.lower === 'properties' ? renderProperties() : view.lower === 'problems' ? renderProblems() : view.lower === 'console' ? renderConsole() : renderOutline()}</div></section>`;
@@ -274,6 +278,7 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
   }
   function setView(fn: () => void): void { fn(); persist(); render(); }
   root.addEventListener('click', event => {
+    if (suppressPlacementClick) { event.preventDefault(); event.stopPropagation(); suppressPlacementClick = false; return; }
     const target = event.target as HTMLElement;
     const el = target.closest<HTMLElement>('[data-action]');
     if (!el || (el as HTMLButtonElement).disabled) { if (contextMenu) { contextMenu = undefined; render(); } return; }
@@ -394,6 +399,54 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
       event.preventDefault(); const items = [...tab.parentElement!.querySelectorAll<HTMLButtonElement>('[role="tab"]:not(:disabled)')]; const index = items.indexOf(tab as HTMLButtonElement); const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + items.length) % items.length; items[next]?.focus(); items[next]?.click();
     }
   });
+  // Pointer capture gives the same drag behavior in installed desktop webviews,
+  // with precise insertion slots and no dependency on native HTML drag timing.
+  function clearPlacement(): void {
+    pointerPlacement = undefined;
+    root.querySelector('.placement-ghost')?.remove(); root.classList.remove('pointer-placing');
+    root.querySelectorAll('.drop-valid').forEach(x => x.classList.remove('drop-valid'));
+  }
+  function dropPlacement(item: { kind?: 'listener' | 'logger'; id?: string }, lane: HTMLElement, target: HTMLElement): void {
+    const f = flow(); if (!f) return;
+    const name = lane.dataset.drop as 'source' | 'processor' | 'error';
+    const list = name === 'error' ? f.errorHandler?.processors ?? [] : f.processors;
+    const node = target.closest<HTMLElement>('[data-node]');
+    const index = lane.dataset.index !== undefined ? Number(lane.dataset.index) : node ? Math.max(0,list.findIndex(x => x.id === node.dataset.node)) : list.length;
+    if (item.kind) place(item.kind, { lane: name, index });
+    else if (item.id && name !== 'source') {
+      const from = list.findIndex(x => x.id === item.id), to = Math.min(list.length - 1,index);
+      if (from < 0) announce('Move components within their existing processor/error-handler lane.', true);
+      else if (from !== to) for (let i=0;i<Math.abs(to-from);i++) edit({kind:'moveLogger',id:item.id,direction:to<from?-1:1});
+    }
+  }
+  root.addEventListener('pointerdown', event => {
+    const element = (event.target as HTMLElement).closest<HTMLElement>('[data-palette],[data-node]');
+    if (!element || event.button !== 0 || (element as HTMLButtonElement).disabled || !canEdit()) return;
+    if (element.dataset.node && !componentById(element.dataset.node)?.editable) return;
+    pointerPlacement = { item: element.dataset.palette ? { kind: element.dataset.palette as 'listener' | 'logger' } : {id:element.dataset.node}, element, startX:event.clientX,startY:event.clientY,active:false };
+    element.setPointerCapture(event.pointerId);
+  });
+  root.addEventListener('pointermove', event => {
+    const drag = pointerPlacement; if (!drag) return;
+    if (!drag.active && Math.hypot(event.clientX-drag.startX,event.clientY-drag.startY)<6) return;
+    event.preventDefault(); drag.active=true; root.classList.add('pointer-placing');
+    let ghost=root.querySelector<HTMLElement>('.placement-ghost');
+    if(!ghost){ghost=window.document.createElement('div');ghost.className='placement-ghost';ghost.textContent=drag.item.kind==='listener'?'HTTP Listener':drag.item.kind==='logger'?'Logger':'Move component';root.append(ghost);}
+    ghost.style.left=(event.clientX+14)+'px';ghost.style.top=(event.clientY+14)+'px';
+    root.querySelectorAll('.drop-valid').forEach(x=>x.classList.remove('drop-valid'));
+    const lane=window.document.elementFromPoint(event.clientX,event.clientY)?.closest<HTMLElement>('[data-drop]');
+    if(lane && (drag.item.kind ? validPlacement(drag.item.kind,lane.dataset.drop!) : lane.dataset.drop!=='source')) lane.classList.add('drop-valid');
+  });
+  root.addEventListener('pointerup', event => {
+    const drag=pointerPlacement;if(!drag)return;
+    const target=window.document.elementFromPoint(event.clientX,event.clientY) as HTMLElement|null;
+    const lane=target?.closest<HTMLElement>('[data-drop]');const active=drag.active;clearPlacement();
+    if(!active)return;
+    event.preventDefault();suppressPlacementClick=true;window.setTimeout(()=>{suppressPlacementClick=false;},0);
+    if(lane && target) dropPlacement(drag.item,lane,target);else announce('Drop on a valid empty insertion slot.',true);
+  });
+  root.addEventListener('pointercancel',clearPlacement);
+  function componentById(id:string): Component|undefined {return [flow()?.source,...(flow()?.processors??[]),...(flow()?.errorHandler?.processors??[])].find(n=>n?.id===id)??undefined;}
   root.addEventListener('dragstart', event => { const el = (event.target as HTMLElement).closest<HTMLElement>('[draggable="true"]'); if (!el) return; drag = el.dataset.palette ? { kind: el.dataset.palette as 'listener' | 'logger' } : { id: el.dataset.node }; event.dataTransfer?.setData('application/x-zernova-component', JSON.stringify(drag)); });
   root.addEventListener('dragover', event => {
     const lane = (event.target as HTMLElement).closest<HTMLElement>('[data-drop]');
@@ -434,6 +487,7 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
         else if (xmlDraft !== next.text) { xmlConflict = true; view.tab = 'xml'; }
       }
       const changed = !!document && next.version !== document.version;
+      if (changed && pointerPlacement) clearPlacement();
       const ownSnapshot = !!pending && next.changeRequestId === pending.requestId;
       if (changed && xmlDraft !== undefined && next.text !== xmlDraft && !(ownSnapshot && pending?.text === next.text)) {
         xmlConflict = true; requestedAction = undefined; view.tab = 'xml';
@@ -475,7 +529,7 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
         pending = undefined; queue.length = 0; requestedAction = undefined;
       }
       announce(typeof message.message === 'string' ? message.message : 'The document operation was rejected.', true); persist();
-    } else if (message.type === 'runtimeState' && object(message.state)) { runtime = message.state as RuntimeState; if (showLogsAfterRun && !runtime.busy) { showLogsAfterRun = false; if (runtime.application === 'DEPLOYED') { view.lower = 'console'; view.consoleTab = 'logs'; } } render(); }
+    } else if (message.type === 'runtimeState' && object(message.state)) { runtime = message.state as RuntimeState; if (showLogsAfterRun && !runtime.busy) { showLogsAfterRun = false; if (runtime.application === 'DEPLOYED') { view.lower = 'console'; view.consoleTab = 'logs'; } } if (!configDialog && !flowDialog && !deleteDialog) render(); }
     else if (message.type === 'hostTheme') render();
   });
   function selectHostId(id: string): void {

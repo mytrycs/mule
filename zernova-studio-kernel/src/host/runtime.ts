@@ -92,8 +92,8 @@ export class RuntimeManager implements vscode.Disposable {
   private async saveProjectDocuments(project: Project): Promise<void> {
     const dirty = vscode.workspace.textDocuments.filter(doc => doc.uri.scheme === 'file' && isInside(project.root, doc.uri.fsPath) && doc.isDirty);
     if (!dirty.length) return;
-    const choice = await vscode.window.showWarningMessage(`Save ${dirty.length} unsaved project document(s) before building the current application?`, { modal: true }, 'Save and Continue');
-    if (choice !== 'Save and Continue') throw new Error('Build cancelled: unsaved documents were not saved. No existing artifact was deployed.');
+    const choice = await studioForm('Save Project Documents', [], async () => true, `Save ${dirty.length} unsaved project document(s) before building the current application?`);
+    if (!choice) throw new Error('Build cancelled: unsaved documents were not saved. No existing artifact was deployed.');
     for (const doc of dirty) if (!await doc.save()) throw new Error(`Could not save ${doc.uri.fsPath}. No application was built or deployed.`);
   }
   private async projectPort(project: Project): Promise<number> {

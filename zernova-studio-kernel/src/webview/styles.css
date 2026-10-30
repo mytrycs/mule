@@ -374,3 +374,5 @@ body.vscode-high-contrast button, body.vscode-high-contrast-light button { borde
 .error-processors { display: flex; align-items: center; gap: 10px; padding: 12px 0; overflow-x: auto; }
 .real-output-tabs { flex-wrap: wrap; }
 .real-studio .preview-bar { flex-wrap: wrap; height: auto; min-height: 48px; }
+.placement-ghost { position: fixed; z-index: 500; pointer-events: none; padding: 8px 14px; border: 1px solid var(--z-accent); border-radius: 4px; background: var(--z-dialog); color: var(--z-text); box-shadow: 0 4px 14px #0003; font-size: 12px; }
+.pointer-placing, .pointer-placing * { cursor: grabbing !important; user-select: none !important; }

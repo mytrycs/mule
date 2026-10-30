@@ -19,9 +19,9 @@ export function parseRunFields(fields: Record<string, string>): RunConfiguration
   const pairs = (text: string, property: boolean): Record<string, string> => {
     const result: Record<string, string> = {};
     for (const line of text.split(/\r?\n/).map(x => x.trim()).filter(Boolean)) {
-      const match = (property ? /^(?:-D)?([A-Za-z_][A-Za-z0-9_.-]*)=(.*)$/ : /^([A-Za-z_][A-Za-z0-9_]*)=(.*)$/).exec(line);
+      const match = (property ? /^(?:-D)?([A-Za-z_][A-Za-z0-9_.-]*)(?:=(.*))?$/ : /^([A-Za-z_][A-Za-z0-9_]*)=(.*)$/).exec(line);
       if (!match) throw new Error(property ? 'Enter one -Dname=value per line. Maven goals and shell commands are not supported by the offline builder.' : 'Enter one NAME=value per line.');
-      if (Object.hasOwn(result, match[1])) throw new Error('Duplicate setting: ' + match[1]); result[match[1]] = match[2];
+      if (Object.hasOwn(result, match[1])) throw new Error('Duplicate setting: ' + match[1]); result[match[1]] = match[2] ?? 'true';
     }
     return result;
   };
