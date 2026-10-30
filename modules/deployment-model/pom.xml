@@ -5,21 +5,21 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>mule-modules</artifactId>
-        <groupId>org.mule.runtime</groupId>
+        <groupId>com.zernova.runtime</groupId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>mule-module-deployment-model</artifactId>
     <packaging>jar</packaging>
-    <name>Mule Deployment Model Module</name>
+    <name>ZERNOVA Deployment Model Module</name>
     <description>Provides descriptors and class loaders for deployment artifacts</description>
 
     <properties>
-        <javaModuleName>org.mule.runtime.deployment.model</javaModuleName>
+        <javaModuleName>com.zernova.runtime.deployment.model</javaModuleName>
         <surefire.args>
             -XX:+IgnoreUnrecognizedVMOptions
-            --add-reads=org.mule.runtime.deployment.model=org.apache.commons.io
-            --add-opens=org.mule.runtime.deployment.model/org.mule.runtime.deployment.model.internal.domain.test=ALL-UNNAMED
+            --add-reads=com.zernova.runtime.deployment.model=org.apache.commons.io
+            --add-opens=com.zernova.runtime.deployment.model/com.zernova.runtime.deployment.model.internal.domain.test=ALL-UNNAMED
             ${surefire.args.base}
         </surefire.args>
         <skipExportTests>false</skipExportTests>
@@ -27,45 +27,45 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-artifact</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-artifact-activation</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-container</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-memory-management</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-artifact</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
             <type>test-jar</type>
         </dependency>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tests-unit</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-    		<groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
         	<artifactId>mule-tests-allure</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
@@ -85,7 +85,7 @@
                         </goals>
                         <configuration>
                             <includes>
-                                <include>org/mule/runtime/deployment/model/internal/domain/test/**</include>
+                                <include>com/zernova/runtime/deployment/model/internal/domain/test/**</include>
                             </includes>
                         </configuration>
                     </execution>

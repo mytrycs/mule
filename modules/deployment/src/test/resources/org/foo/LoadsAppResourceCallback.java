@@ -4,11 +4,12 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package org.foo;
 
 import static java.lang.Thread.currentThread;
 
-import org.mule.runtime.module.deployment.test.api.EventCallback;
+import com.zernova.runtime.module.deployment.test.api.EventCallback;
 
 public class LoadsAppResourceCallback implements EventCallback {
 

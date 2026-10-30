@@ -12,7 +12,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>test-empty-plugin</artifactId>
             <version>1.0.0</version>
             <classifier>mule-plugin</classifier>
@@ -21,7 +21,7 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.mule.tools.maven</groupId>
+                <groupId>com.zernova.tools.maven</groupId>
                 <artifactId>mule-maven-plugin</artifactId>
                 <version>${mule.maven.plugin.version}</version>
                 <extensions>true</extensions>

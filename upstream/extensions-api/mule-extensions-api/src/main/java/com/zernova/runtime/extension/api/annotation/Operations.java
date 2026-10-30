@@ -1,0 +1,35 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.extension.api.annotation;
+
+import com.zernova.sdk.api.annotation.MinZernovaVersion;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+/**
+ * Allows to reference a list of classes from which an Extension's operations are to be inferred. This annotation is to be used in
+ * classes which are also annotated with {@link Extension} and {@link #value()} must reference classes which contain public
+ * methods which implement the operation
+ *
+ * @since 1.0
+ */
+@MinZernovaVersion("4.1")
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface Operations {
+
+  /**
+   * @return An array of classes which contain public methods which implement an operation
+   */
+  Class<?>[] value();
+}

@@ -4,15 +4,16 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 /**
  * Bootstrap for the Mule CE Container.
  *
  * @moduleGraph
  * @since 4.5
  */
-module org.mule.boot {
+module com.zernova.boot {
 
-  requires org.mule.boot.api;
+  requires com.zernova.boot.api;
 
   requires org.apache.commons.cli;
 }

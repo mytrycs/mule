@@ -1,0 +1,44 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.api.meta.model;
+
+import com.zernova.api.annotation.NoImplement;
+import com.zernova.runtime.api.meta.model.operation.OperationModel;
+import com.zernova.runtime.api.meta.model.source.SourceModel;
+
+/**
+ * A definition of an executable {@link ComponentModel} in an {@link ExtensionModel}. This model groups all the common contracts
+ * between extension components that can be executed, producing or altering an event, like an {@link OperationModel} or
+ * {@link SourceModel}.
+ *
+ * @since 1.0
+ */
+@NoImplement
+public interface ConnectableComponentModel extends ComponentModel, HasOutputModel {
+
+  /**
+   * @return whether this component has the ability to execute while joining a transaction
+   */
+  boolean isTransactional();
+
+  /**
+   * @return whether this component requires a connection in order to perform its execution
+   */
+  boolean requiresConnection();
+
+  /**
+   * Indicates if this component supports streaming.
+   * <p>
+   * Notice that supporting streaming doesn't necessarily mean that streaming will be performed each time the component is
+   * executed
+   *
+   * @return whether this component supports streaming or not
+   */
+  boolean supportsStreaming();
+
+}

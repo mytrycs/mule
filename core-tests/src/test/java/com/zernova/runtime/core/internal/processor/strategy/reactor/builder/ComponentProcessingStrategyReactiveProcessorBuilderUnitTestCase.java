@@ -1,0 +1,67 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.core.internal.processor.strategy.reactor.builder;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import com.zernova.runtime.api.scheduler.Scheduler;
+import com.zernova.runtime.core.api.event.CoreEvent;
+import com.zernova.runtime.core.api.processor.ReactiveProcessor;
+import org.reactivestreams.Publisher;
+import reactor.test.publisher.TestPublisher;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
+class ComponentProcessingStrategyReactiveProcessorBuilderUnitTestCase {
+
+  private ComponentProcessingStrategyReactiveProcessorBuilder builder;
+  @Mock
+  private Scheduler scheduler;
+  @Mock
+  private ReactiveProcessor processor;
+  @Mock
+  private Publisher<CoreEvent> publisher;
+
+  @BeforeEach
+  void setUp() {
+    builder = ComponentProcessingStrategyReactiveProcessorBuilder.processingStrategyReactiveProcessorFrom(processor, scheduler,
+                                                                                                          "appId", "app");
+  }
+
+  @Test
+  void build() {
+    when(processor.apply(any())).thenAnswer(inv -> inv.getArgument(0));
+    Arrays.stream(ComponentProcessingStrategyReactiveProcessorBuilder.class.getDeclaredMethods())
+        .filter(m -> m.getName().startsWith("with"))
+        .filter(m -> m.canAccess(builder))
+        .forEach(m -> {
+          try {
+            Object[] values = ParameterMockingTestUtil.getParameterValues(m);
+            m.invoke(builder, values);
+          } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+          }
+        });
+
+    final ReactiveProcessor result = builder.build();
+    result.apply(TestPublisher.create());
+
+    assertThat(result, is(notNullValue()));
+  }
+}

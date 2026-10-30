@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.mule.tests</groupId>
+        <groupId>com.zernova.tests</groupId>
         <artifactId>mule-test-extensions-parent</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
@@ -13,24 +13,24 @@
     <artifactId>mule-typed-value-extension</artifactId>
     <packaging>jar</packaging>
 
-    <name>Mule Typed Value Config Test Extension</name>
+    <name>ZERNOVA Typed Value Config Test Extension</name>
     <description>A Mule extension for testing</description>
 
     <properties>
-        <javaModuleName>org.mule.test.extension.typed.value</javaModuleName>
+        <javaModuleName>com.zernova.test.extension.typed.value</javaModuleName>
         <testExtensionModelLoaderId>java</testExtensionModelLoaderId>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-heisenberg-extension</artifactId>
             <version>${project.version}</version>
             <classifier>mule-plugin</classifier>
         </dependency>
 
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-vegan-extension</artifactId>
             <version>${project.version}</version>
             <classifier>mule-plugin</classifier>

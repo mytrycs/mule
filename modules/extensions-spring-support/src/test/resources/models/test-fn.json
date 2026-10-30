@@ -26,9 +26,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.heisenberg.extension.model.KnockeableDoor",
+        "typeId": "com.zernova.test.heisenberg.extension.model.KnockeableDoor",
         "classInformation": {
-          "classname": "org.mule.test.heisenberg.extension.model.KnockeableDoor",
+          "classname": "com.zernova.test.heisenberg.extension.model.KnockeableDoor",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -554,7 +554,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -564,7 +564,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -1223,7 +1223,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.function.extension.SimplePojo"
+                "type": "@ref:com.zernova.test.function.extension.SimplePojo"
               },
               "hasDynamicType": false,
               "required": true,
@@ -1491,7 +1491,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.heisenberg.extension.model.KnockeableDoor"
+                "type": "@ref:com.zernova.test.heisenberg.extension.model.KnockeableDoor"
               },
               "hasDynamicType": false,
               "required": false,
@@ -1664,7 +1664,7 @@
   "messageSources": [],
   "artifactCoordinates": {
     "artifact id": "test-weave-function-extension",
-    "group id": "org.mule.tests",
+    "group id": "com.zernova.tests",
     "version": "1.2.3"
   },
   "notifications": [],
@@ -1700,9 +1700,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.function.extension.SimplePojo",
+        "typeId": "com.zernova.test.function.extension.SimplePojo",
         "classInformation": {
-          "classname": "org.mule.test.function.extension.SimplePojo",
+          "classname": "com.zernova.test.function.extension.SimplePojo",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,

@@ -1,0 +1,453 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.config.internal.context;
+
+import static com.zernova.runtime.api.store.ObjectStoreManager.BASE_IN_MEMORY_OBJECT_STORE_KEY;
+import static com.zernova.runtime.api.store.ObjectStoreManager.BASE_PERSISTENT_OBJECT_STORE_KEY;
+import static com.zernova.runtime.config.api.LazyComponentInitializer.LAZY_COMPONENT_INITIALIZER_SERVICE_KEY;
+import static com.zernova.runtime.core.api.config.ZernovaDeploymentProperties.DEPLOYMENT_PROPERTY_PREFIX;
+import static com.zernova.runtime.core.api.config.ZernovaDeploymentProperties.MULE_ADD_ARTIFACT_AST_TO_REGISTRY_DEPLOYMENT_PROPERTY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.FORWARD_COMPATIBILITY_HELPER_KEY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.INTERCEPTOR_MANAGER_REGISTRY_KEY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.LOCAL_OBJECT_LOCK_FACTORY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.LOCAL_OBJECT_STORE_MANAGER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.MULE_ARTIFACT_METER_PROVIDER_KEY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.MULE_CORE_COMPONENT_TRACER_FACTORY_KEY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.MULE_CORE_EVENT_TRACER_KEY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.MULE_CORE_EXPORTER_FACTORY_KEY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.MULE_CORE_SPAN_FACTORY_KEY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.MULE_ERROR_METRICS_FACTORY_KEY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.MULE_HTTP_SERVICE_API_REGISTRY_KEY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.MULE_MEMORY_MANAGEMENT_SERVICE;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.MULE_METER_EXPORTER_CONFIGURATION_KEY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.MULE_METER_EXPORTER_FACTORY_KEY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.MULE_METER_PROVIDER_KEY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.MULE_PROFILING_SERVICE_KEY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.MULE_SPAN_EXPORTER_CONFIGURATION_KEY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.MULE_TRACER_INITIAL_SPAN_INFO_PROVIDER_KEY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.MULE_TRACING_LEVEL_CONFIGURATION_KEY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_ARTIFACT_AST;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_CLUSTER_SERVICE;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_COMPONENT_INITIAL_STATE_MANAGER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_CONFIGURATION_PROPERTIES;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_CONNECTION_MANAGER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_CONNECTIVITY_TESTER_FACTORY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_CONVERTER_RESOLVER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_DEFAULT_MESSAGE_PROCESSING_MANAGER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_EXCEPTION_LOCATION_PROVIDER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_EXTENSION_MANAGER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_FLOW_CLASSIFIER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_LOCAL_QUEUE_MANAGER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_LOCAL_STORE_IN_MEMORY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_LOCAL_STORE_PERSISTENT;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_LOCK_FACTORY;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_LOCK_PROVIDER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_MESSAGE_PROCESSING_FLOW_TRACE_MANAGER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_MULE_CONFIGURATION;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_MULE_CONTEXT;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_MULE_STREAM_CLOSER_SERVICE;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_NOTIFICATION_DISPATCHER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_NOTIFICATION_HANDLER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_POLICY_MANAGER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_PROCESSING_TIME_WATCHER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_QUEUE_MANAGER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_RESOURCE_LOCATOR;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_SECURITY_MANAGER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_STATISTICS;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_STORE_MANAGER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_STREAMING_GHOST_BUSTER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_STREAMING_MANAGER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_TRANSACTION_FACTORY_LOCATOR;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_TRANSACTION_MANAGER;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.OBJECT_TRANSFORMATION_SERVICE;
+import static com.zernova.runtime.core.api.config.ZernovaProperties.SDK_OBJECT_STORE_MANAGER;
+import static com.zernova.runtime.core.api.config.bootstrap.ArtifactType.DOMAIN;
+import static com.zernova.runtime.core.internal.config.bootstrap.AbstractRegistryBootstrap.BINDING_PROVIDER_PREDICATE;
+import static com.zernova.runtime.core.internal.config.bootstrap.AbstractRegistryBootstrap.TRANSFORMER_PREDICATE;
+import static com.zernova.runtime.core.internal.el.function.ZernovaFunctionsBindingContextProvider.CORE_FUNCTIONS_PROVIDER_REGISTRY_KEY;
+import static com.zernova.runtime.feature.api.management.FeatureFlaggingManagementService.PROFILING_FEATURE_MANAGEMENT_SERVICE_KEY;
+import static com.zernova.runtime.metrics.exporter.api.MeterExporterProperties.METRIC_EXPORTER_ENABLED_PROPERTY;
+
+import static java.lang.Boolean.getBoolean;
+import static java.lang.Boolean.parseBoolean;
+
+import com.zernova.runtime.api.artifact.Registry;
+import com.zernova.runtime.api.component.ConfigurationProperties;
+import com.zernova.runtime.api.lifecycle.InitialisationException;
+import com.zernova.runtime.api.memory.management.MemoryManagementService;
+import com.zernova.runtime.api.notification.NotificationListenerRegistry;
+import com.zernova.runtime.api.util.ResourceLocator;
+import com.zernova.runtime.ast.api.ArtifactAst;
+import com.zernova.runtime.config.internal.factories.ConstantFactoryBean;
+import com.zernova.runtime.config.internal.factories.ExtensionManagerFactoryBean;
+import com.zernova.runtime.config.internal.factories.ZernovaConfigurationConfigurator;
+import com.zernova.runtime.config.internal.factories.ZernovaContextFactoryBean;
+import com.zernova.runtime.config.internal.factories.TransactionManagerFactoryBean;
+import com.zernova.runtime.config.internal.model.dsl.config.DefaultComponentInitialStateManager;
+import com.zernova.runtime.config.internal.registry.SpringRegistryBootstrap;
+import com.zernova.runtime.core.api.config.bootstrap.ArtifactType;
+import com.zernova.runtime.core.api.event.EventContextService;
+import com.zernova.runtime.core.api.management.stats.ArtifactMeterProvider;
+import com.zernova.runtime.core.api.streaming.DefaultStreamingManager;
+import com.zernova.runtime.core.internal.cluster.DefaultClusterService;
+import com.zernova.runtime.core.internal.config.CustomService;
+import com.zernova.runtime.core.internal.config.DefaultFeatureManagementService;
+import com.zernova.runtime.core.internal.config.InternalCustomizationService;
+import com.zernova.runtime.core.internal.connection.DefaultConnectivityTesterFactory;
+import com.zernova.runtime.core.internal.connection.DelegateConnectionManagerAdapter;
+import com.zernova.runtime.core.internal.context.ZernovaContextWithRegistry;
+import com.zernova.runtime.core.internal.context.notification.DefaultNotificationDispatcher;
+import com.zernova.runtime.core.internal.context.notification.DefaultNotificationListenerRegistry;
+import com.zernova.runtime.core.internal.context.notification.MessageProcessingFlowTraceManager;
+import com.zernova.runtime.core.internal.el.function.ZernovaFunctionsBindingContextProvider;
+import com.zernova.runtime.core.internal.event.DefaultEventContextService;
+import com.zernova.runtime.core.internal.exception.MessagingExceptionLocationProvider;
+import com.zernova.runtime.core.internal.execution.ZernovaMessageProcessingManager;
+import com.zernova.runtime.core.internal.lock.ZernovaLockFactory;
+import com.zernova.runtime.core.internal.lock.SingleServerLockProvider;
+import com.zernova.runtime.core.internal.management.stats.DefaultProcessingTimeWatcher;
+import com.zernova.runtime.core.internal.policy.DefaultPolicyManager;
+import com.zernova.runtime.core.internal.processor.interceptor.DefaultProcessorInterceptorManager;
+import com.zernova.runtime.core.internal.profiling.ProfilingServiceWrapper;
+import com.zernova.runtime.core.internal.security.DefaultZernovaSecurityManager;
+import com.zernova.runtime.core.internal.streaming.StreamingGhostBuster;
+import com.zernova.runtime.core.internal.transaction.TransactionFactoryLocator;
+import com.zernova.runtime.core.internal.transformer.DynamicDataTypeConversionResolver;
+import com.zernova.runtime.core.internal.transformer.ExtendedTransformationService;
+import com.zernova.runtime.core.internal.util.DefaultStreamCloserService;
+import com.zernova.runtime.core.internal.util.queue.TransactionalQueueManager;
+import com.zernova.runtime.core.internal.util.store.DefaultObjectStoreFactoryBean;
+import com.zernova.runtime.core.internal.util.store.ZernovaObjectStoreManager;
+import com.zernova.runtime.http.support.api.HttpServiceApiDelegate;
+import com.zernova.runtime.metrics.api.MeterProvider;
+import com.zernova.runtime.metrics.api.error.ErrorMetricsFactory;
+import com.zernova.runtime.metrics.exporter.impl.OpenTelemetryMeterExporterFactory;
+import com.zernova.runtime.metrics.exporter.impl.optel.config.OpenTelemetryAutoConfigurableMeterExporterConfiguration;
+import com.zernova.runtime.metrics.impl.DefaultMeterProvider;
+import com.zernova.runtime.metrics.impl.meter.error.DefaultErrorMetricsFactory;
+import com.zernova.runtime.module.extension.api.runtime.compatibility.DefaultForwardCompatibilityHelper;
+import com.zernova.runtime.module.extension.internal.store.SdkObjectStoreManagerAdapter;
+import com.zernova.runtime.tracer.customization.impl.provider.DefaultInitialSpanInfoProvider;
+import com.zernova.runtime.tracer.exporter.impl.OpenTelemetrySpanExporterFactory;
+import com.zernova.runtime.tracer.exporter.impl.optel.config.OpenTelemetryAutoConfigurableSpanExporterConfiguration;
+import com.zernova.runtime.tracer.impl.CoreEventComponentTracerFactory;
+import com.zernova.runtime.tracer.impl.SelectableCoreEventTracer;
+import com.zernova.runtime.tracer.impl.span.factory.ExecutionSpanFactory;
+import com.zernova.runtime.tracing.level.impl.config.FileTracingLevelConfiguration;
+
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import com.google.common.collect.ImmutableMap;
+import jakarta.inject.Inject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.support.AbstractBeanDefinition;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+
+/**
+ * This class configured all the services available in a {@code ZernovaContext}.
+ * <p>
+ * This class takes cares of registering bean definitions for each of the provided services so dependency injection can be
+ * properly done through the use of {@link Inject}.
+ *
+ * @since 4.0
+ */
+public class SpringZernovaContextServiceConfigurator extends AbstractSpringZernovaContextServiceConfigurator {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(SpringZernovaContextServiceConfigurator.class);
+
+  private static final ImmutableMap<String, String> OBJECT_STORE_NAME_TO_LOCAL_OBJECT_STORE_NAME =
+      ImmutableMap.<String, String>builder()
+          .put(BASE_IN_MEMORY_OBJECT_STORE_KEY, OBJECT_LOCAL_STORE_IN_MEMORY)
+          .put(BASE_PERSISTENT_OBJECT_STORE_KEY, OBJECT_LOCAL_STORE_PERSISTENT)
+          .build();
+
+  private final ZernovaContextWithRegistry muleContext;
+  private final ArtifactType artifactType;
+  private final ArtifactAst artifactAst;
+  private final ResourceLocator resourceLocator;
+
+  // Do not use static field. BeanDefinitions are reused and produce weird behaviour
+  private final ImmutableMap<String, BeanDefinition> defaultContextServices = ImmutableMap.<String, BeanDefinition>builder()
+      .put(OBJECT_TRANSACTION_MANAGER, getBeanDefinition(TransactionManagerFactoryBean.class))
+      .put(OBJECT_EXTENSION_MANAGER, getBeanDefinition(ExtensionManagerFactoryBean.class))
+      .put(OBJECT_CONNECTION_MANAGER, getBeanDefinition(DelegateConnectionManagerAdapter.class))
+      .put(OBJECT_MULE_CONFIGURATION, getBeanDefinition(ZernovaConfigurationConfigurator.class))
+      .put(OBJECT_TRANSACTION_FACTORY_LOCATOR, getBeanDefinition(TransactionFactoryLocator.class))
+      .put(OBJECT_POLICY_MANAGER, getBeanDefinition(DefaultPolicyManager.class))
+      .put(INTERCEPTOR_MANAGER_REGISTRY_KEY, getBeanDefinition(DefaultProcessorInterceptorManager.class))
+      .put(OBJECT_NOTIFICATION_DISPATCHER, getBeanDefinition(DefaultNotificationDispatcher.class))
+      .put(NotificationListenerRegistry.REGISTRY_KEY, getBeanDefinition(DefaultNotificationListenerRegistry.class))
+      .put(EventContextService.REGISTRY_KEY, getBeanDefinition(DefaultEventContextService.class))
+      .put(BASE_IN_MEMORY_OBJECT_STORE_KEY,
+           getBeanDefinitionBuilder(ConstantFactoryBean.class).addConstructorArgReference(OBJECT_LOCAL_STORE_IN_MEMORY)
+               .getBeanDefinition())
+      .put(OBJECT_LOCAL_STORE_IN_MEMORY,
+           getBeanDefinition(DefaultObjectStoreFactoryBean.class, "createDefaultInMemoryObjectStore"))
+      .put(BASE_PERSISTENT_OBJECT_STORE_KEY,
+           getBeanDefinitionBuilder(ConstantFactoryBean.class).addConstructorArgReference(OBJECT_LOCAL_STORE_PERSISTENT)
+               .getBeanDefinition())
+      .put(OBJECT_LOCAL_STORE_PERSISTENT,
+           getBeanDefinition(DefaultObjectStoreFactoryBean.class, "createDefaultPersistentObjectStore"))
+      .put(OBJECT_STORE_MANAGER, getPrimaryBeanDefinition(ZernovaObjectStoreManager.class))
+      .put(SDK_OBJECT_STORE_MANAGER, getPrimaryBeanDefinition(SdkObjectStoreManagerAdapter.class))
+      .put(OBJECT_QUEUE_MANAGER, getBeanDefinition(TransactionalQueueManager.class))
+      .put(OBJECT_SECURITY_MANAGER, getBeanDefinition(DefaultZernovaSecurityManager.class))
+      .put(OBJECT_DEFAULT_MESSAGE_PROCESSING_MANAGER, getBeanDefinition(ZernovaMessageProcessingManager.class))
+      .put(OBJECT_MULE_STREAM_CLOSER_SERVICE, getBeanDefinition(DefaultStreamCloserService.class))
+      .put(OBJECT_CONVERTER_RESOLVER, getBeanDefinition(DynamicDataTypeConversionResolver.class))
+      .put(OBJECT_LOCK_FACTORY, getBeanDefinition(ZernovaLockFactory.class, true))
+      .put(OBJECT_LOCK_PROVIDER, getBeanDefinition(SingleServerLockProvider.class))
+      .put(OBJECT_PROCESSING_TIME_WATCHER, getBeanDefinition(DefaultProcessingTimeWatcher.class))
+      .put(OBJECT_EXCEPTION_LOCATION_PROVIDER, getBeanDefinition(MessagingExceptionLocationProvider.class))
+      .put(OBJECT_MESSAGE_PROCESSING_FLOW_TRACE_MANAGER, getBeanDefinition(MessageProcessingFlowTraceManager.class))
+      .put(OBJECT_COMPONENT_INITIAL_STATE_MANAGER, getBeanDefinition(DefaultComponentInitialStateManager.class))
+      .put(OBJECT_STREAMING_MANAGER, getBeanDefinition(DefaultStreamingManager.class))
+      .put(OBJECT_STREAMING_GHOST_BUSTER, getBeanDefinition(StreamingGhostBuster.class))
+      .put(OBJECT_TRANSFORMATION_SERVICE, getBeanDefinition(ExtendedTransformationService.class))
+      .put(OBJECT_CLUSTER_SERVICE, getBeanDefinition(DefaultClusterService.class))
+      .put(OBJECT_CONNECTIVITY_TESTER_FACTORY, getBeanDefinition(DefaultConnectivityTesterFactory.class))
+      .put(LAZY_COMPONENT_INITIALIZER_SERVICE_KEY, getBeanDefinition(NoOpLazyComponentInitializer.class))
+      .put(MULE_SPAN_EXPORTER_CONFIGURATION_KEY, getBeanDefinition(OpenTelemetryAutoConfigurableSpanExporterConfiguration.class))
+      .put(MULE_PROFILING_SERVICE_KEY, getBeanDefinitionForProfilingService())
+      .put(MULE_CORE_SPAN_FACTORY_KEY, getBeanDefinition(ExecutionSpanFactory.class))
+      .put(MULE_CORE_EXPORTER_FACTORY_KEY, getBeanDefinition(OpenTelemetrySpanExporterFactory.class))
+      .put(MULE_CORE_EVENT_TRACER_KEY, getBeanDefinition(SelectableCoreEventTracer.class))
+      .put(MULE_CORE_COMPONENT_TRACER_FACTORY_KEY, getBeanDefinition(CoreEventComponentTracerFactory.class))
+      .put(MULE_ERROR_METRICS_FACTORY_KEY, resolveErrorMetricsFactory())
+      .put(MULE_METER_PROVIDER_KEY, resolveBaseArtifactMeterProvider())
+      .put(MULE_METER_EXPORTER_CONFIGURATION_KEY,
+           getBeanDefinition(OpenTelemetryAutoConfigurableMeterExporterConfiguration.class))
+      .put(MULE_METER_EXPORTER_FACTORY_KEY, getBeanDefinition(OpenTelemetryMeterExporterFactory.class))
+      .put(MULE_TRACING_LEVEL_CONFIGURATION_KEY, getBeanDefinition(FileTracingLevelConfiguration.class))
+      .put(MULE_TRACER_INITIAL_SPAN_INFO_PROVIDER_KEY, getBeanDefinition(DefaultInitialSpanInfoProvider.class))
+      .put(PROFILING_FEATURE_MANAGEMENT_SERVICE_KEY, getBeanDefinition(DefaultFeatureManagementService.class))
+      .put(FORWARD_COMPATIBILITY_HELPER_KEY, getBeanDefinition(DefaultForwardCompatibilityHelper.class))
+      .put(MULE_HTTP_SERVICE_API_REGISTRY_KEY, getBeanDefinition(HttpServiceApiDelegate.class))
+      .build();
+
+  private final ZernovaFunctionsBindingContextProvider coreFunctionsProvider;
+  private final ConfigurationProperties configurationProperties;
+  private final Map<String, String> artifactProperties;
+  private final MemoryManagementService memoryManagementService;
+
+  public SpringZernovaContextServiceConfigurator(ZernovaContextWithRegistry muleContext,
+                                              ZernovaFunctionsBindingContextProvider coreFunctionsProvider,
+                                              ConfigurationProperties configurationProperties,
+                                              Map<String, String> artifactProperties,
+                                              ArtifactType artifactType,
+                                              ArtifactAst artifactAst,
+                                              BeanDefinitionRegistry beanDefinitionRegistry,
+                                              Registry serviceLocator,
+                                              ResourceLocator resourceLocator,
+                                              MemoryManagementService memoryManagementService) {
+    super((InternalCustomizationService) muleContext.getCustomizationService(), beanDefinitionRegistry, serviceLocator);
+
+    this.muleContext = muleContext;
+    this.coreFunctionsProvider = coreFunctionsProvider;
+    this.configurationProperties = configurationProperties;
+    this.artifactProperties = artifactProperties;
+    this.artifactType = artifactType;
+    this.artifactAst = artifactAst;
+    this.resourceLocator = resourceLocator;
+    this.memoryManagementService = memoryManagementService;
+  }
+
+  private BeanDefinition getBeanDefinitionForProfilingService() {
+    return getBeanDefinition(ProfilingServiceWrapper.class);
+  }
+
+  protected void createArtifactServices() {
+    registerBeanDefinition(OBJECT_MULE_CONTEXT, createMuleContextDefinition());
+    // This configurationProperties will contain the properties configured in the app itself, taking precedence over the base one
+    // from the base registry
+    registerConstantBeanDefinition(OBJECT_CONFIGURATION_PROPERTIES, configurationProperties);
+    registerConstantBeanDefinition(OBJECT_NOTIFICATION_HANDLER, muleContext.getNotificationManager());
+    registerConstantBeanDefinition(OBJECT_FLOW_CLASSIFIER, new FlowClassifierFactory(artifactAst).create());
+    registerConstantBeanDefinition(OBJECT_STATISTICS, muleContext.getStatistics());
+    registerConstantBeanDefinition(OBJECT_RESOURCE_LOCATOR, resourceLocator);
+    registerConstantBeanDefinition(MULE_MEMORY_MANAGEMENT_SERVICE, memoryManagementService);
+    registerBeanDefinition(MULE_ARTIFACT_METER_PROVIDER_KEY, resolveArtifactIdMeterProvider());
+    if (!artifactType.equals(DOMAIN)) {
+      loadServiceConfigurators();
+    }
+
+    registerContextServices(defaultContextServices, artifactType.equals(DOMAIN));
+
+    createBootstrapBeanDefinitions();
+    createLocalObjectStoreBeanDefinitions();
+    createLocalLockFactoryBeanDefinitions();
+    createQueueManagerBeanDefinitions();
+    createCustomServices();
+
+    coreFunctionsProvider.setConfigurationProperties(configurationProperties);
+    registerConstantBeanDefinition(CORE_FUNCTIONS_PROVIDER_REGISTRY_KEY, coreFunctionsProvider);
+
+    getArtifactProperties()
+        .entrySet()
+        .stream()
+        .filter(e -> !e.getKey().startsWith(DEPLOYMENT_PROPERTY_PREFIX))
+        .forEach(e -> registerConstantBeanDefinition(e.getKey(), e.getValue()));
+
+    if (parseBoolean(getArtifactProperties().get(MULE_ADD_ARTIFACT_AST_TO_REGISTRY_DEPLOYMENT_PROPERTY))) {
+      registerConstantBeanDefinition(OBJECT_ARTIFACT_AST, artifactAst);
+    }
+  }
+
+  private void createCustomServices() {
+    final Map<String, CustomService> customServices = getCustomizationService().getCustomServices();
+    for (String serviceName : customServices.keySet()) {
+
+      if (containsBeanDefinition(serviceName)) {
+        throw new IllegalStateException("There is already a bean definition registered with key: " + serviceName);
+      }
+
+      final CustomService customService = customServices.get(serviceName);
+
+      if (!customService.isBaseContext()
+          // TODO MULE-19927 avoid this filter
+          && !isServiceRuntimeProvided(customService)) {
+        final BeanDefinition beanDefinition = getCustomServiceBeanDefinition(customService, serviceName);
+
+        LOGGER.debug("Registering runtime service '{}' for {}...", serviceName, artifactType.name());
+        registerBeanDefinition(serviceName, beanDefinition);
+      }
+    }
+  }
+
+  private void createQueueManagerBeanDefinitions() {
+    AtomicBoolean customManagerDefined = new AtomicBoolean(false);
+    getCustomizationService().getOverriddenService(OBJECT_QUEUE_MANAGER).ifPresent(customService -> {
+      customManagerDefined.set(true);
+      registerBeanDefinition(OBJECT_QUEUE_MANAGER, getCustomServiceBeanDefinition(customService, OBJECT_QUEUE_MANAGER));
+    });
+
+    if (customManagerDefined.get()) {
+      registerBeanDefinition(OBJECT_LOCAL_QUEUE_MANAGER, getBeanDefinition(TransactionalQueueManager.class));
+    } else {
+      getBeanDefinitionRegistry().registerAlias(OBJECT_QUEUE_MANAGER, OBJECT_LOCAL_QUEUE_MANAGER);
+    }
+  }
+
+  private void createLocalLockFactoryBeanDefinitions() {
+    AtomicBoolean customLockFactoryWasDefined = new AtomicBoolean(false);
+    getCustomizationService().getOverriddenService(OBJECT_LOCK_FACTORY).ifPresent(customService -> {
+      customLockFactoryWasDefined.set(true);
+      getBeanDefinitionRegistry().registerBeanDefinition(OBJECT_LOCK_FACTORY,
+                                                         getCustomServiceBeanDefinition(customService, OBJECT_LOCK_FACTORY));
+    });
+
+    if (customLockFactoryWasDefined.get()) {
+      getBeanDefinitionRegistry()
+          .registerBeanDefinition(LOCAL_OBJECT_LOCK_FACTORY, defaultContextServices.get(OBJECT_LOCK_FACTORY));
+    } else {
+      getBeanDefinitionRegistry().registerAlias(OBJECT_LOCK_FACTORY, LOCAL_OBJECT_LOCK_FACTORY);
+    }
+  }
+
+  private void createLocalObjectStoreBeanDefinitions() {
+    AtomicBoolean anyBaseStoreWasRedefined = new AtomicBoolean(false);
+    OBJECT_STORE_NAME_TO_LOCAL_OBJECT_STORE_NAME.entrySet().forEach(objectStoreLocal -> getCustomizationService()
+        .getOverriddenService(objectStoreLocal.getKey()).ifPresent(customService -> {
+          anyBaseStoreWasRedefined.set(true);
+          getBeanDefinitionRegistry().registerBeanDefinition(objectStoreLocal.getKey(),
+                                                             getCustomServiceBeanDefinition(customService,
+                                                                                            objectStoreLocal
+                                                                                                .getKey()));
+        }));
+
+    if (anyBaseStoreWasRedefined.get()) {
+      final AbstractBeanDefinition beanDefinition = getBeanDefinitionBuilder(ZernovaObjectStoreManager.class)
+          .addPropertyValue("basePersistentStoreKey", OBJECT_LOCAL_STORE_PERSISTENT)
+          .addPropertyValue("baseTransientStoreKey", OBJECT_LOCAL_STORE_IN_MEMORY)
+          .getBeanDefinition();
+      beanDefinition.setPrimary(false);
+      getBeanDefinitionRegistry().registerBeanDefinition(LOCAL_OBJECT_STORE_MANAGER, beanDefinition);
+    } else {
+      getBeanDefinitionRegistry().registerAlias(OBJECT_STORE_MANAGER, LOCAL_OBJECT_STORE_MANAGER);
+    }
+  }
+
+  private BeanDefinition createMuleContextDefinition() {
+    return getBeanDefinitionBuilder(ZernovaContextFactoryBean.class)
+        .addConstructorArgValue(muleContext)
+        .getBeanDefinition();
+  }
+
+  protected void createBootstrapBeanDefinitions() {
+    try {
+      SpringRegistryBootstrap springRegistryBootstrap =
+          new SpringRegistryBootstrap(artifactType,
+                                      muleContext.getRegistryBootstrapServiceDiscoverer(),
+                                      this::registerBeanDefinition,
+                                      BINDING_PROVIDER_PREDICATE
+                                          .or(TRANSFORMER_PREDICATE)
+                                          .negate());
+      springRegistryBootstrap.initialise();
+    } catch (InitialisationException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private static BeanDefinition getPrimaryBeanDefinition(Class<?> beanType) {
+    BeanDefinition beanDefinition = getBeanDefinition(beanType);
+    beanDefinition.setPrimary(true);
+
+    return beanDefinition;
+  }
+
+  private static BeanDefinition getPrimaryBeanDefinition(Object beanType) {
+    BeanDefinition beanDefinition = getConstantObjectBeanDefinition(beanType);
+    beanDefinition.setPrimary(true);
+
+    return beanDefinition;
+  }
+
+  private static BeanDefinition getBeanDefinition(Class<?> beanType, String factoryMethodName) {
+    return getBeanDefinitionBuilder(beanType).setFactoryMethod(factoryMethodName).getBeanDefinition();
+  }
+
+  protected ZernovaContextWithRegistry getMuleContext() {
+    return muleContext;
+  }
+
+  protected Map<String, String> getArtifactProperties() {
+    return artifactProperties;
+  }
+
+  protected MemoryManagementService getMemoryManagementService() {
+    return memoryManagementService;
+  }
+
+  private BeanDefinition resolveArtifactIdMeterProvider() {
+    if (getBoolean(METRIC_EXPORTER_ENABLED_PROPERTY)) {
+      return getBeanDefinitionBuilder(ArtifactMeterProvider.class)
+          .addConstructorArgReference(MULE_METER_PROVIDER_KEY)
+          .addConstructorArgValue(muleContext.getId()).setPrimary(true).getBeanDefinition();
+    }
+    return getPrimaryBeanDefinition(MeterProvider.NO_OP);
+  }
+
+  private BeanDefinition resolveBaseArtifactMeterProvider() {
+    if (getBoolean(METRIC_EXPORTER_ENABLED_PROPERTY)) {
+      return getBeanDefinition(DefaultMeterProvider.class);
+    }
+    return getConstantObjectBeanDefinition(MeterProvider.NO_OP);
+  }
+
+  private static BeanDefinition resolveErrorMetricsFactory() {
+    if (getBoolean(METRIC_EXPORTER_ENABLED_PROPERTY)) {
+      return getBeanDefinition(DefaultErrorMetricsFactory.class);
+    }
+    return getConstantObjectBeanDefinition(ErrorMetricsFactory.NO_OP);
+  }
+
+
+}

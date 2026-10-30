@@ -2,7 +2,7 @@
  * Development use only. Inherited engine files retain their own licenses.
  * This agent neither implements nor interprets integration applications.
  */
-package io.zernova.studio;
+package com.zernova.studio;
 
 import java.io.*;
 import java.lang.instrument.Instrumentation;

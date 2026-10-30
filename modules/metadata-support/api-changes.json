@@ -6,48 +6,48 @@
           {
             "ignore": true,
             "code": "java.method.parameterTypeChanged",
-            "old": "parameter void org.mule.runtime.metadata.api.dsl.DslElementModel.Builder<M>::fromDslGroup(org.mule.runtime.api.meta.model.parameter.ParameterGroupModel, org.mule.runtime.ast.api.ComponentAst, java.util.List<org.mule.runtime.api.component.ComponentIdentifier>, ===org.mule.runtime.dsl.internal.component.config.InternalComponentConfiguration.Builder===)",
-            "new": "parameter void org.mule.runtime.metadata.api.dsl.DslElementModel.Builder<M>::fromDslGroup(org.mule.runtime.api.meta.model.parameter.ParameterGroupModel, org.mule.runtime.ast.api.ComponentAst, java.util.List<org.mule.runtime.api.component.ComponentIdentifier>, ===org.mule.runtime.dsl.api.component.config.ComponentConfiguration.Builder===)",
+            "old": "parameter void com.zernova.runtime.metadata.api.dsl.DslElementModel.Builder<M>::fromDslGroup(com.zernova.runtime.api.meta.model.parameter.ParameterGroupModel, com.zernova.runtime.ast.api.ComponentAst, java.util.List<com.zernova.runtime.api.component.ComponentIdentifier>, ===com.zernova.runtime.dsl.internal.component.config.InternalComponentConfiguration.Builder===)",
+            "new": "parameter void com.zernova.runtime.metadata.api.dsl.DslElementModel.Builder<M>::fromDslGroup(com.zernova.runtime.api.meta.model.parameter.ParameterGroupModel, com.zernova.runtime.ast.api.ComponentAst, java.util.List<com.zernova.runtime.api.component.ComponentIdentifier>, ===com.zernova.runtime.dsl.api.component.config.ComponentConfiguration.Builder===)",
             "parameterIndex": "3",
             "justification": "W-15402260: Remove directed exports from mule-module-dsl-api to mule"
           },
           {
             "ignore": true,
             "code": "java.method.parameterTypeChanged",
-            "old": "parameter void org.mule.runtime.metadata.api.dsl.DslElementModel.Builder<M>::fromGroup(org.mule.runtime.api.meta.model.parameter.ParameterGroupModel, org.mule.runtime.ast.api.ComponentAst, java.util.List<org.mule.runtime.api.component.ComponentIdentifier>, ===org.mule.runtime.dsl.internal.component.config.InternalComponentConfiguration.Builder===)",
-            "new": "parameter void org.mule.runtime.metadata.api.dsl.DslElementModel.Builder<M>::fromGroup(org.mule.runtime.api.meta.model.parameter.ParameterGroupModel, org.mule.runtime.ast.api.ComponentAst, java.util.List<org.mule.runtime.api.component.ComponentIdentifier>, ===org.mule.runtime.dsl.api.component.config.ComponentConfiguration.Builder===)",
+            "old": "parameter void com.zernova.runtime.metadata.api.dsl.DslElementModel.Builder<M>::fromGroup(com.zernova.runtime.api.meta.model.parameter.ParameterGroupModel, com.zernova.runtime.ast.api.ComponentAst, java.util.List<com.zernova.runtime.api.component.ComponentIdentifier>, ===com.zernova.runtime.dsl.internal.component.config.InternalComponentConfiguration.Builder===)",
+            "new": "parameter void com.zernova.runtime.metadata.api.dsl.DslElementModel.Builder<M>::fromGroup(com.zernova.runtime.api.meta.model.parameter.ParameterGroupModel, com.zernova.runtime.ast.api.ComponentAst, java.util.List<com.zernova.runtime.api.component.ComponentIdentifier>, ===com.zernova.runtime.dsl.api.component.config.ComponentConfiguration.Builder===)",
             "parameterIndex": "3",
             "justification": "W-15402260: Remove directed exports from mule-module-dsl-api to mule"
           },
           {
             "ignore": true,
             "code": "java.method.parameterTypeChanged",
-            "old": "parameter void org.mule.runtime.metadata.api.dsl.DslElementModel.Builder<M>::fromSourceCallbackGroup(org.mule.runtime.api.meta.model.parameter.ParameterGroupModel, org.mule.runtime.ast.api.ComponentAst, java.util.List<org.mule.runtime.api.component.ComponentIdentifier>, ===org.mule.runtime.dsl.internal.component.config.InternalComponentConfiguration.Builder===)",
-            "new": "parameter void org.mule.runtime.metadata.api.dsl.DslElementModel.Builder<M>::fromSourceCallbackGroup(org.mule.runtime.api.meta.model.parameter.ParameterGroupModel, org.mule.runtime.ast.api.ComponentAst, java.util.List<org.mule.runtime.api.component.ComponentIdentifier>, ===org.mule.runtime.dsl.api.component.config.ComponentConfiguration.Builder===)",
+            "old": "parameter void com.zernova.runtime.metadata.api.dsl.DslElementModel.Builder<M>::fromSourceCallbackGroup(com.zernova.runtime.api.meta.model.parameter.ParameterGroupModel, com.zernova.runtime.ast.api.ComponentAst, java.util.List<com.zernova.runtime.api.component.ComponentIdentifier>, ===com.zernova.runtime.dsl.internal.component.config.InternalComponentConfiguration.Builder===)",
+            "new": "parameter void com.zernova.runtime.metadata.api.dsl.DslElementModel.Builder<M>::fromSourceCallbackGroup(com.zernova.runtime.api.meta.model.parameter.ParameterGroupModel, com.zernova.runtime.ast.api.ComponentAst, java.util.List<com.zernova.runtime.api.component.ComponentIdentifier>, ===com.zernova.runtime.dsl.api.component.config.ComponentConfiguration.Builder===)",
             "parameterIndex": "3",
             "justification": "W-15402260: Remove directed exports from mule-module-dsl-api to mule"
           },
           {
             "ignore": true,
             "code": "java.method.parameterTypeChanged",
-            "old": "parameter void org.mule.runtime.metadata.api.dsl.DslElementModel.Builder<M>::handleExpressionParam(org.mule.runtime.ast.api.ComponentParameterAst, java.lang.String, ===org.mule.runtime.dsl.internal.component.config.InternalComponentConfiguration.Builder===)",
-            "new": "parameter void org.mule.runtime.metadata.api.dsl.DslElementModel.Builder<M>::handleExpressionParam(org.mule.runtime.ast.api.ComponentParameterAst, java.lang.String, ===org.mule.runtime.dsl.api.component.config.ComponentConfiguration.Builder===)",
+            "old": "parameter void com.zernova.runtime.metadata.api.dsl.DslElementModel.Builder<M>::handleExpressionParam(com.zernova.runtime.ast.api.ComponentParameterAst, java.lang.String, ===com.zernova.runtime.dsl.internal.component.config.InternalComponentConfiguration.Builder===)",
+            "new": "parameter void com.zernova.runtime.metadata.api.dsl.DslElementModel.Builder<M>::handleExpressionParam(com.zernova.runtime.ast.api.ComponentParameterAst, java.lang.String, ===com.zernova.runtime.dsl.api.component.config.ComponentConfiguration.Builder===)",
             "parameterIndex": "2",
             "justification": "W-15402260: Remove directed exports from mule-module-dsl-api to mule"
           },
           {
             "ignore": true,
             "code": "java.method.parameterTypeChanged",
-            "old": "parameter void org.mule.runtime.metadata.api.dsl.DslElementModel.Builder<M>::handleFixedValueParam(org.mule.runtime.ast.api.ComponentParameterAst, org.mule.metadata.api.model.MetadataType, ===org.mule.runtime.dsl.internal.component.config.InternalComponentConfiguration.Builder===)",
-            "new": "parameter void org.mule.runtime.metadata.api.dsl.DslElementModel.Builder<M>::handleFixedValueParam(org.mule.runtime.ast.api.ComponentParameterAst, org.mule.metadata.api.model.MetadataType, ===org.mule.runtime.dsl.api.component.config.ComponentConfiguration.Builder===)",
+            "old": "parameter void com.zernova.runtime.metadata.api.dsl.DslElementModel.Builder<M>::handleFixedValueParam(com.zernova.runtime.ast.api.ComponentParameterAst, com.zernova.metadata.api.model.MetadataType, ===com.zernova.runtime.dsl.internal.component.config.InternalComponentConfiguration.Builder===)",
+            "new": "parameter void com.zernova.runtime.metadata.api.dsl.DslElementModel.Builder<M>::handleFixedValueParam(com.zernova.runtime.ast.api.ComponentParameterAst, com.zernova.metadata.api.model.MetadataType, ===com.zernova.runtime.dsl.api.component.config.ComponentConfiguration.Builder===)",
             "parameterIndex": "2",
             "justification": "W-15402260: Remove directed exports from mule-module-dsl-api to mule"
           },
           {
             "ignore": true,
             "code": "java.method.parameterTypeChanged",
-            "old": "parameter void org.mule.runtime.metadata.api.dsl.DslElementModel.Builder<M>::handleParam(org.mule.runtime.ast.api.ComponentParameterAst, org.mule.metadata.api.model.MetadataType, ===org.mule.runtime.dsl.internal.component.config.InternalComponentConfiguration.Builder===)",
-            "new": "parameter void org.mule.runtime.metadata.api.dsl.DslElementModel.Builder<M>::handleParam(org.mule.runtime.ast.api.ComponentParameterAst, org.mule.metadata.api.model.MetadataType, ===org.mule.runtime.dsl.api.component.config.ComponentConfiguration.Builder===)",
+            "old": "parameter void com.zernova.runtime.metadata.api.dsl.DslElementModel.Builder<M>::handleParam(com.zernova.runtime.ast.api.ComponentParameterAst, com.zernova.metadata.api.model.MetadataType, ===com.zernova.runtime.dsl.internal.component.config.InternalComponentConfiguration.Builder===)",
+            "new": "parameter void com.zernova.runtime.metadata.api.dsl.DslElementModel.Builder<M>::handleParam(com.zernova.runtime.ast.api.ComponentParameterAst, com.zernova.metadata.api.model.MetadataType, ===com.zernova.runtime.dsl.api.component.config.ComponentConfiguration.Builder===)",
             "parameterIndex": "2",
             "justification": "W-15402260: Remove directed exports from mule-module-dsl-api to mule"
           }

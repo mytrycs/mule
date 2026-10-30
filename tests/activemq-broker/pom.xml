@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.mule.tests</groupId>
+		<groupId>com.zernova.tests</groupId>
 		<artifactId>mule-tests</artifactId>
 		<version>4.10.0-SNAPSHOT</version>
 	</parent>
@@ -13,7 +13,7 @@
 	<packaging>jar</packaging>
 
     <properties>
-        <javaModuleName>org.mule.test.activemq.broker</javaModuleName>
+        <javaModuleName>com.zernova.test.activemq.broker</javaModuleName>
     </properties>
 
     <build>

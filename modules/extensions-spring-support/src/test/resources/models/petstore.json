@@ -26,7 +26,7 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.runtime.api.scheduler.SchedulingStrategy",
+        "typeId": "com.zernova.runtime.api.scheduler.SchedulingStrategy",
         "QName": {
           "value": {
             "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
@@ -39,7 +39,7 @@
           "value": "SchedulingStrategy"
         },
         "classInformation": {
-          "classname": "org.mule.runtime.api.scheduler.SchedulingStrategy",
+          "classname": "com.zernova.runtime.api.scheduler.SchedulingStrategy",
           "hasDefaultConstructor": false,
           "isInterface": true,
           "isInstantiable": false,
@@ -57,13 +57,13 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.runtime.api.store.ObjectStore",
+        "typeId": "com.zernova.runtime.api.store.ObjectStore",
         "extensibleType": {},
         "typeAlias": {
           "value": "ObjectStore"
         },
         "classInformation": {
-          "classname": "org.mule.runtime.api.store.ObjectStore",
+          "classname": "com.zernova.runtime.api.store.ObjectStore",
           "hasDefaultConstructor": false,
           "isInterface": true,
           "isInstantiable": false,
@@ -81,9 +81,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.runtime.api.tls.TlsContextFactory",
+        "typeId": "com.zernova.runtime.api.tls.TlsContextFactory",
         "classInformation": {
-          "classname": "org.mule.runtime.api.tls.TlsContextFactory",
+          "classname": "com.zernova.runtime.api.tls.TlsContextFactory",
           "hasDefaultConstructor": false,
           "isInterface": true,
           "isInstantiable": false,
@@ -687,7 +687,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.petstore.extension.PetCage"
+                "type": "@ref:com.zernova.test.petstore.extension.PetCage"
               },
               "hasDynamicType": false,
               "required": false,
@@ -728,13 +728,13 @@
                     "implementedInterfaces": [],
                     "parent": "",
                     "genericTypes": [
-                      "org.mule.test.petstore.extension.PetCage"
+                      "com.zernova.test.petstore.extension.PetCage"
                     ],
                     "isMap": false
                   }
                 },
                 "item": {
-                  "type": "@ref:org.mule.test.petstore.extension.PetCage"
+                  "type": "@ref:com.zernova.test.petstore.extension.PetCage"
                 }
               },
               "hasDynamicType": false,
@@ -764,7 +764,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.petstore.extension.Aquarium"
+                "type": "@ref:com.zernova.test.petstore.extension.Aquarium"
               },
               "hasDynamicType": false,
               "required": false,
@@ -822,7 +822,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.runtime.api.tls.TlsContextFactory"
+                "type": "@ref:com.zernova.runtime.api.tls.TlsContextFactory"
               },
               "hasDynamicType": false,
               "required": false,
@@ -852,10 +852,10 @@
               "name": "tlsContext",
               "description": "",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 8
                 },
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
                     "localPart": "context",
@@ -869,9 +869,9 @@
                 "format": "java",
                 "type": "Object",
                 "annotations": {
-                  "typeId": "org.mule.runtime.extension.api.runtime.ExpirationPolicy",
+                  "typeId": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
                   "classInformation": {
-                    "classname": "org.mule.runtime.extension.api.runtime.ExpirationPolicy",
+                    "classname": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
                     "hasDefaultConstructor": false,
                     "isInterface": true,
                     "isInstantiable": false,
@@ -981,14 +981,14 @@
               "name": "expirationPolicy",
               "description": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit.",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "expiration-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 4
                 }
               }
@@ -1351,9 +1351,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -1598,7 +1598,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -1608,7 +1608,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -1788,14 +1788,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -1887,9 +1887,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -2134,7 +2134,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -2144,7 +2144,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -2324,14 +2324,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -2423,9 +2423,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -2670,7 +2670,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -2680,7 +2680,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -2860,14 +2860,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -2980,9 +2980,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -3227,7 +3227,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -3237,7 +3237,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -3417,14 +3417,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -3454,7 +3454,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.test.petstore.extension.PetCage"
+              "type": "@ref:com.zernova.test.petstore.extension.PetCage"
             },
             "hasDynamicType": false,
             "description": "",
@@ -3498,9 +3498,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -3745,7 +3745,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -3755,7 +3755,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -3785,7 +3785,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.test.petstore.extension.PetStoreClient"
+              "type": "@ref:com.zernova.test.petstore.extension.PetStoreClient"
             },
             "hasDynamicType": false,
             "description": "",
@@ -3832,9 +3832,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -4079,7 +4079,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -4089,7 +4089,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -4269,14 +4269,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -4306,7 +4306,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.test.petstore.extension.PetStoreClient"
+              "type": "@ref:com.zernova.test.petstore.extension.PetStoreClient"
             },
             "hasDynamicType": false,
             "description": "",
@@ -4447,9 +4447,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -4694,7 +4694,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -4704,7 +4704,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -4884,14 +4884,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -4921,7 +4921,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.test.petstore.extension.PetStoreConnector"
+              "type": "@ref:com.zernova.test.petstore.extension.PetStoreConnector"
             },
             "hasDynamicType": false,
             "description": "",
@@ -4965,9 +4965,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -5212,7 +5212,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -5222,7 +5222,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -5314,9 +5314,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -5561,7 +5561,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -5571,7 +5571,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -5751,14 +5751,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -5960,9 +5960,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -6207,7 +6207,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -6217,7 +6217,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -6397,14 +6397,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -6606,9 +6606,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -6853,7 +6853,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -6863,7 +6863,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -7043,14 +7043,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -7180,9 +7180,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -7600,7 +7600,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -7610,7 +7610,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -7790,14 +7790,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -7927,9 +7927,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -8347,7 +8347,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -8357,7 +8357,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -8537,14 +8537,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -8746,9 +8746,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -8993,7 +8993,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -9003,7 +9003,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -9183,14 +9183,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -9320,9 +9320,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -9740,7 +9740,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -9750,7 +9750,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -9930,14 +9930,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -10067,9 +10067,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -10487,7 +10487,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -10497,7 +10497,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -10677,14 +10677,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -10886,9 +10886,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -11133,7 +11133,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -11143,7 +11143,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -11323,14 +11323,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -11456,9 +11456,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -11694,14 +11694,14 @@
                   "name": "streamingStrategy",
                   "description": "Configure if repeatable streams should be used and their behaviour",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-byte-streaming-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 2
                     }
                   }
@@ -11904,7 +11904,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -11914,7 +11914,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -12094,14 +12094,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -12388,7 +12388,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.runtime.api.tls.TlsContextFactory"
+                    "type": "@ref:com.zernova.runtime.api.tls.TlsContextFactory"
                   },
                   "hasDynamicType": false,
                   "required": false,
@@ -12418,10 +12418,10 @@
                   "name": "tlsContext",
                   "description": "",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 8
                     },
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
                         "localPart": "context",
@@ -12640,14 +12640,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -12933,7 +12933,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.runtime.api.tls.TlsContextFactory"
+                    "type": "@ref:com.zernova.runtime.api.tls.TlsContextFactory"
                   },
                   "hasDynamicType": false,
                   "required": false,
@@ -12963,10 +12963,10 @@
                   "name": "tlsContext",
                   "description": "",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 8
                     },
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
                         "localPart": "context",
@@ -13185,14 +13185,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -13515,7 +13515,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.runtime.api.tls.TlsContextFactory"
+                    "type": "@ref:com.zernova.runtime.api.tls.TlsContextFactory"
                   },
                   "hasDynamicType": false,
                   "required": false,
@@ -13545,10 +13545,10 @@
                   "name": "tlsContext",
                   "description": "",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 8
                     },
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
                         "localPart": "context",
@@ -13767,14 +13767,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -13784,7 +13784,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.api.config.PoolingProfile",
+                      "typeId": "com.zernova.runtime.api.config.PoolingProfile",
                       "description": {
                         "value": "A pooling profile is used to configure the pooling behaviour of Mule components. Each component can have its own pooling profile."
                       },
@@ -13981,14 +13981,14 @@
                   "name": "poolingProfile",
                   "description": "Characteristics of the connection pool",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "pooling-profile",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 5
                     }
                   }
@@ -14275,7 +14275,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.runtime.api.tls.TlsContextFactory"
+                    "type": "@ref:com.zernova.runtime.api.tls.TlsContextFactory"
                   },
                   "hasDynamicType": false,
                   "required": false,
@@ -14305,10 +14305,10 @@
                   "name": "tlsContext",
                   "description": "",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 8
                     },
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
                         "localPart": "context",
@@ -14527,14 +14527,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -14820,7 +14820,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.runtime.api.tls.TlsContextFactory"
+                    "type": "@ref:com.zernova.runtime.api.tls.TlsContextFactory"
                   },
                   "hasDynamicType": false,
                   "required": false,
@@ -14850,10 +14850,10 @@
                   "name": "tlsContext",
                   "description": "",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 8
                     },
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
                         "localPart": "context",
@@ -15072,14 +15072,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -15285,9 +15285,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -15337,7 +15337,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.runtime.api.scheduler.SchedulingStrategy"
+                    "type": "@ref:com.zernova.runtime.api.scheduler.SchedulingStrategy"
                   },
                   "hasDynamicType": false,
                   "required": true,
@@ -15362,10 +15362,10 @@
                   "name": "schedulingStrategy",
                   "description": "Configures the scheduler that triggers the polling",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 10
                     },
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "scheduling-strategy",
@@ -15473,7 +15473,7 @@
                           "name": "objectStore"
                         },
                         "model": {
-                          "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                          "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                         },
                         "annotations": {
                           "stereotype": {
@@ -15515,14 +15515,14 @@
                   "name": "redeliveryPolicy",
                   "description": "Defines a policy for processing the redelivery of the same message",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-redelivery-policy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 1
                     }
                   }
@@ -15702,14 +15702,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -15920,9 +15920,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -15972,7 +15972,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.runtime.api.scheduler.SchedulingStrategy"
+                    "type": "@ref:com.zernova.runtime.api.scheduler.SchedulingStrategy"
                   },
                   "hasDynamicType": false,
                   "required": true,
@@ -15997,10 +15997,10 @@
                   "name": "schedulingStrategy",
                   "description": "Configures the scheduler that triggers the polling",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 10
                     },
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "scheduling-strategy",
@@ -16108,7 +16108,7 @@
                           "name": "objectStore"
                         },
                         "model": {
-                          "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                          "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                         },
                         "annotations": {
                           "stereotype": {
@@ -16150,14 +16150,14 @@
                   "name": "redeliveryPolicy",
                   "description": "Defines a policy for processing the redelivery of the same message",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-redelivery-policy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 1
                     }
                   }
@@ -16337,14 +16337,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -16539,9 +16539,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -16687,7 +16687,7 @@
                           "name": "objectStore"
                         },
                         "model": {
-                          "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                          "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                         },
                         "annotations": {
                           "stereotype": {
@@ -16729,14 +16729,14 @@
                   "name": "redeliveryPolicy",
                   "description": "Defines a policy for processing the redelivery of the same message",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-redelivery-policy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 1
                     }
                   }
@@ -16916,14 +16916,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -17267,7 +17267,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -17277,7 +17277,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -17579,7 +17579,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -17589,7 +17589,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -17912,7 +17912,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -17922,7 +17922,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -18224,7 +18224,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -18234,7 +18234,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -18536,7 +18536,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -18546,7 +18546,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -18576,7 +18576,7 @@
       "output": {
         "type": {
           "format": "java",
-          "type": "@ref:org.mule.test.petstore.extension.Aquarium"
+          "type": "@ref:com.zernova.test.petstore.extension.Aquarium"
         },
         "hasDynamicType": false,
         "description": "",
@@ -18618,7 +18618,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.petstore.extension.Aquarium"
+                "type": "@ref:com.zernova.test.petstore.extension.Aquarium"
               },
               "hasDynamicType": false,
               "required": true,
@@ -18842,7 +18842,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -18852,7 +18852,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -18882,7 +18882,7 @@
       "output": {
         "type": {
           "format": "java",
-          "type": "@ref:org.mule.test.petstore.extension.ExclusivePetBreeder"
+          "type": "@ref:com.zernova.test.petstore.extension.ExclusivePetBreeder"
         },
         "hasDynamicType": false,
         "description": "",
@@ -19185,7 +19185,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -19195,7 +19195,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -19225,7 +19225,7 @@
       "output": {
         "type": {
           "format": "java",
-          "type": "@ref:org.mule.test.petstore.extension.ExclusiveCashier"
+          "type": "@ref:com.zernova.test.petstore.extension.ExclusiveCashier"
         },
         "hasDynamicType": false,
         "description": "",
@@ -19647,7 +19647,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -19657,7 +19657,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -19768,7 +19768,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.petstore.extension.PhoneNumber"
+                "type": "@ref:com.zernova.test.petstore.extension.PhoneNumber"
               },
               "hasDynamicType": false,
               "required": false,
@@ -19997,7 +19997,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -20007,7 +20007,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -20367,7 +20367,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -20377,7 +20377,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -20419,7 +20419,7 @@
               "implementedInterfaces": [],
               "parent": "",
               "genericTypes": [
-                "org.mule.test.petstore.extension.Pet"
+                "com.zernova.test.petstore.extension.Pet"
               ],
               "isMap": false
             }
@@ -20427,7 +20427,7 @@
           "item": {
             "type": "String",
             "annotations": {
-              "typeId": "org.mule.test.petstore.extension.Pet",
+              "typeId": "com.zernova.test.petstore.extension.Pet",
               "enum": {
                 "type": "[Ljava.lang.String;",
                 "values": [
@@ -20437,7 +20437,7 @@
                 ]
               },
               "classInformation": {
-                "classname": "org.mule.test.petstore.extension.Pet",
+                "classname": "com.zernova.test.petstore.extension.Pet",
                 "hasDefaultConstructor": false,
                 "isInterface": false,
                 "isInstantiable": false,
@@ -20503,7 +20503,7 @@
                     "implementedInterfaces": [],
                     "parent": "",
                     "genericTypes": [
-                      "org.mule.test.petstore.extension.Pet"
+                      "com.zernova.test.petstore.extension.Pet"
                     ],
                     "isMap": false
                   }
@@ -20511,7 +20511,7 @@
                 "item": {
                   "type": "String",
                   "annotations": {
-                    "typeId": "org.mule.test.petstore.extension.Pet",
+                    "typeId": "com.zernova.test.petstore.extension.Pet",
                     "enum": {
                       "type": "[Ljava.lang.String;",
                       "values": [
@@ -20521,7 +20521,7 @@
                       ]
                     },
                     "classInformation": {
-                      "classname": "org.mule.test.petstore.extension.Pet",
+                      "classname": "com.zernova.test.petstore.extension.Pet",
                       "hasDefaultConstructor": false,
                       "isInterface": false,
                       "isInstantiable": false,
@@ -20757,7 +20757,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -20767,7 +20767,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -20799,9 +20799,9 @@
           "format": "java",
           "type": "Object",
           "annotations": {
-            "typeId": "org.mule.runtime.api.meta.MuleVersion",
+            "typeId": "com.zernova.runtime.api.meta.ZernovaVersion",
             "classInformation": {
-              "classname": "org.mule.runtime.api.meta.MuleVersion",
+              "classname": "com.zernova.runtime.api.meta.ZernovaVersion",
               "hasDefaultConstructor": false,
               "isInterface": false,
               "isInstantiable": false,
@@ -20813,7 +20813,7 @@
               "isMap": false
             },
             "typeAlias": {
-              "value": "MuleVersion"
+              "value": "ZernovaVersion"
             }
           },
           "fields": [
@@ -21116,7 +21116,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -21126,7 +21126,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -21158,16 +21158,16 @@
           "format": "java",
           "type": "Object",
           "annotations": {
-            "typeId": "org.mule.runtime.extension.api.runtime.parameter.CorrelationInfo",
+            "typeId": "com.zernova.runtime.extension.api.runtime.parameter.CorrelationInfo",
             "classInformation": {
-              "classname": "org.mule.runtime.extension.api.runtime.parameter.CorrelationInfo",
+              "classname": "com.zernova.runtime.extension.api.runtime.parameter.CorrelationInfo",
               "hasDefaultConstructor": false,
               "isInterface": true,
               "isInstantiable": false,
               "isAbstract": true,
               "isFinal": false,
               "implementedInterfaces": [
-                "org.mule.sdk.api.runtime.parameter.CorrelationInfo"
+                "com.zernova.sdk.api.runtime.parameter.CorrelationInfo"
               ],
               "parent": "",
               "genericTypes": [],
@@ -21399,7 +21399,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -21409,7 +21409,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -21449,7 +21449,7 @@
       "output": {
         "type": {
           "format": "java",
-          "type": "@ref:org.mule.test.petstore.extension.PetStoreDeal"
+          "type": "@ref:com.zernova.test.petstore.extension.PetStoreDeal"
         },
         "hasDynamicType": false,
         "description": "",
@@ -21491,7 +21491,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.petstore.extension.PetStoreDeal"
+                "type": "@ref:com.zernova.test.petstore.extension.PetStoreDeal"
               },
               "hasDynamicType": false,
               "required": true,
@@ -21715,7 +21715,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -21725,7 +21725,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -21998,7 +21998,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -22008,7 +22008,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -22291,7 +22291,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -22301,7 +22301,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -22584,7 +22584,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -22594,7 +22594,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -22636,9 +22636,9 @@
           "format": "java",
           "type": "Object",
           "annotations": {
-            "typeId": "org.mule.sdk.api.runtime.parameter.CorrelationInfo",
+            "typeId": "com.zernova.sdk.api.runtime.parameter.CorrelationInfo",
             "classInformation": {
-              "classname": "org.mule.sdk.api.runtime.parameter.CorrelationInfo",
+              "classname": "com.zernova.sdk.api.runtime.parameter.CorrelationInfo",
               "hasDefaultConstructor": false,
               "isInterface": true,
               "isInstantiable": false,
@@ -22878,7 +22878,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -22888,7 +22888,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -23214,7 +23214,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -23224,7 +23224,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -23531,14 +23531,14 @@
               "name": "streamingStrategy",
               "description": "Configure if repeatable streams should be used and their behaviour",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-byte-streaming-strategy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 2
                 }
               }
@@ -23741,7 +23741,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -23751,7 +23751,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -24006,7 +24006,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -24016,7 +24016,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -24088,7 +24088,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.petstore.extension.PhoneNumber"
+                "type": "@ref:com.zernova.test.petstore.extension.PhoneNumber"
               },
               "hasDynamicType": false,
               "required": true,
@@ -24235,7 +24235,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -24245,7 +24245,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -24415,7 +24415,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -24425,7 +24425,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -24709,7 +24709,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -24719,7 +24719,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -25010,7 +25010,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -25020,7 +25020,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -25358,7 +25358,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -25368,7 +25368,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -25698,7 +25698,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -25708,7 +25708,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -26046,7 +26046,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -26056,7 +26056,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -26345,7 +26345,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.runtime.api.tls.TlsContextFactory"
+                "type": "@ref:com.zernova.runtime.api.tls.TlsContextFactory"
               },
               "hasDynamicType": false,
               "required": false,
@@ -26375,10 +26375,10 @@
               "name": "tlsContext",
               "description": "",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 8
                 },
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
                     "localPart": "context",
@@ -26597,14 +26597,14 @@
               "name": "reconnection",
               "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "reconnection",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 3
                 }
               }
@@ -26890,7 +26890,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.runtime.api.tls.TlsContextFactory"
+                "type": "@ref:com.zernova.runtime.api.tls.TlsContextFactory"
               },
               "hasDynamicType": false,
               "required": false,
@@ -26920,10 +26920,10 @@
               "name": "tlsContext",
               "description": "",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 8
                 },
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
                     "localPart": "context",
@@ -27142,14 +27142,14 @@
               "name": "reconnection",
               "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "reconnection",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 3
                 }
               }
@@ -27472,7 +27472,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.runtime.api.tls.TlsContextFactory"
+                "type": "@ref:com.zernova.runtime.api.tls.TlsContextFactory"
               },
               "hasDynamicType": false,
               "required": false,
@@ -27502,10 +27502,10 @@
               "name": "tlsContext",
               "description": "",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 8
                 },
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
                     "localPart": "context",
@@ -27724,14 +27724,14 @@
               "name": "reconnection",
               "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "reconnection",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 3
                 }
               }
@@ -27741,7 +27741,7 @@
                 "format": "java",
                 "type": "Object",
                 "annotations": {
-                  "typeId": "org.mule.runtime.api.config.PoolingProfile",
+                  "typeId": "com.zernova.runtime.api.config.PoolingProfile",
                   "description": {
                     "value": "A pooling profile is used to configure the pooling behaviour of Mule components. Each component can have its own pooling profile."
                   },
@@ -27938,14 +27938,14 @@
               "name": "poolingProfile",
               "description": "Characteristics of the connection pool",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "pooling-profile",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 5
                 }
               }
@@ -28232,7 +28232,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.runtime.api.tls.TlsContextFactory"
+                "type": "@ref:com.zernova.runtime.api.tls.TlsContextFactory"
               },
               "hasDynamicType": false,
               "required": false,
@@ -28262,10 +28262,10 @@
               "name": "tlsContext",
               "description": "",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 8
                 },
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
                     "localPart": "context",
@@ -28484,14 +28484,14 @@
               "name": "reconnection",
               "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "reconnection",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 3
                 }
               }
@@ -28777,7 +28777,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.runtime.api.tls.TlsContextFactory"
+                "type": "@ref:com.zernova.runtime.api.tls.TlsContextFactory"
               },
               "hasDynamicType": false,
               "required": false,
@@ -28807,10 +28807,10 @@
               "name": "tlsContext",
               "description": "",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 8
                 },
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/tls",
                     "localPart": "context",
@@ -29029,14 +29029,14 @@
               "name": "reconnection",
               "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "reconnection",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 3
                 }
               }
@@ -29240,7 +29240,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.runtime.api.scheduler.SchedulingStrategy"
+                "type": "@ref:com.zernova.runtime.api.scheduler.SchedulingStrategy"
               },
               "hasDynamicType": false,
               "required": true,
@@ -29265,10 +29265,10 @@
               "name": "schedulingStrategy",
               "description": "Configures the scheduler that triggers the polling",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 10
                 },
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "scheduling-strategy",
@@ -29376,7 +29376,7 @@
                       "name": "objectStore"
                     },
                     "model": {
-                      "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                      "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                     },
                     "annotations": {
                       "stereotype": {
@@ -29418,14 +29418,14 @@
               "name": "redeliveryPolicy",
               "description": "Defines a policy for processing the redelivery of the same message",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-redelivery-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 1
                 }
               }
@@ -29628,7 +29628,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.runtime.api.scheduler.SchedulingStrategy"
+                "type": "@ref:com.zernova.runtime.api.scheduler.SchedulingStrategy"
               },
               "hasDynamicType": false,
               "required": true,
@@ -29653,10 +29653,10 @@
               "name": "schedulingStrategy",
               "description": "Configures the scheduler that triggers the polling",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 10
                 },
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "scheduling-strategy",
@@ -29764,7 +29764,7 @@
                       "name": "objectStore"
                     },
                     "model": {
-                      "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                      "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                     },
                     "annotations": {
                       "stereotype": {
@@ -29806,14 +29806,14 @@
               "name": "redeliveryPolicy",
               "description": "Defines a policy for processing the redelivery of the same message",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-redelivery-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 1
                 }
               }
@@ -30058,7 +30058,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.runtime.api.scheduler.SchedulingStrategy"
+                "type": "@ref:com.zernova.runtime.api.scheduler.SchedulingStrategy"
               },
               "hasDynamicType": false,
               "required": true,
@@ -30083,10 +30083,10 @@
               "name": "schedulingStrategy",
               "description": "Configures the scheduler that triggers the polling",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 10
                 },
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "scheduling-strategy",
@@ -30194,7 +30194,7 @@
                       "name": "objectStore"
                     },
                     "model": {
-                      "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                      "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                     },
                     "annotations": {
                       "stereotype": {
@@ -30236,14 +30236,14 @@
               "name": "redeliveryPolicy",
               "description": "Defines a policy for processing the redelivery of the same message",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-redelivery-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 1
                 }
               }
@@ -30349,7 +30349,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.petstore.extension.PetAdoptionPolling"
+                "type": "@ref:com.zernova.test.petstore.extension.PetAdoptionPolling"
               },
               "hasDynamicType": false,
               "required": false,
@@ -30505,7 +30505,7 @@
                       "name": "objectStore"
                     },
                     "model": {
-                      "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                      "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                     },
                     "annotations": {
                       "stereotype": {
@@ -30547,14 +30547,14 @@
               "name": "redeliveryPolicy",
               "description": "Defines a policy for processing the redelivery of the same message",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-redelivery-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 1
                 }
               }
@@ -30757,7 +30757,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.runtime.api.scheduler.SchedulingStrategy"
+                "type": "@ref:com.zernova.runtime.api.scheduler.SchedulingStrategy"
               },
               "hasDynamicType": false,
               "required": true,
@@ -30782,10 +30782,10 @@
               "name": "schedulingStrategy",
               "description": "Configures the scheduler that triggers the polling",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 10
                 },
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "scheduling-strategy",
@@ -30893,7 +30893,7 @@
                       "name": "objectStore"
                     },
                     "model": {
-                      "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                      "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                     },
                     "annotations": {
                       "stereotype": {
@@ -30935,14 +30935,14 @@
               "name": "redeliveryPolicy",
               "description": "Defines a policy for processing the redelivery of the same message",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-redelivery-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 1
                 }
               }
@@ -30984,9 +30984,9 @@
           "format": "java",
           "type": "Object",
           "annotations": {
-            "typeId": "org.mule.runtime.api.component.location.ComponentLocation",
+            "typeId": "com.zernova.runtime.api.component.location.ComponentLocation",
             "classInformation": {
-              "classname": "org.mule.runtime.api.component.location.ComponentLocation",
+              "classname": "com.zernova.runtime.api.component.location.ComponentLocation",
               "hasDefaultConstructor": false,
               "isInterface": true,
               "isInstantiable": false,
@@ -31170,7 +31170,7 @@
                       "name": "objectStore"
                     },
                     "model": {
-                      "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                      "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                     },
                     "annotations": {
                       "stereotype": {
@@ -31212,14 +31212,14 @@
               "name": "redeliveryPolicy",
               "description": "Defines a policy for processing the redelivery of the same message",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-redelivery-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 1
                 }
               }
@@ -31571,7 +31571,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.runtime.api.scheduler.SchedulingStrategy"
+                "type": "@ref:com.zernova.runtime.api.scheduler.SchedulingStrategy"
               },
               "hasDynamicType": false,
               "required": true,
@@ -31596,10 +31596,10 @@
               "name": "schedulingStrategy",
               "description": "Configures the scheduler that triggers the polling",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 10
                 },
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "scheduling-strategy",
@@ -31707,7 +31707,7 @@
                       "name": "objectStore"
                     },
                     "model": {
-                      "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                      "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                     },
                     "annotations": {
                       "stereotype": {
@@ -31749,14 +31749,14 @@
               "name": "redeliveryPolicy",
               "description": "Defines a policy for processing the redelivery of the same message",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-redelivery-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 1
                 }
               }
@@ -31904,7 +31904,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.runtime.api.scheduler.SchedulingStrategy"
+                "type": "@ref:com.zernova.runtime.api.scheduler.SchedulingStrategy"
               },
               "hasDynamicType": false,
               "required": true,
@@ -31929,10 +31929,10 @@
               "name": "schedulingStrategy",
               "description": "Configures the scheduler that triggers the polling",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 10
                 },
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "scheduling-strategy",
@@ -32040,7 +32040,7 @@
                       "name": "objectStore"
                     },
                     "model": {
-                      "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                      "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                     },
                     "annotations": {
                       "stereotype": {
@@ -32082,14 +32082,14 @@
               "name": "redeliveryPolicy",
               "description": "Defines a policy for processing the redelivery of the same message",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-redelivery-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 1
                 }
               }
@@ -32312,7 +32312,7 @@
                       "name": "objectStore"
                     },
                     "model": {
-                      "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                      "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                     },
                     "annotations": {
                       "stereotype": {
@@ -32354,14 +32354,14 @@
               "name": "redeliveryPolicy",
               "description": "Defines a policy for processing the redelivery of the same message",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-redelivery-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 1
                 }
               }
@@ -32484,7 +32484,7 @@
               "implementedInterfaces": [],
               "parent": "",
               "genericTypes": [
-                "org.mule.sdk.api.runtime.operation.Result"
+                "com.zernova.sdk.api.runtime.operation.Result"
               ],
               "isMap": false
             }
@@ -32492,9 +32492,9 @@
           "item": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.runtime.api.message.Message",
+              "typeId": "com.zernova.runtime.api.message.Message",
               "classInformation": {
-                "classname": "org.mule.runtime.api.message.Message",
+                "classname": "com.zernova.runtime.api.message.Message",
                 "hasDefaultConstructor": false,
                 "isInterface": true,
                 "isInstantiable": false,
@@ -32766,7 +32766,7 @@
                       "name": "objectStore"
                     },
                     "model": {
-                      "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                      "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                     },
                     "annotations": {
                       "stereotype": {
@@ -32808,14 +32808,14 @@
               "name": "redeliveryPolicy",
               "description": "Defines a policy for processing the redelivery of the same message",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-redelivery-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 1
                 }
               }
@@ -32938,7 +32938,7 @@
               "implementedInterfaces": [],
               "parent": "",
               "genericTypes": [
-                "org.mule.runtime.extension.api.runtime.operation.Result"
+                "com.zernova.runtime.extension.api.runtime.operation.Result"
               ],
               "isMap": false
             }
@@ -32946,9 +32946,9 @@
           "item": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.runtime.api.message.Message",
+              "typeId": "com.zernova.runtime.api.message.Message",
               "classInformation": {
-                "classname": "org.mule.runtime.api.message.Message",
+                "classname": "com.zernova.runtime.api.message.Message",
                 "hasDefaultConstructor": false,
                 "isInterface": true,
                 "isInstantiable": false,
@@ -33220,7 +33220,7 @@
                       "name": "objectStore"
                     },
                     "model": {
-                      "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                      "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                     },
                     "annotations": {
                       "stereotype": {
@@ -33262,14 +33262,14 @@
               "name": "redeliveryPolicy",
               "description": "Defines a policy for processing the redelivery of the same message",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-redelivery-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 1
                 }
               }
@@ -33737,14 +33737,14 @@
               "name": "streamingStrategy",
               "description": "Configure if repeatable streams should be used and their behaviour",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-byte-streaming-strategy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 2
                 }
               }
@@ -33848,7 +33848,7 @@
                       "name": "objectStore"
                     },
                     "model": {
-                      "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                      "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                     },
                     "annotations": {
                       "stereotype": {
@@ -33890,14 +33890,14 @@
               "name": "redeliveryPolicy",
               "description": "Defines a policy for processing the redelivery of the same message",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-redelivery-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 1
                 }
               }
@@ -34195,7 +34195,7 @@
                       "name": "objectStore"
                     },
                     "model": {
-                      "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                      "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                     },
                     "annotations": {
                       "stereotype": {
@@ -34237,14 +34237,14 @@
               "name": "redeliveryPolicy",
               "description": "Defines a policy for processing the redelivery of the same message",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-redelivery-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 1
                 }
               }
@@ -34271,7 +34271,7 @@
   ],
   "artifactCoordinates": {
     "artifact id": "mule-petstore-extension",
-    "group id": "org.mule.tests",
+    "group id": "com.zernova.tests",
     "version": "1.2.3"
   },
   "notifications": [],
@@ -34317,9 +34317,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.petstore.extension.Aquarium",
+        "typeId": "com.zernova.test.petstore.extension.Aquarium",
         "classInformation": {
-          "classname": "org.mule.test.petstore.extension.Aquarium",
+          "classname": "com.zernova.test.petstore.extension.Aquarium",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -34343,9 +34343,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.petstore.extension.Pond",
+              "typeId": "com.zernova.test.petstore.extension.Pond",
               "classInformation": {
-                "classname": "org.mule.test.petstore.extension.Pond",
+                "classname": "com.zernova.test.petstore.extension.Pond",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
@@ -34438,9 +34438,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.petstore.extension.ExclusiveCashier",
+        "typeId": "com.zernova.test.petstore.extension.ExclusiveCashier",
         "classInformation": {
-          "classname": "org.mule.test.petstore.extension.ExclusiveCashier",
+          "classname": "com.zernova.test.petstore.extension.ExclusiveCashier",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -34558,9 +34558,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.petstore.extension.ExclusivePetBreeder",
+        "typeId": "com.zernova.test.petstore.extension.ExclusivePetBreeder",
         "classInformation": {
-          "classname": "org.mule.test.petstore.extension.ExclusivePetBreeder",
+          "classname": "com.zernova.test.petstore.extension.ExclusivePetBreeder",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -34608,9 +34608,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.petstore.extension.PetAdoptionPolling",
+        "typeId": "com.zernova.test.petstore.extension.PetAdoptionPolling",
         "classInformation": {
-          "classname": "org.mule.test.petstore.extension.PetAdoptionPolling",
+          "classname": "com.zernova.test.petstore.extension.PetAdoptionPolling",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -34634,7 +34634,7 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.runtime.api.scheduler.SchedulingStrategy",
+              "typeId": "com.zernova.runtime.api.scheduler.SchedulingStrategy",
               "QName": {
                 "value": {
                   "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
@@ -34647,7 +34647,7 @@
                 "value": "SchedulingStrategy"
               },
               "classInformation": {
-                "classname": "org.mule.runtime.api.scheduler.SchedulingStrategy",
+                "classname": "com.zernova.runtime.api.scheduler.SchedulingStrategy",
                 "hasDefaultConstructor": false,
                 "isInterface": true,
                 "isInstantiable": false,
@@ -34682,9 +34682,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.petstore.extension.PetCage",
+        "typeId": "com.zernova.test.petstore.extension.PetCage",
         "classInformation": {
-          "classname": "org.mule.test.petstore.extension.PetCage",
+          "classname": "com.zernova.test.petstore.extension.PetCage",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -34788,9 +34788,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.runtime.api.tls.TlsContextFactory",
+              "typeId": "com.zernova.runtime.api.tls.TlsContextFactory",
               "classInformation": {
-                "classname": "org.mule.runtime.api.tls.TlsContextFactory",
+                "classname": "com.zernova.runtime.api.tls.TlsContextFactory",
                 "hasDefaultConstructor": false,
                 "isInterface": true,
                 "isInstantiable": false,
@@ -35341,9 +35341,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.petstore.extension.PetStoreClient",
+        "typeId": "com.zernova.test.petstore.extension.PetStoreClient",
         "classInformation": {
-          "classname": "org.mule.test.petstore.extension.PetStoreClient",
+          "classname": "com.zernova.test.petstore.extension.PetStoreClient",
           "hasDefaultConstructor": false,
           "isInterface": false,
           "isInstantiable": false,
@@ -35493,9 +35493,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.runtime.api.meta.MuleVersion",
+              "typeId": "com.zernova.runtime.api.meta.ZernovaVersion",
               "classInformation": {
-                "classname": "org.mule.runtime.api.meta.MuleVersion",
+                "classname": "com.zernova.runtime.api.meta.ZernovaVersion",
                 "hasDefaultConstructor": false,
                 "isInterface": false,
                 "isInstantiable": false,
@@ -35507,7 +35507,7 @@
                 "isMap": false
               },
               "typeAlias": {
-                "value": "MuleVersion"
+                "value": "ZernovaVersion"
               }
             },
             "fields": [
@@ -35664,9 +35664,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.runtime.api.tls.TlsContextFactory",
+              "typeId": "com.zernova.runtime.api.tls.TlsContextFactory",
               "classInformation": {
-                "classname": "org.mule.runtime.api.tls.TlsContextFactory",
+                "classname": "com.zernova.runtime.api.tls.TlsContextFactory",
                 "hasDefaultConstructor": false,
                 "isInterface": true,
                 "isInstantiable": false,
@@ -36226,9 +36226,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.petstore.extension.PetStoreConnector",
+        "typeId": "com.zernova.test.petstore.extension.PetStoreConnector",
         "classInformation": {
-          "classname": "org.mule.test.petstore.extension.PetStoreConnector",
+          "classname": "com.zernova.test.petstore.extension.PetStoreConnector",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -36252,9 +36252,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.petstore.extension.AdvancedLeashConfiguration",
+              "typeId": "com.zernova.test.petstore.extension.AdvancedLeashConfiguration",
               "classInformation": {
-                "classname": "org.mule.test.petstore.extension.AdvancedLeashConfiguration",
+                "classname": "com.zernova.test.petstore.extension.AdvancedLeashConfiguration",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
@@ -36345,9 +36345,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.runtime.api.tls.TlsContextFactory",
+              "typeId": "com.zernova.runtime.api.tls.TlsContextFactory",
               "classInformation": {
-                "classname": "org.mule.runtime.api.tls.TlsContextFactory",
+                "classname": "com.zernova.runtime.api.tls.TlsContextFactory",
                 "hasDefaultConstructor": false,
                 "isInterface": true,
                 "isInstantiable": false,
@@ -36899,9 +36899,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.petstore.extension.PetCage",
+              "typeId": "com.zernova.test.petstore.extension.PetCage",
               "classInformation": {
-                "classname": "org.mule.test.petstore.extension.PetCage",
+                "classname": "com.zernova.test.petstore.extension.PetCage",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
@@ -37005,9 +37005,9 @@
                 "model": {
                   "type": "Object",
                   "annotations": {
-                    "typeId": "org.mule.runtime.api.tls.TlsContextFactory",
+                    "typeId": "com.zernova.runtime.api.tls.TlsContextFactory",
                     "classInformation": {
-                      "classname": "org.mule.runtime.api.tls.TlsContextFactory",
+                      "classname": "com.zernova.runtime.api.tls.TlsContextFactory",
                       "hasDefaultConstructor": false,
                       "isInterface": true,
                       "isInstantiable": false,
@@ -37577,7 +37577,7 @@
                 "implementedInterfaces": [],
                 "parent": "",
                 "genericTypes": [
-                  "org.mule.test.petstore.extension.PetCage"
+                  "com.zernova.test.petstore.extension.PetCage"
                 ],
                 "isMap": false
               }
@@ -37585,9 +37585,9 @@
             "item": {
               "type": "Object",
               "annotations": {
-                "typeId": "org.mule.test.petstore.extension.PetCage",
+                "typeId": "com.zernova.test.petstore.extension.PetCage",
                 "classInformation": {
-                  "classname": "org.mule.test.petstore.extension.PetCage",
+                  "classname": "com.zernova.test.petstore.extension.PetCage",
                   "hasDefaultConstructor": true,
                   "isInterface": false,
                   "isInstantiable": true,
@@ -37691,9 +37691,9 @@
                   "model": {
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.api.tls.TlsContextFactory",
+                      "typeId": "com.zernova.runtime.api.tls.TlsContextFactory",
                       "classInformation": {
-                        "classname": "org.mule.runtime.api.tls.TlsContextFactory",
+                        "classname": "com.zernova.runtime.api.tls.TlsContextFactory",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -38255,9 +38255,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.petstore.extension.ExclusiveCashier",
+              "typeId": "com.zernova.test.petstore.extension.ExclusiveCashier",
               "classInformation": {
-                "classname": "org.mule.test.petstore.extension.ExclusiveCashier",
+                "classname": "com.zernova.test.petstore.extension.ExclusiveCashier",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
@@ -38394,9 +38394,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.petstore.extension.Aquarium",
+              "typeId": "com.zernova.test.petstore.extension.Aquarium",
               "classInformation": {
-                "classname": "org.mule.test.petstore.extension.Aquarium",
+                "classname": "com.zernova.test.petstore.extension.Aquarium",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
@@ -38420,9 +38420,9 @@
                 "model": {
                   "type": "Object",
                   "annotations": {
-                    "typeId": "org.mule.test.petstore.extension.Pond",
+                    "typeId": "com.zernova.test.petstore.extension.Pond",
                     "classInformation": {
-                      "classname": "org.mule.test.petstore.extension.Pond",
+                      "classname": "com.zernova.test.petstore.extension.Pond",
                       "hasDefaultConstructor": true,
                       "isInterface": false,
                       "isInstantiable": true,
@@ -38523,9 +38523,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.petstore.extension.PetStoreDeal",
+        "typeId": "com.zernova.test.petstore.extension.PetStoreDeal",
         "classInformation": {
-          "classname": "org.mule.test.petstore.extension.PetStoreDeal",
+          "classname": "com.zernova.test.petstore.extension.PetStoreDeal",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -38549,9 +38549,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.petstore.extension.ExclusiveCashier",
+              "typeId": "com.zernova.test.petstore.extension.ExclusiveCashier",
               "classInformation": {
-                "classname": "org.mule.test.petstore.extension.ExclusiveCashier",
+                "classname": "com.zernova.test.petstore.extension.ExclusiveCashier",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
@@ -38729,9 +38729,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.petstore.extension.PhoneNumber",
+        "typeId": "com.zernova.test.petstore.extension.PhoneNumber",
         "classInformation": {
-          "classname": "org.mule.test.petstore.extension.PhoneNumber",
+          "classname": "com.zernova.test.petstore.extension.PhoneNumber",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,

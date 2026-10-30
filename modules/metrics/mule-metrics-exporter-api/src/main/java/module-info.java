@@ -4,17 +4,18 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 /**
  * Definitions for Mule Metrics Exporter.
  *
  * @moduleGraph
  * @since 4.5
  */
-module org.mule.runtime.metrics.exporter.api {
+module com.zernova.runtime.metrics.exporter.api {
 
-  requires org.mule.runtime.metrics.api;
-  requires org.mule.runtime.metrics.exporter.configuration.api;
+  requires com.zernova.runtime.metrics.api;
+  requires com.zernova.runtime.metrics.exporter.configuration.api;
 
-  exports org.mule.runtime.metrics.exporter.api;
+  exports com.zernova.runtime.metrics.exporter.api;
 
 }

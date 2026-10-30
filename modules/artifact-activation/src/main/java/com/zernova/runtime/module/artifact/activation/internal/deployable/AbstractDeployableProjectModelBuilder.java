@@ -1,0 +1,55 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.module.artifact.activation.internal.deployable;
+
+import com.zernova.runtime.api.deployment.meta.ZernovaDeployableModel;
+import com.zernova.runtime.module.artifact.activation.api.deployable.DeployableProjectModelBuilder;
+import com.zernova.runtime.module.artifact.activation.internal.maven.LightweightDeployableProjectModelBuilder;
+
+import java.io.File;
+import java.util.Optional;
+
+public abstract class AbstractDeployableProjectModelBuilder implements DeployableProjectModelBuilder {
+
+  public static final String CLASSLOADER_MODEL_JSON_DESCRIPTOR = "classloader-model.json";
+  public static final String CLASSLOADER_MODEL_JSON_PATCH_DESCRIPTOR = "classloader-model-patch.json";
+
+  public static final String CLASSLOADER_MODEL_JSON_DESCRIPTOR_LOCATION =
+      "META-INF/mule-artifact/" + CLASSLOADER_MODEL_JSON_DESCRIPTOR;
+  public static final String CLASSLOADER_MODEL_JSON_PATCH_DESCRIPTOR_LOCATION =
+      "META-INF/mule-artifact/" + CLASSLOADER_MODEL_JSON_PATCH_DESCRIPTOR;
+
+  /**
+   * Determines if the given project corresponds to a heavyweight package or a lightweight one.
+   *
+   * @param projectFolder the project package location.
+   * @return {@code true} if the given project corresponds to a heavyweight package, {@code false} otherwise.
+   */
+  public static boolean isHeavyPackage(File projectFolder) {
+    return getClassLoaderModelDescriptor(projectFolder).exists();
+  }
+
+  protected static File getClassLoaderModelDescriptor(File artifactFile) {
+    if (artifactFile.isDirectory()) {
+      return new File(artifactFile, CLASSLOADER_MODEL_JSON_DESCRIPTOR_LOCATION);
+    } else {
+      return new File(artifactFile.getParent(), CLASSLOADER_MODEL_JSON_DESCRIPTOR);
+    }
+  }
+
+  public static AbstractDeployableProjectModelBuilder defaultDeployableProjectModelBuilder(File projectFolder,
+                                                                                           Optional<ZernovaDeployableModel> model,
+                                                                                           boolean isDomain) {
+    if (isHeavyPackage(projectFolder)) {
+      return new ZernovaDeployableProjectModelBuilder(projectFolder, model);
+    } else {
+      return new LightweightDeployableProjectModelBuilder(projectFolder, model, isDomain);
+    }
+  }
+
+}

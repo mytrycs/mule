@@ -1,0 +1,10 @@
+{
+  "failures": [
+    {
+      "failingComponent": "COMPONENT",
+      "message": "Metadata Failure Error",
+      "reason": "Metadata Failure Error",
+      "failureCode": "CONNECTION_FAILURE"
+    }
+  ]
+}

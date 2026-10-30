@@ -1,0 +1,96 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.extension.api.exception;
+
+import static com.zernova.runtime.api.i18n.I18nMessageFactory.createStaticMessage;
+import static com.zernova.runtime.api.util.Preconditions.checkArgument;
+
+import com.zernova.runtime.api.exception.ZernovaRuntimeException;
+import com.zernova.runtime.api.i18n.I18nMessage;
+import com.zernova.runtime.api.message.Error;
+import com.zernova.runtime.extension.api.error.ErrorTypeDefinition;
+import com.zernova.sdk.api.annotation.MinZernovaVersion;
+
+/**
+ * {@link RuntimeException} implementation to throw {@link Exception}s that indicates explicitly the {@link ErrorTypeDefinition}
+ * that is wanted to throw. Also gives the possibility to declare to add a message and detailed message for the {@link Error} to
+ * built.
+ *
+ * @since 1.0
+ */
+@MinZernovaVersion("4.1")
+public class ModuleException extends ZernovaRuntimeException {
+
+  private ErrorTypeDefinition type;
+
+  /**
+   * @param errorTypeDefinition The matched {@link ErrorTypeDefinition},
+   * @param cause               The {@link ModuleException#getCause()} of this new throwable.
+   * @param <T>                 Type of the {@link ErrorTypeDefinition}
+   */
+  public <T extends Enum<T>> ModuleException(ErrorTypeDefinition<T> errorTypeDefinition, Throwable cause) {
+    super(cause);
+    checkArgument(errorTypeDefinition != null, "The 'errorTypeDefinition' argument can not be null");
+    this.type = errorTypeDefinition;
+  }
+
+  /**
+   * @param message             to override the one from the original throwable
+   * @param errorTypeDefinition The matched {@link ErrorTypeDefinition},
+   * @param cause               The {@link ModuleException#getCause()} of this new throwable.
+   * @param <T>                 Type of the {@link ErrorTypeDefinition}
+   */
+  public <T extends Enum<T>> ModuleException(I18nMessage message, ErrorTypeDefinition<T> errorTypeDefinition, Throwable cause) {
+    super(message, cause);
+    checkArgument(errorTypeDefinition != null, "The 'errorTypeDefinition' argument can not be null");
+    this.type = errorTypeDefinition;
+  }
+
+  /**
+   * @param message             to override the one from the original throwable
+   * @param errorTypeDefinition The matched {@link ErrorTypeDefinition},
+   * @param cause               The {@link ModuleException#getCause()} of this new throwable.
+   * @param <T>                 Type of the {@link ErrorTypeDefinition}
+   */
+  public <T extends Enum<T>> ModuleException(String message, ErrorTypeDefinition<T> errorTypeDefinition, Throwable cause) {
+    this(createStaticMessage(message), errorTypeDefinition, cause);
+  }
+
+  /**
+   * @param message             to override the one from the original exception
+   * @param errorTypeDefinition The matched {@link ErrorTypeDefinition},
+   * @param <T>                 Type of the {@link ErrorTypeDefinition}
+   */
+  public <T extends Enum<T>> ModuleException(I18nMessage message, ErrorTypeDefinition<T> errorTypeDefinition) {
+    super(message);
+    checkArgument(errorTypeDefinition != null, "The 'errorTypeDefinition' argument can not be null");
+    this.type = errorTypeDefinition;
+  }
+
+  /**
+   * @param message             to override the one from the original exception
+   * @param errorTypeDefinition The matched {@link ErrorTypeDefinition},
+   */
+  public <T extends Enum<T>> ModuleException(String message, ErrorTypeDefinition<T> errorTypeDefinition) {
+    this(createStaticMessage(message), errorTypeDefinition);
+  }
+
+  /**
+   * @return The {@link ErrorTypeDefinition} of the thrown exception
+   */
+  public ErrorTypeDefinition getType() {
+    return type;
+  }
+
+  @Override
+  public String toString() {
+    return getCause() != null
+        ? getCause().toString()
+        : getMessage();
+  }
+}

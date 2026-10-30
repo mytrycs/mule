@@ -10,24 +10,24 @@
   "dependencies": [
     {
       "artifactCoordinates": {
-        "groupId": "org.mule.group",
+        "groupId": "com.zernova.group",
         "artifactId": "mule-plugin-a",
         "version": "1.0.0",
         "type": "jar",
         "classifier": "mule-plugin"
       },
-      "uri": "repository/org/mule/group/mule-plugin-a/1.0.0/mule-plugin-a-1.0.0-mule-plugin.jar",
+      "uri": "repository/com/zernova/group/mule-plugin-a/1.0.0/mule-plugin-a-1.0.0-mule-plugin.jar",
       "isShared": true
     },
     {
       "artifactCoordinates": {
-        "groupId": "org.mule.group",
+        "groupId": "com.zernova.group",
         "artifactId": "mule-plugin-b",
         "version": "1.0.0",
         "type": "jar",
         "classifier": "mule-plugin"
       },
-      "uri": "repository/org/mule/group/mule-plugin-b/1.0.0/mule-plugin-b-1.0.0-mule-plugin.jar"
+      "uri": "repository/com/zernova/group/mule-plugin-b/1.0.0/mule-plugin-b-1.0.0-mule-plugin.jar"
     }
   ]
 }

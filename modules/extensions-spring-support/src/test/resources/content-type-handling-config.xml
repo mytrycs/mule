@@ -7,7 +7,7 @@
                http://www.mulesoft.org/schema/mule/petstore http://www.mulesoft.org/schema/mule/petstore/current/mule-petstore.xsd
                http://www.mulesoft.org/schema/mule/heisenberg http://www.mulesoft.org/schema/mule/heisenberg/current/mule-heisenberg.xsd">
 
-    <object name="collectMediaType" class="org.mule.test.module.extension.ContentTypeHandlingTestCase$MediaTypeCollectorProcessor"/>
+    <object name="collectMediaType" class="com.zernova.test.module.extension.ContentTypeHandlingTestCase$MediaTypeCollectorProcessor"/>
 
     <heisenberg:config name="heisenberg"
                        myName="walt"

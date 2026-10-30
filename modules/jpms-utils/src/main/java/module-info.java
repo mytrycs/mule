@@ -4,16 +4,17 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 /**
  * This module provides JMPS utilities for use within the Mule Runtime.
  *
  * @moduleGraph
  * @since 1.5
  */
-module org.mule.runtime.jpms.utils {
+module com.zernova.runtime.jpms.utils {
 
   requires java.management;
 
-  exports org.mule.runtime.jpms.api;
+  exports com.zernova.runtime.jpms.api;
 
 }

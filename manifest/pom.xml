@@ -2,18 +2,20 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.mule.runtime</groupId>
+        <groupId>com.zernova.runtime</groupId>
         <artifactId>mule</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>mule-manifest</artifactId>
     <packaging>jar</packaging>
-    <name>Mule Manifest</name>
-    <description>Mule Runtime Manifest</description>
+    <name>ZERNOVA Manifest</name>
+    <description>ZERNOVA Runtime Manifest</description>
 
     <properties>
-        <javaModuleName>org.mule.runtime.manifest</javaModuleName>
+        <!-- Technical product identity; the visible project name remains ZERNOVA. -->
+        <zernovaCompatibilityTitle>Mule Manifest</zernovaCompatibilityTitle>
+        <javaModuleName>com.zernova.runtime.manifest</javaModuleName>
         <!-- The `javaVersion` property is not overridden because we want to take the one in parent POM for the Manifest -->
         <javaReleaseVersion>8</javaReleaseVersion>
         <project.build.java11SourceDirectory>${project.basedir}/src/main/java11</project.build.java11SourceDirectory>
@@ -30,7 +32,7 @@
 
         <!-- Test dependencies -->
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tests-allure</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>

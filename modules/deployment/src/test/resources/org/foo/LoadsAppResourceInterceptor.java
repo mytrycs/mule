@@ -4,14 +4,15 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package org.foo;
 
 import static java.lang.Thread.currentThread;
 
-import org.mule.runtime.api.component.location.ComponentLocation;
-import org.mule.runtime.api.interception.InterceptionEvent;
-import org.mule.runtime.api.interception.ProcessorInterceptor;
-import org.mule.runtime.api.interception.ProcessorParameterValue;
+import com.zernova.runtime.api.component.location.ComponentLocation;
+import com.zernova.runtime.api.interception.InterceptionEvent;
+import com.zernova.runtime.api.interception.ProcessorInterceptor;
+import com.zernova.runtime.api.interception.ProcessorParameterValue;
 
 import java.util.Map;
 

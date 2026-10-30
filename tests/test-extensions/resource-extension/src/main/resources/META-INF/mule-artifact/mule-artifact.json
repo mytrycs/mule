@@ -2,7 +2,7 @@
   "extensionModelLoaderDescriptor": {
     "id": "java",
     "attributes": {
-      "type": "org.mule.test.resource.extension.ResourceExtension",
+      "type": "com.zernova.test.resource.extension.ResourceExtension",
       "version": "4.2.0-SNAPSHOT"
     }
   },
@@ -14,7 +14,7 @@
       "privilegedExportedPackages": [],
       "privilegedArtifactIds": [],
       "exportedPackages": [
-        "org.mule.test.resource.extension"
+        "com.zernova.test.resource.extension"
       ],
       "exportedResources": [
         "stuff.json"

@@ -2,27 +2,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.mule.tests</groupId>
+        <groupId>com.zernova.tests</groupId>
         <artifactId>mule-tests</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
     <artifactId>mule-tests-runner</artifactId>
     <packaging>jar</packaging>
-    <name>Mule Test Runner</name>
+    <name>ZERNOVA Test Runner</name>
     <description>Test Runner for Mule Integration Tests</description>
 
     <properties>
         <surefire.args>
             -XX:+IgnoreUnrecognizedVMOptions
-            --add-opens=org.mule.test.runner/org.mule.test.runner.api=junit
-            --add-opens=org.mule.test.runner/org.mule.test.runner.classification=junit
-            --add-opens=org.mule.test.runner/org.mule.test.runner.classloader=junit
-            --add-opens=org.mule.test.runner/org.mule.test.runner.maven=junit
-            --add-opens=org.mule.test.runner/org.mule.test.runner.utils=junit
+            --add-opens=com.zernova.test.runner/com.zernova.test.runner.api=junit
+            --add-opens=com.zernova.test.runner/com.zernova.test.runner.classification=junit
+            --add-opens=com.zernova.test.runner/com.zernova.test.runner.classloader=junit
+            --add-opens=com.zernova.test.runner/com.zernova.test.runner.maven=junit
+            --add-opens=com.zernova.test.runner/com.zernova.test.runner.utils=junit
             ${surefire.args.base}
         </surefire.args>
 
-        <javaModuleName>org.mule.test.runner</javaModuleName>
+        <javaModuleName>com.zernova.test.runner</javaModuleName>
     </properties>
 
     <build>
@@ -59,11 +59,11 @@
     <dependencies>
         <!-- Maven Client dependencies -->
         <dependency>
-            <groupId>org.mule</groupId>
+            <groupId>com.zernova</groupId>
             <artifactId>mule-maven-client-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule</groupId>
+            <groupId>com.zernova</groupId>
             <artifactId>mule-maven-client-impl</artifactId>
             <exclusions>
                 <exclusion>
@@ -75,32 +75,32 @@
 
         <!-- Mule Runtime dependencies -->
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-extensions-support</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-service</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-container</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-artifact-activation</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.mule.runtime.boot</groupId>
+            <groupId>com.zernova.runtime.boot</groupId>
             <artifactId>mule-module-logging</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
@@ -108,13 +108,13 @@
 
         <!-- TODO: MULE-19762 remove once forward compatibility is finished -->
         <dependency>
-            <groupId>org.mule.sdk</groupId>
+            <groupId>com.zernova.sdk</groupId>
             <artifactId>mule-sdk-api</artifactId>
             <scope>provided</scope>
         </dependency>
         <!-- TODO: MULE-19762 remove once forward compatibility is finished -->
         <dependency>
-            <groupId>org.mule.sdk</groupId>
+            <groupId>com.zernova.sdk</groupId>
             <artifactId>mule-sdk-compatibility-api</artifactId>
             <scope>provided</scope>
         </dependency>
@@ -136,25 +136,25 @@
 
         <!-- Test dependencies -->
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tests-allure</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tests-unit</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-heisenberg-extension</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-petstore-extension</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>

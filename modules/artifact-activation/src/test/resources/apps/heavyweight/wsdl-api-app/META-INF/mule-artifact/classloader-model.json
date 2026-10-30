@@ -10,52 +10,52 @@
   "dependencies": [
     {
       "artifactCoordinates": {
-        "groupId": "org.mule.test",
+        "groupId": "com.zernova.test",
         "artifactId": "wsdl-api-a",
         "version": "1.0.0",
         "classifier": "wsdl",
         "type": "pom"
       },
-      "uri": "repository/org/mule/test/wsdl-api-a/1.0.0/wsdl-api-a-1.0.0-wsdl.pom"
+      "uri": "repository/com/zernova/test/wsdl-api-a/1.0.0/wsdl-api-a-1.0.0-wsdl.pom"
     },
     {
       "artifactCoordinates": {
-        "groupId": "org.mule.test",
+        "groupId": "com.zernova.test",
         "artifactId": "wsdl-api-b",
         "version": "1.0.0",
         "classifier": "wsdl",
         "type": "pom"
       },
-      "uri": "repository/org/mule/test/wsdl-api-b/1.0.0/wsdl-api-b-1.0.0-wsdl.pom"
+      "uri": "repository/com/zernova/test/wsdl-api-b/1.0.0/wsdl-api-b-1.0.0-wsdl.pom"
     },
     {
       "artifactCoordinates": {
-        "groupId": "org.mule.test",
+        "groupId": "com.zernova.test",
         "artifactId": "wsdl-fragment",
         "version": "1.0.0",
         "classifier": "wsdl",
         "type": "pom"
       },
-      "uri": "repository/org/mule/test/wsdl-fragment/1.0.0/wsdl-fragment-1.0.0-wsdl.pom"
+      "uri": "repository/com/zernova/test/wsdl-fragment/1.0.0/wsdl-fragment-1.0.0-wsdl.pom"
     },
     {
       "artifactCoordinates": {
-        "groupId": "org.mule.test",
+        "groupId": "com.zernova.test",
         "artifactId": "wsdl-fragment",
         "version": "2.0.0",
         "classifier": "wsdl",
         "type": "pom"
       },
-      "uri": "repository/org/mule/test/wsdl-fragment/2.0.0/wsdl-fragment-2.0.0-wsdl.pom"
+      "uri": "repository/com/zernova/test/wsdl-fragment/2.0.0/wsdl-fragment-2.0.0-wsdl.pom"
     },
     {
       "artifactCoordinates": {
-        "groupId": "org.mule.test",
+        "groupId": "com.zernova.test",
         "artifactId": "library",
         "version": "2.0.0",
         "type": "pom"
       },
-      "uri": "repository/org/mule/test/library/2.0.0/library-2.0.0.pom"
+      "uri": "repository/com/zernova/test/library/2.0.0/library-2.0.0.pom"
     }
   ],
   "packages": [

@@ -4,55 +4,56 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 /**
  * Extensions API implementation for writing extensions using the Mule language.
  *
  * @moduleGraph
  * @since 4.6
  */
-module org.mule.runtime.extensions.mule.support {
+module com.zernova.runtime.extensions.mule.support {
 
-  requires org.mule.sdk.api;
+  requires com.zernova.sdk.api;
 
-  requires org.mule.runtime.api;
-  requires org.mule.runtime.metadata.model.api;
-  requires org.mule.runtime.errors;
-  requires org.mule.runtime.metadata.model.java;
-  requires org.mule.runtime.extensions.api;
-  requires org.mule.runtime.dsl.api;
-  requires org.mule.runtime.artifact.ast;
-  requires org.mule.runtime.artifact.ast.xmlParser;
-  requires org.mule.runtime.extension.model;
-  requires org.mule.runtime.core;
+  requires com.zernova.runtime.api;
+  requires com.zernova.runtime.metadata.model.api;
+  requires com.zernova.runtime.errors;
+  requires com.zernova.runtime.metadata.model.java;
+  requires com.zernova.runtime.extensions.api;
+  requires com.zernova.runtime.dsl.api;
+  requires com.zernova.runtime.artifact.ast;
+  requires com.zernova.runtime.artifact.ast.xmlParser;
+  requires com.zernova.runtime.extension.model;
+  requires com.zernova.runtime.core;
   // TODO W-18813696: remove this once and for all, we still require it for the DefaultArtifactTypeLoader and some internals of
-  // the execution (see MuleOperationExecutor)
-  requires org.mule.runtime.extensions.support;
-  requires org.mule.runtime.artifact.activation;
-  requires org.mule.runtime.spring.config;
+  // the execution (see ZernovaOperationExecutor)
+  requires com.zernova.runtime.extensions.support;
+  requires com.zernova.runtime.artifact.activation;
+  requires com.zernova.runtime.spring.config;
 
   requires org.jgrapht.core;
 
-  provides org.mule.runtime.extension.api.provider.RuntimeExtensionModelProvider
-      with org.mule.runtime.module.extension.mule.api.extension.MuleSdkExtensionRuntimeExtensionModelProvider,
-      org.mule.runtime.module.extension.mule.api.extension.OperationDslExtensionModelProvider;
-  provides org.mule.runtime.dsl.api.component.ComponentBuildingDefinitionProvider
-      with org.mule.runtime.module.extension.mule.internal.config.provider.OperationDslBuildingDefinitionProvider;
-  provides org.mule.runtime.dsl.api.xml.XmlNamespaceInfoProvider
-      with org.mule.runtime.module.extension.mule.internal.dsl.processor.xml.MuleSdkExtensionDslNamespaceInfoProvider;
-  provides org.mule.runtime.extension.api.loader.ExtensionModelLoaderProvider
-      with org.mule.runtime.module.extension.mule.api.loader.MuleSdkExtensionModelLoaderProvider;
+  provides com.zernova.runtime.extension.api.provider.RuntimeExtensionModelProvider
+      with com.zernova.runtime.module.extension.mule.api.extension.ZernovaSdkExtensionRuntimeExtensionModelProvider,
+      com.zernova.runtime.module.extension.mule.api.extension.OperationDslExtensionModelProvider;
+  provides com.zernova.runtime.dsl.api.component.ComponentBuildingDefinitionProvider
+      with com.zernova.runtime.module.extension.mule.internal.config.provider.OperationDslBuildingDefinitionProvider;
+  provides com.zernova.runtime.dsl.api.xml.XmlNamespaceInfoProvider
+      with com.zernova.runtime.module.extension.mule.internal.dsl.processor.xml.ZernovaSdkExtensionDslNamespaceInfoProvider;
+  provides com.zernova.runtime.extension.api.loader.ExtensionModelLoaderProvider
+      with com.zernova.runtime.module.extension.mule.api.loader.ZernovaSdkExtensionModelLoaderProvider;
 
-  exports org.mule.runtime.module.extension.mule.api.processor to
+  exports com.zernova.runtime.module.extension.mule.api.processor to
       spring.beans;
 
-  exports org.mule.runtime.module.extension.mule.internal.config.factory to
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.module.extension.mule.internal.config.factory to
+      com.zernova.runtime.spring.config,
       spring.beans;
-  exports org.mule.runtime.module.extension.mule.internal.config.provider to
+  exports com.zernova.runtime.module.extension.mule.internal.config.provider to
       spring.beans;
 
-  opens org.mule.runtime.module.extension.mule.internal.config.factory to
+  opens com.zernova.runtime.module.extension.mule.internal.config.factory to
       net.bytebuddy;
-  opens org.mule.runtime.module.extension.mule.internal.execution to
+  opens com.zernova.runtime.module.extension.mule.internal.execution to
       spring.core;
 }

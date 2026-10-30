@@ -1,0 +1,45 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.core.internal.execution;
+
+import com.zernova.runtime.core.api.execution.ExecutionCallback;
+import com.zernova.runtime.core.api.transaction.Transaction;
+import com.zernova.runtime.core.api.transaction.TransactionCoordination;
+import com.zernova.runtime.core.privileged.transaction.TransactionConfig;
+
+public class IsolateCurrentTransactionInterceptor<T> implements ExecutionInterceptor<T> {
+
+  private ExecutionInterceptor<T> next;
+  private TransactionConfig transactionConfig;
+
+  public IsolateCurrentTransactionInterceptor(ExecutionInterceptor<T> nextProcessingInterceptor,
+                                              TransactionConfig transactionConfig) {
+    this.next = nextProcessingInterceptor;
+    this.transactionConfig = transactionConfig;
+  }
+
+
+  @Override
+  public T execute(ExecutionCallback<T> muleEventProcessingCallback, ExecutionContext executionContext) throws Exception {
+    boolean transactionIsolated = false;
+    try {
+      if (transactionConfig.getAction() == TransactionConfig.ACTION_NOT_SUPPORTED) {
+        Transaction transaction = TransactionCoordination.getInstance().getTransaction();
+        if (transaction != null) {
+          TransactionCoordination.getInstance().isolateTransaction();
+          transactionIsolated = true;
+        }
+      }
+      return next.execute(muleEventProcessingCallback, executionContext);
+    } finally {
+      if (transactionIsolated) {
+        TransactionCoordination.getInstance().restoreIsolatedTransaction();
+      }
+    }
+  }
+}

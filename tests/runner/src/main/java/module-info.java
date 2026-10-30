@@ -4,32 +4,33 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 /**
  * Test Runner for Mule Integration Tests.
  *
  * @moduleGraph
  * @since 4.5
  */
-module org.mule.test.runner {
+module com.zernova.test.runner {
 
-  requires org.mule.runtime.api;
-  requires org.mule.sdk.api;
-  requires org.mule.sdk.compatibility.api;
-  requires org.mule.runtime.extensions.api;
-  requires org.mule.runtime.extension.model;
-  requires org.mule.runtime.core;
-  requires org.mule.runtime.jpms.utils;
-  requires org.mule.runtime.container;
-  requires org.mule.runtime.service;
-  requires org.mule.runtime.artifact;
-  requires org.mule.runtime.artifact.activation;
-  requires org.mule.runtime.deployment.model;
-  requires org.mule.runtime.extensions.support;
-  requires org.mule.runtime.manifest;
+  requires com.zernova.runtime.api;
+  requires com.zernova.sdk.api;
+  requires com.zernova.sdk.compatibility.api;
+  requires com.zernova.runtime.extensions.api;
+  requires com.zernova.runtime.extension.model;
+  requires com.zernova.runtime.core;
+  requires com.zernova.runtime.jpms.utils;
+  requires com.zernova.runtime.container;
+  requires com.zernova.runtime.service;
+  requires com.zernova.runtime.artifact;
+  requires com.zernova.runtime.artifact.activation;
+  requires com.zernova.runtime.deployment.model;
+  requires com.zernova.runtime.extensions.support;
+  requires com.zernova.runtime.manifest;
 
-  requires org.mule.runtime.maven.client.api;
-  requires org.mule.runtime.maven.pom.parser.api;
-  requires org.mule.runtime.maven.client.impl;
+  requires com.zernova.runtime.maven.client.api;
+  requires com.zernova.runtime.maven.pom.parser.api;
+  requires com.zernova.runtime.maven.client.impl;
 
   requires java.management;
   requires jdk.management;
@@ -48,6 +49,6 @@ module org.mule.test.runner {
 
   requires junit;
 
-  exports org.mule.test.runner;
+  exports com.zernova.test.runner;
 
 }

@@ -18,10 +18,10 @@
         <AsyncLogger name="org.springframework.beans.factory" level="WARN"/>
 
         <!-- Mule classes -->
-        <AsyncLogger name="org.mule" level="WARN"/>
+        <AsyncLogger name="com.zernova" level="WARN"/>
         <AsyncLogger name="com.mulesoft" level="WARN"/>
 
-        <AsyncLogger name="org.mule.runtime.config.internal.dsl.model.extension.xml" level="DEBUG"/>
+        <AsyncLogger name="com.zernova.runtime.config.internal.dsl.model.extension.xml" level="DEBUG"/>
 
         <AsyncRoot level="INFO">
             <AppenderRef ref="Console"/>

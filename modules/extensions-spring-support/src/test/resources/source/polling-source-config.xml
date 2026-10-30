@@ -7,7 +7,7 @@
                 http://www.mulesoft.org/schema/mule/test http://www.mulesoft.org/schema/mule/test/current/mule-test.xsd
                http://www.mulesoft.org/schema/mule/petstore http://www.mulesoft.org/schema/mule/petstore/current/mule-petstore.xsd">
 
-    <object name="adopt" class="org.mule.test.module.extension.source.PollingSourceTestCase$AdoptionProcessor"/>
+    <object name="adopt" class="com.zernova.test.module.extension.source.PollingSourceTestCase$AdoptionProcessor"/>
 
     <flow name="vanilla" initialState="stopped">
         <petstore:pet-adoption-source>
@@ -25,7 +25,7 @@
             </scheduling-strategy>
         </petstore:pet-adoption-source>
         <flow-ref name="adopt"/>
-        <set-payload value="#[java!org::mule::tck::junit4::AbstractMuleContextTestCase::sleepFor(payload, 7000)]"/>
+        <set-payload value="#[java!org::mule::tck::junit4::AbstractZernovaContextTestCase::sleepFor(payload, 7000)]"/>
     </flow>
 
     <flow name="idempotentLocksAreReleased" initialState="stopped">

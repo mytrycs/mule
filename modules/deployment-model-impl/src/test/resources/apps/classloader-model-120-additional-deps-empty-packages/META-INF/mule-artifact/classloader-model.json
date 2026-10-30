@@ -10,18 +10,18 @@
   "dependencies": [
     {
       "artifactCoordinates": {
-        "groupId": "org.mule.tests",
+        "groupId": "com.zernova.tests",
         "artifactId": "test-simple-plugin",
         "version": "1.0.0",
         "type": "jar",
         "classifier": "mule-plugin"
       },
-      "uri": "repository/org/mule/tests/test-simple-plugin/1.0.0/test-simple-plugin-1.0-mule-plugin.jar"
+      "uri": "repository/com/zernova/tests/test-simple-plugin/1.0.0/test-simple-plugin-1.0-mule-plugin.jar"
     }
   ],
   "additionalPluginDependencies": [
     {
-      "groupId": "org.mule.tests",
+      "groupId": "com.zernova.tests",
       "artifactId": "test-simple-plugin",
       "additionalDependencies": [
         {

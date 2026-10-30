@@ -1,3 +1,35 @@
+# ZERNOVA Kernel — 4.10 source fork
+
+Product source version: **0.3.0-dev.2**. Underlying source baseline:
+**4.10.0-SNAPSHOT**. This is derived from Mule Kernel, originally developed by
+MuleSoft/Salesforce. It is not the official released 4.10.0 source.
+
+Compilation, distribution assembly and application execution are separate gates.
+See the current build evidence. A branded banner is not proof of a working engine.
+
+## License and identity
+
+Inherited engine code and changes to covered files remain **CPAL-1.0**.
+Original notices remain in `LICENSE.txt` and source headers. ZERNOVA's original-
+components license applies only to explicitly listed independently written files,
+not to the covered engine. No vendor endorsement is implied.
+
+Java packages and Maven group IDs now use **`com.zernova`**. Mule-named Java
+classes use `Zernova` (for example, `ZernovaContext` and
+`ZernovaContainerBootstrap`). Reflection, JPMS modules, service providers,
+connector dependencies and application classloader metadata move together.
+
+XML namespaces, application descriptor formats, classifiers, artifact IDs,
+resource filenames and selected launch properties retain compatibility spelling.
+They are distinct from Java package/class identity. Original copyright and license
+attribution remains visible.
+
+See [NAMESPACE_MIGRATION.md](NAMESPACE_MIGRATION.md) for the reproducible build,
+validation evidence and sample application commands. The approved 0.2.0 Studio
+source is in `zernova-studio-kernel/`; its UI integration is a later test phase.
+
+## Preserved upstream README
+
 Stop the point-to-point madness
 ===============================
 Mule is a lightweight integration platform that allows you to connect anything anywhere. Rather than creating point-to-point integrations between systems, services, APIs and devices, you can use Mule to intelligently manage message-routing, data mapping, orchestration, reliability, security and scalability between nodes. Plug other systems and applications into Mule and let it handle all the communication between systems, enabling you to track and monitor everything that happens. 

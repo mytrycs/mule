@@ -4,8 +4,9 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 
-import org.mule.runtime.module.launcher.privileged.ContainerServiceProvider;
+import com.zernova.runtime.module.launcher.privileged.ContainerServiceProvider;
 
 /**
  * Mule Container Launcher module.
@@ -13,40 +14,40 @@ import org.mule.runtime.module.launcher.privileged.ContainerServiceProvider;
  * @moduleGraph
  * @since 4.5
  */
-module org.mule.runtime.launcher {
+module com.zernova.runtime.launcher {
 
-  requires org.mule.boot.api;
-  requires org.mule.runtime.api;
-  requires org.mule.runtime.artifact;
-  requires org.mule.runtime.artifact.activation;
-  requires org.mule.runtime.boot.log4j;
-  requires org.mule.runtime.container;
-  requires org.mule.runtime.core;
-  requires org.mule.runtime.deployment;
-  requires org.mule.runtime.deployment.model.impl;
-  requires org.mule.runtime.log4j;
-  requires org.mule.runtime.manifest;
-  requires org.mule.runtime.repository;
-  requires org.mule.runtime.service;
-  requires org.mule.runtime.tls;
+  requires com.zernova.boot.api;
+  requires com.zernova.runtime.api;
+  requires com.zernova.runtime.artifact;
+  requires com.zernova.runtime.artifact.activation;
+  requires com.zernova.runtime.boot.log4j;
+  requires com.zernova.runtime.container;
+  requires com.zernova.runtime.core;
+  requires com.zernova.runtime.deployment;
+  requires com.zernova.runtime.deployment.model.impl;
+  requires com.zernova.runtime.log4j;
+  requires com.zernova.runtime.manifest;
+  requires com.zernova.runtime.repository;
+  requires com.zernova.runtime.service;
+  requires com.zernova.runtime.tls;
 
   requires org.apache.commons.io;
   requires org.apache.commons.lang3;
 
   // Embedded uses this
-  exports org.mule.runtime.module.launcher;
+  exports com.zernova.runtime.module.launcher;
 
-  exports org.mule.runtime.module.launcher.privileged to
-      org.mule.runtime.tooling.support,
-      org.mule.runtime.troubleshooting;
+  exports com.zernova.runtime.module.launcher.privileged to
+      com.zernova.runtime.tooling.support,
+      com.zernova.runtime.troubleshooting;
 
-  exports org.mule.runtime.module.launcher.coreextension to
-      org.mule.runtime.core,
+  exports com.zernova.runtime.module.launcher.coreextension to
+      com.zernova.runtime.core,
       com.mulesoft.mule.runtime.plugin;
 
   uses ContainerServiceProvider;
 
-  provides org.mule.runtime.module.boot.api.MuleContainerProvider with
-      org.mule.runtime.module.launcher.LauncherMuleContainerProvider;
+  provides com.zernova.runtime.module.boot.api.ZernovaContainerProvider with
+      com.zernova.runtime.module.launcher.LauncherZernovaContainerProvider;
 
 }

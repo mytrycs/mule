@@ -58,10 +58,10 @@ private OptionAccessor parseOptions(arguments)
 
 def deployJars()
 {
-    deployToRemote(ceRepoUrl, ceRepoId, 'org.mule', 'mule', version, 'pom')
-    deployToRemote(ceRepoUrl, ceRepoId, 'org.mule.extensions', 'mule-extensions', version, 'pom')
-    deployToRemote(ceRepoUrl, ceRepoId, 'org.mule.modules', 'mule-validation-module', '1.0.0-SNAPSHOT', 'jar')
-    deployToRemote(ceRepoUrl, ceRepoId, 'org.mule', 'mule-core', version, 'jar')
+    deployToRemote(ceRepoUrl, ceRepoId, 'com.zernova', 'mule', version, 'pom')
+    deployToRemote(ceRepoUrl, ceRepoId, 'com.zernova.extensions', 'mule-extensions', version, 'pom')
+    deployToRemote(ceRepoUrl, ceRepoId, 'com.zernova.modules', 'mule-validation-module', '1.0.0-SNAPSHOT', 'jar')
+    deployToRemote(ceRepoUrl, ceRepoId, 'com.zernova', 'mule-core', version, 'jar')
     [
             'modules',
             'patterns',
@@ -69,7 +69,7 @@ def deployJars()
             'tools',
             'transports',
     ].each {
-        def pom = new Artifact(groupId: 'org.mule.' + it, artifactId: 'mule-' + it, version: version, packaging: 'pom')
+        def pom = new Artifact(groupId: 'com.zernova.' + it, artifactId: 'mule-' + it, version: version, packaging: 'pom')
         assert getDependency(pom, 'target/pom')
         deployToRemote(ceRepoUrl, ceRepoId, pom.groupId, pom.artifactId, version, 'pom')
         def project = new XmlSlurper().parse('target/pom')
@@ -146,15 +146,15 @@ private boolean deployFile(Artifact artifact, String pomFile, String artifactFil
 
 protected void deployCeDistributions()
 {
-    deployToRemote(ceRepoUrl, ceRepoId, "org.mule.distributions", "mule", version, "jar", "embedded")
-    deployToRemote(ceRepoUrl, ceRepoId, "org.mule.distributions", "mule", version, "jar", "tests")
-    deployToRemote(ceRepoUrl, ceRepoId, "org.mule.distributions", "mule-standalone", version, "tar.gz")
-    deployToRemote(ceRepoUrl, ceRepoId, "org.mule.distributions", "mule-standalone", version, "zip")
-    deployToRemote(ceRepoUrl, ceRepoId, "org.mule.distributions", "mule-standalone", version, "jar", "tests")
-    deployToRemote(ceRepoUrl, ceRepoId, "org.mule.distributions", "mule-standalone-light", version, "tar.gz")
-    deployToRemote(ceRepoUrl, ceRepoId, "org.mule.distributions", "mule-standalone-light", version, "zip")
-    deployToRemote(ceRepoUrl, ceRepoId, "org.mule.distributions", "mule-standalone-light", version, "jar", "tests")
-    deployToRemote(ceRepoUrl, ceRepoId, "org.mule.distributions", "mule-distributions", version, "jar", "tests")
+    deployToRemote(ceRepoUrl, ceRepoId, "com.zernova.distributions", "mule", version, "jar", "embedded")
+    deployToRemote(ceRepoUrl, ceRepoId, "com.zernova.distributions", "mule", version, "jar", "tests")
+    deployToRemote(ceRepoUrl, ceRepoId, "com.zernova.distributions", "mule-standalone", version, "tar.gz")
+    deployToRemote(ceRepoUrl, ceRepoId, "com.zernova.distributions", "mule-standalone", version, "zip")
+    deployToRemote(ceRepoUrl, ceRepoId, "com.zernova.distributions", "mule-standalone", version, "jar", "tests")
+    deployToRemote(ceRepoUrl, ceRepoId, "com.zernova.distributions", "mule-standalone-light", version, "tar.gz")
+    deployToRemote(ceRepoUrl, ceRepoId, "com.zernova.distributions", "mule-standalone-light", version, "zip")
+    deployToRemote(ceRepoUrl, ceRepoId, "com.zernova.distributions", "mule-standalone-light", version, "jar", "tests")
+    deployToRemote(ceRepoUrl, ceRepoId, "com.zernova.distributions", "mule-distributions", version, "jar", "tests")
 }
 
 def mvn(List mvnArgs, boolean logErrors=false)

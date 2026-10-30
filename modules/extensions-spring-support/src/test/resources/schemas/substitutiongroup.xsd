@@ -4,24 +4,24 @@
   <xs:import namespace="http://www.w3.org/XML/1998/namespace"></xs:import>
   <xs:import namespace="http://www.mulesoft.org/schema/mule/core" schemaLocation="http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></xs:import>
   <xs:import namespace="http://www.mulesoft.org/schema/mule/heisenberg" schemaLocation="http://www.mulesoft.org/schema/mule/heisenberg/current/mule-heisenberg.xsd"></xs:import>
-  <xs:complexType name="org.mule.test.substitutiongroup.extension.MuleSGPojo">
+  <xs:complexType name="com.zernova.test.substitutiongroup.extension.ZernovaSGPojo">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:attribute type="mule:expressionBoolean" use="optional" default="false" name="innerParameter"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:sg="http://www.mulesoft.org/schema/mule/sg" type="sg:org.mule.test.substitutiongroup.extension.MuleSGPojo" substitutionGroup="mule:abstract-shared-extension" abstract="true" name="abstract-mule-sg-pojo"></xs:element>
+  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:sg="http://www.mulesoft.org/schema/mule/sg" type="sg:com.zernova.test.substitutiongroup.extension.ZernovaSGPojo" substitutionGroup="mule:abstract-shared-extension" abstract="true" name="abstract-mule-sg-pojo"></xs:element>
   <xs:element xmlns:sg="http://www.mulesoft.org/schema/mule/sg" substitutionGroup="sg:abstract-mule-sg-pojo" name="mule-sg-pojo">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="sg:org.mule.test.substitutiongroup.extension.MuleSGPojo"></xs:extension>
+        <xs:extension base="sg:com.zernova.test.substitutiongroup.extension.ZernovaSGPojo"></xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.substitutiongroup.extension.SomeExportedPojo">
+  <xs:complexType name="com.zernova.test.substitutiongroup.extension.SomeExportedPojo">
     <xs:complexContent>
-      <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.Weapon">
+      <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.Weapon">
         <xs:attribute xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="mule:expressionBoolean" use="optional" default="false" name="attribute"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
@@ -30,24 +30,24 @@
   <xs:element xmlns:sg="http://www.mulesoft.org/schema/mule/sg" substitutionGroup="sg:abstract-some-exported-pojo" name="some-exported-pojo">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="sg:org.mule.test.substitutiongroup.extension.SomeExportedPojo">
+        <xs:extension base="sg:com.zernova.test.substitutiongroup.extension.SomeExportedPojo">
           <xs:attribute type="xs:string" use="optional" name="name"></xs:attribute>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.substitutiongroup.extension.SomePojo">
+  <xs:complexType name="com.zernova.test.substitutiongroup.extension.SomePojo">
     <xs:complexContent>
-      <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.Weapon">
+      <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.Weapon">
         <xs:attribute xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="mule:expressionBoolean" use="optional" default="false" name="attribute"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:sg="http://www.mulesoft.org/schema/mule/sg" xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="sg:org.mule.test.substitutiongroup.extension.SomePojo" substitutionGroup="heisenberg:global-abstract-weapon" abstract="true" name="abstract-some-pojo"></xs:element>
+  <xs:element xmlns:sg="http://www.mulesoft.org/schema/mule/sg" xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="sg:com.zernova.test.substitutiongroup.extension.SomePojo" substitutionGroup="heisenberg:global-abstract-weapon" abstract="true" name="abstract-some-pojo"></xs:element>
   <xs:element xmlns:sg="http://www.mulesoft.org/schema/mule/sg" substitutionGroup="sg:abstract-some-pojo" name="some-pojo">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="sg:org.mule.test.substitutiongroup.extension.SomePojo"></xs:extension>
+        <xs:extension base="sg:com.zernova.test.substitutiongroup.extension.SomePojo"></xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>

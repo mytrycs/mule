@@ -44,11 +44,11 @@ export function javaArguments(bundle: string, runtime: string, control: string, 
     '-Dmule.metadata.cache.entryTtl.minutes=10', '-Dmule.metadata.cache.expirationInterval.millis=5000',
     '-Djava.locale.providers=COMPAT,CLDR,SPI', '-Dlog4j2.disable.jmx=true',
     '-Dlog4j2.Script.enableLanguages=nashorn,js,javascript,ecmascript,groovy',
-    '-Dmule.bootstrap.container.wrapper.class=org.mule.runtime.module.boot.internal.MuleContainerBasicWrapper',
+    '-Dmule.bootstrap.container.wrapper.class=com.zernova.runtime.module.boot.internal.ZernovaContainerBasicWrapper',
     `--module-path=${path.join(runtime, 'lib/boot')}`,
-    '--add-modules=java.se,org.mule.runtime.boot.log4j,org.mule.runtime.logging,org.mule.runtime.jpms.utils,com.fasterxml.jackson.core'];
-  for (const target of ['java.base/java.lang', 'java.base/java.lang.reflect', 'java.base/java.lang.invoke', 'java.sql/java.sql']) args.push(`--add-opens=${target}=org.mule.runtime.jpms.utils`);
-  args.push('--module=org.mule.boot/org.mule.runtime.module.reboot.MuleContainerBootstrap');
+    '--add-modules=java.se,com.zernova.runtime.boot.log4j,com.zernova.runtime.logging,com.zernova.runtime.jpms.utils,com.fasterxml.jackson.core'];
+  for (const target of ['java.base/java.lang', 'java.base/java.lang.reflect', 'java.base/java.lang.invoke', 'java.sql/java.sql']) args.push(`--add-opens=${target}=com.zernova.runtime.jpms.utils`);
+  args.push('--module=com.zernova.boot/com.zernova.runtime.module.reboot.ZernovaContainerBootstrap');
   return args;
 }
 async function pidExists(pid: number): Promise<boolean> {
@@ -206,7 +206,7 @@ export class BundledRuntime {
       const stat = await fs.lstat(target);
       if (stat.isSymbolicLink() || !stat.isFile() || await fileSha(target) !== record.sha256) throw new Error('Live instance has an altered engine file: ' + name + '. Studio will not replace or execute it silently.');
     }
-    for (const sub of ['apps', 'logs']) { await fs.mkdir(path.join(this.runtime, sub), { recursive: true }); await ordinaryDirectory(path.join(this.runtime, sub)); }
+    for (const sub of ['apps', 'logs', 'domains', 'domains/default', 'lib', 'lib/user']) { await fs.mkdir(path.join(this.runtime, sub), { recursive: true }); await ordinaryDirectory(path.join(this.runtime, sub)); }
   }
   async start(port: number, signal?: AbortSignal): Promise<PortableStatus> {
     return this.mutate(async () => {

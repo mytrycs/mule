@@ -1,0 +1,392 @@
+[
+  {
+    "path": ".gitignore",
+    "bytes": 116,
+    "sha256": "baf710b8fb78260483822ee84078b26df3a29250f73a982471f6710e50a640f5"
+  },
+  {
+    "path": ".vscode/launch.json",
+    "bytes": 625,
+    "sha256": "2e37ea0697d819e037cf6dd22e629f4b8d3e761ef478e4f604b0359c481a757b"
+  },
+  {
+    "path": ".vscode/tasks.json",
+    "bytes": 145,
+    "sha256": "80e5d028bdf9c6d9f2f83b029b749893af8b4bc3401f6c5300f2dbc336c057be"
+  },
+  {
+    "path": ".vscodeignore",
+    "bytes": 238,
+    "sha256": "aad4fdfec17620b8154050c8c2b25b8d57d94a5bface800b4ad748861bfbdebb"
+  },
+  {
+    "path": "CHANGELOG.md",
+    "bytes": 1902,
+    "sha256": "8a879e38b37d55ad0374cb13c1931bff2084ffe5962b1680e7a30ec0a37264c8"
+  },
+  {
+    "path": "COMPATIBILITY.md",
+    "bytes": 3447,
+    "sha256": "bf94f4eeecc809c074e43b8ff1147d7d96acc51d7867921e5a5838000c558588"
+  },
+  {
+    "path": "KNOWN_LIMITATIONS.md",
+    "bytes": 3434,
+    "sha256": "0d88fe5ec3285ff4bc54bdc4ac8b0707c54f6bbdf56d5d97865fd13dcf64e189"
+  },
+  {
+    "path": "LICENSE.txt",
+    "bytes": 575,
+    "sha256": "912018fe7141f284af6c4fdf07df401cae17153e1f82ee49ddffe7558c96a035"
+  },
+  {
+    "path": "README.md",
+    "bytes": 4656,
+    "sha256": "cffd50c25143cdd6f701cfa32e28c59b776c0f88ae8b25ccc7c8c577634cfeb9"
+  },
+  {
+    "path": "TESTING_STEP_BY_STEP.md",
+    "bytes": 25149,
+    "sha256": "14613e8639c32091d9bb42c153c034717d33f2fdb738ecc36cbf53a372ed6a33"
+  },
+  {
+    "path": "THIRD_PARTY_NOTICES.md",
+    "bytes": 5252,
+    "sha256": "cb9dcf56476c315dbaf954a7091af9051e71421854258a2eceaa122d148c6b1b"
+  },
+  {
+    "path": "assets/NOTICE.md",
+    "bytes": 976,
+    "sha256": "e29414130d63975e4214c28fba0f83be293ff33b9df4004538073498ef1a31c1"
+  },
+  {
+    "path": "assets/zernova-favicon.svg",
+    "bytes": 184,
+    "sha256": "779ffed200fd692d3bfff76cc25c5e5e25e4922acf5238245ec37e5701113ec3"
+  },
+  {
+    "path": "assets/zernova-icon.png",
+    "bytes": 2148,
+    "sha256": "fc1d832cf5cbf18df1f8baa1b459fee162fbb25a06250270c2428342d8f491a7"
+  },
+  {
+    "path": "assets/zernova-logo.svg",
+    "bytes": 176,
+    "sha256": "3b1344be0d5d288e91d04398222af1122b3fcfc62381f5672a6a7bdb71f4f765"
+  },
+  {
+    "path": "assets/zernova-mark.svg",
+    "bytes": 176,
+    "sha256": "3b1344be0d5d288e91d04398222af1122b3fcfc62381f5672a6a7bdb71f4f765"
+  },
+  {
+    "path": "docs/BRAND_TOKEN_AUDIT.md",
+    "bytes": 6669,
+    "sha256": "d239ffddff03fc710996fce2be06b4545f34cbcb01cad85168f99077a0b5d968"
+  },
+  {
+    "path": "docs/CAPABILITIES.md",
+    "bytes": 2623,
+    "sha256": "a40acec9588003fe15636f19de83da62c7accafcc9ca070e79100c9a97ffad50"
+  },
+  {
+    "path": "docs/DEPENDENCY_LICENSES.md",
+    "bytes": 5188,
+    "sha256": "18f486d622cd4f0ea0e0d27cff50d0fedf7e95bb840a42f98687c1d017bf2ea0"
+  },
+  {
+    "path": "docs/FUTURE_RUNTIME_BOUNDARY.md",
+    "bytes": 8012,
+    "sha256": "3d1bb18d3281e54d9d43f93d7e48a4c257b455eaa15a7ebdd352588f2e0d83e1"
+  },
+  {
+    "path": "docs/HOST_IMPLEMENTATION.md",
+    "bytes": 6829,
+    "sha256": "807a6ed88cefd77046e9b7fd7e92a3949558a538d0ef0b8b71b5284d442104b8"
+  },
+  {
+    "path": "docs/NEW_STUDIO_SCOPE.md",
+    "bytes": 5466,
+    "sha256": "37b44ce66d1101ec160e11a0d1d5911b5185608a5f51ee7ac43206ccecc41cbb"
+  },
+  {
+    "path": "docs/QUICKSTART.md",
+    "bytes": 2691,
+    "sha256": "cee7454b8c050008c86ce07702c6894fa1b29400105a714c434935840f626acc"
+  },
+  {
+    "path": "docs/REAL_DOCUMENT_CONTRACT.md",
+    "bytes": 6892,
+    "sha256": "b8411a71ed1896634794a6bf4b760db880f62bf2e33c9a08619249b986a1c01c"
+  },
+  {
+    "path": "docs/RUNTIME_ADAPTER_CONTRACT.md",
+    "bytes": 15082,
+    "sha256": "c202ca443fb80ac568b8cde318f78f748273582932196ade596bff1c52b9c3a0"
+  },
+  {
+    "path": "docs/RUNTIME_AGENT_HANDOFF.md",
+    "bytes": 3644,
+    "sha256": "b2708605fc0cff9a6ad50de97406640a0f62917a6e53b4cc7eca0823ac481940"
+  },
+  {
+    "path": "docs/UI_REFERENCE_MAP.md",
+    "bytes": 10467,
+    "sha256": "9cdc544911b1387cb86c9e2948db2fe4ee3c0dddc4facb57f197c1437587f91c"
+  },
+  {
+    "path": "docs/UI_SKELETON_QUICKSTART.md",
+    "bytes": 10307,
+    "sha256": "37b70a547590c39a393cce36d3062588cc1b633d20304109f92841eaacf96107"
+  },
+  {
+    "path": "docs/UI_SKELETON_SCOPE_AND_GAPS.md",
+    "bytes": 15714,
+    "sha256": "96885a40edf05e55ce85adb83c5ee754852b793bfd28568b2dca42fa06273adb"
+  },
+  {
+    "path": "media/studio.css",
+    "bytes": 35482,
+    "sha256": "fe16bda150cc47dd07cac87798ea0662508586b404bb082e082e414bde11b8fc"
+  },
+  {
+    "path": "media/studio.js",
+    "bytes": 145851,
+    "sha256": "b229b013995c2d3c24b38a8871a047bc722a1e1cb92e847b67122117ec607925"
+  },
+  {
+    "path": "package-lock.json",
+    "bytes": 96629,
+    "sha256": "41bd3f1e9d566289257ff1e70aa7587b7af5445e6a4937157d880d5f9eb98715"
+  },
+  {
+    "path": "package.json",
+    "bytes": 7599,
+    "sha256": "0b7f95b645b23d7964624ad55edb4f9f1a71587fb4e14620f5395dccd1728929"
+  },
+  {
+    "path": "scripts/build.mjs",
+    "bytes": 643,
+    "sha256": "18bfc2f1b2ef5c8b017b5802e5d0c524476e6e233793620c094102b745fa4052"
+  },
+  {
+    "path": "scripts/package-deliverables.py",
+    "bytes": 18425,
+    "sha256": "fca2da52f19857cdf1c3fcbb4f1ed5460507904c07b812f27bb88886673f5a95"
+  },
+  {
+    "path": "scripts/package-phase2b.py",
+    "bytes": 8806,
+    "sha256": "b2912e7375e8f7ac809776592e2396ab0b1b628e2e550e0b5e75d1830ced92ec"
+  },
+  {
+    "path": "scripts/phase2b-desktop.mjs",
+    "bytes": 6969,
+    "sha256": "f1b7afe1929b1d12d7fed0107ebb951ee5daf7da2c45367e6b9a3de25aba0787"
+  },
+  {
+    "path": "scripts/phase2b-runtime-desktop.mjs",
+    "bytes": 7030,
+    "sha256": "cb7d6d8709f4aa645032c88a08b6508a5af1434c6f1d946eea5da8c850143e70"
+  },
+  {
+    "path": "scripts/render-owner-guide.mjs",
+    "bytes": 13544,
+    "sha256": "babbaf7abec910ccb97484281256d89a80cf1e47edebce1e978c85ad94cce1eb"
+  },
+  {
+    "path": "scripts/resize-host.py",
+    "bytes": 3092,
+    "sha256": "09afc317796fc535353e05bd7da4c55538e65dc5c1a211daf3f1e5e1fa205887"
+  },
+  {
+    "path": "scripts/review-contrast.mjs",
+    "bytes": 3273,
+    "sha256": "62d26b0c68b9e54db7dc173256a58e60b307ff893af7aab44bf15fcf3c6e889a"
+  },
+  {
+    "path": "scripts/review-owner-guide.mjs",
+    "bytes": 6234,
+    "sha256": "4f7a85e1b5244b727b93fdf9a6f90f8799fa313778d862d765de414cb93533bd"
+  },
+  {
+    "path": "scripts/test-document-host.mjs",
+    "bytes": 25925,
+    "sha256": "935bf34d3443c91fcd1c99a3cd7275d3d7edaaa4ca8e7e1a24d33d0816ef7569"
+  },
+  {
+    "path": "scripts/test-host.mjs",
+    "bytes": 6544,
+    "sha256": "c95b4ea33dc766793cad6e5eb25bbdb9101bf3b6655d98b187c2fcae742ec2b9"
+  },
+  {
+    "path": "scripts/test-phase2b-runtime.mjs",
+    "bytes": 18491,
+    "sha256": "f4cc88c5cc30308d46894da758c2a736c0602edc6fe101a440e7cfe5b6afd6d2"
+  },
+  {
+    "path": "scripts/test-phase2b-ui.mjs",
+    "bytes": 29799,
+    "sha256": "b97989b90417bd2b028de0f7d18686ffeffd78dd4cff92d2631d510ae3028493"
+  },
+  {
+    "path": "scripts/test-ui.mjs",
+    "bytes": 28379,
+    "sha256": "1b48f8fc8a36d8983a97f2036cc982ced1d2e44b6c126dfeaea4202bd12e367c"
+  },
+  {
+    "path": "scripts/test.mjs",
+    "bytes": 713,
+    "sha256": "353a75454ab4907e8da7b3a9d29ee25f35dd1d09e56e7590ca3da240ad55ecf4"
+  },
+  {
+    "path": "scripts/ui-utils.mjs",
+    "bytes": 3051,
+    "sha256": "142a0fbfb6299b7f75f9896d2a4dda37a50464481a6284438d80d9c8d62479c5"
+  },
+  {
+    "path": "scripts/verify-clean-build.mjs",
+    "bytes": 4546,
+    "sha256": "c3f6bb325555fa817c4d6908d18b21e08e8d9f2a50325e2444bf3a70ddb80aca"
+  },
+  {
+    "path": "src/extension.ts",
+    "bytes": 11511,
+    "sha256": "ba8ceaf84c46e69c04881406b0a88c39550b125bc821e1097c46e460393ba8bd"
+  },
+  {
+    "path": "src/host/documents.ts",
+    "bytes": 13496,
+    "sha256": "348df9ecb9b65d063987049f4fb05327a93065578f85df420d2126797248e929"
+  },
+  {
+    "path": "src/host/navigation.ts",
+    "bytes": 10180,
+    "sha256": "25a7d7c289f4e393486e3d307386caa2bdc1c920ebbd315906344e6220e54345"
+  },
+  {
+    "path": "src/host/process.ts",
+    "bytes": 2692,
+    "sha256": "3a1bee036bab194ab1567e70d22f86b13be207a2fb592e99537e9f71d9d8c255"
+  },
+  {
+    "path": "src/host/projects.ts",
+    "bytes": 21804,
+    "sha256": "794a3337481858311844c1cbabe26a01a2c4cf1a70213548276486877d24cd5b"
+  },
+  {
+    "path": "src/host/runtime.ts",
+    "bytes": 30660,
+    "sha256": "95adb3d34a5b12fdb66cd990d228ae9a92ead215cab49b583abdba0a94499c78"
+  },
+  {
+    "path": "src/host/webview.ts",
+    "bytes": 2179,
+    "sha256": "7b5542cfff26ed80bfe5b6b6006abfb22f7127361d7bd8c0f2b4c64181bc8bea"
+  },
+  {
+    "path": "src/shared/model.ts",
+    "bytes": 24454,
+    "sha256": "fef09383ddb56c760a901e89eda8345c3f3bceb116d2bc9c4ccf40fc5ab3fbb7"
+  },
+  {
+    "path": "src/shared/protocol.ts",
+    "bytes": 1424,
+    "sha256": "b13287956600ffe8424fe65e7d63183540d7ddbbd8c41d59dcfebd3d2f3feae0"
+  },
+  {
+    "path": "src/shared/realProtocol.ts",
+    "bytes": 5744,
+    "sha256": "ffcc0340e597c5535167ebca47544a1b3abaee7a5415135fdda906497f491e0b"
+  },
+  {
+    "path": "src/shared/runtimeContract.ts",
+    "bytes": 2546,
+    "sha256": "35b27e7aadbcb67adac4b4960d457125dbb738b3e10209e415caaac1f1537a1e"
+  },
+  {
+    "path": "src/shared/sax.d.ts",
+    "bytes": 580,
+    "sha256": "7417e38603246f05492af0d7dd100a392712de02329e704dd464b75446bf3323"
+  },
+  {
+    "path": "src/shared/xml.ts",
+    "bytes": 37789,
+    "sha256": "8a6df3255beb3d8ffdf79ebd6751026c8f5136e1b9a6ed9bf4481dfbe9cc7ce9"
+  },
+  {
+    "path": "src/webview/icons.ts",
+    "bytes": 2386,
+    "sha256": "37655fc5511f05e0659b8e787b5eedbb20e5880d98096eb3372f825d76449dc1"
+  },
+  {
+    "path": "src/webview/main.ts",
+    "bytes": 58623,
+    "sha256": "1a355c9395517fe8835372935be80f39b46f29a7bc78aa9396653e6c779ce965"
+  },
+  {
+    "path": "src/webview/real.ts",
+    "bytes": 57259,
+    "sha256": "d31330fa230a7f3a1c47e3d6dd7f7e620274575577a17bc193a249fdb95832b8"
+  },
+  {
+    "path": "src/webview/styles.css",
+    "bytes": 33170,
+    "sha256": "6cf2524b7efe90d3be30730289f0fdc67c452a05c4170a2c3cf1b5d9708b97f8"
+  },
+  {
+    "path": "tests/check-sibling-isolation.py",
+    "bytes": 3935,
+    "sha256": "9a52dd0408344f2a4d6c2b7d3907aec901246b171544bc37661337a84280c20f"
+  },
+  {
+    "path": "tests/extension-host.cjs",
+    "bytes": 10631,
+    "sha256": "abf2199d72d0ffe428b2497f4d1c83bc1f028a8496779f0c6eadf428411b1d4d"
+  },
+  {
+    "path": "tests/model.test.ts",
+    "bytes": 15544,
+    "sha256": "0f2cb6bddb428b51f4a0e39a2e04b5ed3592f7a851bafdc4a400cc7c1a51170a"
+  },
+  {
+    "path": "tests/model.test.xml.py",
+    "bytes": 1441,
+    "sha256": "5c8d3d66d7e51995fc8fe6067f7b838151267c03aa391b639d49e2226b4db343"
+  },
+  {
+    "path": "tests/phase2b-document-host.cjs",
+    "bytes": 4196,
+    "sha256": "d9e14f60109cbe233c49a1989294ce4638126f46ab4692993c81693919091ee8"
+  },
+  {
+    "path": "tests/runtime-host.test.ts",
+    "bytes": 4183,
+    "sha256": "5b2880868f8b66df4ba9748205eb3dfa8d4bf27b2467dc9bb569197ae6877cde"
+  },
+  {
+    "path": "tests/static-boundaries.mjs",
+    "bytes": 21019,
+    "sha256": "23b23f1c08a7b0af3ab7a2104bf4921f0b9d0f999e3d27a0f8f4b6021bd3abac"
+  },
+  {
+    "path": "tests/xml.test.ts",
+    "bytes": 18721,
+    "sha256": "3210792c79fa040e48559b6a432ebce16959b6cacf5f9b4eb51ea163d6bb11e2"
+  },
+  {
+    "path": "themes/zernova-dark.json",
+    "bytes": 4116,
+    "sha256": "ce4aa6da9ba7a3b76de2caa07fd91483f6439ef84bf62d1d7248c283d37efb82"
+  },
+  {
+    "path": "themes/zernova-light.json",
+    "bytes": 4118,
+    "sha256": "833d4f68a1972244406a16d9664597fa1137ff774a50f244e2e005582706f15c"
+  },
+  {
+    "path": "tsconfig.json",
+    "bytes": 365,
+    "sha256": "5f30599aacdfec0333f72666779045327d4a630238a0ecd4d26e0486284e0fd4"
+  }
+]

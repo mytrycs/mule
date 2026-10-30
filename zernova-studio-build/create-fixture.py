@@ -17,7 +17,7 @@ continue to apply independently and must not be removed or restricted by this fi
 project=root/'tests/fixtures/native-hello'
 (project/'src/main/zernova').mkdir(parents=True,exist_ok=True)
 (project/'src/main/resources').mkdir(parents=True,exist_ok=True)
-(project/'zernova-app.json').write_text(json.dumps({'schemaVersion':1,'name':'hello-zernova','group':'io.zernova.example','version':'1.0.0','dependencies':['http']},indent=2)+'\n',encoding='utf-8')
+(project/'zernova-app.json').write_text(json.dumps({'schemaVersion':1,'name':'hello-zernova','group':'com.zernova.example','version':'1.0.0','dependencies':['http']},indent=2)+'\n',encoding='utf-8')
 (project/'src/main/zernova/hello.xml').write_text('''<?xml version="1.0" encoding="UTF-8"?>
 <!-- ZERNOVA application. Namespaces below are engine compatibility identifiers. -->
 <mule xmlns="http://www.mulesoft.org/schema/mule/core"

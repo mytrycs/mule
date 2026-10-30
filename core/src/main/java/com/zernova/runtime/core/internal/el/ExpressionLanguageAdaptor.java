@@ -1,0 +1,209 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.core.internal.el;
+
+import static java.util.Collections.emptyList;
+
+import com.zernova.metadata.api.model.MetadataType;
+import com.zernova.metadata.message.api.el.TypeBindings;
+import com.zernova.runtime.api.component.location.ComponentLocation;
+import com.zernova.runtime.api.el.BindingContext;
+import com.zernova.runtime.api.el.CompiledExpression;
+import com.zernova.runtime.api.el.ExpressionExecutionException;
+import com.zernova.runtime.api.el.ExpressionLanguage;
+import com.zernova.runtime.api.el.ExpressionLanguageSession;
+import com.zernova.runtime.api.el.ValidationResult;
+import com.zernova.runtime.api.el.validation.ConstraintViolation;
+import com.zernova.runtime.api.el.validation.ScopePhaseValidationItem;
+import com.zernova.runtime.api.el.validation.ScopePhaseValidationMessages;
+import com.zernova.runtime.api.el.validation.ValidationPhase;
+import com.zernova.runtime.api.metadata.DataType;
+import com.zernova.runtime.api.metadata.TypedValue;
+import com.zernova.runtime.core.api.construct.FlowConstruct;
+import com.zernova.runtime.core.api.event.CoreEvent;
+import com.zernova.runtime.core.api.expression.ExpressionRuntimeException;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * Binds Mule Core concepts {@link CoreEvent} or {@link FlowConstruct} and executes the underlying {@link ExpressionLanguage}.
+ *
+ * @since 4.0
+ */
+public interface ExpressionLanguageAdaptor {
+
+  /**
+   * Registers the given {@link BindingContext} entries as globals. Notice globals cannot be removed once registered, only
+   * overwritten by the registration of a binding with the same identifier. Implementations should be thread safe to avoid race
+   * conditions between registration and expression evaluation.
+   *
+   * @param bindingContext the context to register
+   */
+  void addGlobalBindings(BindingContext bindingContext);
+
+  /**
+   * Evaluates an expression according to a given {@link BindingContext}, an {@link CoreEvent} and a {@link FlowConstruct}.
+   *
+   * @param expression        the expression to be executed
+   * @param event             the current event being processed
+   * @param componentLocation the location of the component where the event is being processed
+   * @param bindingContext    the bindings to consider
+   * @return the result of execution of the expression.
+   * @throws ExpressionRuntimeException if a problem occurs evaluating the expression
+   */
+  TypedValue evaluate(String expression, CoreEvent event, ComponentLocation componentLocation, BindingContext bindingContext)
+      throws ExpressionRuntimeException;
+
+  /**
+   * Evaluates an expression according to a given {@link BindingContext}.
+   *
+   * @param expression the expression to be executed
+   * @param event      the current event being processed
+   * @return the result of execution of the expression.
+   * @throws ExpressionRuntimeException if a problem occurs evaluating the expression
+   */
+  TypedValue evaluate(String expression, CoreEvent event, BindingContext context) throws ExpressionRuntimeException;
+
+  /**
+   * Evaluates an expression according to a given {@link BindingContext} and outputs .
+   *
+   * @param expression         the expression to be executed
+   * @param event              the current event being processed
+   * @param expectedOutputType the expected output type so that automatic conversion can be performed for the resulting value
+   *                           type.
+   * @return the result of execution of the expression.
+   * @throws ExpressionRuntimeException if a problem occurs evaluating the expression
+   */
+  TypedValue evaluate(String expression, DataType expectedOutputType, CoreEvent event, BindingContext context)
+      throws ExpressionRuntimeException;
+
+  /**
+   * Evaluates an expression according to a given {@link BindingContext}, an {@link CoreEvent} and a {@link FlowConstruct}.
+   *
+   * @param expression         the expression to be executed
+   * @param expectedOutputType the expected output type so that automatic conversion can be performed for the resulting value
+   *                           type.
+   * @param event              the current event being processed
+   * @param componentLocation  the location of the component where the event is being processed
+   * @param context            the bindings to consider
+   * @param failOnNull         indicates if should fail if the evaluation result is {@code null}
+   * @return the result of execution of the expression.
+   * @throws ExpressionRuntimeException if a problem occurs evaluating the expression
+   */
+  TypedValue evaluate(String expression, DataType expectedOutputType, CoreEvent event, ComponentLocation componentLocation,
+                      BindingContext context,
+                      boolean failOnNull)
+      throws ExpressionRuntimeException;
+
+  /**
+   * Evaluates an expression according to a given {@link BindingContext} and the global one, doing a best effort to avoid failing
+   * when the result value can not be represented in the corresponding format.
+   *
+   * @param expression        the EL expression
+   * @param event             the current event being processed
+   * @param componentLocation the location of the component where the event is being processed
+   * @param bindingContext    the current dynamic binding context to consider
+   * @return the result of the expression plus its type
+   * @throws ExpressionExecutionException when an error occurs during evaluation
+   */
+  TypedValue<?> evaluateLogExpression(String expression, CoreEvent event, ComponentLocation componentLocation,
+                                      BindingContext bindingContext)
+      throws ExpressionRuntimeException;
+
+  /**
+   * Verifies whether an expression is valid or not syntactically.
+   *
+   * @param expression to be validated
+   * @return a {@link ValidationResult} indicating whether the validation was successful or not
+   */
+  ValidationResult validate(String expression);
+
+  /**
+   * Validates whether the script is valid according to the validations defined for the specified phase.
+   *
+   * @param script               to be validated.
+   * @param nameIdentifier       an identifier for the script.
+   * @param validationScopePhase {@link ValidationPhase} to be applied.
+   * @param typeBindings         input {@link TypeBindings} required for phases >= {@link ValidationPhase#SCOPE}.
+   * @param outputType           input {@link TypeBindings} required for phases >= {@link ValidationPhase#SCOPE}.
+   * @return if script is valid an empty or a list with the {@link ConstraintViolation}s.
+   *
+   * @since 4.9
+   */
+  List<ConstraintViolation> validate(String script, String nameIdentifier, ValidationPhase validationScopePhase,
+                                     TypeBindings typeBindings, Optional<MetadataType> outputType);
+
+  /**
+   * Splits using the specified expression and group it with the batch size. If batch size is less or equals to zero then no
+   * batching is done. The expression should return a collection of elements.
+   *
+   * @param expression        the expression to be executed
+   * @param event             the current event being processed
+   * @param componentLocation the location of the component where the event is being processed
+   * @param bindingContext    the bindings to consider
+   * @return the result of execution of the expression.
+   * @throws ExpressionRuntimeException if a problem occurs evaluating the expression
+   */
+  Iterator<TypedValue<?>> split(String expression, CoreEvent event, ComponentLocation componentLocation,
+                                BindingContext bindingContext)
+      throws ExpressionRuntimeException;
+
+  /**
+   * Splits using the specified expression and group it with the batch size. If batch size is less or equals to zero then no
+   * batching is done. The expression should return a collection of elements.
+   *
+   * @param expression     the expression to be executed
+   * @param event          the current event being processed
+   * @param bindingContext the bindings to consider
+   * @return the result of execution of the expression.
+   * @throws ExpressionRuntimeException if a problem occurs evaluating the expression
+   */
+  Iterator<TypedValue<?>> split(String expression, CoreEvent event, BindingContext bindingContext)
+      throws ExpressionRuntimeException;
+
+  ExpressionLanguageSessionAdaptor openSession(ComponentLocation componentLocation, CoreEvent event, BindingContext context);
+
+  /**
+   * Compiles the given {@code expression}.
+   * <p>
+   * keep in mind that the {@code bindingContext} is used for compilation only. When evaluated, the compiled expression <b>WILL
+   * NOT</b> be evaluated against those bindings but the ones associated with current {@link ExpressionLanguageSession}
+   *
+   * @param expression     the expression to compile
+   * @param bindingContext a {@link BindingContext} with example bindings of the values the real expression will need
+   * @return a {@link CompiledExpression}
+   * @since 4.3.0
+   */
+  CompiledExpression compile(String expression, BindingContext bindingContext);
+
+  /**
+   * @param script         the script to be validated.
+   * @param nameIdentifier the name of the script file. If the script is inline, it can be an empty string.
+   * @param bindings       the {@link TypeBindings} to be considered for the validation.
+   * @return A {@link ScopePhaseValidationMessages} with the result of the validations performed to the script, considering
+   *         potential Warnings and Errors in the script.
+   * @since 4.5
+   */
+  default ScopePhaseValidationMessages collectScopePhaseValidationMessages(String script, String nameIdentifier,
+                                                                           TypeBindings bindings) {
+    return new ScopePhaseValidationMessages() {
+
+      @Override
+      public List<ScopePhaseValidationItem> getErrors() {
+        return emptyList();
+      }
+
+      @Override
+      public List<ScopePhaseValidationItem> getWarnings() {
+        return emptyList();
+      }
+    };
+  }
+}

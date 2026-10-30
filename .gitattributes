@@ -1,0 +1,5 @@
+# Manifest continuation records use CRLF and a final empty section by design.
+*.MF whitespace=-blank-at-eof,cr-at-eol
+# Imported sources keep their upstream formatting and exact license text.
+upstream/** -whitespace
+zernova-studio-kernel/** -whitespace

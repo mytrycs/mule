@@ -249,7 +249,7 @@
                     <heisenberg:recursive-pojo/>
                 </heisenberg:childs>
                 <heisenberg:mapped-childs>
-                    <heisenberg:mapped-child key="someKey" value="#[{} as Object {class: 'new org.mule.test.heisenberg.extension.model.RecursivePojo'}]"/>
+                    <heisenberg:mapped-child key="someKey" value="#[{} as Object {class: 'new com.zernova.test.heisenberg.extension.model.RecursivePojo'}]"/>
                 </heisenberg:mapped-childs>
             </heisenberg:recursive-pojo>
         </heisenberg:approve>

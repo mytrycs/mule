@@ -7,6 +7,6 @@
             http://www.mulesoft.org/schema/mule/callback http://www.mulesoft.org/schema/mule/callback/current/mule-callback.xsd">
 
     <flow name="main">
-        <callback:callback class="org.foo.echo.PluginForbiddenMuleContainerEcho"/>
+        <callback:callback class="org.foo.echo.PluginForbiddenZernovaContainerEcho"/>
     </flow>
 </mule>

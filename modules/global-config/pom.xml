@@ -3,19 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>org.mule.runtime</groupId>
+        <groupId>com.zernova.runtime</groupId>
         <artifactId>mule-modules</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>mule-module-global-config</artifactId>
-    <name>Mule Global Configuration Module</name>
+    <name>ZERNOVA Global Configuration Module</name>
     <description>This module handles the global configuration of the Mule Runtime</description>
 
     <properties>
-        <javaModuleName>org.mule.runtime.global.config</javaModuleName>
-        <!-- because this module requires transitive org.mule.runtime.maven.client.api -->
+        <javaModuleName>com.zernova.runtime.global.config</javaModuleName>
+        <!-- because this module requires transitive com.zernova.runtime.maven.client.api -->
         <revapi.checkDependencies>true</revapi.checkDependencies>
     </properties>
 
@@ -25,7 +25,7 @@
             <artifactId>config</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-core</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -34,7 +34,7 @@
             <artifactId>guava</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule</groupId>
+            <groupId>com.zernova</groupId>
             <artifactId>mule-maven-client-api</artifactId>
         </dependency>
         <dependency>
@@ -42,18 +42,18 @@
             <artifactId>everit-json-schema</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-container</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tests-unit</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tests-allure</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>

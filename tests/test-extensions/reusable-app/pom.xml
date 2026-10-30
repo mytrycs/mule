@@ -6,33 +6,33 @@
 
 <!-- Something in the test-extensions parent pom prevents the mule-artifact.json form being present in the app -->
     <parent>
-        <groupId>org.mule.runtime</groupId>
+        <groupId>com.zernova.runtime</groupId>
         <artifactId>mule</artifactId>
         <version>4.10.0-SNAPSHOT</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.mule.tests</groupId>
+    <groupId>com.zernova.tests</groupId>
     <artifactId>test-reusable-app</artifactId>
     <packaging>mule-application</packaging>
 
-    <name>Mule Reusable App Test Extension</name>
+    <name>ZERNOVA Reusable App Test Extension</name>
     <description>A Mule extension for testing</description>
 
     <properties>
-        <javaModuleName>org.mule.test.extension.reusable.app</javaModuleName>
+        <javaModuleName>com.zernova.test.extension.reusable.app</javaModuleName>
         <skipMuleModuleMojos>true</skipMuleModuleMojos>
     </properties>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.mule.tools.maven</groupId>
+                <groupId>com.zernova.tools.maven</groupId>
                 <artifactId>exchange-mule-maven-plugin</artifactId>
                 <version>${exchange.mule.maven.plugin.version}</version>
             </plugin>
             <plugin>
-                <groupId>org.mule.tools.maven</groupId>
+                <groupId>com.zernova.tools.maven</groupId>
                 <artifactId>mule-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>

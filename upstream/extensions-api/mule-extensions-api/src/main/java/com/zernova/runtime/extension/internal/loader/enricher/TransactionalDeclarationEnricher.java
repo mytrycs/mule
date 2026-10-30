@@ -1,0 +1,149 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.extension.internal.loader.enricher;
+
+import static com.zernova.runtime.api.meta.ExpressionSupport.NOT_SUPPORTED;
+import static com.zernova.runtime.api.meta.model.parameter.ParameterGroupModel.DEFAULT_GROUP_NAME;
+import static com.zernova.runtime.api.tx.TransactionType.LOCAL;
+import static com.zernova.runtime.extension.api.ExtensionConstants.OPERATION_TRANSACTIONAL_ACTION_PARAMETER_DESCRIPTION;
+import static com.zernova.runtime.extension.api.ExtensionConstants.SOURCE_TRANSACTIONAL_ACTION_PARAMETER_DESCRIPTION;
+import static com.zernova.runtime.extension.api.ExtensionConstants.TRANSACTIONAL_ACTION_PARAMETER_NAME;
+import static com.zernova.runtime.extension.api.ExtensionConstants.TRANSACTIONAL_TYPE_PARAMETER_NAME;
+import static com.zernova.runtime.extension.api.ExtensionConstants.TRANSACTION_TYPE_PARAMETER_DESCRIPTION;
+import static com.zernova.runtime.extension.api.annotation.param.display.Placement.ADVANCED_TAB;
+import static com.zernova.runtime.extension.api.loader.DeclarationEnricherPhase.STRUCTURE;
+import static com.zernova.runtime.extension.api.tx.OperationTransactionalAction.JOIN_IF_POSSIBLE;
+import static com.zernova.runtime.extension.api.tx.SourceTransactionalAction.NONE;
+
+import static java.lang.String.format;
+import static java.util.Optional.of;
+
+import com.zernova.metadata.api.ClassTypeLoader;
+import com.zernova.metadata.api.model.MetadataType;
+import com.zernova.runtime.api.meta.model.ComponentModel;
+import com.zernova.runtime.api.meta.model.ModelProperty;
+import com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclaration;
+import com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclaration;
+import com.zernova.runtime.api.meta.model.declaration.fluent.OperationDeclaration;
+import com.zernova.runtime.api.meta.model.declaration.fluent.ParameterDeclaration;
+import com.zernova.runtime.api.meta.model.declaration.fluent.SourceDeclaration;
+import com.zernova.runtime.api.meta.model.display.LayoutModel;
+import com.zernova.runtime.api.tx.TransactionType;
+import com.zernova.runtime.extension.api.declaration.type.ExtensionsTypeLoaderFactory;
+import com.zernova.runtime.extension.api.exception.IllegalModelDefinitionException;
+import com.zernova.runtime.extension.api.loader.DeclarationEnricher;
+import com.zernova.runtime.extension.api.loader.DeclarationEnricherPhase;
+import com.zernova.runtime.extension.api.loader.ExtensionLoadingContext;
+import com.zernova.runtime.extension.api.loader.IdempotentDeclarationEnricherWalkDelegate;
+import com.zernova.runtime.extension.api.loader.WalkingDeclarationEnricher;
+import com.zernova.runtime.extension.api.tx.OperationTransactionalAction;
+import com.zernova.runtime.extension.api.tx.SourceTransactionalAction;
+import com.zernova.runtime.extension.internal.property.NoTransactionalActionModelProperty;
+import com.zernova.runtime.extension.internal.property.TransactionalActionModelProperty;
+import com.zernova.runtime.extension.internal.property.TransactionalTypeModelProperty;
+
+import java.util.Optional;
+
+/**
+ * {@link DeclarationEnricher} which enrich transactional {@link ComponentModel component models} adding required transactional
+ * parameters to the correspondent model.
+ * <p>
+ * If the given {@link ComponentModel} already contains the parameter, this one will be enriched to ensure a cross components
+ * transactional parameters UX.
+ *
+ * @since 1.0
+ */
+public final class TransactionalDeclarationEnricher implements WalkingDeclarationEnricher {
+
+  private final static ClassTypeLoader typeLoader = ExtensionsTypeLoaderFactory.getDefault().createTypeLoader();
+  private final static MetadataType operationTransactionalActionType = typeLoader.load(OperationTransactionalAction.class);
+  private final static MetadataType sourceTransactionalActionType = typeLoader.load(SourceTransactionalAction.class);
+  private final static MetadataType sdkOperationTransactionalActionType =
+      typeLoader.load(com.zernova.sdk.api.tx.OperationTransactionalAction.class);
+  private final static MetadataType sdkSourceTransactionalActionType =
+      typeLoader.load(com.zernova.sdk.api.tx.SourceTransactionalAction.class);
+  private final static MetadataType transactionType = typeLoader.load(TransactionType.class);
+
+  @Override
+  public DeclarationEnricherPhase getExecutionPhase() {
+    return STRUCTURE;
+  }
+
+  @Override
+  public Optional<DeclarationEnricherWalkDelegate> getWalkDelegate(ExtensionLoadingContext extensionLoadingContext) {
+    return of(new IdempotentDeclarationEnricherWalkDelegate() {
+
+      @Override
+      protected void onSource(SourceDeclaration declaration) {
+        addTxParameter(TRANSACTIONAL_ACTION_PARAMETER_NAME, sourceTransactionalActionType, sdkSourceTransactionalActionType,
+                       NONE, com.zernova.sdk.api.tx.SourceTransactionalAction.NONE,
+                       SOURCE_TRANSACTIONAL_ACTION_PARAMETER_DESCRIPTION, declaration, new TransactionalActionModelProperty());
+        addTxParameter(TRANSACTIONAL_TYPE_PARAMETER_NAME, null, transactionType, null, LOCAL,
+                       TRANSACTION_TYPE_PARAMETER_DESCRIPTION,
+                       declaration,
+                       new TransactionalTypeModelProperty());
+      }
+
+      @Override
+      protected void onOperation(OperationDeclaration declaration) {
+        addTxParameter(TRANSACTIONAL_ACTION_PARAMETER_NAME, operationTransactionalActionType,
+                       sdkOperationTransactionalActionType, JOIN_IF_POSSIBLE,
+                       com.zernova.sdk.api.tx.OperationTransactionalAction.JOIN_IF_POSSIBLE,
+                       OPERATION_TRANSACTIONAL_ACTION_PARAMETER_DESCRIPTION, declaration,
+                       new TransactionalActionModelProperty());
+      }
+    });
+  }
+
+
+  private void addTxParameter(String parameterName, MetadataType metadataType, MetadataType sdkMetadataType,
+                              Object defaultValue, Object sdkDefaultValue, String description,
+                              ExecutableComponentDeclaration<?> declaration, ModelProperty modelProperty) {
+    if (!declaration.isTransactional() || declaration.getModelProperty(NoTransactionalActionModelProperty.class).isPresent()) {
+      return;
+    }
+    Optional<ParameterDeclaration> parameterDeclaration = isPresent(declaration, metadataType);
+    Optional<ParameterDeclaration> sdkParameterDeclaration = isPresent(declaration, sdkMetadataType);
+    if (parameterDeclaration.isPresent() && sdkParameterDeclaration.isPresent()) {
+      throw new IllegalModelDefinitionException(format("Component '%s' has transactional parameters from different APIs. Offending parameters are '%s' and '%s'.",
+                                                       declaration.getName(),
+                                                       parameterDeclaration.get().getName(),
+                                                       sdkParameterDeclaration.get().getName()));
+    } else if (parameterDeclaration.isPresent()) {
+      enrichTransactionParameter(defaultValue, description, parameterDeclaration.get(), modelProperty);
+    } else if (sdkParameterDeclaration.isPresent()) {
+      enrichTransactionParameter(sdkDefaultValue, description, sdkParameterDeclaration.get(), modelProperty);
+    } else {
+      ParameterDeclaration transactionParameter = new ParameterDeclaration(parameterName);
+      transactionParameter.setType(sdkMetadataType, false);
+      enrichTransactionParameter(sdkDefaultValue, description, transactionParameter, modelProperty);
+      declaration.getParameterGroup(DEFAULT_GROUP_NAME).addParameter(transactionParameter);
+    }
+  }
+
+  private void enrichTransactionParameter(Object defaultValue, String description, ParameterDeclaration transactionParameter,
+                                          ModelProperty modelProperty) {
+    transactionParameter.setExpressionSupport(NOT_SUPPORTED);
+    transactionParameter.setRequired(false);
+    transactionParameter.setDefaultValue(defaultValue);
+    transactionParameter.setDescription(description);
+    transactionParameter.addModelProperty(modelProperty);
+    transactionParameter.setLayoutModel(LayoutModel.builder().tabName(ADVANCED_TAB).build());
+  }
+
+  private Optional<ParameterDeclaration> isPresent(ComponentDeclaration<?> declaration, MetadataType metadataType) {
+    if (metadataType == null) {
+      return Optional.empty();
+    }
+    return declaration.getParameterGroups()
+        .stream()
+        .flatMap(group -> group.getParameters().stream())
+        .filter(parameterDeclaration -> parameterDeclaration.getType().equals(metadataType))
+        .findAny();
+  }
+}

@@ -4,10 +4,11 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package org.foo.goodbye;
 
-import org.mule.runtime.extension.api.annotation.Configuration;
-import org.mule.runtime.extension.api.client.ExtensionsClient;
+import com.zernova.runtime.extension.api.annotation.Configuration;
+import com.zernova.runtime.extension.api.client.ExtensionsClient;
 
 import jakarta.inject.Inject;
 

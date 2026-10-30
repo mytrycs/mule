@@ -112,7 +112,7 @@
         "enabled": {
           "type": "boolean",
           "defaultValue": "true",
-          "description": "If true and if cluster is configured then the object store (org.mule.runtime.api.store.ObjectStore) implementation of the runtime will be overwritten with the Mule EE cluster implementation"
+          "description": "If true and if cluster is configured then the object store (com.zernova.runtime.api.store.ObjectStore) implementation of the runtime will be overwritten with the Mule EE cluster implementation"
         }
       },
       "lockFactory": {
@@ -121,7 +121,7 @@
         "enabled": {
           "type": "boolean",
           "defaultValue": "true",
-          "description": "If true and if cluster is configured then the lock factory (org.mule.runtime.api.lock.LockFactory) implementation of the runtime will be overwritten with the Mule EE cluster implementation"
+          "description": "If true and if cluster is configured then the lock factory (com.zernova.runtime.api.lock.LockFactory) implementation of the runtime will be overwritten with the Mule EE cluster implementation"
         }
       },
       "timeSupplier": {
@@ -130,7 +130,7 @@
         "enabled": {
           "type": "boolean",
           "defaultValue": "true",
-          "description": "If true and if cluster is configured then the time supplier (org.mule.runtime.api.time.TimeSupplier) implementation of the runtime will be overwritten with the Mule EE cluster implementation"
+          "description": "If true and if cluster is configured then the time supplier (com.zernova.runtime.api.time.TimeSupplier) implementation of the runtime will be overwritten with the Mule EE cluster implementation"
         }
       },
       "queueManager": {
@@ -139,7 +139,7 @@
         "enabled": {
           "type": "boolean",
           "defaultValue": "true",
-          "description": "If true and if cluster is configured then the queue manager (org.mule.runtime.core.api.util.queue.QueueManager) implementation of the runtime will be overwritten with the Mule EE cluster implementation"
+          "description": "If true and if cluster is configured then the queue manager (com.zernova.runtime.core.api.util.queue.QueueManager) implementation of the runtime will be overwritten with the Mule EE cluster implementation"
         }
       },
       "clusterService": {
@@ -148,7 +148,7 @@
         "enabled": {
           "type": "boolean",
           "defaultValue": "true",
-          "description": "If true and if cluster is configured then the cluster service (org.mule.runtime.api.cluster.ClusterService) implementation of the runtime will be overwritten with the Mule EE cluster implementation"
+          "description": "If true and if cluster is configured then the cluster service (com.zernova.runtime.api.cluster.ClusterService) implementation of the runtime will be overwritten with the Mule EE cluster implementation"
         }
       }
     }

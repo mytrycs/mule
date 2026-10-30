@@ -1,0 +1,211 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.module.extension.internal.loader.delegate;
+
+import static com.zernova.runtime.extension.privileged.util.ComponentDeclarationUtils.asPagedOperation;
+import static com.zernova.runtime.extension.privileged.util.ComponentDeclarationUtils.withNoConnectivityError;
+import static com.zernova.runtime.extension.privileged.util.ComponentDeclarationUtils.withNoReconnectionStrategy;
+import static com.zernova.runtime.extension.privileged.util.ComponentDeclarationUtils.withNoStreamingConfiguration;
+import static com.zernova.runtime.extension.privileged.util.ComponentDeclarationUtils.withNoTransactionalAction;
+import static com.zernova.runtime.module.extension.internal.loader.ModelLoaderDelegateUtils.declareErrorModels;
+import static com.zernova.runtime.module.extension.internal.loader.ModelLoaderDelegateUtils.requiresConfig;
+import static com.zernova.runtime.module.extension.internal.loader.parser.java.notification.NotificationModelParserUtils.declareEmittedNotifications;
+import static com.zernova.runtime.module.extension.internal.loader.parser.java.utils.MinZernovaVersionUtils.declarerWithMmv;
+import static com.zernova.runtime.module.extension.internal.loader.utils.ModelLoaderUtils.addSemanticTerms;
+import static com.zernova.runtime.module.extension.internal.loader.utils.ModelLoaderUtils.declareMetadataModelProperties;
+
+import static java.lang.String.format;
+import static java.util.Optional.of;
+
+import com.zernova.runtime.api.meta.model.declaration.fluent.ExtensionDeclarer;
+import com.zernova.runtime.api.meta.model.declaration.fluent.HasOperationDeclarer;
+import com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclarer;
+import com.zernova.runtime.api.meta.model.declaration.fluent.NestedRouteDeclarer;
+import com.zernova.runtime.api.meta.model.declaration.fluent.OperationDeclarer;
+import com.zernova.runtime.extension.api.exception.IllegalOperationModelDefinitionException;
+import com.zernova.runtime.extension.api.loader.ExtensionDevelopmentFramework;
+import com.zernova.runtime.extension.api.loader.ExtensionLoadingContext;
+import com.zernova.runtime.module.extension.api.loader.java.property.CompletableComponentExecutorModelProperty;
+import com.zernova.runtime.module.extension.internal.loader.java.property.ExceptionHandlerModelProperty;
+import com.zernova.runtime.module.extension.internal.loader.java.property.MediaTypeModelProperty;
+import com.zernova.runtime.module.extension.internal.loader.java.property.SdkApiDefinedModelProperty;
+import com.zernova.runtime.extension.api.loader.parser.AttributesResolverModelParser;
+import com.zernova.runtime.extension.api.loader.parser.OperationModelParser;
+import com.zernova.runtime.extension.api.loader.parser.metadata.InputResolverModelParser;
+import com.zernova.runtime.extension.api.loader.parser.metadata.MetadataKeyModelParser;
+import com.zernova.runtime.extension.api.loader.parser.metadata.OutputResolverModelParser;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+/**
+ * Helper class for declaring operations through a {@link DefaultExtensionModelLoaderDelegate}
+ *
+ * @since 4.0
+ */
+final class OperationModelLoaderDelegate extends AbstractComponentModelLoaderDelegate {
+
+  private final Map<OperationModelParser, OperationDeclarer> operationDeclarers = new HashMap<>();
+
+  OperationModelLoaderDelegate(DefaultExtensionModelLoaderDelegate delegate) {
+    super(delegate);
+  }
+
+  void declareOperations(ExtensionDeclarer extensionDeclarer,
+                         ExtensionDevelopmentFramework extensionDevelopmentFramework,
+                         HasOperationDeclarer ownerDeclarer,
+                         List<OperationModelParser> operations,
+                         ExtensionLoadingContext context) {
+
+    for (OperationModelParser parser : operations) {
+
+      if (parser.isIgnored()) {
+        continue;
+      }
+
+      final boolean requiresConfig = requiresConfig(extensionDevelopmentFramework, parser);
+      HasOperationDeclarer actualDeclarer = requiresConfig
+          ? ownerDeclarer
+          : extensionDeclarer;
+      final boolean extensionLevelOperation = actualDeclarer == extensionDeclarer;
+
+      if (extensionLevelOperation && parser.isAutoPaging()) {
+        throw new IllegalOperationModelDefinitionException(
+                                                           format("Paged operation '%s' is defined at the extension level but it requires a config, "
+                                                               + "since connections are required for paging", parser.getName()));
+      }
+
+      if (extensionLevelOperation && requiresConfig) {
+        throw new IllegalOperationModelDefinitionException(format(
+                                                                  "Operation '%s' is defined at the extension level but it requires a config. "
+                                                                      + "Remove such parameter or move the operation to the proper config",
+                                                                  parser.getName()));
+      }
+
+      if (operationDeclarers.containsKey(parser)) {
+        actualDeclarer.withOperation(operationDeclarers.get(parser));
+        continue;
+      }
+
+      operationDeclarers.put(parser, createOperationDeclarer(parser, extensionDeclarer, actualDeclarer, context));
+    }
+  }
+
+  private OperationDeclarer createOperationDeclarer(OperationModelParser parser, ExtensionDeclarer extensionDeclarer,
+                                                    HasOperationDeclarer actualDeclarer,
+                                                    ExtensionLoadingContext context) {
+    final OperationDeclarer operation = actualDeclarer.withOperation(parser.getName())
+        .describedAs(parser.getDescription())
+        .supportsStreaming(parser.supportsStreaming())
+        .transactional(parser.isTransactional())
+        .requiresConnection(parser.isConnected())
+        .blocking(parser.isBlocking())
+        .withVisibility(parser.getComponentVisibility());
+
+    parser.getExecutor().map(CompletableComponentExecutorModelProperty::new).ifPresent(operation::withModelProperty);
+    parser.getOutputType().applyOn(operation.withOutput());
+    parser.getAttributesOutputType().applyOn(operation.withOutputAttributes());
+    parser.getMediaType()
+        .map(mediaTypeParser -> new MediaTypeModelProperty(mediaTypeParser.getMimeType(), mediaTypeParser.isStrict()))
+        .ifPresent(operation::withModelProperty);
+
+    Optional<OutputResolverModelParser> outputResolverModelParser = parser.getOutputResolverModelParser();
+    Optional<AttributesResolverModelParser> attributesResolverModelParser = parser.getAttributesResolverModelParser();
+    List<InputResolverModelParser> inputResolverModelParsers = parser.getInputResolverModelParsers();
+    Optional<MetadataKeyModelParser> keyIdResolverModelParser = parser.getMetadataKeyModelParser();
+
+    declareMetadataModelProperties(operation.getDeclaration(),
+                                   outputResolverModelParser,
+                                   attributesResolverModelParser,
+                                   inputResolverModelParsers,
+                                   keyIdResolverModelParser,
+                                   parser.isConnected(),
+                                   parser.getScopeChainInputTypeResolverModelParser(),
+                                   parser.getRoutesChainInputTypesResolverModelParser());
+
+    parser.getDeprecationModel().ifPresent(operation::withDeprecation);
+    parser.getDisplayModel().ifPresent(d -> operation.getDeclaration().setDisplayModel(d));
+    if (context.isResolveMinMuleVersion()) {
+      parser.getResolvedMinMuleVersion().ifPresent(resolvedMMV -> declarerWithMmv(operation, resolvedMMV));
+    }
+    loader.getParameterModelsLoaderDelegate().declare(operation, parser.getParameterGroupModelParsers(), context);
+    addSemanticTerms(operation.getDeclaration(), parser);
+    parser.getExecutionType().ifPresent(operation::withExecutionType);
+
+    if (parser.isAutoPaging()) {
+      asPagedOperation(operation);
+    }
+    if (!parser.hasStreamingConfiguration()) {
+      withNoStreamingConfiguration(operation);
+    }
+    if (!parser.hasTransactionalAction()) {
+      withNoTransactionalAction(operation);
+    }
+    if (!parser.hasReconnectionStrategy()) {
+      withNoReconnectionStrategy(operation);
+    }
+    if (!parser.propagatesConnectivityError()) {
+      withNoConnectivityError(operation);
+    }
+    parser.getAdditionalModelProperties().forEach(operation::withModelProperty);
+    parser.getExceptionHandlerFactory().map(ExceptionHandlerModelProperty::new).ifPresent(operation::withModelProperty);
+
+    declareChains(parser, operation, context);
+
+    loader.registerOutputTypes(operation.getDeclaration());
+    declareErrorModels(operation, parser, extensionDeclarer, loader.createErrorModelFactory());
+    getStereotypeModelLoaderDelegate().addStereotypes(
+                                                      parser,
+                                                      operation,
+                                                      of(() -> getStereotypeModelLoaderDelegate()
+                                                          .getDefaultOperationStereotype(parser.getName())));
+
+    declareEmittedNotifications(parser, operation, loader::getNotificationModel);
+
+    return operation;
+  }
+
+  private void declareChains(OperationModelParser parser, OperationDeclarer operation, ExtensionLoadingContext context) {
+    if (parser.isScope()) {
+      parser.getNestedChainParser().ifPresent(chain -> {
+        NestedChainDeclarer chainDeclarer = operation.withChain(chain.getName())
+            .describedAs(chain.getDescription())
+            .setRequired(chain.isRequired())
+            .setExecutionOccurrence(chain.getExecutionOccurrence());
+        addSemanticTerms(chainDeclarer.getDeclaration(), chain);
+        getStereotypeModelLoaderDelegate().addAllowedStereotypes(chain, chainDeclarer);
+        if (chain.isSdkApiDefined()) {
+          chainDeclarer.withModelProperty(SdkApiDefinedModelProperty.INSTANCE);
+        }
+      });
+    } else if (parser.isRouter()) {
+      parser.getNestedRouteParsers().forEach(route -> {
+        NestedRouteDeclarer routeDeclarer = operation
+            .withRoute(route.getName())
+            .describedAs(route.getDescription())
+            .withMinOccurs(route.getMinOccurs())
+            .withMaxOccurs(route.getMaxOccurs().orElse(null));
+
+        if (route.isSdkApiDefined()) {
+          routeDeclarer.withModelProperty(SdkApiDefinedModelProperty.INSTANCE);
+        }
+
+        NestedChainDeclarer chain = routeDeclarer
+            .withChain()
+            .setExecutionOccurrence(route.getExecutionOccurrence());
+        getStereotypeModelLoaderDelegate().addAllowedStereotypes(route, chain);
+
+        route.getAdditionalModelProperties().forEach(routeDeclarer::withModelProperty);
+        loader.getParameterModelsLoaderDelegate().declare(routeDeclarer, route.getParameterGroupModelParsers(), context);
+      });
+    }
+  }
+
+}

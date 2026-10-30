@@ -1,0 +1,31 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.module.extension.internal.runtime.resolver;
+
+import com.zernova.runtime.extension.api.runtime.operation.ExecutionContext;
+import com.zernova.runtime.module.extension.internal.runtime.execution.adapter.SdkVoidCompletionCallbackAdapter;
+import com.zernova.sdk.api.runtime.process.VoidCompletionCallback;;
+
+/**
+ * {@link ArgumentResolver} which resolves to a {@link VoidCompletionCallback} by delegating into a
+ * {@link VoidCallbackArgumentResolver} and adapting the result.
+ *
+ * @since 4.5.0
+ */
+public final class SdkVoidCallbackArgumentResolver implements ArgumentResolver<VoidCompletionCallback> {
+
+  private final ArgumentResolver<com.zernova.runtime.extension.api.runtime.process.VoidCompletionCallback> voidCompletionCallbackArgumentResolver =
+      new VoidCallbackArgumentResolver();
+
+  @Override
+  public VoidCompletionCallback resolve(ExecutionContext executionContext) {
+    com.zernova.runtime.extension.api.runtime.process.VoidCompletionCallback voidCompletionCallback =
+        voidCompletionCallbackArgumentResolver.resolve(executionContext);
+    return voidCompletionCallback == null ? null : new SdkVoidCompletionCallbackAdapter(voidCompletionCallback);
+  }
+}

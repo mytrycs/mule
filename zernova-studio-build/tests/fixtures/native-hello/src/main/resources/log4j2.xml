@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2026 ZerNova. Original application configuration. -->
+<Configuration status="WARN">
+  <!-- The runtime adds its application-specific rolling file appender. -->
+  <Loggers><AsyncRoot level="INFO"/></Loggers>
+</Configuration>

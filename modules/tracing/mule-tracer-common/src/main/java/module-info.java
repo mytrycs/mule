@@ -4,15 +4,16 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 /**
  * Definitions for Mule tracer.
  *
  * @moduleGraph
  * @since 4.5
  */
-module org.mule.runtime.tracer.common {
-    exports org.mule.runtime.tracer.common.watcher;
+module com.zernova.runtime.tracer.common {
+    exports com.zernova.runtime.tracer.common.watcher;
 
-    requires org.mule.runtime.tracer.exporter.configuration.api;
+    requires com.zernova.runtime.tracer.exporter.configuration.api;
     requires org.slf4j;
 }

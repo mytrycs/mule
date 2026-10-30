@@ -26,13 +26,13 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.runtime.api.store.ObjectStore",
+        "typeId": "com.zernova.runtime.api.store.ObjectStore",
         "extensibleType": {},
         "typeAlias": {
           "value": "ObjectStore"
         },
         "classInformation": {
-          "classname": "org.mule.runtime.api.store.ObjectStore",
+          "classname": "com.zernova.runtime.api.store.ObjectStore",
           "hasDefaultConstructor": false,
           "isInterface": true,
           "isInstantiable": false,
@@ -50,9 +50,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.runtime.api.tls.TlsContextFactory",
+        "typeId": "com.zernova.runtime.api.tls.TlsContextFactory",
         "classInformation": {
-          "classname": "org.mule.runtime.api.tls.TlsContextFactory",
+          "classname": "com.zernova.runtime.api.tls.TlsContextFactory",
           "hasDefaultConstructor": false,
           "isInterface": true,
           "isInstantiable": false,
@@ -639,9 +639,9 @@
                 "format": "java",
                 "type": "Object",
                 "annotations": {
-                  "typeId": "org.mule.runtime.extension.api.runtime.ExpirationPolicy",
+                  "typeId": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
                   "classInformation": {
-                    "classname": "org.mule.runtime.extension.api.runtime.ExpirationPolicy",
+                    "classname": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
                     "hasDefaultConstructor": false,
                     "isInterface": true,
                     "isInstantiable": false,
@@ -751,14 +751,14 @@
               "name": "expirationPolicy",
               "description": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit.",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "expiration-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 4
                 }
               }
@@ -974,7 +974,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.semantic.extension.ProxyConfiguration"
+                    "type": "@ref:com.zernova.test.semantic.extension.ProxyConfiguration"
                   },
                   "hasDynamicType": false,
                   "required": true,
@@ -1274,14 +1274,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -1510,7 +1510,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.semantic.extension.ProxyConfiguration"
+                    "type": "@ref:com.zernova.test.semantic.extension.ProxyConfiguration"
                   },
                   "hasDynamicType": false,
                   "required": true,
@@ -1841,14 +1841,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -2078,7 +2078,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.semantic.extension.ProxyConfiguration"
+                    "type": "@ref:com.zernova.test.semantic.extension.ProxyConfiguration"
                   },
                   "hasDynamicType": false,
                   "required": true,
@@ -2409,14 +2409,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -2644,7 +2644,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.semantic.extension.ProxyConfiguration"
+                    "type": "@ref:com.zernova.test.semantic.extension.ProxyConfiguration"
                   },
                   "hasDynamicType": false,
                   "required": true,
@@ -3206,14 +3206,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -3450,7 +3450,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.semantic.extension.ProxyConfiguration"
+                    "type": "@ref:com.zernova.test.semantic.extension.ProxyConfiguration"
                   },
                   "hasDynamicType": false,
                   "required": true,
@@ -3719,14 +3719,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -3954,7 +3954,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.semantic.extension.ProxyConfiguration"
+                    "type": "@ref:com.zernova.test.semantic.extension.ProxyConfiguration"
                   },
                   "hasDynamicType": false,
                   "required": true,
@@ -4254,14 +4254,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -4490,7 +4490,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.semantic.extension.ProxyConfiguration"
+                    "type": "@ref:com.zernova.test.semantic.extension.ProxyConfiguration"
                   },
                   "hasDynamicType": false,
                   "required": true,
@@ -4759,14 +4759,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -5120,7 +5120,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -5130,7 +5130,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -5428,7 +5428,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -5438,7 +5438,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -5798,7 +5798,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -5808,7 +5808,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -6029,7 +6029,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.semantic.extension.ProxyConfiguration"
+                "type": "@ref:com.zernova.test.semantic.extension.ProxyConfiguration"
               },
               "hasDynamicType": false,
               "required": true,
@@ -6329,14 +6329,14 @@
               "name": "reconnection",
               "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "reconnection",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 3
                 }
               }
@@ -6565,7 +6565,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.semantic.extension.ProxyConfiguration"
+                "type": "@ref:com.zernova.test.semantic.extension.ProxyConfiguration"
               },
               "hasDynamicType": false,
               "required": true,
@@ -6896,14 +6896,14 @@
               "name": "reconnection",
               "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "reconnection",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 3
                 }
               }
@@ -7133,7 +7133,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.semantic.extension.ProxyConfiguration"
+                "type": "@ref:com.zernova.test.semantic.extension.ProxyConfiguration"
               },
               "hasDynamicType": false,
               "required": true,
@@ -7464,14 +7464,14 @@
               "name": "reconnection",
               "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "reconnection",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 3
                 }
               }
@@ -7699,7 +7699,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.semantic.extension.ProxyConfiguration"
+                "type": "@ref:com.zernova.test.semantic.extension.ProxyConfiguration"
               },
               "hasDynamicType": false,
               "required": true,
@@ -8261,14 +8261,14 @@
               "name": "reconnection",
               "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "reconnection",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 3
                 }
               }
@@ -8505,7 +8505,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.semantic.extension.ProxyConfiguration"
+                "type": "@ref:com.zernova.test.semantic.extension.ProxyConfiguration"
               },
               "hasDynamicType": false,
               "required": true,
@@ -8774,14 +8774,14 @@
               "name": "reconnection",
               "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "reconnection",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 3
                 }
               }
@@ -9009,7 +9009,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.semantic.extension.ProxyConfiguration"
+                "type": "@ref:com.zernova.test.semantic.extension.ProxyConfiguration"
               },
               "hasDynamicType": false,
               "required": true,
@@ -9309,14 +9309,14 @@
               "name": "reconnection",
               "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "reconnection",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 3
                 }
               }
@@ -9545,7 +9545,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.semantic.extension.ProxyConfiguration"
+                "type": "@ref:com.zernova.test.semantic.extension.ProxyConfiguration"
               },
               "hasDynamicType": false,
               "required": true,
@@ -9814,14 +9814,14 @@
               "name": "reconnection",
               "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "reconnection",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 3
                 }
               }
@@ -10064,7 +10064,7 @@
                       "name": "objectStore"
                     },
                     "model": {
-                      "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                      "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                     },
                     "annotations": {
                       "stereotype": {
@@ -10106,14 +10106,14 @@
               "name": "redeliveryPolicy",
               "description": "Defines a policy for processing the redelivery of the same message",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-redelivery-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 1
                 }
               }
@@ -10140,7 +10140,7 @@
   ],
   "artifactCoordinates": {
     "artifact id": "mule-semantic-terms-extension",
-    "group id": "org.mule.tests",
+    "group id": "com.zernova.tests",
     "version": "1.2.3"
   },
   "notifications": [],
@@ -10176,9 +10176,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.semantic.extension.ProxyConfiguration",
+        "typeId": "com.zernova.test.semantic.extension.ProxyConfiguration",
         "classInformation": {
-          "classname": "org.mule.test.semantic.extension.ProxyConfiguration",
+          "classname": "com.zernova.test.semantic.extension.ProxyConfiguration",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -10192,7 +10192,7 @@
         "typeAlias": {
           "value": "ProxyConfiguration"
         },
-        "org.mule.runtime.extension.api.declaration.type.annotation.SemanticTermsTypeAnnotation": {
+        "com.zernova.runtime.extension.api.declaration.type.annotation.SemanticTermsTypeAnnotation": {
           "semanticTerms": [
             "connectivity.ProxyConfiguration"
           ]
@@ -10211,7 +10211,7 @@
             "expressionSupport": {
               "value": "SUPPORTED"
             },
-            "org.mule.runtime.extension.api.declaration.type.annotation.SemanticTermsTypeAnnotation": {
+            "com.zernova.runtime.extension.api.declaration.type.annotation.SemanticTermsTypeAnnotation": {
               "semanticTerms": [
                 "connectivity.host"
               ]
@@ -10245,7 +10245,7 @@
             "expressionSupport": {
               "value": "SUPPORTED"
             },
-            "org.mule.runtime.extension.api.declaration.type.annotation.SemanticTermsTypeAnnotation": {
+            "com.zernova.runtime.extension.api.declaration.type.annotation.SemanticTermsTypeAnnotation": {
               "semanticTerms": [
                 "connectivity.port"
               ]
@@ -10264,7 +10264,7 @@
             "expressionSupport": {
               "value": "SUPPORTED"
             },
-            "org.mule.runtime.extension.api.declaration.type.annotation.SemanticTermsTypeAnnotation": {
+            "com.zernova.runtime.extension.api.declaration.type.annotation.SemanticTermsTypeAnnotation": {
               "semanticTerms": [
                 "core.urlTemplate"
               ]
@@ -10283,7 +10283,7 @@
             "expressionSupport": {
               "value": "SUPPORTED"
             },
-            "org.mule.runtime.extension.api.declaration.type.annotation.SemanticTermsTypeAnnotation": {
+            "com.zernova.runtime.extension.api.declaration.type.annotation.SemanticTermsTypeAnnotation": {
               "semanticTerms": [
                 "connectivity.username"
               ]
@@ -10302,7 +10302,7 @@
             "expressionSupport": {
               "value": "SUPPORTED"
             },
-            "org.mule.runtime.extension.api.declaration.type.annotation.SemanticTermsTypeAnnotation": {
+            "com.zernova.runtime.extension.api.declaration.type.annotation.SemanticTermsTypeAnnotation": {
               "semanticTerms": [
                 "connectivity.password"
               ]

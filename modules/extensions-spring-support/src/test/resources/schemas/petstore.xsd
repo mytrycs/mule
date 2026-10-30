@@ -4,7 +4,7 @@
   <xs:import namespace="http://www.w3.org/XML/1998/namespace"></xs:import>
   <xs:import namespace="http://www.mulesoft.org/schema/mule/core" schemaLocation="http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></xs:import>
   <xs:import namespace="http://www.mulesoft.org/schema/mule/tls" schemaLocation="http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd"></xs:import>
-  <xs:complexType name="org.mule.test.petstore.extension.PhoneNumber">
+  <xs:complexType name="com.zernova.test.petstore.extension.PhoneNumber">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:sequence minOccurs="0" maxOccurs="1">
@@ -30,7 +30,7 @@
   <xs:element xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore" substitutionGroup="petstore:abstract-phone-number" name="phone-number">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="petstore:org.mule.test.petstore.extension.PhoneNumber">
+        <xs:extension base="petstore:com.zernova.test.petstore.extension.PhoneNumber">
           <xs:attribute type="xs:string" use="optional" name="name"></xs:attribute>
         </xs:extension>
       </xs:complexContent>
@@ -61,7 +61,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="cage">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore" base="petstore:org.mule.test.petstore.extension.PetCage"></xs:extension>
+                  <xs:extension xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore" base="petstore:com.zernova.test.petstore.extension.PetCage"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -75,7 +75,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="aquarium">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore" base="petstore:org.mule.test.petstore.extension.Aquarium"></xs:extension>
+                  <xs:extension xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore" base="petstore:com.zernova.test.petstore.extension.Aquarium"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -110,7 +110,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.petstore.extension.PetCage">
+  <xs:complexType name="com.zernova.test.petstore.extension.PetCage">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:sequence minOccurs="0" maxOccurs="1">
@@ -145,15 +145,15 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore" type="petstore:org.mule.test.petstore.extension.PetCage" abstract="true" name="abstract-pet-cage"></xs:element>
+  <xs:element xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore" type="petstore:com.zernova.test.petstore.extension.PetCage" abstract="true" name="abstract-pet-cage"></xs:element>
   <xs:element xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore" substitutionGroup="petstore:abstract-pet-cage" name="pet-cage">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="petstore:org.mule.test.petstore.extension.PetCage"></xs:extension>
+        <xs:extension base="petstore:com.zernova.test.petstore.extension.PetCage"></xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.petstore.extension.Aquarium">
+  <xs:complexType name="com.zernova.test.petstore.extension.Aquarium">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:attribute type="mule:expressionString" use="optional" name="frogName"></xs:attribute>
@@ -1053,7 +1053,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="polling">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore" base="petstore:org.mule.test.petstore.extension.PetAdoptionPolling"></xs:extension>
+                <xs:extension xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore" base="petstore:com.zernova.test.petstore.extension.PetAdoptionPolling"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -1067,7 +1067,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="org.mule.test.petstore.extension.PetAdoptionPolling">
+  <xs:complexType name="com.zernova.test.petstore.extension.PetAdoptionPolling">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:sequence minOccurs="1" maxOccurs="1">
@@ -1388,7 +1388,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="aquarium">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore" base="petstore:org.mule.test.petstore.extension.Aquarium"></xs:extension>
+                <xs:extension xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore" base="petstore:com.zernova.test.petstore.extension.Aquarium"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -1458,7 +1458,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="phone-number">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore" base="petstore:org.mule.test.petstore.extension.PhoneNumber"></xs:extension>
+                <xs:extension xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore" base="petstore:com.zernova.test.petstore.extension.PhoneNumber"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -1509,7 +1509,7 @@
               <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" name="forbidden-pet">
                   <xs:complexType>
-                    <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/petstore" type="org.mule.test.petstore.extension.PetEnumType" use="required" name="value"></xs:attribute>
+                    <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/petstore" type="com.zernova.test.petstore.extension.PetEnumType" use="required" name="value"></xs:attribute>
                   </xs:complexType>
                 </xs:element>
               </xs:sequence>
@@ -1574,7 +1574,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="pet-store-deal">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore" base="petstore:org.mule.test.petstore.extension.PetStoreDeal"></xs:extension>
+                <xs:extension xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore" base="petstore:com.zernova.test.petstore.extension.PetStoreDeal"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -1593,7 +1593,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="org.mule.test.petstore.extension.PetStoreDeal">
+  <xs:complexType name="com.zernova.test.petstore.extension.PetStoreDeal">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:attribute type="mule:expressionString" use="required" name="cashierName"></xs:attribute>
@@ -1744,7 +1744,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="phone-number">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore" base="petstore:org.mule.test.petstore.extension.PhoneNumber"></xs:extension>
+                <xs:extension xmlns:petstore="http://www.mulesoft.org/schema/mule/petstore" base="petstore:com.zernova.test.petstore.extension.PhoneNumber"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -1863,7 +1863,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:simpleType name="org.mule.test.petstore.extension.PetEnumType">
+  <xs:simpleType name="com.zernova.test.petstore.extension.PetEnumType">
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:string">

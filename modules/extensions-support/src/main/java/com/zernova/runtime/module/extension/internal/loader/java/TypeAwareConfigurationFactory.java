@@ -1,0 +1,93 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.module.extension.internal.loader.java;
+
+import static com.zernova.runtime.api.i18n.I18nMessageFactory.createStaticMessage;
+import static com.zernova.runtime.core.api.util.ClassUtils.withContextClassLoader;
+import static com.zernova.runtime.module.extension.internal.component.AnnotatedObjectInvocationHandler.addAnnotationsToClass;
+import static com.zernova.runtime.module.extension.internal.util.IntrospectionUtils.checkInstantiable;
+
+import static java.util.Objects.requireNonNull;
+
+import com.zernova.runtime.api.exception.ZernovaRuntimeException;
+import com.zernova.runtime.api.util.LazyValue;
+import com.zernova.runtime.extension.api.runtime.config.ConfigurationFactory;
+import com.zernova.runtime.module.artifact.internal.classloader.WithAttachedClassLoaders;
+import com.zernova.runtime.module.extension.internal.util.ReflectionCache;
+
+/**
+ * Implementation of {@link ConfigurationFactory} which creates instances based on a given {@link Class} which is assumed to have
+ * a default and public constructor.
+ *
+ * @since 3.7.0
+ */
+public final class TypeAwareConfigurationFactory implements ConfigurationFactory {
+
+  private final LazyValue<Class<?>> configurationType;
+  private final ClassLoader extensionClassLoader;
+
+  /**
+   * Creates an instance of a given {@code configurationType} on each invocation to {@link #newInstance()}.
+   *
+   * @param configurationType     the type to be instantiated. Must be not {@code null}, and have a public default constructor
+   * @param extensionClassLoader  the {@link ClassLoader} on which the extension is loaded
+   * @param addAnnotationsToClass whether the given {@code configurationType} must be enhanced to include the annotations from the
+   *                              DSL.
+   * @throws IllegalArgumentException if the type is {@code null} or doesn't have a default public constructor
+   */
+  public TypeAwareConfigurationFactory(Class<?> configurationType, ClassLoader extensionClassLoader,
+                                       boolean addAnnotationsToClass) {
+    requireNonNull(configurationType, "configuration type cannot be null");
+    requireNonNull(extensionClassLoader, "extensionClassLoader type cannot be null");
+    checkInstantiable(configurationType, new ReflectionCache());
+
+    this.extensionClassLoader = extensionClassLoader;
+
+    this.configurationType = new LazyValue<>(() -> {
+      if (!addAnnotationsToClass) {
+        return configurationType;
+      }
+
+      return withContextClassLoader(this.extensionClassLoader, () -> {
+        // We must add the annotations support with a proxy to avoid the SDK user to clutter the POJO definitions in an
+        // extension with the annotations stuff.
+        Class<?> annotated = addAnnotationsToClass(configurationType);
+        if (extensionClassLoader instanceof WithAttachedClassLoaders) {
+          // The annotated class is added to a spring cache that has to be cleared later, and for that we'll need the
+          // classloader it was loaded with (or a classloader in the parents' hierarchy).
+          // For the cleaning part, see ZernovaArtifactContext code.
+          ((WithAttachedClassLoaders) extensionClassLoader)
+              .attachClassLoader(annotated.getClassLoader().getParent() != null ? annotated.getClassLoader().getParent()
+                  : annotated.getClassLoader());
+        }
+        return annotated;
+      });
+    });
+  }
+
+  /**
+   * Returns a new instance on each invocation {@inheritDoc}
+   */
+  @Override
+  public Object newInstance() {
+    try {
+      return withContextClassLoader(extensionClassLoader, configurationType.get()::newInstance);
+    } catch (Exception e) {
+      throw new ZernovaRuntimeException(createStaticMessage("Could not instantiate configuration of type "
+          + configurationType.get().getName()), e);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Class<?> getObjectType() {
+    return configurationType.get();
+  }
+}

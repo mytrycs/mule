@@ -1,0 +1,56 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.extension.api.declaration.type;
+
+import static com.zernova.runtime.extension.internal.dsl.DslConstants.CORE_NAMESPACE;
+import static com.zernova.runtime.extension.internal.dsl.DslConstants.CORE_PREFIX;
+import static com.zernova.runtime.extension.internal.dsl.DslConstants.SCHEDULING_STRATEGY_ELEMENT_IDENTIFIER;
+
+import com.zernova.metadata.api.annotation.TypeAliasAnnotation;
+import com.zernova.metadata.api.builder.BaseTypeBuilder;
+import com.zernova.metadata.api.builder.TypeBuilder;
+import com.zernova.metadata.java.api.annotation.ClassInformationAnnotation;
+import com.zernova.metadata.java.api.handler.ClassHandler;
+import com.zernova.metadata.java.api.handler.TypeHandlerManager;
+import com.zernova.metadata.java.api.utils.ParsingContext;
+import com.zernova.runtime.api.scheduler.SchedulingStrategy;
+import com.zernova.runtime.extension.api.declaration.type.annotation.ExtensibleTypeAnnotation;
+import com.zernova.runtime.extension.api.declaration.type.annotation.QNameTypeAnnotation;
+
+import java.lang.reflect.Type;
+import java.util.List;
+
+import javax.xml.namespace.QName;
+
+/**
+ * Implementation of {@link ClassHandler} for the {@link SchedulingStrategy} interface
+ *
+ * @since 1.4
+ */
+public class SchedulingStrategyClassHandler implements ClassHandler {
+
+  @Override
+  public boolean handles(Class<?> clazz) {
+    return SchedulingStrategy.class.equals(clazz)
+        // Need the fqcn as a string because this deprecated type is in mule-core that is not and cannot be a dependency of this
+        // module.
+        // Apart from that, this only exists for supporting the usage of a deprecated way of doing things.
+        || "com.zernova.runtime.core.api.source.scheduler.Scheduler".equals(clazz.getName());
+  }
+
+  @Override
+  public TypeBuilder<?> handleClass(Class<?> clazz, List<Type> genericTypes, TypeHandlerManager typeHandlerManager,
+                                    ParsingContext context, BaseTypeBuilder typeBuilder) {
+
+    return typeBuilder.objectType().id(SchedulingStrategy.class.getName())
+        .with(new QNameTypeAnnotation(new QName(CORE_NAMESPACE, SCHEDULING_STRATEGY_ELEMENT_IDENTIFIER, CORE_PREFIX)))
+        .with(new ExtensibleTypeAnnotation())
+        .with(new TypeAliasAnnotation(SchedulingStrategy.class.getSimpleName()))
+        .with(new ClassInformationAnnotation(SchedulingStrategy.class));
+  }
+}

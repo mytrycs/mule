@@ -5,8 +5,8 @@
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
                           http://www.mulesoft.org/schema/mule/tx-xa http://www.mulesoft.org/schema/mule/tx-xa/current/mule-tx-xa.xsd">
 
-    <object name="storeMessage" class="org.mule.test.module.extension.transaction.TransactionalSourceTestCase.MessageStorage"/>
-    <object name="sleep" class="org.mule.test.module.extension.transaction.TransactionalSourceTestCase$SleepProcessor"/>
+    <object name="storeMessage" class="com.zernova.test.module.extension.transaction.TransactionalSourceTestCase.MessageStorage"/>
+    <object name="sleep" class="com.zernova.test.module.extension.transaction.TransactionalSourceTestCase$SleepProcessor"/>
     <configuration defaultTransactionTimeout="1000"/>
 
     <tx-xa:config name="localTx1">

@@ -1,0 +1,16 @@
+{
+  "failures": [
+    {
+      "failingComponent": "COMPONENT",
+      "message": "FIRST_ERROR",
+      "reason": "Metadata Failure Error",
+      "failureCode": "CONNECTION_FAILURE"
+    },
+    {
+      "failingComponent": "COMPONENT",
+      "message": "SECOND_ERROR",
+      "reason": "Metadata Failure Error",
+      "failureCode": "INVALID_METADATA_KEY"
+    }
+  ]
+}

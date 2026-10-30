@@ -1,0 +1,82 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.tracer.impl;
+
+import com.zernova.runtime.core.api.event.CoreEvent;
+import com.zernova.runtime.core.privileged.event.PrivilegedEvent;
+import com.zernova.runtime.tracer.api.span.info.EnrichedInitialSpanInfo;
+import com.zernova.runtime.tracer.api.span.info.InitialExportInfo;
+import com.zernova.runtime.tracer.api.span.info.InitialSpanInfo;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiConsumer;
+
+public class CoreEventEnrichedInitialSpanInfo implements EnrichedInitialSpanInfo {
+
+  private static final String CORRELATION_ID_KEY = "correlation.id";
+  private static final String THREAD_START_NAME_KEY = "thread.start.name";
+  private static final String THREAD_START_ID_KEY = "thread.start.id";
+  // These are correlation.id, thread.start.id, thread.start.name
+  public static final int ADDITIONAL_SPAN_ATTRIBUTES_COUNT = 3;
+
+  private final InitialSpanInfo baseInitialSpanInfo;
+  private final String correlationId;
+  private final String threadStartName;
+  private final String threadStartId;
+  private final Map<String, String> tracingVariables = new HashMap<>();
+
+  public CoreEventEnrichedInitialSpanInfo(InitialSpanInfo baseInitialSpanInfo, CoreEvent coreEvent) {
+    this.baseInitialSpanInfo = baseInitialSpanInfo;
+    this.correlationId = coreEvent.getCorrelationId();
+    this.threadStartName = Thread.currentThread().getName();
+    this.threadStartId = Long.toString(Thread.currentThread().getId());
+    if (coreEvent instanceof PrivilegedEvent) {
+      ((PrivilegedEvent) coreEvent).getLoggingVariables().ifPresent(tracingVariables::putAll);
+    }
+  }
+
+  @Override
+  public String getName() {
+    return baseInitialSpanInfo.getName();
+  }
+
+  @Override
+  public InitialExportInfo getInitialExportInfo() {
+    return baseInitialSpanInfo.getInitialExportInfo();
+  }
+
+  @Override
+  public void forEachAttribute(BiConsumer<String, String> biConsumer) {
+    baseInitialSpanInfo.forEachAttribute(biConsumer);
+    biConsumer.accept(CORRELATION_ID_KEY, correlationId);
+    biConsumer.accept(THREAD_START_NAME_KEY, threadStartName);
+    biConsumer.accept(THREAD_START_ID_KEY, threadStartId);
+    tracingVariables.forEach(biConsumer);
+  }
+
+  @Override
+  public boolean isRootSpan() {
+    return baseInitialSpanInfo.isRootSpan();
+  }
+
+  @Override
+  public boolean isPolicySpan() {
+    return baseInitialSpanInfo.isPolicySpan();
+  }
+
+  @Override
+  public int getInitialAttributesCount() {
+    return baseInitialSpanInfo.getInitialAttributesCount() + ADDITIONAL_SPAN_ATTRIBUTES_COUNT + tracingVariables.size();
+  }
+
+  @Override
+  public InitialSpanInfo getBaseInitialSpanInfo() {
+    return baseInitialSpanInfo;
+  }
+}

@@ -4,6 +4,7 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 
 /**
  * Properties Config.
@@ -11,13 +12,13 @@
  * @moduleGraph
  * @since 4.6
  */
-module org.mule.runtime.properties.config {
+module com.zernova.runtime.properties.config {
 
-  requires org.mule.runtime.api;
-  requires transitive org.mule.runtime.properties.api;
-  requires org.mule.runtime.dsl.api;
-  requires org.mule.runtime.artifact.ast;
-  requires org.mule.runtime.core;
+  requires com.zernova.runtime.api;
+  requires transitive com.zernova.runtime.properties.api;
+  requires com.zernova.runtime.dsl.api;
+  requires com.zernova.runtime.artifact.ast;
+  requires com.zernova.runtime.core;
 
   requires com.google.common;
   requires org.yaml.snakeyaml;
@@ -26,32 +27,32 @@ module org.mule.runtime.properties.config {
   // QName used to process annotations from Mule DSL
   requires java.xml;
 
-  exports org.mule.runtime.config.api.properties;
+  exports com.zernova.runtime.config.api.properties;
 
-  provides org.mule.runtime.properties.api.ConfigurationPropertiesProviderFactory with
-      org.mule.runtime.config.internal.model.dsl.properties.DefaultConfigurationPropertiesProviderFactory;
+  provides com.zernova.runtime.properties.api.ConfigurationPropertiesProviderFactory with
+      com.zernova.runtime.config.internal.model.dsl.properties.DefaultConfigurationPropertiesProviderFactory;
 
-  provides org.mule.runtime.properties.api.DefaultConfigurationPropertiesProviderFactory with
-      org.mule.runtime.config.internal.model.dsl.properties.DefaultInitialisableConfigurationPropertiesProviderFactory;
+  provides com.zernova.runtime.properties.api.DefaultConfigurationPropertiesProviderFactory with
+      com.zernova.runtime.config.internal.model.dsl.properties.DefaultInitialisableConfigurationPropertiesProviderFactory;
 
-  exports org.mule.runtime.config.internal.model.dsl to
-      org.mule.runtime.metrics.exporter.configuration.impl,
-      org.mule.runtime.tracer.configuration.impl,
-      org.mule.runtime.tracer.exporter.config.impl,
-      org.mule.runtime.spring.config,
-      org.mule.runtime.extensions.xml.support;
-  exports org.mule.runtime.config.internal.model.dsl.config to
-      org.mule.runtime.metrics.exporter.configuration.impl,
-      org.mule.runtime.tracer.configuration.impl,
-      org.mule.runtime.tracer.exporter.config.impl,
-      org.mule.runtime.spring.config,
-      org.mule.runtime.extensions.xml.support,
-      org.mule.runtime.deployment,
+  exports com.zernova.runtime.config.internal.model.dsl to
+      com.zernova.runtime.metrics.exporter.configuration.impl,
+      com.zernova.runtime.tracer.configuration.impl,
+      com.zernova.runtime.tracer.exporter.config.impl,
+      com.zernova.runtime.spring.config,
+      com.zernova.runtime.extensions.xml.support;
+  exports com.zernova.runtime.config.internal.model.dsl.config to
+      com.zernova.runtime.metrics.exporter.configuration.impl,
+      com.zernova.runtime.tracer.configuration.impl,
+      com.zernova.runtime.tracer.exporter.config.impl,
+      com.zernova.runtime.spring.config,
+      com.zernova.runtime.extensions.xml.support,
+      com.zernova.runtime.deployment,
       spring.beans;
-  exports org.mule.runtime.config.internal.model.properties to
-      org.mule.runtime.spring.config;
+  exports com.zernova.runtime.config.internal.model.properties to
+      com.zernova.runtime.spring.config;
 
-  opens org.mule.runtime.config.internal.model.dsl.config to
+  opens com.zernova.runtime.config.internal.model.dsl.config to
       spring.core;
 
 }

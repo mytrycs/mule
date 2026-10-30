@@ -4,8 +4,9 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-import org.mule.runtime.core.internal.artifact.ArtifactClassLoaderFinder;
-import org.mule.runtime.module.artifact.activation.internal.classloader.DefaultArtifactClassLoaderFinder;
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+import com.zernova.runtime.core.internal.artifact.ArtifactClassLoaderFinder;
+import com.zernova.runtime.module.artifact.activation.internal.classloader.DefaultArtifactClassLoaderFinder;
 
 /**
  * Provides behavior necessary for loading artifacts.
@@ -13,23 +14,23 @@ import org.mule.runtime.module.artifact.activation.internal.classloader.DefaultA
  * @moduleGraph
  * @since 4.6
  */
-module org.mule.runtime.artifact.activation {
+module com.zernova.runtime.artifact.activation {
 
-  requires transitive org.mule.runtime.api;
-  requires transitive org.mule.runtime.artifact;
-  requires transitive org.mule.runtime.artifact.ast;
-  requires org.mule.runtime.artifact.ast.xmlParser;
-  requires org.mule.runtime.container;
-  requires transitive org.mule.runtime.core;
-  requires org.mule.runtime.extension.model;
-  requires transitive org.mule.runtime.extensions.api;
-  requires org.mule.runtime.global.config;
-  requires org.mule.runtime.jar.handling.utils;
-  requires org.mule.runtime.jpms.utils;
-  requires org.mule.runtime.maven.client.api;
-  requires org.mule.runtime.metadata.model.api;
-  requires org.mule.runtime.service;
-  requires org.mule.tools.api.classloader;
+  requires transitive com.zernova.runtime.api;
+  requires transitive com.zernova.runtime.artifact;
+  requires transitive com.zernova.runtime.artifact.ast;
+  requires com.zernova.runtime.artifact.ast.xmlParser;
+  requires com.zernova.runtime.container;
+  requires transitive com.zernova.runtime.core;
+  requires com.zernova.runtime.extension.model;
+  requires transitive com.zernova.runtime.extensions.api;
+  requires com.zernova.runtime.global.config;
+  requires com.zernova.runtime.jar.handling.utils;
+  requires com.zernova.runtime.jpms.utils;
+  requires com.zernova.runtime.maven.client.api;
+  requires com.zernova.runtime.metadata.model.api;
+  requires com.zernova.runtime.service;
+  requires com.zernova.tools.api.classloader;
 
   requires net.bytebuddy;
 
@@ -40,46 +41,46 @@ module org.mule.runtime.artifact.activation {
 
   requires transitive java.xml;
 
-  exports org.mule.runtime.module.artifact.activation.api;
-  exports org.mule.runtime.module.artifact.activation.api.ast;
-  exports org.mule.runtime.module.artifact.activation.api.classloader;
-  exports org.mule.runtime.module.artifact.activation.api.deployable;
-  exports org.mule.runtime.module.artifact.activation.api.descriptor;
-  exports org.mule.runtime.module.artifact.activation.api.extension.discovery;
-  exports org.mule.runtime.module.artifact.activation.api.extension.discovery.boot;
-  exports org.mule.runtime.module.artifact.activation.api.plugin;
-  exports org.mule.runtime.module.artifact.activation.api.service.config;
-  exports org.mule.runtime.module.artifact.activation.api.service.discoverer;
+  exports com.zernova.runtime.module.artifact.activation.api;
+  exports com.zernova.runtime.module.artifact.activation.api.ast;
+  exports com.zernova.runtime.module.artifact.activation.api.classloader;
+  exports com.zernova.runtime.module.artifact.activation.api.deployable;
+  exports com.zernova.runtime.module.artifact.activation.api.descriptor;
+  exports com.zernova.runtime.module.artifact.activation.api.extension.discovery;
+  exports com.zernova.runtime.module.artifact.activation.api.extension.discovery.boot;
+  exports com.zernova.runtime.module.artifact.activation.api.plugin;
+  exports com.zernova.runtime.module.artifact.activation.api.service.config;
+  exports com.zernova.runtime.module.artifact.activation.api.service.discoverer;
 
-  uses org.mule.runtime.module.artifact.activation.internal.plugin.PluginPatchesResolver;
+  uses com.zernova.runtime.module.artifact.activation.internal.plugin.PluginPatchesResolver;
 
-  exports org.mule.runtime.module.artifact.activation.internal.ast to
-      org.mule.runtime.extensions.mule.support;
-  exports org.mule.runtime.module.artifact.activation.internal.ast.validation to
-      org.mule.runtime.extensions.mule.support,
-      org.mule.runtime.spring.config;
-  exports org.mule.runtime.module.artifact.activation.internal.classloader to
-      org.mule.runtime.deployment,
-      org.mule.runtime.deployment.model,
-      org.mule.runtime.deployment.model.impl,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.spring.config,
-      org.mule.runtime.log4j,
-      org.mule.test.runner;
-  exports org.mule.runtime.module.artifact.activation.internal.deployable to
-      org.mule.runtime.deployment.model.impl,
-      org.mule.runtime.tooling.support;
-  exports org.mule.runtime.module.artifact.activation.internal.descriptor to
-      org.mule.runtime.deployment.model.impl;
-  exports org.mule.runtime.module.artifact.activation.internal.maven to
-      org.mule.runtime.deployment.model.impl;
-  exports org.mule.runtime.module.artifact.activation.internal.nativelib to
-      org.mule.runtime.deployment,
-      org.mule.runtime.deployment.model,
-      org.mule.runtime.deployment.model.impl,
-      org.mule.test.runner;
-  exports org.mule.runtime.module.artifact.activation.internal.plugin to
-      org.mule.runtime.deployment.model.impl;
+  exports com.zernova.runtime.module.artifact.activation.internal.ast to
+      com.zernova.runtime.extensions.mule.support;
+  exports com.zernova.runtime.module.artifact.activation.internal.ast.validation to
+      com.zernova.runtime.extensions.mule.support,
+      com.zernova.runtime.spring.config;
+  exports com.zernova.runtime.module.artifact.activation.internal.classloader to
+      com.zernova.runtime.deployment,
+      com.zernova.runtime.deployment.model,
+      com.zernova.runtime.deployment.model.impl,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.spring.config,
+      com.zernova.runtime.log4j,
+      com.zernova.test.runner;
+  exports com.zernova.runtime.module.artifact.activation.internal.deployable to
+      com.zernova.runtime.deployment.model.impl,
+      com.zernova.runtime.tooling.support;
+  exports com.zernova.runtime.module.artifact.activation.internal.descriptor to
+      com.zernova.runtime.deployment.model.impl;
+  exports com.zernova.runtime.module.artifact.activation.internal.maven to
+      com.zernova.runtime.deployment.model.impl;
+  exports com.zernova.runtime.module.artifact.activation.internal.nativelib to
+      com.zernova.runtime.deployment,
+      com.zernova.runtime.deployment.model,
+      com.zernova.runtime.deployment.model.impl,
+      com.zernova.test.runner;
+  exports com.zernova.runtime.module.artifact.activation.internal.plugin to
+      com.zernova.runtime.deployment.model.impl;
 
   provides ArtifactClassLoaderFinder
       with DefaultArtifactClassLoaderFinder;

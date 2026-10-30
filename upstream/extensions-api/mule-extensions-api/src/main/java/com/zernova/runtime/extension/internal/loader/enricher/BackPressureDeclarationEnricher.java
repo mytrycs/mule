@@ -1,0 +1,90 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.extension.internal.loader.enricher;
+
+import static java.lang.String.format;
+import static java.util.Optional.of;
+import static com.zernova.metadata.api.model.MetadataFormat.JAVA;
+import static com.zernova.runtime.api.meta.ExpressionSupport.NOT_SUPPORTED;
+import static com.zernova.runtime.api.meta.model.parameter.ParameterGroupModel.DEFAULT_GROUP_NAME;
+import static com.zernova.runtime.extension.api.ExtensionConstants.BACK_PRESSURE_STRATEGY_PARAMETER_DESCRIPTION;
+import static com.zernova.runtime.extension.api.ExtensionConstants.BACK_PRESSURE_STRATEGY_PARAMETER_NAME;
+import static com.zernova.runtime.extension.api.annotation.param.display.Placement.ADVANCED_TAB;
+import static com.zernova.runtime.extension.api.loader.DeclarationEnricherPhase.STRUCTURE;
+
+import com.zernova.metadata.api.annotation.EnumAnnotation;
+import com.zernova.metadata.api.builder.BaseTypeBuilder;
+import com.zernova.metadata.api.model.MetadataType;
+import com.zernova.metadata.java.api.annotation.ClassInformationAnnotation;
+import com.zernova.runtime.api.meta.model.declaration.fluent.ExtensionDeclaration;
+import com.zernova.runtime.api.meta.model.declaration.fluent.ParameterDeclaration;
+import com.zernova.runtime.api.meta.model.declaration.fluent.SourceDeclaration;
+import com.zernova.runtime.api.meta.model.display.LayoutModel;
+import com.zernova.runtime.extension.api.loader.DeclarationEnricherPhase;
+import com.zernova.runtime.extension.api.loader.ExtensionLoadingContext;
+import com.zernova.runtime.extension.api.loader.IdempotentDeclarationEnricherWalkDelegate;
+import com.zernova.runtime.extension.api.loader.WalkingDeclarationEnricher;
+import com.zernova.runtime.extension.api.property.BackPressureStrategyModelProperty;
+import com.zernova.runtime.extension.api.runtime.source.BackPressureMode;
+
+import java.util.Optional;
+
+/**
+ * Adds a parameter for back pressure on message sources that apply
+ *
+ * @since 1.1
+ */
+public class BackPressureDeclarationEnricher implements WalkingDeclarationEnricher {
+
+  @Override
+  public Optional<DeclarationEnricherWalkDelegate> getWalkDelegate(ExtensionLoadingContext extensionLoadingContext) {
+    return of(new IdempotentDeclarationEnricherWalkDelegate() {
+
+      final ExtensionDeclaration extensionDeclaration = extensionLoadingContext.getExtensionDeclarer().getDeclaration();
+
+      @Override
+      protected void onSource(SourceDeclaration sourceDeclaration) {
+        Optional<BackPressureStrategyModelProperty> backPressureStrategyModelProperty =
+            sourceDeclaration.getModelProperty(BackPressureStrategyModelProperty.class);
+
+        if (backPressureStrategyModelProperty.isPresent()
+            && backPressureStrategyModelProperty.get().getSupportedModes().size() > 1) {
+          addBackPressureParameter(extensionDeclaration, sourceDeclaration, backPressureStrategyModelProperty.get());
+        }
+      }
+    });
+  }
+
+  @Override
+  public DeclarationEnricherPhase getExecutionPhase() {
+    return STRUCTURE;
+  }
+
+  private void addBackPressureParameter(ExtensionDeclaration extensionDeclaration,
+                                        SourceDeclaration sourceDeclaration,
+                                        BackPressureStrategyModelProperty property) {
+
+    ParameterDeclaration parameter = new ParameterDeclaration(BACK_PRESSURE_STRATEGY_PARAMETER_NAME);
+    parameter.setDescription(BACK_PRESSURE_STRATEGY_PARAMETER_DESCRIPTION);
+    parameter.setRequired(false);
+    parameter.setDefaultValue(property.getDefaultMode());
+    parameter.setExpressionSupport(NOT_SUPPORTED);
+    parameter.setLayoutModel(LayoutModel.builder().tabName(ADVANCED_TAB).build());
+
+    MetadataType type = BaseTypeBuilder.create(JAVA).stringType()
+        .id(format("%s-%s-backPressureStrategy", extensionDeclaration.getName(), sourceDeclaration.getName()))
+        .with(new EnumAnnotation<>(property.getSupportedModes().stream().map(BackPressureMode::name).toArray(String[]::new)))
+        .with(new ClassInformationAnnotation(BackPressureMode.class))
+        .build();
+
+    parameter.setType(type, false);
+
+    sourceDeclaration.getParameterGroup(DEFAULT_GROUP_NAME).addParameter(parameter);
+  }
+
+}

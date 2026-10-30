@@ -194,9 +194,9 @@
                 "format": "java",
                 "type": "Object",
                 "annotations": {
-                  "typeId": "org.mule.runtime.extension.api.runtime.ExpirationPolicy",
+                  "typeId": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
                   "classInformation": {
-                    "classname": "org.mule.runtime.extension.api.runtime.ExpirationPolicy",
+                    "classname": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
                     "hasDefaultConstructor": false,
                     "isInterface": true,
                     "isInstantiable": false,
@@ -306,14 +306,14 @@
               "name": "expirationPolicy",
               "description": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit.",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "expiration-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 4
                 }
               }
@@ -414,9 +414,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -661,7 +661,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -671,7 +671,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -776,9 +776,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -1023,7 +1023,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -1033,7 +1033,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -1138,9 +1138,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -1385,7 +1385,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -1395,7 +1395,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -1469,9 +1469,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -1716,7 +1716,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -1726,7 +1726,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -1800,9 +1800,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -2047,7 +2047,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -2057,7 +2057,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -2131,9 +2131,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -2378,7 +2378,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -2388,7 +2388,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -2462,9 +2462,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -2709,7 +2709,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -2719,7 +2719,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -2793,9 +2793,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -3040,7 +3040,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -3050,7 +3050,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -3124,9 +3124,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -3371,7 +3371,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -3381,7 +3381,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -3455,9 +3455,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -3702,7 +3702,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -3712,7 +3712,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -3786,9 +3786,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -4033,7 +4033,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -4043,7 +4043,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -4148,9 +4148,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -4395,7 +4395,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -4405,7 +4405,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -4446,7 +4446,7 @@
   "notifications": [],
   "errors": [],
   "modelProperties": {
-    "org.mule.runtime.extension.api.property.XmlExtensionModelProperty": {
+    "com.zernova.runtime.extension.api.property.XmlExtensionModelProperty": {
       "namespacesDependencies": [
         "http://www.mulesoft.org/schema/mule/petstore",
         "http://www.mulesoft.org/schema/mule/marvel",

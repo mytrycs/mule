@@ -4,27 +4,28 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 /**
  * Definitions for Mule tracer.
  *
  * @moduleGraph
  * @since 4.5
  */
-module org.mule.runtime.tracer.api {
+module com.zernova.runtime.tracer.api {
 
-  requires transitive org.mule.runtime.profiling.api;
+  requires transitive com.zernova.runtime.profiling.api;
 
-  requires org.mule.runtime.api;
+  requires com.zernova.runtime.api;
 
-  exports org.mule.runtime.tracer.api;
-  exports org.mule.runtime.tracer.api.context;
-  exports org.mule.runtime.tracer.api.context.getter;
-  exports org.mule.runtime.tracer.api.sniffer;
-  exports org.mule.runtime.tracer.api.span;
-  exports org.mule.runtime.tracer.api.span.error;
-  exports org.mule.runtime.tracer.api.span.exporter;
-  exports org.mule.runtime.tracer.api.span.info;
-  exports org.mule.runtime.tracer.api.span.validation;
-  exports org.mule.runtime.tracer.api.component;
+  exports com.zernova.runtime.tracer.api;
+  exports com.zernova.runtime.tracer.api.context;
+  exports com.zernova.runtime.tracer.api.context.getter;
+  exports com.zernova.runtime.tracer.api.sniffer;
+  exports com.zernova.runtime.tracer.api.span;
+  exports com.zernova.runtime.tracer.api.span.error;
+  exports com.zernova.runtime.tracer.api.span.exporter;
+  exports com.zernova.runtime.tracer.api.span.info;
+  exports com.zernova.runtime.tracer.api.span.validation;
+  exports com.zernova.runtime.tracer.api.component;
 
 }

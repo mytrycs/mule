@@ -4,6 +4,7 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 
 /**
  * Wrapper of the HTTP part from SDK API, delegating to HTTP API.
@@ -11,11 +12,11 @@
  * @moduleGraph
  * @since 4.10
  */
-module org.mule.runtime.http.support {
+module com.zernova.runtime.http.support {
 
-  requires org.mule.runtime.api;
-  requires org.mule.runtime.http.api;
-  requires org.mule.sdk.api;
+  requires com.zernova.runtime.api;
+  requires com.zernova.runtime.http.api;
+  requires com.zernova.sdk.api;
 
-  exports org.mule.runtime.http.support.api;
+  exports com.zernova.runtime.http.support.api;
 }

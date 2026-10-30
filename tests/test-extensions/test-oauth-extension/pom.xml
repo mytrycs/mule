@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.mule.tests</groupId>
+        <groupId>com.zernova.tests</groupId>
         <artifactId>mule-test-extensions-parent</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
@@ -13,22 +13,22 @@
     <artifactId>mule-test-oauth-extension</artifactId>
     <packaging>jar</packaging>
 
-    <name>Mule OAuth Test Extension</name>
+    <name>ZERNOVA OAuth Test Extension</name>
     <description>A Mule extension for testing the OAuth support</description>
 
     <properties>
-        <javaModuleName>org.mule.test.extension.oauth</javaModuleName>
+        <javaModuleName>com.zernova.test.extension.oauth</javaModuleName>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-values-extension</artifactId>
             <version>${project.version}</version>
             <classifier>mule-plugin</classifier>
         </dependency>
         <dependency>
-            <groupId>org.mule.sdk</groupId>
+            <groupId>com.zernova.sdk</groupId>
             <artifactId>mule-sdk-api</artifactId>
         </dependency>
     </dependencies>

@@ -2,26 +2,26 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.mule.tests</groupId>
+        <groupId>com.zernova.tests</groupId>
         <artifactId>mule-tests</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
-    <groupId>org.mule.tests.plugin</groupId>
+    <groupId>com.zernova.tests.plugin</groupId>
     <artifactId>mule-tests-component-plugin</artifactId>
     <packaging>mule-plugin</packaging>
-    <name>Mule Test Framework Components (TCK)</name>
+    <name>ZERNOVA Test Framework Components (TCK)</name>
     <description>Mule test framework components (TCK)</description>
 
     <properties>
         <surefire.args>${surefire.test.unit.open.args}</surefire.args>
 
-        <javaModuleName>org.mule.test.component.plugin</javaModuleName>
+        <javaModuleName>com.zernova.test.component.plugin</javaModuleName>
     </properties>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.mule.runtime.plugins</groupId>
+                <groupId>com.zernova.runtime.plugins</groupId>
                 <artifactId>mule-plugin-maven-plugin</artifactId>
                 <extensions>true</extensions>
             </plugin>
@@ -44,27 +44,27 @@
         </dependency>
 
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-core</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-runtime-extension-model</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-dsl-api</artifactId>
             <scope>provided</scope>
         </dependency>
         
         <!-- Unit tests -->
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tests-unit</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
@@ -74,13 +74,13 @@
             <artifactId>reactor-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-service-http-api</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.services</groupId>
+            <groupId>com.zernova.services</groupId>
             <artifactId>mule-service-weave</artifactId>
             <scope>provided</scope>
         </dependency>

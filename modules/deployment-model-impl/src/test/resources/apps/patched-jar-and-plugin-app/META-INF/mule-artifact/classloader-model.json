@@ -19,13 +19,13 @@
     },
     {
       "artifactCoordinates": {
-        "groupId": "org.mule.connectors",
+        "groupId": "com.zernova.connectors",
         "artifactId": "mule-objectstore-connector",
         "version": "1.0.0",
         "type": "jar",
         "classifier": "mule-plugin"
       },
-      "uri": "repository/org/mule/connectors/mule-objectstore-connector/1.0.0/mule-objectstore-connector-1.0.0-mule-plugin.jar"
+      "uri": "repository/com/zernova/connectors/mule-objectstore-connector/1.0.0/mule-objectstore-connector-1.0.0-mule-plugin.jar"
     }
   ]
 }

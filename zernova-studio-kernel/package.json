@@ -1,0 +1,265 @@
+{
+  "name": "zernova-studio-kernel-preview",
+  "displayName": "ZERNOVA Studio",
+  "description": "ZERNOVA Studio: real XML/Maven projects, HTTP Listener and Logger, and the Mule-Kernel Runtime preview.",
+  "version": "0.2.0",
+  "publisher": "zernova-preview",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "private": true,
+  "engines": {
+    "vscode": "^1.96.0",
+    "node": ">=22.14.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "ZERNOVA",
+    "integration",
+    "Mule Kernel"
+  ],
+  "icon": "assets/zernova-icon.png",
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onWebviewPanel:zernovaKernelStudio.preview"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "Design preview and editing are available. Runtime diagnostics, builds and execution require workspace trust."
+    },
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "Real projects require an accessible filesystem on the extension host."
+    }
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "zernovaKernelStudio.openPreview",
+        "category": "ZERNOVA",
+        "title": "Open Studio Design Preview",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "zernovaKernelStudio.resetPreview",
+        "category": "ZERNOVA",
+        "title": "Reset Studio Preview",
+        "icon": "$(discard)"
+      },
+      {
+        "command": "zernovaKernelStudio.resetLayout",
+        "category": "ZERNOVA",
+        "title": "Reset Studio Preview Layout",
+        "icon": "$(layout)"
+      },
+      {
+        "command": "zernovaKernelStudio.openScenario",
+        "category": "ZERNOVA",
+        "title": "Choose Studio Preview View"
+      },
+      {
+        "command": "zernovaKernelStudio.newProject",
+        "category": "ZERNOVA",
+        "title": "New ZERNOVA Project",
+        "icon": "$(new-folder)"
+      },
+      {
+        "command": "zernovaKernelStudio.openProject",
+        "category": "ZERNOVA",
+        "title": "Open ZERNOVA Project",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "zernovaKernelStudio.newIntegration",
+        "category": "ZERNOVA",
+        "title": "New Integration XML",
+        "icon": "$(new-file)"
+      },
+      {
+        "command": "zernovaKernelStudio.openIntegration",
+        "category": "ZERNOVA",
+        "title": "Open Integration in Studio",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "zernovaKernelStudio.configureRuntime",
+        "category": "ZERNOVA",
+        "title": "Configure Project Runtime and Tools",
+        "icon": "$(settings-gear)"
+      },
+      {
+        "command": "zernovaKernelStudio.diagnostics",
+        "category": "ZERNOVA",
+        "title": "Runtime Diagnostics",
+        "icon": "$(checklist)"
+      },
+      {
+        "command": "zernovaKernelStudio.build",
+        "category": "ZERNOVA",
+        "title": "Build Application",
+        "icon": "$(tools)"
+      },
+      {
+        "command": "zernovaKernelStudio.run",
+        "category": "ZERNOVA",
+        "title": "Build and Run Application",
+        "icon": "$(play)"
+      },
+      {
+        "command": "zernovaKernelStudio.status",
+        "category": "ZERNOVA",
+        "title": "Refresh Runtime Status",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "zernovaKernelStudio.logs",
+        "category": "ZERNOVA",
+        "title": "Show Application Logs",
+        "icon": "$(output)"
+      },
+      {
+        "command": "zernovaKernelStudio.stopApplication",
+        "category": "ZERNOVA",
+        "title": "Stop Application (Undeploy)",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "zernovaKernelStudio.stopRuntime",
+        "category": "ZERNOVA",
+        "title": "Stop Project Runtime",
+        "icon": "$(stop-circle)"
+      },
+      {
+        "command": "zernovaKernelStudio.cancel",
+        "category": "ZERNOVA",
+        "title": "Cancel Current Operation",
+        "icon": "$(close)"
+      },
+      {
+        "command": "zernovaKernelStudio.selectProject",
+        "category": "ZERNOVA",
+        "title": "Select Project"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "zernovaKernelStudio",
+          "title": "ZERNOVA",
+          "icon": "assets/zernova-mark.svg"
+        }
+      ]
+    },
+    "views": {
+      "zernovaKernelStudio": [
+        {
+          "id": "zernovaKernelStudio.projects",
+          "name": "Projects",
+          "contextualTitle": "ZERNOVA Studio"
+        },
+        {
+          "id": "zernovaKernelStudio.previewViews",
+          "name": "Design Preview",
+          "contextualTitle": "ZERNOVA Studio"
+        },
+        {
+          "id": "zernovaKernelStudio.runtimeInfo",
+          "name": "Target Runtime",
+          "contextualTitle": "ZERNOVA Studio"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "zernovaKernelStudio.newProject",
+          "when": "view == zernovaKernelStudio.projects",
+          "group": "navigation@1"
+        },
+        {
+          "command": "zernovaKernelStudio.openProject",
+          "when": "view == zernovaKernelStudio.projects",
+          "group": "navigation@2"
+        },
+        {
+          "command": "zernovaKernelStudio.newIntegration",
+          "when": "view == zernovaKernelStudio.projects",
+          "group": "navigation@3"
+        },
+        {
+          "command": "zernovaKernelStudio.resetPreview",
+          "when": "view == zernovaKernelStudio.previewViews",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "zernovaKernelStudio.newIntegration",
+          "when": "view == zernovaKernelStudio.projects && viewItem == zernovaKernelStudio.project",
+          "group": "inline@1"
+        },
+        {
+          "command": "zernovaKernelStudio.configureRuntime",
+          "when": "view == zernovaKernelStudio.projects && viewItem == zernovaKernelStudio.project",
+          "group": "runtime@1"
+        },
+        {
+          "command": "zernovaKernelStudio.run",
+          "when": "view == zernovaKernelStudio.projects && viewItem == zernovaKernelStudio.project",
+          "group": "runtime@2"
+        }
+      ]
+    },
+    "themes": [
+      {
+        "label": "ZERNOVA Studio Light",
+        "uiTheme": "vs",
+        "path": "themes/zernova-light.json"
+      },
+      {
+        "label": "ZERNOVA Studio Dark",
+        "uiTheme": "vs-dark",
+        "path": "themes/zernova-dark.json"
+      }
+    ],
+    "customEditors": [
+      {
+        "viewType": "zernovaKernelStudio.integration",
+        "displayName": "ZERNOVA Integration",
+        "selector": [
+          {
+            "filenamePattern": "**/src/main/mule/*.xml"
+          }
+        ],
+        "priority": "option"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/test.mjs",
+    "vscode:prepublish": "npm run build",
+    "package": "vsce package --no-dependencies --allow-missing-repository --out dist/zernova-studio-kernel-preview-0.2.0.vsix",
+    "test:host": "node scripts/test-host.mjs",
+    "test:ui": "node scripts/test-ui.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.1",
+    "@types/vscode": "1.96.0",
+    "@vscode/test-electron": "3.1.0",
+    "@vscode/vsce": "4.1.0",
+    "axe-core": "4.11.0",
+    "esbuild": "0.28.2",
+    "playwright": "1.64.1",
+    "typescript": "5.9.3",
+    "marked": "18.1.2"
+  },
+  "dependencies": {
+    "sax": "1.6.1"
+  },
+  "extensionKind": [
+    "workspace"
+  ]
+}

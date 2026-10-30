@@ -6,7 +6,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { spawn } from 'node:child_process';
 
 export const STUDIO_VERSION = '0.3.0';
-export const RUNTIME_VERSION = '0.3.0-dev.1';
+export const RUNTIME_VERSION = '0.3.0-dev.2';
 export const ENGINE_VERSION = '4.10.0-SNAPSHOT';
 export const TARGETS = ['linux-x64', 'linux-arm64', 'darwin-x64', 'darwin-arm64', 'win32-x64', 'win32-arm64'] as const;
 export interface BundleInfo {

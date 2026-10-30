@@ -1,0 +1,58 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.core.internal.util.journal.queue;
+
+import com.zernova.runtime.api.serialization.SerializationProtocol;
+import com.zernova.runtime.core.internal.util.journal.JournalEntry;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.Serializable;
+
+import javax.transaction.xa.Xid;
+
+/**
+ * Queue {@link JournalEntry} for XA transactions
+ */
+public class XaQueueTxJournalEntry extends AbstractQueueTxJournalEntry<Xid> {
+
+  public XaQueueTxJournalEntry(Xid txId, byte operation, String queueName, Serializable value) {
+    super(new ZernovaXid(txId), operation, queueName, value);
+  }
+
+  public XaQueueTxJournalEntry(Xid txId, byte operation) {
+    super(new ZernovaXid(txId), operation);
+  }
+
+  public XaQueueTxJournalEntry(DataInputStream inputStream, SerializationProtocol serializer) throws IOException {
+    super(inputStream, serializer);
+  }
+
+  @Override
+  protected Xid deserializeTxId(DataInputStream inputStream) throws IOException {
+    byte globalTransactionIdSize = inputStream.readByte();
+    final byte[] globalTransactionId = new byte[globalTransactionIdSize];
+    inputStream.read(globalTransactionId, 0, globalTransactionIdSize);
+    byte branchQualifierIdSize = inputStream.readByte();
+    final byte[] branchQualifierId = new byte[branchQualifierIdSize];
+    inputStream.read(branchQualifierId, 0, branchQualifierIdSize);
+    final int formadId = inputStream.readInt();
+    return new ZernovaXid(formadId, globalTransactionId, branchQualifierId);
+  }
+
+  @Override
+  protected void serializeTxId(DataOutputStream outputStream) throws IOException {
+    outputStream.writeByte(getTxId().getGlobalTransactionId().length);
+    outputStream.write(getTxId().getGlobalTransactionId());
+    outputStream.writeByte(getTxId().getBranchQualifier().length);
+    outputStream.write(getTxId().getBranchQualifier());
+    outputStream.writeInt(getTxId().getFormatId());
+  }
+
+}

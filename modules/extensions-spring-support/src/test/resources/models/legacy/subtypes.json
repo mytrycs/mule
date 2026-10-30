@@ -16,44 +16,44 @@
     {
       "baseType": {
         "format": "java",
-        "type": "@ref:org.mule.test.subtypes.extension.ParentShape"
+        "type": "@ref:com.zernova.test.subtypes.extension.ParentShape"
       },
       "subTypes": [
         {
           "format": "java",
-          "type": "@ref:org.mule.test.subtypes.extension.Square"
+          "type": "@ref:com.zernova.test.subtypes.extension.Square"
         },
         {
           "format": "java",
-          "type": "@ref:org.mule.test.subtypes.extension.Triangle"
+          "type": "@ref:com.zernova.test.subtypes.extension.Triangle"
         }
       ]
     },
     {
       "baseType": {
         "format": "java",
-        "type": "@ref:org.mule.test.subtypes.extension.Door"
+        "type": "@ref:com.zernova.test.subtypes.extension.Door"
       },
       "subTypes": [
         {
           "format": "java",
-          "type": "@ref:org.mule.test.subtypes.extension.HouseDoor"
+          "type": "@ref:com.zernova.test.subtypes.extension.HouseDoor"
         },
         {
           "format": "java",
-          "type": "@ref:org.mule.test.subtypes.extension.CarDoor"
+          "type": "@ref:com.zernova.test.subtypes.extension.CarDoor"
         }
       ]
     },
     {
       "baseType": {
         "format": "java",
-        "type": "@ref:org.mule.test.heisenberg.extension.model.Weapon"
+        "type": "@ref:com.zernova.test.heisenberg.extension.model.Weapon"
       },
       "subTypes": [
         {
           "format": "java",
-          "type": "@ref:org.mule.test.subtypes.extension.Revolver"
+          "type": "@ref:com.zernova.test.subtypes.extension.Revolver"
         }
       ]
     }
@@ -66,13 +66,13 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.runtime.api.store.ObjectStore",
+        "typeId": "com.zernova.runtime.api.store.ObjectStore",
         "extensibleType": {},
         "typeAlias": {
           "value": "ObjectStore"
         },
         "classInformation": {
-          "classname": "org.mule.runtime.api.store.ObjectStore",
+          "classname": "com.zernova.runtime.api.store.ObjectStore",
           "hasDefaultConstructor": false,
           "isInterface": true,
           "isInstantiable": false,
@@ -90,9 +90,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.tck.message.StringAttributes",
+        "typeId": "com.zernova.tck.message.StringAttributes",
         "classInformation": {
-          "classname": "org.mule.tck.message.StringAttributes",
+          "classname": "com.zernova.tck.message.StringAttributes",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -124,16 +124,16 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.heisenberg.extension.model.Ricin",
+        "typeId": "com.zernova.test.heisenberg.extension.model.Ricin",
         "classInformation": {
-          "classname": "org.mule.test.heisenberg.extension.model.Ricin",
+          "classname": "com.zernova.test.heisenberg.extension.model.Ricin",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
           "isAbstract": false,
           "isFinal": false,
           "implementedInterfaces": [
-            "org.mule.test.heisenberg.extension.model.Weapon"
+            "com.zernova.test.heisenberg.extension.model.Weapon"
           ],
           "parent": "",
           "genericTypes": [],
@@ -199,9 +199,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.heisenberg.extension.model.KnockeableDoor",
+              "typeId": "com.zernova.test.heisenberg.extension.model.KnockeableDoor",
               "classInformation": {
-                "classname": "org.mule.test.heisenberg.extension.model.KnockeableDoor",
+                "classname": "com.zernova.test.heisenberg.extension.model.KnockeableDoor",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
@@ -284,9 +284,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.heisenberg.extension.model.Weapon",
+        "typeId": "com.zernova.test.heisenberg.extension.model.Weapon",
         "classInformation": {
-          "classname": "org.mule.test.heisenberg.extension.model.Weapon",
+          "classname": "com.zernova.test.heisenberg.extension.model.Weapon",
           "hasDefaultConstructor": false,
           "isInterface": true,
           "isInstantiable": false,
@@ -316,9 +316,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.vegan.extension.VeganCookBook",
+        "typeId": "com.zernova.test.vegan.extension.VeganCookBook",
         "classInformation": {
-          "classname": "org.mule.test.vegan.extension.VeganCookBook",
+          "classname": "com.zernova.test.vegan.extension.VeganCookBook",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -432,7 +432,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.ParentShape"
+                "type": "@ref:com.zernova.test.subtypes.extension.ParentShape"
               },
               "hasDynamicType": false,
               "required": true,
@@ -459,7 +459,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.Door"
+                "type": "@ref:com.zernova.test.subtypes.extension.Door"
               },
               "hasDynamicType": false,
               "required": true,
@@ -491,7 +491,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.Square"
+                "type": "@ref:com.zernova.test.subtypes.extension.Square"
               },
               "hasDynamicType": false,
               "required": true,
@@ -527,7 +527,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.FinalPojo"
+                "type": "@ref:com.zernova.test.subtypes.extension.FinalPojo"
               },
               "hasDynamicType": false,
               "required": true,
@@ -554,7 +554,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.heisenberg.extension.model.Ricin"
+                "type": "@ref:com.zernova.test.heisenberg.extension.model.Ricin"
               },
               "hasDynamicType": false,
               "required": true,
@@ -586,7 +586,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.heisenberg.extension.model.Weapon"
+                "type": "@ref:com.zernova.test.heisenberg.extension.model.Weapon"
               },
               "hasDynamicType": false,
               "required": true,
@@ -618,7 +618,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.ParentShape"
+                "type": "@ref:com.zernova.test.subtypes.extension.ParentShape"
               },
               "hasDynamicType": false,
               "required": true,
@@ -645,7 +645,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.ExtensiblePojo"
+                "type": "@ref:com.zernova.test.subtypes.extension.ExtensiblePojo"
               },
               "hasDynamicType": false,
               "required": true,
@@ -686,13 +686,13 @@
                     ],
                     "parent": "",
                     "genericTypes": [
-                      "org.mule.test.subtypes.extension.PojoForList"
+                      "com.zernova.test.subtypes.extension.PojoForList"
                     ],
                     "isMap": false
                   }
                 },
                 "item": {
-                  "type": "@ref:org.mule.test.subtypes.extension.PojoForList"
+                  "type": "@ref:com.zernova.test.subtypes.extension.PojoForList"
                 }
               },
               "hasDynamicType": false,
@@ -734,13 +734,13 @@
                     ],
                     "parent": "",
                     "genericTypes": [
-                      "org.mule.test.subtypes.extension.PojoForList"
+                      "com.zernova.test.subtypes.extension.PojoForList"
                     ],
                     "isMap": false
                   }
                 },
                 "item": {
-                  "type": "@ref:org.mule.test.subtypes.extension.PojoForList"
+                  "type": "@ref:com.zernova.test.subtypes.extension.PojoForList"
                 }
               },
               "hasDynamicType": false,
@@ -782,13 +782,13 @@
                     ],
                     "parent": "",
                     "genericTypes": [
-                      "org.mule.test.heisenberg.extension.model.Weapon"
+                      "com.zernova.test.heisenberg.extension.model.Weapon"
                     ],
                     "isMap": false
                   }
                 },
                 "item": {
-                  "type": "@ref:org.mule.test.heisenberg.extension.model.Weapon"
+                  "type": "@ref:com.zernova.test.heisenberg.extension.model.Weapon"
                 }
               },
               "hasDynamicType": false,
@@ -834,13 +834,13 @@
                     "parent": "",
                     "genericTypes": [
                       "java.lang.String",
-                      "org.mule.test.heisenberg.extension.model.Weapon"
+                      "com.zernova.test.heisenberg.extension.model.Weapon"
                     ],
                     "isMap": true
                   }
                 },
                 "open": {
-                  "type": "@ref:org.mule.test.heisenberg.extension.model.Weapon"
+                  "type": "@ref:com.zernova.test.heisenberg.extension.model.Weapon"
                 },
                 "fields": []
               },
@@ -903,7 +903,7 @@
                 "format": "java",
                 "type": "Object",
                 "annotations": {
-                  "typeId": "org.mule.runtime.extension.api.runtime.ExpirationPolicy",
+                  "typeId": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
                   "description": {
                     "value": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit."
                   },
@@ -1002,14 +1002,14 @@
               "name": "expirationPolicy",
               "description": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit.",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "expiration-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 4
                 }
               }
@@ -1036,7 +1036,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.test.subtypes.extension.SubTypesMappingConnector"
+              "type": "@ref:com.zernova.test.subtypes.extension.SubTypesMappingConnector"
             },
             "hasDynamicType": true,
             "description": "",
@@ -1077,7 +1077,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -1224,7 +1224,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.test.subtypes.extension.SubTypesConnectorConnection"
+              "type": "@ref:com.zernova.test.subtypes.extension.SubTypesConnectorConnection"
             },
             "hasDynamicType": true,
             "description": "",
@@ -1268,7 +1268,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -1555,14 +1555,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -1615,7 +1615,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.subtypes.extension.ParentShape"
+                    "type": "@ref:com.zernova.test.subtypes.extension.ParentShape"
                   },
                   "hasDynamicType": false,
                   "required": true,
@@ -1642,7 +1642,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.subtypes.extension.Door"
+                    "type": "@ref:com.zernova.test.subtypes.extension.Door"
                   },
                   "hasDynamicType": false,
                   "required": true,
@@ -1688,13 +1688,13 @@
                         ],
                         "parent": "",
                         "genericTypes": [
-                          "org.mule.test.subtypes.extension.Door"
+                          "com.zernova.test.subtypes.extension.Door"
                         ],
                         "isMap": false
                       }
                     },
                     "item": {
-                      "type": "@ref:org.mule.test.subtypes.extension.Door"
+                      "type": "@ref:com.zernova.test.subtypes.extension.Door"
                     }
                   },
                   "hasDynamicType": false,
@@ -1932,14 +1932,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -2002,7 +2002,7 @@
       "output": {
         "type": {
           "format": "java",
-          "type": "@ref:org.mule.test.subtypes.extension.Door"
+          "type": "@ref:com.zernova.test.subtypes.extension.Door"
         },
         "hasDynamicType": true,
         "description": "",
@@ -2041,7 +2041,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.Door"
+                "type": "@ref:com.zernova.test.subtypes.extension.Door"
               },
               "hasDynamicType": false,
               "required": true,
@@ -2182,7 +2182,7 @@
       "output": {
         "type": {
           "format": "java",
-          "type": "@ref:org.mule.test.subtypes.extension.NoGlobalPojo"
+          "type": "@ref:com.zernova.test.subtypes.extension.NoGlobalPojo"
         },
         "hasDynamicType": true,
         "description": "",
@@ -2221,7 +2221,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.NoGlobalPojo"
+                "type": "@ref:com.zernova.test.subtypes.extension.NoGlobalPojo"
               },
               "hasDynamicType": false,
               "required": true,
@@ -2369,7 +2369,7 @@
               "implementedInterfaces": [],
               "parent": "",
               "genericTypes": [
-                "org.mule.test.subtypes.extension.Door",
+                "com.zernova.test.subtypes.extension.Door",
                 "java.util.Map"
               ],
               "isMap": true
@@ -2389,13 +2389,13 @@
                 "parent": "",
                 "genericTypes": [
                   "java.lang.String",
-                  "org.mule.test.subtypes.extension.Door"
+                  "com.zernova.test.subtypes.extension.Door"
                 ],
                 "isMap": true
               }
             },
             "open": {
-              "type": "@ref:org.mule.test.subtypes.extension.Door"
+              "type": "@ref:com.zernova.test.subtypes.extension.Door"
             },
             "fields": []
           },
@@ -2438,7 +2438,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.Door"
+                "type": "@ref:com.zernova.test.subtypes.extension.Door"
               },
               "hasDynamicType": false,
               "required": true,
@@ -2483,13 +2483,13 @@
                     "parent": "",
                     "genericTypes": [
                       "java.lang.String",
-                      "org.mule.test.subtypes.extension.Door"
+                      "com.zernova.test.subtypes.extension.Door"
                     ],
                     "isMap": true
                   }
                 },
                 "open": {
-                  "type": "@ref:org.mule.test.subtypes.extension.Door"
+                  "type": "@ref:com.zernova.test.subtypes.extension.Door"
                 },
                 "fields": []
               },
@@ -2632,7 +2632,7 @@
       "output": {
         "type": {
           "format": "java",
-          "type": "@ref:org.mule.test.subtypes.extension.ParentShape"
+          "type": "@ref:com.zernova.test.subtypes.extension.ParentShape"
         },
         "hasDynamicType": true,
         "description": "",
@@ -2671,7 +2671,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.ParentShape"
+                "type": "@ref:com.zernova.test.subtypes.extension.ParentShape"
               },
               "hasDynamicType": false,
               "required": true,
@@ -2886,7 +2886,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.ParentShape"
+                "type": "@ref:com.zernova.test.subtypes.extension.ParentShape"
               },
               "hasDynamicType": false,
               "required": false,
@@ -2913,7 +2913,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.Door"
+                "type": "@ref:com.zernova.test.subtypes.extension.Door"
               },
               "hasDynamicType": false,
               "required": false,
@@ -2945,7 +2945,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.FinalPojo"
+                "type": "@ref:com.zernova.test.subtypes.extension.FinalPojo"
               },
               "hasDynamicType": false,
               "required": false,
@@ -2972,7 +2972,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.vegan.extension.VeganCookBook"
+                "type": "@ref:com.zernova.test.vegan.extension.VeganCookBook"
               },
               "hasDynamicType": false,
               "required": false,
@@ -2999,7 +2999,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.ParentShape"
+                "type": "@ref:com.zernova.test.subtypes.extension.ParentShape"
               },
               "hasDynamicType": false,
               "required": false,
@@ -3026,7 +3026,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.ParentShape"
+                "type": "@ref:com.zernova.test.subtypes.extension.ParentShape"
               },
               "hasDynamicType": false,
               "required": false,
@@ -3053,7 +3053,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.NoReferencePojo"
+                "type": "@ref:com.zernova.test.subtypes.extension.NoReferencePojo"
               },
               "hasDynamicType": false,
               "required": false,
@@ -3205,7 +3205,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.ParentShape"
+                "type": "@ref:com.zernova.test.subtypes.extension.ParentShape"
               },
               "hasDynamicType": false,
               "required": true,
@@ -3232,7 +3232,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.Door"
+                "type": "@ref:com.zernova.test.subtypes.extension.Door"
               },
               "hasDynamicType": false,
               "required": true,
@@ -3278,13 +3278,13 @@
                     ],
                     "parent": "",
                     "genericTypes": [
-                      "org.mule.test.subtypes.extension.Door"
+                      "com.zernova.test.subtypes.extension.Door"
                     ],
                     "isMap": false
                   }
                 },
                 "item": {
-                  "type": "@ref:org.mule.test.subtypes.extension.Door"
+                  "type": "@ref:com.zernova.test.subtypes.extension.Door"
                 }
               },
               "hasDynamicType": false,
@@ -3522,14 +3522,14 @@
               "name": "reconnection",
               "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "reconnection",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 3
                 }
               }
@@ -3583,7 +3583,7 @@
       "outputAttributes": {
         "type": {
           "format": "java",
-          "type": "@ref:org.mule.tck.message.StringAttributes"
+          "type": "@ref:com.zernova.tck.message.StringAttributes"
         },
         "hasDynamicType": false,
         "description": "",
@@ -3613,7 +3613,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.subtypes.extension.Door"
+                "type": "@ref:com.zernova.test.subtypes.extension.Door"
               },
               "hasDynamicType": false,
               "required": true,
@@ -3769,7 +3769,7 @@
                       "name": "objectStore"
                     },
                     "model": {
-                      "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                      "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                     },
                     "annotations": {
                       "stereotype": {
@@ -3809,14 +3809,14 @@
               "name": "redeliveryPolicy",
               "description": "Defines a policy for processing the redelivery of the same message",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-redelivery-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 1
                 }
               }
@@ -3874,16 +3874,16 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.subtypes.extension.CarDoor",
+        "typeId": "com.zernova.test.subtypes.extension.CarDoor",
         "classInformation": {
-          "classname": "org.mule.test.subtypes.extension.CarDoor",
+          "classname": "com.zernova.test.subtypes.extension.CarDoor",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
           "isAbstract": false,
           "isFinal": false,
           "implementedInterfaces": [
-            "org.mule.test.subtypes.extension.Door"
+            "com.zernova.test.subtypes.extension.Door"
           ],
           "parent": "",
           "genericTypes": [],
@@ -3944,9 +3944,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.subtypes.extension.Door",
+        "typeId": "com.zernova.test.subtypes.extension.Door",
         "classInformation": {
-          "classname": "org.mule.test.subtypes.extension.Door",
+          "classname": "com.zernova.test.subtypes.extension.Door",
           "hasDefaultConstructor": false,
           "isInterface": true,
           "isInstantiable": false,
@@ -3975,9 +3975,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.subtypes.extension.ExtensiblePojo",
+        "typeId": "com.zernova.test.subtypes.extension.ExtensiblePojo",
         "classInformation": {
-          "classname": "org.mule.test.subtypes.extension.ExtensiblePojo",
+          "classname": "com.zernova.test.subtypes.extension.ExtensiblePojo",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -4066,9 +4066,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.subtypes.extension.FinalPojo",
+        "typeId": "com.zernova.test.subtypes.extension.FinalPojo",
         "classInformation": {
-          "classname": "org.mule.test.subtypes.extension.FinalPojo",
+          "classname": "com.zernova.test.subtypes.extension.FinalPojo",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -4098,16 +4098,16 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.subtypes.extension.HouseDoor",
+        "typeId": "com.zernova.test.subtypes.extension.HouseDoor",
         "classInformation": {
-          "classname": "org.mule.test.subtypes.extension.HouseDoor",
+          "classname": "com.zernova.test.subtypes.extension.HouseDoor",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
           "isAbstract": false,
           "isFinal": false,
           "implementedInterfaces": [
-            "org.mule.test.subtypes.extension.Door"
+            "com.zernova.test.subtypes.extension.Door"
           ],
           "parent": "",
           "genericTypes": [],
@@ -4171,9 +4171,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.subtypes.extension.NoGlobalPojo",
+        "typeId": "com.zernova.test.subtypes.extension.NoGlobalPojo",
         "classInformation": {
-          "classname": "org.mule.test.subtypes.extension.NoGlobalPojo",
+          "classname": "com.zernova.test.subtypes.extension.NoGlobalPojo",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -4252,9 +4252,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.subtypes.extension.NoReferencePojo",
+        "typeId": "com.zernova.test.subtypes.extension.NoReferencePojo",
         "classInformation": {
-          "classname": "org.mule.test.subtypes.extension.NoReferencePojo",
+          "classname": "com.zernova.test.subtypes.extension.NoReferencePojo",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -4319,9 +4319,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.subtypes.extension.ParentShape",
+        "typeId": "com.zernova.test.subtypes.extension.ParentShape",
         "classInformation": {
-          "classname": "org.mule.test.subtypes.extension.ParentShape",
+          "classname": "com.zernova.test.subtypes.extension.ParentShape",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -4368,9 +4368,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.subtypes.extension.PojoForList",
+        "typeId": "com.zernova.test.subtypes.extension.PojoForList",
         "classInformation": {
-          "classname": "org.mule.test.subtypes.extension.PojoForList",
+          "classname": "com.zernova.test.subtypes.extension.PojoForList",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -4401,16 +4401,16 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.subtypes.extension.Revolver",
+        "typeId": "com.zernova.test.subtypes.extension.Revolver",
         "classInformation": {
-          "classname": "org.mule.test.subtypes.extension.Revolver",
+          "classname": "com.zernova.test.subtypes.extension.Revolver",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
           "isAbstract": false,
           "isFinal": false,
           "implementedInterfaces": [
-            "org.mule.test.heisenberg.extension.model.Weapon"
+            "com.zernova.test.heisenberg.extension.model.Weapon"
           ],
           "parent": "",
           "genericTypes": [],
@@ -4472,16 +4472,16 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.subtypes.extension.Square",
+        "typeId": "com.zernova.test.subtypes.extension.Square",
         "classInformation": {
-          "classname": "org.mule.test.subtypes.extension.Square",
+          "classname": "com.zernova.test.subtypes.extension.Square",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
           "isAbstract": false,
           "isFinal": false,
           "implementedInterfaces": [],
-          "parent": "org.mule.test.subtypes.extension.ParentShape",
+          "parent": "com.zernova.test.subtypes.extension.ParentShape",
           "genericTypes": [],
           "isMap": false
         },
@@ -4562,9 +4562,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.subtypes.extension.SubTypesConnectorConnection",
+        "typeId": "com.zernova.test.subtypes.extension.SubTypesConnectorConnection",
         "classInformation": {
-          "classname": "org.mule.test.subtypes.extension.SubTypesConnectorConnection",
+          "classname": "com.zernova.test.subtypes.extension.SubTypesConnectorConnection",
           "hasDefaultConstructor": false,
           "isInterface": false,
           "isInstantiable": false,
@@ -4587,9 +4587,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.subtypes.extension.Door",
+              "typeId": "com.zernova.test.subtypes.extension.Door",
               "classInformation": {
-                "classname": "org.mule.test.subtypes.extension.Door",
+                "classname": "com.zernova.test.subtypes.extension.Door",
                 "hasDefaultConstructor": false,
                 "isInterface": true,
                 "isInstantiable": false,
@@ -4625,9 +4625,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.subtypes.extension.ParentShape",
+              "typeId": "com.zernova.test.subtypes.extension.ParentShape",
               "classInformation": {
-                "classname": "org.mule.test.subtypes.extension.ParentShape",
+                "classname": "com.zernova.test.subtypes.extension.ParentShape",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
@@ -4680,9 +4680,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.subtypes.extension.SubTypesMappingConnector",
+        "typeId": "com.zernova.test.subtypes.extension.SubTypesMappingConnector",
         "classInformation": {
-          "classname": "org.mule.test.subtypes.extension.SubTypesMappingConnector",
+          "classname": "com.zernova.test.subtypes.extension.SubTypesMappingConnector",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -4706,9 +4706,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.subtypes.extension.ParentShape",
+              "typeId": "com.zernova.test.subtypes.extension.ParentShape",
               "classInformation": {
-                "classname": "org.mule.test.subtypes.extension.ParentShape",
+                "classname": "com.zernova.test.subtypes.extension.ParentShape",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
@@ -4765,9 +4765,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.subtypes.extension.Door",
+              "typeId": "com.zernova.test.subtypes.extension.Door",
               "classInformation": {
-                "classname": "org.mule.test.subtypes.extension.Door",
+                "classname": "com.zernova.test.subtypes.extension.Door",
                 "hasDefaultConstructor": false,
                 "isInterface": true,
                 "isInstantiable": false,
@@ -4806,16 +4806,16 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.subtypes.extension.Square",
+              "typeId": "com.zernova.test.subtypes.extension.Square",
               "classInformation": {
-                "classname": "org.mule.test.subtypes.extension.Square",
+                "classname": "com.zernova.test.subtypes.extension.Square",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
                 "isAbstract": false,
                 "isFinal": false,
                 "implementedInterfaces": [],
-                "parent": "org.mule.test.subtypes.extension.ParentShape",
+                "parent": "com.zernova.test.subtypes.extension.ParentShape",
                 "genericTypes": [],
                 "isMap": false
               },
@@ -4902,9 +4902,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.subtypes.extension.FinalPojo",
+              "typeId": "com.zernova.test.subtypes.extension.FinalPojo",
               "classInformation": {
-                "classname": "org.mule.test.subtypes.extension.FinalPojo",
+                "classname": "com.zernova.test.subtypes.extension.FinalPojo",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
@@ -4944,16 +4944,16 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.heisenberg.extension.model.Ricin",
+              "typeId": "com.zernova.test.heisenberg.extension.model.Ricin",
               "classInformation": {
-                "classname": "org.mule.test.heisenberg.extension.model.Ricin",
+                "classname": "com.zernova.test.heisenberg.extension.model.Ricin",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
                 "isAbstract": false,
                 "isFinal": false,
                 "implementedInterfaces": [
-                  "org.mule.test.heisenberg.extension.model.Weapon"
+                  "com.zernova.test.heisenberg.extension.model.Weapon"
                 ],
                 "parent": "",
                 "genericTypes": [],
@@ -5015,9 +5015,9 @@
                 "model": {
                   "type": "Object",
                   "annotations": {
-                    "typeId": "org.mule.test.heisenberg.extension.model.KnockeableDoor",
+                    "typeId": "com.zernova.test.heisenberg.extension.model.KnockeableDoor",
                     "classInformation": {
-                      "classname": "org.mule.test.heisenberg.extension.model.KnockeableDoor",
+                      "classname": "com.zernova.test.heisenberg.extension.model.KnockeableDoor",
                       "hasDefaultConstructor": true,
                       "isInterface": false,
                       "isInstantiable": true,
@@ -5110,9 +5110,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.heisenberg.extension.model.Weapon",
+              "typeId": "com.zernova.test.heisenberg.extension.model.Weapon",
               "classInformation": {
-                "classname": "org.mule.test.heisenberg.extension.model.Weapon",
+                "classname": "com.zernova.test.heisenberg.extension.model.Weapon",
                 "hasDefaultConstructor": false,
                 "isInterface": true,
                 "isInstantiable": false,
@@ -5152,9 +5152,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.subtypes.extension.ParentShape",
+              "typeId": "com.zernova.test.subtypes.extension.ParentShape",
               "classInformation": {
-                "classname": "org.mule.test.subtypes.extension.ParentShape",
+                "classname": "com.zernova.test.subtypes.extension.ParentShape",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
@@ -5211,9 +5211,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.subtypes.extension.ExtensiblePojo",
+              "typeId": "com.zernova.test.subtypes.extension.ExtensiblePojo",
               "classInformation": {
-                "classname": "org.mule.test.subtypes.extension.ExtensiblePojo",
+                "classname": "com.zernova.test.subtypes.extension.ExtensiblePojo",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
@@ -5324,7 +5324,7 @@
                 ],
                 "parent": "",
                 "genericTypes": [
-                  "org.mule.test.subtypes.extension.PojoForList"
+                  "com.zernova.test.subtypes.extension.PojoForList"
                 ],
                 "isMap": false
               }
@@ -5332,9 +5332,9 @@
             "item": {
               "type": "Object",
               "annotations": {
-                "typeId": "org.mule.test.subtypes.extension.PojoForList",
+                "typeId": "com.zernova.test.subtypes.extension.PojoForList",
                 "classInformation": {
-                  "classname": "org.mule.test.subtypes.extension.PojoForList",
+                  "classname": "com.zernova.test.subtypes.extension.PojoForList",
                   "hasDefaultConstructor": true,
                   "isInterface": false,
                   "isInstantiable": true,
@@ -5388,7 +5388,7 @@
                 ],
                 "parent": "",
                 "genericTypes": [
-                  "org.mule.test.subtypes.extension.PojoForList"
+                  "com.zernova.test.subtypes.extension.PojoForList"
                 ],
                 "isMap": false
               }
@@ -5396,9 +5396,9 @@
             "item": {
               "type": "Object",
               "annotations": {
-                "typeId": "org.mule.test.subtypes.extension.PojoForList",
+                "typeId": "com.zernova.test.subtypes.extension.PojoForList",
                 "classInformation": {
-                  "classname": "org.mule.test.subtypes.extension.PojoForList",
+                  "classname": "com.zernova.test.subtypes.extension.PojoForList",
                   "hasDefaultConstructor": true,
                   "isInterface": false,
                   "isInstantiable": true,
@@ -5452,7 +5452,7 @@
                 ],
                 "parent": "",
                 "genericTypes": [
-                  "org.mule.test.heisenberg.extension.model.Weapon"
+                  "com.zernova.test.heisenberg.extension.model.Weapon"
                 ],
                 "isMap": false
               }
@@ -5460,9 +5460,9 @@
             "item": {
               "type": "Object",
               "annotations": {
-                "typeId": "org.mule.test.heisenberg.extension.model.Weapon",
+                "typeId": "com.zernova.test.heisenberg.extension.model.Weapon",
                 "classInformation": {
-                  "classname": "org.mule.test.heisenberg.extension.model.Weapon",
+                  "classname": "com.zernova.test.heisenberg.extension.model.Weapon",
                   "hasDefaultConstructor": false,
                   "isInterface": true,
                   "isInstantiable": false,
@@ -5514,7 +5514,7 @@
                 "parent": "",
                 "genericTypes": [
                   "java.lang.String",
-                  "org.mule.test.heisenberg.extension.model.Weapon"
+                  "com.zernova.test.heisenberg.extension.model.Weapon"
                 ],
                 "isMap": true
               }
@@ -5522,9 +5522,9 @@
             "open": {
               "type": "Object",
               "annotations": {
-                "typeId": "org.mule.test.heisenberg.extension.model.Weapon",
+                "typeId": "com.zernova.test.heisenberg.extension.model.Weapon",
                 "classInformation": {
-                  "classname": "org.mule.test.heisenberg.extension.model.Weapon",
+                  "classname": "com.zernova.test.heisenberg.extension.model.Weapon",
                   "hasDefaultConstructor": false,
                   "isInterface": true,
                   "isInstantiable": false,
@@ -5564,16 +5564,16 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.subtypes.extension.Triangle",
+        "typeId": "com.zernova.test.subtypes.extension.Triangle",
         "classInformation": {
-          "classname": "org.mule.test.subtypes.extension.Triangle",
+          "classname": "com.zernova.test.subtypes.extension.Triangle",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
           "isAbstract": false,
           "isFinal": false,
           "implementedInterfaces": [],
-          "parent": "org.mule.test.subtypes.extension.ParentShape",
+          "parent": "com.zernova.test.subtypes.extension.ParentShape",
           "genericTypes": [],
           "isMap": false
         },

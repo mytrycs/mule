@@ -4,48 +4,49 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 /**
  * Provides descriptors and class loaders for deployment artifacts.
  *
  * @moduleGraph
  * @since 4.6
- * @deprecated Use {@link org.mule.runtime.artifact.activation} instead.
+ * @deprecated Use {@link com.zernova.runtime.artifact.activation} instead.
  */
 @Deprecated
-module org.mule.runtime.deployment.model {
+module com.zernova.runtime.deployment.model {
 
-  requires org.mule.runtime.api;
-  requires org.mule.runtime.dsl.api;
-  requires org.mule.runtime.artifact.ast;
-  requires org.mule.runtime.artifact.declaration;
-  requires org.mule.runtime.core;
-  requires org.mule.runtime.artifact;
-  requires org.mule.runtime.artifact.activation;
-  requires org.mule.runtime.container;
+  requires com.zernova.runtime.api;
+  requires com.zernova.runtime.dsl.api;
+  requires com.zernova.runtime.artifact.ast;
+  requires com.zernova.runtime.artifact.declaration;
+  requires com.zernova.runtime.core;
+  requires com.zernova.runtime.artifact;
+  requires com.zernova.runtime.artifact.activation;
+  requires com.zernova.runtime.container;
 
   requires org.apache.commons.lang3;
 
-  exports org.mule.runtime.deployment.model.api;
-  exports org.mule.runtime.deployment.model.api.application;
-  exports org.mule.runtime.deployment.model.api.artifact;
-  exports org.mule.runtime.deployment.model.api.builder;
-  exports org.mule.runtime.deployment.model.api.domain;
-  exports org.mule.runtime.deployment.model.api.plugin;
-  exports org.mule.runtime.deployment.model.api.plugin.resolver;
-  exports org.mule.runtime.deployment.model.api.policy;
+  exports com.zernova.runtime.deployment.model.api;
+  exports com.zernova.runtime.deployment.model.api.application;
+  exports com.zernova.runtime.deployment.model.api.artifact;
+  exports com.zernova.runtime.deployment.model.api.builder;
+  exports com.zernova.runtime.deployment.model.api.domain;
+  exports com.zernova.runtime.deployment.model.api.plugin;
+  exports com.zernova.runtime.deployment.model.api.plugin.resolver;
+  exports com.zernova.runtime.deployment.model.api.policy;
 
-  exports org.mule.runtime.deployment.model.internal to
-      org.mule.runtime.log4j,
-      org.mule.runtime.deployment.model.impl,
-      org.mule.test.runner;
-  exports org.mule.runtime.deployment.model.internal.artifact to
-      org.mule.runtime.deployment,
-      org.mule.runtime.deployment.model.impl,
-      org.mule.runtime.spring.config,
-      org.mule.runtime.log4j;
-  exports org.mule.runtime.deployment.model.internal.policy to
-      org.mule.runtime.deployment.model.impl;
+  exports com.zernova.runtime.deployment.model.internal to
+      com.zernova.runtime.log4j,
+      com.zernova.runtime.deployment.model.impl,
+      com.zernova.test.runner;
+  exports com.zernova.runtime.deployment.model.internal.artifact to
+      com.zernova.runtime.deployment,
+      com.zernova.runtime.deployment.model.impl,
+      com.zernova.runtime.spring.config,
+      com.zernova.runtime.log4j;
+  exports com.zernova.runtime.deployment.model.internal.policy to
+      com.zernova.runtime.deployment.model.impl;
 
-  uses org.mule.runtime.deployment.model.api.artifact.ArtifactDescriptorFactoryProvider;
+  uses com.zernova.runtime.deployment.model.api.artifact.ArtifactDescriptorFactoryProvider;
 
 }

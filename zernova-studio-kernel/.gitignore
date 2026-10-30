@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.cache/
+media/studio.js
+media/studio.css
+*.log
+evidence/host-profile/
+evidence/host-extensions/

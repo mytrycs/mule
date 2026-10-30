@@ -4,12 +4,13 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package org.foo.connection.config;
-import org.mule.runtime.api.connection.ConnectionProvider;
-import org.mule.runtime.api.connection.ConnectionValidationResult;
-import org.mule.runtime.api.lifecycle.Initialisable;
-import org.mule.runtime.api.lifecycle.InitialisationException;
-import org.mule.runtime.core.api.util.IOUtils;
+import com.zernova.runtime.api.connection.ConnectionProvider;
+import com.zernova.runtime.api.connection.ConnectionValidationResult;
+import com.zernova.runtime.api.lifecycle.Initialisable;
+import com.zernova.runtime.api.lifecycle.InitialisationException;
+import com.zernova.runtime.core.api.util.IOUtils;
 
 import java.io.InputStream;
 

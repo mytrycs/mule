@@ -1,0 +1,54 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.core.api.streaming.object;
+
+import com.zernova.api.annotation.NoImplement;
+import com.zernova.runtime.api.streaming.object.CursorIteratorProvider;
+
+/**
+ * Manages components in charge of streaming objects so that the runtime can keep track of them, enforce policies and make sure
+ * that all resources are reclaimed once no longer needed.
+ *
+ * @since 4.0
+ */
+@NoImplement
+public interface ObjectStreamingManager {
+
+  /**
+   * Creates a {@link CursorIteratorProviderFactory} which buffers in memory
+   *
+   * @param config the configuration for the produced {@link CursorIteratorProvider} instances
+   * @return a new {@link CursorIteratorProviderFactory}
+   */
+  CursorIteratorProviderFactory getInMemoryCursorProviderFactory(InMemoryCursorIteratorConfig config);
+
+  /**
+   * Creates a {@link CursorIteratorProviderFactory} which buffers in disk.
+   * <p>
+   * Functionality has been available since 4.0, but was made available through this interface in 4.5.0.
+   *
+   * @param config the configuration for the produced {@link CursorIteratorProvider} instances
+   * @return a new {@link CursorIteratorProviderFactory}
+   * @since 4.5.0
+   */
+  default CursorIteratorProviderFactory getFileStoreCursorIteratorProviderFactory(FileStoreCursorIteratorConfig config) {
+    throw new UnsupportedOperationException("Only supported in EE edition");
+  }
+
+  /**
+   * Creates a null object implementation of {@link CursorIteratorProviderFactory}
+   *
+   * @return a new {@link CursorIteratorProviderFactory}
+   */
+  CursorIteratorProviderFactory getNullCursorProviderFactory();
+
+  /**
+   * @return The default implementation of {@link CursorIteratorProviderFactory}
+   */
+  CursorIteratorProviderFactory getDefaultCursorProviderFactory();
+}

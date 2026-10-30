@@ -1,0 +1,69 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.api.tls;
+
+import static com.zernova.runtime.api.util.classloader.ZernovaImplementationLoaderUtils.getMuleImplementationsLoader;
+import static com.zernova.runtime.api.util.classloader.ZernovaImplementationLoaderUtils.isResolveMuleImplementationLoadersDynamically;
+
+import static java.lang.String.format;
+import static java.util.ServiceLoader.load;
+
+import com.zernova.api.annotation.NoExtend;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Factory class used to create {@link TlsContextFactoryBuilder} objects.
+ *
+ * @since 1.0
+ */
+@NoExtend
+public abstract class AbstractTlsContextFactoryBuilderFactory {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTlsContextFactoryBuilderFactory.class);
+
+  private static AbstractTlsContextFactoryBuilderFactory loadFactory() {
+    try {
+      final AbstractTlsContextFactoryBuilderFactory factory = load(AbstractTlsContextFactoryBuilderFactory.class,
+                                                                   getMuleImplementationsLoader())
+                                                                       .iterator().next();
+      LOGGER.info(format("Loaded TlsContextFactoryBuilderFactory implementation '%s' from classloader '%s'",
+                         factory.getClass().getName(), factory.getClass().getClassLoader().toString()));
+
+      return factory;
+    } catch (Throwable t) {
+      LOGGER.error("Error loading TlsContextFactoryBuilderFactory implementation. Seems there's none in the classpath.", t);
+      throw t;
+    }
+  }
+
+  private static final AbstractTlsContextFactoryBuilderFactory DEFAULT_FACTORY = loadFactory();
+
+  /**
+   * The implementation of this abstract class is provided by the Mule Runtime.
+   * <p>
+   * If more than one implementation is found, the classLoading order of those implementations will determine which one is used.
+   * Information about this will be logged to aid in the troubleshooting of those cases.
+   *
+   * @return the implementation of this builder factory provided by the Mule Runtime.
+   */
+  static final AbstractTlsContextFactoryBuilderFactory getDefaultFactory() {
+    if (isResolveMuleImplementationLoadersDynamically()) {
+      return loadFactory();
+    } else {
+      return DEFAULT_FACTORY;
+    }
+  }
+
+  /**
+   * @return a fresh {@link TlsContextFactoryBuilder} object.
+   */
+  protected abstract TlsContextFactoryBuilder create();
+
+}

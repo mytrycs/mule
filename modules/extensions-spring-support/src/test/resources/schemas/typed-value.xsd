@@ -16,7 +16,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="differed-door">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.DifferedKnockableDoor"></xs:extension>
+                  <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.DifferedKnockableDoor"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -180,7 +180,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="differed-door">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.DifferedKnockableDoor"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.DifferedKnockableDoor"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -269,7 +269,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="door-value">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.zernova.distributions</groupId>
+        <artifactId>mule-bom</artifactId>
+        <version>4.10.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>mule-runtime-api-bom</artifactId>
+    <packaging>pom</packaging>
+    <name>ZERNOVA Runtime APIs BOM</name>
+    <description>Module that provides all the APIs versions provided by the Mule Runtime for a particular runtime version. Users of the APIs should use this BOM when depending on any Mule API.</description>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.zernova</groupId>
+                <artifactId>mule-api</artifactId>
+                <version>${muleApiVersion}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.zernova.modules</groupId>
+                <artifactId>mule-module-dsl-api</artifactId>
+                <version>${muleDslApiVersion}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.zernova.extensions</groupId>
+                <artifactId>mule-extensions-api</artifactId>
+                <version>${muleExtensionsApiVersion}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.zernova.runtime</groupId>
+                <artifactId>mule-artifact-ast-dependency-graph</artifactId>
+                <version>${muleAstVersion}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.zernova.runtime</groupId>
+                <artifactId>mule-artifact-ast-xml-parser</artifactId>
+                <version>${muleAstVersion}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.zernova.runtime</groupId>
+                <artifactId>mule-properties-api</artifactId>
+                <version>${mulePropertiesApiVersion}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.zernova.runtime</groupId>
+                <artifactId>mule-module-http-policy-api</artifactId>
+                <version>${muleHttpPolicyApiVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zernova.runtime</groupId>
+                <artifactId>mule-module-policy-api</artifactId>
+                <version>${mulePolicyApiVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zernova.runtime</groupId>
+                <artifactId>mule-service-http-api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.zernova.runtime</groupId>
+                <artifactId>mule-service-oauth-api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.zernova.runtime</groupId>
+                <artifactId>mule-dwb-api</artifactId>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

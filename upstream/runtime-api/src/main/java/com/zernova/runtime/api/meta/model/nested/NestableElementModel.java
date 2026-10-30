@@ -1,0 +1,59 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.api.meta.model.nested;
+
+import com.zernova.api.annotation.NoImplement;
+import com.zernova.runtime.api.meta.model.ComponentModel;
+import com.zernova.runtime.api.meta.model.ComponentModelVisitor;
+import com.zernova.runtime.api.meta.model.ComposableModel;
+
+import java.util.Optional;
+
+/**
+ * A definition of an element that can be contained by a {@link ComposableModel}.
+ *
+ * @deprecated since 1.4.0. Use {@link NestedComponentModel} instead.
+ * @see NestedComponentModel
+ * @see NestedRouteModel
+ * @since 1.0
+ */
+@NoImplement
+@Deprecated
+public interface NestableElementModel extends ComponentModel {
+
+  /**
+   * Represents the minimum amount of times that this component can be used inside the owning one.
+   *
+   * @return An int greater or equal to zero
+   * @since 1.4.0
+   */
+  int getMinOccurs();
+
+  /**
+   * {@link Optional} value which represents the maximum amount of times that this component can be used inside the owning one.
+   * {@link Optional#empty()} means unbounded.
+   *
+   * @return If present, a number greater or equal than zero.
+   * @since 1.4.0
+   */
+  Optional<Integer> getMaxOccurs();
+
+  /**
+   * @return whether or not {@code this} element is required for its owner element
+   */
+  boolean isRequired();
+
+  /**
+   * Accepts a {@link NestableElementModelVisitor}
+   *
+   * @param visitor a {@link NestableElementModelVisitor}
+   * @deprecated since 1.4.0. Use {@link #accept(ComponentModelVisitor)} instead
+   */
+  @Deprecated
+  void accept(NestableElementModelVisitor visitor);
+}

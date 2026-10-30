@@ -1,0 +1,10 @@
+ZERNOVA Original Components — Development License 0.3
+Copyright (c) 2026 ZerNova. All rights reserved.
+
+The original portability adapter, packager, lifecycle agent and test infrastructure
+in this directory are supplied to the project owner for evaluation and continued
+development. Public visibility does not grant a public redistribution license.
+No customer release or production warranty is granted by this development license.
+This license does not apply to inherited engine source, engine modifications,
+Java or third-party dependencies. Their existing licenses and required notices
+continue to apply independently and must not be removed or restricted by this file.

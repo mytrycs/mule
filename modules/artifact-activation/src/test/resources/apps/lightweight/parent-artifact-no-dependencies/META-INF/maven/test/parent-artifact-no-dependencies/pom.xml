@@ -6,7 +6,7 @@
     <packaging>pom</packaging>
 
     <artifactId>parent-artifact-no-dependencies</artifactId>
-    <groupId>org.mule.test</groupId>
+    <groupId>com.zernova.test</groupId>
     <version>1.0.0</version>
 
 </project>

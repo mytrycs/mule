@@ -1,0 +1,145 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.module.extension.internal.loader.validator;
+
+import static java.lang.String.format;
+import static com.zernova.runtime.extension.api.util.NameUtils.getComponentModelTypeName;
+import static com.zernova.runtime.module.extension.internal.loader.java.validation.JavaModelValidationUtils.isCompiletime;
+
+import com.zernova.runtime.api.meta.ZernovaVersion;
+import com.zernova.runtime.api.meta.NamedObject;
+import com.zernova.runtime.api.meta.model.ExtensionModel;
+import com.zernova.runtime.api.meta.model.config.ConfigurationModel;
+import com.zernova.runtime.api.meta.model.connection.ConnectionProviderModel;
+import com.zernova.runtime.api.meta.model.construct.ConstructModel;
+import com.zernova.runtime.api.meta.model.deprecated.DeprecableModel;
+import com.zernova.runtime.api.meta.model.function.FunctionModel;
+import com.zernova.runtime.api.meta.model.operation.OperationModel;
+import com.zernova.runtime.api.meta.model.parameter.ParameterGroupModel;
+import com.zernova.runtime.api.meta.model.parameter.ParameterModel;
+import com.zernova.runtime.api.meta.model.parameter.ParameterizedModel;
+import com.zernova.runtime.api.meta.model.source.SourceModel;
+import com.zernova.runtime.api.meta.model.util.IdempotentExtensionWalker;
+import com.zernova.runtime.extension.api.loader.ExtensionModelValidator;
+import com.zernova.runtime.extension.api.loader.Problem;
+import com.zernova.runtime.extension.api.loader.ProblemsReporter;
+
+/**
+ * Validates that the parameters which are marked as deprecated are not required.
+ *
+ * @since 4.2.0
+ */
+public class DeprecationModelValidator implements ExtensionModelValidator {
+
+  @Override
+  public void validate(ExtensionModel extensionModel, ProblemsReporter problemsReporter) {
+
+    if (!isCompiletime(extensionModel)) {
+      return;
+    }
+
+    validateDeprecationVersions(extensionModel, problemsReporter);
+
+    new IdempotentExtensionWalker() {
+
+      @Override
+      protected void onParameter(ParameterizedModel owner, ParameterGroupModel groupModel, ParameterModel model) {
+        validateDeprecationVersions(model, problemsReporter);
+        if (model.isRequired() && model.isDeprecated()) {
+          problemsReporter.addError(new Problem(model,
+                                                format("Parameter \"%s\" from %s named \"%s\" is required but has been marked as deprecated. Required parameters cannot be deprecated. Use the @Optional annotation to make it optional and add a default value.",
+                                                       model.getName(), getComponentModelTypeName(owner), owner.getName())));
+        }
+      }
+
+      @Override
+      protected void onConnectionProvider(ConnectionProviderModel model) {
+        validateDeprecationVersions(model, problemsReporter);
+      }
+
+      @Override
+      protected void onSource(SourceModel model) {
+        validateDeprecationVersions(model, problemsReporter);
+      }
+
+      @Override
+      protected void onConstruct(ConstructModel model) {
+        validateDeprecationVersions(model, problemsReporter);
+      }
+
+      @Override
+      protected void onOperation(OperationModel model) {
+        validateDeprecationVersions(model, problemsReporter);
+      }
+
+      @Override
+      protected void onFunction(FunctionModel model) {
+        validateDeprecationVersions(model, problemsReporter);
+      }
+
+      @Override
+      protected void onConfiguration(ConfigurationModel model) {
+        validateDeprecationVersions(model, problemsReporter);
+      }
+
+    }.walk(extensionModel);
+
+  }
+
+  private void validateDeprecationVersions(DeprecableModel deprecableModel, ProblemsReporter problemsReporter) {
+    deprecableModel.getDeprecationModel().ifPresent(deprecationModel -> {
+      ZernovaVersion deprecatedSince = null;
+      ZernovaVersion toRemoveIn = null;
+      try {
+        deprecatedSince = new ZernovaVersion(deprecationModel.getDeprecatedSince());
+      } catch (IllegalArgumentException e) {
+        reportInvalidVersion(deprecationModel.getDeprecatedSince(), deprecableModel, problemsReporter, "since");
+      }
+      try {
+        toRemoveIn = deprecationModel.getToRemoveIn().map(ZernovaVersion::new).orElse(null);
+      } catch (IllegalArgumentException e) {
+        deprecationModel.getToRemoveIn()
+            .ifPresent(toRemoveInString -> reportInvalidVersion(toRemoveInString, deprecableModel, problemsReporter,
+                                                                "toRemoveIn"));
+      }
+
+      if (deprecatedSince != null && toRemoveIn != null && !deprecatedSince.priorTo(toRemoveIn)) {
+        reportSinceVersionPriorToRemoveVersion(deprecatedSince, toRemoveIn, deprecableModel, problemsReporter);
+      }
+
+    });
+  }
+
+  private void reportInvalidVersion(String versionString, DeprecableModel deprecableModel, ProblemsReporter problemsReporter,
+                                    String versionType) {
+    if (deprecableModel instanceof NamedObject) {
+      problemsReporter.addError(new Problem((NamedObject) deprecableModel,
+                                            format("The %s named %s was deprecated with an invalid '%s' version : '%s' . This version must follow the semver convention",
+                                                   getModelTypeName(deprecableModel),
+                                                   ((NamedObject) deprecableModel).getName(), versionType,
+                                                   versionString)));
+    }
+  }
+
+  private void reportSinceVersionPriorToRemoveVersion(ZernovaVersion deprecatedSince, ZernovaVersion toRemoveIn,
+                                                      DeprecableModel deprecableModel, ProblemsReporter problemsReporter) {
+    if (deprecableModel instanceof NamedObject) {
+      problemsReporter
+          .addError(new Problem((NamedObject) deprecableModel,
+                                format("The versions chosen for the deprecation of the %s named %s are invalid, `since`(%s) version must be prior to the `removeTo`(%s) version.",
+                                       getModelTypeName(deprecableModel), ((NamedObject) deprecableModel).getName(),
+                                       deprecatedSince.toString(), toRemoveIn.toString())));
+    }
+  }
+
+  private String getModelTypeName(DeprecableModel deprecableModel) {
+    return deprecableModel instanceof ParameterizedModel ? getComponentModelTypeName((ParameterizedModel) deprecableModel)
+        : deprecableModel instanceof ExtensionModel ? "extension" : "parameter";
+  }
+
+}

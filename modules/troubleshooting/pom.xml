@@ -4,42 +4,42 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>mule-modules</artifactId>
-        <groupId>org.mule.runtime</groupId>
+        <groupId>com.zernova.runtime</groupId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
     <artifactId>mule-module-troubleshooting</artifactId>
     <packaging>jar</packaging>
-    <name>Mule Troubleshooting Module</name>
+    <name>ZERNOVA Troubleshooting Module</name>
     <description>Module containing an injectable interface capable to call certain troubleshooting operations</description>
 
     <properties>
-        <javaModuleName>org.mule.runtime.troubleshooting</javaModuleName>
+        <javaModuleName>com.zernova.runtime.troubleshooting</javaModuleName>
         <revapi.failOnUnresolvedArtifacts>false</revapi.failOnUnresolvedArtifacts>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-manifest</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-deployment</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-container</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-launcher</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -75,7 +75,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tests-allure</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>

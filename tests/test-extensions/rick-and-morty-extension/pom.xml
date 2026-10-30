@@ -4,18 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>mule-test-extensions-parent</artifactId>
-        <groupId>org.mule.tests</groupId>
+        <groupId>com.zernova.tests</groupId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>mule-rick-and-morty-extension</artifactId>
 
-    <name>Mule Rick And Morty Test SOAP Extension</name>
+    <name>ZERNOVA Rick And Morty Test SOAP Extension</name>
     <description>A Mule extension for testing Soap Connect Custom Transports</description>
 
     <properties>
-        <javaModuleName>org.mule.test.extension.rick.and.morty</javaModuleName>
+        <javaModuleName>com.zernova.test.extension.rick.and.morty</javaModuleName>
     </properties>
 
 </project>

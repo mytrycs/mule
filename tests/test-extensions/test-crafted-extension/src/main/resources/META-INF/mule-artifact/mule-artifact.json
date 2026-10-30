@@ -4,7 +4,7 @@
   "extensionModelLoaderDescriptor": {
     "id": "crafted",
     "attributes": {
-      "type": "org.mule.test.crafted.extension.TestExtensionLoadingDelegate",
+      "type": "com.zernova.test.crafted.extension.TestExtensionLoadingDelegate",
       "version": "4.0.0-SNAPSHOT"
     }
   },

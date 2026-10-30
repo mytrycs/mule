@@ -26,13 +26,13 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.runtime.api.store.ObjectStore",
+        "typeId": "com.zernova.runtime.api.store.ObjectStore",
         "extensibleType": {},
         "typeAlias": {
           "value": "ObjectStore"
         },
         "classInformation": {
-          "classname": "org.mule.runtime.api.store.ObjectStore",
+          "classname": "com.zernova.runtime.api.store.ObjectStore",
           "hasDefaultConstructor": false,
           "isInterface": true,
           "isInstantiable": false,
@@ -50,9 +50,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.heisenberg.extension.model.DifferedKnockableDoor",
+        "typeId": "com.zernova.test.heisenberg.extension.model.DifferedKnockableDoor",
         "classInformation": {
-          "classname": "org.mule.test.heisenberg.extension.model.DifferedKnockableDoor",
+          "classname": "com.zernova.test.heisenberg.extension.model.DifferedKnockableDoor",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -125,9 +125,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.heisenberg.extension.model.KnockeableDoor",
+        "typeId": "com.zernova.test.heisenberg.extension.model.KnockeableDoor",
         "classInformation": {
-          "classname": "org.mule.test.heisenberg.extension.model.KnockeableDoor",
+          "classname": "com.zernova.test.heisenberg.extension.model.KnockeableDoor",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -242,7 +242,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.heisenberg.extension.model.DifferedKnockableDoor"
+                "type": "@ref:com.zernova.test.heisenberg.extension.model.DifferedKnockableDoor"
               },
               "hasDynamicType": false,
               "required": false,
@@ -307,9 +307,9 @@
                 "format": "java",
                 "type": "Object",
                 "annotations": {
-                  "typeId": "org.mule.runtime.extension.api.runtime.ExpirationPolicy",
+                  "typeId": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
                   "classInformation": {
-                    "classname": "org.mule.runtime.extension.api.runtime.ExpirationPolicy",
+                    "classname": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
                     "hasDefaultConstructor": false,
                     "isInterface": true,
                     "isInstantiable": false,
@@ -419,14 +419,14 @@
               "name": "expirationPolicy",
               "description": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit.",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "expiration-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 4
                 }
               }
@@ -454,7 +454,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.test.typed.value.extension.extension.TypedValueExtension"
+              "type": "@ref:com.zernova.test.typed.value.extension.extension.TypedValueExtension"
             },
             "hasDynamicType": false,
             "description": "",
@@ -498,9 +498,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -745,7 +745,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -755,7 +755,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -865,9 +865,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -1112,7 +1112,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -1122,7 +1122,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -1307,7 +1307,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.typed.value.extension.extension.SimplePojo"
+                "type": "@ref:com.zernova.test.typed.value.extension.extension.SimplePojo"
               },
               "hasDynamicType": false,
               "required": false,
@@ -1336,7 +1336,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.typed.value.extension.extension.SimplePojo"
+                "type": "@ref:com.zernova.test.typed.value.extension.extension.SimplePojo"
               },
               "hasDynamicType": false,
               "required": false,
@@ -1447,7 +1447,7 @@
                     "parent": "",
                     "genericTypes": [
                       "java.lang.String",
-                      "org.mule.runtime.api.metadata.TypedValue"
+                      "com.zernova.runtime.api.metadata.TypedValue"
                     ],
                     "isMap": true
                   }
@@ -1771,7 +1771,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -1781,7 +1781,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -2113,14 +2113,14 @@
               "name": "streamingStrategy",
               "description": "Configure if repeatable streams should be used and their behaviour",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-byte-streaming-strategy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 2
                 }
               }
@@ -2323,7 +2323,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -2333,7 +2333,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -2668,7 +2668,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -2678,7 +2678,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -2718,7 +2718,7 @@
       "output": {
         "type": {
           "format": "java",
-          "type": "@ref:org.mule.test.heisenberg.extension.model.DifferedKnockableDoor"
+          "type": "@ref:com.zernova.test.heisenberg.extension.model.DifferedKnockableDoor"
         },
         "hasDynamicType": false,
         "description": "",
@@ -2760,7 +2760,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.heisenberg.extension.model.DifferedKnockableDoor"
+                "type": "@ref:com.zernova.test.heisenberg.extension.model.DifferedKnockableDoor"
               },
               "hasDynamicType": false,
               "required": true,
@@ -2989,7 +2989,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -2999,7 +2999,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -3041,13 +3041,13 @@
               "implementedInterfaces": [],
               "parent": "",
               "genericTypes": [
-                "org.mule.test.heisenberg.extension.model.KnockeableDoor"
+                "com.zernova.test.heisenberg.extension.model.KnockeableDoor"
               ],
               "isMap": false
             }
           },
           "item": {
-            "type": "@ref:org.mule.test.heisenberg.extension.model.KnockeableDoor"
+            "type": "@ref:com.zernova.test.heisenberg.extension.model.KnockeableDoor"
           }
         },
         "hasDynamicType": false,
@@ -3102,13 +3102,13 @@
                     "implementedInterfaces": [],
                     "parent": "",
                     "genericTypes": [
-                      "org.mule.test.heisenberg.extension.model.KnockeableDoor"
+                      "com.zernova.test.heisenberg.extension.model.KnockeableDoor"
                     ],
                     "isMap": false
                   }
                 },
                 "item": {
-                  "type": "@ref:org.mule.test.heisenberg.extension.model.KnockeableDoor"
+                  "type": "@ref:com.zernova.test.heisenberg.extension.model.KnockeableDoor"
                 }
               },
               "hasDynamicType": false,
@@ -3333,7 +3333,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -3343,7 +3343,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -3386,13 +3386,13 @@
               "parent": "",
               "genericTypes": [
                 "java.lang.String",
-                "org.mule.test.heisenberg.extension.model.KnockeableDoor"
+                "com.zernova.test.heisenberg.extension.model.KnockeableDoor"
               ],
               "isMap": true
             }
           },
           "open": {
-            "type": "@ref:org.mule.test.heisenberg.extension.model.KnockeableDoor"
+            "type": "@ref:com.zernova.test.heisenberg.extension.model.KnockeableDoor"
           },
           "fields": []
         },
@@ -3449,13 +3449,13 @@
                     "parent": "",
                     "genericTypes": [
                       "java.lang.String",
-                      "org.mule.test.heisenberg.extension.model.KnockeableDoor"
+                      "com.zernova.test.heisenberg.extension.model.KnockeableDoor"
                     ],
                     "isMap": true
                   }
                 },
                 "open": {
-                  "type": "@ref:org.mule.test.heisenberg.extension.model.KnockeableDoor"
+                  "type": "@ref:com.zernova.test.heisenberg.extension.model.KnockeableDoor"
                 },
                 "fields": []
               },
@@ -3681,7 +3681,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -3691,7 +3691,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -3721,7 +3721,7 @@
       "output": {
         "type": {
           "format": "java",
-          "type": "@ref:org.mule.test.heisenberg.extension.model.KnockeableDoor"
+          "type": "@ref:com.zernova.test.heisenberg.extension.model.KnockeableDoor"
         },
         "hasDynamicType": false,
         "description": "",
@@ -3763,7 +3763,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.heisenberg.extension.model.KnockeableDoor"
+                "type": "@ref:com.zernova.test.heisenberg.extension.model.KnockeableDoor"
               },
               "hasDynamicType": false,
               "required": true,
@@ -3987,7 +3987,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -3997,7 +3997,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -4027,7 +4027,7 @@
       "output": {
         "type": {
           "format": "java",
-          "type": "@ref:org.mule.test.vegan.extension.VeganProductInformation"
+          "type": "@ref:com.zernova.test.vegan.extension.VeganProductInformation"
         },
         "hasDynamicType": false,
         "description": "",
@@ -4367,7 +4367,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -4377,7 +4377,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -4745,7 +4745,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -4755,7 +4755,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -5131,7 +5131,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -5141,7 +5141,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -5479,7 +5479,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -5489,7 +5489,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -5792,7 +5792,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -5802,7 +5802,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -6081,7 +6081,7 @@
                       "name": "objectStore"
                     },
                     "model": {
-                      "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                      "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                     },
                     "annotations": {
                       "stereotype": {
@@ -6123,14 +6123,14 @@
               "name": "redeliveryPolicy",
               "description": "Defines a policy for processing the redelivery of the same message",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "abstract-redelivery-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 1
                 }
               }
@@ -6157,7 +6157,7 @@
   ],
   "artifactCoordinates": {
     "artifact id": "mule-typed-value-extension",
-    "group id": "org.mule.tests",
+    "group id": "com.zernova.tests",
     "version": "1.2.3"
   },
   "notifications": [],
@@ -6193,9 +6193,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.typed.value.extension.extension.SimplePojo",
+        "typeId": "com.zernova.test.typed.value.extension.extension.SimplePojo",
         "classInformation": {
-          "classname": "org.mule.test.typed.value.extension.extension.SimplePojo",
+          "classname": "com.zernova.test.typed.value.extension.extension.SimplePojo",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -6243,9 +6243,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.typed.value.extension.extension.TypedValueExtension",
+        "typeId": "com.zernova.test.typed.value.extension.extension.TypedValueExtension",
         "classInformation": {
-          "classname": "org.mule.test.typed.value.extension.extension.TypedValueExtension",
+          "classname": "com.zernova.test.typed.value.extension.extension.TypedValueExtension",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -6281,9 +6281,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.heisenberg.extension.model.DifferedKnockableDoor",
+              "typeId": "com.zernova.test.heisenberg.extension.model.DifferedKnockableDoor",
               "classInformation": {
-                "classname": "org.mule.test.heisenberg.extension.model.DifferedKnockableDoor",
+                "classname": "com.zernova.test.heisenberg.extension.model.DifferedKnockableDoor",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
@@ -6364,9 +6364,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.vegan.extension.VeganProductInformation",
+        "typeId": "com.zernova.test.vegan.extension.VeganProductInformation",
         "classInformation": {
-          "classname": "org.mule.test.vegan.extension.VeganProductInformation",
+          "classname": "com.zernova.test.vegan.extension.VeganProductInformation",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,

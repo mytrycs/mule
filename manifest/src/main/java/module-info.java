@@ -4,6 +4,7 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 
 /**
  * Mule Runtime Manifest.
@@ -11,10 +12,10 @@
  * @moduleGraph
  * @since 1.9
  */
-module org.mule.runtime.manifest {
+module com.zernova.runtime.manifest {
 
   requires org.slf4j;
 
-  exports org.mule.runtime.manifest.api;
+  exports com.zernova.runtime.manifest.api;
 
 }

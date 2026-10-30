@@ -1,0 +1,11 @@
+ZERNOVA Studio design preview — original implementation
+
+Copyright 2026 ZERNOVA contributors. All rights reserved.
+
+This development preview is supplied to the project owner for evaluation and
+continued development. No public release license is granted by this file.
+The owner must choose a distribution license before any public release.
+
+Brand assets belong to their respective owner. Dependency license notices are
+recorded in THIRD_PARTY_NOTICES.md. No Mule runtime, connector implementation,
+Anypoint Studio code, Java, or Maven is included in this UI-only extension.

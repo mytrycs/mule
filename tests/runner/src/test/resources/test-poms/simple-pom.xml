@@ -5,7 +5,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.mule.tests</groupId>
+    <groupId>com.zernova.tests</groupId>
     <artifactId>simple-pom</artifactId>
     <version>1.0.0</version>
     <packaging>mule-plugin</packaging>

@@ -5,62 +5,62 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>mule-modules</artifactId>
-        <groupId>org.mule.runtime</groupId>
+        <groupId>com.zernova.runtime</groupId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>mule-module-deployment</artifactId>
     <packaging>jar</packaging>
-    <name>Mule Deployment Module</name>
+    <name>ZERNOVA Deployment Module</name>
     <description>Provides container artifacts deployment functionality</description>
 
     <properties>
-        <javaModuleName>org.mule.runtime.deployment</javaModuleName>
+        <javaModuleName>com.zernova.runtime.deployment</javaModuleName>
 
         <surefire.args>
             -XX:+IgnoreUnrecognizedVMOptions
-            --add-exports=org.mule.runtime.api/org.mule.runtime.internal.dsl=org.mule.test.policies
-            --add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.config=org.mule.test.unit
-            --add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.config=org.mule.runtime.deployment.test
-            --add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.context=org.mule.runtime.deployment.test
-            --add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.exception=org.mule.test.unit
-            --add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.interception=org.mule.test.unit
-            --add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.policy=org.mule.runtime.deployment.test
-            --add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.policy=org.mule.test.policies
-            --add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.registry=org.mule.runtime.deployment.test
-            --add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.profiling=org.mule.test.unit
-            --add-exports=org.mule.runtime.core.components/org.mule.runtime.core.internal.processor=org.mule.runtime.deployment.test
-            --add-exports=org.mule.runtime.container/org.mule.runtime.container.internal=org.mule.runtime.deployment.test
-              --add-opens=org.mule.runtime.container/org.mule.runtime.container.internal=org.apache.commons.lang3
-            --add-exports=org.mule.runtime.errors/org.mule.runtime.config.internal.error=org.mule.test.unit
-            --add-exports=org.mule.runtime.extension.model/org.mule.runtime.core.internal.extension=org.mule.test.policies
-              --add-opens=org.mule.runtime.extension.model/org.mule.runtime.config.internal.validation=org.mule.test.unit
-            --add-exports=org.mule.runtime.extensions.api/org.mule.runtime.extension.internal.loader=org.mule.test.policies
-            --add-exports=org.mule.runtime.extensions.api/org.mule.runtime.extension.internal.property=org.mule.test.policies
-            --add-exports=org.mule.runtime.artifact/org.mule.runtime.module.artifact.internal.util=org.mule.runtime.deployment.test
-            --add-exports=org.mule.runtime.artifact/org.mule.runtime.module.artifact.internal.util=org.mule.runtime.deployment.model.impl.test
-            --add-exports=org.mule.runtime.artifact.activation/org.mule.runtime.module.artifact.activation.internal.classloader=org.mule.runtime.deployment.test
-            --add-exports=org.mule.runtime.artifact.activation/org.mule.runtime.module.artifact.activation.internal.nativelib=org.mule.runtime.deployment.test
-              --add-opens=org.mule.runtime.artifact/org.mule.runtime.module.artifact.api.classloader=org.apache.commons.lang3
-            --add-exports=org.mule.runtime.service/org.mule.runtime.module.service.api.manager=org.mule.runtime.deployment
-            --add-exports=org.mule.runtime.spring.config/org.mule.runtime.config.internal.context=org.mule.runtime.deployment.test
-            --add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal=org.mule.runtime.deployment.test
-            --add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal.maven=org.mule.runtime.deployment.model.impl.test
-            --add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal.application=org.mule.runtime.deployment
-              --add-opens=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal.application=org.mule.runtime.deployment.test
-            --add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal.application=org.mule.runtime.deployment.model.impl.test
-            --add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal.artifact=org.mule.runtime.deployment.test
-            --add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal.classloader=org.mule.runtime.deployment.test
-            --add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal.domain=org.mule.runtime.deployment.test
-            --add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal.plugin=org.mule.runtime.deployment.test
-            --add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal.policy=org.mule.runtime.deployment.test
-            --add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal.util=org.mule.runtime.deployment.test
-            --add-reads=org.mule.runtime.deployment=org.mule.runtime.license.api
-            --add-reads=org.mule.runtime.deployment=org.mule.runtime.service
-            --add-exports=org.mule.runtime.deployment/org.mule.runtime.module.deployment.internal=org.mule.runtime.deployment.test
-            --add-exports=org.mule.runtime.deployment/org.mule.runtime.module.deployment.internal.processor=org.mule.runtime.deployment.test
-            --add-exports=org.mule.runtime.deployment/org.mule.runtime.module.deployment.internal.util=org.mule.runtime.deployment.test
-            --add-exports=org.mule.test.runner/org.mule.test.runner.classloader.container=org.mule.runtime.deployment.test
+            --add-exports=com.zernova.runtime.api/com.zernova.runtime.internal.dsl=com.zernova.test.policies
+            --add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.config=com.zernova.test.unit
+            --add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.config=com.zernova.runtime.deployment.test
+            --add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.context=com.zernova.runtime.deployment.test
+            --add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.exception=com.zernova.test.unit
+            --add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.interception=com.zernova.test.unit
+            --add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.policy=com.zernova.runtime.deployment.test
+            --add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.policy=com.zernova.test.policies
+            --add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.registry=com.zernova.runtime.deployment.test
+            --add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.profiling=com.zernova.test.unit
+            --add-exports=com.zernova.runtime.core.components/com.zernova.runtime.core.internal.processor=com.zernova.runtime.deployment.test
+            --add-exports=com.zernova.runtime.container/com.zernova.runtime.container.internal=com.zernova.runtime.deployment.test
+              --add-opens=com.zernova.runtime.container/com.zernova.runtime.container.internal=org.apache.commons.lang3
+            --add-exports=com.zernova.runtime.errors/com.zernova.runtime.config.internal.error=com.zernova.test.unit
+            --add-exports=com.zernova.runtime.extension.model/com.zernova.runtime.core.internal.extension=com.zernova.test.policies
+              --add-opens=com.zernova.runtime.extension.model/com.zernova.runtime.config.internal.validation=com.zernova.test.unit
+            --add-exports=com.zernova.runtime.extensions.api/com.zernova.runtime.extension.internal.loader=com.zernova.test.policies
+            --add-exports=com.zernova.runtime.extensions.api/com.zernova.runtime.extension.internal.property=com.zernova.test.policies
+            --add-exports=com.zernova.runtime.artifact/com.zernova.runtime.module.artifact.internal.util=com.zernova.runtime.deployment.test
+            --add-exports=com.zernova.runtime.artifact/com.zernova.runtime.module.artifact.internal.util=com.zernova.runtime.deployment.model.impl.test
+            --add-exports=com.zernova.runtime.artifact.activation/com.zernova.runtime.module.artifact.activation.internal.classloader=com.zernova.runtime.deployment.test
+            --add-exports=com.zernova.runtime.artifact.activation/com.zernova.runtime.module.artifact.activation.internal.nativelib=com.zernova.runtime.deployment.test
+              --add-opens=com.zernova.runtime.artifact/com.zernova.runtime.module.artifact.api.classloader=org.apache.commons.lang3
+            --add-exports=com.zernova.runtime.service/com.zernova.runtime.module.service.api.manager=com.zernova.runtime.deployment
+            --add-exports=com.zernova.runtime.spring.config/com.zernova.runtime.config.internal.context=com.zernova.runtime.deployment.test
+            --add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal=com.zernova.runtime.deployment.test
+            --add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal.maven=com.zernova.runtime.deployment.model.impl.test
+            --add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal.application=com.zernova.runtime.deployment
+              --add-opens=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal.application=com.zernova.runtime.deployment.test
+            --add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal.application=com.zernova.runtime.deployment.model.impl.test
+            --add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal.artifact=com.zernova.runtime.deployment.test
+            --add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal.classloader=com.zernova.runtime.deployment.test
+            --add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal.domain=com.zernova.runtime.deployment.test
+            --add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal.plugin=com.zernova.runtime.deployment.test
+            --add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal.policy=com.zernova.runtime.deployment.test
+            --add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal.util=com.zernova.runtime.deployment.test
+            --add-reads=com.zernova.runtime.deployment=com.zernova.runtime.license.api
+            --add-reads=com.zernova.runtime.deployment=com.zernova.runtime.service
+            --add-exports=com.zernova.runtime.deployment/com.zernova.runtime.module.deployment.internal=com.zernova.runtime.deployment.test
+            --add-exports=com.zernova.runtime.deployment/com.zernova.runtime.module.deployment.internal.processor=com.zernova.runtime.deployment.test
+            --add-exports=com.zernova.runtime.deployment/com.zernova.runtime.module.deployment.internal.util=com.zernova.runtime.deployment.test
+            --add-exports=com.zernova.test.runner/com.zernova.test.runner.classloader.container=com.zernova.runtime.deployment.test
             ${surefire.args.base}
         </surefire.args>
 
@@ -69,27 +69,27 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-artifact</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-deployment-model</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-deployment-model-impl</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule</groupId>
+            <groupId>com.zernova</groupId>
             <artifactId>mule-maven-client-impl</artifactId>
             <scope>runtime</scope>
         </dependency>
@@ -99,32 +99,32 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-artifact-ast-serialization</artifactId>
         </dependency>
         <dependency>
             <!--for the extensions configuration builder-->
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-extensions-api</artifactId>
         </dependency>
         <dependency>
             <!--for the extensions configuration builder-->
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-extensions-support</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-container</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-service</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-spring-config</artifactId>
             <version>${project.version}</version>
             <exclusions>
@@ -135,12 +135,12 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-extensions-xml-support</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tests-functional</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
@@ -152,7 +152,7 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-extensions-spring-support</artifactId>
             <version>${project.version}</version>
             <exclusions>
@@ -163,7 +163,7 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.mule.services</groupId>
+            <groupId>com.zernova.services</groupId>
             <artifactId>mule-service-weave</artifactId>
             <classifier>mule-service</classifier>
             <scope>test</scope>
@@ -175,44 +175,44 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-dwb-api</artifactId> 
             <scope>test</scope>         
         </dependency> 
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-module-test-policy</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tests-runner</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.tests.plugin</groupId>
+            <groupId>com.zernova.tests.plugin</groupId>
             <artifactId>mule-tests-component-plugin</artifactId>
             <version>${project.version}</version>
             <classifier>mule-plugin</classifier>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-module-test-services</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-deployment-model-impl</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
             <type>test-jar</type>
         </dependency>
         <dependency>
-            <groupId>org.mule.tools.maven</groupId>
+            <groupId>com.zernova.tools.maven</groupId>
             <artifactId>mule-classloader-model</artifactId>
             <scope>test</scope>
         </dependency>
@@ -228,7 +228,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tests-allure</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
@@ -261,32 +261,32 @@
                         <id>default-testCompile</id>
                         <configuration>
                             <compilerArgs>
-                                <arg>--add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.config=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.config.bootstrap=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.context=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.policy=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.registry=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.core.components/org.mule.runtime.core.internal.processor=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.container/org.mule.runtime.container.internal=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.artifact/org.mule.runtime.module.artifact.internal.util=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.artifact.activation/org.mule.runtime.module.artifact.activation.internal.classloader=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.artifact.activation/org.mule.runtime.module.artifact.activation.internal.nativelib=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.service/org.mule.runtime.module.service.api.manager=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.extensions.xml.support/org.mule.runtime.extension.internal.loader.xml=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.spring.config/org.mule.runtime.config.internal.context=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal.application=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal.application=org.mule.runtime.deployment.model.impl.test</arg>
-                                <arg>--add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal.artifact=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal.classloader=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal.domain=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal.policy=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal.plugin=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.deployment.model.impl/org.mule.runtime.module.deployment.impl.internal.util=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.deployment/org.mule.runtime.module.deployment.internal=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.deployment/org.mule.runtime.module.deployment.internal.processor=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.runtime.deployment/org.mule.runtime.module.deployment.internal.util=org.mule.runtime.deployment.test</arg>
-                                <arg>--add-exports=org.mule.test.runner/org.mule.test.runner.classloader.container=org.mule.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.config=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.config.bootstrap=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.context=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.policy=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.registry=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.core.components/com.zernova.runtime.core.internal.processor=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.container/com.zernova.runtime.container.internal=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.artifact/com.zernova.runtime.module.artifact.internal.util=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.artifact.activation/com.zernova.runtime.module.artifact.activation.internal.classloader=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.artifact.activation/com.zernova.runtime.module.artifact.activation.internal.nativelib=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.service/com.zernova.runtime.module.service.api.manager=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.extensions.xml.support/com.zernova.runtime.extension.internal.loader.xml=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.spring.config/com.zernova.runtime.config.internal.context=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal.application=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal.application=com.zernova.runtime.deployment.model.impl.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal.artifact=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal.classloader=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal.domain=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal.policy=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal.plugin=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.deployment.model.impl/com.zernova.runtime.module.deployment.impl.internal.util=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.deployment/com.zernova.runtime.module.deployment.internal=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.deployment/com.zernova.runtime.module.deployment.internal.processor=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.runtime.deployment/com.zernova.runtime.module.deployment.internal.util=com.zernova.runtime.deployment.test</arg>
+                                <arg>--add-exports=com.zernova.test.runner/com.zernova.test.runner.classloader.container=com.zernova.runtime.deployment.test</arg>
                             </compilerArgs>
                             <testRelease>11</testRelease>
                         </configuration>
@@ -298,11 +298,11 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <systemPropertyVariables>
-                        <testComponentPlugin>${org.mule.tests.plugin:mule-tests-component-plugin:jar:mule-plugin}</testComponentPlugin>
-                        <testServicesLib>${org.mule.tests:mule-module-test-services:jar}</testServicesLib>
-                        <extensionsApiLib>${org.mule.runtime:mule-extensions-api:jar}</extensionsApiLib>
-                        <apiAnnotationsLib>${org.mule.runtime:api-annotations:jar}</apiAnnotationsLib>
-                        <dataWeaveService>${org.mule.services:mule-service-weave:jar:mule-service}</dataWeaveService>
+                        <testComponentPlugin>${com.zernova.tests.plugin:mule-tests-component-plugin:jar:mule-plugin}</testComponentPlugin>
+                        <testServicesLib>${com.zernova.tests:mule-module-test-services:jar}</testServicesLib>
+                        <extensionsApiLib>${com.zernova.runtime:mule-extensions-api:jar}</extensionsApiLib>
+                        <apiAnnotationsLib>${com.zernova.runtime:api-annotations:jar}</apiAnnotationsLib>
+                        <dataWeaveService>${com.zernova.services:mule-service-weave:jar:mule-service}</dataWeaveService>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -327,7 +327,7 @@
         <profile>
             <!-- ResourceReleaser tests in this module require access to java internals through relfection. -->
             <!-- Instead of opening those packages, we are forcing Surefire to not use the module-path -->
-            <!-- This way, test execution is consistent with what would happen in runtime (ref: MuleSystemProperties#CLASSLOADER_CONTAINER_JPMS_MODULE_LAYER) -->
+            <!-- This way, test execution is consistent with what would happen in runtime (ref: ZernovaSystemProperties#CLASSLOADER_CONTAINER_JPMS_MODULE_LAYER) -->
             <id>java11tests</id>
             <build>
                 <plugins>

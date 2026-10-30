@@ -31,7 +31,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="target-realm">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel" base="marvel:org.mule.test.marvel.drstrange.Realm"></xs:extension>
+                  <xs:extension xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel" base="marvel:com.zernova.test.marvel.drstrange.Realm"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -42,7 +42,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.marvel.drstrange.Realm">
+  <xs:complexType name="com.zernova.test.marvel.drstrange.Realm">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:attribute type="mule:expressionString" use="required" name="realmConfig"></xs:attribute>
@@ -59,7 +59,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="target-realm">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel" base="marvel:org.mule.test.marvel.drstrange.Realm"></xs:extension>
+                  <xs:extension xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel" base="marvel:com.zernova.test.marvel.drstrange.Realm"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -391,7 +391,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="at">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel" base="marvel:org.mule.test.marvel.model.Villain"></xs:extension>
+                <xs:extension xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel" base="marvel:com.zernova.test.marvel.model.Villain"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -415,7 +415,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="org.mule.test.marvel.model.Villain">
+  <xs:complexType name="com.zernova.test.marvel.model.Villain">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:attribute type="mule:expressionBoolean" use="optional" name="alive"></xs:attribute>
@@ -431,7 +431,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="at">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel" base="marvel:org.mule.test.marvel.model.Villain"></xs:extension>
+                <xs:extension xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel" base="marvel:com.zernova.test.marvel.model.Villain"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -464,7 +464,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="at">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel" base="marvel:org.mule.test.marvel.model.Villain"></xs:extension>
+                <xs:extension xmlns:marvel="http://www.mulesoft.org/schema/mule/marvel" base="marvel:com.zernova.test.marvel.model.Villain"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>

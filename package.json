@@ -1,0 +1,28 @@
+{
+  "name": "zernova-runtime-development",
+  "version": "0.3.0-dev.2",
+  "description": "ZERNOVA runtime native acceptance tooling",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test:namespace": "python3 -m unittest discover -s zernova-build/tests -v",
+    "build:portable": "node zernova-studio-build/build-portable.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mytrycs/mule.git"
+  },
+  "keywords": [],
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "bugs": {
+    "url": "https://github.com/mytrycs/mule/issues"
+  },
+  "homepage": "https://github.com/mytrycs/mule#readme",
+  "dependencies": {
+    "esbuild": "0.28.2",
+    "jszip": "3.10.1",
+    "sax": "1.6.1"
+  },
+  "private": true
+}

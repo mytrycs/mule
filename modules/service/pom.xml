@@ -3,58 +3,58 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.mule.runtime</groupId>
+        <groupId>com.zernova.runtime</groupId>
         <artifactId>mule-modules</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
     <artifactId>mule-module-service</artifactId>
-    <name>Mule Services</name>
+    <name>ZERNOVA Services</name>
     <description>Mule service module. Provides services support to Mule container.</description>
 
     <properties>
-        <javaModuleName>org.mule.runtime.service</javaModuleName>
+        <javaModuleName>com.zernova.runtime.service</javaModuleName>
         <skipExportTests>false</skipExportTests>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-core</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.mule.runtime.boot</groupId>
+            <groupId>com.zernova.runtime.boot</groupId>
             <artifactId>mule-module-jpms-utils</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-container</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-artifact</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tests-unit</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tests-allure</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.mule</groupId>
+            <groupId>com.zernova</groupId>
             <artifactId>mule-maven-pom-parser-impl</artifactId>
             <scope>test</scope>
         </dependency>

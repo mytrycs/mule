@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.zernova.distributions</groupId>
+        <artifactId>mule-distributions</artifactId>
+        <version>4.10.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>mule-distro-tests</artifactId>
+    <packaging>jar</packaging>
+    <name>ZERNOVA Distribution Tests</name>
+
+    <properties>
+        <javaModuleName>com.zernova.distribution.test</javaModuleName>
+        <skipExportTests>false</skipExportTests>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-Xmx1024m -Xms256m ${surefire.args.base}</argLine>
+                    <workingDirectory>${project.build.directory}</workingDirectory>
+                    <systemPropertyVariables>
+                        <mule.distribution>${com.zernova.distributions:mule-standalone:zip}</mule.distribution>
+                        <scheduler.service>${com.zernova.services:mule-service-scheduler:zip}</scheduler.service>
+                        <http.service>${com.zernova.services:mule-service-http:zip}</http.service>
+                        <el.service>${com.mulesoft.services:mule-service-weave-ee:zip}</el.service>
+                        <workingDirectory>${project.build.directory}</workingDirectory>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>properties</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>testResources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includeEmptyDirs>true</includeEmptyDirs>
+                    <resources>
+                        <resource>
+                            <directory>src/test/resources</directory>
+                            <filtering>true</filtering>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <!-- Allure annotations -->
+        <dependency>
+            <groupId>com.zernova.tests</groupId>
+            <artifactId>mule-tests-allure</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zernova.tests</groupId>
+            <artifactId>mule-tests-infrastructure</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zernova.tests</groupId>
+            <artifactId>mule-tests-unit</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zernova.runtime</groupId>
+            <artifactId>mule-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zernova.distributions</groupId>
+            <artifactId>mule-standalone</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
+    </dependencies>
+
+</project>

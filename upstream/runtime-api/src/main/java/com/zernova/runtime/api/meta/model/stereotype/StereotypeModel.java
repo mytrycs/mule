@@ -1,0 +1,49 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.api.meta.model.stereotype;
+
+import com.zernova.api.annotation.NoImplement;
+
+import java.util.Optional;
+
+/**
+ * A model which represents an stereotype qualifier for the {@link HasStereotypeModel} that is categorized with this stereotype.
+ * An stereotype is a widely held but fixed and oversimplified image or idea of the owning model. Examples would be
+ * {@code validator}, {@code source}, {@code processor}, etc.
+ *
+ * @since 1.0
+ */
+@NoImplement
+public interface StereotypeModel {
+
+  /**
+   * Gets the name of the stereotype.
+   *
+   * @return The type of the error
+   */
+  String getType();
+
+  /**
+   * Gets the namespace of error. This namespace represent the origin or who declares this error, so it could be the namespace of
+   * an extension or the {@code MULE} namespace.
+   *
+   * @return The namespace of the error
+   */
+  String getNamespace();
+
+  /**
+   * @return The {@link StereotypeModel} parent of the current {@link StereotypeModel} from which it inherits from.
+   */
+  Optional<StereotypeModel> getParent();
+
+  /**
+   * @return {@code true} if {@code this} stereotype or any of its ancestors is equal to the provided {@code other}
+   *         {@link StereotypeModel}, {@code false} otherwise.
+   */
+  boolean isAssignableTo(StereotypeModel other);
+}

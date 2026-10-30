@@ -4,8 +4,8 @@
   "requiredProduct": "MULE",
   "contracts": [
     {
-      "serviceProviderClassName": "org.mule.test.http.ResourceHttpServiceProvider",
-      "contractClassName": "org.mule.runtime.http.api.HttpService"
+      "serviceProviderClassName": "com.zernova.test.http.ResourceHttpServiceProvider",
+      "contractClassName": "com.zernova.runtime.http.api.HttpService"
     }
   ],
   "classLoaderModelLoaderDescriptor": {

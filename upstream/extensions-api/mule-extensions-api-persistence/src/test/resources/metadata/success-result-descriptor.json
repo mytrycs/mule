@@ -1,0 +1,86 @@
+{
+  "componentName": "testOperationMetadataDescriptor",
+  "input": [
+    {
+      "name": "stringParam2",
+      "type": {
+        "format": "java",
+        "type": "String",
+        "annotations": {
+          "typeId": "java.lang.String"
+        }
+      },
+      "isDynamic": false
+    },
+    {
+      "name": "stringParam1",
+      "type": {
+        "format": "java",
+        "type": "String",
+        "annotations": {
+          "typeId": "java.lang.String"
+        }
+      },
+      "isDynamic": false
+    },
+    {
+      "name": "intParam1",
+      "type": {
+        "format": "java",
+        "type": "Number",
+        "annotations": {
+          "typeId": "java.lang.Integer"
+        }
+      },
+      "isDynamic": false
+    },
+    {
+      "name": "content",
+      "type": {
+        "format": "java",
+        "type": "Object",
+        "annotations": {
+          "typeId": "java.lang.Object",
+          "classInformation": {
+            "hasDefaultConstructor": true,
+            "isInterface": false,
+            "isInstantiable": true,
+            "isAbstract": false,
+            "isFinal": false,
+            "implementedInterfaces": [],
+            "parent": "",
+            "genericTypes": []
+          },
+          "typeAlias": {
+            "value": "Object"
+          }
+        },
+        "fields": []
+      },
+      "isDynamic": true
+    }
+  ],
+  "output": {
+    "content": {
+      "type": {
+        "format": "java",
+        "type": "String",
+        "annotations": {
+          "typeId": "java.lang.String"
+        }
+      },
+      "isDynamic": true
+    },
+    "attributes": {
+      "type": {
+        "format": "java",
+        "type": "String",
+        "annotations": {
+          "typeId": "java.lang.String"
+        }
+      },
+      "isDynamic": false
+    }
+  },
+  "failures": []
+}

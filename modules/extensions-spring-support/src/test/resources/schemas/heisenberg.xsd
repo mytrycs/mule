@@ -4,31 +4,31 @@
   <xs:import namespace="http://www.w3.org/XML/1998/namespace"></xs:import>
   <xs:import namespace="http://www.mulesoft.org/schema/mule/core" schemaLocation="http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></xs:import>
   <xs:import namespace="http://www.mulesoft.org/schema/mule/tls" schemaLocation="http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd"></xs:import>
-  <xs:complexType name="org.mule.test.heisenberg.extension.model.Weapon">
+  <xs:complexType name="com.zernova.test.heisenberg.extension.model.Weapon">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType"></xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:org.mule.test.heisenberg.extension.model.Weapon" substitutionGroup="mule:abstract-shared-extension" abstract="true" name="global-abstract-weapon"></xs:element>
-  <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:org.mule.test.heisenberg.extension.model.Weapon" abstract="true" name="abstract-weapon"></xs:element>
+  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:com.zernova.test.heisenberg.extension.model.Weapon" substitutionGroup="mule:abstract-shared-extension" abstract="true" name="global-abstract-weapon"></xs:element>
+  <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:com.zernova.test.heisenberg.extension.model.Weapon" abstract="true" name="abstract-weapon"></xs:element>
   <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-shared-extension" abstract="true" name="abstract-door"></xs:element>
   <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" substitutionGroup="heisenberg:abstract-door" name="door">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="heisenberg:org.mule.test.heisenberg.extension.model.KnockeableDoor">
+        <xs:extension base="heisenberg:com.zernova.test.heisenberg.extension.model.KnockeableDoor">
           <xs:attribute type="xs:string" use="optional" name="name"></xs:attribute>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.heisenberg.extension.model.KnockeableDoor">
+  <xs:complexType name="com.zernova.test.heisenberg.extension.model.KnockeableDoor">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="previous">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -39,14 +39,14 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="org.mule.test.heisenberg.extension.model.Ricin">
+  <xs:complexType name="com.zernova.test.heisenberg.extension.model.Ricin">
     <xs:complexContent>
-      <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.Weapon">
+      <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.Weapon">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="destination">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension base="heisenberg:org.mule.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
+                <xs:extension base="heisenberg:com.zernova.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -60,39 +60,39 @@
   <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" substitutionGroup="heisenberg:abstract-ricin" name="ricin">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="heisenberg:org.mule.test.heisenberg.extension.model.Ricin">
+        <xs:extension base="heisenberg:com.zernova.test.heisenberg.extension.model.Ricin">
           <xs:attribute type="xs:string" use="optional" name="name"></xs:attribute>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.heisenberg.extension.model.drugs.Drug">
+  <xs:complexType name="com.zernova.test.heisenberg.extension.model.drugs.Drug">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType"></xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:org.mule.test.heisenberg.extension.model.drugs.Drug" substitutionGroup="mule:abstract-shared-extension" abstract="true" name="global-abstract-drug"></xs:element>
-  <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:org.mule.test.heisenberg.extension.model.drugs.Drug" abstract="true" name="abstract-drug"></xs:element>
-  <xs:complexType name="org.mule.test.heisenberg.extension.model.drugs.Meta">
+  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:com.zernova.test.heisenberg.extension.model.drugs.Drug" substitutionGroup="mule:abstract-shared-extension" abstract="true" name="global-abstract-drug"></xs:element>
+  <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:com.zernova.test.heisenberg.extension.model.drugs.Drug" abstract="true" name="abstract-drug"></xs:element>
+  <xs:complexType name="com.zernova.test.heisenberg.extension.model.drugs.Meta">
     <xs:complexContent>
-      <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.drugs.Drug">
+      <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.drugs.Drug">
         <xs:attribute xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="mule:expressionInt" use="required" name="purity"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:org.mule.test.heisenberg.extension.model.drugs.Meta" substitutionGroup="heisenberg:abstract-drug" abstract="true" name="abstract-meta"></xs:element>
+  <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:com.zernova.test.heisenberg.extension.model.drugs.Meta" substitutionGroup="heisenberg:abstract-drug" abstract="true" name="abstract-meta"></xs:element>
   <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" substitutionGroup="heisenberg:abstract-meta" name="meta">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="heisenberg:org.mule.test.heisenberg.extension.model.drugs.Meta"></xs:extension>
+        <xs:extension base="heisenberg:com.zernova.test.heisenberg.extension.model.drugs.Meta"></xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:org.mule.test.heisenberg.extension.model.Investment" substitutionGroup="mule:abstract-shared-extension" abstract="true" name="global-abstract-investment"></xs:element>
-  <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:org.mule.test.heisenberg.extension.model.Investment" abstract="true" name="abstract-investment"></xs:element>
-  <xs:complexType name="org.mule.test.heisenberg.extension.model.CarWash">
+  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:com.zernova.test.heisenberg.extension.model.Investment" substitutionGroup="mule:abstract-shared-extension" abstract="true" name="global-abstract-investment"></xs:element>
+  <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:com.zernova.test.heisenberg.extension.model.Investment" abstract="true" name="abstract-investment"></xs:element>
+  <xs:complexType name="com.zernova.test.heisenberg.extension.model.CarWash">
     <xs:complexContent>
-      <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.Investment">
+      <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.Investment">
         <xs:attribute xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="mule:expressionInt" use="required" name="carsPerMinute"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
@@ -101,28 +101,28 @@
   <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" substitutionGroup="heisenberg:abstract-car-wash" name="car-wash">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="heisenberg:org.mule.test.heisenberg.extension.model.CarWash">
+        <xs:extension base="heisenberg:com.zernova.test.heisenberg.extension.model.CarWash">
           <xs:attribute type="xs:string" use="optional" name="name"></xs:attribute>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.heisenberg.extension.model.CarDealer">
+  <xs:complexType name="com.zernova.test.heisenberg.extension.model.CarDealer">
     <xs:complexContent>
-      <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.Investment">
+      <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.Investment">
         <xs:attribute xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="mule:expressionInt" use="required" name="carStock"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:org.mule.test.heisenberg.extension.model.CarDealer" substitutionGroup="heisenberg:abstract-investment" abstract="true" name="abstract-car-dealer"></xs:element>
+  <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:com.zernova.test.heisenberg.extension.model.CarDealer" substitutionGroup="heisenberg:abstract-investment" abstract="true" name="abstract-car-dealer"></xs:element>
   <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" substitutionGroup="heisenberg:abstract-car-dealer" name="car-dealer">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="heisenberg:org.mule.test.heisenberg.extension.model.CarDealer"></xs:extension>
+        <xs:extension base="heisenberg:com.zernova.test.heisenberg.extension.model.CarDealer"></xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.heisenberg.extension.model.Investment">
+  <xs:complexType name="com.zernova.test.heisenberg.extension.model.Investment">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:sequence minOccurs="0" maxOccurs="1">
@@ -169,7 +169,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="org.mule.test.heisenberg.extension.model.DifferedKnockableDoor">
+  <xs:complexType name="com.zernova.test.heisenberg.extension.model.DifferedKnockableDoor">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:attribute type="mule:expressionString" use="optional" name="victim"></xs:attribute>
@@ -182,7 +182,7 @@
   <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" substitutionGroup="heisenberg:abstract-differed-knockable-door" name="differed-knockable-door">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="heisenberg:org.mule.test.heisenberg.extension.model.DifferedKnockableDoor">
+        <xs:extension base="heisenberg:com.zernova.test.heisenberg.extension.model.DifferedKnockableDoor">
           <xs:attribute type="xs:string" use="optional" name="name"></xs:attribute>
         </xs:extension>
       </xs:complexContent>
@@ -192,20 +192,20 @@
   <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" substitutionGroup="heisenberg:abstract-recursive-chain-a" name="recursive-chain-a">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="heisenberg:org.mule.test.heisenberg.extension.model.RecursiveChainA">
+        <xs:extension base="heisenberg:com.zernova.test.heisenberg.extension.model.RecursiveChainA">
           <xs:attribute type="xs:string" use="optional" name="name"></xs:attribute>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.heisenberg.extension.model.RecursiveChainB">
+  <xs:complexType name="com.zernova.test.heisenberg.extension.model.RecursiveChainB">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="chain-a">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.RecursiveChainA"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.RecursiveChainA"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -227,20 +227,20 @@
   <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" substitutionGroup="heisenberg:abstract-recursive-chain-b" name="recursive-chain-b">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="heisenberg:org.mule.test.heisenberg.extension.model.RecursiveChainB">
+        <xs:extension base="heisenberg:com.zernova.test.heisenberg.extension.model.RecursiveChainB">
           <xs:attribute type="xs:string" use="optional" name="name"></xs:attribute>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.heisenberg.extension.model.RecursiveChainA">
+  <xs:complexType name="com.zernova.test.heisenberg.extension.model.RecursiveChainA">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="chain-b">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.RecursiveChainB"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.RecursiveChainB"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -262,20 +262,20 @@
   <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" substitutionGroup="heisenberg:abstract-recursive-pojo" name="recursive-pojo">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="heisenberg:org.mule.test.heisenberg.extension.model.RecursivePojo">
+        <xs:extension base="heisenberg:com.zernova.test.heisenberg.extension.model.RecursivePojo">
           <xs:attribute type="xs:string" use="optional" name="name"></xs:attribute>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.heisenberg.extension.model.RecursivePojo">
+  <xs:complexType name="com.zernova.test.heisenberg.extension.model.RecursivePojo">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="next">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.RecursivePojo"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.RecursivePojo"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -433,7 +433,7 @@
                 <xs:sequence>
                   <xs:element minOccurs="0" maxOccurs="unbounded" name="health-progression">
                     <xs:complexType>
-                      <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="org.mule.test.heisenberg.extension.model.HealthStatusEnumType" use="required" name="value"></xs:attribute>
+                      <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="com.zernova.test.heisenberg.extension.model.HealthStatusEnumType" use="required" name="value"></xs:attribute>
                     </xs:complexType>
                   </xs:element>
                 </xs:sequence>
@@ -457,7 +457,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="next-door">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
+                  <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -486,7 +486,7 @@
                   <xs:extension base="mule:abstractExtensionType">
                     <xs:sequence></xs:sequence>
                     <xs:attribute type="mule:expressionBoolean" use="optional" default="false" name="fullyBald"></xs:attribute>
-                    <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="org.mule.test.heisenberg.extension.model.BarberPreferences.BEARD_KINDEnumType" use="optional" default="GOATIE" name="beardTrimming"></xs:attribute>
+                    <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="com.zernova.test.heisenberg.extension.model.BarberPreferences.BEARD_KINDEnumType" use="optional" default="GOATIE" name="beardTrimming"></xs:attribute>
                   </xs:extension>
                 </xs:complexContent>
               </xs:complexType>
@@ -497,7 +497,7 @@
                   <xs:extension base="mule:abstractExtensionType">
                     <xs:sequence></xs:sequence>
                     <xs:attribute type="mule:expressionBoolean" use="optional" default="false" name="fullyBald"></xs:attribute>
-                    <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="org.mule.test.heisenberg.extension.model.BarberPreferences.BEARD_KINDEnumType" use="optional" default="GOATIE" name="beardTrimming"></xs:attribute>
+                    <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="com.zernova.test.heisenberg.extension.model.BarberPreferences.BEARD_KINDEnumType" use="optional" default="GOATIE" name="beardTrimming"></xs:attribute>
                   </xs:extension>
                 </xs:complexContent>
               </xs:complexType>
@@ -526,8 +526,8 @@
           <xs:attribute type="mule:expressionList" use="optional" name="wildCards"></xs:attribute>
           <xs:attribute type="mule:expressionMap" use="optional" name="weaponValueMap"></xs:attribute>
           <xs:attribute type="mule:expressionMap" use="optional" name="candidateDoors"></xs:attribute>
-          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="org.mule.test.heisenberg.extension.model.HealthStatusEnumType" use="optional" default="CANCER" name="initialHealth"></xs:attribute>
-          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="org.mule.test.heisenberg.extension.model.HealthStatusEnumType" use="required" name="finalHealth"></xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="com.zernova.test.heisenberg.extension.model.HealthStatusEnumType" use="optional" default="CANCER" name="initialHealth"></xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="com.zernova.test.heisenberg.extension.model.HealthStatusEnumType" use="required" name="finalHealth"></xs:attribute>
           <xs:attribute type="mule:expressionString" use="optional" name="labAddress"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="healthProgressions"></xs:attribute>
           <xs:attribute type="xs:string" use="required" name="name">
@@ -549,7 +549,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.heisenberg.extension.model.PersonalInfo">
+  <xs:complexType name="com.zernova.test.heisenberg.extension.model.PersonalInfo">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:sequence minOccurs="0" maxOccurs="1">
@@ -576,11 +576,11 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:org.mule.test.heisenberg.extension.model.PersonalInfo" abstract="true" name="abstract-personal-info"></xs:element>
+  <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:com.zernova.test.heisenberg.extension.model.PersonalInfo" abstract="true" name="abstract-personal-info"></xs:element>
   <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" substitutionGroup="heisenberg:abstract-personal-info" name="personal-info">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="heisenberg:org.mule.test.heisenberg.extension.model.PersonalInfo"></xs:extension>
+        <xs:extension base="heisenberg:com.zernova.test.heisenberg.extension.model.PersonalInfo"></xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -596,7 +596,7 @@
                   <xs:extension base="mule:abstractExtensionType">
                     <xs:sequence></xs:sequence>
                     <xs:attribute type="mule:expressionBoolean" use="optional" default="false" name="fullyBald"></xs:attribute>
-                    <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="org.mule.test.heisenberg.extension.model.BarberPreferences.BEARD_KINDEnumType" use="optional" default="GOATIE" name="beardTrimming"></xs:attribute>
+                    <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="com.zernova.test.heisenberg.extension.model.BarberPreferences.BEARD_KINDEnumType" use="optional" default="GOATIE" name="beardTrimming"></xs:attribute>
                   </xs:extension>
                 </xs:complexContent>
               </xs:complexType>
@@ -620,7 +620,7 @@
                   <xs:extension base="mule:abstractExtensionType">
                     <xs:sequence></xs:sequence>
                     <xs:attribute type="mule:expressionBoolean" use="optional" default="false" name="fullyBald"></xs:attribute>
-                    <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="org.mule.test.heisenberg.extension.model.BarberPreferences.BEARD_KINDEnumType" use="optional" default="GOATIE" name="beardTrimming"></xs:attribute>
+                    <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="com.zernova.test.heisenberg.extension.model.BarberPreferences.BEARD_KINDEnumType" use="optional" default="GOATIE" name="beardTrimming"></xs:attribute>
                   </xs:extension>
                 </xs:complexContent>
               </xs:complexType>
@@ -687,7 +687,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="next-door">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -730,7 +730,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="methylamine">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.Methylamine"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.Methylamine"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -795,7 +795,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="org.mule.test.heisenberg.extension.model.Methylamine">
+  <xs:complexType name="com.zernova.test.heisenberg.extension.model.Methylamine">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:attribute type="mule:expressionString" use="required" name="importer"></xs:attribute>
@@ -857,7 +857,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="next-door">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -900,7 +900,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="methylamine">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.Methylamine"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.Methylamine"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -991,7 +991,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="next-door">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -1028,7 +1028,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="methylamine">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.Methylamine"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.Methylamine"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -1136,7 +1136,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="next-door">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -1179,7 +1179,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="methylamine">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.Methylamine"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.Methylamine"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -1299,7 +1299,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="next-door">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -1342,7 +1342,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="methylamine">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.Methylamine"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.Methylamine"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -1462,7 +1462,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="next-door">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -1505,7 +1505,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="methylamine">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.Methylamine"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.Methylamine"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -2379,21 +2379,21 @@
           <xs:element minOccurs="0" maxOccurs="1" name="recursive-pojo">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.RecursivePojo"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.RecursivePojo"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
           <xs:element minOccurs="0" maxOccurs="1" name="recursive-chain-b">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.RecursiveChainB"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.RecursiveChainB"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
           <xs:element minOccurs="0" maxOccurs="1" name="recursive-chain-a">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.RecursiveChainA"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.RecursiveChainA"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -2588,14 +2588,14 @@
                 <xs:extension base="mule:abstractExtensionType">
                   <xs:sequence></xs:sequence>
                   <xs:attribute type="mule:expressionBoolean" use="optional" default="false" name="fullyBald"></xs:attribute>
-                  <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="org.mule.test.heisenberg.extension.model.BarberPreferences.BEARD_KINDEnumType" use="optional" default="GOATIE" name="beardTrimming"></xs:attribute>
+                  <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="com.zernova.test.heisenberg.extension.model.BarberPreferences.BEARD_KINDEnumType" use="optional" default="GOATIE" name="beardTrimming"></xs:attribute>
                 </xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
         </xs:sequence>
         <xs:attribute type="mule:expressionBoolean" use="optional" default="false" name="fullyBald"></xs:attribute>
-        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="org.mule.test.heisenberg.extension.model.BarberPreferences.BEARD_KINDEnumType" use="optional" default="GOATIE" name="beardTrimming"></xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="com.zernova.test.heisenberg.extension.model.BarberPreferences.BEARD_KINDEnumType" use="optional" default="GOATIE" name="beardTrimming"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -2957,7 +2957,7 @@
                 <xs:extension base="mule:abstractExtensionType">
                   <xs:sequence></xs:sequence>
                   <xs:attribute type="mule:expressionBoolean" use="optional" default="false" name="fullyBald"></xs:attribute>
-                  <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="org.mule.test.heisenberg.extension.model.BarberPreferences.BEARD_KINDEnumType" use="optional" default="GOATIE" name="beardTrimming"></xs:attribute>
+                  <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="com.zernova.test.heisenberg.extension.model.BarberPreferences.BEARD_KINDEnumType" use="optional" default="GOATIE" name="beardTrimming"></xs:attribute>
                 </xs:extension>
               </xs:complexContent>
             </xs:complexType>
@@ -3035,7 +3035,7 @@
                 <xs:element minOccurs="0" maxOccurs="unbounded" name="health-by-year">
                   <xs:complexType>
                     <xs:attribute type="mule:expressionString" use="required" name="key"></xs:attribute>
-                    <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="org.mule.test.heisenberg.extension.model.HealthStatusEnumType" use="required" name="value"></xs:attribute>
+                    <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="com.zernova.test.heisenberg.extension.model.HealthStatusEnumType" use="required" name="value"></xs:attribute>
                   </xs:complexType>
                 </xs:element>
               </xs:sequence>
@@ -3229,13 +3229,13 @@
           <xs:element minOccurs="0" maxOccurs="1" name="attributes-of-weapon">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.Weapon.WeaponAttributes"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.Weapon.WeaponAttributes"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
         </xs:sequence>
         <xs:attribute type="xs:string" use="optional" name="weapon"></xs:attribute>
-        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="org.mule.test.heisenberg.extension.model.types.WeaponTypeEnumType" use="required" name="type"></xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/heisenberg" type="com.zernova.test.heisenberg.extension.model.types.WeaponTypeEnumType" use="required" name="type"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="attributesOfWeapon"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="target">
           <xs:annotation>
@@ -3250,7 +3250,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="org.mule.test.heisenberg.extension.model.Weapon.WeaponAttributes">
+  <xs:complexType name="com.zernova.test.heisenberg.extension.model.Weapon.WeaponAttributes">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:attribute type="mule:expressionString" use="optional" name="brand"></xs:attribute>
@@ -3265,7 +3265,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="knocked-door">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:org.mule.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
+                <xs:extension xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" base="heisenberg:com.zernova.test.heisenberg.extension.model.KnockeableDoor"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -3533,7 +3533,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="org.mule.test.heisenberg.extension.model.SaleInfo">
+  <xs:complexType name="com.zernova.test.heisenberg.extension.model.SaleInfo">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:attribute type="mule:expressionString" use="required" name="details"></xs:attribute>
@@ -3541,11 +3541,11 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:org.mule.test.heisenberg.extension.model.SaleInfo" abstract="true" name="abstract-sale-info"></xs:element>
+  <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:com.zernova.test.heisenberg.extension.model.SaleInfo" abstract="true" name="abstract-sale-info"></xs:element>
   <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" substitutionGroup="heisenberg:abstract-sale-info" name="sale-info">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="heisenberg:org.mule.test.heisenberg.extension.model.SaleInfo"></xs:extension>
+        <xs:extension base="heisenberg:com.zernova.test.heisenberg.extension.model.SaleInfo"></xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -3876,7 +3876,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="org.mule.test.heisenberg.extension.model.Attribute">
+  <xs:complexType name="com.zernova.test.heisenberg.extension.model.Attribute">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:attribute type="mule:expressionString" use="required" name="attributeName"></xs:attribute>
@@ -3884,11 +3884,11 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:org.mule.test.heisenberg.extension.model.Attribute" abstract="true" name="abstract-attribute"></xs:element>
+  <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" type="heisenberg:com.zernova.test.heisenberg.extension.model.Attribute" abstract="true" name="abstract-attribute"></xs:element>
   <xs:element xmlns:heisenberg="http://www.mulesoft.org/schema/mule/heisenberg" substitutionGroup="heisenberg:abstract-attribute" name="attribute">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="heisenberg:org.mule.test.heisenberg.extension.model.Attribute"></xs:extension>
+        <xs:extension base="heisenberg:com.zernova.test.heisenberg.extension.model.Attribute"></xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -4201,7 +4201,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:simpleType name="org.mule.test.heisenberg.extension.model.HealthStatusEnumType">
+  <xs:simpleType name="com.zernova.test.heisenberg.extension.model.HealthStatusEnumType">
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:string">
@@ -4215,7 +4215,7 @@
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>
-  <xs:simpleType name="org.mule.test.heisenberg.extension.model.BarberPreferences.BEARD_KINDEnumType">
+  <xs:simpleType name="com.zernova.test.heisenberg.extension.model.BarberPreferences.BEARD_KINDEnumType">
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:string">
@@ -4306,7 +4306,7 @@
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>
-  <xs:simpleType name="org.mule.test.heisenberg.extension.model.types.WeaponTypeEnumType">
+  <xs:simpleType name="com.zernova.test.heisenberg.extension.model.types.WeaponTypeEnumType">
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:string">

@@ -4,16 +4,17 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package org.foo.os;
 
-import org.mule.runtime.api.lifecycle.Initialisable;
-import org.mule.runtime.api.lifecycle.InitialisationException;
-import org.mule.runtime.api.store.ObjectDoesNotExistException;
-import org.mule.runtime.api.store.ObjectStore;
-import org.mule.runtime.api.store.ObjectStoreException;
-import org.mule.runtime.api.store.ObjectStoreManager;
-import org.mule.runtime.api.store.ObjectStoreSettings;
-import org.mule.runtime.core.api.util.UUID;
+import com.zernova.runtime.api.lifecycle.Initialisable;
+import com.zernova.runtime.api.lifecycle.InitialisationException;
+import com.zernova.runtime.api.store.ObjectDoesNotExistException;
+import com.zernova.runtime.api.store.ObjectStore;
+import com.zernova.runtime.api.store.ObjectStoreException;
+import com.zernova.runtime.api.store.ObjectStoreManager;
+import com.zernova.runtime.api.store.ObjectStoreSettings;
+import com.zernova.runtime.core.api.util.UUID;
 
 import java.io.Serializable;
 

@@ -1,0 +1,12 @@
+upstreamProjects:
+  Mule-runtime/mule-api/master
+projectType: runtime
+mavenTool: "3.9.9"
+jdkTool: OPEN-JDK17
+additionalTestConfigs:
+  jdk8:
+    testJdkTool: OPEN-JDK8
+  jdk11:
+    testJdkTool: OPEN-JDK11
+  jdk21:
+    testJdkTool: TEMURIN-JDK21

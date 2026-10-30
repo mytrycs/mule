@@ -4,15 +4,16 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package org.foo.simple;
 
-import static org.mule.runtime.extension.api.annotation.param.MediaType.TEXT_PLAIN;
+import static com.zernova.runtime.extension.api.annotation.param.MediaType.TEXT_PLAIN;
 
-import org.mule.runtime.api.exception.MuleException;
-import org.mule.runtime.api.message.ErrorType;
-import org.mule.runtime.extension.api.annotation.param.Config;
-import org.mule.runtime.extension.api.annotation.param.MediaType;
-import org.mule.runtime.extension.api.annotation.param.Parameter;
+import com.zernova.runtime.api.exception.ZernovaException;
+import com.zernova.runtime.api.message.ErrorType;
+import com.zernova.runtime.extension.api.annotation.param.Config;
+import com.zernova.runtime.extension.api.annotation.param.MediaType;
+import com.zernova.runtime.extension.api.annotation.param.Parameter;
 
 import java.util.Map;
 

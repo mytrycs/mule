@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.mule.tests</groupId>
+        <groupId>com.zernova.tests</groupId>
         <artifactId>mule-module-test-plugins</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
@@ -13,13 +13,13 @@
     <packaging>mule-plugin</packaging>
 
     <properties>
-        <javaModuleName>org.mule.test.plugin.empty</javaModuleName>
+        <javaModuleName>com.zernova.test.plugin.empty</javaModuleName>
     </properties>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.mule.runtime.plugins</groupId>
+                <groupId>com.zernova.runtime.plugins</groupId>
                 <artifactId>mule-plugin-maven-plugin</artifactId>
                 <extensions>true</extensions>
             </plugin>

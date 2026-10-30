@@ -1,7 +1,7 @@
 {
   "additionalPluginDependencies": [
     {
-      "groupId": "org.mule.tests",
+      "groupId": "com.zernova.tests",
       "artifactId": "test-empty-plugin",
       "additionalDependencies": []
     }
@@ -17,23 +17,23 @@
   "dependencies": [
     {
       "artifactCoordinates": {
-        "groupId": "org.mule.tests",
+        "groupId": "com.zernova.tests",
         "artifactId": "test-empty-plugin",
         "version": "4.2.0-SNAPSHOT",
         "type": "jar",
         "classifier": "mule-plugin"
       },
-      "uri": "repository/org/mule/tests/test-empty-plugin/4.2.0-SNAPSHOT/test-empty-plugin-4.2.0-SNAPSHOT-mule-plugin.jar"
+      "uri": "repository/com/zernova/tests/test-empty-plugin/4.2.0-SNAPSHOT/test-empty-plugin-4.2.0-SNAPSHOT-mule-plugin.jar"
     },
     {
       "artifactCoordinates": {
-        "groupId": "org.mule.tests",
+        "groupId": "com.zernova.tests",
         "artifactId": "test-dependant-plugin",
         "version": "4.2.0-SNAPSHOT",
         "type": "jar",
         "classifier": "mule-plugin"
       },
-      "uri": "repository/org/mule/tests/test-dependant-plugin/4.2.0-SNAPSHOT/test-dependant-plugin-4.2.0-SNAPSHOT-mule-plugin.jar"
+      "uri": "repository/com/zernova/tests/test-dependant-plugin/4.2.0-SNAPSHOT/test-dependant-plugin-4.2.0-SNAPSHOT-mule-plugin.jar"
     },
     {
       "artifactCoordinates": {

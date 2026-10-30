@@ -6,7 +6,7 @@
 
                http://www.mulesoft.org/schema/mule/petstore http://www.mulesoft.org/schema/mule/petstore/current/mule-petstore.xsd">
 
-    <object name="adopt" class="org.mule.test.module.extension.source.SourceScheduleInParamTestCase$AdoptionProcessor"/>
+    <object name="adopt" class="com.zernova.test.module.extension.source.SourceScheduleInParamTestCase$AdoptionProcessor"/>
 
     <flow name="vanilla" initialState="stopped">
         <petstore:pet-adoption-scheduler-in-param-source>

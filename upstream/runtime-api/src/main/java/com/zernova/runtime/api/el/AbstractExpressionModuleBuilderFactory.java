@@ -1,0 +1,71 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.api.el;
+
+import static com.zernova.runtime.api.util.classloader.ZernovaImplementationLoaderUtils.getMuleImplementationsLoader;
+import static com.zernova.runtime.api.util.classloader.ZernovaImplementationLoaderUtils.isResolveMuleImplementationLoadersDynamically;
+
+import static java.lang.String.format;
+import static java.util.ServiceLoader.load;
+
+import com.zernova.api.annotation.NoImplement;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Factory class used to create {@link ExpressionModule.Builder} objects.
+ *
+ * @since 1.0
+ */
+@NoImplement
+public abstract class AbstractExpressionModuleBuilderFactory {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(AbstractExpressionModuleBuilderFactory.class);
+
+  private static AbstractExpressionModuleBuilderFactory loadFactory() {
+    try {
+      final AbstractExpressionModuleBuilderFactory factory = load(AbstractExpressionModuleBuilderFactory.class,
+                                                                  getMuleImplementationsLoader()).iterator().next();
+      if (LOGGER.isDebugEnabled()) {
+        LOGGER.debug(format("Loaded ExpressionModuleBuilderFactory implementation '%s' from classloader '%s'",
+                            factory.getClass().getName(), factory.getClass().getClassLoader().toString()));
+      }
+
+      return factory;
+    } catch (Throwable t) {
+      LOGGER.error("Error loading ExpressionModuleBuilderFactory implementation.", t);
+      throw t;
+    }
+  }
+
+  private static final AbstractExpressionModuleBuilderFactory DEFAULT_FACTORY = loadFactory();
+
+  /**
+   * The implementation of this abstract class is provided by the Mule Runtime.
+   * <p>
+   * If more than one implementation is found, the classLoading order of those implementations will determine which one is used.
+   * Information about this will be logged to aid in the troubleshooting of those cases.
+   *
+   * @return the implementation of this builder factory provided by the Mule Runtime.
+   */
+  static AbstractExpressionModuleBuilderFactory getDefaultFactory() {
+    if (isResolveMuleImplementationLoadersDynamically()) {
+      return loadFactory();
+    } else {
+      return DEFAULT_FACTORY;
+    }
+  }
+
+  /**
+   * @param namespace The namespace of the module
+   * @return a fresh {@link BindingContext.Builder} object.
+   */
+  protected abstract ExpressionModule.Builder create(ModuleNamespace namespace);
+
+}

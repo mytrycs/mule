@@ -1,0 +1,73 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.config.internal.validation;
+
+import static com.zernova.runtime.api.meta.model.parameter.ParameterGroupModel.ERROR_MAPPINGS;
+import static com.zernova.runtime.ast.api.util.ComponentAstPredicatesFactory.currentElemement;
+import static com.zernova.runtime.ast.api.util.ZernovaAstUtils.hasPropertyPlaceholder;
+import static com.zernova.runtime.ast.api.validation.Validation.Level.WARN;
+import static com.zernova.runtime.ast.api.validation.ValidationResultItem.create;
+import static com.zernova.runtime.extension.api.ExtensionConstants.ERROR_MAPPINGS_PARAMETER_NAME;
+
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
+
+import com.zernova.runtime.ast.api.ArtifactAst;
+import com.zernova.runtime.ast.api.ComponentAst;
+import com.zernova.runtime.ast.api.validation.ValidationResultItem;
+import com.zernova.runtime.extension.api.error.ErrorMapping;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
+
+/**
+ * Referenced error types do exist in the context of the artifact
+ */
+public class ErrorMappingSourceTypeReferencesNonPropertyValue extends AbstractErrorValidation {
+
+  @Override
+  public String getName() {
+    return "Error Type references fixed";
+  }
+
+  @Override
+  public String getDescription() {
+    return "Referenced error types are fixed.";
+  }
+
+  @Override
+  public Level getLevel() {
+    return WARN;
+  }
+
+  @Override
+  public Predicate<List<ComponentAst>> applicable() {
+    return currentElemement(((Predicate<ComponentAst>) this::errorMappingPresent));
+  }
+
+  @Override
+  public Optional<ValidationResultItem> validate(ComponentAst component, ArtifactAst artifact) {
+    for (ErrorMapping errorMapping : getErrorMappings(component)) {
+      final String errorTypeRawValue = errorMapping.getSource();
+
+      if (hasPropertyPlaceholder(errorTypeRawValue)) {
+        return of(create(component,
+                         component.getParameter(ERROR_MAPPINGS, ERROR_MAPPINGS_PARAMETER_NAME),
+                         this,
+                         "'" + component.getIdentifier().getName() + "' has 'type' '" + errorTypeRawValue
+                             + "' which is resolved with a property and may cause the artifact to have different behavior on different environments."));
+      } else {
+        return empty();
+      }
+    }
+
+    return empty();
+  }
+
+}

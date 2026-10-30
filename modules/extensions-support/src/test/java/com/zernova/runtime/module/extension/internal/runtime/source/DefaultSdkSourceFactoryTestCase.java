@@ -1,0 +1,74 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.module.extension.internal.runtime.source;
+
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import com.zernova.runtime.api.exception.ZernovaException;
+import com.zernova.runtime.extension.api.runtime.source.Source;
+import com.zernova.runtime.extension.api.runtime.source.SourceCallback;
+import com.zernova.tck.junit4.AbstractZernovaTestCase;
+import com.zernova.tck.size.SmallTest;
+import com.zernova.test.heisenberg.extension.HeisenbergSource;
+
+import java.lang.reflect.InvocationTargetException;
+
+import org.hamcrest.Matchers;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+@SmallTest
+public class DefaultSdkSourceFactoryTestCase extends AbstractZernovaTestCase {
+
+  @Rule
+  public ExpectedException expectedException = ExpectedException.none();
+
+  @Test
+  public void create() {
+    assertThat(new DefaultSdkSourceFactory(HeisenbergSource.class).createMessageSource().getValue().get(),
+               is(instanceOf(HeisenbergSource.class)));
+  }
+
+  @Test
+  public void nullType() {
+    expectedException.expect(IllegalArgumentException.class);
+    new DefaultSdkSourceFactory(null);
+  }
+
+  @Test
+  public void notInstantiable() {
+    expectedException.expect(IllegalArgumentException.class);
+    new DefaultSdkSourceFactory(Source.class);
+  }
+
+  @Test
+  public void exceptionOnInstantiation() {
+    expectedException.expect(RuntimeException.class);
+    expectedException.expectCause(Matchers.instanceOf(InvocationTargetException.class));
+    new DefaultSdkSourceFactory(UncreatableSource.class).createMessageSource();
+  }
+
+  public static class UncreatableSource extends Source {
+
+    public UncreatableSource() {
+      throw new IllegalArgumentException();
+    }
+
+    @Override
+    public void onStart(SourceCallback sourceCallback) throws ZernovaException {
+
+    }
+
+    @Override
+    public void onStop() {
+
+    }
+  }
+}

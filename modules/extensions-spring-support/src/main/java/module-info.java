@@ -4,29 +4,30 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 /**
  * Support for extensions to be configured through a mule config file backed by the Spring framework.
  *
  * @moduleGraph
  * @since 4.6
  */
-module org.mule.runtime.extensions.spring.support {
+module com.zernova.runtime.extensions.spring.support {
 
-  requires org.mule.sdk.api;
-  requires org.mule.runtime.api;
-  requires org.mule.runtime.metadata.model.api;
-  requires org.mule.runtime.metadata.model.java;
-  requires org.mule.runtime.extensions.api;
-  requires org.mule.runtime.dsl.api;
-  requires org.mule.runtime.tracer.api;
-  requires org.mule.runtime.tracer.customization.api;
-  requires org.mule.runtime.extension.model;
-  requires org.mule.runtime.core;
-  requires org.mule.runtime.extensions.support;
-  requires org.mule.runtime.artifact;
-  requires org.mule.runtime.artifact.activation;
-  requires org.mule.runtime.deployment.model;
-  requires org.mule.runtime.spring.config;
+  requires com.zernova.sdk.api;
+  requires com.zernova.runtime.api;
+  requires com.zernova.runtime.metadata.model.api;
+  requires com.zernova.runtime.metadata.model.java;
+  requires com.zernova.runtime.extensions.api;
+  requires com.zernova.runtime.dsl.api;
+  requires com.zernova.runtime.tracer.api;
+  requires com.zernova.runtime.tracer.customization.api;
+  requires com.zernova.runtime.extension.model;
+  requires com.zernova.runtime.core;
+  requires com.zernova.runtime.extensions.support;
+  requires com.zernova.runtime.artifact;
+  requires com.zernova.runtime.artifact.activation;
+  requires com.zernova.runtime.deployment.model;
+  requires com.zernova.runtime.spring.config;
 
   requires java.compiler;
 
@@ -38,65 +39,65 @@ module org.mule.runtime.extensions.spring.support {
   requires org.jsoup;
   requires org.reflections;
 
-  provides org.mule.runtime.dsl.api.component.ComponentBuildingDefinitionProvider with
-      org.mule.runtime.module.extension.internal.config.dsl.DefaultExtensionBuildingDefinitionProvider;
-  provides org.mule.runtime.extension.api.dsl.syntax.resources.spi.ExtensionSchemaGenerator with
-      org.mule.runtime.module.extension.internal.capability.xml.schema.DefaultExtensionSchemaGenerator;
-  provides org.mule.runtime.extension.api.resources.spi.GeneratedResourceFactory with
-      org.mule.runtime.module.extension.internal.resources.MulePluginDescriptorGenerator;
+  provides com.zernova.runtime.dsl.api.component.ComponentBuildingDefinitionProvider with
+      com.zernova.runtime.module.extension.internal.config.dsl.DefaultExtensionBuildingDefinitionProvider;
+  provides com.zernova.runtime.extension.api.dsl.syntax.resources.spi.ExtensionSchemaGenerator with
+      com.zernova.runtime.module.extension.internal.capability.xml.schema.DefaultExtensionSchemaGenerator;
+  provides com.zernova.runtime.extension.api.resources.spi.GeneratedResourceFactory with
+      com.zernova.runtime.module.extension.internal.resources.ZernovaPluginDescriptorGenerator;
 
-  exports org.mule.runtime.module.extension.api.resources;
+  exports com.zernova.runtime.module.extension.api.resources;
 
-  exports org.mule.runtime.module.extension.internal.capability.xml.description to
-      org.mule.runtime.ast.extension;
-  exports org.mule.runtime.module.extension.internal.config.dsl to
-      org.mule.runtime.extensions.xml.support,
+  exports com.zernova.runtime.module.extension.internal.capability.xml.description to
+      com.zernova.runtime.ast.extension;
+  exports com.zernova.runtime.module.extension.internal.config.dsl to
+      com.zernova.runtime.extensions.xml.support,
       spring.beans;
-  exports org.mule.runtime.module.extension.internal.config.dsl.connection to
-      org.mule.runtime.spring.config,
-      org.mule.runtime.extensions.xml.support,
+  exports com.zernova.runtime.module.extension.internal.config.dsl.connection to
+      com.zernova.runtime.spring.config,
+      com.zernova.runtime.extensions.xml.support,
       spring.beans;
-  exports org.mule.runtime.module.extension.internal.config.dsl.config to
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.module.extension.internal.config.dsl.config to
+      com.zernova.runtime.spring.config,
       spring.beans;
-  exports org.mule.runtime.module.extension.internal.config.dsl.construct to
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.module.extension.internal.config.dsl.construct to
+      com.zernova.runtime.spring.config,
       spring.beans;
-  exports org.mule.runtime.module.extension.internal.config.dsl.operation to
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.module.extension.internal.config.dsl.operation to
+      com.zernova.runtime.spring.config,
       spring.beans;
-  exports org.mule.runtime.module.extension.internal.config.dsl.parameter to
-      org.mule.runtime.extensions.xml.support,
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.module.extension.internal.config.dsl.parameter to
+      com.zernova.runtime.extensions.xml.support,
+      com.zernova.runtime.spring.config,
       spring.beans;
-  exports org.mule.runtime.module.extension.internal.config.dsl.source to
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.module.extension.internal.config.dsl.source to
+      com.zernova.runtime.spring.config,
       spring.beans;
-  exports org.mule.runtime.module.extension.internal.resources to
-      org.mule.runtime.ast.extension;
-  exports org.mule.runtime.module.extension.internal.resources.validator to
-      org.mule.runtime.ast.extension;
+  exports com.zernova.runtime.module.extension.internal.resources to
+      com.zernova.runtime.ast.extension;
+  exports com.zernova.runtime.module.extension.internal.resources.validator to
+      com.zernova.runtime.ast.extension;
 
-  opens org.mule.runtime.module.extension.internal.capability.xml.schema.model to
+  opens com.zernova.runtime.module.extension.internal.capability.xml.schema.model to
       jakarta.xml.bind;
-  opens org.mule.runtime.module.extension.internal.config.dsl to
+  opens com.zernova.runtime.module.extension.internal.config.dsl to
       spring.core;
-  opens org.mule.runtime.module.extension.internal.config.dsl.config to
+  opens com.zernova.runtime.module.extension.internal.config.dsl.config to
       net.bytebuddy,
       spring.core;
-  opens org.mule.runtime.module.extension.internal.config.dsl.connection to
+  opens com.zernova.runtime.module.extension.internal.config.dsl.connection to
       net.bytebuddy,
       spring.core;
-  opens org.mule.runtime.module.extension.internal.config.dsl.construct to
+  opens com.zernova.runtime.module.extension.internal.config.dsl.construct to
       net.bytebuddy,
       spring.core;
-  opens org.mule.runtime.module.extension.internal.config.dsl.operation to
+  opens com.zernova.runtime.module.extension.internal.config.dsl.operation to
       net.bytebuddy,
       spring.core;
-  opens org.mule.runtime.module.extension.internal.config.dsl.parameter to
+  opens com.zernova.runtime.module.extension.internal.config.dsl.parameter to
       net.bytebuddy,
       spring.core;
-  opens org.mule.runtime.module.extension.internal.config.dsl.source to
+  opens com.zernova.runtime.module.extension.internal.config.dsl.source to
       net.bytebuddy;
 
 }

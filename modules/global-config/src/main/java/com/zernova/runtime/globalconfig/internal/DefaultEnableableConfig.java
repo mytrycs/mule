@@ -1,0 +1,25 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.globalconfig.internal;
+
+import com.zernova.runtime.globalconfig.api.EnableableConfig;
+
+class DefaultEnableableConfig implements EnableableConfig {
+
+  public static final String ENABLED_PROPERTY = "enabled";
+  private final boolean enabled;
+
+  public DefaultEnableableConfig(boolean enabled) {
+    this.enabled = enabled;
+  }
+
+  public boolean isEnabled() {
+    return enabled;
+  }
+
+}

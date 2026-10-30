@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.mule.runtime</groupId>
+        <groupId>com.zernova.runtime</groupId>
         <artifactId>mule-modules</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
@@ -19,46 +19,46 @@
             -XX:+IgnoreUnrecognizedVMOptions
             --module-path=${org.yaml:snakeyaml:jar}
             --add-modules=net.bytebuddy.agent,org.yaml.snakeyaml
-            --add-reads=org.mule.runtime.spring.config=org.yaml.snakeyaml
-            --add-reads=org.mule.runtime.spring.config=org.apache.commons.io
-              --add-opens=org.mule.runtime.core/org.mule.runtime.core.api.processor=ALL-UNNAMED
-              --add-opens=org.mule.runtime.core/org.mule.runtime.core.privileged.exception=ALL-UNNAMED
-              --add-opens=org.mule.runtime.core/org.mule.runtime.core.privileged.processor.chain=ALL-UNNAMED
-            --add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.config=ALL-UNNAMED
-            --add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.config.builders=ALL-UNNAMED
-            --add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.context=ALL-UNNAMED
-              --add-opens=org.mule.runtime.core/org.mule.runtime.core.internal.exception=ALL-UNNAMED
-            --add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.interception=ALL-UNNAMED
-              --add-opens=org.mule.runtime.core/org.mule.runtime.core.privileged.processor=ALL-UNNAMED
-            --add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.profiling=ALL-UNNAMED
-            --add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.registry=ALL-UNNAMED
-            --add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.serialization=ALL-UNNAMED
-            --add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.transaction=ALL-UNNAMED
-            --add-exports=org.mule.runtime.errors/org.mule.runtime.config.internal.error=ALL-UNNAMED
-              --add-opens=org.mule.runtime.extension.model/org.mule.runtime.config.internal.validation=ALL-UNNAMED
-              --add-opens=org.mule.runtime.artifact.ast.xmlParser/org.mule.runtime.ast.api.xml=org.mule.runtime.spring.config
-            --add-exports=org.mule.runtime.spring.config/org.mule.runtime.config.utils=org.mule.runtime.core,org.mule.runtime.service,org.mule.runtime.container
-              --add-opens=org.mule.runtime.spring.config/org.mule.runtime.config.dsl.spring=net.bytebuddy
-              --add-opens=org.mule.runtime.core.components/org.mule.runtime.core.internal.processor=ALL-UNNAMED
-              --add-opens=org.mule.runtime.spring.config/org.mule.runtime.config.internal.registry=org.mule.runtime.core
-            --add-exports=org.mule.runtime.artifact.ast/org.mule.runtime.ast.internal=org.mule.runtime.spring.config
-            --add-exports=org.mule.runtime.artifact.ast/org.mule.runtime.ast.internal.validation=org.mule.runtime.spring.config
-            --add-exports=org.mule.runtime.artifact.ast.dependency.graph/org.mule.runtime.ast.graph.internal=org.mule.runtime.spring.config
-            --add-exports=org.mule.runtime.spring.config/org.mule.runtime.config.dsl.model=ALL-UNNAMED
-            --add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.store=ALL-UNNAMED
-            --add-exports=org.mule.runtime.artifact.ast/org.mule.runtime.ast.internal.builder=ALL-UNNAMED
-            --add-exports=org.mule.runtime.artifact.ast/org.mule.runtime.ast.internal.builder.adapter=ALL-UNNAMED
-            --add-exports=org.mule.runtime.artifact.ast/org.mule.runtime.ast.internal.dsl=ALL-UNNAMED
-            --add-exports=org.mule.runtime.artifact.ast/org.mule.runtime.ast.internal.error=ALL-UNNAMED
-            --add-exports=org.mule.runtime.artifact.ast/org.mule.runtime.ast.internal.model=ALL-UNNAMED
-            --add-exports=org.mule.runtime.artifact.ast/org.mule.runtime.ast.internal.param=ALL-UNNAMED
-            --add-opens=org.mule.runtime.core/org.mule.runtime.core.internal.el.function=ALL-UNNAMED
-            --add-opens=org.mule.runtime.core/org.mule.runtime.core.internal.processor.strategy=ALL-UNNAMED
-            --add-opens=org.apache.commons.beanutils/org.apache.commons.beanutils=org.mule.runtime.spring.config
+            --add-reads=com.zernova.runtime.spring.config=org.yaml.snakeyaml
+            --add-reads=com.zernova.runtime.spring.config=org.apache.commons.io
+              --add-opens=com.zernova.runtime.core/com.zernova.runtime.core.api.processor=ALL-UNNAMED
+              --add-opens=com.zernova.runtime.core/com.zernova.runtime.core.privileged.exception=ALL-UNNAMED
+              --add-opens=com.zernova.runtime.core/com.zernova.runtime.core.privileged.processor.chain=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.config=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.config.builders=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.context=ALL-UNNAMED
+              --add-opens=com.zernova.runtime.core/com.zernova.runtime.core.internal.exception=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.interception=ALL-UNNAMED
+              --add-opens=com.zernova.runtime.core/com.zernova.runtime.core.privileged.processor=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.profiling=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.registry=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.serialization=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.transaction=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.errors/com.zernova.runtime.config.internal.error=ALL-UNNAMED
+              --add-opens=com.zernova.runtime.extension.model/com.zernova.runtime.config.internal.validation=ALL-UNNAMED
+              --add-opens=com.zernova.runtime.artifact.ast.xmlParser/com.zernova.runtime.ast.api.xml=com.zernova.runtime.spring.config
+            --add-exports=com.zernova.runtime.spring.config/com.zernova.runtime.config.utils=com.zernova.runtime.core,com.zernova.runtime.service,com.zernova.runtime.container
+              --add-opens=com.zernova.runtime.spring.config/com.zernova.runtime.config.dsl.spring=net.bytebuddy
+              --add-opens=com.zernova.runtime.core.components/com.zernova.runtime.core.internal.processor=ALL-UNNAMED
+              --add-opens=com.zernova.runtime.spring.config/com.zernova.runtime.config.internal.registry=com.zernova.runtime.core
+            --add-exports=com.zernova.runtime.artifact.ast/com.zernova.runtime.ast.internal=com.zernova.runtime.spring.config
+            --add-exports=com.zernova.runtime.artifact.ast/com.zernova.runtime.ast.internal.validation=com.zernova.runtime.spring.config
+            --add-exports=com.zernova.runtime.artifact.ast.dependency.graph/com.zernova.runtime.ast.graph.internal=com.zernova.runtime.spring.config
+            --add-exports=com.zernova.runtime.spring.config/com.zernova.runtime.config.dsl.model=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.store=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.artifact.ast/com.zernova.runtime.ast.internal.builder=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.artifact.ast/com.zernova.runtime.ast.internal.builder.adapter=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.artifact.ast/com.zernova.runtime.ast.internal.dsl=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.artifact.ast/com.zernova.runtime.ast.internal.error=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.artifact.ast/com.zernova.runtime.ast.internal.model=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.artifact.ast/com.zernova.runtime.ast.internal.param=ALL-UNNAMED
+            --add-opens=com.zernova.runtime.core/com.zernova.runtime.core.internal.el.function=ALL-UNNAMED
+            --add-opens=com.zernova.runtime.core/com.zernova.runtime.core.internal.processor.strategy=ALL-UNNAMED
+            --add-opens=org.apache.commons.beanutils/org.apache.commons.beanutils=com.zernova.runtime.spring.config
             ${surefire.test.unit.open.args}
         </surefire.args>
 
-        <javaModuleName>org.mule.runtime.spring.config</javaModuleName>
+        <javaModuleName>com.zernova.runtime.spring.config</javaModuleName>
         <skipExportTests>false</skipExportTests>
     </properties>
 
@@ -72,9 +72,9 @@
                         <id>default-testCompile</id>
                         <configuration>
                             <compilerArgs>
-                                <arg>--add-exports=org.mule.runtime.artifact.ast/org.mule.runtime.ast.internal=org.mule.runtime.spring.config</arg>
-                                <arg>--add-exports=org.mule.runtime.artifact.ast/org.mule.runtime.ast.internal.validation=org.mule.runtime.spring.config</arg>
-                                <arg>--add-exports=org.mule.runtime.core/org.mule.runtime.core.internal.transaction=ALL-UNNAMED</arg>
+                                <arg>--add-exports=com.zernova.runtime.artifact.ast/com.zernova.runtime.ast.internal=com.zernova.runtime.spring.config</arg>
+                                <arg>--add-exports=com.zernova.runtime.artifact.ast/com.zernova.runtime.ast.internal.validation=com.zernova.runtime.spring.config</arg>
+                                <arg>--add-exports=com.zernova.runtime.core/com.zernova.runtime.core.internal.transaction=ALL-UNNAMED</arg>
                             </compilerArgs>
                         </configuration>
                     </execution>
@@ -84,100 +84,100 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-core-components</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-artifact</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-artifact-activation</artifactId>
             <version>${project.version}</version>
             <exclusions>
                 <exclusion>
-                    <groupId>org.mule</groupId>
+                    <groupId>com.zernova</groupId>
                     <artifactId>mule-maven-client-impl</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-service</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-feature-management</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-properties-config</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-tracer-internal-impl</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-metrics-impl</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-metrics-exporter-impl</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-tracer-customization-impl</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-tracer-configuration-impl</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-tracer-exporter-impl</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-tracer-exporter-configuration-impl</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-service-http-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-artifact-ast</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-artifact-ast-xml-parser</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-properties-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-artifact-ast-dependency-graph</artifactId>
         </dependency>
         <dependency>
@@ -189,26 +189,26 @@
             <artifactId>spring-aop</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.sdk</groupId>
+            <groupId>com.zernova.sdk</groupId>
             <artifactId>mule-sdk-compatibility-api</artifactId>
         </dependency>
         
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-dsl-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-deployment-model</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-extensions-support</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-http-support</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -217,7 +217,7 @@
             <artifactId>byte-buddy</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-metadata-support</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -234,28 +234,28 @@
 
         <!-- Unit tests -->
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tests-unit</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-extensions-api-persistence</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.services</groupId>
+            <groupId>com.zernova.services</groupId>
             <artifactId>mule-service-weave</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-dwb-api</artifactId> 
             <scope>test</scope>             
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-artifact-ast-serialization</artifactId>
             <scope>test</scope>
         </dependency>
@@ -270,7 +270,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tests-allure</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
@@ -288,7 +288,7 @@
             </activation>
             <dependencies>
                 <dependency>
-                    <groupId>org.mule.runtime</groupId>
+                    <groupId>com.zernova.runtime</groupId>
                     <artifactId>mule-artifact-ast-serialization</artifactId>
                 </dependency>
             </dependencies>

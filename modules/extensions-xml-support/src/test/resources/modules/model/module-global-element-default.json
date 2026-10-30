@@ -250,7 +250,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -260,7 +260,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -512,7 +512,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -522,7 +522,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -820,7 +820,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -830,7 +830,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -863,7 +863,7 @@
   "notifications": [],
   "errors": [],
   "modelProperties": {
-    "org.mule.runtime.extension.api.property.XmlExtensionModelProperty": {
+    "com.zernova.runtime.extension.api.property.XmlExtensionModelProperty": {
       "namespacesDependencies": [
         "http://www.mulesoft.org/schema/mule/petstore",
         "http://www.mulesoft.org/schema/mule/marvel",

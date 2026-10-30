@@ -38,7 +38,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.substitutiongroup.extension.SomePojo"
+                "type": "@ref:com.zernova.test.substitutiongroup.extension.SomePojo"
               },
               "hasDynamicType": false,
               "required": true,
@@ -67,7 +67,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.substitutiongroup.extension.MuleSGPojo"
+                "type": "@ref:com.zernova.test.substitutiongroup.extension.ZernovaSGPojo"
               },
               "hasDynamicType": false,
               "required": true,
@@ -127,9 +127,9 @@
                 "format": "java",
                 "type": "Object",
                 "annotations": {
-                  "typeId": "org.mule.runtime.extension.api.runtime.ExpirationPolicy",
+                  "typeId": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
                   "classInformation": {
-                    "classname": "org.mule.runtime.extension.api.runtime.ExpirationPolicy",
+                    "classname": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
                     "hasDefaultConstructor": false,
                     "isInterface": true,
                     "isInstantiable": false,
@@ -239,14 +239,14 @@
               "name": "expirationPolicy",
               "description": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit.",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "expiration-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 4
                 }
               }
@@ -290,7 +290,7 @@
   "messageSources": [],
   "artifactCoordinates": {
     "artifact id": "mule-substitution-group-extension",
-    "group id": "org.mule.tests",
+    "group id": "com.zernova.tests",
     "version": "1.2.3"
   },
   "notifications": [],
@@ -326,9 +326,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.substitutiongroup.extension.MuleSGPojo",
+        "typeId": "com.zernova.test.substitutiongroup.extension.ZernovaSGPojo",
         "classInformation": {
-          "classname": "org.mule.test.substitutiongroup.extension.MuleSGPojo",
+          "classname": "com.zernova.test.substitutiongroup.extension.ZernovaSGPojo",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -348,7 +348,7 @@
           }
         },
         "typeAlias": {
-          "value": "MuleSGPojo"
+          "value": "ZernovaSGPojo"
         }
       },
       "fields": [
@@ -375,9 +375,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.substitutiongroup.extension.SomeExportedPojo",
+        "typeId": "com.zernova.test.substitutiongroup.extension.SomeExportedPojo",
         "classInformation": {
-          "classname": "org.mule.test.substitutiongroup.extension.SomeExportedPojo",
+          "classname": "com.zernova.test.substitutiongroup.extension.SomeExportedPojo",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -397,7 +397,7 @@
           },
           "dslBaseType": {
             "prefix": "heisenberg",
-            "element": "org.mule.test.heisenberg.extension.model.Weapon"
+            "element": "com.zernova.test.heisenberg.extension.model.Weapon"
           }
         },
         "typeAlias": {
@@ -436,9 +436,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.substitutiongroup.extension.SomePojo",
+        "typeId": "com.zernova.test.substitutiongroup.extension.SomePojo",
         "classInformation": {
-          "classname": "org.mule.test.substitutiongroup.extension.SomePojo",
+          "classname": "com.zernova.test.substitutiongroup.extension.SomePojo",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -458,7 +458,7 @@
           },
           "dslBaseType": {
             "prefix": "heisenberg",
-            "element": "org.mule.test.heisenberg.extension.model.Weapon"
+            "element": "com.zernova.test.heisenberg.extension.model.Weapon"
           }
         },
         "typeAlias": {

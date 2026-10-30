@@ -4,18 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.mule.runtime</groupId>
+        <groupId>com.zernova.runtime</groupId>
         <artifactId>mule-modules</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
-    <groupId>org.mule.runtime.boot</groupId>
+    <groupId>com.zernova.runtime.boot</groupId>
     <artifactId>mule-module-logging</artifactId>
     <packaging>jar</packaging>
-    <name>Mule Logging</name>
+    <name>ZERNOVA Logging</name>
     <description>Mule Logging Module</description>
 
     <properties>
-        <javaModuleName>org.mule.runtime.logging</javaModuleName>
+        <javaModuleName>com.zernova.runtime.logging</javaModuleName>
         <skipExportTests>false</skipExportTests>
         <!-- because this module requires transitive logging libraries -->
         <revapi.checkDependencies>true</revapi.checkDependencies>

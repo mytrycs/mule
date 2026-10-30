@@ -1,0 +1,28 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.test.data.sample.extension.provider;
+
+import static com.zernova.runtime.api.util.Preconditions.checkArgument;
+
+import com.zernova.runtime.core.api.ZernovaContext;
+import com.zernova.sdk.api.data.sample.SampleDataException;
+import com.zernova.sdk.api.runtime.operation.Result;
+
+import jakarta.inject.Inject;
+
+public class ZernovaContextAwareSampleDataProvider extends ParameterizedTestSampleDataProvider {
+
+  @Inject
+  private ZernovaContext muleContext;
+
+  @Override
+  public Result<String, String> getSample() throws SampleDataException {
+    checkArgument(muleContext != null, "muleContext is null");
+    return super.getSample();
+  }
+}

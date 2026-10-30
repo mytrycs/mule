@@ -5,12 +5,12 @@
 ##############################################
 
 # Purge old Mule artifacts from repository
-rm -rf $M2_REPO/org/mule/
+rm -rf $M2_REPO/com/zernova/
 
 # Check-out project if necessary, otherwise update.
 if [ ! -d "mule" ]
 then
-    svn co http://svn.codehaus.org/mule/trunk/mule mule
+    svn co http://svn.codehaus.com/zernova/trunk/mule mule
     cd mule
 else
     cd mule

@@ -4,12 +4,13 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package org.foo.oracle;
 
 import static java.lang.Thread.sleep;
 import static org.mockito.Mockito.mock;
 import static org.slf4j.LoggerFactory.getLogger;
-import static org.mule.runtime.extension.api.annotation.param.MediaType.TEXT_PLAIN;
+import static com.zernova.runtime.extension.api.annotation.param.MediaType.TEXT_PLAIN;
 import static java.lang.ClassLoader.getSystemClassLoader;
 import static java.sql.DriverManager.getConnection;
 
@@ -22,10 +23,10 @@ import java.lang.Thread;
 import java.sql.Connection;
 
 import oracle.jdbc.OracleDriver;
-import org.mule.runtime.extension.api.annotation.param.Config;
-import org.mule.runtime.extension.api.annotation.param.MediaType;
-import org.mule.runtime.extension.api.annotation.param.Parameter;
-import org.mule.test.runner.ArtifactClassLoaderRunnerConfig;
+import com.zernova.runtime.extension.api.annotation.param.Config;
+import com.zernova.runtime.extension.api.annotation.param.MediaType;
+import com.zernova.runtime.extension.api.annotation.param.Parameter;
+import com.zernova.test.runner.ArtifactClassLoaderRunnerConfig;
 
 public class OracleOperation {
 

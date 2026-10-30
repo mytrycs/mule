@@ -11,7 +11,7 @@
     <packaging>${property.packaging}</packaging>
 
     <properties>
-        <property.groupId>org.mule.tests</property.groupId>
+        <property.groupId>com.zernova.tests</property.groupId>
         <property.artifactId>simple-pom</property.artifactId>
         <property.version>1.0.0</property.version>
         <property.packaging>mule-plugin</property.packaging>

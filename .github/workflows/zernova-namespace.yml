@@ -1,0 +1,97 @@
+name: ZERNOVA renamed source and native runtime
+on:
+  push:
+    branches: ['codex/zernova-runtime-namespace-refactor']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    env:
+      MAVEN_OPTS: '-Xmx3g -Djava.awt.headless=true'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Select Java 17
+        run: |
+          echo "JAVA_HOME=$JAVA_HOME_17_X64" >> "$GITHUB_ENV"
+          echo "$JAVA_HOME_17_X64/bin" >> "$GITHUB_PATH"
+      - uses: actions/cache@v4
+        with:
+          path: .zernova-m2
+          key: zernova-namespace-${{ runner.os }}-${{ hashFiles('zernova-build/namespace-map.json', 'zernova-build/refactor_namespace.py', 'upstream/**/pom.xml', 'pom.xml') }}
+      - name: Build renamed API, kernel and standalone from tracked source
+        run: bash zernova-build/build-source.sh
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: zernova-renamed-engine
+          path: |
+            upstream/distributions/standalone/target/mule-standalone-4.10.0-SNAPSHOT.zip
+            zernova-build-evidence/source-build-exit-code.txt
+            zernova-build-evidence/source-build-revision.json
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: zernova-renamed-source-evidence
+          path: zernova-build-evidence/
+          retention-days: 7
+  native:
+    needs: source
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { runner: ubuntu-24.04, target: linux-x64, arch: x64 }
+          - { runner: ubuntu-24.04-arm, target: linux-arm64, arch: arm64 }
+          - { runner: macos-15-intel, target: darwin-x64, arch: x64 }
+          - { runner: macos-15, target: darwin-arm64, arch: arm64 }
+          - { runner: windows-2025, target: win32-x64, arch: x64 }
+          - { runner: windows-11-arm, target: win32-arm64, arch: arm64 }
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 25
+    steps:
+      - name: Preserve source bytes
+        shell: bash
+        run: git config --global core.autocrlf false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22.16.0'
+          architecture: ${{ matrix.arch }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: zernova-renamed-engine
+          path: .
+      - name: Prepare native inputs and source-built bundle
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ZN_TARGET: ${{ matrix.target }}
+        run: |
+          set -euo pipefail
+          node -e 'if(`${process.platform}-${process.arch}`!==process.env.ZN_TARGET)throw Error("Native Node architecture mismatch")'
+          npm ci
+          npm run build:portable
+          python zernova-studio-build/create-fixture.py
+          python zernova-studio-build/prepare-bootstrap-native.py "$ZN_TARGET"
+          python zernova-studio-build/prepare-native.py "$ZN_TARGET"
+      - name: Run real application acceptance
+        shell: bash
+        working-directory: zernova-studio-build
+        run: node tests/native-runtime.cjs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: zernova-renamed-native-${{ matrix.target }}
+          path: |
+            zernova-studio-build/evidence/
+            zernova-build-evidence/runtime-audit.json
+          retention-days: 7

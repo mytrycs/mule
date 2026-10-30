@@ -1,0 +1,50 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.module.deployment.impl.internal.artifact;
+
+import static java.lang.String.format;
+import static java.util.Arrays.asList;
+
+import com.zernova.runtime.core.internal.util.splash.SplashScreen;
+import com.zernova.runtime.module.artifact.api.Artifact;
+import com.zernova.runtime.module.artifact.api.descriptor.ArtifactDescriptor;
+import com.zernova.runtime.module.artifact.api.descriptor.ArtifactPluginDescriptor;
+import com.zernova.runtime.module.artifact.api.descriptor.DeployableArtifactDescriptor;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * Base splash screen to log messages when an {@link Artifact} is started based on it's {@link ArtifactDescriptor}.
+ *
+ * @param <D> the type of {@link ArtifactDescriptor}
+ */
+public abstract class ArtifactStartedSplashScreen<D extends ArtifactDescriptor> extends SplashScreen {
+
+  public abstract void createMessage(D descriptor);
+
+  protected List<String> getLibraries(File artifactLibFolder) {
+    if (artifactLibFolder.exists()) {
+      String[] libraries = artifactLibFolder.list((dir, name) -> name.endsWith(".jar"));
+      return asList(libraries);
+    }
+    return new ArrayList<>();
+  }
+
+  protected void listPlugins(String artifactType, DeployableArtifactDescriptor descriptor) {
+    Set<ArtifactPluginDescriptor> plugins = descriptor.getPlugins();
+    if (!plugins.isEmpty()) {
+      doBody(artifactType + " plugins:");
+      for (ArtifactPluginDescriptor plugin : plugins) {
+        doBody(format(VALUE_FORMAT, format("%s : %s", plugin.getName(), plugin.getBundleDescriptor().getVersion())));
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.extension.api.values;
+
+import com.zernova.runtime.api.i18n.I18nMessage;
+import com.zernova.runtime.api.value.Value;
+import com.zernova.sdk.api.annotation.MinZernovaVersion;
+
+/**
+ * {@link Exception} to indicate than an error occurred resolving {@link Value values}
+ *
+ * @since 1.0
+ */
+@MinZernovaVersion("4.1")
+public class ValueResolvingException extends com.zernova.sdk.api.values.ValueResolvingException {
+
+  public final static String UNKNOWN = com.zernova.sdk.api.values.ValueResolvingException.UNKNOWN;
+  public final static String INVALID_VALUE_RESOLVER_NAME =
+      com.zernova.sdk.api.values.ValueResolvingException.INVALID_VALUE_RESOLVER_NAME;
+  public final static String CONNECTION_FAILURE = com.zernova.sdk.api.values.ValueResolvingException.CONNECTION_FAILURE;
+  public final static String INVALID_LOCATION = com.zernova.sdk.api.values.ValueResolvingException.INVALID_LOCATION;
+  public final static String NOT_VALUE_PROVIDER_ENABLED =
+      com.zernova.sdk.api.values.ValueResolvingException.NOT_VALUE_PROVIDER_ENABLED;
+  public final static String MISSING_REQUIRED_PARAMETERS =
+      com.zernova.sdk.api.values.ValueResolvingException.MISSING_REQUIRED_PARAMETERS;
+
+  public ValueResolvingException(String message, String failureCode) {
+    super(message, failureCode);
+  }
+
+  public ValueResolvingException(String message, String failureCode, Throwable cause) {
+    super(message, failureCode, cause);
+  }
+
+  public ValueResolvingException(I18nMessage message, String failureCode) {
+    super(message, failureCode);
+  }
+
+  public ValueResolvingException(I18nMessage message, String failureCode, Throwable cause) {
+    super(message, failureCode, cause);
+  }
+
+}

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.mule.runtime</groupId>
+        <groupId>com.zernova.runtime</groupId>
         <artifactId>mule-modules</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
@@ -14,21 +14,21 @@
     <description>Mule repository module. Provides access to external dependencies required by the runtime.</description>
 
     <properties>
-        <javaModuleName>org.mule.runtime.repository</javaModuleName>
+        <javaModuleName>com.zernova.runtime.repository</javaModuleName>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-artifact</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule</groupId>
+            <groupId>com.zernova</groupId>
             <artifactId>mule-maven-client-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule</groupId>
+            <groupId>com.zernova</groupId>
             <artifactId>mule-maven-client-impl</artifactId>
         </dependency>
 
@@ -39,7 +39,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tests-unit</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>

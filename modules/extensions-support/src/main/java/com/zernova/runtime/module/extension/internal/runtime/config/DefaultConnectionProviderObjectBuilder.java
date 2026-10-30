@@ -1,0 +1,130 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.module.extension.internal.runtime.config;
+
+import static java.lang.Thread.currentThread;
+import static com.zernova.runtime.api.meta.model.connection.ConnectionManagementType.POOLING;
+import static com.zernova.runtime.core.api.extension.provider.ZernovaExtensionModelProvider.getMuleVersion;
+import static com.zernova.runtime.core.internal.connection.ConnectionUtils.getInjectionTarget;
+import static com.zernova.runtime.core.internal.util.CompositeClassLoader.from;
+import static com.zernova.runtime.module.extension.internal.util.IntrospectionUtils.injectFields;
+
+import com.zernova.runtime.api.config.PoolingProfile;
+import com.zernova.runtime.api.connection.ConnectionProvider;
+import com.zernova.runtime.api.exception.ZernovaException;
+import com.zernova.runtime.api.meta.ZernovaVersion;
+import com.zernova.runtime.api.meta.model.ExtensionModel;
+import com.zernova.runtime.api.meta.model.connection.ConnectionManagementType;
+import com.zernova.runtime.api.meta.model.connection.ConnectionProviderModel;
+import com.zernova.runtime.api.util.Pair;
+import com.zernova.runtime.core.api.ZernovaContext;
+import com.zernova.runtime.core.api.el.ExpressionManager;
+import com.zernova.runtime.core.api.retry.ReconnectionConfig;
+import com.zernova.runtime.core.internal.connection.ConfigNameResolverConnectionProviderWrapper;
+import com.zernova.runtime.core.internal.connection.ErrorTypeHandlerConnectionProviderWrapper;
+import com.zernova.runtime.core.internal.connection.PoolingConnectionProviderWrapper;
+import com.zernova.runtime.core.internal.connection.ReconnectableConnectionProviderWrapper;
+import com.zernova.runtime.module.extension.api.runtime.resolver.ResolverSet;
+import com.zernova.runtime.module.extension.api.runtime.resolver.ResolverSetResult;
+import com.zernova.runtime.module.extension.internal.runtime.objectbuilder.ResolverSetBasedObjectBuilder;
+
+/**
+ * Implementation of {@link ResolverSetBasedObjectBuilder} which produces instances of {@link ConnectionProviderModel}
+ *
+ * @since 4.0
+ */
+public class DefaultConnectionProviderObjectBuilder<C> extends BaseConnectionProviderObjectBuilder<C> {
+
+  public DefaultConnectionProviderObjectBuilder(ConnectionProviderModel providerModel, ResolverSet resolverSet,
+                                                ExtensionModel extensionModel, ExpressionManager expressionManager,
+                                                ZernovaContext muleContext) {
+    super(providerModel, resolverSet, extensionModel, expressionManager, muleContext);
+  }
+
+  public DefaultConnectionProviderObjectBuilder(ConnectionProviderModel providerModel, ResolverSet resolverSet,
+                                                PoolingProfile poolingProfile,
+                                                ReconnectionConfig reconnectionConfig,
+                                                ExtensionModel extensionModel,
+                                                ExpressionManager expressionManager,
+                                                ZernovaContext muleContext) {
+    super(providerModel, resolverSet, poolingProfile, reconnectionConfig, extensionModel, expressionManager, muleContext);
+  }
+
+  public DefaultConnectionProviderObjectBuilder(Class<?> prototypeClass, ConnectionProviderModel providerModel,
+                                                ResolverSet resolverSet,
+                                                PoolingProfile poolingProfile,
+                                                ReconnectionConfig reconnectionConfig,
+                                                ExtensionModel extensionModel,
+                                                ExpressionManager expressionManager,
+                                                ZernovaContext muleContext) {
+    super(prototypeClass, providerModel, resolverSet, poolingProfile, reconnectionConfig, extensionModel, expressionManager,
+          muleContext);
+  }
+
+  @Override
+  public final Pair<ConnectionProvider<C>, ResolverSetResult> build(ResolverSetResult result) throws ZernovaException {
+    ConnectionProvider<C> provider = doBuild(result);
+
+    muleContext.getInjector().inject(provider);
+    provider = applyConnectionProviderClassLoaderProxy(provider);
+    provider = applyConnectionManagement(provider);
+    provider = applyErrorHandling(provider);
+    provider = applyOwnerConfigNameResolver(provider);
+
+    return new Pair<>(provider, result);
+  }
+
+  protected ConnectionProvider<C> doBuild(ResolverSetResult result) throws ZernovaException {
+    ConnectionProvider<C> provider = super.build(result).getFirst();
+    ZernovaVersion muleVersion = getMuleVersion();
+    injectFields(providerModel, getInjectionTarget(provider), ownerConfigName,
+                 muleContext.getConfiguration().getDefaultEncoding(), muleVersion);
+    return provider;
+  }
+
+  private ConnectionProvider<C> applyErrorHandling(ConnectionProvider<C> provider) {
+    return new ErrorTypeHandlerConnectionProviderWrapper<>(provider, extensionModel, reconnectionConfig,
+                                                           muleContext.getErrorTypeRepository());
+  }
+
+  private ConnectionProvider<C> applyOwnerConfigNameResolver(ConnectionProvider<C> provider) {
+    return new ConfigNameResolverConnectionProviderWrapper<>(provider, reconnectionConfig, ownerConfigName);
+  }
+
+  private ConnectionProvider<C> applyConnectionManagement(ConnectionProvider<C> provider) {
+    final ConnectionManagementType connectionManagementType = providerModel.getConnectionManagementType();
+    if (connectionManagementType == POOLING) {
+      provider = new PoolingConnectionProviderWrapper<>(provider, poolingProfile, reconnectionConfig);
+    } else {
+      provider = new ReconnectableConnectionProviderWrapper<>(provider, reconnectionConfig);
+    }
+    return provider;
+  }
+
+  /**
+   * Wraps the {@link ConnectionProvider} inside of a dynamic proxy which changes the current {@link ClassLoader} to a composition
+   * of the extension's {@link ClassLoader} and the app classloader when executing any method of this wrapped
+   * {@link ConnectionProvider}
+   * <p>
+   * This ensures that every time that the {@link ConnectionProvider} is used, it will work in the correct classloader.
+   * <p>
+   * Although if the {@link ConnectionProvider} is created with the correct classloader and then used with an incorrect one this
+   * may work, due that static class references were loaded correctly, logic loading class in a dynamic way will fail.
+   *
+   * @param provider The {@link ConnectionProvider} to wrap
+   * @return The wrapped {@link ConnectionProvider}
+   */
+  private ConnectionProvider<C> applyConnectionProviderClassLoaderProxy(ConnectionProvider provider) {
+    final ClassLoader extensionClassLoader = currentThread().getContextClassLoader();
+    final ClassLoader appRegionClassLoader = muleContext.getExecutionClassLoader().getParent();
+
+    return ClassLoaderConnectionProviderWrapper
+        .newInstance(provider, from(extensionClassLoader, appRegionClassLoader));
+  }
+
+}

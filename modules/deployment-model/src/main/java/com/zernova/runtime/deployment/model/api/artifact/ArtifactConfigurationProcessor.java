@@ -1,0 +1,47 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.deployment.model.api.artifact;
+
+import static java.lang.Thread.currentThread;
+
+import com.zernova.api.annotation.NoImplement;
+import com.zernova.runtime.core.api.config.ConfigurationException;
+import com.zernova.runtime.core.api.registry.SpiServiceRegistry;
+
+/**
+ * Implementation of this interface are responsible of processing the configuration files of a Mule artifact and create an
+ * {@link ArtifactContext}.
+ *
+ * @since 4.0
+ */
+@NoImplement
+public interface ArtifactConfigurationProcessor {
+
+  /**
+   * Discovers a {@link ArtifactConfigurationProcessor} using SPI. One and only one must be present in the classpath.
+   *
+   * @return an {@link ArtifactConfigurationProcessor} discovered using SPI.
+   *
+   * @deprecated Pass the instance to use instead of relying on SPI for discovery.
+   */
+  @Deprecated
+  static ArtifactConfigurationProcessor discover() {
+    return new SpiServiceRegistry().lookupProvider(ArtifactConfigurationProcessor.class, currentThread().getContextClassLoader());
+  }
+
+  /**
+   * Creates an {@link ArtifactContext} for an artifact based on the configuration files of the artifact.
+   *
+   * @param artifactContextConfiguration the configuration of the artifact.
+   * @return an {@link ArtifactContext}
+   * @throws ConfigurationException if there was a problem processing the configuration of the artifact.
+   */
+  ArtifactContext createArtifactContext(ArtifactContextConfiguration artifactContextConfiguration)
+      throws ConfigurationException;
+
+}

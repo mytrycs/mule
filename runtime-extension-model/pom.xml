@@ -3,28 +3,30 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.mule.runtime</groupId>
+        <groupId>com.zernova.runtime</groupId>
         <artifactId>mule</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
     <artifactId>mule-runtime-extension-model</artifactId>
     <packaging>jar</packaging>
-    <name>Mule 4 Runtime Extension model</name>
+    <name>ZERNOVA 4 Runtime Extension model</name>
 
     <properties>
+        <!-- Technical product identity; the visible project name remains ZERNOVA. -->
+        <zernovaCompatibilityTitle>Mule 4 Runtime Extension model</zernovaCompatibilityTitle>
         <!-- xml parser is a test dependency so it is not in the module-path, open its required packages -->
         <surefire.args>
             -XX:+IgnoreUnrecognizedVMOptions
-              --add-reads=org.mule.runtime.extension.model=org.apache.commons.io
-            --add-exports=org.mule.runtime.api/org.mule.runtime.internal.dsl=ALL-UNNAMED
-            --add-exports=org.mule.runtime.extension.model/org.mule.runtime.config.internal.validation.test=ALL-UNNAMED
-            --add-exports=org.mule.runtime.extensions.api/org.mule.runtime.extension.internal.loader=org.mule.runtime.extension.model
-            --add-exports=org.mule.runtime.dsl.api/org.mule.runtime.dsl.internal.xml.parser=ALL-UNNAMED
-            --add-exports=org.mule.runtime.artifact.ast/org.mule.runtime.ast.internal.dsl=ALL-UNNAMED
+              --add-reads=com.zernova.runtime.extension.model=org.apache.commons.io
+            --add-exports=com.zernova.runtime.api/com.zernova.runtime.internal.dsl=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.extension.model/com.zernova.runtime.config.internal.validation.test=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.extensions.api/com.zernova.runtime.extension.internal.loader=com.zernova.runtime.extension.model
+            --add-exports=com.zernova.runtime.dsl.api/com.zernova.runtime.dsl.internal.xml.parser=ALL-UNNAMED
+            --add-exports=com.zernova.runtime.artifact.ast/com.zernova.runtime.ast.internal.dsl=ALL-UNNAMED
             ${surefire.args.base}
         </surefire.args>
 
-        <javaModuleName>org.mule.runtime.extension.model</javaModuleName>
+        <javaModuleName>com.zernova.runtime.extension.model</javaModuleName>
         <skipExportTests>false</skipExportTests>
     </properties>
 
@@ -58,7 +60,7 @@
                         </goals>
                         <configuration>
                             <includes>
-                                <include>org/mule/runtime/config/internal/validation/test/**</include>
+                                <include>com/zernova/runtime/config/internal/validation/test/**</include>
                             </includes>
                         </configuration>
                     </execution>
@@ -69,27 +71,27 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-extensions-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-metadata-model-catalog</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-artifact-ast</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-artifact-ast-dependency-graph</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-runtime-errors</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -115,13 +117,13 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tests-allure</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-artifact-ast-xml-parser</artifactId>
             <scope>test</scope>
         </dependency>

@@ -1,0 +1,44 @@
+{
+  "keys": {
+    "categoryName": [
+      {
+        "id": "firstKey",
+        "displayName": "firstKey",
+        "partName": "",
+        "properties": {},
+        "childs": [
+          {
+            "id": "firstChild",
+            "displayName": "firstChild",
+            "partName": "",
+            "properties": {},
+            "childs": []
+          },
+          {
+            "id": "secondChild",
+            "displayName": "secondChild",
+            "partName": "",
+            "properties": {},
+            "childs": [
+              {
+                "id": "3rd Level Child",
+                "displayName": "3rd Level Child",
+                "partName": "",
+                "properties": {},
+                "childs": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "secondKey",
+        "displayName": "secondKey",
+        "partName": "",
+        "properties": {},
+        "childs": []
+      }
+    ]
+  },
+  "failures": []
+}

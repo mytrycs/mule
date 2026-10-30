@@ -1,0 +1,106 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.extension.api.declaration.type.annotation;
+
+import com.zernova.metadata.api.annotation.TypeAnnotation;
+import com.zernova.metadata.api.model.ObjectFieldType;
+import com.zernova.runtime.api.meta.model.display.LayoutModel;
+import com.zernova.runtime.extension.api.annotation.param.display.Password;
+import com.zernova.runtime.extension.api.annotation.param.display.Placement;
+import com.zernova.runtime.extension.api.annotation.param.display.Text;
+
+import java.util.Objects;
+import java.util.Optional;
+
+/**
+ * A {@link TypeAnnotation} meant to be applied on {@link ObjectFieldType} instances and it contains information on how the field
+ * should be rendered in the UI. That information is obtained through the {@link Text}, {@link Password} and {@link Placement}
+ * annotations.
+ *
+ * @since 1.0
+ */
+public class LayoutTypeAnnotation implements TypeAnnotation {
+
+  public static final String NAME = "layout";
+
+  private final LayoutModel layoutModel;
+
+  /**
+   * Creates a new instance
+   *
+   * @param layoutModel a {@link LayoutModel}
+   */
+  public LayoutTypeAnnotation(LayoutModel layoutModel) {
+    this.layoutModel = layoutModel;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String getName() {
+    return NAME;
+  }
+
+  /**
+   * @return Whether the underlying model represents a password and should be masked in the UI
+   */
+  public boolean isPassword() {
+    return layoutModel.isPassword();
+  }
+
+  /**
+   * @return Whether the underlying model should be edited with a multi line string editor in the UI
+   */
+  public boolean isText() {
+    return layoutModel.isText();
+  }
+
+  /**
+   * @return Whether the underlying model represents a query and should be treated accordingly in the UI
+   */
+  public boolean isQuery() {
+    return layoutModel.isQuery();
+  }
+
+  /**
+   * @return The order of the model within its group.
+   */
+  public Optional<Integer> getOrder() {
+    return layoutModel.getOrder();
+  }
+
+  /**
+   * @return The tab element name where the model and its group it's going to be located.
+   */
+  public Optional<String> getTabName() {
+    return layoutModel.getTabName();
+  }
+
+  /**
+   * @return The underlying {@link LayoutModel} that this {@link TypeAnnotation} represents.
+   */
+  public LayoutModel getLayoutModel() {
+    return layoutModel;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof LayoutTypeAnnotation) {
+      LayoutTypeAnnotation other = ((LayoutTypeAnnotation) obj);
+      return Objects.equals(other.getLayoutModel(), this.getLayoutModel());
+    }
+
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return layoutModel.hashCode();
+  }
+}

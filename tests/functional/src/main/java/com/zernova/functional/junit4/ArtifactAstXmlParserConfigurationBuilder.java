@@ -1,0 +1,169 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.functional.junit4;
+
+import static com.zernova.runtime.ast.api.ArtifactType.APPLICATION;
+import static com.zernova.runtime.ast.api.util.ZernovaAstUtils.emptyArtifact;
+import static com.zernova.runtime.config.api.ArtifactContextFactory.createArtifactContextFactory;
+import static com.zernova.runtime.config.api.dsl.ArtifactDeclarationUtils.toArtifactast;
+import static com.zernova.runtime.core.api.config.ZernovaDeploymentProperties.MULE_ADD_TOOLING_OBJECTS_TO_REGISTRY;
+import static com.zernova.runtime.core.api.config.ZernovaDeploymentProperties.MULE_LAZY_INIT_DEPLOYMENT_PROPERTY;
+import static com.zernova.runtime.core.api.config.ZernovaDeploymentProperties.MULE_LAZY_INIT_ENABLE_XML_VALIDATIONS_DEPLOYMENT_PROPERTY;
+
+import static java.util.Collections.unmodifiableMap;
+import static java.util.Objects.requireNonNull;
+import static java.util.Optional.ofNullable;
+
+import com.zernova.runtime.api.meta.model.ExtensionModel;
+import com.zernova.runtime.api.metadata.ExpressionLanguageMetadataService;
+import com.zernova.runtime.api.util.LazyValue;
+import com.zernova.runtime.app.declaration.api.ArtifactDeclaration;
+import com.zernova.runtime.ast.api.ArtifactAst;
+import com.zernova.runtime.ast.api.ArtifactType;
+import com.zernova.runtime.ast.api.xml.AstXmlParser;
+import com.zernova.runtime.config.api.ArtifactContextFactory;
+import com.zernova.runtime.config.internal.ArtifactAstConfigurationBuilder;
+import com.zernova.runtime.core.api.ZernovaContext;
+import com.zernova.runtime.core.api.config.builders.AbstractConfigurationBuilder;
+import com.zernova.runtime.deployment.model.api.artifact.ArtifactContext;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Supplier;
+
+/**
+ * {@link AbstractConfigurationBuilder} implementation that delegates to {@link ArtifactAstConfigurationBuilder} using cached
+ * {@link AstXmlParser} instances.
+ *
+ * @since 4.5
+ */
+public class ArtifactAstXmlParserConfigurationBuilder extends AbstractConfigurationBuilder
+    implements ArtifactContextFactory {
+
+  public static final String SERIALIZE_DESERIALIZE_AST_PROPERTY = CachingAstXmlParser.SERIALIZE_DESERIALIZE_AST_PROPERTY;
+
+  static {
+    System.setProperty(CACHE_COMPONENT_BUILDING_DEFINITION_REGISTRY_PROPERTY, "true");
+  }
+
+  private final Map<String, String> artifactProperties;
+  private final boolean enableLazyInit;
+  private final boolean addToolingObjectsToRegistry;
+
+  private final Supplier<CachingAstXmlParser> cachingAstXmlParser;
+  private final ExpressionLanguageMetadataService expressionLanguageMetadataService;
+
+  private ArtifactDeclaration artifactDeclaration;
+  private String[] configResources;
+
+  private ArtifactType artifactType = APPLICATION;
+  private ArtifactContext parentArtifactContext;
+
+  private ArtifactContextFactory artifactAstConfigurationBuilder;
+
+  public ArtifactAstXmlParserConfigurationBuilder(Map<String, String> artifactProperties,
+                                                  boolean enableLazyInit,
+                                                  boolean addToolingObjectsToRegistry,
+                                                  ArtifactDeclaration artifactDeclaration,
+                                                  ExpressionLanguageMetadataService expressionLanguageMetadataService) {
+    this.artifactProperties = new HashMap<>(artifactProperties);
+    this.artifactProperties.put(MULE_ADD_TOOLING_OBJECTS_TO_REGISTRY, "" + addToolingObjectsToRegistry);
+    this.artifactProperties.put(MULE_LAZY_INIT_DEPLOYMENT_PROPERTY, "" + enableLazyInit);
+
+    this.enableLazyInit = enableLazyInit;
+    this.addToolingObjectsToRegistry = addToolingObjectsToRegistry;
+
+    this.cachingAstXmlParser = new LazyValue<>(() -> new CachingAstXmlParser(false, false,
+                                                                             unmodifiableMap(this.artifactProperties),
+                                                                             artifactType,
+                                                                             parentArtifactContext != null
+                                                                                 ? parentArtifactContext.getArtifactAst()
+                                                                                 : emptyArtifact()));
+    this.expressionLanguageMetadataService = expressionLanguageMetadataService;
+
+    this.artifactDeclaration = requireNonNull(artifactDeclaration);
+  }
+
+  public ArtifactAstXmlParserConfigurationBuilder(Map<String, String> artifactProperties,
+                                                  boolean disableXmlValidations,
+                                                  boolean enableLazyInit,
+                                                  boolean addToolingObjectsToRegistry,
+                                                  boolean ignoreCaches,
+                                                  String[] configResources,
+                                                  ExpressionLanguageMetadataService expressionLanguageMetadataService) {
+    this.artifactProperties = new HashMap<>(artifactProperties);
+    this.artifactProperties.put(MULE_ADD_TOOLING_OBJECTS_TO_REGISTRY, "" + addToolingObjectsToRegistry);
+    this.artifactProperties.put(MULE_LAZY_INIT_DEPLOYMENT_PROPERTY, "" + enableLazyInit);
+    this.artifactProperties.put(MULE_LAZY_INIT_ENABLE_XML_VALIDATIONS_DEPLOYMENT_PROPERTY, "" + !disableXmlValidations);
+
+    this.enableLazyInit = enableLazyInit;
+    this.addToolingObjectsToRegistry = addToolingObjectsToRegistry;
+
+    this.cachingAstXmlParser = new LazyValue<>(() -> new CachingAstXmlParser(disableXmlValidations, ignoreCaches,
+                                                                             unmodifiableMap(this.artifactProperties),
+                                                                             artifactType,
+                                                                             parentArtifactContext != null
+                                                                                 ? parentArtifactContext.getArtifactAst()
+                                                                                 : emptyArtifact()));
+    this.expressionLanguageMetadataService = expressionLanguageMetadataService;
+
+    this.configResources = requireNonNull(configResources);
+  }
+
+  public void setArtifactType(ArtifactType artifactType) {
+    this.artifactType = artifactType;
+  }
+
+  public void setParentArtifactContext(ArtifactContext parentArtifactContext) {
+    this.parentArtifactContext = parentArtifactContext;
+  }
+
+  @Override
+  protected void doConfigure(ZernovaContext muleContext) throws Exception {
+    Set<ExtensionModel> extensions = muleContext.getExtensionManager().getExtensions();
+
+    final ArtifactAst artifactAst;
+    if (artifactDeclaration != null) {
+      artifactAst = toArtifactast(artifactDeclaration, extensions);
+    } else if (configResources.length == 0) {
+      artifactAst = emptyArtifact();
+    } else {
+      artifactAst = cachingAstXmlParser.get().parse(muleContext.getConfiguration().getId(),
+                                                    extensions,
+                                                    muleContext.getExecutionClassLoader(),
+                                                    muleContext.getConfiguration().getArtifactCoordinates(),
+                                                    expressionLanguageMetadataService,
+                                                    configResources);
+    }
+
+    artifactAstConfigurationBuilder = createArtifactContextFactory(artifactAst,
+                                                                   artifactProperties,
+                                                                   resolveArtifactType(),
+                                                                   enableLazyInit,
+                                                                   addToolingObjectsToRegistry,
+                                                                   serviceConfigurators,
+                                                                   ofNullable(parentArtifactContext));
+    artifactAstConfigurationBuilder.configure(muleContext);
+  }
+
+  @Override
+  public ArtifactContext createArtifactContext() {
+    return artifactAstConfigurationBuilder.createArtifactContext();
+  }
+
+  private com.zernova.runtime.core.api.config.bootstrap.ArtifactType resolveArtifactType() {
+    return switch (artifactType) {
+      case APPLICATION -> com.zernova.runtime.core.api.config.bootstrap.ArtifactType.APP;
+      case DOMAIN -> com.zernova.runtime.core.api.config.bootstrap.ArtifactType.DOMAIN;
+      case POLICY -> com.zernova.runtime.core.api.config.bootstrap.ArtifactType.POLICY;
+      default -> null;
+    };
+  }
+
+}

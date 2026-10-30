@@ -25,7 +25,7 @@
         </petstore:pets>
     </petstore:config>
 
-    <object name="some-non-config" class="org.mule.test.module.extension.reconnection.ReconnectionTestCase$CaptureProcessor"/>
+    <object name="some-non-config" class="com.zernova.test.module.extension.reconnection.ReconnectionTestCase$CaptureProcessor"/>
 
     <marvel:iron-man-config name="some-incompatible-config" />
 

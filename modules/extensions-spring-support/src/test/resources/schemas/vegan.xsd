@@ -3,41 +3,41 @@
 <xs:schema xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.mulesoft.org/schema/mule/vegan" attributeFormDefault="unqualified" elementFormDefault="qualified">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace"></xs:import>
   <xs:import namespace="http://www.mulesoft.org/schema/mule/core" schemaLocation="http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></xs:import>
-  <xs:complexType name="org.mule.test.vegan.extension.FarmedFood">
+  <xs:complexType name="com.zernova.test.vegan.extension.FarmedFood">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType"></xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" type="vegan:org.mule.test.vegan.extension.FarmedFood" substitutionGroup="mule:abstract-shared-extension" abstract="true" name="global-abstract-farmed-food"></xs:element>
-  <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" type="vegan:org.mule.test.vegan.extension.FarmedFood" abstract="true" name="abstract-farmed-food"></xs:element>
-  <xs:complexType name="org.mule.test.vegan.extension.RottenFood">
+  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" type="vegan:com.zernova.test.vegan.extension.FarmedFood" substitutionGroup="mule:abstract-shared-extension" abstract="true" name="global-abstract-farmed-food"></xs:element>
+  <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" type="vegan:com.zernova.test.vegan.extension.FarmedFood" abstract="true" name="abstract-farmed-food"></xs:element>
+  <xs:complexType name="com.zernova.test.vegan.extension.RottenFood">
     <xs:complexContent>
-      <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:org.mule.test.vegan.extension.FarmedFood"></xs:extension>
+      <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.FarmedFood"></xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" type="vegan:org.mule.test.vegan.extension.RottenFood" substitutionGroup="vegan:abstract-farmed-food" abstract="true" name="abstract-rotten-food"></xs:element>
+  <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" type="vegan:com.zernova.test.vegan.extension.RottenFood" substitutionGroup="vegan:abstract-farmed-food" abstract="true" name="abstract-rotten-food"></xs:element>
   <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" substitutionGroup="vegan:abstract-rotten-food" name="rotten-food">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="vegan:org.mule.test.vegan.extension.RottenFood"></xs:extension>
+        <xs:extension base="vegan:com.zernova.test.vegan.extension.RottenFood"></xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.vegan.extension.HealthyFood.TasteProfile">
+  <xs:complexType name="com.zernova.test.vegan.extension.HealthyFood.TasteProfile">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:attribute type="mule:expressionBoolean" use="optional" default="false" name="tasty"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="org.mule.test.vegan.extension.HealthyFood">
+  <xs:complexType name="com.zernova.test.vegan.extension.HealthyFood">
     <xs:complexContent>
-      <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:org.mule.test.vegan.extension.FarmedFood">
+      <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.FarmedFood">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="taste-profile">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension base="vegan:org.mule.test.vegan.extension.HealthyFood.TasteProfile"></xs:extension>
+                <xs:extension base="vegan:com.zernova.test.vegan.extension.HealthyFood.TasteProfile"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -50,13 +50,13 @@
   <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" substitutionGroup="vegan:abstract-healthy-food" name="healthy-food">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="vegan:org.mule.test.vegan.extension.HealthyFood">
+        <xs:extension base="vegan:com.zernova.test.vegan.extension.HealthyFood">
           <xs:attribute type="xs:string" use="optional" name="name"></xs:attribute>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.vegan.extension.GroupedFood">
+  <xs:complexType name="com.zernova.test.vegan.extension.GroupedFood">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:sequence minOccurs="0" maxOccurs="1">
@@ -77,7 +77,7 @@
   <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" substitutionGroup="vegan:abstract-grouped-food" name="grouped-food">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="vegan:org.mule.test.vegan.extension.GroupedFood">
+        <xs:extension base="vegan:com.zernova.test.vegan.extension.GroupedFood">
           <xs:attribute type="xs:string" use="optional" name="name"></xs:attribute>
         </xs:extension>
       </xs:complexContent>
@@ -118,7 +118,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="sample">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:org.mule.test.vegan.extension.HealthyFood"></xs:extension>
+                  <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.HealthyFood"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -132,7 +132,7 @@
             </xs:element>
           </xs:sequence>
           <xs:attribute type="mule:expressionInt" use="optional" default="10" name="timeToPeel"></xs:attribute>
-          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/vegan" type="org.mule.test.vegan.extension.EasyToEatConfig.TimeEnumType" use="optional" default="AVERAGE" name="timeToPeelEnum"></xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/vegan" type="com.zernova.test.vegan.extension.EasyToEatConfig.TimeEnumType" use="optional" default="AVERAGE" name="timeToPeelEnum"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="mainProducers"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="sample"></xs:attribute>
           <xs:attribute type="mule:expressionString" use="optional" name="shouldNotOverride"></xs:attribute>
@@ -146,7 +146,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.vegan.extension.VeganCookBook">
+  <xs:complexType name="com.zernova.test.vegan.extension.VeganCookBook">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:sequence minOccurs="0" maxOccurs="1">
@@ -168,12 +168,12 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" type="vegan:org.mule.test.vegan.extension.VeganCookBook" substitutionGroup="mule:abstract-shared-extension" abstract="true" name="global-abstract-vegan-cook-book"></xs:element>
-  <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" type="vegan:org.mule.test.vegan.extension.VeganCookBook" abstract="true" name="abstract-vegan-cook-book"></xs:element>
+  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" type="vegan:com.zernova.test.vegan.extension.VeganCookBook" substitutionGroup="mule:abstract-shared-extension" abstract="true" name="global-abstract-vegan-cook-book"></xs:element>
+  <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" type="vegan:com.zernova.test.vegan.extension.VeganCookBook" abstract="true" name="abstract-vegan-cook-book"></xs:element>
   <xs:element xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" substitutionGroup="vegan:abstract-vegan-cook-book" name="vegan-cook-book">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="vegan:org.mule.test.vegan.extension.VeganCookBook"></xs:extension>
+        <xs:extension base="vegan:com.zernova.test.vegan.extension.VeganCookBook"></xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -228,14 +228,14 @@
           <xs:element minOccurs="0" maxOccurs="1" name="pojo-grouped-food">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:org.mule.test.vegan.extension.GroupedFood"></xs:extension>
+                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.GroupedFood"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
           <xs:element minOccurs="0" maxOccurs="1" name="sample">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:org.mule.test.vegan.extension.HealthyFood"></xs:extension>
+                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.HealthyFood"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -332,7 +332,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="sample">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:org.mule.test.vegan.extension.HealthyFood"></xs:extension>
+                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.HealthyFood"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -450,7 +450,7 @@
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
         <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
-        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/vegan" type="org.mule.test.vegan.extension.EasyToEatConfig.TimeEnumType" use="optional" name="timeToPeelEnum"></xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/vegan" type="com.zernova.test.vegan.extension.EasyToEatConfig.TimeEnumType" use="optional" name="timeToPeelEnum"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="config-ref">
           <xs:annotation>
             <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
@@ -539,20 +539,20 @@
             <xs:element minOccurs="0" maxOccurs="1" name="sample">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:org.mule.test.vegan.extension.HealthyFood"></xs:extension>
+                  <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.HealthyFood"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="healthy-food">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:org.mule.test.vegan.extension.HealthyFood"></xs:extension>
+                  <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.HealthyFood"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
           </xs:sequence>
           <xs:attribute type="mule:expressionInt" use="optional" default="10" name="timeToPeel"></xs:attribute>
-          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/vegan" type="org.mule.test.vegan.extension.EasyToEatConfig.TimeEnumType" use="optional" default="AVERAGE" name="timeToPeelEnum"></xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/vegan" type="com.zernova.test.vegan.extension.EasyToEatConfig.TimeEnumType" use="optional" default="AVERAGE" name="timeToPeelEnum"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="mainProducers"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="sample"></xs:attribute>
           <xs:attribute type="mule:expressionString" use="optional" name="shouldNotOverride"></xs:attribute>
@@ -722,7 +722,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="vegan-policy">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:org.mule.test.vegan.extension.VeganPolicy"></xs:extension>
+                  <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.VeganPolicy"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -732,7 +732,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.vegan.extension.VeganPolicy">
+  <xs:complexType name="com.zernova.test.vegan.extension.VeganPolicy">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:attribute type="mule:expressionBoolean" use="optional" default="false" name="meetAllowed"></xs:attribute>
@@ -908,7 +908,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="policy">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:org.mule.test.vegan.extension.VeganPolicy"></xs:extension>
+                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.VeganPolicy"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -936,7 +936,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="pojo-grouped-food">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:org.mule.test.vegan.extension.GroupedFood"></xs:extension>
+                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.GroupedFood"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -987,7 +987,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="fruit">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:org.mule.tck.testmodels.fruit.WaterMelon"></xs:extension>
+                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.tck.testmodels.fruit.WaterMelon"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -1006,7 +1006,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="org.mule.tck.testmodels.fruit.WaterMelon">
+  <xs:complexType name="com.zernova.tck.testmodels.fruit.WaterMelon">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:attribute type="mule:expressionBoolean" use="optional" name="bitten"></xs:attribute>
@@ -1050,7 +1050,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="healthy-food">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:org.mule.test.vegan.extension.HealthyFood"></xs:extension>
+                <xs:extension xmlns:vegan="http://www.mulesoft.org/schema/mule/vegan" base="vegan:com.zernova.test.vegan.extension.HealthyFood"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -1201,7 +1201,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:simpleType name="org.mule.test.vegan.extension.EasyToEatConfig.TimeEnumType">
+  <xs:simpleType name="com.zernova.test.vegan.extension.EasyToEatConfig.TimeEnumType">
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:string">

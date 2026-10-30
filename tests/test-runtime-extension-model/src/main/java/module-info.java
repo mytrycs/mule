@@ -4,21 +4,22 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 
-import org.mule.runtime.extension.api.provider.RuntimeExtensionModelProvider;
+import com.zernova.runtime.extension.api.provider.RuntimeExtensionModelProvider;
 
 /**
  * @moduleGraph
  * @since 4.5
  */
-module org.mule.test.runtime.extension.model {
+module com.zernova.test.runtime.extension.model {
 
-  requires org.mule.runtime.api;
-  requires org.mule.runtime.extensions.api;
-  requires org.mule.runtime.extension.model;
+  requires com.zernova.runtime.api;
+  requires com.zernova.runtime.extensions.api;
+  requires com.zernova.runtime.extension.model;
 
   requires org.mockito;
 
   provides RuntimeExtensionModelProvider with
-      org.mule.runtime.module.artifact.activation.internal.extension.discovery.test.TestRuntimeExtensionModelProvider;
+      com.zernova.runtime.module.artifact.activation.internal.extension.discovery.test.TestRuntimeExtensionModelProvider;
 }

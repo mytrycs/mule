@@ -16,16 +16,16 @@
     {
       "baseType": {
         "format": "java",
-        "type": "@ref:org.mule.test.vegan.extension.FarmedFood"
+        "type": "@ref:com.zernova.test.vegan.extension.FarmedFood"
       },
       "subTypes": [
         {
           "format": "java",
-          "type": "@ref:org.mule.test.vegan.extension.RottenFood"
+          "type": "@ref:com.zernova.test.vegan.extension.RottenFood"
         },
         {
           "format": "java",
-          "type": "@ref:org.mule.test.vegan.extension.HealthyFood"
+          "type": "@ref:com.zernova.test.vegan.extension.HealthyFood"
         }
       ]
     }
@@ -38,13 +38,13 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.runtime.api.store.ObjectStore",
+        "typeId": "com.zernova.runtime.api.store.ObjectStore",
         "extensibleType": {},
         "typeAlias": {
           "value": "ObjectStore"
         },
         "classInformation": {
-          "classname": "org.mule.runtime.api.store.ObjectStore",
+          "classname": "com.zernova.runtime.api.store.ObjectStore",
           "hasDefaultConstructor": false,
           "isInterface": true,
           "isInstantiable": false,
@@ -189,7 +189,7 @@
                 "format": "java",
                 "type": "String",
                 "annotations": {
-                  "typeId": "org.mule.test.vegan.extension.EasyToEatConfig.Time",
+                  "typeId": "com.zernova.test.vegan.extension.EasyToEatConfig.Time",
                   "enum": {
                     "type": "[Ljava.lang.String;",
                     "values": [
@@ -274,7 +274,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.vegan.extension.HealthyFood"
+                "type": "@ref:com.zernova.test.vegan.extension.HealthyFood"
               },
               "hasDynamicType": false,
               "required": false,
@@ -337,7 +337,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.vegan.extension.VeganCookBook"
+                "type": "@ref:com.zernova.test.vegan.extension.VeganCookBook"
               },
               "hasDynamicType": false,
               "required": true,
@@ -393,7 +393,7 @@
                 "format": "java",
                 "type": "Object",
                 "annotations": {
-                  "typeId": "org.mule.runtime.extension.api.runtime.ExpirationPolicy",
+                  "typeId": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
                   "description": {
                     "value": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit."
                   },
@@ -492,14 +492,14 @@
               "name": "expirationPolicy",
               "description": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit.",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "expiration-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 4
                 }
               }
@@ -615,7 +615,7 @@
                   "name": "key",
                   "description": "",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.MetadataKeyPartModelProperty": {
+                    "com.zernova.runtime.extension.api.property.MetadataKeyPartModelProperty": {
                       "order": 1,
                       "providedByKeyResolver": false
                     }
@@ -690,7 +690,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -977,14 +977,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -1031,7 +1031,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.test.vegan.extension.HealthyFood"
+              "type": "@ref:com.zernova.test.vegan.extension.HealthyFood"
             },
             "hasDynamicType": false,
             "description": "",
@@ -1070,7 +1070,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.vegan.extension.HealthyFood"
+                    "type": "@ref:com.zernova.test.vegan.extension.HealthyFood"
                   },
                   "hasDynamicType": false,
                   "required": false,
@@ -1108,7 +1108,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -1328,7 +1328,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -1616,7 +1616,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -1864,7 +1864,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -2012,7 +2012,7 @@
               "format": "java",
               "type": "String",
               "annotations": {
-                "typeId": "org.mule.test.vegan.extension.EasyToEatConfig.Time",
+                "typeId": "com.zernova.test.vegan.extension.EasyToEatConfig.Time",
                 "enum": {
                   "type": "[Ljava.lang.String;",
                   "values": [
@@ -2062,7 +2062,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.test.vegan.extension.EasyToEatConfig.Time",
+                      "typeId": "com.zernova.test.vegan.extension.EasyToEatConfig.Time",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -2100,7 +2100,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -2344,7 +2344,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -2609,7 +2609,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -2959,14 +2959,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -2997,7 +2997,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.tck.testmodels.fruit.Fruit"
+              "type": "@ref:com.zernova.tck.testmodels.fruit.Fruit"
             },
             "hasDynamicType": true,
             "description": "",
@@ -3056,7 +3056,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -3226,7 +3226,7 @@
                           "name": "objectStore"
                         },
                         "model": {
-                          "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                          "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                         },
                         "annotations": {
                           "stereotype": {
@@ -3266,14 +3266,14 @@
                   "name": "redeliveryPolicy",
                   "description": "Defines a policy for processing the redelivery of the same message",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-redelivery-policy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 1
                     }
                   }
@@ -3377,7 +3377,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.tck.testmodels.fruit.Apple"
+              "type": "@ref:com.zernova.tck.testmodels.fruit.Apple"
             },
             "hasDynamicType": true,
             "description": "",
@@ -3386,7 +3386,7 @@
           "outputAttributes": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.test.vegan.extension.HarvestApplesAttributes"
+              "type": "@ref:com.zernova.test.vegan.extension.HarvestApplesAttributes"
             },
             "hasDynamicType": false,
             "description": "",
@@ -3439,7 +3439,7 @@
                   "name": "key",
                   "description": "",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.MetadataKeyPartModelProperty": {
+                    "com.zernova.runtime.extension.api.property.MetadataKeyPartModelProperty": {
                       "order": 1,
                       "providedByKeyResolver": true
                     }
@@ -3550,7 +3550,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.vegan.extension.GroupedFood"
+                    "type": "@ref:com.zernova.test.vegan.extension.GroupedFood"
                   },
                   "hasDynamicType": false,
                   "required": false,
@@ -3584,7 +3584,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -3746,7 +3746,7 @@
                           "name": "objectStore"
                         },
                         "model": {
-                          "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                          "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                         },
                         "annotations": {
                           "stereotype": {
@@ -3786,14 +3786,14 @@
                   "name": "redeliveryPolicy",
                   "description": "Defines a policy for processing the redelivery of the same message",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-redelivery-policy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 1
                     }
                   }
@@ -3816,7 +3816,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.vegan.extension.HealthyFood"
+                    "type": "@ref:com.zernova.test.vegan.extension.HealthyFood"
                   },
                   "hasDynamicType": false,
                   "required": false,
@@ -3867,7 +3867,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.vegan.extension.FarmedFood"
+                    "type": "@ref:com.zernova.test.vegan.extension.FarmedFood"
                   },
                   "hasDynamicType": false,
                   "required": false,
@@ -3895,10 +3895,10 @@
                   "name": "food",
                   "description": "",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.DefaultImplementingTypeModelProperty": {
+                    "com.zernova.runtime.extension.api.property.DefaultImplementingTypeModelProperty": {
                       "defaultType": {
                         "format": "java",
-                        "type": "@ref:org.mule.test.vegan.extension.RottenFood"
+                        "type": "@ref:com.zernova.test.vegan.extension.RottenFood"
                       }
                     }
                   }
@@ -4027,7 +4027,7 @@
                 "format": "java",
                 "type": "String",
                 "annotations": {
-                  "typeId": "org.mule.test.vegan.extension.EasyToEatConfig.Time",
+                  "typeId": "com.zernova.test.vegan.extension.EasyToEatConfig.Time",
                   "enum": {
                     "type": "[Ljava.lang.String;",
                     "values": [
@@ -4112,7 +4112,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.vegan.extension.HealthyFood"
+                "type": "@ref:com.zernova.test.vegan.extension.HealthyFood"
               },
               "hasDynamicType": false,
               "required": false,
@@ -4175,7 +4175,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.vegan.extension.HealthyFood"
+                "type": "@ref:com.zernova.test.vegan.extension.HealthyFood"
               },
               "hasDynamicType": false,
               "required": false,
@@ -4240,7 +4240,7 @@
                 "format": "java",
                 "type": "Object",
                 "annotations": {
-                  "typeId": "org.mule.runtime.extension.api.runtime.ExpirationPolicy",
+                  "typeId": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
                   "description": {
                     "value": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit."
                   },
@@ -4339,14 +4339,14 @@
               "name": "expirationPolicy",
               "description": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit.",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "expiration-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 4
                 }
               }
@@ -4373,7 +4373,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.tck.testmodels.fruit.Banana"
+              "type": "@ref:com.zernova.tck.testmodels.fruit.Banana"
             },
             "hasDynamicType": false,
             "description": "",
@@ -4417,7 +4417,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -4704,14 +4704,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -4741,7 +4741,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.tck.testmodels.fruit.Banana"
+              "type": "@ref:com.zernova.tck.testmodels.fruit.Banana"
             },
             "hasDynamicType": false,
             "description": "",
@@ -4780,7 +4780,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.tck.testmodels.fruit.Banana"
+                    "type": "@ref:com.zernova.tck.testmodels.fruit.Banana"
                   },
                   "hasDynamicType": false,
                   "required": true,
@@ -4809,7 +4809,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -4947,7 +4947,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.test.vegan.extension.BananaConfig"
+              "type": "@ref:com.zernova.test.vegan.extension.BananaConfig"
             },
             "hasDynamicType": false,
             "description": "",
@@ -4988,7 +4988,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -5126,7 +5126,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.test.vegan.extension.HealthyFood"
+              "type": "@ref:com.zernova.test.vegan.extension.HealthyFood"
             },
             "hasDynamicType": false,
             "description": "",
@@ -5165,7 +5165,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.vegan.extension.HealthyFood"
+                    "type": "@ref:com.zernova.test.vegan.extension.HealthyFood"
                   },
                   "hasDynamicType": false,
                   "required": false,
@@ -5203,7 +5203,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -5349,7 +5349,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.tck.testmodels.fruit.Fruit"
+              "type": "@ref:com.zernova.tck.testmodels.fruit.Fruit"
             },
             "hasDynamicType": true,
             "description": "",
@@ -5390,7 +5390,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -5611,7 +5611,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -5899,7 +5899,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -6147,7 +6147,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -6295,7 +6295,7 @@
               "format": "java",
               "type": "String",
               "annotations": {
-                "typeId": "org.mule.test.vegan.extension.EasyToEatConfig.Time",
+                "typeId": "com.zernova.test.vegan.extension.EasyToEatConfig.Time",
                 "enum": {
                   "type": "[Ljava.lang.String;",
                   "values": [
@@ -6345,7 +6345,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.test.vegan.extension.EasyToEatConfig.Time",
+                      "typeId": "com.zernova.test.vegan.extension.EasyToEatConfig.Time",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -6383,7 +6383,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -6627,7 +6627,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -6892,7 +6892,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -7285,14 +7285,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -7329,7 +7329,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.tck.testmodels.fruit.Fruit"
+              "type": "@ref:com.zernova.tck.testmodels.fruit.Fruit"
             },
             "hasDynamicType": true,
             "description": "",
@@ -7388,7 +7388,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -7558,7 +7558,7 @@
                           "name": "objectStore"
                         },
                         "model": {
-                          "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                          "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                         },
                         "annotations": {
                           "stereotype": {
@@ -7598,14 +7598,14 @@
                   "name": "redeliveryPolicy",
                   "description": "Defines a policy for processing the redelivery of the same message",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-redelivery-policy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 1
                     }
                   }
@@ -7699,7 +7699,7 @@
                 "format": "java",
                 "type": "Object",
                 "annotations": {
-                  "typeId": "org.mule.runtime.extension.api.runtime.ExpirationPolicy",
+                  "typeId": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
                   "description": {
                     "value": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit."
                   },
@@ -7798,14 +7798,14 @@
               "name": "expirationPolicy",
               "description": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit.",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "expiration-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 4
                 }
               }
@@ -7832,7 +7832,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.test.vegan.extension.VeganPolicy"
+              "type": "@ref:com.zernova.test.vegan.extension.VeganPolicy"
             },
             "hasDynamicType": false,
             "description": "",
@@ -7876,7 +7876,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -8163,14 +8163,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -8214,7 +8214,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.vegan.extension.VeganPolicy"
+                    "type": "@ref:com.zernova.test.vegan.extension.VeganPolicy"
                   },
                   "hasDynamicType": false,
                   "required": false,
@@ -8446,14 +8446,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -8555,7 +8555,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.tck.testmodels.fruit.Kiwi"
+              "type": "@ref:com.zernova.tck.testmodels.fruit.Kiwi"
             },
             "hasDynamicType": false,
             "description": "",
@@ -8599,7 +8599,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -8886,14 +8886,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -9127,14 +9127,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -9433,14 +9433,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -9486,7 +9486,7 @@
           "outputAttributes": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.tck.message.StringAttributes"
+              "type": "@ref:com.zernova.tck.message.StringAttributes"
             },
             "hasDynamicType": false,
             "description": "",
@@ -9518,7 +9518,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider"
                     },
                     "fields": []
                   },
@@ -9680,7 +9680,7 @@
                           "name": "objectStore"
                         },
                         "model": {
-                          "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                          "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                         },
                         "annotations": {
                           "stereotype": {
@@ -9720,14 +9720,14 @@
                   "name": "redeliveryPolicy",
                   "description": "Defines a policy for processing the redelivery of the same message",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-redelivery-policy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 1
                     }
                   }
@@ -9906,14 +9906,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -10209,7 +10209,7 @@
       "output": {
         "type": {
           "format": "java",
-          "type": "@ref:org.mule.test.vegan.extension.VeganPolicy"
+          "type": "@ref:com.zernova.test.vegan.extension.VeganPolicy"
         },
         "hasDynamicType": false,
         "description": "",
@@ -10248,7 +10248,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.vegan.extension.VeganPolicy"
+                "type": "@ref:com.zernova.test.vegan.extension.VeganPolicy"
               },
               "hasDynamicType": false,
               "required": false,
@@ -10434,13 +10434,13 @@
               ],
               "parent": "",
               "genericTypes": [
-                "org.mule.test.vegan.extension.FarmedFood"
+                "com.zernova.test.vegan.extension.FarmedFood"
               ],
               "isMap": false
             }
           },
           "item": {
-            "type": "@ref:org.mule.test.vegan.extension.FarmedFood"
+            "type": "@ref:com.zernova.test.vegan.extension.FarmedFood"
           }
         },
         "hasDynamicType": true,
@@ -10480,7 +10480,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.vegan.extension.GroupedFood"
+                "type": "@ref:com.zernova.test.vegan.extension.GroupedFood"
               },
               "hasDynamicType": false,
               "required": false,
@@ -10527,7 +10527,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.vegan.extension.FarmedFood"
+                "type": "@ref:com.zernova.test.vegan.extension.FarmedFood"
               },
               "hasDynamicType": false,
               "required": false,
@@ -10555,10 +10555,10 @@
               "name": "food",
               "description": "",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.DefaultImplementingTypeModelProperty": {
+                "com.zernova.runtime.extension.api.property.DefaultImplementingTypeModelProperty": {
                   "defaultType": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.vegan.extension.RottenFood"
+                    "type": "@ref:com.zernova.test.vegan.extension.RottenFood"
                   }
                 }
               }
@@ -10992,7 +10992,7 @@
       "output": {
         "type": {
           "format": "java",
-          "type": "@ref:org.mule.tck.testmodels.fruit.WaterMelon"
+          "type": "@ref:com.zernova.tck.testmodels.fruit.WaterMelon"
         },
         "hasDynamicType": false,
         "description": "",
@@ -11031,7 +11031,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.tck.testmodels.fruit.WaterMelon"
+                "type": "@ref:com.zernova.tck.testmodels.fruit.WaterMelon"
               },
               "hasDynamicType": false,
               "required": true,
@@ -11231,13 +11231,13 @@
                     "parent": "",
                     "genericTypes": [
                       "java.lang.String",
-                      "org.mule.tck.testmodels.fruit.Apple"
+                      "com.zernova.tck.testmodels.fruit.Apple"
                     ],
                     "isMap": true
                   }
                 },
                 "open": {
-                  "type": "@ref:org.mule.tck.testmodels.fruit.Apple"
+                  "type": "@ref:com.zernova.tck.testmodels.fruit.Apple"
                 },
                 "fields": []
               },
@@ -11399,7 +11399,7 @@
       "output": {
         "type": {
           "format": "java",
-          "type": "@ref:org.mule.test.vegan.extension.FarmedFood"
+          "type": "@ref:com.zernova.test.vegan.extension.FarmedFood"
         },
         "hasDynamicType": true,
         "description": "",
@@ -11438,7 +11438,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.vegan.extension.HealthyFood"
+                "type": "@ref:com.zernova.test.vegan.extension.HealthyFood"
               },
               "hasDynamicType": false,
               "required": true,
@@ -11628,7 +11628,7 @@
       "output": {
         "type": {
           "format": "java",
-          "type": "@ref:org.mule.test.vegan.extension.FarmedFood"
+          "type": "@ref:com.zernova.test.vegan.extension.FarmedFood"
         },
         "hasDynamicType": true,
         "description": "",
@@ -11667,7 +11667,7 @@
             {
               "type": {
                 "format": "java",
-                "type": "@ref:org.mule.test.vegan.extension.FarmedFood"
+                "type": "@ref:com.zernova.test.vegan.extension.FarmedFood"
               },
               "hasDynamicType": false,
               "required": false,
@@ -11695,10 +11695,10 @@
               "name": "food",
               "description": "",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.DefaultImplementingTypeModelProperty": {
+                "com.zernova.runtime.extension.api.property.DefaultImplementingTypeModelProperty": {
                   "defaultType": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.vegan.extension.HealthyFood"
+                    "type": "@ref:com.zernova.test.vegan.extension.HealthyFood"
                   }
                 }
               }
@@ -13101,9 +13101,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.tck.message.StringAttributes",
+        "typeId": "com.zernova.tck.message.StringAttributes",
         "classInformation": {
-          "classname": "org.mule.tck.message.StringAttributes",
+          "classname": "com.zernova.tck.message.StringAttributes",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -13135,16 +13135,16 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.tck.testmodels.fruit.Apple",
+        "typeId": "com.zernova.tck.testmodels.fruit.Apple",
         "classInformation": {
-          "classname": "org.mule.tck.testmodels.fruit.Apple",
+          "classname": "com.zernova.tck.testmodels.fruit.Apple",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
           "isAbstract": false,
           "isFinal": false,
           "implementedInterfaces": [
-            "org.mule.tck.testmodels.fruit.Fruit"
+            "com.zernova.tck.testmodels.fruit.Fruit"
           ],
           "parent": "",
           "genericTypes": [],
@@ -13162,9 +13162,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.tck.testmodels.fruit.FruitCleaner",
+              "typeId": "com.zernova.tck.testmodels.fruit.FruitCleaner",
               "classInformation": {
-                "classname": "org.mule.tck.testmodels.fruit.FruitCleaner",
+                "classname": "com.zernova.tck.testmodels.fruit.FruitCleaner",
                 "hasDefaultConstructor": false,
                 "isInterface": true,
                 "isInstantiable": false,
@@ -13208,9 +13208,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.tck.testmodels.fruit.peel.ApplePeel",
+              "typeId": "com.zernova.tck.testmodels.fruit.peel.ApplePeel",
               "classInformation": {
-                "classname": "org.mule.tck.testmodels.fruit.peel.ApplePeel",
+                "classname": "com.zernova.tck.testmodels.fruit.peel.ApplePeel",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
@@ -13259,7 +13259,7 @@
                       ],
                       "parent": "",
                       "genericTypes": [
-                        "org.mule.tck.testmodels.fruit.peel.ApplePeel"
+                        "com.zernova.tck.testmodels.fruit.peel.ApplePeel"
                       ],
                       "isMap": false
                     }
@@ -13298,7 +13298,7 @@
                       ],
                       "parent": "",
                       "genericTypes": [
-                        "org.mule.tck.testmodels.fruit.seed.AppleSeed"
+                        "com.zernova.tck.testmodels.fruit.seed.AppleSeed"
                       ],
                       "isMap": false
                     }
@@ -13306,9 +13306,9 @@
                   "item": {
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.tck.testmodels.fruit.seed.AppleSeed",
+                      "typeId": "com.zernova.tck.testmodels.fruit.seed.AppleSeed",
                       "classInformation": {
-                        "classname": "org.mule.tck.testmodels.fruit.seed.AppleSeed",
+                        "classname": "com.zernova.tck.testmodels.fruit.seed.AppleSeed",
                         "hasDefaultConstructor": true,
                         "isInterface": false,
                         "isInstantiable": true,
@@ -13355,9 +13355,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.tck.testmodels.fruit.Seed",
+              "typeId": "com.zernova.tck.testmodels.fruit.Seed",
               "classInformation": {
-                "classname": "org.mule.tck.testmodels.fruit.Seed",
+                "classname": "com.zernova.tck.testmodels.fruit.Seed",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
@@ -13365,7 +13365,7 @@
                 "isFinal": false,
                 "implementedInterfaces": [
                   "java.io.Serializable",
-                  "org.mule.runtime.api.lifecycle.Initialisable"
+                  "com.zernova.runtime.api.lifecycle.Initialisable"
                 ],
                 "parent": "",
                 "genericTypes": [],
@@ -13383,9 +13383,9 @@
                 "model": {
                   "type": "Object",
                   "annotations": {
-                    "typeId": "org.mule.tck.testmodels.fruit.Fruit",
+                    "typeId": "com.zernova.tck.testmodels.fruit.Fruit",
                     "classInformation": {
-                      "classname": "org.mule.tck.testmodels.fruit.Fruit",
+                      "classname": "com.zernova.tck.testmodels.fruit.Fruit",
                       "hasDefaultConstructor": false,
                       "isInterface": true,
                       "isInstantiable": false,
@@ -13433,16 +13433,16 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.tck.testmodels.fruit.Banana",
+        "typeId": "com.zernova.tck.testmodels.fruit.Banana",
         "classInformation": {
-          "classname": "org.mule.tck.testmodels.fruit.Banana",
+          "classname": "com.zernova.tck.testmodels.fruit.Banana",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
           "isAbstract": false,
           "isFinal": false,
           "implementedInterfaces": [
-            "org.mule.tck.testmodels.fruit.Fruit"
+            "com.zernova.tck.testmodels.fruit.Fruit"
           ],
           "parent": "",
           "genericTypes": [],
@@ -13495,9 +13495,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.tck.testmodels.fruit.Fruit",
+        "typeId": "com.zernova.tck.testmodels.fruit.Fruit",
         "classInformation": {
-          "classname": "org.mule.tck.testmodels.fruit.Fruit",
+          "classname": "com.zernova.tck.testmodels.fruit.Fruit",
           "hasDefaultConstructor": false,
           "isInterface": true,
           "isInstantiable": false,
@@ -13528,16 +13528,16 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.tck.testmodels.fruit.Kiwi",
+        "typeId": "com.zernova.tck.testmodels.fruit.Kiwi",
         "classInformation": {
-          "classname": "org.mule.tck.testmodels.fruit.Kiwi",
+          "classname": "com.zernova.tck.testmodels.fruit.Kiwi",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
           "isAbstract": false,
           "isFinal": false,
           "implementedInterfaces": [
-            "org.mule.tck.testmodels.fruit.Fruit"
+            "com.zernova.tck.testmodels.fruit.Fruit"
           ],
           "parent": "",
           "genericTypes": [],
@@ -13568,19 +13568,19 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.tck.testmodels.fruit.WaterMelon",
+        "typeId": "com.zernova.tck.testmodels.fruit.WaterMelon",
         "classInformation": {
-          "classname": "org.mule.tck.testmodels.fruit.WaterMelon",
+          "classname": "com.zernova.tck.testmodels.fruit.WaterMelon",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
           "isAbstract": false,
           "isFinal": false,
           "implementedInterfaces": [
-            "org.mule.tck.testmodels.fruit.Fruit",
-            "org.mule.runtime.api.lifecycle.Startable",
-            "org.mule.runtime.api.lifecycle.Stoppable",
-            "org.mule.runtime.api.lifecycle.Disposable"
+            "com.zernova.tck.testmodels.fruit.Fruit",
+            "com.zernova.runtime.api.lifecycle.Startable",
+            "com.zernova.runtime.api.lifecycle.Stoppable",
+            "com.zernova.runtime.api.lifecycle.Disposable"
           ],
           "parent": "",
           "genericTypes": [],
@@ -13679,16 +13679,16 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.vegan.extension.BananaConfig",
+        "typeId": "com.zernova.test.vegan.extension.BananaConfig",
         "classInformation": {
-          "classname": "org.mule.test.vegan.extension.BananaConfig",
+          "classname": "com.zernova.test.vegan.extension.BananaConfig",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
           "isAbstract": false,
           "isFinal": false,
           "implementedInterfaces": [],
-          "parent": "org.mule.test.vegan.extension.EasyToEatConfig",
+          "parent": "com.zernova.test.vegan.extension.EasyToEatConfig",
           "genericTypes": [],
           "isMap": false
         },
@@ -13704,16 +13704,16 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.vegan.extension.HealthyFood",
+              "typeId": "com.zernova.test.vegan.extension.HealthyFood",
               "classInformation": {
-                "classname": "org.mule.test.vegan.extension.HealthyFood",
+                "classname": "com.zernova.test.vegan.extension.HealthyFood",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
                 "isAbstract": false,
                 "isFinal": false,
                 "implementedInterfaces": [
-                  "org.mule.test.vegan.extension.FarmedFood"
+                  "com.zernova.test.vegan.extension.FarmedFood"
                 ],
                 "parent": "",
                 "genericTypes": [],
@@ -13743,9 +13743,9 @@
                 "model": {
                   "type": "Object",
                   "annotations": {
-                    "typeId": "org.mule.test.vegan.extension.HealthyFood.TasteProfile",
+                    "typeId": "com.zernova.test.vegan.extension.HealthyFood.TasteProfile",
                     "classInformation": {
-                      "classname": "org.mule.test.vegan.extension.HealthyFood$TasteProfile",
+                      "classname": "com.zernova.test.vegan.extension.HealthyFood$TasteProfile",
                       "hasDefaultConstructor": true,
                       "isInterface": false,
                       "isInstantiable": true,
@@ -13832,7 +13832,7 @@
           "model": {
             "type": "String",
             "annotations": {
-              "typeId": "org.mule.test.vegan.extension.EasyToEatConfig.Time",
+              "typeId": "com.zernova.test.vegan.extension.EasyToEatConfig.Time",
               "enum": {
                 "type": "[Ljava.lang.String;",
                 "values": [
@@ -13891,16 +13891,16 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.vegan.extension.HealthyFood",
+              "typeId": "com.zernova.test.vegan.extension.HealthyFood",
               "classInformation": {
-                "classname": "org.mule.test.vegan.extension.HealthyFood",
+                "classname": "com.zernova.test.vegan.extension.HealthyFood",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
                 "isAbstract": false,
                 "isFinal": false,
                 "implementedInterfaces": [
-                  "org.mule.test.vegan.extension.FarmedFood"
+                  "com.zernova.test.vegan.extension.FarmedFood"
                 ],
                 "parent": "",
                 "genericTypes": [],
@@ -13930,9 +13930,9 @@
                 "model": {
                   "type": "Object",
                   "annotations": {
-                    "typeId": "org.mule.test.vegan.extension.HealthyFood.TasteProfile",
+                    "typeId": "com.zernova.test.vegan.extension.HealthyFood.TasteProfile",
                     "classInformation": {
-                      "classname": "org.mule.test.vegan.extension.HealthyFood$TasteProfile",
+                      "classname": "com.zernova.test.vegan.extension.HealthyFood$TasteProfile",
                       "hasDefaultConstructor": true,
                       "isInterface": false,
                       "isInstantiable": true,
@@ -14000,9 +14000,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.vegan.extension.FarmedFood",
+        "typeId": "com.zernova.test.vegan.extension.FarmedFood",
         "classInformation": {
-          "classname": "org.mule.test.vegan.extension.FarmedFood",
+          "classname": "com.zernova.test.vegan.extension.FarmedFood",
           "hasDefaultConstructor": false,
           "isInterface": true,
           "isInstantiable": false,
@@ -14031,9 +14031,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.vegan.extension.GroupedFood",
+        "typeId": "com.zernova.test.vegan.extension.GroupedFood",
         "classInformation": {
-          "classname": "org.mule.test.vegan.extension.GroupedFood",
+          "classname": "com.zernova.test.vegan.extension.GroupedFood",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -14068,9 +14068,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.vegan.extension.FarmedFood",
+              "typeId": "com.zernova.test.vegan.extension.FarmedFood",
               "classInformation": {
-                "classname": "org.mule.test.vegan.extension.FarmedFood",
+                "classname": "com.zernova.test.vegan.extension.FarmedFood",
                 "hasDefaultConstructor": false,
                 "isInterface": true,
                 "isInstantiable": false,
@@ -14103,16 +14103,16 @@
               "format": "java",
               "type": "Object",
               "annotations": {
-                "typeId": "org.mule.test.vegan.extension.RottenFood",
+                "typeId": "com.zernova.test.vegan.extension.RottenFood",
                 "classInformation": {
-                  "classname": "org.mule.test.vegan.extension.RottenFood",
+                  "classname": "com.zernova.test.vegan.extension.RottenFood",
                   "hasDefaultConstructor": true,
                   "isInterface": false,
                   "isInstantiable": true,
                   "isAbstract": false,
                   "isFinal": false,
                   "implementedInterfaces": [
-                    "org.mule.test.vegan.extension.FarmedFood"
+                    "com.zernova.test.vegan.extension.FarmedFood"
                   ],
                   "parent": "",
                   "genericTypes": [],
@@ -14132,9 +14132,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.vegan.extension.HarvestApplesAttributes",
+        "typeId": "com.zernova.test.vegan.extension.HarvestApplesAttributes",
         "classInformation": {
-          "classname": "org.mule.test.vegan.extension.HarvestApplesAttributes",
+          "classname": "com.zernova.test.vegan.extension.HarvestApplesAttributes",
           "hasDefaultConstructor": false,
           "isInterface": false,
           "isInstantiable": false,
@@ -14209,16 +14209,16 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.vegan.extension.HealthyFood",
+        "typeId": "com.zernova.test.vegan.extension.HealthyFood",
         "classInformation": {
-          "classname": "org.mule.test.vegan.extension.HealthyFood",
+          "classname": "com.zernova.test.vegan.extension.HealthyFood",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
           "isAbstract": false,
           "isFinal": false,
           "implementedInterfaces": [
-            "org.mule.test.vegan.extension.FarmedFood"
+            "com.zernova.test.vegan.extension.FarmedFood"
           ],
           "parent": "",
           "genericTypes": [],
@@ -14252,9 +14252,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.vegan.extension.HealthyFood.TasteProfile",
+              "typeId": "com.zernova.test.vegan.extension.HealthyFood.TasteProfile",
               "classInformation": {
-                "classname": "org.mule.test.vegan.extension.HealthyFood$TasteProfile",
+                "classname": "com.zernova.test.vegan.extension.HealthyFood$TasteProfile",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,
@@ -14301,16 +14301,16 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.vegan.extension.RottenFood",
+        "typeId": "com.zernova.test.vegan.extension.RottenFood",
         "classInformation": {
-          "classname": "org.mule.test.vegan.extension.RottenFood",
+          "classname": "com.zernova.test.vegan.extension.RottenFood",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
           "isAbstract": false,
           "isFinal": false,
           "implementedInterfaces": [
-            "org.mule.test.vegan.extension.FarmedFood"
+            "com.zernova.test.vegan.extension.FarmedFood"
           ],
           "parent": "",
           "genericTypes": [],
@@ -14326,9 +14326,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.vegan.extension.VeganCookBook",
+        "typeId": "com.zernova.test.vegan.extension.VeganCookBook",
         "classInformation": {
-          "classname": "org.mule.test.vegan.extension.VeganCookBook",
+          "classname": "com.zernova.test.vegan.extension.VeganCookBook",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -14429,9 +14429,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.vegan.extension.VeganPolicy",
+        "typeId": "com.zernova.test.vegan.extension.VeganPolicy",
         "classInformation": {
-          "classname": "org.mule.test.vegan.extension.VeganPolicy",
+          "classname": "com.zernova.test.vegan.extension.VeganPolicy",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -14472,9 +14472,9 @@
           "model": {
             "type": "Object",
             "annotations": {
-              "typeId": "org.mule.test.vegan.extension.VeganIngredients",
+              "typeId": "com.zernova.test.vegan.extension.VeganIngredients",
               "classInformation": {
-                "classname": "org.mule.test.vegan.extension.VeganIngredients",
+                "classname": "com.zernova.test.vegan.extension.VeganIngredients",
                 "hasDefaultConstructor": true,
                 "isInterface": false,
                 "isInstantiable": true,

@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [{
+    "name": "New ZERNOVA Studio — isolated design preview",
+    "type": "extensionHost",
+    "request": "launch",
+    "runtimeExecutable": "${execPath}",
+    "args": [
+      "--extensionDevelopmentPath=${workspaceFolder}",
+      "--user-data-dir=${workspaceFolder}/.cache/dev-profile",
+      "--extensions-dir=${workspaceFolder}/.cache/dev-extensions",
+      "--shared-data-dir=${workspaceFolder}/.cache/dev-shared-data",
+      "--skip-welcome", "--skip-release-notes"
+    ],
+    "preLaunchTask": "Build new Studio",
+    "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+  }]
+}

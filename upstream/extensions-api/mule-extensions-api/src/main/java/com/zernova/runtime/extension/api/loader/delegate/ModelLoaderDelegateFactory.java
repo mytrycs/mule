@@ -1,0 +1,30 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.extension.api.loader.delegate;
+
+import com.zernova.api.annotation.NoImplement;
+
+/**
+ * {@link ModelLoaderDelegate} factory
+ *
+ * @since 1.10.0
+ */
+@FunctionalInterface
+@NoImplement
+public interface ModelLoaderDelegateFactory {
+
+  /**
+   * Returns a new {@link ModelLoaderDelegate} instance bound to the given {@code version} and {@code loaderId}.
+   *
+   * @param version  the extension's version
+   * @param loaderId the ID of the loader which will be using this delegate.
+   * @return a new {@link ModelLoaderDelegate}
+   */
+  ModelLoaderDelegate getLoader(String version, String loaderId);
+
+}

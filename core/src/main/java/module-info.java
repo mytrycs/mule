@@ -4,8 +4,9 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-import org.mule.api.annotation.jpms.PrivilegedApi;
-import org.mule.runtime.core.internal.artifact.ArtifactClassLoaderFinder;
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+import com.zernova.api.annotation.jpms.PrivilegedApi;
+import com.zernova.runtime.core.internal.artifact.ArtifactClassLoaderFinder;
 
 /**
  * Mule server and core classes.
@@ -15,65 +16,65 @@ import org.mule.runtime.core.internal.artifact.ArtifactClassLoaderFinder;
  */
 @PrivilegedApi(
     privilegedPackages = {
-        "org.mule.runtime.core.internal.message",
-        "org.mule.runtime.core.privileged",
-        "org.mule.runtime.core.privileged.el",
-        "org.mule.runtime.core.privileged.event",
-        "org.mule.runtime.core.privileged.exception",
-        "org.mule.runtime.core.privileged.execution",
-        "org.mule.runtime.core.privileged.interception",
-        "org.mule.runtime.core.privileged.message",
-        "org.mule.runtime.core.privileged.metadata",
-        "org.mule.runtime.core.privileged.processor",
-        "org.mule.runtime.core.privileged.processor.chain",
-        "org.mule.runtime.core.privileged.processor.simple",
-        "org.mule.runtime.core.privileged.processor.objectfactory",
-        "org.mule.runtime.core.privileged.registry",
-        "org.mule.runtime.core.privileged.routing",
-        "org.mule.runtime.core.privileged.profiling",
-        "org.mule.runtime.core.privileged.profiling.tracing",
-        "org.mule.runtime.core.privileged.transaction"
+        "com.zernova.runtime.core.internal.message",
+        "com.zernova.runtime.core.privileged",
+        "com.zernova.runtime.core.privileged.el",
+        "com.zernova.runtime.core.privileged.event",
+        "com.zernova.runtime.core.privileged.exception",
+        "com.zernova.runtime.core.privileged.execution",
+        "com.zernova.runtime.core.privileged.interception",
+        "com.zernova.runtime.core.privileged.message",
+        "com.zernova.runtime.core.privileged.metadata",
+        "com.zernova.runtime.core.privileged.processor",
+        "com.zernova.runtime.core.privileged.processor.chain",
+        "com.zernova.runtime.core.privileged.processor.simple",
+        "com.zernova.runtime.core.privileged.processor.objectfactory",
+        "com.zernova.runtime.core.privileged.registry",
+        "com.zernova.runtime.core.privileged.routing",
+        "com.zernova.runtime.core.privileged.profiling",
+        "com.zernova.runtime.core.privileged.profiling.tracing",
+        "com.zernova.runtime.core.privileged.transaction"
     },
     privilegedArtifactIds = {
         "com.mulesoft.munit:munit-runner",
         "com.mulesoft.munit:munit-tools",
         "com.mulesoft.munit:mtf-tools",
-        "org.mule.modules:mule-aggregators-module",
-        "org.mule.modules:mule-apikit-module",
-        "org.mule.modules:mule-soapkit-module",
-        "org.mule.modules:mule-tracing-module",
-        "org.mule.modules:mule-validation-module",
-        "org.mule.modules:mule-scripting-module",
-        "org.mule.tests.plugin:mule-tests-component-plugin",
-        "org.mule.tests:test-processor-chains",
-        "org.mule.tests:test-components"
+        "com.zernova.modules:mule-aggregators-module",
+        "com.zernova.modules:mule-apikit-module",
+        "com.zernova.modules:mule-soapkit-module",
+        "com.zernova.modules:mule-tracing-module",
+        "com.zernova.modules:mule-validation-module",
+        "com.zernova.modules:mule-scripting-module",
+        "com.zernova.tests.plugin:mule-tests-component-plugin",
+        "com.zernova.tests:test-processor-chains",
+        "com.zernova.tests:test-components"
     })
-module org.mule.runtime.core {
+module com.zernova.runtime.core {
 
-  requires org.mule.runtime.metadata.model.api;
-  requires org.mule.runtime.metadata.model.java;
-  requires org.mule.runtime.metadata.model.message;
-  requires transitive org.mule.runtime.api;
-  requires org.mule.sdk.api;
-  requires org.mule.runtime.extensions.api;
-  requires org.mule.runtime.policy.api;
-  requires org.mule.runtime.http.policy.api;
-  requires org.mule.runtime.profiling.api;
-  requires org.mule.runtime.dsl.api;
-  requires org.mule.runtime.artifact.ast;
+  requires com.zernova.runtime.metadata.model.api;
+  requires com.zernova.runtime.metadata.model.java;
+  requires com.zernova.runtime.metadata.model.message;
+  requires transitive com.zernova.runtime.api;
+  requires com.zernova.sdk.api;
+  requires com.zernova.runtime.extensions.api;
+  requires com.zernova.runtime.policy.api;
+  requires com.zernova.runtime.http.policy.api;
+  requires com.zernova.runtime.profiling.api;
+  requires com.zernova.runtime.dsl.api;
+  requires com.zernova.runtime.artifact.ast;
   // module from the boot layer, will not be available in tests
-  requires static org.mule.runtime.logging;
-  requires org.mule.runtime.manifest;
+  requires static com.zernova.runtime.logging;
+  requires com.zernova.runtime.manifest;
 
 
-  requires org.mule.runtime.metrics.api;
-  requires org.mule.runtime.tracer.api;
-  requires org.mule.runtime.tracer.customization.api;
-  requires org.mule.runtime.tracer.exporter.api;
-  requires org.mule.runtime.tracer.exporter.configuration.api;
+  requires com.zernova.runtime.metrics.api;
+  requires com.zernova.runtime.tracer.api;
+  requires com.zernova.runtime.tracer.customization.api;
+  requires com.zernova.runtime.tracer.exporter.api;
+  requires com.zernova.runtime.tracer.exporter.configuration.api;
 
-  requires org.mule.runtime.featureManagement;
-  requires org.mule.runtime.errors;
+  requires com.zernova.runtime.featureManagement;
+  requires com.zernova.runtime.errors;
 
   // reactor and friends
   requires org.reactivestreams;
@@ -103,391 +104,391 @@ module org.mule.runtime.core {
   requires java.management;
   requires jakarta.transaction;
 
-  exports org.mule.runtime.core.api;
-  exports org.mule.runtime.core.api.alert;
-  exports org.mule.runtime.core.api.artifact;
-  exports org.mule.runtime.core.api.component;
-  exports org.mule.runtime.core.api.connection.util;
-  exports org.mule.runtime.core.api.config;
-  exports org.mule.runtime.core.api.config.bootstrap;
-  exports org.mule.runtime.core.api.config.builders;
-  exports org.mule.runtime.core.api.config.i18n;
-  exports org.mule.runtime.core.api.connector;
-  exports org.mule.runtime.core.api.construct;
-  exports org.mule.runtime.core.api.context;
-  exports org.mule.runtime.core.api.context.notification;
-  exports org.mule.runtime.core.api.context.thread.notification;
-  exports org.mule.runtime.core.api.data.sample;
-  exports org.mule.runtime.core.api.el;
-  exports org.mule.runtime.core.api.event;
-  exports org.mule.runtime.core.api.exception;
-  exports org.mule.runtime.core.api.execution;
-  exports org.mule.runtime.core.api.expression;
-  exports org.mule.runtime.core.api.extension;
-  exports org.mule.runtime.core.api.functional;
-  exports org.mule.runtime.core.api.lifecycle;
-  exports org.mule.runtime.core.api.management.stats;
-  exports org.mule.runtime.core.api.message;
-  exports org.mule.runtime.core.api.metadata;
-  exports org.mule.runtime.core.api.object;
-  exports org.mule.runtime.core.api.policy;
-  exports org.mule.runtime.core.api.processor;
+  exports com.zernova.runtime.core.api;
+  exports com.zernova.runtime.core.api.alert;
+  exports com.zernova.runtime.core.api.artifact;
+  exports com.zernova.runtime.core.api.component;
+  exports com.zernova.runtime.core.api.connection.util;
+  exports com.zernova.runtime.core.api.config;
+  exports com.zernova.runtime.core.api.config.bootstrap;
+  exports com.zernova.runtime.core.api.config.builders;
+  exports com.zernova.runtime.core.api.config.i18n;
+  exports com.zernova.runtime.core.api.connector;
+  exports com.zernova.runtime.core.api.construct;
+  exports com.zernova.runtime.core.api.context;
+  exports com.zernova.runtime.core.api.context.notification;
+  exports com.zernova.runtime.core.api.context.thread.notification;
+  exports com.zernova.runtime.core.api.data.sample;
+  exports com.zernova.runtime.core.api.el;
+  exports com.zernova.runtime.core.api.event;
+  exports com.zernova.runtime.core.api.exception;
+  exports com.zernova.runtime.core.api.execution;
+  exports com.zernova.runtime.core.api.expression;
+  exports com.zernova.runtime.core.api.extension;
+  exports com.zernova.runtime.core.api.functional;
+  exports com.zernova.runtime.core.api.lifecycle;
+  exports com.zernova.runtime.core.api.management.stats;
+  exports com.zernova.runtime.core.api.message;
+  exports com.zernova.runtime.core.api.metadata;
+  exports com.zernova.runtime.core.api.object;
+  exports com.zernova.runtime.core.api.policy;
+  exports com.zernova.runtime.core.api.processor;
   // Apart from Mule Runtime, this is used in integration tests and MUnit
-  exports org.mule.runtime.core.api.processor.strategy;
-  exports org.mule.runtime.core.api.registry;
-  exports org.mule.runtime.core.api.retry;
-  exports org.mule.runtime.core.api.retry.async;
-  exports org.mule.runtime.core.api.retry.policy;
-  exports org.mule.runtime.core.api.rx;
-  exports org.mule.runtime.core.api.security;
-  exports org.mule.runtime.core.api.source;
-  exports org.mule.runtime.core.api.streaming;
-  exports org.mule.runtime.core.api.streaming.bytes;
-  exports org.mule.runtime.core.api.streaming.bytes.factory;
-  exports org.mule.runtime.core.api.streaming.iterator;
-  exports org.mule.runtime.core.api.streaming.object;
-  exports org.mule.runtime.core.api.transaction;
-  exports org.mule.runtime.core.api.transaction.xa;
-  exports org.mule.runtime.core.api.transformer;
-  exports org.mule.runtime.core.api.util;
-  exports org.mule.runtime.core.api.util.concurrent;
-  exports org.mule.runtime.core.api.util.compression;
-  exports org.mule.runtime.core.api.util.func;
-  exports org.mule.runtime.core.api.util.proxy;
-  exports org.mule.runtime.core.api.util.queue;
-  exports org.mule.runtime.core.api.util.xmlsecurity;
+  exports com.zernova.runtime.core.api.processor.strategy;
+  exports com.zernova.runtime.core.api.registry;
+  exports com.zernova.runtime.core.api.retry;
+  exports com.zernova.runtime.core.api.retry.async;
+  exports com.zernova.runtime.core.api.retry.policy;
+  exports com.zernova.runtime.core.api.rx;
+  exports com.zernova.runtime.core.api.security;
+  exports com.zernova.runtime.core.api.source;
+  exports com.zernova.runtime.core.api.streaming;
+  exports com.zernova.runtime.core.api.streaming.bytes;
+  exports com.zernova.runtime.core.api.streaming.bytes.factory;
+  exports com.zernova.runtime.core.api.streaming.iterator;
+  exports com.zernova.runtime.core.api.streaming.object;
+  exports com.zernova.runtime.core.api.transaction;
+  exports com.zernova.runtime.core.api.transaction.xa;
+  exports com.zernova.runtime.core.api.transformer;
+  exports com.zernova.runtime.core.api.util;
+  exports com.zernova.runtime.core.api.util.concurrent;
+  exports com.zernova.runtime.core.api.util.compression;
+  exports com.zernova.runtime.core.api.util.func;
+  exports com.zernova.runtime.core.api.util.proxy;
+  exports com.zernova.runtime.core.api.util.queue;
+  exports com.zernova.runtime.core.api.util.xmlsecurity;
 
-  uses org.mule.runtime.core.internal.transaction.TypedTransactionFactory;
+  uses com.zernova.runtime.core.internal.transaction.TypedTransactionFactory;
 
-  provides org.mule.runtime.api.el.AbstractBindingContextBuilderFactory with
-      org.mule.runtime.core.api.el.DefaultBindingContextBuilderFactory;
+  provides com.zernova.runtime.api.el.AbstractBindingContextBuilderFactory with
+      com.zernova.runtime.core.api.el.DefaultBindingContextBuilderFactory;
 
-  provides org.mule.runtime.api.el.AbstractExpressionModuleBuilderFactory with
-      org.mule.runtime.core.internal.el.DefaultExpressionModuleBuilderFactory;
+  provides com.zernova.runtime.api.el.AbstractExpressionModuleBuilderFactory with
+      com.zernova.runtime.core.internal.el.DefaultExpressionModuleBuilderFactory;
 
-  provides org.mule.runtime.api.message.AbstractMuleMessageBuilderFactory with
-      org.mule.runtime.core.internal.message.DefaultMessageBuilderFactory;
+  provides com.zernova.runtime.api.message.AbstractZernovaMessageBuilderFactory with
+      com.zernova.runtime.core.internal.message.DefaultMessageBuilderFactory;
 
-  provides org.mule.runtime.api.metadata.AbstractDataTypeBuilderFactory with
-      org.mule.runtime.core.api.metadata.DefaultDataTypeBuilderFactory;
+  provides com.zernova.runtime.api.metadata.AbstractDataTypeBuilderFactory with
+      com.zernova.runtime.core.api.metadata.DefaultDataTypeBuilderFactory;
 
-  provides org.mule.runtime.core.internal.transaction.TypedTransactionFactory with
-      org.mule.runtime.core.internal.transaction.DelegateTransactionFactory;
+  provides com.zernova.runtime.core.internal.transaction.TypedTransactionFactory with
+      com.zernova.runtime.core.internal.transaction.DelegateTransactionFactory;
 
   // for MUnit, MTF
-  exports org.mule.runtime.core.privileged;
+  exports com.zernova.runtime.core.privileged;
   // for MUnit and muleFwk
-  exports org.mule.runtime.core.privileged.el;
+  exports com.zernova.runtime.core.privileged.el;
   // for MuleFwk, MUnit, MTF, ApiGateway, Tracing and Validation
-  exports org.mule.runtime.core.privileged.event;
+  exports com.zernova.runtime.core.privileged.event;
   // for Kryo
-  exports org.mule.runtime.core.privileged.event.context to
+  exports com.zernova.runtime.core.privileged.event.context to
       com.mulesoft.mule.runtime.kryo;
   // for MuleFwk, MUnit, ApiKit, DataWeave and Validation
-  exports org.mule.runtime.core.privileged.exception;
+  exports com.zernova.runtime.core.privileged.exception;
   // for test-components
-  exports org.mule.runtime.core.privileged.execution;
+  exports com.zernova.runtime.core.privileged.execution;
   // for MUnit
-  exports org.mule.runtime.core.privileged.interception;
+  exports com.zernova.runtime.core.privileged.interception;
   // for MUnit
-  exports org.mule.runtime.core.privileged.message;
+  exports com.zernova.runtime.core.privileged.message;
   // for DataWeave
-  exports org.mule.runtime.core.privileged.metadata;
+  exports com.zernova.runtime.core.privileged.metadata;
   // for MUnit, MTF, ApiKit and Validation
-  exports org.mule.runtime.core.privileged.processor;
+  exports com.zernova.runtime.core.privileged.processor;
   // for MUnit and Validation
-  exports org.mule.runtime.core.privileged.processor.chain;
+  exports com.zernova.runtime.core.privileged.processor.chain;
   // for MTF
-  exports org.mule.runtime.core.privileged.processor.objectfactory;
+  exports com.zernova.runtime.core.privileged.processor.objectfactory;
   // for MTF
-  exports org.mule.runtime.core.privileged.processor.simple;
+  exports com.zernova.runtime.core.privileged.processor.simple;
   // for test-components
-  exports org.mule.runtime.core.privileged.profiling;
-  exports org.mule.runtime.core.privileged.profiling.tracing to
-      org.mule.runtime.core.components;
+  exports com.zernova.runtime.core.privileged.profiling;
+  exports com.zernova.runtime.core.privileged.profiling.tracing to
+      com.zernova.runtime.core.components;
   // for Aggregators
-  exports org.mule.runtime.core.privileged.registry;
+  exports com.zernova.runtime.core.privileged.registry;
   // for DataWeave
-  exports org.mule.runtime.core.privileged.routing;
+  exports com.zernova.runtime.core.privileged.routing;
   // for test-components
-  exports org.mule.runtime.core.privileged.transaction;
+  exports com.zernova.runtime.core.privileged.transaction;
 
-  exports org.mule.runtime.core.internal.alert to
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.alert to
+      com.zernova.runtime.spring.config,
       spring.beans;
-  exports org.mule.runtime.core.internal.artifact to
-      org.mule.runtime.artifact.activation;
-  exports org.mule.runtime.core.internal.cluster to
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.artifact to
+      com.zernova.runtime.artifact.activation;
+  exports com.zernova.runtime.core.internal.cluster to
+      com.zernova.runtime.spring.config,
       spring.beans;
-  exports org.mule.runtime.core.internal.config to
-      org.mule.runtime.deployment,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.spring.config,
-      org.mule.runtime.deployment.model.impl,
+  exports com.zernova.runtime.core.internal.config to
+      com.zernova.runtime.deployment,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.spring.config,
+      com.zernova.runtime.deployment.model.impl,
       com.mulesoft.mule.runtime.cluster,
       spring.beans;
-  exports org.mule.runtime.core.internal.config.bootstrap to
-      org.mule.runtime.deployment.model.impl,
-      org.mule.runtime.spring.config;
-  exports org.mule.runtime.core.internal.config.builders to
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.spring.config,
-      org.mule.test.unit;
-  exports org.mule.runtime.core.internal.connection to
+  exports com.zernova.runtime.core.internal.config.bootstrap to
+      com.zernova.runtime.deployment.model.impl,
+      com.zernova.runtime.spring.config;
+  exports com.zernova.runtime.core.internal.config.builders to
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.spring.config,
+      com.zernova.test.unit;
+  exports com.zernova.runtime.core.internal.connection to
       com.mulesoft.mule.runtime.bti,
-      org.mule.runtime.deployment.model.impl,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.extensions.xml.support,
-      org.mule.runtime.spring.config,
+      com.zernova.runtime.deployment.model.impl,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.extensions.xml.support,
+      com.zernova.runtime.spring.config,
       spring.beans;
-  exports org.mule.runtime.core.internal.connection.adapter to
-      org.mule.runtime.extensions.support;
-  exports org.mule.runtime.core.internal.connector to
+  exports com.zernova.runtime.core.internal.connection.adapter to
+      com.zernova.runtime.extensions.support;
+  exports com.zernova.runtime.core.internal.connector to
       com.mulesoft.mule.runtime.cluster;
-  exports org.mule.runtime.core.internal.construct to
-      org.mule.runtime.core.components,
-      org.mule.runtime.deployment,
-      org.mule.runtime.deployment.model.impl,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.spring.config;
-  exports org.mule.runtime.core.internal.context to
-      org.mule.runtime.core.components,
-      org.mule.runtime.artifact,
-      org.mule.runtime.extensions.spring.support,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.deployment,
-      org.mule.runtime.deployment.model.impl,
-      org.mule.runtime.spring.config,
-      org.mule.runtime.launcher,
+  exports com.zernova.runtime.core.internal.construct to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.deployment,
+      com.zernova.runtime.deployment.model.impl,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.spring.config;
+  exports com.zernova.runtime.core.internal.context to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.artifact,
+      com.zernova.runtime.extensions.spring.support,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.deployment,
+      com.zernova.runtime.deployment.model.impl,
+      com.zernova.runtime.spring.config,
+      com.zernova.runtime.launcher,
       com.mulesoft.mule.runtime.bti,
       com.mulesoft.mule.runtime.kryo,
       com.mulesoft.mule.runtime.batch,
       com.mulesoft.mule.runtime.cluster,
-      org.mule.test.unit,
-      org.mule.test.runner;
-  exports org.mule.runtime.core.internal.context.notification to
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.extensions.xml.support,
-      org.mule.runtime.spring.config,
+      com.zernova.test.unit,
+      com.zernova.test.runner;
+  exports com.zernova.runtime.core.internal.context.notification to
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.extensions.xml.support,
+      com.zernova.runtime.spring.config,
       com.mulesoft.mule.runtime.bti,
       com.mulesoft.mule.runtime.kryo,
       spring.beans;
   // Needed for byte-buddy proxies (generated in the unnamed-module) for visibility
-  exports org.mule.runtime.core.internal.component to
-      org.mule.runtime.core.components,
-      org.mule.runtime.extensions.spring.support,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.component to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.extensions.spring.support,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.spring.config,
       com.mulesoft.mule.runtime.batch;
-  exports org.mule.runtime.core.internal.el to
-      org.mule.runtime.core.components,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.extensions.xml.support,
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.el to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.extensions.xml.support,
+      com.zernova.runtime.spring.config,
       com.mulesoft.mule.runtime.batch,
       com.mulesoft.mule.runtime.core.ee,
       spring.beans;
-  exports org.mule.runtime.core.internal.el.dataweave to
-      org.mule.runtime.core.components,
-      org.mule.runtime.spring.config;
-  exports org.mule.runtime.core.internal.el.function to
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.el.dataweave to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.spring.config;
+  exports com.zernova.runtime.core.internal.el.function to
+      com.zernova.runtime.spring.config,
       spring.beans;
-  exports org.mule.runtime.core.internal.event to
-      org.mule.runtime.core.components,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.extensions.xml.support,
-      org.mule.runtime.spring.config,
-      org.mule.runtime.tooling.support,
+  exports com.zernova.runtime.core.internal.event to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.extensions.xml.support,
+      com.zernova.runtime.spring.config,
+      com.zernova.runtime.tooling.support,
       com.mulesoft.mule.runtime.batch,
       com.mulesoft.mule.runtime.core.ee,
       com.mulesoft.mule.runtime.kryo,
       spring.beans;
-  exports org.mule.runtime.core.internal.exception to
-      org.mule.runtime.core.components,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.extensions.spring.support,
-      org.mule.runtime.extensions.xml.support,
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.exception to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.extensions.spring.support,
+      com.zernova.runtime.extensions.xml.support,
+      com.zernova.runtime.spring.config,
       com.mulesoft.mule.runtime.batch,
       spring.beans;
-  exports org.mule.runtime.core.internal.execution to
-      org.mule.runtime.core.components,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.properties.config,
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.execution to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.properties.config,
+      com.zernova.runtime.spring.config,
       spring.beans;
-  exports org.mule.runtime.core.internal.interception to
-      org.mule.runtime.core.components,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.spring.config;
-  exports org.mule.runtime.core.internal.lifecycle to
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.spring.config,
-      org.mule.test.runner;
-  exports org.mule.runtime.core.internal.lifecycle.phases to
-      org.mule.runtime.deployment.model.impl,
-      org.mule.runtime.spring.config;
-  exports org.mule.runtime.core.internal.lock to
-      org.mule.runtime.deployment.model.impl,
-      org.mule.runtime.launcher,
-      org.mule.runtime.spring.config,
-      org.mule.runtime.tooling.support,
+  exports com.zernova.runtime.core.internal.interception to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.spring.config;
+  exports com.zernova.runtime.core.internal.lifecycle to
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.spring.config,
+      com.zernova.test.runner;
+  exports com.zernova.runtime.core.internal.lifecycle.phases to
+      com.zernova.runtime.deployment.model.impl,
+      com.zernova.runtime.spring.config;
+  exports com.zernova.runtime.core.internal.lock to
+      com.zernova.runtime.deployment.model.impl,
+      com.zernova.runtime.launcher,
+      com.zernova.runtime.spring.config,
+      com.zernova.runtime.tooling.support,
       com.mulesoft.mule.runtime.batch,
       com.mulesoft.mule.runtime.cluster,
       spring.beans;
-  exports org.mule.runtime.core.internal.management.stats to
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.management.stats to
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.spring.config,
       spring.beans;
   // Required because this is used in test components that end up in the unnamed module
   // and for MUnit and ApiKit
-  exports org.mule.runtime.core.internal.message;
-  exports org.mule.runtime.core.internal.metadata to
+  exports com.zernova.runtime.core.internal.message;
+  exports com.zernova.runtime.core.internal.metadata to
       com.mulesoft.mule.runtime.kryo;
-  exports org.mule.runtime.core.internal.policy to
-      org.mule.runtime.core.components,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.extensions.spring.support,
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.policy to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.extensions.spring.support,
+      com.zernova.runtime.spring.config,
       com.mulesoft.mule.runtime.http.policy,
       spring.beans;
-  exports org.mule.runtime.core.internal.processor.chain to
-      org.mule.runtime.spring.config;
-  exports org.mule.runtime.core.internal.processor.interceptor to
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.processor.chain to
+      com.zernova.runtime.spring.config;
+  exports com.zernova.runtime.core.internal.processor.interceptor to
+      com.zernova.runtime.spring.config,
       spring.beans,
       kryo.shaded;
-  exports org.mule.runtime.core.internal.processor.strategy to
-      org.mule.runtime.core.components,
-      org.mule.runtime.extensions.support;
-  exports org.mule.runtime.core.internal.processor.strategy.util to
-      org.mule.runtime.extensions.support;
-  exports org.mule.runtime.core.internal.profiling to
-      org.mule.runtime.core.components,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.spring.config,
-      org.mule.runtime.deployment.model.impl,
-      org.mule.runtime.tracer.customization.impl,
-      org.mule.service.scheduler,
+  exports com.zernova.runtime.core.internal.processor.strategy to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.extensions.support;
+  exports com.zernova.runtime.core.internal.processor.strategy.util to
+      com.zernova.runtime.extensions.support;
+  exports com.zernova.runtime.core.internal.profiling to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.spring.config,
+      com.zernova.runtime.deployment.model.impl,
+      com.zernova.runtime.tracer.customization.impl,
+      com.zernova.service.scheduler,
       com.mulesoft.mule.runtime.batch,
       spring.beans;
-  exports org.mule.runtime.core.internal.profiling.context to
-      org.mule.runtime.extensions.support;
-  exports org.mule.runtime.core.internal.profiling.tracing.event.span.condition to
-      org.mule.runtime.tracer.internal.impl;
-  exports org.mule.runtime.core.internal.registry to
-      org.mule.runtime.core.components,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.extensions.spring.support,
-      org.mule.runtime.extensions.mule.support,
-      org.mule.runtime.spring.config,
-      org.mule.runtime.deployment,
-      org.mule.runtime.deployment.model,
-      org.mule.runtime.deployment.model.impl,
-      org.mule.runtime.launcher,
+  exports com.zernova.runtime.core.internal.profiling.context to
+      com.zernova.runtime.extensions.support;
+  exports com.zernova.runtime.core.internal.profiling.tracing.event.span.condition to
+      com.zernova.runtime.tracer.internal.impl;
+  exports com.zernova.runtime.core.internal.registry to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.extensions.spring.support,
+      com.zernova.runtime.extensions.mule.support,
+      com.zernova.runtime.spring.config,
+      com.zernova.runtime.deployment,
+      com.zernova.runtime.deployment.model,
+      com.zernova.runtime.deployment.model.impl,
+      com.zernova.runtime.launcher,
       com.mulesoft.mule.runtime.bti,
       spring.beans,
-      org.mule.test.unit,
-      org.mule.test.runner;
-  exports org.mule.runtime.core.internal.retry to
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.extensions.spring.support,
-      org.mule.runtime.spring.config;
-  exports org.mule.runtime.core.internal.routing.outbound to
-      org.mule.runtime.core.components,
+      com.zernova.test.unit,
+      com.zernova.test.runner;
+  exports com.zernova.runtime.core.internal.retry to
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.extensions.spring.support,
+      com.zernova.runtime.spring.config;
+  exports com.zernova.runtime.core.internal.routing.outbound to
+      com.zernova.runtime.core.components,
       com.mulesoft.mule.runtime.batch;
-  exports org.mule.runtime.core.internal.routing.result to
-      org.mule.runtime.core.components,
-      org.mule.runtime.spring.config;
-  exports org.mule.runtime.core.internal.routing.split to
-      org.mule.runtime.core.components,
+  exports com.zernova.runtime.core.internal.routing.result to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.spring.config;
+  exports com.zernova.runtime.core.internal.routing.split to
+      com.zernova.runtime.core.components,
       com.mulesoft.mule.runtime.batch,
       kryo.shaded;
-  exports org.mule.runtime.core.internal.rx to
-      org.mule.runtime.core.components,
-      org.mule.runtime.extensions.support;
-  exports org.mule.runtime.core.internal.security to
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.rx to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.extensions.support;
+  exports com.zernova.runtime.core.internal.security to
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.spring.config,
       com.mulesoft.mule.runtime.kryo,
       spring.beans;
-  exports org.mule.runtime.core.internal.serialization to
-      org.mule.runtime.artifact,
+  exports com.zernova.runtime.core.internal.serialization to
+      com.zernova.runtime.artifact,
       com.mulesoft.mule.runtime.core.ee,
       com.mulesoft.mule.runtime.kryo,
-      org.mule.test.unit,
+      com.zernova.test.unit,
       spring.beans;
-  exports org.mule.runtime.core.internal.store to
-      org.mule.runtime.spring.config,
-      org.mule.runtime.tooling.support,
+  exports com.zernova.runtime.core.internal.store to
+      com.zernova.runtime.spring.config,
+      com.zernova.runtime.tooling.support,
       com.mulesoft.mule.runtime.cluster,
       com.mulesoft.mule.runtime.kryo,
       spring.beans;
-  exports org.mule.runtime.core.internal.streaming to
-      org.mule.runtime.core.components,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.streaming to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.spring.config,
       com.mulesoft.mule.runtime.core.ee,
       spring.beans;
-  exports org.mule.runtime.core.internal.streaming.bytes to
-      org.mule.runtime.extensions.support,
+  exports com.zernova.runtime.core.internal.streaming.bytes to
+      com.zernova.runtime.extensions.support,
       com.mulesoft.mule.runtime.core.ee,
       com.mulesoft.mule.runtime.kryo;
-  exports org.mule.runtime.core.internal.streaming.bytes.factory to
-      org.mule.runtime.extensions.support;
-  exports org.mule.runtime.core.internal.streaming.object to
+  exports com.zernova.runtime.core.internal.streaming.bytes.factory to
+      com.zernova.runtime.extensions.support;
+  exports com.zernova.runtime.core.internal.streaming.object to
       com.mulesoft.mule.runtime.core.ee,
       com.mulesoft.mule.runtime.kryo;
-  exports org.mule.runtime.core.internal.streaming.object.factory to
-      org.mule.runtime.extensions.support,
+  exports com.zernova.runtime.core.internal.streaming.object.factory to
+      com.zernova.runtime.extensions.support,
       com.mulesoft.mule.runtime.core.ee;
-  exports org.mule.runtime.core.internal.streaming.object.iterator to
+  exports com.zernova.runtime.core.internal.streaming.object.iterator to
       com.mulesoft.mule.runtime.batch;
-  exports org.mule.runtime.core.internal.time to
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.time to
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.spring.config,
       spring.beans;
-  exports org.mule.runtime.core.internal.transaction to
-      org.mule.runtime.core.components,
-      org.mule.runtime.extensions.mule.support,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.transaction to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.extensions.mule.support,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.spring.config,
       com.mulesoft.mule.runtime.bti,
       com.mulesoft.mule.runtime.xa,
       spring.beans;
-  exports org.mule.runtime.core.internal.transaction.xa to
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.transaction.xa to
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.spring.config,
       com.mulesoft.mule.runtime.bti,
       com.mulesoft.mule.runtime.cluster,
       com.mulesoft.mule.runtime.xa,
       spring.beans;
-  exports org.mule.runtime.core.internal.transformer to
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.transformer to
+      com.zernova.runtime.spring.config,
       spring.beans;
-  exports org.mule.runtime.core.internal.transformer.compression to
+  exports com.zernova.runtime.core.internal.transformer.compression to
       com.mulesoft.mule.runtime.kryo;
-  exports org.mule.runtime.core.internal.transformer.datatype to
+  exports com.zernova.runtime.core.internal.transformer.datatype to
       spring.beans;
-  exports org.mule.runtime.core.internal.transformer.simple to
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.transformer.simple to
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.spring.config,
       spring.beans;
-  exports org.mule.runtime.core.internal.util to
-      org.mule.runtime.core.components,
-      org.mule.runtime.container,
-      org.mule.runtime.deployment.model,
-      org.mule.runtime.deployment.model.impl,
-      org.mule.runtime.log4j,
-      org.mule.runtime.service,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.extensions.spring.support,
-      org.mule.runtime.extensions.xml.support,
-      org.mule.runtime.repository,
-      org.mule.runtime.spring.config,
-      org.mule.runtime.tooling.support,
+  exports com.zernova.runtime.core.internal.util to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.container,
+      com.zernova.runtime.deployment.model,
+      com.zernova.runtime.deployment.model.impl,
+      com.zernova.runtime.log4j,
+      com.zernova.runtime.service,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.extensions.spring.support,
+      com.zernova.runtime.extensions.xml.support,
+      com.zernova.runtime.repository,
+      com.zernova.runtime.spring.config,
+      com.zernova.runtime.tooling.support,
       com.mulesoft.mule.runtime.bti,
       com.mulesoft.mule.runtime.cluster,
       com.mulesoft.mule.runtime.kryo,
@@ -495,145 +496,145 @@ module org.mule.runtime.core {
       com.mulesoft.mule.service.oauth.ee,
       com.mulesoft.test.mule.service.oauth.ee,
       spring.beans;
-  exports org.mule.runtime.core.internal.util.attribute to
-      org.mule.runtime.core.components,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.extensions.mule.support,
+  exports com.zernova.runtime.core.internal.util.attribute to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.extensions.mule.support,
       com.mulesoft.mule.runtime.cache,
       com.mulesoft.mule.runtime.core.ee;
-  exports org.mule.runtime.core.internal.util.cache to
-      org.mule.runtime.metadata.support;
-  exports org.mule.runtime.core.internal.util.collection to
-      org.mule.runtime.extensions.support;
-  exports org.mule.runtime.core.internal.util.log to
+  exports com.zernova.runtime.core.internal.util.cache to
+      com.zernova.runtime.metadata.support;
+  exports com.zernova.runtime.core.internal.util.collection to
+      com.zernova.runtime.extensions.support;
+  exports com.zernova.runtime.core.internal.util.log to
       com.mulesoft.anypoint.gw.core;
-  exports org.mule.runtime.core.internal.util.mediatype to
-      org.mule.runtime.extensions.support;
-  exports org.mule.runtime.core.internal.util.message to
-      org.mule.runtime.extensions.support;
-  exports org.mule.runtime.core.internal.util.message.stream to
-      org.mule.runtime.extensions.support;
-  exports org.mule.runtime.core.internal.util.rx to
-      org.mule.runtime.core.components,
-      org.mule.runtime.extensions.support,
-      org.mule.runtime.extensions.xml.support,
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.util.mediatype to
+      com.zernova.runtime.extensions.support;
+  exports com.zernova.runtime.core.internal.util.message to
+      com.zernova.runtime.extensions.support;
+  exports com.zernova.runtime.core.internal.util.message.stream to
+      com.zernova.runtime.extensions.support;
+  exports com.zernova.runtime.core.internal.util.rx to
+      com.zernova.runtime.core.components,
+      com.zernova.runtime.extensions.support,
+      com.zernova.runtime.extensions.xml.support,
+      com.zernova.runtime.spring.config,
       com.mulesoft.mule.runtime.core.ee,
       com.mulesoft.mule.runtime.batch,
       com.mulesoft.mule.runtime.cache;
   // TODO W-13824979 Remove splashScreen logic from mule-core
-  exports org.mule.runtime.core.internal.util.splash to
-      org.mule.runtime.launcher,
-      org.mule.runtime.service,
-      org.mule.runtime.deployment,
-      org.mule.runtime.deployment.model.impl,
+  exports com.zernova.runtime.core.internal.util.splash to
+      com.zernova.runtime.launcher,
+      com.zernova.runtime.service,
+      com.zernova.runtime.deployment,
+      com.zernova.runtime.deployment.model.impl,
       com.mulesoft.mule.runtime.batch,
       com.mulesoft.mule.runtime.cluster;
-  exports org.mule.runtime.core.internal.util.queue to
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.core.internal.util.queue to
+      com.zernova.runtime.spring.config,
       com.mulesoft.mule.runtime.bti,
       com.mulesoft.mule.runtime.cluster,
       spring.beans;
-  exports org.mule.runtime.core.internal.util.store to
-      org.mule.runtime.spring.config,
-      org.mule.runtime.tooling.support,
+  exports com.zernova.runtime.core.internal.util.store to
+      com.zernova.runtime.spring.config,
+      com.zernova.runtime.tooling.support,
       com.mulesoft.mule.runtime.cluster,
       com.mulesoft.mule.runtime.kryo,
       spring.beans;
-  exports org.mule.runtime.core.internal.util.version to
-      org.mule.runtime.extensions.support,
+  exports com.zernova.runtime.core.internal.util.version to
+      com.zernova.runtime.extensions.support,
       com.mulesoft.mule.runtime.license,
       com.mulesoft.anypoint.gw.core;
-  exports org.mule.runtime.core.internal.value.cache to
-      org.mule.runtime.metadata.support,
-      org.mule.runtime.spring.config,
-      org.mule.runtime.tooling.support;
+  exports com.zernova.runtime.core.internal.value.cache to
+      com.zernova.runtime.metadata.support,
+      com.zernova.runtime.spring.config,
+      com.zernova.runtime.tooling.support;
 
-  opens org.mule.runtime.core.api to
+  opens com.zernova.runtime.core.api to
       spring.core;
-  opens org.mule.runtime.core.api.config to
+  opens com.zernova.runtime.core.api.config to
       spring.core;
-  opens org.mule.runtime.core.api.policy to
+  opens com.zernova.runtime.core.api.policy to
       spring.core;
-  opens org.mule.runtime.core.api.context.notification to
+  opens com.zernova.runtime.core.api.context.notification to
       kryo.shaded;
-  opens org.mule.runtime.core.api.management.stats to
+  opens com.zernova.runtime.core.api.management.stats to
       kryo.shaded;
-  opens org.mule.runtime.core.api.processor to
+  opens com.zernova.runtime.core.api.processor to
       spring.core;
-  opens org.mule.runtime.core.api.retry.policy to
+  opens com.zernova.runtime.core.api.retry.policy to
       spring.core;
-  opens org.mule.runtime.core.api.retry.async to
+  opens com.zernova.runtime.core.api.retry.async to
       spring.core;
-  opens org.mule.runtime.core.api.security to
+  opens com.zernova.runtime.core.api.security to
       spring.core;
-  opens org.mule.runtime.core.api.streaming to
+  opens com.zernova.runtime.core.api.streaming to
       spring.core;
 
-  opens org.mule.runtime.core.privileged.event to
+  opens com.zernova.runtime.core.privileged.event to
       kryo.shaded;
-  opens org.mule.runtime.core.privileged.exception to
+  opens com.zernova.runtime.core.privileged.exception to
       kryo.shaded,
       spring.core;
-  opens org.mule.runtime.core.privileged.processor to
+  opens com.zernova.runtime.core.privileged.processor to
       spring.core;
-  opens org.mule.runtime.core.privileged.processor.chain to
+  opens com.zernova.runtime.core.privileged.processor.chain to
       spring.core;
-  opens org.mule.runtime.core.privileged.processor.objectfactory to
+  opens com.zernova.runtime.core.privileged.processor.objectfactory to
       spring.core;
-  opens org.mule.runtime.core.privileged.processor.simple to
+  opens com.zernova.runtime.core.privileged.processor.simple to
       spring.core;
-  opens org.mule.runtime.core.privileged.routing to
+  opens com.zernova.runtime.core.privileged.routing to
       kryo.shaded;
 
-  opens org.mule.runtime.core.internal.config to
+  opens com.zernova.runtime.core.internal.config to
       spring.core;
-  opens org.mule.runtime.core.internal.connection to
+  opens com.zernova.runtime.core.internal.connection to
       spring.core;
-  opens org.mule.runtime.core.internal.construct to
+  opens com.zernova.runtime.core.internal.construct to
       spring.core;
-  opens org.mule.runtime.core.internal.context.notification to
+  opens com.zernova.runtime.core.internal.context.notification to
       kryo.shaded,
       spring.core;
-  opens org.mule.runtime.core.internal.el.function to
+  opens com.zernova.runtime.core.internal.el.function to
       spring.core;
-  opens org.mule.runtime.core.internal.exception to
+  opens com.zernova.runtime.core.internal.exception to
       kryo.shaded,
       spring.core;
-  opens org.mule.runtime.core.internal.execution to
+  opens com.zernova.runtime.core.internal.execution to
       spring.core;
-  opens org.mule.runtime.core.internal.event to
+  opens com.zernova.runtime.core.internal.event to
       com.mulesoft.mule.runtime.kryo,
       kryo.shaded;
-  opens org.mule.runtime.core.internal.lock to
-      org.mule.runtime.core.components,
+  opens com.zernova.runtime.core.internal.lock to
+      com.zernova.runtime.core.components,
       spring.core;
-  opens org.mule.runtime.core.internal.management.stats to
+  opens com.zernova.runtime.core.internal.management.stats to
       kryo.shaded;
-  opens org.mule.runtime.core.internal.message to
+  opens com.zernova.runtime.core.internal.message to
       com.mulesoft.mule.runtime.kryo,
       kryo.shaded;
-  opens org.mule.runtime.core.internal.policy to
-      org.mule.runtime.deployment,
+  opens com.zernova.runtime.core.internal.policy to
+      com.zernova.runtime.deployment,
       spring.core;
-  opens org.mule.runtime.core.internal.processor.interceptor to
+  opens com.zernova.runtime.core.internal.processor.interceptor to
       spring.core;
-  opens org.mule.runtime.core.internal.processor.strategy to
+  opens com.zernova.runtime.core.internal.processor.strategy to
       spring.core;
-  opens org.mule.runtime.core.internal.profiling to
+  opens com.zernova.runtime.core.internal.profiling to
       spring.core;
-  opens org.mule.runtime.core.internal.streaming to
+  opens com.zernova.runtime.core.internal.streaming to
       kryo.shaded,
       spring.core;
-  opens org.mule.runtime.core.internal.streaming.object to
+  opens com.zernova.runtime.core.internal.streaming.object to
       kryo.shaded;
-  opens org.mule.runtime.core.internal.transaction to
+  opens com.zernova.runtime.core.internal.transaction to
       spring.core;
-  opens org.mule.runtime.core.internal.transformer to
+  opens com.zernova.runtime.core.internal.transformer to
       spring.core;
 
-  uses org.mule.runtime.core.privileged.transaction.TransactionFactory;
-  uses org.mule.runtime.core.api.util.ClassLoaderResourceNotFoundExceptionFactory;
+  uses com.zernova.runtime.core.privileged.transaction.TransactionFactory;
+  uses com.zernova.runtime.core.api.util.ClassLoaderResourceNotFoundExceptionFactory;
   uses ArtifactClassLoaderFinder;
 
 }

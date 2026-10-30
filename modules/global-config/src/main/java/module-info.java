@@ -4,26 +4,27 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 /**
  * This module handles the global configuration of the Mule Runtime.
  *
  * @moduleGraph
  * @since 4.5
  */
-module org.mule.runtime.global.config {
+module com.zernova.runtime.global.config {
 
-  requires org.mule.runtime.api;
-  requires org.mule.runtime.api.annotations;
-  requires org.mule.runtime.container;
-  requires org.mule.runtime.core;
-  requires transitive org.mule.runtime.maven.client.api;
+  requires com.zernova.runtime.api;
+  requires com.zernova.runtime.api.annotations;
+  requires com.zernova.runtime.container;
+  requires com.zernova.runtime.core;
+  requires transitive com.zernova.runtime.maven.client.api;
 
   requires typesafe.config;
   requires everit.json.schema;
   requires org.json;
 
-  exports org.mule.runtime.globalconfig.api;
-  exports org.mule.runtime.globalconfig.api.cluster;
-  exports org.mule.runtime.globalconfig.api.maven;
+  exports com.zernova.runtime.globalconfig.api;
+  exports com.zernova.runtime.globalconfig.api.cluster;
+  exports com.zernova.runtime.globalconfig.api.maven;
 
 }

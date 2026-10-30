@@ -5,20 +5,20 @@
   "extensionModelLoaderDescriptor": {
     "id": "crafted",
     "attributes": {
-      "type": "org.mule.functional.api.extension.TestComponentExtensionLoadingDelegate"
+      "type": "com.zernova.functional.api.extension.TestComponentExtensionLoadingDelegate"
     }
   },
   "classLoaderModelLoaderDescriptor": {
     "id": "mule",
     "attributes": {
       "exportedPackages": [
-        "org.mule.functional.api.component",
-        "org.mule.functional.api.event",
-        "org.mule.functional.api.exception",
-        "org.mule.functional.api.extension",
-        "org.mule.functional.api.flow",
-        "org.mule.functional.api.notification",
-        "org.mule.functional.api.registry"
+        "com.zernova.functional.api.component",
+        "com.zernova.functional.api.event",
+        "com.zernova.functional.api.exception",
+        "com.zernova.functional.api.extension",
+        "com.zernova.functional.api.flow",
+        "com.zernova.functional.api.notification",
+        "com.zernova.functional.api.registry"
       ],
       "exportedResources": [
         "META-INF/mule.schemas",

@@ -4,6 +4,7 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 
 /**
  * Mule Builder for use with Spring 4.3.x Namespace based XML configuration.
@@ -11,46 +12,46 @@
  * @moduleGraph
  * @since 4.6
  */
-module org.mule.runtime.spring.config {
+module com.zernova.runtime.spring.config {
 
-  requires org.mule.runtime.api;
-  requires org.mule.runtime.artifact.ast;
-  requires org.mule.runtime.artifact.ast.dependency.graph;
-  requires org.mule.runtime.artifact.ast.xmlParser;
-  requires org.mule.runtime.artifact.declaration;
-  requires org.mule.runtime.dsl.api;
-  requires org.mule.runtime.errors;
-  requires org.mule.runtime.extensions.api;
-  requires org.mule.runtime.metadata.model.api;
-  requires org.mule.runtime.metadata.model.java;
-  requires org.mule.runtime.metadata.model.message;
-  requires org.mule.runtime.properties.api;
-  requires org.mule.sdk.api;
+  requires com.zernova.runtime.api;
+  requires com.zernova.runtime.artifact.ast;
+  requires com.zernova.runtime.artifact.ast.dependency.graph;
+  requires com.zernova.runtime.artifact.ast.xmlParser;
+  requires com.zernova.runtime.artifact.declaration;
+  requires com.zernova.runtime.dsl.api;
+  requires com.zernova.runtime.errors;
+  requires com.zernova.runtime.extensions.api;
+  requires com.zernova.runtime.metadata.model.api;
+  requires com.zernova.runtime.metadata.model.java;
+  requires com.zernova.runtime.metadata.model.message;
+  requires com.zernova.runtime.properties.api;
+  requires com.zernova.sdk.api;
 
-  requires org.mule.runtime.artifact;
-  requires org.mule.runtime.artifact.activation;
-  requires org.mule.runtime.container;
-  requires transitive org.mule.runtime.core;
-  requires transitive org.mule.runtime.core.components;
-  requires org.mule.runtime.deployment.model;
-  requires org.mule.runtime.extension.model;
-  requires org.mule.runtime.extensions.support;
-  requires org.mule.runtime.featureManagement;
-  requires org.mule.runtime.memory.management;
-  requires org.mule.runtime.metadata.support;
-  requires org.mule.runtime.metrics.api;
-  requires org.mule.runtime.metrics.exporter.api;
-  requires org.mule.runtime.metrics.exporter.impl;
-  requires org.mule.runtime.metrics.internal.impl;
-  requires org.mule.runtime.properties.config;
-  requires org.mule.runtime.service;
-  requires org.mule.runtime.tracer.api;
-  requires org.mule.runtime.tracer.configuration.api;
-  requires org.mule.runtime.tracer.configuration.impl;
-  requires org.mule.runtime.tracer.customization.api;
-  requires org.mule.runtime.tracer.customization.impl;
-  requires org.mule.runtime.tracer.exporter.impl;
-  requires org.mule.runtime.tracer.internal.impl;
+  requires com.zernova.runtime.artifact;
+  requires com.zernova.runtime.artifact.activation;
+  requires com.zernova.runtime.container;
+  requires transitive com.zernova.runtime.core;
+  requires transitive com.zernova.runtime.core.components;
+  requires com.zernova.runtime.deployment.model;
+  requires com.zernova.runtime.extension.model;
+  requires com.zernova.runtime.extensions.support;
+  requires com.zernova.runtime.featureManagement;
+  requires com.zernova.runtime.memory.management;
+  requires com.zernova.runtime.metadata.support;
+  requires com.zernova.runtime.metrics.api;
+  requires com.zernova.runtime.metrics.exporter.api;
+  requires com.zernova.runtime.metrics.exporter.impl;
+  requires com.zernova.runtime.metrics.internal.impl;
+  requires com.zernova.runtime.properties.config;
+  requires com.zernova.runtime.service;
+  requires com.zernova.runtime.tracer.api;
+  requires com.zernova.runtime.tracer.configuration.api;
+  requires com.zernova.runtime.tracer.configuration.impl;
+  requires com.zernova.runtime.tracer.customization.api;
+  requires com.zernova.runtime.tracer.customization.impl;
+  requires com.zernova.runtime.tracer.exporter.impl;
+  requires com.zernova.runtime.tracer.internal.impl;
 
   requires spring.beans;
   requires spring.context;
@@ -72,86 +73,86 @@ module org.mule.runtime.spring.config {
   // PropertyDescriptor and PropertyEditor from java.beans
   requires java.desktop;
   requires jakarta.transaction;
-  requires org.mule.runtime.http.support;
+  requires com.zernova.runtime.http.support;
 
-  exports org.mule.runtime.config.api;
-  exports org.mule.runtime.config.api.bean;
-  exports org.mule.runtime.config.api.dsl;
-  exports org.mule.runtime.config.api.dsl.model;
-  exports org.mule.runtime.config.api.dsl.model.properties;
-  exports org.mule.runtime.config.api.dsl.processor;
-  exports org.mule.runtime.config.api.dsl.processor.xml;
-  exports org.mule.runtime.config.api.factories.streaming;
+  exports com.zernova.runtime.config.api;
+  exports com.zernova.runtime.config.api.bean;
+  exports com.zernova.runtime.config.api.dsl;
+  exports com.zernova.runtime.config.api.dsl.model;
+  exports com.zernova.runtime.config.api.dsl.model.properties;
+  exports com.zernova.runtime.config.api.dsl.processor;
+  exports com.zernova.runtime.config.api.dsl.processor.xml;
+  exports com.zernova.runtime.config.api.factories.streaming;
 
-  provides org.mule.runtime.dsl.api.component.ComponentBuildingDefinitionProvider with
-      org.mule.runtime.config.internal.dsl.model.CoreComponentBuildingDefinitionProvider;
+  provides com.zernova.runtime.dsl.api.component.ComponentBuildingDefinitionProvider with
+      com.zernova.runtime.config.internal.dsl.model.CoreComponentBuildingDefinitionProvider;
 
   // Required to build MUnit chains
-  exports org.mule.runtime.config.privileged.dsl.spring;
-  exports org.mule.runtime.config.privileged.spring
+  exports com.zernova.runtime.config.privileged.dsl.spring;
+  exports com.zernova.runtime.config.privileged.spring
       to spring.core;
 
-  exports org.mule.runtime.config.internal to
-      org.mule.runtime.deployment,
-      org.mule.runtime.deployment.model.impl;
-  exports org.mule.runtime.config.internal.bean to
+  exports com.zernova.runtime.config.internal to
+      com.zernova.runtime.deployment,
+      com.zernova.runtime.deployment.model.impl;
+  exports com.zernova.runtime.config.internal.bean to
       spring.beans;
-  exports org.mule.runtime.config.internal.context to
-      org.mule.runtime.deployment,
+  exports com.zernova.runtime.config.internal.context to
+      com.zernova.runtime.deployment,
       spring.beans;
-  exports org.mule.runtime.config.internal.context.lazy to
-      org.mule.runtime.tooling.support;
-  exports org.mule.runtime.config.internal.dsl.processor to
-      org.mule.runtime.core,
+  exports com.zernova.runtime.config.internal.context.lazy to
+      com.zernova.runtime.tooling.support;
+  exports com.zernova.runtime.config.internal.dsl.processor to
+      com.zernova.runtime.core,
       spring.beans;
-  exports org.mule.runtime.config.internal.dsl.spring to
-      org.mule.runtime.extensions.spring.support,
-      org.mule.runtime.extensions.mule.support,
-      org.mule.runtime.extensions.xml.support,
-      org.mule.runtime.tls,
+  exports com.zernova.runtime.config.internal.dsl.spring to
+      com.zernova.runtime.extensions.spring.support,
+      com.zernova.runtime.extensions.mule.support,
+      com.zernova.runtime.extensions.xml.support,
+      com.zernova.runtime.tls,
       com.mulesoft.mule.runtime.bti,
       com.mulesoft.mule.runtime.kryo,
       com.mulesoft.mule.runtime.spring.config.ee,
       spring.beans;
-  exports org.mule.runtime.config.internal.el to
+  exports com.zernova.runtime.config.internal.el to
       spring.beans;
-  exports org.mule.runtime.config.internal.factories to
+  exports com.zernova.runtime.config.internal.factories to
       spring.beans;
-  exports org.mule.runtime.config.internal.factories.streaming to
+  exports com.zernova.runtime.config.internal.factories.streaming to
       spring.beans;
-  exports org.mule.runtime.config.internal.lazy to
+  exports com.zernova.runtime.config.internal.lazy to
       spring.beans;
-  exports org.mule.runtime.config.internal.model to
-      org.mule.runtime.extensions.xml.support;
-  exports org.mule.runtime.config.internal.processor to
+  exports com.zernova.runtime.config.internal.model to
+      com.zernova.runtime.extensions.xml.support;
+  exports com.zernova.runtime.config.internal.processor to
       spring.beans;
 
-  uses org.mule.runtime.config.internal.model.ApplicationModelAstPostProcessor;
-  uses org.mule.runtime.config.api.dsl.ArtifactDeclarationXmlSerializer;
-  uses org.mule.runtime.config.api.dsl.model.DslElementModelFactory;
-  uses org.mule.runtime.config.api.dsl.model.properties.ConfigurationPropertiesProviderFactory;
+  uses com.zernova.runtime.config.internal.model.ApplicationModelAstPostProcessor;
+  uses com.zernova.runtime.config.api.dsl.ArtifactDeclarationXmlSerializer;
+  uses com.zernova.runtime.config.api.dsl.model.DslElementModelFactory;
+  uses com.zernova.runtime.config.api.dsl.model.properties.ConfigurationPropertiesProviderFactory;
 
-  opens org.mule.runtime.config.api.dsl to
+  opens com.zernova.runtime.config.api.dsl to
       net.bytebuddy,
       spring.core;
-  opens org.mule.runtime.config.api.factories.streaming to
+  opens com.zernova.runtime.config.api.factories.streaming to
       spring.core;
-  opens org.mule.runtime.config.internal.bean to
+  opens com.zernova.runtime.config.internal.bean to
       spring.core;
-  opens org.mule.runtime.config.internal.context.service to
-      org.mule.runtime.core;
-  opens org.mule.runtime.config.internal.dsl.processor to
+  opens com.zernova.runtime.config.internal.context.service to
+      com.zernova.runtime.core;
+  opens com.zernova.runtime.config.internal.dsl.processor to
       net.bytebuddy,
       spring.core;
-  opens org.mule.runtime.config.internal.dsl.spring to
+  opens com.zernova.runtime.config.internal.dsl.spring to
       net.bytebuddy;
-  opens org.mule.runtime.config.internal.el to
+  opens com.zernova.runtime.config.internal.el to
       spring.core;
-  opens org.mule.runtime.config.internal.factories to
-      org.mule.runtime.core,
+  opens com.zernova.runtime.config.internal.factories to
+      com.zernova.runtime.core,
       net.bytebuddy,
       spring.core;
-  opens org.mule.runtime.config.internal.factories.streaming to
+  opens com.zernova.runtime.config.internal.factories.streaming to
       net.bytebuddy;
 
 }

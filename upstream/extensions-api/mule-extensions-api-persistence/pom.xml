@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.zernova.runtime</groupId>
+        <artifactId>mule-extensions-api-parent</artifactId>
+        <version>1.10.0-zernova.1</version>
+    </parent>
+
+    <artifactId>mule-extensions-api-persistence</artifactId>
+    <version>1.10.0-zernova.1</version>
+    <packaging>jar</packaging>
+    <name>ZERNOVA Extensions API Persistence</name>
+    <description>Persistence API for Mule Extensions</description>
+    <url>https://github.com/mulesoft/mule-extensions-api</url>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <configuration>
+                            <release>11</release>
+                            <!-- no excludes: compile everything to ensure module-info contains right entries -->
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>base-compile</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <release>${javaReleaseVersion}</release>
+                            <!-- recompile everything for target VM except the module-info.java -->
+                            <excludes>
+                                <exclude>module-info.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-testCompile</id>
+                        <configuration>
+                            <testRelease>11</testRelease>
+                            <!-- no excludes: compile everything to ensure module-info contains right entries -->
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>base-testCompile</id>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                        <configuration>
+                            <testRelease>${javaReleaseVersion}</testRelease>
+                            <!-- recompile everything for target VM except the module-info.java -->
+                            <testExcludes>
+                                <testExclude>module-info.java</testExclude>
+                            </testExcludes>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <encoding>ISO-8859-1</encoding>
+                    <proc>none</proc>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.zernova.runtime</groupId>
+            <artifactId>mule-extensions-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zernova.runtime</groupId>
+            <artifactId>mule-metadata-model-persistence</artifactId>
+        </dependency>
+
+        <!--Test dependencies-->
+        <dependency>
+            <groupId>com.zernova.runtime</groupId>
+            <artifactId>mule-api</artifactId>
+            <version>${muleApiVersion}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zernova.runtime</groupId>
+            <artifactId>mule-extensions-api</artifactId>
+            <version>${project.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>xmlunit</groupId>
+            <artifactId>xmlunit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zernova.skyscreamer</groupId>
+            <artifactId>jsonassert</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

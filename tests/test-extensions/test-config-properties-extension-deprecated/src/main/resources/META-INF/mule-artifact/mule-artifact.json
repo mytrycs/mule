@@ -4,7 +4,7 @@
   "extensionModelLoaderDescriptor": {
     "id": "crafted",
     "attributes": {
-      "type": "org.mule.test.crafted.config.properties.deprecated.extension.TestConfigPropertiesExtensionLoadingDelegate",
+      "type": "com.zernova.test.crafted.config.properties.deprecated.extension.TestConfigPropertiesExtensionLoadingDelegate",
       "version": "4.0.0"
     }
   },
@@ -14,10 +14,10 @@
     "id": "mule",
     "attributes": {
       "exportedPackages": [
-        "org.mule.test.crafted.config.properties.deprecated.extension"
+        "com.zernova.test.crafted.config.properties.deprecated.extension"
       ],
       "exportedResources": [
-        "META-INF/services/org.mule.runtime.config.api.dsl.model.properties.ConfigurationPropertiesProviderFactory"
+        "META-INF/services/com.zernova.runtime.config.api.dsl.model.properties.ConfigurationPropertiesProviderFactory"
       ]
     }
   },

@@ -4,11 +4,12 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package org.exception;
 
-import org.mule.runtime.api.exception.MuleException;
+import com.zernova.runtime.api.exception.ZernovaException;
 
-public class CustomException extends MuleException {
+public class CustomException extends ZernovaException {
 
   private static final String MESSAGE = "Error";
 

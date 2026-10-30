@@ -4,6 +4,7 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 
 /**
  * Mule Log4j Configurator Module.
@@ -11,12 +12,12 @@
  * @moduleGraph
  * @since 4.5
  */
-module org.mule.runtime.boot.log4j {
+module com.zernova.runtime.boot.log4j {
 
   // Exported.
-  exports org.mule.runtime.module.log4j.boot.api;
+  exports com.zernova.runtime.module.log4j.boot.api;
 
-  requires org.mule.runtime.logging;
+  requires com.zernova.runtime.logging;
 
   // Third party modules
   requires com.lmax.disruptor;

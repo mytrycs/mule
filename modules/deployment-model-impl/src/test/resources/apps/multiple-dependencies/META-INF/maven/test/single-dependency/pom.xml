@@ -15,7 +15,7 @@
             <version>3.2.2</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>test-dependant-plugin</artifactId>
             <classifier>mule-plugin</classifier>
             <version>${project.version}</version>

@@ -4,9 +4,10 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 
-import org.mule.runtime.module.launcher.privileged.ContainerServiceProvider;
-import org.mule.runtime.module.troubleshooting.internal.launcher.TroubleshootingContainerServiceProvider;
+import com.zernova.runtime.module.launcher.privileged.ContainerServiceProvider;
+import com.zernova.runtime.module.troubleshooting.internal.launcher.TroubleshootingContainerServiceProvider;
 
 /**
  * Module containing an injectable interface capable to call certain troubleshooting operations.
@@ -14,25 +15,25 @@ import org.mule.runtime.module.troubleshooting.internal.launcher.Troubleshooting
  * @moduleGraph
  * @since 4.6
  */
-module org.mule.runtime.troubleshooting {
+module com.zernova.runtime.troubleshooting {
 
-  requires org.mule.runtime.api.annotations;
-  requires org.mule.runtime.core;
-  requires org.mule.runtime.container;
-  requires org.mule.runtime.deployment;
-  requires org.mule.runtime.deployment.model;
-  requires org.mule.runtime.deployment.model.impl;
-  requires org.mule.runtime.launcher;
-  requires org.mule.runtime.manifest;
+  requires com.zernova.runtime.api.annotations;
+  requires com.zernova.runtime.core;
+  requires com.zernova.runtime.container;
+  requires com.zernova.runtime.deployment;
+  requires com.zernova.runtime.deployment.model;
+  requires com.zernova.runtime.deployment.model.impl;
+  requires com.zernova.runtime.launcher;
+  requires com.zernova.runtime.manifest;
 
   requires org.apache.commons.lang3;
   requires org.json;
   requires com.google.gson;
 
-  exports org.mule.runtime.module.troubleshooting.api;
+  exports com.zernova.runtime.module.troubleshooting.api;
 
-  exports org.mule.runtime.module.troubleshooting.internal to
-      org.mule.runtime.launcher;
+  exports com.zernova.runtime.module.troubleshooting.internal to
+      com.zernova.runtime.launcher;
 
   provides ContainerServiceProvider
       with TroubleshootingContainerServiceProvider;

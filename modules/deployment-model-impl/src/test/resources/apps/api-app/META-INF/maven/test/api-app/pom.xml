@@ -10,21 +10,21 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.test</groupId>
+            <groupId>com.zernova.test</groupId>
             <artifactId>wsdl-api-a</artifactId>
             <version>1.0.0</version>
             <classifier>wsdl</classifier>
             <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>org.mule.test</groupId>
+            <groupId>com.zernova.test</groupId>
             <artifactId>wsdl-api-b</artifactId>
             <version>1.0.0</version>
             <classifier>wsdl</classifier>
             <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>org.mule.test</groupId>
+            <groupId>com.zernova.test</groupId>
             <artifactId>library</artifactId>
             <version>1.0.0</version>
             <type>pom</type>

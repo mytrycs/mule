@@ -164,6 +164,6 @@
     </flow>
 
     <flow name="adopt">
-        <test:processor class="org.mule.test.module.extension.source.PollingSourceRestartingTestCase$AdoptionProcessor"/>
+        <test:processor class="com.zernova.test.module.extension.source.PollingSourceRestartingTestCase$AdoptionProcessor"/>
     </flow>
 </mule>

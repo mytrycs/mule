@@ -1,0 +1,181 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.core.internal.connection;
+
+import static com.zernova.runtime.core.api.lifecycle.LifecycleUtils.disposeIfNeeded;
+import static com.zernova.runtime.core.api.lifecycle.LifecycleUtils.initialiseIfNeeded;
+import static com.zernova.runtime.core.api.lifecycle.LifecycleUtils.startIfNeeded;
+import static com.zernova.runtime.core.api.lifecycle.LifecycleUtils.stopIfNeeded;
+
+import static java.util.Objects.requireNonNull;
+
+import static org.slf4j.LoggerFactory.getLogger;
+
+import com.zernova.runtime.api.config.PoolingProfile;
+import com.zernova.runtime.api.connection.ConnectionException;
+import com.zernova.runtime.api.connection.ConnectionHandler;
+import com.zernova.runtime.api.connection.ConnectionProvider;
+import com.zernova.runtime.api.connection.ConnectionValidationResult;
+import com.zernova.runtime.api.exception.ZernovaException;
+import com.zernova.runtime.api.lifecycle.InitialisationException;
+import com.zernova.runtime.core.api.connector.ConnectionManager;
+import com.zernova.runtime.core.api.retry.ReconnectionConfig;
+import com.zernova.runtime.core.api.retry.policy.RetryPolicyTemplate;
+import com.zernova.runtime.extension.api.runtime.config.ConfigurationInstance;
+
+import org.slf4j.Logger;
+
+/**
+ * {@link ConnectionManager} implementation which composes two {@link ConnectionManager} in a hierarchy manner.
+ * <p>
+ * If the this manager can't process a request with the {@link CompositeConnectionManager#childConnectionManager}, it will
+ * fallback to the {@link CompositeConnectionManager#parentConnectionManager}
+ *
+ * @since 4.0
+ */
+public class CompositeConnectionManager implements ConnectionManager, ConnectionManagerAdapter {
+
+  private static final Logger LOGGER = getLogger(CompositeConnectionManager.class);
+
+  private final ConnectionManagerAdapter childConnectionManager;
+  private final ConnectionManagerAdapter parentConnectionManager;
+
+  /**
+   * Creates a new instance of {@link CompositeConnectionManager}
+   *
+   * @param childConnectionManager  {@link ConnectionManager} considered as the main one
+   * @param parentConnectionManager {@link ConnectionManager} considered as the secondary one, is a request can't be handled by
+   *                                the main {@link ConnectionManager}, this one will be used
+   */
+  public CompositeConnectionManager(ConnectionManagerAdapter childConnectionManager,
+                                    ConnectionManagerAdapter parentConnectionManager) {
+    requireNonNull(childConnectionManager, "'childConnectionManager' can't be null");
+    requireNonNull(parentConnectionManager, "'parentConnectionManager' can't be null");
+
+    this.childConnectionManager = childConnectionManager;
+    this.parentConnectionManager = parentConnectionManager;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public <C> void bind(Object config, ConnectionProvider<C> connectionProvider) {
+    childConnectionManager.bind(config, connectionProvider);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean hasBinding(Object config) {
+    return childConnectionManager.hasBinding(config) || parentConnectionManager.hasBinding(config);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void unbind(Object config) {
+    if (childConnectionManager.hasBinding(config)) {
+      childConnectionManager.unbind(config);
+    } else if (parentConnectionManager.hasBinding(config)) {
+      parentConnectionManager.unbind(config);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public <C> ConnectionHandler<C> getConnection(Object config) throws ConnectionException {
+    return childConnectionManager.hasBinding(config) ? childConnectionManager.getConnection(config)
+        : parentConnectionManager.getConnection(config);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public <C> ConnectionValidationResult testConnectivity(ConnectionProvider<C> connectionProvider) {
+    return childConnectionManager.testConnectivity(connectionProvider);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public ConnectionValidationResult testConnectivity(ConfigurationInstance configurationInstance)
+      throws IllegalArgumentException {
+    Object value = configurationInstance.getValue();
+
+    if (childConnectionManager.hasBinding(value)) {
+      return childConnectionManager.testConnectivity(configurationInstance);
+    } else {
+      return parentConnectionManager.testConnectivity(configurationInstance);
+    }
+  }
+
+  @Override
+  public ConnectionValidationResult testConnectivity(ConfigurationInstance configurationInstance, boolean force)
+      throws IllegalArgumentException {
+    return testConnectivity(configurationInstance);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public <C> ConnectionValidationResult testConnectivity(C connection, ConnectionHandler<C> connectionHandler) {
+    return childConnectionManager.testConnectivity(connection, connectionHandler);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public <C> RetryPolicyTemplate getRetryTemplateFor(ConnectionProvider<C> connectionProvider) {
+    return childConnectionManager.getRetryTemplateFor(connectionProvider);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public <C> ReconnectionConfig getReconnectionConfigFor(ConnectionProvider<C> connectionProvider) {
+    return childConnectionManager.getReconnectionConfigFor(connectionProvider);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public PoolingProfile getDefaultPoolingProfile() {
+    return childConnectionManager.getDefaultPoolingProfile();
+  }
+
+  @Override
+  public void dispose() {
+    disposeIfNeeded(childConnectionManager, LOGGER);
+  }
+
+  @Override
+  public void initialise() throws InitialisationException {
+    initialiseIfNeeded(childConnectionManager);
+  }
+
+  @Override
+  public void start() throws ZernovaException {
+    startIfNeeded(childConnectionManager);
+  }
+
+  @Override
+  public void stop() throws ZernovaException {
+    stopIfNeeded(childConnectionManager);
+  }
+}

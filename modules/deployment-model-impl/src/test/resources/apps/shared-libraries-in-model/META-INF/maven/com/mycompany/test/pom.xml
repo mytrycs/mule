@@ -11,13 +11,13 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.group</groupId>
+            <groupId>com.zernova.group</groupId>
             <artifactId>mule-plugin-a</artifactId>
             <version>1.0.0</version>
             <classifier>mule-plugin</classifier>
         </dependency>
         <dependency>
-            <groupId>org.mule.group</groupId>
+            <groupId>com.zernova.group</groupId>
             <artifactId>mule-plugin-b</artifactId>
             <version>1.0.0</version>
             <classifier>mule-plugin</classifier>
@@ -26,7 +26,7 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.mule.tools.maven</groupId>
+                <groupId>com.zernova.tools.maven</groupId>
                 <artifactId>mule-maven-plugin</artifactId>
                 <version>${mule.maven.plugin.version}</version>
                 <extensions>true</extensions>

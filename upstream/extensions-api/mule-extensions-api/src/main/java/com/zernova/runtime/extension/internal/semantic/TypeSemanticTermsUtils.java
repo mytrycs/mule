@@ -1,0 +1,46 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.extension.internal.semantic;
+
+import static com.zernova.runtime.extension.privileged.semantic.SemanticTermsHelper.getParameterTermsFromAnnotations;
+
+import com.zernova.metadata.api.builder.WithAnnotation;
+import com.zernova.runtime.extension.api.declaration.type.annotation.SemanticTermsTypeAnnotation;
+import com.zernova.runtime.extension.privileged.semantic.SemanticTermsHelper;
+
+import java.lang.reflect.AnnotatedElement;
+import java.util.Set;
+
+/**
+ * Utility class for handling semantic terms declared at a type level.
+ * <p>
+ * This class <b>IS NOT</b> part of the API. To be used by the Mule Runtime only
+ *
+ * @since 1.4.0
+ */
+public final class TypeSemanticTermsUtils {
+
+  /**
+   * Introspects the given {@code element} for semantic annotations (by the rules of
+   * {@link SemanticTermsHelper#getParameterTermsFromAnnotations(java.util.function.Function)}).
+   * <p>
+   * If terms are found, the {@code annotatedBuilder} is enriched with a {@link SemanticTermsTypeAnnotation} carrying the found
+   * terms. no
+   *
+   * @param element          an {@link AnnotatedElement}
+   * @param annotatedBuilder a {@link WithAnnotation}
+   */
+  public static void enrichWithTypeAnnotation(AnnotatedElement element, final WithAnnotation annotatedBuilder) {
+    Set<String> terms = getParameterTermsFromAnnotations(element::isAnnotationPresent);
+    if (!terms.isEmpty()) {
+      annotatedBuilder.with(new SemanticTermsTypeAnnotation(terms));
+    }
+  }
+
+  private TypeSemanticTermsUtils() {}
+}

@@ -25,7 +25,7 @@
                 <version>3.0.0</version>
             </plugin>
             <plugin>
-                <groupId>org.mule.tools.maven</groupId>
+                <groupId>com.zernova.tools.maven</groupId>
                 <artifactId>mule-maven-plugin</artifactId>
                 <version>${mule.maven.plugin.version}</version>
                 <extensions>true</extensions>
@@ -35,13 +35,13 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.connectors</groupId>
+            <groupId>com.zernova.connectors</groupId>
             <artifactId>mule-http-connector</artifactId>
             <version>${mule.http.connector.version}</version>
             <classifier>mule-plugin</classifier>
         </dependency>
         <dependency>
-            <groupId>org.mule.connectors</groupId>
+            <groupId>com.zernova.connectors</groupId>
             <artifactId>mule-db-connector</artifactId>
             <version>${mule.db.connector.version}</version>
             <classifier>mule-plugin</classifier>

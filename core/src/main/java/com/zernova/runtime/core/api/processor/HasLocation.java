@@ -1,0 +1,27 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.core.api.processor;
+
+import com.zernova.api.annotation.NoImplement;
+import com.zernova.runtime.api.component.location.ComponentLocation;
+
+/**
+ * An interface that indicates that the {@link ComponentLocation} can be resolved. It is used as a WA so that the subtypes of
+ * {@link ReactiveProcessor} that are associated to a location can be identified and a location can be obtained for those types.
+ *
+ * // TODO MULE-19594: refactor the way of retrieving the component location from a generic reactive processor.
+ */
+@NoImplement
+public interface HasLocation {
+
+  /**
+   * @return the resolved {@link ComponentLocation}.
+   */
+  public ComponentLocation resolveLocation();
+
+}

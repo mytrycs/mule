@@ -2,7 +2,7 @@
   "extensionModelLoaderDescriptor": {
     "id": "crafted",
     "attributes": {
-      "type": "org.mule.tests.chains.api.extension.TestProcessorChainsExtensionLoadingDelegate"
+      "type": "com.zernova.tests.chains.api.extension.TestProcessorChainsExtensionLoadingDelegate"
     }
   },
   "name": "Mule test processor chains plugin",
@@ -11,7 +11,7 @@
     "id": "mule",
     "attributes": {
       "exportedPackages": [
-        "org.mule.tests.chains.api.config"
+        "com.zernova.tests.chains.api.config"
       ],
       "exportedResources": [
         "/META-INF/mule-test-processor-chains.xsd",

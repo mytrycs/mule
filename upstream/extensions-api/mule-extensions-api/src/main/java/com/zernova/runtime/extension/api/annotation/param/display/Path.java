@@ -1,0 +1,55 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.extension.api.annotation.param.display;
+
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import static com.zernova.runtime.api.meta.model.display.PathModel.Type.ANY;
+
+import com.zernova.runtime.api.meta.model.display.PathModel;
+import com.zernova.runtime.api.meta.model.display.PathModel.Location;
+import com.zernova.runtime.extension.api.annotation.param.Parameter;
+import com.zernova.sdk.api.annotation.semantics.file.FilePath;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+/**
+ * Marks a field or parameter annotated with {@link Parameter} as a path to a file or directory.
+ * <p/>
+ * This annotation should only be used with {@link String} parameters.
+ *
+ * @since 1.0
+ */
+@Target(value = {PARAMETER, FIELD})
+@Retention(RUNTIME)
+@Documented
+public @interface Path {
+
+  /**
+   * @return whether the path is to a directory or a file
+   */
+  PathModel.Type type() default ANY;
+
+  /**
+   * @return whether the path parameter also supports urls.
+   */
+  boolean acceptsUrls() default false;
+
+  /**
+   * @return a classifier for the path's generic {@link Location}
+   */
+  Location location() default Location.ANY;
+
+  /**
+   * @return the file extensions that this path handles.
+   */
+  String[] acceptedFileExtensions() default {};
+}

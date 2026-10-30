@@ -4,16 +4,16 @@
       "ignore": [
         {
           "code": "java.annotation.added",
-          "old": "interface org.mule.runtime.module.tooling.api.ToolingService",
-          "new": "interface org.mule.runtime.module.tooling.api.ToolingService",
-          "annotationType": "org.mule.api.annotation.NoImplement",
+          "old": "interface com.zernova.runtime.module.tooling.api.ToolingService",
+          "new": "interface com.zernova.runtime.module.tooling.api.ToolingService",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
           "justification": "This interface is not meant to be implemented by the user"
         },
         {
           "code": "java.annotation.added",
-          "old": "interface org.mule.runtime.module.tooling.api.connectivity.ConnectivityTestingServiceBuilder",
-          "new": "interface org.mule.runtime.module.tooling.api.connectivity.ConnectivityTestingServiceBuilder",
-          "annotationType": "org.mule.api.annotation.NoImplement",
+          "old": "interface com.zernova.runtime.module.tooling.api.connectivity.ConnectivityTestingServiceBuilder",
+          "new": "interface com.zernova.runtime.module.tooling.api.connectivity.ConnectivityTestingServiceBuilder",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
           "justification": "This interface is not meant to be implemented by the user"
         }
       ]

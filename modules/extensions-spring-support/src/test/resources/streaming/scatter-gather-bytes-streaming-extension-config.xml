@@ -5,7 +5,7 @@
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
                http://www.mulesoft.org/schema/mule/marvel http://www.mulesoft.org/schema/mule/marvel/current/mule-marvel.xsd">
 
-    <object name="assertPayloadIsIteratorProvider" class="org.mule.test.module.extension.streaming.ScatterGatherTimeoutWithBytesStreamingExtensionTestCase$AssertPayloadIsIteratorProvider"/>
+    <object name="assertPayloadIsIteratorProvider" class="com.zernova.test.module.extension.streaming.ScatterGatherTimeoutWithBytesStreamingExtensionTestCase$AssertPayloadIsIteratorProvider"/>
 
     <marvel:dr-strange-config name="drStrange" />
 

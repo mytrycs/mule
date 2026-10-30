@@ -1,0 +1,79 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.extension.internal.persistence.metadata;
+
+import com.zernova.runtime.api.metadata.DefaultMetadataKey;
+import com.zernova.runtime.api.metadata.MetadataKey;
+import com.zernova.runtime.api.metadata.MetadataKeyBuilder;
+import com.zernova.runtime.extension.api.metadata.NullMetadataKey;
+
+import java.io.IOException;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
+public class MetadataKeyTypeAdapter extends TypeAdapter<MetadataKey> {
+
+  private Gson gson = new GsonBuilder().create();
+
+  @Override
+  public void write(JsonWriter out, MetadataKey value) throws IOException {
+    if (value != null) {
+      if (value instanceof NullMetadataKey) {
+        gson.toJson(value, NullMetadataKey.class, out);
+      } else if (value instanceof DefaultMetadataKey) {
+        gson.toJson(value, DefaultMetadataKey.class, out);
+      } else {
+        throw new RuntimeException("Couldn't serialize MetadataKey for implementation: " + value.getClass());
+      }
+    } else {
+      out.nullValue();
+    }
+  }
+
+  @Override
+  public MetadataKey read(JsonReader in) throws IOException {
+    JsonElement jsonElement = new JsonParser().parse(in);
+    return toMetadataKey(jsonElement);
+  }
+
+  private MetadataKey toMetadataKey(JsonElement jsonElement) {
+    if (jsonElement.isJsonNull()) {
+      return null;
+    }
+    JsonObject metadataKey = jsonElement.getAsJsonObject();
+
+    if (metadataKey.entrySet().isEmpty()) {
+      return new NullMetadataKey();
+    }
+
+    JsonElement id = metadataKey.get("id");
+    JsonElement displayName = metadataKey.get("displayName");
+    JsonElement partName = metadataKey.get("partName");
+    JsonElement childs = metadataKey.get("childs");
+
+    if (id != null && displayName != null && partName != null && childs != null) {
+      MetadataKeyBuilder key = MetadataKeyBuilder.newKey(id.getAsString())
+          .withDisplayName(displayName.getAsString())
+          .withPartName(partName.getAsString());
+
+      childs.getAsJsonArray()
+          .forEach(child -> key.withChild(toMetadataKey(child)));
+
+      return key.build();
+    }
+
+    return null;
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "parameters": [
+    {
+      "name": "param1",
+      "required": true,
+      "extractionExpression": "param1"
+    },
+    {
+      "name": "param2",
+      "required": true,
+      "extractionExpression": "param2"
+    },
+    {
+      "name": "param3",
+      "required": false,
+      "extractionExpression":"param3"
+    }
+  ],
+  "partOrder": 1,
+  "providerName": "Category 1",
+  "providerId": "Id 1",
+  "requiresConfiguration": false,
+  "requiresConnection": false,
+  "isOpen": false,
+  "modelProperties": {}
+}

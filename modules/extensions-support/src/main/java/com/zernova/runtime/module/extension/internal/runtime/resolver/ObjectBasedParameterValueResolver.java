@@ -1,0 +1,115 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.module.extension.internal.runtime.resolver;
+
+import static java.util.Collections.unmodifiableMap;
+import static com.zernova.runtime.module.extension.internal.util.IntrospectionUtils.getField;
+import static com.zernova.runtime.module.extension.internal.util.IntrospectionUtils.getFieldValue;
+import static com.zernova.runtime.module.extension.internal.util.IntrospectionUtils.getFields;
+
+import com.zernova.runtime.api.connection.ConnectionProvider;
+import com.zernova.runtime.api.meta.model.parameter.ParameterGroupModel;
+import com.zernova.runtime.api.meta.model.parameter.ParameterizedModel;
+import com.zernova.runtime.extension.api.runtime.source.Source;
+import com.zernova.runtime.module.extension.api.runtime.resolver.ParameterValueResolver;
+import com.zernova.runtime.module.extension.api.runtime.resolver.ValueResolver;
+import com.zernova.runtime.module.extension.api.runtime.resolver.ValueResolvingException;
+import com.zernova.runtime.module.extension.internal.loader.java.property.ParameterGroupModelProperty;
+import com.zernova.runtime.module.extension.internal.util.ReflectionCache;
+
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+/**
+ * {@link ParameterValueResolver} implementation for Object based components, like {@link Source sources}, configurations and
+ * {@link ConnectionProvider connection providers}
+ *
+ * @since 4.0
+ */
+public class ObjectBasedParameterValueResolver implements ParameterValueResolver {
+
+  private final Object object;
+  private final ParameterizedModel parameterizedModel;
+  private final ReflectionCache reflectionCache;
+
+  public ObjectBasedParameterValueResolver(Object object, ParameterizedModel parameterizedModel,
+                                           ReflectionCache reflectionCache) {
+    this.object = object;
+    this.parameterizedModel = parameterizedModel;
+    this.reflectionCache = reflectionCache;
+  }
+
+  @Override
+  public Object getParameterValue(String parameterName) throws ValueResolvingException {
+    try {
+      Optional<Field> field = getField(object.getClass(), parameterName, reflectionCache);
+      if (field.isPresent()) {
+        return getFieldValue(object, parameterName, reflectionCache);
+      } else {
+        Object returnValue = null;
+        for (ParameterGroupModel parameterGroupModel : parameterizedModel.getParameterGroupModels()) {
+          Optional<ParameterGroupModelProperty> modelProperty =
+              parameterGroupModel.getModelProperty(ParameterGroupModelProperty.class);
+
+          if (modelProperty.isPresent()) {
+            ParameterGroupModelProperty property = modelProperty.get();
+            Field container = (Field) property.getDescriptor().getContainer();
+
+            Object parameterGroup = getFieldValue(object, container.getName(), reflectionCache);
+            Optional<Field> desiredField = getField(parameterGroup.getClass(), parameterName, reflectionCache);
+            if (desiredField.isPresent()) {
+              return getFieldValue(parameterGroup, parameterName, reflectionCache);
+            }
+            if (parameterGroupModel.getName().equals(parameterName)) {
+              returnValue = parameterGroup;
+            }
+          }
+        }
+        if (returnValue != null) {
+          return returnValue;
+        }
+      }
+    } catch (Exception e) {
+      throw new ValueResolvingException("An error occurred trying to obtain the value for the parameter: " + parameterName);
+    }
+    throw new ValueResolvingException("Unable to resolve value for the parameter: " + parameterName);
+  }
+
+  @Override
+  public Map<String, ValueResolver<? extends Object>> getParameters() throws ValueResolvingException {
+    HashMap<String, ValueResolver<? extends Object>> parameters = new HashMap<>();
+    try {
+      addFields(getFields(object.getClass()), parameters);
+
+      for (ParameterGroupModel parameterGroupModel : parameterizedModel.getParameterGroupModels()) {
+        Optional<ParameterGroupModelProperty> modelProperty =
+            parameterGroupModel.getModelProperty(ParameterGroupModelProperty.class);
+        if (modelProperty.isPresent()) {
+          ParameterGroupModelProperty property = modelProperty.get();
+          Field container = (Field) property.getDescriptor().getContainer();
+          Object parameterGroup = getFieldValue(object, container.getName(), reflectionCache);
+          addFields(getFields(parameterGroup.getClass()), parameters);
+        }
+      }
+    } catch (Exception e) {
+      throw new ValueResolvingException("An error occurred trying to obtain the parameters.");
+    }
+    return unmodifiableMap(parameters);
+  }
+
+  private void addFields(List<Field> fields, HashMap<String, ValueResolver<? extends Object>> parameters)
+      throws NoSuchFieldException, IllegalAccessException {
+    for (Field field : fields) {
+      String parameterName = field.getName();
+      parameters.put(parameterName, new StaticValueResolver<>(getFieldValue(object, parameterName, reflectionCache)));
+    }
+  }
+}

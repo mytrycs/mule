@@ -1,0 +1,114 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.core.internal.policy;
+
+import static com.zernova.runtime.api.i18n.I18nMessageFactory.createStaticMessage;
+import static com.zernova.runtime.core.internal.execution.utils.SourcePolicyTestUtils.block;
+
+import static java.util.Optional.empty;
+
+import static reactor.core.publisher.Mono.error;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.IsNull.nullValue;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import com.zernova.runtime.api.functional.Either;
+import com.zernova.runtime.core.api.event.CoreEvent;
+import com.zernova.runtime.core.api.processor.ReactiveProcessor;
+import com.zernova.runtime.core.api.util.CaseInsensitiveHashMap;
+import com.zernova.runtime.core.internal.event.InternalEvent;
+import com.zernova.runtime.core.internal.message.EventInternalContext;
+import com.zernova.runtime.core.privileged.exception.MessagingException;
+import com.zernova.runtime.policy.api.PolicyPointcutParameters;
+import com.zernova.tck.junit4.AbstractZernovaTestCase;
+
+import java.util.Map;
+
+import com.google.common.collect.ImmutableMap;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import reactor.core.publisher.Flux;
+
+public class NoSourcePolicyTestCase extends AbstractZernovaTestCase {
+
+  private NoSourcePolicy noSourcePolicy;
+
+  private final InternalEvent initialEvent = mock(InternalEvent.class, RETURNS_DEEP_STUBS);
+  private final MessageSourceResponseParametersProcessor respParametersProcessor =
+      mock(MessageSourceResponseParametersProcessor.class, RETURNS_DEEP_STUBS);
+
+  private CoreEvent updatedEvent;
+  private ReactiveProcessor flowProcessor = mock(ReactiveProcessor.class);
+  private SourcePolicyContext sourcePolicyContext;
+
+  @Before
+  public void setUp() throws Exception {
+    sourcePolicyContext = new SourcePolicyContext(mock(PolicyPointcutParameters.class));
+    flowProcessor = coreEventPublisher -> Flux.from(coreEventPublisher).map(event -> {
+      updatedEvent = event;
+      return updatedEvent;
+    });
+
+    noSourcePolicy = new NoSourcePolicy(flowProcessor);
+
+    when(initialEvent.getVariables()).thenReturn(new CaseInsensitiveHashMap<>());
+    when(initialEvent.getSourcePolicyContext()).thenReturn((EventInternalContext) sourcePolicyContext);
+    when(initialEvent.getError()).thenReturn(empty());
+  }
+
+  @Test
+  public void process() throws Throwable {
+    Map<String, Object> successParameters = responseParameters();
+
+    when(respParametersProcessor.getSuccessfulExecutionResponseParametersFunction().apply(any()))
+        .thenReturn(successParameters);
+
+    Either<SourcePolicyFailureResult, SourcePolicySuccessResult> result =
+        block(callback -> noSourcePolicy.process(initialEvent, respParametersProcessor, callback));
+
+    assertThat(result.getLeft(), nullValue());
+    assertThat(result.getRight().getResult(), is(updatedEvent));
+    assertThat(result.getRight().getMessageSourceResponseParametersProcessor(), is(respParametersProcessor));
+    assertThat(result.getRight().getResponseParameters().get(), is(successParameters));
+  }
+
+  @Test
+  public void processWithFlowError() throws Throwable {
+    flowProcessor = coreEventPublisher -> Flux.from(coreEventPublisher)
+        .flatMap(event -> {
+          updatedEvent = event;
+          return error(new MessagingException(createStaticMessage("message"), event));
+        });
+
+    noSourcePolicy = new NoSourcePolicy(flowProcessor);
+
+    Map<String, Object> errorParameters = responseParameters();
+
+    when(respParametersProcessor.getFailedExecutionResponseParametersFunction().apply(any()))
+        .thenReturn(errorParameters);
+
+    Either<SourcePolicyFailureResult, SourcePolicySuccessResult> result =
+        block(callback -> noSourcePolicy.process(initialEvent, respParametersProcessor, callback));
+
+    assertThat(result.getRight(), nullValue());
+    assertThat(result.getLeft().getErrorResponseParameters().get(), is(errorParameters));
+    assertThat(result.getLeft().getMessagingException().getEvent(), is(updatedEvent));
+  }
+
+  private Map<String, Object> responseParameters() {
+    return ImmutableMap.of("param", "value");
+  }
+}

@@ -10,27 +10,27 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>org.mule.runtime</groupId>
+        <groupId>com.zernova.runtime</groupId>
         <artifactId>mule-module-tracing-parent</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>mule-tracer-api</artifactId>
-    <name>Mule Tracer Api</name>
+    <name>ZERNOVA Tracer Api</name>
     <description>Definitions for Mule tracer</description>
 
     <properties>
-        <javaModuleName>org.mule.runtime.tracer.api</javaModuleName>
+        <javaModuleName>com.zernova.runtime.tracer.api</javaModuleName>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-profiling-api</artifactId>
         </dependency>
     </dependencies>

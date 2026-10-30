@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.zernova.distributions</groupId>
+        <artifactId>mule-distributions</artifactId>
+        <version>4.10.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>mule-services-all</artifactId>
+    <packaging>pom</packaging>
+    <name>All ZERNOVA Services</name>
+    <description>
+        This is a meta module that allows easy referencing of all services implementations.
+        This is needed in our various distributions we publish.
+    </description>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.zernova.services</groupId>
+            <artifactId>mule-service-scheduler</artifactId>
+            <classifier>mule-service</classifier>
+            <exclusions>
+                <!--TODO(gfernandes): remove this, see validation's comment-->
+                <exclusion>
+                    <groupId>org.quartz-scheduler</groupId>
+                    <artifactId>quartz</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.mchange</groupId>
+                    <artifactId>c3p0</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.zernova.services</groupId>
+            <artifactId>mule-service-oauth</artifactId>
+            <classifier>mule-service</classifier>
+        </dependency>
+        <dependency>
+            <groupId>com.zernova.services</groupId>
+            <artifactId>mule-service-http</artifactId>
+            <classifier>mule-service</classifier>
+            <exclusions>
+                <!-- Runtime Dependencies-->
+                <exclusion>
+                    <groupId>com.zernova.runtime</groupId>
+                    <artifactId>mule-service-http-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.zernova.runtime</groupId>
+                    <artifactId>mule-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.zernova.runtime</groupId>
+                    <artifactId>mule-module-tls</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.zernova.glassfish.grizzly</groupId>
+                    <artifactId>grizzly-http-server</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.zernova.glassfish.grizzly</groupId>
+                    <artifactId>connection-pool</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.mail</groupId>
+                    <artifactId>mailapi</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.zernova.glassfish.grizzly</groupId>
+                    <artifactId>grizzly-http-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.zernova.glassfish.grizzly</groupId>
+                    <artifactId>grizzly-websockets</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.zernova.glassfish.grizzly</groupId>
+                    <artifactId>grizzly-http-servlet</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-text</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.zernova.services</groupId>
+                    <artifactId>mule-netty-http-service</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <artifactId>mule-service-weave</artifactId>
+            <groupId>com.zernova.services</groupId>
+            <classifier>mule-service</classifier>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+</project>

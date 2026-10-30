@@ -4,7 +4,7 @@
   "extensionModelLoaderDescriptor": {
     "id": "java",
     "attributes": {
-      "type": "org.mule.test.oauth.TestOAuthExtension",
+      "type": "com.zernova.test.oauth.TestOAuthExtension",
       "version": "4.0.0"
     }
   },
@@ -13,7 +13,7 @@
     "id": "mule",
     "attributes": {
       "exportedPackages": [
-        "org.mule.test.oauth"
+        "com.zernova.test.oauth"
       ],
       "exportedResources": [
       ]

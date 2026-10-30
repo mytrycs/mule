@@ -10,14 +10,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.test</groupId>
+            <groupId>com.zernova.test</groupId>
             <artifactId>raml-api-a</artifactId>
             <version>1.0.0</version>
             <classifier>raml</classifier>
             <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>org.mule.test</groupId>
+            <groupId>com.zernova.test</groupId>
             <artifactId>raml-api-b</artifactId>
             <version>1.0.0</version>
             <classifier>raml</classifier>

@@ -4,10 +4,11 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-import org.mule.runtime.api.config.custom.ServiceConfigurator;
-import org.mule.runtime.module.launcher.privileged.ContainerServiceProvider;
-import org.mule.runtime.module.tooling.internal.config.ToolingServicesConfigurator;
-import org.mule.runtime.module.tooling.internal.launcher.ToolingSupportContainerServiceProvider;
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+import com.zernova.runtime.api.config.custom.ServiceConfigurator;
+import com.zernova.runtime.module.launcher.privileged.ContainerServiceProvider;
+import com.zernova.runtime.module.tooling.internal.config.ToolingServicesConfigurator;
+import com.zernova.runtime.module.tooling.internal.launcher.ToolingSupportContainerServiceProvider;
 
 /**
  * This modules provides a set of services for tooling applications.
@@ -15,34 +16,34 @@ import org.mule.runtime.module.tooling.internal.launcher.ToolingSupportContainer
  * @moduleGraph
  * @since 4.6
  */
-module org.mule.runtime.tooling.support {
+module com.zernova.runtime.tooling.support {
 
-  requires org.mule.runtime.api;
-  requires org.mule.runtime.artifact;
-  requires org.mule.runtime.artifact.activation;
-  requires org.mule.runtime.artifact.ast.xmlParser;
-  requires org.mule.runtime.artifact.declaration;
-  requires org.mule.runtime.container;
-  requires org.mule.runtime.core;
-  requires org.mule.runtime.deployment;
-  requires org.mule.runtime.deployment.model;
-  requires org.mule.runtime.deployment.model.impl;
-  requires org.mule.runtime.extension.model;
-  requires org.mule.runtime.extensions.api;
-  requires org.mule.runtime.extensions.support;
-  requires org.mule.runtime.global.config;
-  requires org.mule.runtime.launcher;
-  requires org.mule.runtime.license.api;
-  requires org.mule.runtime.manifest;
-  requires org.mule.runtime.maven.client.api;
-  requires org.mule.runtime.maven.pom.parser.api;
-  requires org.mule.runtime.metadata.model.api;
-  requires org.mule.runtime.metadata.model.java;
-  requires org.mule.runtime.metadata.support;
-  requires org.mule.runtime.properties.config;
-  requires org.mule.runtime.repository;
-  requires org.mule.runtime.spring.config;
-  requires org.mule.sdk.api;
+  requires com.zernova.runtime.api;
+  requires com.zernova.runtime.artifact;
+  requires com.zernova.runtime.artifact.activation;
+  requires com.zernova.runtime.artifact.ast.xmlParser;
+  requires com.zernova.runtime.artifact.declaration;
+  requires com.zernova.runtime.container;
+  requires com.zernova.runtime.core;
+  requires com.zernova.runtime.deployment;
+  requires com.zernova.runtime.deployment.model;
+  requires com.zernova.runtime.deployment.model.impl;
+  requires com.zernova.runtime.extension.model;
+  requires com.zernova.runtime.extensions.api;
+  requires com.zernova.runtime.extensions.support;
+  requires com.zernova.runtime.global.config;
+  requires com.zernova.runtime.launcher;
+  requires com.zernova.runtime.license.api;
+  requires com.zernova.runtime.manifest;
+  requires com.zernova.runtime.maven.client.api;
+  requires com.zernova.runtime.maven.pom.parser.api;
+  requires com.zernova.runtime.metadata.model.api;
+  requires com.zernova.runtime.metadata.model.java;
+  requires com.zernova.runtime.metadata.support;
+  requires com.zernova.runtime.properties.config;
+  requires com.zernova.runtime.repository;
+  requires com.zernova.runtime.spring.config;
+  requires com.zernova.sdk.api;
 
   requires com.google.common;
   requires org.apache.commons.io;
@@ -50,40 +51,40 @@ module org.mule.runtime.tooling.support {
   // Aether
   requires org.apache.maven.resolver;
 
-  exports org.mule.runtime.module.tooling.api;
-  exports org.mule.runtime.module.tooling.api.artifact;
-  exports org.mule.runtime.module.tooling.api.connectivity;
-  exports org.mule.runtime.module.tooling.internal to
-      org.mule.runtime.launcher;
+  exports com.zernova.runtime.module.tooling.api;
+  exports com.zernova.runtime.module.tooling.api.artifact;
+  exports com.zernova.runtime.module.tooling.api.connectivity;
+  exports com.zernova.runtime.module.tooling.internal to
+      com.zernova.runtime.launcher;
 
-  exports org.mule.runtime.module.tooling.internal.data.sample to
+  exports com.zernova.runtime.module.tooling.internal.data.sample to
       spring.beans;
-  exports org.mule.runtime.module.tooling.internal.config to
+  exports com.zernova.runtime.module.tooling.internal.config to
       spring.beans;
-  exports org.mule.runtime.module.tooling.internal.connectivity to
+  exports com.zernova.runtime.module.tooling.internal.connectivity to
       spring.beans;
-  exports org.mule.runtime.module.tooling.internal.metadata.model to
+  exports com.zernova.runtime.module.tooling.internal.metadata.model to
       spring.beans;
-  exports org.mule.runtime.module.tooling.internal.value to
+  exports com.zernova.runtime.module.tooling.internal.value to
       spring.beans;
 
-  opens org.mule.runtime.module.tooling.internal.data.sample to
+  opens com.zernova.runtime.module.tooling.internal.data.sample to
       spring.core;
-  opens org.mule.runtime.module.tooling.internal.config to
+  opens com.zernova.runtime.module.tooling.internal.config to
       spring.core;
-  opens org.mule.runtime.module.tooling.internal.connectivity to
+  opens com.zernova.runtime.module.tooling.internal.connectivity to
       spring.core;
-  opens org.mule.runtime.module.tooling.internal.metadata to
+  opens com.zernova.runtime.module.tooling.internal.metadata to
       spring.core;
-  opens org.mule.runtime.module.tooling.internal.metadata.cache.lazy to
+  opens com.zernova.runtime.module.tooling.internal.metadata.cache.lazy to
       spring.core;
-  opens org.mule.runtime.module.tooling.internal.value to
+  opens com.zernova.runtime.module.tooling.internal.value to
       spring.core;
 
-  provides org.mule.runtime.config.api.dsl.ArtifactDeclarationXmlSerializer
-      with org.mule.runtime.module.tooling.internal.dsl.model.DefaultArtifactDeclarationXmlSerializer;
-  provides org.mule.runtime.config.api.dsl.model.DslElementModelFactory
-      with org.mule.runtime.module.tooling.internal.dsl.model.DefaultDslElementModelFactory;
+  provides com.zernova.runtime.config.api.dsl.ArtifactDeclarationXmlSerializer
+      with com.zernova.runtime.module.tooling.internal.dsl.model.DefaultArtifactDeclarationXmlSerializer;
+  provides com.zernova.runtime.config.api.dsl.model.DslElementModelFactory
+      with com.zernova.runtime.module.tooling.internal.dsl.model.DefaultDslElementModelFactory;
   provides ContainerServiceProvider
       with ToolingSupportContainerServiceProvider;
   provides ServiceConfigurator with

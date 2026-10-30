@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>mule-test-extensions-parent</artifactId>
-        <groupId>org.mule.tests</groupId>
+        <groupId>com.zernova.tests</groupId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -13,18 +13,18 @@
 
     <packaging>jar</packaging>
 
-    <name>Mule Substitution Group Test Extension</name>
+    <name>ZERNOVA Substitution Group Test Extension</name>
     <description>A Mule extension for testing</description>
     <dependencies>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-heisenberg-extension</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
 
     <properties>
-        <javaModuleName>org.mule.test.extension.substitution.group</javaModuleName>
+        <javaModuleName>com.zernova.test.extension.substitution.group</javaModuleName>
         <testExtensionModelLoaderId>java</testExtensionModelLoaderId>
     </properties>
 

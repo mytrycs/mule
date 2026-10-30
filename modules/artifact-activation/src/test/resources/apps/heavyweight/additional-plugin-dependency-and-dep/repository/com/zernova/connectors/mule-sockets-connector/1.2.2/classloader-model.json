@@ -1,0 +1,167 @@
+{
+  "version": "1.2.0",
+  "artifactCoordinates": {
+    "groupId": "com.zernova.connectors",
+    "artifactId": "mule-sockets-connector",
+    "version": "1.2.2",
+    "type": "jar",
+    "classifier": "mule-plugin"
+  },
+  "dependencies": [
+    {
+      "artifactCoordinates": {
+        "groupId": "com.zernova.sdk",
+        "artifactId": "mule-sdk-api",
+        "version": "0.3.0",
+        "type": "jar"
+      },
+      "uri": "repository/com/zernova/sdk/mule-sdk-api/0.3.0/mule-sdk-api-0.3.0.jar",
+      "packages": [
+        "com.zernova.sdk.api.annotation",
+        "com.zernova.sdk.api.annotation.binding",
+        "com.zernova.sdk.api.annotation.connectivity",
+        "com.zernova.sdk.api.annotation.connectivity.oauth",
+        "com.zernova.sdk.api.annotation.data.sample",
+        "com.zernova.sdk.api.annotation.deprecated",
+        "com.zernova.sdk.api.annotation.dsl.xml",
+        "com.zernova.sdk.api.annotation.error",
+        "com.zernova.sdk.api.annotation.execution",
+        "com.zernova.sdk.api.annotation.license",
+        "com.zernova.sdk.api.annotation.metadata",
+        "com.zernova.sdk.api.annotation.metadata.fixed",
+        "com.zernova.sdk.api.annotation.notification",
+        "com.zernova.sdk.api.annotation.param",
+        "com.zernova.sdk.api.annotation.param.display",
+        "com.zernova.sdk.api.annotation.param.reference",
+        "com.zernova.sdk.api.annotation.param.stereotype",
+        "com.zernova.sdk.api.annotation.semantics",
+        "com.zernova.sdk.api.annotation.semantics.connectivity",
+        "com.zernova.sdk.api.annotation.semantics.file",
+        "com.zernova.sdk.api.annotation.semantics.security",
+        "com.zernova.sdk.api.annotation.source",
+        "com.zernova.sdk.api.annotation.values",
+        "com.zernova.sdk.api.client",
+        "com.zernova.sdk.api.connectivity",
+        "com.zernova.sdk.api.connectivity.oauth",
+        "com.zernova.sdk.api.data.sample",
+        "com.zernova.sdk.api.error",
+        "com.zernova.sdk.api.exception",
+        "com.zernova.sdk.api.meta",
+        "com.zernova.sdk.api.metadata",
+        "com.zernova.sdk.api.metadata.resolving",
+        "com.zernova.sdk.api.notification",
+        "com.zernova.sdk.api.runtime.connectivity",
+        "com.zernova.sdk.api.runtime.exception",
+        "com.zernova.sdk.api.runtime.operation",
+        "com.zernova.sdk.api.runtime.parameter",
+        "com.zernova.sdk.api.runtime.process",
+        "com.zernova.sdk.api.runtime.route",
+        "com.zernova.sdk.api.runtime.source",
+        "com.zernova.sdk.api.runtime.streaming",
+        "com.zernova.sdk.api.security",
+        "com.zernova.sdk.api.stereotype",
+        "com.zernova.sdk.api.streaming.bytes",
+        "com.zernova.sdk.api.tx",
+        "com.zernova.sdk.api.values",
+        "com.zernova.sdk.internal.client",
+        "com.zernova.sdk.internal.values"
+      ],
+      "resources": [
+        "META-INF/MANIFEST.MF",
+        "META-INF/affordance.properties",
+        "META-INF/maven/com.zernova.sdk/mule-sdk-api/pom.properties",
+        "META-INF/maven/com.zernova.sdk/mule-sdk-api/pom.xml",
+        "META-INF/mule-module.properties"
+      ]
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "commons-io",
+        "artifactId": "commons-io",
+        "version": "2.11.0",
+        "type": "jar"
+      },
+      "uri": "repository/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar",
+      "packages": [
+        "org.apache.commons.io",
+        "org.apache.commons.io.comparator",
+        "org.apache.commons.io.file",
+        "org.apache.commons.io.file.spi",
+        "org.apache.commons.io.filefilter",
+        "org.apache.commons.io.function",
+        "org.apache.commons.io.input",
+        "org.apache.commons.io.input.buffer",
+        "org.apache.commons.io.monitor",
+        "org.apache.commons.io.output",
+        "org.apache.commons.io.serialization"
+      ],
+      "resources": [
+        "META-INF/LICENSE.txt",
+        "META-INF/MANIFEST.MF",
+        "META-INF/NOTICE.txt",
+        "META-INF/maven/commons-io/commons-io/pom.properties",
+        "META-INF/maven/commons-io/commons-io/pom.xml"
+      ]
+    },
+    {
+      "artifactCoordinates": {
+        "groupId": "org.apache.commons",
+        "artifactId": "commons-lang3",
+        "version": "3.12.0",
+        "type": "jar"
+      },
+      "uri": "repository/org/apache/commons/commons-lang3/3.12.0/commons-lang3-3.12.0.jar",
+      "packages": [
+        "org.apache.commons.lang3",
+        "org.apache.commons.lang3.arch",
+        "org.apache.commons.lang3.builder",
+        "org.apache.commons.lang3.compare",
+        "org.apache.commons.lang3.concurrent",
+        "org.apache.commons.lang3.concurrent.locks",
+        "org.apache.commons.lang3.event",
+        "org.apache.commons.lang3.exception",
+        "org.apache.commons.lang3.function",
+        "org.apache.commons.lang3.math",
+        "org.apache.commons.lang3.mutable",
+        "org.apache.commons.lang3.reflect",
+        "org.apache.commons.lang3.stream",
+        "org.apache.commons.lang3.text",
+        "org.apache.commons.lang3.text.translate",
+        "org.apache.commons.lang3.time",
+        "org.apache.commons.lang3.tuple"
+      ],
+      "resources": [
+        "META-INF/LICENSE.txt",
+        "META-INF/MANIFEST.MF",
+        "META-INF/NOTICE.txt",
+        "META-INF/maven/org.apache.commons/commons-lang3/pom.properties",
+        "META-INF/maven/org.apache.commons/commons-lang3/pom.xml"
+      ]
+    }
+  ],
+  "packages": [
+    "com.zernova.extension.socket.api",
+    "com.zernova.extension.socket.api.client",
+    "com.zernova.extension.socket.api.config",
+    "com.zernova.extension.socket.api.connection",
+    "com.zernova.extension.socket.api.connection.tcp",
+    "com.zernova.extension.socket.api.connection.tcp.protocol",
+    "com.zernova.extension.socket.api.connection.udp",
+    "com.zernova.extension.socket.api.exceptions",
+    "com.zernova.extension.socket.api.provider.tcp",
+    "com.zernova.extension.socket.api.provider.udp",
+    "com.zernova.extension.socket.api.socket",
+    "com.zernova.extension.socket.api.socket.factory",
+    "com.zernova.extension.socket.api.socket.tcp",
+    "com.zernova.extension.socket.api.socket.udp",
+    "com.zernova.extension.socket.api.source",
+    "com.zernova.extension.socket.api.worker",
+    "com.zernova.extension.socket.internal"
+  ],
+  "resources": [
+    "META-INF/maven/com.zernova.connectors/mule-sockets-connector/pom.xml",
+    "META-INF/mule-artifact/icon.svg",
+    "META-INF/mule-artifact/mule-artifact.json",
+    "META-INF/sockets-extension-descriptions.xml"
+  ]
+}

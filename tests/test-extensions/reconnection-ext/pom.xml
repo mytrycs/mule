@@ -4,18 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>mule-test-extensions-parent</artifactId>
-        <groupId>org.mule.tests</groupId>
+        <groupId>com.zernova.tests</groupId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>mule-reconnection-test-extension</artifactId>
 
-    <name>Mule Extension for testing reconnection</name>
+    <name>ZERNOVA Extension for testing reconnection</name>
     <description>A Mule extension for testing reconnection</description>
 
     <properties>
-        <javaModuleName>org.mule.test.extension.reconnection</javaModuleName>
+        <javaModuleName>com.zernova.test.extension.reconnection</javaModuleName>
         <testExtensionModelLoaderId>java</testExtensionModelLoaderId>
     </properties>
 

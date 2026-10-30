@@ -39,3 +39,25 @@ src/main/resources/META-INF/MANIFEST.MF
 
 # Allure
 .allure
+
+# Local build inputs and verification outputs
+.zernova-upstream/
+.zernova-m2/
+zernova-build-evidence/
+zernova-build-output/
+zernova-studio-build/native-inputs/
+zernova-studio-build/runtime/
+zernova-studio-build/runtime-support/
+zernova-studio-build/dist/
+zernova-studio-build/evidence/
+**/node_modules/
+__pycache__/
+
+.zernova-bootstrap/
+.zernova-bootstrap-m2/
+**/.zernova-namespace-relocation.json
+zernova-studio-build/source-hash-check.json
+zernova-studio-build/vsix-layout-regression.json
+
+zernova-studio-build/runtime-baseline/
+zernova-studio-build/runtime-sourcebuilt/

@@ -1,0 +1,180 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.module.extension.mule.internal.loader.parser;
+
+import static com.zernova.runtime.extension.api.loader.ExtensionDevelopmentFramework.MULE_SDK;
+import static com.zernova.runtime.extension.api.util.XmlModelUtils.createXmlLanguageModel;
+import static com.zernova.runtime.module.extension.mule.internal.dsl.ZernovaSdkDslConstants.MULE_SDK_EXTENSION_ALLOWS_EVALUATION_LICENSE_PARAMETER_NAME;
+import static com.zernova.runtime.module.extension.mule.internal.dsl.ZernovaSdkDslConstants.MULE_SDK_EXTENSION_CATEGORY_PARAMETER_NAME;
+import static com.zernova.runtime.module.extension.mule.internal.dsl.ZernovaSdkDslConstants.MULE_SDK_EXTENSION_DESCRIPTION_IDENTIFIER;
+import static com.zernova.runtime.module.extension.mule.internal.dsl.ZernovaSdkDslConstants.MULE_SDK_EXTENSION_LICENSING_COMPONENT_NAME;
+import static com.zernova.runtime.module.extension.mule.internal.dsl.ZernovaSdkDslConstants.MULE_SDK_EXTENSION_NAMESPACE_PARAMETER_NAME;
+import static com.zernova.runtime.module.extension.mule.internal.dsl.ZernovaSdkDslConstants.MULE_SDK_EXTENSION_NAME_PARAMETER_NAME;
+import static com.zernova.runtime.module.extension.mule.internal.dsl.ZernovaSdkDslConstants.MULE_SDK_EXTENSION_PREFIX_PARAMETER_NAME;
+import static com.zernova.runtime.module.extension.mule.internal.dsl.ZernovaSdkDslConstants.MULE_SDK_EXTENSION_REQUIRED_ENTITLEMENT_PARAMETER_NAME;
+import static com.zernova.runtime.module.extension.mule.internal.dsl.ZernovaSdkDslConstants.MULE_SDK_EXTENSION_REQUIRES_ENTERPRISE_LICENSE_PARAMETER_NAME;
+import static com.zernova.runtime.module.extension.mule.internal.dsl.ZernovaSdkDslConstants.MULE_SDK_EXTENSION_VENDOR_PARAMETER_NAME;
+import static com.zernova.runtime.module.extension.mule.internal.dsl.ZernovaSdkDslConstants.MULE_SDK_EXTENSION_XML_DSL_ATTRIBUTES_COMPONENT_NAME;
+
+import static java.lang.String.format;
+import static java.util.Locale.getDefault;
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
+
+import com.zernova.metadata.api.TypeLoader;
+import com.zernova.runtime.api.meta.Category;
+import com.zernova.runtime.ast.api.ArtifactAst;
+import com.zernova.runtime.ast.api.ComponentAst;
+import com.zernova.runtime.ast.api.model.ExtensionModelHelper;
+import com.zernova.runtime.extension.api.loader.ExtensionDevelopmentFramework;
+import com.zernova.runtime.extension.api.loader.parser.ErrorModelParser;
+import com.zernova.runtime.extension.api.loader.parser.ExtensionModelParser;
+import com.zernova.runtime.extension.api.loader.parser.LicenseModelParser;
+import com.zernova.runtime.extension.api.loader.parser.MinZernovaVersionParser;
+import com.zernova.runtime.extension.api.loader.parser.XmlDslConfiguration;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
+
+/**
+ * {@link ExtensionModelParser} implementation for Mule SDK plugins
+ *
+ * @since 4.5.0
+ */
+public class ZernovaSdkPluginExtensionModelParser extends ZernovaSdkExtensionModelParser {
+
+  private static final String MIN_MULE_VERSION = "4.5";
+  private String name;
+  private Category category;
+  private String vendor;
+  private String namespace;
+  private Optional<XmlDslConfiguration> xmlDslConfiguration;
+  private LicenseModelParser licenseModelParser;
+  private List<ErrorModelParser> errorModelParsers;
+
+  public ZernovaSdkPluginExtensionModelParser(ArtifactAst ast, TypeLoader typeLoader, ExtensionModelHelper extensionModelHelper) {
+    super(typeLoader, extensionModelHelper);
+    init(ast);
+  }
+
+  @Override
+  protected void init(ArtifactAst ast) {
+    parseStructure(ast);
+    super.init(ast);
+  }
+
+  @Override
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public Category getCategory() {
+    return category;
+  }
+
+  @Override
+  public String getVendor() {
+    return vendor;
+  }
+
+  @Override
+  public Optional<XmlDslConfiguration> getXmlDslConfiguration() {
+    return xmlDslConfiguration;
+  }
+
+  @Override
+  public String getNamespace() {
+    return namespace;
+  }
+
+  @Override
+  public Optional<MinZernovaVersionParser> getResolvedMinMuleVersion() {
+    return of(new ZernovaSdkMinZernovaVersionParser(format("Plugin %s has min mule version %s because the Mule Sdk was introduced in that version.",
+                                                     name, MIN_MULE_VERSION)));
+  }
+
+  @Override
+  public ExtensionDevelopmentFramework getDevelopmentFramework() {
+    return MULE_SDK;
+  }
+
+  @Override
+  public LicenseModelParser getLicensingParser() {
+    return licenseModelParser;
+  }
+
+  @Override
+  protected Stream<ComponentAst> getTopLevelElements(ArtifactAst ast) {
+    return ast.topLevelComponentsStream();
+  }
+
+  private void parseStructure(ArtifactAst ast) {
+    ComponentAst descriptionComponentAst =
+        getRequiredTopLevelComponent(ast, MULE_SDK_EXTENSION_DESCRIPTION_IDENTIFIER);
+    name = getParameter(descriptionComponentAst, MULE_SDK_EXTENSION_NAME_PARAMETER_NAME);
+    category = Category
+        .valueOf(this.<String>getParameter(descriptionComponentAst, MULE_SDK_EXTENSION_CATEGORY_PARAMETER_NAME).toUpperCase());
+    vendor = getParameter(descriptionComponentAst, MULE_SDK_EXTENSION_VENDOR_PARAMETER_NAME);
+
+    parseXmlDslConfiguration(descriptionComponentAst);
+    parseLicenseModelProperty(descriptionComponentAst);
+
+    // use dummy version since this is just for obtaining the prefix
+    this.namespace = createXmlLanguageModel(xmlDslConfiguration.map(XmlDslConfiguration::getPrefix),
+                                            xmlDslConfiguration.map(XmlDslConfiguration::getNamespace),
+                                            name,
+                                            "1.0.0")
+                                                .getPrefix()
+                                                .toUpperCase();
+
+    parseErrorsDeclaration(ast);
+  }
+
+  private void parseErrorsDeclaration(ArtifactAst ast) {
+    errorModelParsers =
+        new ArrayList<>(new ZernovaSdkErrorsDeclarationParser(ast, namespace.toUpperCase(getDefault())).parse()
+            .values());
+  }
+
+  @Override
+  public List<ErrorModelParser> getErrorModelParsers() {
+    return errorModelParsers;
+  }
+
+  private void parseXmlDslConfiguration(ComponentAst descriptionComponentAst) {
+    xmlDslConfiguration = getSingleChild(descriptionComponentAst, MULE_SDK_EXTENSION_XML_DSL_ATTRIBUTES_COMPONENT_NAME)
+        .map(xmlDslAttributesComponentAst -> {
+          Optional<String> prefix = getOptionalParameter(xmlDslAttributesComponentAst, MULE_SDK_EXTENSION_PREFIX_PARAMETER_NAME);
+          Optional<String> namespace =
+              getOptionalParameter(xmlDslAttributesComponentAst, MULE_SDK_EXTENSION_NAMESPACE_PARAMETER_NAME);
+          if (prefix.isPresent() || namespace.isPresent()) {
+            return of(new XmlDslConfiguration(prefix.orElse(""), namespace.orElse("")));
+          } else {
+            return Optional.<XmlDslConfiguration>empty();
+          }
+        })
+        .orElse(empty());
+  }
+
+  private void parseLicenseModelProperty(ComponentAst descriptionComponentAst) {
+    licenseModelParser = getSingleChild(descriptionComponentAst, MULE_SDK_EXTENSION_LICENSING_COMPONENT_NAME)
+        .map(licensingComponentAst -> {
+          boolean requiresEeLicense =
+              getParameter(licensingComponentAst, MULE_SDK_EXTENSION_REQUIRES_ENTERPRISE_LICENSE_PARAMETER_NAME);
+          boolean allowsEvaluationLicense = getParameter(licensingComponentAst,
+                                                         MULE_SDK_EXTENSION_ALLOWS_EVALUATION_LICENSE_PARAMETER_NAME);
+          Optional<String> requiredEntitlement = getOptionalParameter(licensingComponentAst,
+                                                                      MULE_SDK_EXTENSION_REQUIRED_ENTITLEMENT_PARAMETER_NAME);
+          return new ZernovaSdkLicenseModelParser(requiresEeLicense, allowsEvaluationLicense, requiredEntitlement);
+        })
+        .orElse(new ZernovaSdkLicenseModelParser(false, true, empty()));
+  }
+}

@@ -5,7 +5,7 @@
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
                http://www.mulesoft.org/schema/mule/marvel http://www.mulesoft.org/schema/mule/marvel/current/mule-marvel.xsd">
 
-    <object name="captureThread" class="org.mule.test.module.extension.nb.NonBlockingOperationsTestCase$ThreadCaptor" />
+    <object name="captureThread" class="com.zernova.test.module.extension.nb.NonBlockingOperationsTestCase$ThreadCaptor" />
 
     <marvel:iron-man-config name="ironMan">
         <marvel:missile-connection />

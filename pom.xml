@@ -4,29 +4,31 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.mule</groupId>
+        <groupId>com.zernova</groupId>
         <artifactId>mule-plugin-mgmt-parent-pom</artifactId>
-        <version>4.10.0-SNAPSHOT</version>
+        <version>4.10.0</version>
         <relativePath/>
     </parent>
 
-    <groupId>org.mule.runtime</groupId>
+    <groupId>com.zernova.runtime</groupId>
     <artifactId>mule</artifactId>
     <packaging>pom</packaging>
     <version>4.10.0-SNAPSHOT</version>
 
     <!-- Organization -->
     <organization>
-        <name>MuleSoft, Inc.</name>
-        <url>http://www.mulesoft.com</url>
+        <name>ZerNova</name>
+        <url>https://zernova.et</url>
     </organization>
 
     <!-- Project -->
-    <name>Mule Kernel</name>
+    <name>ZERNOVA Kernel</name>
     <description>
-        Mule is the runtime engine of Anypoint™ Platform. It is the industry’s only unified platform that combines data and application integration across legacy systems, SaaS applications, and APIs with hybrid deployment options for maximum flexibility.
+        ZERNOVA integration runtime, a CPAL-covered fork of the Mule Kernel
+        4.10 development source. Original upstream copyrights and licenses are
+        retained. ZERNOVA modifications are Copyright 2026 ZerNova.
     </description>
-    <url>https://developer.mulesoft.com/</url>
+    <url>https://zernova.et/</url>
     <inceptionYear>2003</inceptionYear>
     <licenses>
         <license>
@@ -122,9 +124,9 @@
 
     <!-- Build -->
     <scm>
-        <connection>scm:git:git://github.com/mulesoft/mule.git</connection>
-        <developerConnection>scm:git:git@github.com:mulesoft/mule.git</developerConnection>
-        <url>https://github.com/mulesoft/mule</url>
+        <connection>scm:git:https://github.com/mytrycs/mule.git</connection>
+        <developerConnection>scm:git:git@github.com:mytrycs/mule.git</developerConnection>
+        <url>https://github.com/mytrycs/mule</url>
     </scm>
 
     <modules>
@@ -156,30 +158,32 @@
             The above project.url will not be picked up in the manifest,
             instead a module artifact id is erroneously substituted.
          -->
-        <productUrl>https://developer.mulesoft.com/</productUrl>
+        <productUrl>https://zernova.et/</productUrl>
+        <zernovaProductVersion>0.3.0-dev.2</zernovaProductVersion>
+        <zernovaCompatibilityTitle>${project.name}</zernovaCompatibilityTitle>
         <dev.list>mule-esb@mulesoft.com</dev.list>
 
-        <muleBomVersion>4.10.0-SNAPSHOT</muleBomVersion>
-        <muleMavenClientBomVersion>2.5.0-SNAPSHOT</muleMavenClientBomVersion>
+        <muleBomVersion>4.10.0</muleBomVersion>
+        <muleMavenClientBomVersion>2.5.0</muleMavenClientBomVersion>
 
         <!-- Mule Snapshot Dependencies -->
-        <mulePropertiesApiVersion>1.6.0-SNAPSHOT</mulePropertiesApiVersion>
-        <muleExtensionsApiVersion>1.10.0-SNAPSHOT</muleExtensionsApiVersion>
-        <muleConnectivityApiVersion>1.1.0-SNAPSHOT</muleConnectivityApiVersion>
-        <muleHttpPolicyApiVersion>1.10.0-SNAPSHOT</muleHttpPolicyApiVersion>
-        <mulePolicyApiVersion>1.10.0-SNAPSHOT</mulePolicyApiVersion>
-        <muleApiVersion>1.10.0-SNAPSHOT</muleApiVersion>
-        <muleMetadataModelVersion>1.10.0-SNAPSHOT</muleMetadataModelVersion>
+        <mulePropertiesApiVersion>1.6.0</mulePropertiesApiVersion>
+        <muleExtensionsApiVersion>1.10.0-zernova.1</muleExtensionsApiVersion>
+        <muleConnectivityApiVersion>1.1.0</muleConnectivityApiVersion>
+        <muleHttpPolicyApiVersion>1.10.0</muleHttpPolicyApiVersion>
+        <mulePolicyApiVersion>1.10.0</mulePolicyApiVersion>
+        <muleApiVersion>1.10.0-zernova.1</muleApiVersion>
+        <muleMetadataModelVersion>1.10.0</muleMetadataModelVersion>
         <metadataModelApiVersion>${muleMetadataModelVersion}</metadataModelApiVersion>
 
         <licensePath>LICENSE_HEADER_CPAL.txt</licensePath>
         <licenseYear>2023</licenseYear>
 
-        <muleAnnotationsApiVersion>1.9.0-SNAPSHOT</muleAnnotationsApiVersion>
-        <mule.module.maven.plugin.version>1.10.0-SNAPSHOT</mule.module.maven.plugin.version>
-        <mule.extensions.maven.plugin.version>1.10.0-SNAPSHOT</mule.extensions.maven.plugin.version>
-        <mule.app.plugins.maven.plugin.version>1.10.0-SNAPSHOT</mule.app.plugins.maven.plugin.version>
-        <mule.jmh.elasticsearch.maven.plugin.version>1.0.0-SNAPSHOT</mule.jmh.elasticsearch.maven.plugin.version>
+        <muleAnnotationsApiVersion>1.9.0</muleAnnotationsApiVersion>
+        <mule.module.maven.plugin.version>1.10.0</mule.module.maven.plugin.version>
+        <mule.extensions.maven.plugin.version>1.10.0</mule.extensions.maven.plugin.version>
+        <mule.app.plugins.maven.plugin.version>1.10.0</mule.app.plugins.maven.plugin.version>
+        <mule.jmh.elasticsearch.maven.plugin.version>1.0.0</mule.jmh.elasticsearch.maven.plugin.version>
 
         <oldMuleArtifactVersion>4.9.0-rc1</oldMuleArtifactVersion>
         <revapi.checkDependencies>false</revapi.checkDependencies>
@@ -195,7 +199,7 @@
             ${surefire.args.aspectj}
             ${surefire.args.jacoco}
         </surefire.args.base>
-        <surefire.test.unit.open.args.target>org.mule.runtime.jpms.utils</surefire.test.unit.open.args.target>
+        <surefire.test.unit.open.args.target>com.zernova.runtime.jpms.utils</surefire.test.unit.open.args.target>
         <surefire.test.unit.open.args>
             -XX:+IgnoreUnrecognizedVMOptions
             --add-opens=java.base/java.lang=${surefire.test.unit.open.args.target}
@@ -230,15 +234,28 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Source-built matching connector API family. CPAL-1.0. -->
+            <dependency><groupId>com.zernova.runtime</groupId><artifactId>mule-extensions-mime-types</artifactId><version>1.10.0-zernova.1</version></dependency>
+            <dependency><groupId>com.zernova.runtime</groupId><artifactId>mule-extensions-api</artifactId><version>1.10.0-zernova.1</version></dependency>
+            <dependency><groupId>com.zernova.runtime</groupId><artifactId>mule-extensions-api-persistence</artifactId><version>1.10.0-zernova.1</version></dependency>
+            <dependency><groupId>com.zernova.runtime</groupId><artifactId>mule-extensions-api-dsql</artifactId><version>1.10.0-zernova.1</version></dependency>
+
+            <!-- ZERNOVA: source-built API matching this development snapshot. CPAL-1.0. -->
             <dependency>
-                <groupId>org.mule</groupId>
+                <groupId>com.zernova.runtime</groupId>
+                <artifactId>mule-api</artifactId>
+                <version>1.10.0-zernova.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.zernova</groupId>
                 <artifactId>mule-runtime-bom</artifactId>
                 <version>${muleBomVersion}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>org.mule</groupId>
+                <groupId>com.zernova</groupId>
                 <artifactId>mule-tests-bom</artifactId>
                 <version>${muleBomVersion}</version>
                 <type>pom</type>
@@ -248,7 +265,7 @@
             <!-- NOT the service (with mule-service classifier) -->
             <!-- this raw jar is used in unit tests only -->
             <dependency>
-                <groupId>org.mule.services</groupId>
+                <groupId>com.zernova.services</groupId>
                 <artifactId>mule-service-weave</artifactId>
                 <version>${weaveVersion}</version>
             </dependency>
@@ -347,7 +364,7 @@
                                 <verbose>true</verbose>
                                 <ignoredUsedUndeclaredDependencies>
                                     <!-- Mule dependencies are ignored -->
-                                    <ignoredUsedUndeclaredDependency>org.mule*</ignoredUsedUndeclaredDependency>
+                                    <ignoredUsedUndeclaredDependency>com.zernova*</ignoredUsedUndeclaredDependency>
                                     <!-- Testing dependencies are ignored -->
                                     <ignoredUsedUndeclaredDependency>org.hamcrest</ignoredUsedUndeclaredDependency>
                                     <ignoredUsedUndeclaredDependency>org.mockito</ignoredUsedUndeclaredDependency>
@@ -426,8 +443,12 @@
                                 <Supported-Jdks>[${javaVersion},22)</Supported-Jdks>
                                 <Recommended-Jdks>[${javaVersion},18),[21,22)</Recommended-Jdks>
                                 <More-Info>For more information go to ${productUrl}</More-Info>
-                                <Support>Get commercial support: ${project.organization.url}/support</Support>
-                                <Description>Mule Runtime and Integration Platform</Description>
+                                <Support>Development preview; see the bundled ZERNOVA documentation</Support>
+                                <Description>ZERNOVA Integration Runtime</Description>
+                                <Zernova-Product-Version>${zernovaProductVersion}</Zernova-Product-Version>
+                                <Zernova-Product-Name>ZERNOVA Runtime</Zernova-Product-Name>
+                                <Implementation-Title>${zernovaCompatibilityTitle}</Implementation-Title>
+                                <Upstream-Lineage>Mule Kernel 4.10.0-SNAPSHOT</Upstream-Lineage>
                                 <License>CPAL v1.0 http://www.mulesoft.com/CPAL/</License>
                                 <Vendor-Url>${project.organization.url}</Vendor-Url>
                                 <Product-Url>${productUrl}</Product-Url>
@@ -477,25 +498,25 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.mule.tools</groupId>
+                    <groupId>com.zernova.tools</groupId>
                     <artifactId>mule-assembly-verifier</artifactId>
                     <version>${assembly.verifier.version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.mule.runtime.plugins</groupId>
+                    <groupId>com.zernova.runtime.plugins</groupId>
                     <artifactId>mule-plugin-maven-plugin</artifactId>
                     <version>${mule.app.plugins.maven.plugin.version}</version>
                     <extensions>true</extensions>
                 </plugin>
                 <plugin>
-                    <groupId>org.mule.tools.maven</groupId>
+                    <groupId>com.zernova.tools.maven</groupId>
                     <artifactId>mule-module-maven-plugin</artifactId>
                     <version>${mule.module.maven.plugin.version}</version>
                 </plugin>
                 <!-- This is used in test poms -->
                 <!-- It is declared here so that version upgrading bots keep the version property up to date -->
                 <plugin>
-                    <groupId>org.mule.tools.maven</groupId>
+                    <groupId>com.zernova.tools.maven</groupId>
                     <artifactId>mule-maven-plugin</artifactId>
                     <version>${mule.maven.plugin.version}</version>
                 </plugin>
@@ -521,6 +542,21 @@
             <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
+                <configuration>
+                    <licenseSets combine.self="override">
+                        <licenseSet>
+                            <header>${licensePath}</header>
+                            <includes><include>**/*.java</include></includes>
+                            <excludes><exclude>zernova-studio-build/**</exclude><exclude>**/src/main/java/com/zernova/runtime/http/support/internal/HttpProtocolCompatibility.java</exclude><exclude>**/src/test/java/com/zernova/runtime/http/support/internal/HttpProtocolCompatibilityTestCase.java</exclude><exclude>**/src/main/java/com/zernova/runtime/http/support/internal/message/Part.java</exclude><exclude>**/src/main/java/com/zernova/runtime/http/support/internal/message/MultipartEntityView.java</exclude></excludes>
+                        </licenseSet>
+                        <licenseSet>
+                            <inlineHeader><![CDATA[Copyright (c) 2026 ZerNova.
+The software in this file is published under the terms of the CPAL v1.0
+license, a copy of which is included in the root LICENSE.txt file.]]></inlineHeader>
+                            <includes><include>**/src/main/java/com/zernova/runtime/http/support/internal/HttpProtocolCompatibility.java</include><include>**/src/test/java/com/zernova/runtime/http/support/internal/HttpProtocolCompatibilityTestCase.java</include><include>**/src/main/java/com/zernova/runtime/http/support/internal/message/Part.java</include><include>**/src/main/java/com/zernova/runtime/http/support/internal/message/MultipartEntityView.java</include></includes>
+                        </licenseSet>
+                    </licenseSets>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -542,7 +578,7 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.mule.tools.maven</groupId>
+                <groupId>com.zernova.tools.maven</groupId>
                 <artifactId>mule-module-maven-plugin</artifactId>
                 <executions>
                     <execution>
@@ -594,7 +630,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <dependencies>
                     <dependency>
-                        <groupId>org.mule</groupId>
+                        <groupId>com.zernova</groupId>
                         <artifactId>mule-buildtools</artifactId>
                         <version>${project.version}</version>
                     </dependency>
@@ -675,19 +711,19 @@
                     <groups>
                         <group>
                             <title>Mule Core</title>
-                            <packages>org.mule.runtime.core.*</packages>
+                            <packages>com.zernova.runtime.core.*</packages>
                         </group>
                         <group>
                             <title>Modules (not part of the Mule core)</title>
-                            <packages>org.mule.runtime.module.*:org.mule.runtime.core.components.*</packages>
+                            <packages>com.zernova.runtime.module.*:com.zernova.runtime.core.components.*</packages>
                         </group>
                         <group>
                             <title>Testing Framework</title>
-                            <packages>org.mule.tck.*:org.mule.functional.*</packages>
+                            <packages>com.zernova.tck.*:com.zernova.functional.*</packages>
                         </group>
                         <group>
                             <title>Tools</title>
-                            <packages>org.mule.tools.*</packages>
+                            <packages>com.zernova.tools.*</packages>
                         </group>
                     </groups>
                 </configuration>
@@ -753,9 +789,9 @@
                                         <requireReleaseDeps>
                                             <message>No Snapshots Allowed in Deps!</message>
                                             <excludes>
-                                                <exclude>org.mule.weave:*</exclude>
-                                                <exclude>org.mule.runtime:mule-dwb-api</exclude>
-                                                <exclude>org.mule.services:mule-service-weave:*</exclude>
+                                                <exclude>com.zernova.weave:*</exclude>
+                                                <exclude>com.zernova.runtime:mule-dwb-api</exclude>
+                                                <exclude>com.zernova.services:mule-service-weave:*</exclude>
                                             </excludes>
                                         </requireReleaseDeps>
                                     </rules>
@@ -786,14 +822,14 @@
             </build>
             <dependencies>
                 <dependency>
-                    <groupId>org.mule.runtime</groupId>
+                    <groupId>com.zernova.runtime</groupId>
                     <artifactId>mule-artifact-ast-serialization</artifactId>
                     <scope>test</scope>
                     <exclusions>
                         <exclusion>
                             <!-- Excluding because otherwise some ArtifactFunctionalTestCases were incorrectly assuming xerces was a
                             dependency of the plugin -->
-                            <groupId>org.mule.apache</groupId>
+                            <groupId>com.zernova.apache</groupId>
                             <artifactId>xercesImpl</artifactId>
                         </exclusion>
                     </exclusions>

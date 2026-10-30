@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "kernelBaseline": "46cae04e9b02fe64e951791f4069089a01296695",
+  "sources": [
+    {"path": "runtime-api", "repository": "https://github.com/mulesoft/mule-api", "commit": "acf394e596fb41df1649ae00b2d5c7e4377078b8"},
+    {"path": "extensions-api", "repository": "https://github.com/mulesoft/mule-extensions-api", "commit": "be8ee76e1a359c263861baf539c5359eaa89e9f1"},
+    {"path": "distributions", "repository": "https://github.com/mulesoft/mule-distributions", "commit": "fa3255511c83e0a9aac5768d71ac4c51b32ffcce"}
+  ],
+  "adaptations": "Pinned source restoration and HTTP/boot fixes from zernova-build historical recipes, followed by com.zernova namespace and Java class relocation. Original licenses and ownership headers retained."
+}

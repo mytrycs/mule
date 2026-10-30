@@ -4,14 +4,15 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package org.foo.withLifecycleListener;
 
 import static java.lang.String.format;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-import org.mule.sdk.api.artifact.lifecycle.ArtifactDisposalContext;
-import org.mule.sdk.api.artifact.lifecycle.ArtifactLifecycleListener;
+import com.zernova.sdk.api.artifact.lifecycle.ArtifactDisposalContext;
+import com.zernova.sdk.api.artifact.lifecycle.ArtifactLifecycleListener;
 
 import java.util.function.Consumer;
 

@@ -4,49 +4,50 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 /**
  * Mule Deployment Model Implementation Module.
  *
  * @moduleGraph
  * @since 4.6
  */
-open module org.mule.runtime.deployment.test {
+open module com.zernova.runtime.deployment.test {
 
-  requires org.mule.runtime.deployment;
-  requires org.mule.test.services;
-  requires org.mule.weave.mule.dwb.api;
+  requires com.zernova.runtime.deployment;
+  requires com.zernova.test.services;
+  requires com.zernova.weave.mule.dwb.api;
 
-  requires org.mule.runtime.api;
-  requires org.mule.runtime.artifact;
-  requires org.mule.runtime.artifact.activation;
-  requires org.mule.runtime.artifact.ast;
-  requires org.mule.runtime.artifact.ast.serialization;
-  requires org.mule.runtime.artifact.ast.xmlParser;
-  requires org.mule.runtime.artifact.declaration;
-  requires org.mule.runtime.container;
-  requires org.mule.runtime.core;
-  requires org.mule.runtime.core.components;
-  requires org.mule.runtime.deployment.model;
-  requires org.mule.runtime.deployment.model.impl;
-  requires org.mule.runtime.extension.model;
-  requires org.mule.runtime.extensions.api;
-  requires org.mule.runtime.extensions.spring.support;
-  requires org.mule.runtime.global.config;
-  requires org.mule.runtime.maven.client.api;
-  requires org.mule.runtime.policy.api;
-  requires org.mule.runtime.properties.config;
-  requires org.mule.runtime.spring.config;
-  requires org.mule.sdk.api;
-  requires org.mule.runtime.jpms.utils;
+  requires com.zernova.runtime.api;
+  requires com.zernova.runtime.artifact;
+  requires com.zernova.runtime.artifact.activation;
+  requires com.zernova.runtime.artifact.ast;
+  requires com.zernova.runtime.artifact.ast.serialization;
+  requires com.zernova.runtime.artifact.ast.xmlParser;
+  requires com.zernova.runtime.artifact.declaration;
+  requires com.zernova.runtime.container;
+  requires com.zernova.runtime.core;
+  requires com.zernova.runtime.core.components;
+  requires com.zernova.runtime.deployment.model;
+  requires com.zernova.runtime.deployment.model.impl;
+  requires com.zernova.runtime.extension.model;
+  requires com.zernova.runtime.extensions.api;
+  requires com.zernova.runtime.extensions.spring.support;
+  requires com.zernova.runtime.global.config;
+  requires com.zernova.runtime.maven.client.api;
+  requires com.zernova.runtime.policy.api;
+  requires com.zernova.runtime.properties.config;
+  requires com.zernova.runtime.spring.config;
+  requires com.zernova.sdk.api;
+  requires com.zernova.runtime.jpms.utils;
 
-  requires org.mule.runtime.service;
-  requires org.mule.runtime.extensions.xml.support;
-  requires org.mule.runtime.license.api;
+  requires com.zernova.runtime.service;
+  requires com.zernova.runtime.extensions.xml.support;
+  requires com.zernova.runtime.license.api;
 
-  requires org.mule.test.runner;
-  requires org.mule.runtime.deployment.model.impl.test;
-  requires org.mule.runtime.oauth.api;
-  requires org.mule.oauth.client.api;
+  requires com.zernova.test.runner;
+  requires com.zernova.runtime.deployment.model.impl.test;
+  requires com.zernova.runtime.oauth.api;
+  requires com.zernova.oauth.client.api;
 
   requires org.apache.logging.log4j;
   requires org.apache.commons.io;

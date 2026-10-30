@@ -1,0 +1,461 @@
+<!-- Assembly descriptor for the full Mule distribution. -->
+<assembly>
+    <id>standalone</id>
+    <formats>
+        <format>zip</format>
+        <format>tar.gz</format>
+    </formats>
+
+    <fileSets>
+        <fileSet>
+            <directory>src/main/resources</directory>
+            <outputDirectory></outputDirectory>
+            <excludes>
+                <exclude>bin/**</exclude>
+                <exclude>conf/**</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/resources/conf</directory>
+            <outputDirectory>conf</outputDirectory>
+            <fileMode>600</fileMode>
+        </fileSet>
+        <fileSet>
+            <directory>target/services</directory>
+            <outputDirectory>services</outputDirectory>
+        </fileSet>
+
+        <!-- Make binary files executable. -->
+        <fileSet>
+            <directory>src/main/resources/bin</directory>
+            <outputDirectory>bin</outputDirectory>
+            <fileMode>700</fileMode>
+            <includes>
+                <include>launcher</include>
+                <include>mule</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/resources/bin</directory>
+            <outputDirectory>bin</outputDirectory>
+            <fileMode>600</fileMode>
+            <includes>
+                <include>*.bat</include>
+                <include>*.conf</include>
+            </includes>
+        </fileSet>
+
+        <fileSet>
+            <directory>target/distribution-structure/${standaloneStructure}-${version}/lib/boot/tanuki/exec</directory>
+            <outputDirectory>lib/boot/tanuki/exec</outputDirectory>
+            <fileMode>700</fileMode>
+            <excludes>
+                <exclude>*.txt</exclude>
+            </excludes>
+            <includes>
+                <include>*</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>target/distribution-structure/${standaloneStructure}-${version}/lib/boot/tanuki/exec</directory>
+            <outputDirectory>lib/boot/tanuki/exec</outputDirectory>
+            <fileMode>600</fileMode>
+            <includes>
+                <include>*.txt</include>
+            </includes>
+        </fileSet>
+
+        <!-- Copy CE READMEs -->
+        <fileSet>
+            <directory>target/distribution-structure/${standaloneStructure}-${version}</directory>
+            <outputDirectory></outputDirectory>
+            <fileMode>0644</fileMode>
+            <includes>
+                <include>README.txt</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>target/distribution-structure/${standaloneStructure}-${version}/logs</directory>
+            <outputDirectory>logs</outputDirectory>
+            <fileMode>0644</fileMode>
+            <includes>
+                <include>README.txt</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>target/distribution-structure/${standaloneStructure}-${version}/lib/boot</directory>
+            <outputDirectory>lib/boot</outputDirectory>
+            <fileMode>0640</fileMode>
+        </fileSet>
+        <fileSet>
+            <directory>target/distribution-structure/${standaloneStructure}-${version}/lib/user</directory>
+            <outputDirectory>lib/user</outputDirectory>
+            <excludes>
+                <exclude>**/IGNORE</exclude>
+            </excludes>
+        </fileSet>
+
+        <!-- Copy CE apps directory -->
+        <fileSet>
+            <directory>target/distribution-structure/${standaloneStructure}-${version}/apps</directory>
+            <outputDirectory>apps</outputDirectory>
+            <excludes>
+                <exclude>**/IGNORE</exclude>
+            </excludes>
+        </fileSet>
+
+        <!-- Copy CE domains directory -->
+        <fileSet>
+            <directory>target/distribution-structure/${standaloneStructure}-${version}/domains</directory>
+            <outputDirectory>domains</outputDirectory>
+            <excludes>
+                <exclude>**/IGNORE</exclude>
+            </excludes>
+        </fileSet>
+    </fileSets>
+
+    <!--
+    ============================
+        Libraries
+    ============================
+    -->
+
+    <!-- TODO: Update to use wildcards once this issue is fixed:
+   http://jira.codehaus.org/browse/MASSEMBLY-220 -->
+    <dependencySets>
+
+        <!-- Bootstrap -->
+        <dependencySet>
+            <outputDirectory>lib/boot</outputDirectory>
+            <useStrictFiltering>true</useStrictFiltering>
+            <fileMode>0640</fileMode>
+            <includes>
+                <include>com.zernova.runtime.boot:*</include>
+                <include>commons-cli:commons-cli</include>
+                <include>org.slf4j:slf4j-api</include>
+                <include>org.apache.logging.log4j:log4j-api</include>
+                <include>org.apache.logging.log4j:log4j-core</include>
+                <include>org.apache.logging.log4j:log4j-slf4j2-impl</include>
+                <include>org.apache.logging.log4j:log4j-1.2-api</include>
+                <include>org.slf4j:jcl-over-slf4j</include>
+                <include>org.slf4j:jul-to-slf4j</include>
+                <include>com.lmax:disruptor</include>
+                <include>com.fasterxml.jackson.core:jackson-databind</include>
+                <include>com.fasterxml.jackson.core:jackson-core</include>
+                <include>com.fasterxml.jackson.core:jackson-annotations</include>
+            </includes>
+            <excludes>
+                <exclude>com.zernova.runtime.boot:mule-module-tanuki-boot</exclude>
+            </excludes>
+        </dependencySet>
+
+        <!-- Mule bootstrap, Tanuki-specific -->
+        <dependencySet>
+            <outputDirectory>lib/boot/tanuki</outputDirectory>
+            <useStrictFiltering>true</useStrictFiltering>
+            <fileMode>0640</fileMode>
+            <includes>
+                <include>com.zernova.runtime.boot:mule-module-tanuki-boot</include>
+                <include>tanukisoft:wrapper</include>
+            </includes>
+        </dependencySet>
+
+        <!-- Mule libraries -->
+        <dependencySet>
+            <outputDirectory>lib/mule</outputDirectory>
+            <outputFileNameMapping>${artifact.artifactId}-${artifact.baseVersion}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+            <useStrictFiltering>true</useStrictFiltering>
+            <!-- Implementation note: this must be kept consistent with the equivalent logic in test-runner and embedded-api -->
+            <includes>
+                <!-- Mule Artifact Declaration -->
+                <include>com.zernova.runtime:mule-artifact-declaration</include>
+                <include>com.zernova.runtime:mule-artifact-declaration-persistence</include>
+                <!-- Mule API -->
+                <include>com.zernova.runtime:mule-api</include>
+                <include>com.zernova.runtime:mule-profiling-api</include>
+                <!--Metadata API-->
+                <include>com.zernova.runtime:mule-metadata-model-api</include>
+                <include>com.zernova.runtime:mule-metadata-model-java</include>
+                <include>com.zernova.runtime:mule-metadata-model-persistence</include>
+                <include>com.zernova.runtime:mule-metadata-model-xml</include>
+                <include>com.zernova.runtime:mule-metadata-model-json</include>
+                <include>com.zernova.runtime:mule-metadata-model-raml</include>
+                <include>com.zernova.runtime:mule-metadata-model-catalog</include>
+                <include>com.zernova.runtime:mule-message-metadata-model</include>
+                <!-- extensions API -->
+                <include>com.zernova.runtime:mule-extensions-api</include>
+                <include>com.zernova.runtime:mule-extensions-mime-types</include>
+                <include>com.zernova.runtime:mule-extensions-api-persistence</include>
+                <include>com.zernova.runtime:mule-extensions-api-dsql</include>
+                <!-- SDK API -->
+                <include>com.zernova.sdk:mule-sdk-api</include>
+                <include>com.zernova.sdk:mule-sdk-compatibility-api</include>
+                <!-- AST -->
+                <include>com.zernova.runtime:mule-artifact-ast</include>
+                <include>com.zernova.runtime:mule-artifact-ast-dependency-graph</include>
+                <include>com.zernova.runtime:mule-artifact-ast-xml-parser</include>
+                <include>com.zernova.runtime:mule-artifact-ast-serialization</include>
+                <include>com.zernova.runtime:mule-properties-api</include>
+                <!-- Core -->
+                <include>com.zernova.runtime:mule-core</include>
+                <include>com.zernova.runtime:mule-manifest</include>
+                <include>com.zernova.runtime:mule-runtime-extension-model</include>
+                <include>com.zernova.runtime:mule-runtime-errors</include>
+                <!--Services-->
+                <include>com.zernova.runtime:mule-service-http-api</include>
+                <include>com.zernova.runtime:mule-module-http-support</include>
+                <include>com.zernova.runtime:mule-service-oauth-api</include>
+                <include>com.zernova.runtime:mule-dwb-api</include>
+                <include>com.zernova.weave:dwb-api</include>
+                <include>com.zernova.commons:mule-oauth-client</include>
+                <include>com.zernova.commons:mule-oauth-client-api</include>
+                <!-- Modules -->
+                <include>com.zernova.runtime:mule-core-components</include>
+                <include>com.zernova.runtime:mule-jar-handling-utils</include>
+                <include>com.zernova.runtime:mule-module-artifact</include>
+                <include>com.zernova.runtime:mule-module-artifact-activation</include>
+                <include>com.zernova.runtime:mule-module-log4j-configurator</include>
+                <include>com.zernova.runtime:mule-module-launcher</include>
+                <include>com.zernova.runtime:mule-module-feature-management</include>
+                <include>com.zernova.runtime:mule-module-memory-management</include>
+                <include>com.zernova.runtime:mule-module-global-config</include>
+                <include>com.zernova.runtime:mule-module-deployment</include>
+                <include>com.zernova.runtime:mule-module-deployment-model</include>
+                <include>com.zernova.runtime:mule-module-deployment-model-impl</include>
+                <include>com.zernova.runtime:mule-module-dsl-api</include>
+                <include>com.zernova.runtime:mule-module-service</include>
+                <include>com.zernova.runtime:mule-module-container</include>
+                <include>com.zernova.runtime:mule-module-extensions-support</include>
+                <include>com.zernova.runtime:mule-module-extensions-spring-support</include>
+                <include>com.zernova.runtime:mule-module-extensions-mule-support</include>
+                <include>com.zernova.runtime:mule-module-extensions-xml-support</include>
+                <include>com.zernova.runtime:mule-module-http-policy-api</include>
+                <include>com.zernova.runtime:mule-module-license-api</include>
+                <include>com.zernova.runtime:mule-module-metadata-support</include>
+                <include>com.zernova.runtime:mule-module-policy-api</include>
+                <include>com.zernova.runtime:mule-module-properties-config</include>
+                <include>com.zernova.runtime:mule-module-repository</include>
+                <include>com.zernova.runtime:mule-module-spring-config</include>
+                <include>com.zernova.runtime:mule-module-tls</include>
+                <include>com.zernova.runtime:mule-module-tooling-support</include>
+                <include>com.zernova.runtime:mule-module-troubleshooting</include>
+
+                <!-- Mule Metrics Libs -->
+                <include>com.zernova.runtime:mule-metrics-api</include>
+                <include>com.zernova.runtime:mule-metrics-impl</include>
+
+                <!-- Mule Tracing Libs -->
+                <include>com.zernova.runtime:mule-tracer-api</include>
+                <include>com.zernova.runtime:mule-tracer-exporter-api</include>
+                <include>com.zernova.runtime:mule-tracer-exporter-impl</include>
+                <include>com.zernova.runtime:mule-tracer-internal-impl</include>
+                <include>com.zernova.runtime:mule-tracer-exporter-configuration-api</include>
+                <include>com.zernova.runtime:mule-tracer-exporter-configuration-impl</include>
+                <include>com.zernova.runtime:mule-tracer-customization-api</include>
+                <include>com.zernova.runtime:mule-tracer-customization-impl</include>
+                <include>com.zernova.runtime:mule-tracer-configuration-api</include>
+                <include>com.zernova.runtime:mule-tracer-configuration-impl</include>
+                <include>com.zernova.runtime:mule-tracer-common</include>
+
+                <!-- Mule Metrics Libs -->
+                <include>com.zernova.runtime:mule-metrics-exporter-api</include>
+                <include>com.zernova.runtime:mule-metrics-exporter-impl</include>
+                <include>com.zernova.runtime:mule-metrics-exporter-configuration-api</include>
+                <include>com.zernova.runtime:mule-metrics-exporter-configuration-impl</include>
+
+                <!-- Mule Observability Libs -->
+                <include>com.zernova.runtime:mule-module-observability</include>
+            </includes>
+        </dependencySet>
+
+        <!-- Mule Services -->
+        <dependencySet>
+            <outputDirectory>services/${artifact.artifactId}-${artifact.baseVersion}</outputDirectory>
+            <outputFileNameMapping>${artifact.artifactId}-${artifact.baseVersion}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+            <useStrictFiltering>true</useStrictFiltering>
+            <unpack>true</unpack>
+            <includes>
+                <include>com.zernova.services:mule-service-scheduler</include>
+            </includes>
+        </dependencySet>
+
+        <dependencySet>
+            <outputDirectory>services/${artifact.artifactId}-${artifact.baseVersion}</outputDirectory>
+            <outputFileNameMapping>${artifact.artifactId}-${artifact.baseVersion}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+            <useStrictFiltering>true</useStrictFiltering>
+            <unpack>true</unpack>
+            <includes>
+                <include>com.zernova.services:mule-service-http</include>
+            </includes>
+        </dependencySet>
+
+        <dependencySet>
+            <outputDirectory>services/${artifact.artifactId}-${artifact.baseVersion}</outputDirectory>
+            <outputFileNameMapping>${artifact.artifactId}-${artifact.baseVersion}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+            <useStrictFiltering>true</useStrictFiltering>
+            <unpack>true</unpack>
+            <includes>
+                <include>com.zernova.services:mule-service-oauth</include>
+            </includes>
+        </dependencySet>
+
+        <dependencySet>
+            <outputDirectory>services/${artifact.artifactId}-${artifact.baseVersion}</outputDirectory>
+            <outputFileNameMapping>${artifact.artifactId}-${artifact.baseVersion}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+            <useStrictFiltering>true</useStrictFiltering>
+            <unpack>true</unpack>
+            <includes>
+                <include>com.zernova.services:mule-service-weave</include>
+            </includes>
+        </dependencySet>
+
+        <!-- Launcher libraries -->
+        <dependencySet>
+            <outputDirectory>lib/launcher</outputDirectory>
+            <useStrictFiltering>true</useStrictFiltering>
+            <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
+            <scope>runtime</scope>
+            <includes>
+                <include>com.zernova.distributions:mule-wrapper-additional-parameters-parser</include>
+            </includes>
+        </dependencySet>
+        
+        <!-- 3rd-party libraries -->
+        <dependencySet>
+            <outputDirectory>lib/opt</outputDirectory>
+            <useStrictFiltering>true</useStrictFiltering>
+
+            <!-- Since we don't define any "includes" here, this will suck in the whole
+    universe of transitive dependencies.  Therefore, we need to explicitly
+    _exclude_ all libs which should _not_ go into this directory (usually
+    because they are already in a different directory). -->
+            <!-- Implementation note: this must be kept consistent with the equivalent logic in test-runner and embedded-api -->
+            <excludes>
+                <!-- Mule Artifact Declaration -->  
+                <exclude>com.zernova.runtime:mule-artifact-declaration</exclude>
+                <exclude>com.zernova.runtime:mule-artifact-declaration-persistence</exclude>
+                <!--Mule API-->
+                <exclude>com.zernova.runtime:mule-api</exclude>
+                <exclude>com.zernova.runtime:mule-profiling-api</exclude>
+                <!--Metadata API-->
+                <exclude>com.zernova.runtime:mule-metadata-model-api</exclude>
+                <exclude>com.zernova.runtime:mule-metadata-model-java</exclude>
+                <exclude>com.zernova.runtime:mule-metadata-model-persistence</exclude>
+                <exclude>com.zernova.runtime:mule-metadata-model-xml</exclude>
+                <exclude>com.zernova.runtime:mule-metadata-model-json</exclude>
+                <exclude>com.zernova.runtime:mule-metadata-model-raml</exclude>
+                <exclude>com.zernova.runtime:mule-metadata-model-catalog</exclude>
+                <exclude>com.zernova.runtime:mule-message-metadata-model</exclude>
+                <!--extensions API-->
+                <exclude>com.zernova.runtime:mule-extensions-api</exclude>
+                <exclude>com.zernova.runtime:mule-extensions-mime-types</exclude>
+                <exclude>com.zernova.runtime:mule-extensions-api-persistence</exclude>
+                <exclude>com.zernova.runtime:mule-extensions-api-dsql</exclude>
+                <!-- AST -->
+                <exclude>com.zernova.runtime:mule-artifact-ast</exclude>
+                <exclude>com.zernova.runtime:mule-artifact-ast-dependency-graph</exclude>
+                <exclude>com.zernova.runtime:mule-artifact-ast-xml-parser</exclude>
+                <exclude>com.zernova.runtime:mule-artifact-ast-serialization</exclude>
+                <exclude>com.zernova.runtime:mule-properties-api</exclude>
+                <!--Services-->
+                <exclude>com.zernova.runtime:mule-service-http-api</exclude>
+                <exclude>com.zernova.runtime:mule-module-http-support</exclude>
+                <exclude>com.zernova.runtime:mule-service-oauth-api</exclude>
+                <exclude>com.zernova.runtime:mule-dwb-api</exclude>
+                <exclude>com.zernova.weave:dwb-api</exclude>
+                <exclude>com.zernova.commons:mule-oauth-client</exclude>
+                <exclude>com.zernova.commons:mule-oauth-client-api</exclude>
+                <!-- lib/mule -->
+                <exclude>com.zernova.runtime:mule-core</exclude>
+                <exclude>com.zernova.runtime:mule-core-components</exclude>
+                <exclude>com.zernova.runtime:mule-jar-handling-utils</exclude>
+                <exclude>com.zernova.runtime:mule-manifest</exclude>
+                <exclude>com.zernova.runtime:mule-runtime-extension-model</exclude>
+                <exclude>com.zernova.runtime:mule-runtime-errors</exclude>
+                <exclude>com.zernova.distributions:mule-services-all</exclude>
+                <exclude>com.zernova.runtime:mule-modules-all</exclude>
+                <exclude>com.zernova.runtime:mule-module-artifact</exclude>
+                <exclude>com.zernova.runtime:mule-module-artifact-activation</exclude>
+                <exclude>com.zernova.runtime:mule-module-log4j-configurator</exclude>
+                <exclude>com.zernova.runtime:mule-module-extensions-support</exclude>
+                <exclude>com.zernova.runtime:mule-module-extensions-spring-support</exclude>
+                <exclude>com.zernova.runtime:mule-module-extensions-mule-support</exclude>
+                <exclude>com.zernova.runtime:mule-module-extensions-xml-support</exclude>
+                <exclude>com.zernova.runtime:mule-module-container</exclude>
+                <exclude>com.zernova.runtime:mule-module-launcher</exclude>
+                <exclude>com.zernova.runtime:mule-module-feature-management</exclude>
+                <exclude>com.zernova.runtime:mule-module-memory-management</exclude>
+                <exclude>com.zernova.runtime:mule-module-global-config</exclude>
+                <exclude>com.zernova.runtime:mule-module-deployment</exclude>
+                <exclude>com.zernova.runtime:mule-module-deployment-model</exclude>
+                <exclude>com.zernova.runtime:mule-module-deployment-model-impl</exclude>
+                <exclude>com.zernova.runtime:mule-module-dsl-api</exclude>
+                <exclude>com.zernova.runtime:mule-module-http-policy-api</exclude>
+                <exclude>com.zernova.runtime:mule-module-license-api</exclude>
+                <exclude>com.zernova.runtime:mule-module-metadata-support</exclude>
+                <exclude>com.zernova.runtime:mule-module-service</exclude>
+                <exclude>com.zernova.runtime:mule-module-policy-api</exclude>
+                <exclude>com.zernova.runtime:mule-module-properties-config</exclude>
+                <exclude>com.zernova.runtime.boot:*</exclude>
+                <exclude>com.zernova.runtime:mule-module-repository</exclude>
+                <exclude>com.zernova.runtime:mule-module-spring-config</exclude>
+                <exclude>com.zernova.runtime:mule-module-tls</exclude>
+                <exclude>com.zernova.runtime:mule-module-tooling-support</exclude>
+                <exclude>com.zernova.runtime:mule-module-troubleshooting</exclude>
+                <exclude>com.zernova.sdk:mule-sdk-api</exclude>
+                <exclude>com.zernova.sdk:mule-sdk-compatibility-api</exclude>
+
+                <!-- lib/boot -->
+                <exclude>commons-cli:commons-cli</exclude>
+                <exclude>tanukisoft:wrapper</exclude>
+                <exclude>org.slf4j:slf4j-api</exclude>
+                <exclude>org.apache.logging.log4j:log4j-api</exclude>
+                <exclude>org.apache.logging.log4j:log4j-core</exclude>
+                <exclude>org.apache.logging.log4j:log4j-slf4j2-impl</exclude>
+                <exclude>org.apache.logging.log4j:log4j-1.2-api</exclude>
+                <exclude>org.slf4j:jcl-over-slf4j</exclude>
+                <exclude>org.slf4j:jul-to-slf4j</exclude>
+                <exclude>com.lmax:disruptor</exclude>
+                <exclude>com.fasterxml.jackson.core:jackson-databind</exclude>
+                <exclude>com.fasterxml.jackson.core:jackson-core</exclude>
+                <exclude>com.fasterxml.jackson.core:jackson-annotations</exclude>
+
+                <!-- Excludes services-->
+                <exclude>com.zernova.services:*</exclude>
+
+                <!-- Excludes structure module -->
+                <exclude>com.zernova.distributions:mule-standalone-structure</exclude>
+
+                <!-- Exclude metrics libraries -->
+                <exclude>com.zernova.runtime:mule-metrics-api</exclude>
+                <exclude>com.zernova.runtime:mule-metrics-impl</exclude>
+                <exclude>com.zernova.runtime:mule-metrics-exporter-configuration-api</exclude>
+                <exclude>com.zernova.runtime:mule-metrics-exporter-configuration-impl</exclude>
+
+                <!-- Exclude tracing libraries -->
+                <exclude>com.zernova.runtime:mule-tracer-api</exclude>
+                <exclude>com.zernova.runtime:mule-tracer-exporter-api</exclude>
+                <exclude>com.zernova.runtime:mule-tracer-exporter-impl</exclude>
+                <exclude>com.zernova.runtime:mule-tracer-internal-impl</exclude>
+                <exclude>com.zernova.runtime:mule-tracer-exporter-configuration-api</exclude>
+                <exclude>com.zernova.runtime:mule-tracer-exporter-configuration-impl</exclude>
+                <exclude>com.zernova.runtime:mule-tracer-customization-api</exclude>
+                <exclude>com.zernova.runtime:mule-tracer-customization-impl</exclude>
+                <exclude>com.zernova.runtime:mule-tracer-configuration-api</exclude>
+                <exclude>com.zernova.runtime:mule-tracer-configuration-impl</exclude>
+                <exclude>com.zernova.runtime:mule-tracer-common</exclude>
+
+                <!-- Exclude metrics libraries -->
+                <exclude>com.zernova.runtime:mule-metrics-exporter-api</exclude>
+                <exclude>com.zernova.runtime:mule-metrics-exporter-impl</exclude>
+
+                <!-- Exclude observability libraries -->
+                <exclude>com.zernova.runtime:mule-module-observability</exclude>
+
+                <!-- Exclude parameter parsing -->
+                <exclude>com.zernova.distributions:mule-wrapper-additional-parameters-parser</exclude>
+
+            </excludes>
+        </dependencySet>
+    </dependencySets>
+</assembly>

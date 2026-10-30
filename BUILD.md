@@ -1,3 +1,12 @@
+# Building the ZERNOVA namespace fork
+
+Use `bash zernova-build/build-source.sh` with Java 17, Maven 3.9+ and Python 3.
+See [NAMESPACE_MIGRATION.md](NAMESPACE_MIGRATION.md) for dependency bootstrap and
+native runtime verification. The historical preparation recipes apply only to
+the pinned baseline checkout, not to the renamed working tree.
+
+## Preserved upstream build documentation
+
 # Building Mule
 
 [Maven](http://maven.apache.org/) is the build automation tool used in Mule Runtime. To modify or add to Mule source code, it's specially relevant to understand the hierarchy of maven projects that represent the Mule source code.  

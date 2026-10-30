@@ -11,7 +11,7 @@
     <module-properties:config name="some-config"  configParam="#['some config-value-parameter']" />
     <module-properties:config name="some-other-config"  configParam="some other config-value-parameter" />
 
-    <object name="some-non-config" class="org.mule.test.functional.ExpressionsOnConfigRefTestCase$SomeTestProcessor"/>
+    <object name="some-non-config" class="com.zernova.test.functional.ExpressionsOnConfigRefTestCase$SomeTestProcessor"/>
 
     <marvel:iron-man-config name="some-incompatible-config" />
 

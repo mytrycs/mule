@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.mule.tests</groupId>
+        <groupId>com.zernova.tests</groupId>
         <artifactId>mule-tests</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
     <artifactId>mule-module-test-plugins</artifactId>
     <packaging>pom</packaging>
-    <name>Test Plugins for Mule</name>
+    <name>Test Plugins for ZERNOVA</name>
     <description>Provides plugins to use on tests</description>
 
     <modules>

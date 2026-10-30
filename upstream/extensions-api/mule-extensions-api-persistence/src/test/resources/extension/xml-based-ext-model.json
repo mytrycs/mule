@@ -1,0 +1,1022 @@
+{
+  "name": "Github",
+  "description": "",
+  "version": "4.0",
+  "vendor": "MuleSoft",
+  "category": "COMMUNITY",
+  "supportedJavaVersions": [
+    "1.8",
+    "11"
+  ],
+  "xmlDsl": {
+    "prefix": "github",
+    "namespace": "http://www.mulesoft.org/schema/mule/github",
+    "schemaLocation": "http://www.mulesoft.org/schema/mule/github/current/mule-github.xsd",
+    "schemaVersion": "4.0",
+    "xsdFileName": "mule-github.xsd"
+  },
+  "resources": [],
+  "subTypes": [],
+  "privilegedPackages": [],
+  "privilegedArtifacts": [],
+  "externalLibraries": [],
+  "importedTypes": [],
+  "configurations": [
+    {
+      "parameterGroupModels": [
+        {
+          "parameters": [
+            {
+              "type": {
+                "format": "java",
+                "type": "String"
+              },
+              "hasDynamicType": false,
+              "required": false,
+              "isConfigOverride": false,
+              "isComponentId": false,
+              "expressionSupport": "SUPPORTED",
+              "defaultValue": "api.github.com",
+              "role": "BEHAVIOUR",
+              "dslConfiguration": {
+                "allowsInlineDefinition": true,
+                "allowsReferences": true,
+                "allowTopLevelDefinition": false
+              },
+              "layoutModel": {
+                "password": false,
+                "text": false,
+                "query": false,
+                "tabName": "General"
+              },
+              "allowedStereotypeModels": [],
+              "name": "property_host",
+              "displayModel": {
+                "displayName": "host"
+              },
+              "description": "",
+              "modelProperties": {}
+            },
+            {
+              "type": {
+                "format": "java",
+                "type": "String"
+              },
+              "hasDynamicType": false,
+              "required": false,
+              "isConfigOverride": false,
+              "isComponentId": false,
+              "expressionSupport": "SUPPORTED",
+              "defaultValue": "443",
+              "role": "BEHAVIOUR",
+              "dslConfiguration": {
+                "allowsInlineDefinition": true,
+                "allowsReferences": true,
+                "allowTopLevelDefinition": false
+              },
+              "layoutModel": {
+                "password": false,
+                "text": false,
+                "query": false,
+                "tabName": "General"
+              },
+              "allowedStereotypeModels": [],
+              "name": "property_port",
+              "displayModel": {
+                "displayName": "port"
+              },
+              "description": "",
+              "modelProperties": {}
+            },
+            {
+              "type": {
+                "format": "java",
+                "type": "String"
+              },
+              "hasDynamicType": false,
+              "required": false,
+              "isConfigOverride": false,
+              "isComponentId": false,
+              "expressionSupport": "SUPPORTED",
+              "defaultValue": "/v3",
+              "role": "BEHAVIOUR",
+              "dslConfiguration": {
+                "allowsInlineDefinition": true,
+                "allowsReferences": true,
+                "allowTopLevelDefinition": false
+              },
+              "layoutModel": {
+                "password": false,
+                "text": false,
+                "query": false,
+                "tabName": "General"
+              },
+              "allowedStereotypeModels": [],
+              "name": "property_basePath",
+              "displayModel": {
+                "displayName": "basePath"
+              },
+              "description": "",
+              "modelProperties": {}
+            },
+            {
+              "type": {
+                "format": "java",
+                "type": "String"
+              },
+              "hasDynamicType": false,
+              "required": false,
+              "isConfigOverride": false,
+              "isComponentId": false,
+              "expressionSupport": "SUPPORTED",
+              "defaultValue": "HTTPS",
+              "role": "BEHAVIOUR",
+              "dslConfiguration": {
+                "allowsInlineDefinition": true,
+                "allowsReferences": true,
+                "allowTopLevelDefinition": false
+              },
+              "layoutModel": {
+                "password": false,
+                "text": false,
+                "query": false,
+                "tabName": "General"
+              },
+              "allowedStereotypeModels": [],
+              "name": "property_protocol",
+              "displayModel": {
+                "displayName": "protocol"
+              },
+              "description": "",
+              "modelProperties": {}
+            },
+            {
+              "type": {
+                "format": "java",
+                "type": "String"
+              },
+              "hasDynamicType": false,
+              "required": true,
+              "isConfigOverride": false,
+              "isComponentId": false,
+              "expressionSupport": "SUPPORTED",
+              "role": "BEHAVIOUR",
+              "dslConfiguration": {
+                "allowsInlineDefinition": true,
+                "allowsReferences": true,
+                "allowTopLevelDefinition": false
+              },
+              "layoutModel": {
+                "password": false,
+                "text": false,
+                "query": false,
+                "tabName": "General"
+              },
+              "allowedStereotypeModels": [],
+              "name": "property_username",
+              "displayModel": {
+                "displayName": "username"
+              },
+              "description": "",
+              "modelProperties": {}
+            },
+            {
+              "type": {
+                "format": "java",
+                "type": "String"
+              },
+              "hasDynamicType": false,
+              "required": true,
+              "isConfigOverride": false,
+              "isComponentId": false,
+              "expressionSupport": "SUPPORTED",
+              "role": "BEHAVIOUR",
+              "dslConfiguration": {
+                "allowsInlineDefinition": true,
+                "allowsReferences": true,
+                "allowTopLevelDefinition": false
+              },
+              "layoutModel": {
+                "password": true,
+                "text": false,
+                "query": false,
+                "tabName": "General"
+              },
+              "allowedStereotypeModels": [],
+              "name": "property_password",
+              "displayModel": {
+                "displayName": "password"
+              },
+              "description": "",
+              "modelProperties": {}
+            },
+            {
+              "type": {
+                "format": "java",
+                "type": "Object",
+                "annotations": {
+                  "typeId": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
+                  "description": {
+                    "value": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit."
+                  },
+                  "typeDsl": {
+                    "allowInlineDefinition": true,
+                    "allowTopLevelDefinition": false
+                  }
+                },
+                "fields": [
+                  {
+                    "key": {
+                      "name": "maxIdleTime"
+                    },
+                    "model": {
+                      "type": "Number",
+                      "annotations": {
+                        "int": {},
+                        "classInformation": {
+                          "classname": "java.lang.Long",
+                          "hasDefaultConstructor": false,
+                          "isInterface": false,
+                          "isInstantiable": false,
+                          "isAbstract": false,
+                          "isFinal": true,
+                          "implementedInterfaces": [],
+                          "parent": "java.lang.Number",
+                          "genericTypes": [],
+                          "isMap": false
+                        },
+                        "default": "5"
+                      }
+                    },
+                    "annotations": {
+                      "description": {
+                        "value": "A scalar time value for the maximum amount of time a dynamic configuration instance should be allowed to be idle before it\u0027s considered eligible for expiration"
+                      },
+                      "expressionSupport": {
+                        "value": "NOT_SUPPORTED"
+                      }
+                    }
+                  },
+                  {
+                    "key": {
+                      "name": "timeUnit"
+                    },
+                    "model": {
+                      "type": "String",
+                      "annotations": {
+                        "enum": {
+                          "type": "[Ljava.lang.String;",
+                          "values": [
+                            "NANOSECONDS",
+                            "MICROSECONDS",
+                            "MILLISECONDS",
+                            "SECONDS",
+                            "MINUTES",
+                            "HOURS",
+                            "DAYS"
+                          ]
+                        },
+                        "default": "MINUTES"
+                      }
+                    },
+                    "annotations": {
+                      "description": {
+                        "value": "A time unit that qualifies the maxIdleTime attribute"
+                      },
+                      "expressionSupport": {
+                        "value": "NOT_SUPPORTED"
+                      }
+                    }
+                  }
+                ]
+              },
+              "hasDynamicType": false,
+              "required": false,
+              "isConfigOverride": false,
+              "isComponentId": false,
+              "expressionSupport": "NOT_SUPPORTED",
+              "role": "BEHAVIOUR",
+              "dslConfiguration": {
+                "allowsInlineDefinition": true,
+                "allowsReferences": false,
+                "allowTopLevelDefinition": false
+              },
+              "layoutModel": {
+                "password": false,
+                "text": false,
+                "query": false,
+                "tabName": "Advanced"
+              },
+              "allowedStereotypeModels": [],
+              "name": "expirationPolicy",
+              "description": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit.",
+              "modelProperties": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
+                  "value": {
+                    "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
+                    "localPart": "expiration-policy",
+                    "prefix": "mule"
+                  }
+                },
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                  "sequence": 4
+                }
+              }
+            }
+          ],
+          "exclusiveParametersModels": [],
+          "showInDsl": false,
+          "name": "General",
+          "description": "",
+          "modelProperties": {}
+        }
+      ],
+      "externalLibraryModels": [],
+      "operations": [
+        {
+          "blocking": true,
+          "executionType": "CPU_LITE",
+          "output": {
+            "type": {
+              "format": "json",
+              "type": "Object",
+              "open": {
+                "type": "Any"
+              },
+              "fields": [
+                {
+                  "key": {
+                    "name": "total_count",
+                    "required": "true"
+                  },
+                  "model": {
+                    "type": "Number",
+                    "annotations": {
+                      "int": {}
+                    }
+                  }
+                },
+                {
+                  "key": {
+                    "name": "incomplete_results",
+                    "required": "true"
+                  },
+                  "model": {
+                    "type": "Boolean"
+                  }
+                },
+                {
+                  "key": {
+                    "name": "items",
+                    "required": "true"
+                  },
+                  "model": {
+                    "type": "Array",
+                    "item": {
+                      "type": "Object",
+                      "open": {
+                        "type": "Any"
+                      },
+                      "fields": [
+                        {
+                          "key": {
+                            "name": "comments",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "Number",
+                            "annotations": {
+                              "int": {}
+                            }
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "closed_at",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "Null"
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "assignees",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "Array",
+                            "item": {
+                              "type": "Any"
+                            }
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "created_at",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "String"
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "title",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "String"
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "body",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "String"
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "url",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "String"
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "labels",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "Array",
+                            "item": {
+                              "type": "Any"
+                            }
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "labels_url",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "String"
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "number",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "Number",
+                            "annotations": {
+                              "int": {}
+                            }
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "score",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "Number",
+                            "annotations": {
+                              "int": {}
+                            }
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "milestone",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "Null"
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "updated_at",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "String"
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "events_url",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "String"
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "html_url",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "String"
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "comments_url",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "String"
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "repository_url",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "String"
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "id",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "Number",
+                            "annotations": {
+                              "int": {}
+                            }
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "state",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "String"
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "assignee",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "Null"
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "locked",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "Boolean"
+                          }
+                        },
+                        {
+                          "key": {
+                            "name": "user",
+                            "required": "true"
+                          },
+                          "model": {
+                            "type": "Object",
+                            "open": {
+                              "type": "Any"
+                            },
+                            "fields": [
+                              {
+                                "key": {
+                                  "name": "gists_url",
+                                  "required": "true"
+                                },
+                                "model": {
+                                  "type": "String"
+                                }
+                              },
+                              {
+                                "key": {
+                                  "name": "repos_url",
+                                  "required": "true"
+                                },
+                                "model": {
+                                  "type": "String"
+                                }
+                              },
+                              {
+                                "key": {
+                                  "name": "following_url",
+                                  "required": "true"
+                                },
+                                "model": {
+                                  "type": "String"
+                                }
+                              },
+                              {
+                                "key": {
+                                  "name": "starred_url",
+                                  "required": "true"
+                                },
+                                "model": {
+                                  "type": "String"
+                                }
+                              },
+                              {
+                                "key": {
+                                  "name": "login",
+                                  "required": "true"
+                                },
+                                "model": {
+                                  "type": "String"
+                                }
+                              },
+                              {
+                                "key": {
+                                  "name": "followers_url",
+                                  "required": "true"
+                                },
+                                "model": {
+                                  "type": "String"
+                                }
+                              },
+                              {
+                                "key": {
+                                  "name": "type",
+                                  "required": "true"
+                                },
+                                "model": {
+                                  "type": "String"
+                                }
+                              },
+                              {
+                                "key": {
+                                  "name": "url",
+                                  "required": "true"
+                                },
+                                "model": {
+                                  "type": "String"
+                                }
+                              },
+                              {
+                                "key": {
+                                  "name": "subscriptions_url",
+                                  "required": "true"
+                                },
+                                "model": {
+                                  "type": "String"
+                                }
+                              },
+                              {
+                                "key": {
+                                  "name": "received_events_url",
+                                  "required": "true"
+                                },
+                                "model": {
+                                  "type": "String"
+                                }
+                              },
+                              {
+                                "key": {
+                                  "name": "avatar_url",
+                                  "required": "true"
+                                },
+                                "model": {
+                                  "type": "String"
+                                }
+                              },
+                              {
+                                "key": {
+                                  "name": "events_url",
+                                  "required": "true"
+                                },
+                                "model": {
+                                  "type": "String"
+                                }
+                              },
+                              {
+                                "key": {
+                                  "name": "html_url",
+                                  "required": "true"
+                                },
+                                "model": {
+                                  "type": "String"
+                                }
+                              },
+                              {
+                                "key": {
+                                  "name": "site_admin",
+                                  "required": "true"
+                                },
+                                "model": {
+                                  "type": "Boolean"
+                                }
+                              },
+                              {
+                                "key": {
+                                  "name": "id",
+                                  "required": "true"
+                                },
+                                "model": {
+                                  "type": "Number",
+                                  "annotations": {
+                                    "int": {}
+                                  }
+                                }
+                              },
+                              {
+                                "key": {
+                                  "name": "gravatar_id",
+                                  "required": "true"
+                                },
+                                "model": {
+                                  "type": "String"
+                                }
+                              },
+                              {
+                                "key": {
+                                  "name": "organizations_url",
+                                  "required": "true"
+                                },
+                                "model": {
+                                  "type": "String"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            "hasDynamicType": false,
+            "description": "",
+            "modelProperties": {}
+          },
+          "outputAttributes": {
+            "type": {
+              "format": "java",
+              "type": "Void"
+            },
+            "hasDynamicType": false,
+            "description": "",
+            "modelProperties": {}
+          },
+          "transactional": false,
+          "requiresConnection": false,
+          "supportsStreaming": false,
+          "nestedComponents": [],
+          "errors": [],
+          "stereotype": {
+            "type": "PROCESSOR",
+            "namespace": "MULE"
+          },
+          "parameterGroupModels": [
+            {
+              "parameters": [
+                {
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "hasDynamicType": false,
+                  "required": true,
+                  "isConfigOverride": false,
+                  "isComponentId": false,
+                  "expressionSupport": "SUPPORTED",
+                  "role": "BEHAVIOUR",
+                  "dslConfiguration": {
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true,
+                    "allowTopLevelDefinition": false
+                  },
+                  "layoutModel": {
+                    "password": false,
+                    "text": false,
+                    "query": false,
+                    "tabName": "General"
+                  },
+                  "allowedStereotypeModels": [],
+                  "name": "q",
+                  "displayModel": {},
+                  "description": "The search terms.",
+                  "modelProperties": {}
+                },
+                {
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "hasDynamicType": false,
+                  "required": false,
+                  "isConfigOverride": false,
+                  "isComponentId": false,
+                  "expressionSupport": "SUPPORTED",
+                  "role": "BEHAVIOUR",
+                  "dslConfiguration": {
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true,
+                    "allowTopLevelDefinition": false
+                  },
+                  "layoutModel": {
+                    "password": false,
+                    "text": false,
+                    "query": false,
+                    "tabName": "General"
+                  },
+                  "allowedStereotypeModels": [],
+                  "name": "sort",
+                  "displayModel": {},
+                  "description": "The sort field. Can be comments, created, or updated. Default: results are sorted by best match.",
+                  "modelProperties": {}
+                },
+                {
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "hasDynamicType": false,
+                  "required": false,
+                  "isConfigOverride": false,
+                  "isComponentId": false,
+                  "expressionSupport": "SUPPORTED",
+                  "role": "BEHAVIOUR",
+                  "dslConfiguration": {
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true,
+                    "allowTopLevelDefinition": false
+                  },
+                  "layoutModel": {
+                    "password": false,
+                    "text": false,
+                    "query": false,
+                    "tabName": "General"
+                  },
+                  "allowedStereotypeModels": [],
+                  "name": "order",
+                  "displayModel": {},
+                  "description": "The sort order if sort parameter is provided. One of asc or desc. Default: desc",
+                  "modelProperties": {}
+                },
+                {
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "hasDynamicType": false,
+                  "required": true,
+                  "isConfigOverride": false,
+                  "isComponentId": false,
+                  "expressionSupport": "SUPPORTED",
+                  "role": "BEHAVIOUR",
+                  "dslConfiguration": {
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true,
+                    "allowTopLevelDefinition": false
+                  },
+                  "layoutModel": {
+                    "password": false,
+                    "text": false,
+                    "query": false,
+                    "tabName": "General"
+                  },
+                  "allowedStereotypeModels": [],
+                  "name": "accept",
+                  "displayModel": {},
+                  "description": "The type of the expected response.",
+                  "modelProperties": {}
+                }
+              ],
+              "exclusiveParametersModels": [],
+              "showInDsl": false,
+              "name": "General",
+              "description": "",
+              "modelProperties": {}
+            },
+            {
+              "parameters": [
+                {
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "hasDynamicType": false,
+                  "required": false,
+                  "isConfigOverride": false,
+                  "isComponentId": false,
+                  "expressionSupport": "NOT_SUPPORTED",
+                  "role": "BEHAVIOUR",
+                  "dslConfiguration": {
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true,
+                    "allowTopLevelDefinition": false
+                  },
+                  "layoutModel": {
+                    "password": false,
+                    "text": false,
+                    "query": false,
+                    "tabName": "Advanced"
+                  },
+                  "allowedStereotypeModels": [],
+                  "name": "target",
+                  "displayModel": {
+                    "displayName": "Target Variable"
+                  },
+                  "description": "The name of a variable on which the operation\u0027s output will be placed",
+                  "modelProperties": {}
+                },
+                {
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "hasDynamicType": false,
+                  "required": false,
+                  "isConfigOverride": false,
+                  "isComponentId": false,
+                  "expressionSupport": "REQUIRED",
+                  "defaultValue": "#[payload]",
+                  "role": "BEHAVIOUR",
+                  "dslConfiguration": {
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true,
+                    "allowTopLevelDefinition": false
+                  },
+                  "layoutModel": {
+                    "password": false,
+                    "text": false,
+                    "query": false,
+                    "tabName": "Advanced"
+                  },
+                  "allowedStereotypeModels": [],
+                  "name": "targetValue",
+                  "displayModel": {
+                    "displayName": "Target Value"
+                  },
+                  "description": "An expression that will be evaluated against the operation\u0027s output and the outcome of that expression will be stored in the target variable",
+                  "modelProperties": {}
+                }
+              ],
+              "exclusiveParametersModels": [],
+              "showInDsl": false,
+              "name": "Output",
+              "description": "",
+              "modelProperties": {}
+            }
+          ],
+          "name": "get-issues",
+          "displayModel": {},
+          "description": "",
+          "modelProperties": {},
+          "kind": "operation"
+        }
+      ],
+      "connectionProviders": [
+        {
+          "connectionManagementType": "NONE",
+          "externalLibraryModels": [],
+          "supportsConnectivityTesting": false,
+		  "supportsXa": false,
+          "parameterGroupModels": [],
+          "name": "connection",
+          "description": "",
+          "modelProperties": {}
+        }
+      ],
+      "messageSources": [],
+      "name": "config",
+      "description": "",
+      "modelProperties": {}
+    }
+  ],
+  "operations": [],
+  "functions": [],
+  "constructs": [],
+  "connectionProviders": [],
+  "messageSources": [],
+  "notifications": [],
+  "errors": [],
+  "modelProperties": {
+    "com.zernova.runtime.extension.api.property.XmlExtensionModelProperty": {
+      "namespacesDependencies": [
+        "http://www.mulesoft.org/schema/mule/documentation",
+        "http://www.mulesoft.org/schema/mule/http",
+        "http://www.w3.org/2001/XMLSchema-instance",
+        "http://www.mulesoft.org/schema/mule/core"
+      ]
+    }
+  },
+  "types": []
+}

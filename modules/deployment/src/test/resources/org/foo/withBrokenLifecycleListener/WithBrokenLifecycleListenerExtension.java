@@ -4,10 +4,11 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package org.foo.withBrokenLifecycleListener;
 
-import org.mule.sdk.api.annotation.Extension;
-import org.mule.sdk.api.annotation.OnArtifactLifecycle;
+import com.zernova.sdk.api.annotation.Extension;
+import com.zernova.sdk.api.annotation.OnArtifactLifecycle;
 
 /**
  * Extension with a LifecycleListener that fails, for testing purposes

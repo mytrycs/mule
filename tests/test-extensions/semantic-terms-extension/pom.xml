@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.mule.tests</groupId>
+        <groupId>com.zernova.tests</groupId>
         <artifactId>mule-test-extensions-parent</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
@@ -13,11 +13,11 @@
     <artifactId>mule-semantic-terms-extension</artifactId>
     <packaging>jar</packaging>
 
-    <name>Mule Semantic Terms Test Extension</name>
+    <name>ZERNOVA Semantic Terms Test Extension</name>
     <description>A Mule extension for testing the semantic terms functionality</description>
 
     <properties>
-        <javaModuleName>org.mule.test.extension.semantic.terms</javaModuleName>
+        <javaModuleName>com.zernova.test.extension.semantic.terms</javaModuleName>
         <testExtensionModelLoaderId>java</testExtensionModelLoaderId>
     </properties>
 

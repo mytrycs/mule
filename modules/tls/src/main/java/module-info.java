@@ -4,6 +4,7 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 
 /**
  * A Mule module for connectivity using TLS/SSL authentication.
@@ -11,15 +12,15 @@
  * @moduleGraph
  * @since 4.5
  */
-module org.mule.runtime.tls {
+module com.zernova.runtime.tls {
 
-  requires org.mule.runtime.api;
-  requires org.mule.runtime.container;
-  requires org.mule.runtime.core;
-  requires org.mule.runtime.dsl.api;
-  requires org.mule.runtime.extension.model;
-  requires org.mule.runtime.extensions.api;
-  requires org.mule.runtime.spring.config;
+  requires com.zernova.runtime.api;
+  requires com.zernova.runtime.container;
+  requires com.zernova.runtime.core;
+  requires com.zernova.runtime.dsl.api;
+  requires com.zernova.runtime.extension.model;
+  requires com.zernova.runtime.extensions.api;
+  requires com.zernova.runtime.spring.config;
 
   // QName
   requires java.xml;
@@ -28,32 +29,32 @@ module org.mule.runtime.tls {
   // needed because byte-buddy generated classes for this module need to use spring SmartFactoryBean
   requires spring.beans;
 
-  exports org.mule.runtime.module.tls.api;
-  exports org.mule.runtime.module.tls.api.socket;
+  exports com.zernova.runtime.module.tls.api;
+  exports com.zernova.runtime.module.tls.api.socket;
 
-  exports org.mule.runtime.module.tls.internal.config to
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.module.tls.internal.config to
+      com.zernova.runtime.spring.config,
       spring.beans;
 
-  exports org.mule.runtime.module.tls.internal.revocation to
+  exports com.zernova.runtime.module.tls.internal.revocation to
       spring.beans;
 
-  exports org.mule.runtime.module.tls.internal.util to
-      org.mule.runtime.launcher;
+  exports com.zernova.runtime.module.tls.internal.util to
+      com.zernova.runtime.launcher;
 
-  provides org.mule.runtime.api.tls.AbstractTlsContextFactoryBuilderFactory with
-      org.mule.runtime.module.tls.api.DefaultTlsContextFactoryBuilderFactory;
+  provides com.zernova.runtime.api.tls.AbstractTlsContextFactoryBuilderFactory with
+      com.zernova.runtime.module.tls.api.DefaultTlsContextFactoryBuilderFactory;
 
-  provides org.mule.runtime.extension.api.provider.RuntimeExtensionModelProvider with
-      org.mule.runtime.module.tls.api.extension.TlsRuntimeExtensionModelProvider;
+  provides com.zernova.runtime.extension.api.provider.RuntimeExtensionModelProvider with
+      com.zernova.runtime.module.tls.api.extension.TlsRuntimeExtensionModelProvider;
 
-  provides org.mule.runtime.dsl.api.component.ComponentBuildingDefinitionProvider with
-      org.mule.runtime.module.tls.internal.config.TlsComponentBuildingDefinitionProvider;
+  provides com.zernova.runtime.dsl.api.component.ComponentBuildingDefinitionProvider with
+      com.zernova.runtime.module.tls.internal.config.TlsComponentBuildingDefinitionProvider;
 
-  provides org.mule.runtime.dsl.api.xml.XmlNamespaceInfoProvider with
-      org.mule.runtime.module.tls.internal.config.TlsXmlNamespaceInfoProvider;
+  provides com.zernova.runtime.dsl.api.xml.XmlNamespaceInfoProvider with
+      com.zernova.runtime.module.tls.internal.config.TlsXmlNamespaceInfoProvider;
 
-  opens org.mule.runtime.module.tls.internal.config to
+  opens com.zernova.runtime.module.tls.internal.config to
       net.bytebuddy;
 
 }

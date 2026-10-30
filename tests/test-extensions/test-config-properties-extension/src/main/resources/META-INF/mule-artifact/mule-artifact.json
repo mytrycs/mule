@@ -4,7 +4,7 @@
   "extensionModelLoaderDescriptor": {
     "id": "crafted",
     "attributes": {
-      "type": "org.mule.test.crafted.config.properties.extension.TestConfigPropertiesExtensionLoadingDelegate",
+      "type": "com.zernova.test.crafted.config.properties.extension.TestConfigPropertiesExtensionLoadingDelegate",
       "version": "4.0.0"
     }
   },
@@ -14,10 +14,10 @@
     "id": "mule",
     "attributes": {
       "exportedPackages": [
-        "org.mule.test.crafted.config.properties.extension"
+        "com.zernova.test.crafted.config.properties.extension"
       ],
       "exportedResources": [
-        "META-INF/services/org.mule.runtime.properties.api.ConfigurationPropertiesProviderFactory"
+        "META-INF/services/com.zernova.runtime.properties.api.ConfigurationPropertiesProviderFactory"
       ]
     }
   },

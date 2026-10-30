@@ -4,6 +4,7 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 
 /**
  * Api for the internal tracer exporter configuration.
@@ -11,8 +12,8 @@
  * @moduleGraph
  * @since 4.5
  */
-module org.mule.runtime.tracer.exporter.configuration.api {
+module com.zernova.runtime.tracer.exporter.configuration.api {
 
-  exports org.mule.runtime.tracer.exporter.config.api;
+  exports com.zernova.runtime.tracer.exporter.config.api;
 
 }

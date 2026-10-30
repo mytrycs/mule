@@ -3,51 +3,51 @@
 <xs:schema xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.mulesoft.org/schema/mule/ram" attributeFormDefault="unqualified" elementFormDefault="qualified">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace"></xs:import>
   <xs:import namespace="http://www.mulesoft.org/schema/mule/core" schemaLocation="http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></xs:import>
-  <xs:complexType name="org.mule.runtime.extension.api.soap.MessageDispatcherProvider">
+  <xs:complexType name="com.zernova.runtime.extension.api.soap.MessageDispatcherProvider">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType"></xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:ram="http://www.mulesoft.org/schema/mule/ram" type="ram:org.mule.runtime.extension.api.soap.MessageDispatcherProvider" substitutionGroup="mule:abstract-shared-extension" abstract="true" name="global-abstract-message-dispatcher-provider"></xs:element>
-  <xs:element xmlns:ram="http://www.mulesoft.org/schema/mule/ram" type="ram:org.mule.runtime.extension.api.soap.MessageDispatcherProvider" abstract="true" name="abstract-message-dispatcher-provider"></xs:element>
-  <xs:complexType name="org.mule.test.ram.MiniverseDispatcherProvider">
+  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:ram="http://www.mulesoft.org/schema/mule/ram" type="ram:com.zernova.runtime.extension.api.soap.MessageDispatcherProvider" substitutionGroup="mule:abstract-shared-extension" abstract="true" name="global-abstract-message-dispatcher-provider"></xs:element>
+  <xs:element xmlns:ram="http://www.mulesoft.org/schema/mule/ram" type="ram:com.zernova.runtime.extension.api.soap.MessageDispatcherProvider" abstract="true" name="abstract-message-dispatcher-provider"></xs:element>
+  <xs:complexType name="com.zernova.test.ram.MiniverseDispatcherProvider">
     <xs:complexContent>
-      <xs:extension xmlns:ram="http://www.mulesoft.org/schema/mule/ram" base="ram:org.mule.runtime.extension.api.soap.MessageDispatcherProvider"></xs:extension>
+      <xs:extension xmlns:ram="http://www.mulesoft.org/schema/mule/ram" base="ram:com.zernova.runtime.extension.api.soap.MessageDispatcherProvider"></xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:ram="http://www.mulesoft.org/schema/mule/ram" type="ram:org.mule.test.ram.MiniverseDispatcherProvider" substitutionGroup="ram:abstract-message-dispatcher-provider" abstract="true" name="abstract-miniverse-dispatcher-provider"></xs:element>
+  <xs:element xmlns:ram="http://www.mulesoft.org/schema/mule/ram" type="ram:com.zernova.test.ram.MiniverseDispatcherProvider" substitutionGroup="ram:abstract-message-dispatcher-provider" abstract="true" name="abstract-miniverse-dispatcher-provider"></xs:element>
   <xs:element xmlns:ram="http://www.mulesoft.org/schema/mule/ram" substitutionGroup="ram:abstract-miniverse-dispatcher-provider" name="miniverse-dispatcher-provider">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="ram:org.mule.test.ram.MiniverseDispatcherProvider"></xs:extension>
+        <xs:extension base="ram:com.zernova.test.ram.MiniverseDispatcherProvider"></xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.ram.DefaultPortalGunDispatcherProvider">
+  <xs:complexType name="com.zernova.test.ram.DefaultPortalGunDispatcherProvider">
     <xs:complexContent>
-      <xs:extension xmlns:ram="http://www.mulesoft.org/schema/mule/ram" base="ram:org.mule.runtime.extension.api.soap.MessageDispatcherProvider">
+      <xs:extension xmlns:ram="http://www.mulesoft.org/schema/mule/ram" base="ram:com.zernova.runtime.extension.api.soap.MessageDispatcherProvider">
         <xs:attribute xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="mule:expressionString" use="required" name="responseMessage"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:ram="http://www.mulesoft.org/schema/mule/ram" type="ram:org.mule.test.ram.DefaultPortalGunDispatcherProvider" substitutionGroup="ram:abstract-message-dispatcher-provider" abstract="true" name="abstract-default-portal-gun-dispatcher-provider"></xs:element>
+  <xs:element xmlns:ram="http://www.mulesoft.org/schema/mule/ram" type="ram:com.zernova.test.ram.DefaultPortalGunDispatcherProvider" substitutionGroup="ram:abstract-message-dispatcher-provider" abstract="true" name="abstract-default-portal-gun-dispatcher-provider"></xs:element>
   <xs:element xmlns:ram="http://www.mulesoft.org/schema/mule/ram" substitutionGroup="ram:abstract-default-portal-gun-dispatcher-provider" name="default-portal-gun-dispatcher-provider">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="ram:org.mule.test.ram.DefaultPortalGunDispatcherProvider"></xs:extension>
+        <xs:extension base="ram:com.zernova.test.ram.DefaultPortalGunDispatcherProvider"></xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.ram.TestHttpMessageDispatcherProvider">
+  <xs:complexType name="com.zernova.test.ram.TestHttpMessageDispatcherProvider">
     <xs:complexContent>
-      <xs:extension xmlns:ram="http://www.mulesoft.org/schema/mule/ram" base="ram:org.mule.runtime.extension.api.soap.MessageDispatcherProvider"></xs:extension>
+      <xs:extension xmlns:ram="http://www.mulesoft.org/schema/mule/ram" base="ram:com.zernova.runtime.extension.api.soap.MessageDispatcherProvider"></xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:ram="http://www.mulesoft.org/schema/mule/ram" type="ram:org.mule.test.ram.TestHttpMessageDispatcherProvider" substitutionGroup="ram:abstract-message-dispatcher-provider" abstract="true" name="abstract-test-http-message-dispatcher-provider"></xs:element>
+  <xs:element xmlns:ram="http://www.mulesoft.org/schema/mule/ram" type="ram:com.zernova.test.ram.TestHttpMessageDispatcherProvider" substitutionGroup="ram:abstract-message-dispatcher-provider" abstract="true" name="abstract-test-http-message-dispatcher-provider"></xs:element>
   <xs:element xmlns:ram="http://www.mulesoft.org/schema/mule/ram" substitutionGroup="ram:abstract-test-http-message-dispatcher-provider" name="test-http-message-dispatcher-provider">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="ram:org.mule.test.ram.TestHttpMessageDispatcherProvider"></xs:extension>
+        <xs:extension base="ram:com.zernova.test.ram.TestHttpMessageDispatcherProvider"></xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>

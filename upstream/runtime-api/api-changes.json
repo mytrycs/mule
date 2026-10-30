@@ -1,0 +1,3068 @@
+{
+  "1.10.0": {
+    "revapi": {
+      "differences": {
+        "differences": [
+          {
+            "ignore": true,
+            "code": "java.annotation.removed",
+            "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.PARSE_TEMPLATE_USE_LEGACY_DEFAULT_TARGET_VALUE",
+            "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.PARSE_TEMPLATE_USE_LEGACY_DEFAULT_TARGET_VALUE",
+            "annotation": "@com.zernova.api.annotation.properties.KillSwitch",
+            "justification": "W-18324755: Re introduce W-13588449 fix"
+          }
+        ]
+      }
+    }
+  },
+  "1.9.0": {
+    "revapi": {
+      "ignore": [
+        {
+          "ignore": true,
+          "code": "java.class.removed",
+          "old": "interface com.zernova.runtime.privileged.metadata.InternalMetadataContext",
+          "justification": "W-17050998: Cleaning up privileged APIs no longer needed"
+        }
+      ]
+    }
+  },
+  "1.7.0": {
+    "revapi": {
+      "ignore": [
+        {
+          "ignore": true,
+          "code": "java.annotation.added",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.CLASSLOADER_SERVICE_JPMS_MODULE_LAYER",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.CLASSLOADER_SERVICE_JPMS_MODULE_LAYER",
+          "annotation": "@com.zernova.api.annotation.properties.KillSwitch",
+          "justification": "W-14572236: Review killswitches"
+        },
+        {
+          "ignore": true,
+          "code": "java.annotation.added",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.COMMIT_REDELIVERY_EXHAUSTED",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.COMMIT_REDELIVERY_EXHAUSTED",
+          "annotation": "@com.zernova.api.annotation.properties.KillSwitch",
+          "justification": "W-14572236: Review killswitches"
+        },
+        {
+          "ignore": true,
+          "code": "java.annotation.added",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.EMIT_POLLING_SOURCE_NOTIFICATIONS",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.EMIT_POLLING_SOURCE_NOTIFICATIONS",
+          "justification": "W-14572236: Review killswitches"
+        },
+        {
+          "ignore": true,
+          "code": "java.annotation.added",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.ENABLE_BYTE_BUDDY_OBJECT_CREATION_PROPERTY",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.ENABLE_BYTE_BUDDY_OBJECT_CREATION_PROPERTY",
+          "annotation": "@com.zernova.api.annotation.properties.KillSwitch",
+          "justification": "W-14572236: Review killswitches"
+        },
+        {
+          "ignore": true,
+          "code": "java.annotation.added",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.ENABLE_MULE_REDIRECT_PROPERTY",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.ENABLE_MULE_REDIRECT_PROPERTY",
+          "annotation": "@com.zernova.api.annotation.Experimental",
+          "justification": "W-14572236: Review killswitches"
+        },
+        {
+          "ignore": true,
+          "code": "java.annotation.added",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.ENABLE_MULE_REDIRECT_PROPERTY",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.ENABLE_MULE_REDIRECT_PROPERTY",
+          "annotation": "@com.zernova.api.annotation.properties.KillSwitch",
+          "justification": "W-14572236: Review killswitches"
+        },
+        {
+          "ignore": true,
+          "code": "java.annotation.added",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.FORCE_WORKER_THREAD_IO_STRATEGY_WHEN_TLS_ENABLED",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.FORCE_WORKER_THREAD_IO_STRATEGY_WHEN_TLS_ENABLED",
+          "annotation": "@com.zernova.api.annotation.Experimental",
+          "justification": "W-14572236: Review killswitches"
+        },
+        {
+          "ignore": true,
+          "code": "java.annotation.added",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.MULE_DISABLE_DEPLOYMENT_SCHEMA_CACHE",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.MULE_DISABLE_DEPLOYMENT_SCHEMA_CACHE",
+          "annotation": "@com.zernova.api.annotation.properties.KillSwitch",
+          "justification": "W-14572236: Review killswitches"
+        },
+        {
+          "ignore": true,
+          "code": "java.annotation.added",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.MULE_EXTENSIONS_CLIENT_CACHE_IS_DISABLED",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.MULE_EXTENSIONS_CLIENT_CACHE_IS_DISABLED",
+          "annotation": "@com.zernova.api.annotation.properties.KillSwitch",
+          "justification": "W-14572236: Review killswitches"
+        },
+        {
+          "ignore": true,
+          "code": "java.annotation.added",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.MULE_FLOW_REFERERENCE_FIELDS_MATCH_ANY",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.MULE_FLOW_REFERERENCE_FIELDS_MATCH_ANY",
+          "annotation": "@com.zernova.api.annotation.properties.KillSwitch",
+          "justification": "W-14572236: Review killswitches"
+        },
+        {
+          "ignore": true,
+          "code": "java.annotation.added",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.MULE_LAX_ERROR_TYPES",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.MULE_LAX_ERROR_TYPES",
+          "annotation": "@com.zernova.api.annotation.properties.KillSwitch",
+          "justification": "W-14572236: Review killswitches"
+        },
+        {
+          "ignore": true,
+          "code": "java.annotation.added",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.MULE_USE_LEGACY_LIFECYCLE_OBJECT_SORTER",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.MULE_USE_LEGACY_LIFECYCLE_OBJECT_SORTER",
+          "annotation": "@com.zernova.api.annotation.properties.KillSwitch",
+          "justification": "W-14572236: Review killswitches"
+        },
+        {
+          "ignore": true,
+          "code": "java.annotation.added",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.PARALLEL_EXTENSION_MODEL_LOADING_PROPERTY",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.PARALLEL_EXTENSION_MODEL_LOADING_PROPERTY",
+          "annotation": "@com.zernova.api.annotation.properties.KillSwitch",
+          "justification": "W-14572236: Review killswitches"
+        },
+        {
+          "ignore": true,
+          "code": "java.annotation.added",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.PARSE_TEMPLATE_USE_LEGACY_DEFAULT_TARGET_VALUE",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.PARSE_TEMPLATE_USE_LEGACY_DEFAULT_TARGET_VALUE",
+          "annotation": "@com.zernova.api.annotation.properties.KillSwitch",
+          "justification": "W-14572236: Review killswitches"
+        },
+        {
+          "ignore": true,
+          "code": "java.annotation.added",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.REVERT_SUPPORT_EXPRESSIONS_IN_VARIABLE_NAME_IN_SET_VARIABLE_PROPERTY",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.REVERT_SUPPORT_EXPRESSIONS_IN_VARIABLE_NAME_IN_SET_VARIABLE_PROPERTY",
+          "annotation": "@com.zernova.api.annotation.properties.KillSwitch",
+          "justification": "W-14572236: Review killswitches"
+        },
+        {
+          "ignore": true,
+          "code": "java.annotation.removed",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.MULE_DISABLE_PAYLOAD_STATISTICS",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.MULE_DISABLE_PAYLOAD_STATISTICS",
+          "annotation": "@com.zernova.api.annotation.Experimental",
+          "justification": "W-14572236: Remove killswitches - Experimental features switches removed"
+        },
+        {
+          "ignore": true,
+          "code": "java.annotation.removed",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.MULE_USE_LEGACY_LIFECYCLE_OBJECT_SORTER",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.MULE_USE_LEGACY_LIFECYCLE_OBJECT_SORTER",
+          "annotation": "@com.zernova.api.annotation.Experimental",
+          "justification": "W-14572236: Remove killswitches - Experimental features switches removed"
+        },
+        {
+          "ignore": true,
+          "code": "java.annotation.removed",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.PARALLEL_EXTENSION_MODEL_LOADING_PROPERTY",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.PARALLEL_EXTENSION_MODEL_LOADING_PROPERTY",
+          "annotation": "@com.zernova.api.annotation.Experimental",
+          "justification": "W-14572236: Remove killswitches - Experimental features switches removed"
+        },
+        {
+          "ignore": true,
+          "code": "java.method.visibilityIncreased",
+          "old": "method void com.zernova.runtime.api.meta.model.declaration.fluent.ConstructDeclaration::<init>(java.lang.String)",
+          "new": "method void com.zernova.runtime.api.meta.model.declaration.fluent.ConstructDeclaration::<init>(java.lang.String)",
+          "oldVisibility": "package",
+          "newVisibility": "protected",
+          "justification": "W-15090480: Aggregators' special case for enrichers when changing routers to be Operations"
+        },
+        {
+          "ignore": true,
+          "code": "java.method.visibilityIncreased",
+          "old": "method void com.zernova.runtime.api.metadata.descriptor.InputMetadataDescriptor.InputMetadataDescriptorBuilder::<init>()",
+          "new": "method void com.zernova.runtime.api.metadata.descriptor.InputMetadataDescriptor.InputMetadataDescriptorBuilder::<init>()",
+          "oldVisibility": "private",
+          "newVisibility": "protected",
+          "justification": "W-14969942: Non breaking change. API surface not publicly increased"
+        },
+        {
+          "ignore": true,
+          "code": "java.method.returnTypeErasureChanged",
+          "old": "method com.zernova.runtime.api.metadata.descriptor.InputMetadataDescriptor.InputMetadataDescriptorBuilder com.zernova.runtime.api.metadata.descriptor.InputMetadataDescriptor.InputMetadataDescriptorBuilder::withParameter(java.lang.String, com.zernova.runtime.api.metadata.descriptor.ParameterMetadataDescriptor)",
+          "new": "method B com.zernova.runtime.api.metadata.descriptor.BaseInputMetadataDescriptorBuilder<T extends com.zernova.runtime.api.metadata.descriptor.BaseInputMetadataDescriptor, B extends com.zernova.runtime.api.metadata.descriptor.BaseInputMetadataDescriptorBuilder>::withParameter(java.lang.String, com.zernova.runtime.api.metadata.descriptor.ParameterMetadataDescriptor) @ com.zernova.runtime.api.metadata.descriptor.InputMetadataDescriptor.InputMetadataDescriptorBuilder",
+          "justification": "W-14969942: Non breaking change. API surface not publicly increased"
+        },
+        {
+          "ignore": true,
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.metadata.descriptor.InputMetadataDescriptor.InputMetadataDescriptorBuilder",
+          "new": "class com.zernova.runtime.api.metadata.descriptor.InputMetadataDescriptor.InputMetadataDescriptorBuilder",
+          "superClass": "com.zernova.runtime.api.metadata.descriptor.BaseInputMetadataDescriptorBuilder<com.zernova.runtime.api.metadata.descriptor.InputMetadataDescriptor, com.zernova.runtime.api.metadata.descriptor.InputMetadataDescriptor.InputMetadataDescriptorBuilder>",
+          "justification": "W-14969942: Non breaking change."
+        },
+        {
+          "ignore": true,
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.metadata.descriptor.InputMetadataDescriptor.InputMetadataDescriptorBuilder",
+          "new": "class com.zernova.runtime.api.metadata.descriptor.InputMetadataDescriptor.InputMetadataDescriptorBuilder",
+          "justification": "W-14969942: Non breaking change."
+        },
+        {
+          "ignore": true,
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.metadata.descriptor.InputMetadataDescriptor.InputMetadataDescriptorBuilder",
+          "new": "class com.zernova.runtime.api.metadata.descriptor.InputMetadataDescriptor.InputMetadataDescriptorBuilder",
+          "annotation": "@com.zernova.api.annotation.NoExtend",
+          "justification": "W-14969942: Non breaking change. Class not for publicly extending. Alternative would be making it final"
+        }
+      ]
+    }
+  },
+  "1.5.0": {
+    "revapi": {
+      "ignore": [
+        {
+          "code": "java.method.visibilityIncreased",
+          "old": "method void com.zernova.runtime.api.exception.ZernovaExceptionInfo::addToSummaryMessage(java.lang.StringBuilder)",
+          "new": "method void com.zernova.runtime.api.exception.ZernovaExceptionInfo::addToSummaryMessage(java.lang.StringBuilder)",
+          "oldVisibility": "package",
+          "newVisibility": "public",
+          "justification": "W-13742675: Upgrade revapi version"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclaration>",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "ComponentDeclaration",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclaration>",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "ComponentDeclarer",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.ConfigurationDeclaration",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.ConfigurationDeclaration",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclaration<com.zernova.runtime.api.meta.model.declaration.fluent.ConfigurationDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "ConfigurationDeclaration",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.ConfigurationDeclarer",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.ConfigurationDeclarer",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclarer<com.zernova.runtime.api.meta.model.declaration.fluent.ConfigurationDeclarer, com.zernova.runtime.api.meta.model.declaration.fluent.ConfigurationDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "ConfigurationDeclarer",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.ConnectionProviderDeclaration",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.ConnectionProviderDeclaration",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclaration<com.zernova.runtime.api.meta.model.declaration.fluent.ConnectionProviderDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "ConnectionProviderDeclaration",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.ConstructDeclaration",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.ConstructDeclaration",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclaration<com.zernova.runtime.api.meta.model.declaration.fluent.ConstructDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "ConstructDeclaration",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.ConstructDeclarer",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.ConstructDeclarer",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclarer<com.zernova.runtime.api.meta.model.declaration.fluent.ConstructDeclarer, com.zernova.runtime.api.meta.model.declaration.fluent.ConstructDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "ConstructDeclarer",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclaration>",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "ExecutableComponentDeclaration",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclaration>",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "ExecutableComponentDeclarer",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.ExtensionDeclaration",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.ExtensionDeclaration",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedDeclaration<com.zernova.runtime.api.meta.model.declaration.fluent.ExtensionDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "ExtensionDeclaration",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.FunctionDeclaration",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.FunctionDeclaration",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclaration<com.zernova.runtime.api.meta.model.declaration.fluent.FunctionDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "FunctionDeclaration",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.FunctionDeclarer",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.FunctionDeclarer",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclarer<com.zernova.runtime.api.meta.model.declaration.fluent.FunctionDeclarer, com.zernova.runtime.api.meta.model.declaration.fluent.FunctionDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "FunctionDeclarer",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration>",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestableElementDeclaration",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclaration",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclaration",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclaration<com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestedChainDeclaration",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclarer",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclarer",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclarer<com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclarer, com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestedChainDeclarer",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestedComponentDeclaration",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestedComponentDeclarer",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedRouteDeclaration",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedRouteDeclaration",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclaration<com.zernova.runtime.api.meta.model.declaration.fluent.NestedRouteDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestedRouteDeclaration",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.OperationDeclaration",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.OperationDeclaration",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclaration<com.zernova.runtime.api.meta.model.declaration.fluent.OperationDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "OperationDeclaration",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.OperationDeclarer",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.OperationDeclarer",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclarer<com.zernova.runtime.api.meta.model.declaration.fluent.OperationDeclarer, com.zernova.runtime.api.meta.model.declaration.fluent.OperationDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "OperationDeclarer",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.SourceDeclaration",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.SourceDeclaration",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclaration<com.zernova.runtime.api.meta.model.declaration.fluent.SourceDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "SourceDeclaration",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.SourceDeclarer",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.SourceDeclarer",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclarer<com.zernova.runtime.api.meta.model.declaration.fluent.SourceDeclarer, com.zernova.runtime.api.meta.model.declaration.fluent.SourceDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "SourceDeclarer",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.StereotypedDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.StereotypedDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.StereotypedDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.StereotypedDeclaration>",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedWithMinZernovaVersionDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.StereotypedDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "StereotypedDeclaration",
+          "elementKind": "class",
+          "justification": "Base class is annotated with @NoExtend"
+        },
+        {
+          "code": "java.field.removedWithConstant",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.REUSE_GLOBAL_ERROR_HANDLER_PROPERTY",
+          "package": "com.zernova.runtime.api.util",
+          "classSimpleName": "ZernovaSystemProperties",
+          "fieldName": "REUSE_GLOBAL_ERROR_HANDLER_PROPERTY",
+          "elementKind": "field",
+          "justification": "W-12181063: [Global Error Handling] remove the kill switch for enabling the memory fixes in 4.5"
+        },
+        {
+          "code": "java.field.constantValueChanged",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.DISABLE_REGISTRY_BOOTSTRAP_OPTIONAL_ENTRIES_PROPERTY",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.DISABLE_REGISTRY_BOOTSTRAP_OPTIONAL_ENTRIES_PROPERTY",
+          "oldValue": "mule.https.forceWorkerThreadIoStrategy",
+          "newValue": "mule.disable.registryBootstrapOptionalEntries",
+          "package": "com.zernova.runtime.api.util",
+          "classSimpleName": "ZernovaSystemProperties",
+          "fieldName": "DISABLE_REGISTRY_BOOTSTRAP_OPTIONAL_ENTRIES_PROPERTY",
+          "elementKind": "field",
+          "justification": "W-10825584: Fix system properry name and documentation"
+        },
+        {
+          "code": "java.field.removedWithConstant",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.REUSE_GLOBAL_ERROR_HANDLER_PROPERTY",
+          "package": "com.zernova.runtime.api.util",
+          "classSimpleName": "ZernovaSystemProperties",
+          "fieldName": "REUSE_GLOBAL_ERROR_HANDLER_PROPERTY",
+          "elementKind": "field",
+          "justification": "W-12181063: [Global Error Handling] remove the kill switch for enabling the memory fixes in 4.5"
+        },
+        {
+          "code": "java.method.defaultMethodAddedToInterface",
+          "new": "method boolean com.zernova.runtime.api.interception.ProcessorInterceptor::isErrorMappingRequired(com.zernova.runtime.api.component.location.ComponentLocation)",
+          "package": "com.zernova.runtime.api.interception",
+          "classSimpleName": "ProcessorInterceptor",
+          "methodName": "isErrorMappingRequired",
+          "elementKind": "method",
+          "justification": "MULE-19866: interceptors should be able to decide whether to perform an extra error mapping when operation fails"
+        },
+        {
+          "code": "java.class.removed",
+          "old": "interface com.zernova.runtime.api.profiling.ProfilingDataConsumer<T extends com.zernova.runtime.api.profiling.ProfilingEventContext>",
+          "package": "com.zernova.runtime.api.profiling",
+          "classSimpleName": "ProfilingDataConsumer",
+          "elementKind": "interface",
+          "justification": "MULE-19749: new module for profiling API"
+        },
+        {
+          "code": "java.class.removed",
+          "old": "interface com.zernova.runtime.api.profiling.ProfilingDataConsumerDiscoveryStrategy",
+          "package": "com.zernova.runtime.api.profiling",
+          "classSimpleName": "ProfilingDataConsumerDiscoveryStrategy",
+          "elementKind": "interface",
+          "justification": "MULE-19749: new module for profiling API"
+        },
+        {
+          "code": "java.class.removed",
+          "old": "interface com.zernova.runtime.api.profiling.ProfilingDataProducer<T extends com.zernova.runtime.api.profiling.ProfilingEventContext>",
+          "package": "com.zernova.runtime.api.profiling",
+          "classSimpleName": "ProfilingDataProducer",
+          "elementKind": "interface",
+          "justification": "MULE-19749: new module for profiling API"
+        },
+        {
+          "code": "java.class.removed",
+          "old": "interface com.zernova.runtime.api.profiling.ProfilingEventContext",
+          "package": "com.zernova.runtime.api.profiling",
+          "classSimpleName": "ProfilingEventContext",
+          "elementKind": "interface",
+          "justification": "MULE-19749: new module for profiling API"
+        },
+        {
+          "code": "java.class.removed",
+          "old": "interface com.zernova.runtime.api.profiling.ProfilingService",
+          "package": "com.zernova.runtime.api.profiling",
+          "classSimpleName": "ProfilingService",
+          "elementKind": "interface",
+          "justification": "MULE-19749: new module for profiling API"
+        },
+        {
+          "code": "java.class.removed",
+          "old": "class com.zernova.runtime.api.profiling.type.ProcessingStrategyProfilingEventType",
+          "package": "com.zernova.runtime.api.profiling.type",
+          "classSimpleName": "ProcessingStrategyProfilingEventType",
+          "elementKind": "class",
+          "justification": "MULE-19749: new module for profiling API"
+        },
+        {
+          "code": "java.class.removed",
+          "old": "interface com.zernova.runtime.api.profiling.type.ProfilingEventType<T extends com.zernova.runtime.api.profiling.ProfilingEventContext>",
+          "package": "com.zernova.runtime.api.profiling.type",
+          "classSimpleName": "ProfilingEventType",
+          "elementKind": "interface",
+          "justification": "MULE-19749: new module for profiling API"
+        },
+        {
+          "code": "java.class.removed",
+          "old": "class com.zernova.runtime.api.profiling.type.RuntimeProfilingEventTypes",
+          "package": "com.zernova.runtime.api.profiling.type",
+          "classSimpleName": "RuntimeProfilingEventTypes",
+          "elementKind": "class",
+          "justification": "MULE-19749: new module for profiling API"
+        },
+        {
+          "code": "java.class.removed",
+          "old": "interface com.zernova.runtime.api.profiling.type.context.ProcessingStrategyProfilingEventContext",
+          "package": "com.zernova.runtime.api.profiling.type.context",
+          "classSimpleName": "ProcessingStrategyProfilingEventContext",
+          "elementKind": "interface",
+          "justification": "MULE-19749: new module for profiling API"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.connection.ConnectionValidationResult",
+          "new": "class com.zernova.runtime.api.connection.ConnectionValidationResult",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "annotation": "@com.zernova.api.annotation.NoExtend",
+          "package": "com.zernova.runtime.api.connection",
+          "classSimpleName": "ConnectionValidationResult",
+          "elementKind": "class",
+          "justification": "Class was final in prior versions so no actual change."
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.MULE_DISABLE_PAYLOAD_STATISTICS",
+          "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.MULE_DISABLE_PAYLOAD_STATISTICS",
+          "annotationType": "com.zernova.api.annotation.Experimental",
+          "annotation": "@com.zernova.api.annotation.Experimental",
+          "package": "com.zernova.runtime.api.util",
+          "classSimpleName": "ZernovaSystemProperties",
+          "fieldName": "MULE_DISABLE_PAYLOAD_STATISTICS",
+          "elementKind": "field",
+          "justification": "Field should have been annotated as experimental to start with. It is deprecated now and will be removed soon."
+        },
+        {
+          "code": "java.method.addedToInterface",
+          "new": "method com.zernova.metadata.api.TypeLoader com.zernova.runtime.api.metadata.ExpressionLanguageMetadataService::createTypeLoader(java.lang.String, com.zernova.metadata.api.model.MetadataFormat, java.util.Collection<com.zernova.metadata.message.api.el.ModuleDefinition>)",
+          "package": "com.zernova.runtime.api.metadata",
+          "classSimpleName": "ExpressionLanguageMetadataService",
+          "methodName": "createTypeLoader",
+          "elementKind": "method",
+          "justification": "Support for creating a type loader capable of resolving types that comes from an Extension using a collection of ModuleDefinition"
+        },
+        {
+          "code": "java.method.addedToInterface",
+          "new": "method java.util.Optional<com.zernova.metadata.api.model.MetadataType> com.zernova.runtime.api.metadata.ExpressionLanguageMetadataService::evaluateTypeExpression(java.lang.String, java.util.Collection<com.zernova.metadata.message.api.el.ModuleDefinition>)",
+          "package": "com.zernova.runtime.api.metadata",
+          "classSimpleName": "ExpressionLanguageMetadataService",
+          "methodName": "evaluateTypeExpression",
+          "elementKind": "method",
+          "justification": "Support resolving type expressions using DW"
+        },
+        {
+          "code": "java.method.addedToInterface",
+          "new": "method com.zernova.metadata.api.model.MetadataType com.zernova.runtime.api.metadata.ExpressionLanguageMetadataService::evaluateTypeExpression(java.lang.String, java.util.Collection<com.zernova.metadata.message.api.el.ModuleDefinition>) throws com.zernova.runtime.api.el.ExpressionCompilationException",
+          "package": "com.zernova.runtime.api.metadata",
+          "classSimpleName": "ExpressionLanguageMetadataService",
+          "methodName": "evaluateTypeExpression",
+          "elementKind": "method",
+          "justification": "Throw exception when couldn't resolve the type expression"
+        },
+        {
+          "code": "java.method.addedToInterface",
+          "new": "method com.zernova.runtime.api.el.ExpressionModule.Builder com.zernova.runtime.api.el.ExpressionModule.Builder::addType(com.zernova.metadata.api.model.MetadataType)",
+          "package": "com.zernova.runtime.api.el",
+          "classSimpleName": "Builder",
+          "methodName": "addType",
+          "elementKind": "method",
+          "justification": "Support resolving types coming from mule in DW transformations"
+        }
+      ]
+    }
+  },
+  "1.4.0": {
+    "revapi": {
+      "ignore": [
+       {
+         "code": "java.field.constantValueChanged",
+         "old": "field com.zernova.runtime.api.util.ZernovaSystemProperties.MULE_ENABLE_STREAMING_STATISTICS",
+         "new": "field com.zernova.runtime.api.util.ZernovaSystemProperties.MULE_ENABLE_STREAMING_STATISTICS",
+         "oldValue": "mule..enableStreamingStatistics",
+         "newValue": "mule.streaming.enableStatistics",
+         "package": "com.zernova.runtime.api.util",
+         "classSimpleName": "ZernovaSystemProperties",
+         "fieldName": "MULE_ENABLE_STREAMING_STATISTICS",
+         "elementKind": "field",
+         "justification": "MULE-19406 - Added code to honor the property with the old value if set"
+       },
+       {
+         "code": "java.annotation.added",
+         "old": "interface com.zernova.runtime.api.el.ExpressionLanguageConfiguration",
+         "new": "interface com.zernova.runtime.api.el.ExpressionLanguageConfiguration",
+         "annotationType": "com.zernova.api.annotation.NoImplement",
+         "annotation": "@com.zernova.api.annotation.NoImplement",
+         "package": "com.zernova.runtime.api.el",
+         "classSimpleName": "ExpressionLanguageConfiguration",
+         "elementKind": "interface",
+         "justification": "MULE-19197"
+       },
+       {
+         "code": "java.field.serialVersionUIDUnchanged",
+         "old": "field com.zernova.runtime.api.metadata.MediaType.serialVersionUID",
+         "new": "field com.zernova.runtime.api.metadata.MediaType.serialVersionUID",
+         "serialVersionUID": "-3626429370741009489",
+         "package": "com.zernova.runtime.api.metadata",
+         "classSimpleName": "MediaType",
+         "fieldName": "serialVersionUID",
+         "elementKind": "field",
+         "justification": "MULE-19140"
+       },
+       {
+         "code": "java.method.added",
+         "new": "method boolean com.zernova.runtime.api.metadata.MediaType::isDefinedInApp()",
+         "package": "com.zernova.runtime.api.metadata",
+         "classSimpleName": "MediaType",
+         "methodName": "isDefinedInApp",
+         "elementKind": "method",
+         "justification": "MULE-19140"
+       },
+       {
+         "code": "java.method.added",
+         "new": "method com.zernova.runtime.api.metadata.MediaType com.zernova.runtime.api.metadata.MediaType::parseDefinedInApp(java.lang.String)",
+         "package": "com.zernova.runtime.api.metadata",
+         "classSimpleName": "MediaType",
+         "methodName": "parseDefinedInApp",
+         "elementKind": "method",
+         "justification": "MULE-19140"
+       },
+        {
+          "code": "java.method.addedToInterface",
+          "new": "method com.zernova.metadata.message.api.el.ModuleDefinition com.zernova.runtime.api.metadata.ExpressionLanguageMetadataService::moduleDefinition(java.lang.String, java.util.Collection<com.zernova.metadata.message.api.el.ModuleDefinition>) throws com.zernova.runtime.api.el.ExpressionCompilationException",
+          "package": "com.zernova.runtime.api.metadata",
+          "classSimpleName": "ExpressionLanguageMetadataService",
+          "methodName": "moduleDefinition",
+          "elementKind": "method",
+          "justification": "Add a method for getting a DW module definition"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.meta.model.parameter.ValueProviderModel",
+          "new": "class com.zernova.runtime.api.meta.model.parameter.ValueProviderModel",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "annotation": "@com.zernova.api.annotation.NoExtend",
+          "package": "com.zernova.runtime.api.meta.model.parameter",
+          "classSimpleName": "ValueProviderModel",
+          "elementKind": "class",
+          "justification": "Missing documentation annotation"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.meta.model.parameter.ValueProviderModel",
+          "new": "class com.zernova.runtime.api.meta.model.parameter.ValueProviderModel",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.meta.model.parameter",
+          "classSimpleName": "ValueProviderModel",
+          "elementKind": "class",
+          "justification": "The class was annotated with @NoExtend anyway"
+        },
+        {
+          "code": "java.annotation.removed",
+          "old": "class com.zernova.runtime.api.meta.model.parameter.ValueProviderModel",
+          "new": "class com.zernova.runtime.api.meta.model.parameter.ValueProviderModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "annotation": "@com.zernova.api.annotation.NoImplement",
+          "package": "com.zernova.runtime.api.meta.model.parameter",
+          "classSimpleName": "ValueProviderModel",
+          "elementKind": "class",
+          "justification": "Missing documentation annotation"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.meta.model.parameter.ValueProviderModel",
+          "new": "class com.zernova.runtime.api.meta.model.parameter.ValueProviderModel",
+          "annotationType": "com.zernova.api.annotation.NoInstantiate",
+          "annotation": "@com.zernova.api.annotation.NoInstantiate",
+          "package": "com.zernova.runtime.api.meta.model.parameter",
+          "classSimpleName": "ValueProviderModel",
+          "elementKind": "class",
+          "justification": "Missing documentation annotation"
+        },
+        {
+          "code": "java.method.numberOfParametersChanged",
+          "old": "method void com.zernova.runtime.api.meta.model.parameter.ValueProviderModel::<init>(java.util.List<java.lang.String>, boolean, boolean, boolean, java.lang.Integer, java.lang.String)",
+          "new": "method void com.zernova.runtime.api.meta.model.parameter.ValueProviderModel::<init>(java.util.List<com.zernova.runtime.api.meta.model.parameter.ActingParameterModel>, boolean, boolean, boolean, java.lang.Integer, java.lang.String, java.lang.String)",
+          "package": "com.zernova.runtime.api.meta.model.parameter",
+          "classSimpleName": "ValueProviderModel",
+          "methodName": "<init>",
+          "elementKind": "constructor",
+          "justification": "Keeping the original constructor will breach the contract between actingParameters and parameters (which are an extended and augmented collection of actingParameters). The class is annotated with @NoInstantiate, so it allows us to remove that constructor without breaking backward compatibility."
+        },
+        {
+          "code": "java.class.noLongerImplementsInterface",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclaration>",
+          "interface": "com.zernova.runtime.api.meta.model.declaration.fluent.HasModelProperties<com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclarer>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "ComponentDeclarer",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.noLongerImplementsInterface",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.ConstructDeclarer",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.ConstructDeclarer",
+          "interface": "com.zernova.runtime.api.meta.model.declaration.fluent.HasModelProperties<com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclarer>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "ConstructDeclarer",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.noLongerImplementsInterface",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.ExecutableComponentDeclaration>",
+          "interface": "com.zernova.runtime.api.meta.model.declaration.fluent.HasModelProperties<com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclarer>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "ExecutableComponentDeclarer",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration>",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestableElementDeclaration",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration>",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestableElementDeclaration",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration>",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.StereotypedDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestableElementDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestableElementDeclaration",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclaration",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclaration",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclaration<com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestedChainDeclaration",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclaration",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclaration",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedDeclaration<com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestedChainDeclaration",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclaration",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclaration",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.StereotypedDeclaration<com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestedChainDeclaration",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclarer",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclarer",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclarer<com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclarer, com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestedChainDeclarer",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclarer",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclarer",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedDeclarer<com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclarer, com.zernova.runtime.api.meta.model.declaration.fluent.NestedChainDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestedChainDeclarer",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestedComponentDeclaration",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestedComponentDeclaration",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.StereotypedDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestedComponentDeclaration",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestedComponentDeclarer",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedDeclarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclarer, D extends com.zernova.runtime.api.meta.model.declaration.fluent.NestedComponentDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestedComponentDeclarer",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedRouteDeclaration",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedRouteDeclaration",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclaration<com.zernova.runtime.api.meta.model.declaration.fluent.NestedRouteDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestedRouteDeclaration",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedRouteDeclaration",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedRouteDeclaration",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedDeclaration<com.zernova.runtime.api.meta.model.declaration.fluent.NestedRouteDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestedRouteDeclaration",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.nonFinalClassInheritsFromNewClass",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedRouteDeclaration",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.NestedRouteDeclaration",
+          "superClass": "com.zernova.runtime.api.meta.model.declaration.fluent.StereotypedDeclaration<com.zernova.runtime.api.meta.model.declaration.fluent.NestedRouteDeclaration>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "NestedRouteDeclaration",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.noLongerImplementsInterface",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.OperationDeclarer",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.OperationDeclarer",
+          "interface": "com.zernova.runtime.api.meta.model.declaration.fluent.HasModelProperties<com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclarer>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "OperationDeclarer",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        },
+        {
+          "code": "java.class.noLongerImplementsInterface",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.SourceDeclarer",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.SourceDeclarer",
+          "interface": "com.zernova.runtime.api.meta.model.declaration.fluent.HasModelProperties<com.zernova.runtime.api.meta.model.declaration.fluent.ComponentDeclarer>",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "SourceDeclarer",
+          "elementKind": "class",
+          "justification": "False positive due to bogus generic declaration"
+        }
+      ]
+    }
+  },
+  "1.3.0": {
+    "revapi": {
+      "ignore": [
+        {
+          "code": "java.field.nowFinal",
+          "old": "field com.zernova.runtime.api.component.AbstractComponent.LOCATION_KEY",
+          "new": "field com.zernova.runtime.api.component.AbstractComponent.LOCATION_KEY",
+          "oldModifiers": "public static",
+          "newModifiers": "public static final",
+          "package": "com.zernova.runtime.api.component",
+          "classSimpleName": "AbstractComponent",
+          "fieldName": "LOCATION_KEY",
+          "elementKind": "field",
+          "justification": "Value must be constant"
+        },
+        {
+          "code": "java.field.nowFinal",
+          "old": "field com.zernova.runtime.api.component.AbstractComponent.ROOT_CONTAINER_NAME_KEY",
+          "new": "field com.zernova.runtime.api.component.AbstractComponent.ROOT_CONTAINER_NAME_KEY",
+          "oldModifiers": "public static",
+          "newModifiers": "public static final",
+          "package": "com.zernova.runtime.api.component",
+          "classSimpleName": "AbstractComponent",
+          "fieldName": "ROOT_CONTAINER_NAME_KEY",
+          "elementKind": "field",
+          "justification": "Value must be constant"
+        },
+        {
+          "code": "java.field.constantValueChanged",
+          "old": "field com.zernova.runtime.api.exception.ZernovaException.INFO_SOURCE_XML_KEY",
+          "new": "field com.zernova.runtime.api.exception.ZernovaException.INFO_SOURCE_XML_KEY",
+          "oldValue": "Element XML",
+          "newValue": "Element DSL",
+          "package": "com.zernova.runtime.api.exception",
+          "classSimpleName": "ZernovaException",
+          "fieldName": "INFO_SOURCE_XML_KEY",
+          "elementKind": "field",
+          "justification": "Make the message more generic"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.component.ComponentIdentifier.Builder",
+          "new": "interface com.zernova.runtime.api.component.ComponentIdentifier.Builder",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "annotation": "@com.zernova.api.annotation.NoImplement",
+          "package": "com.zernova.runtime.api.component",
+          "classSimpleName": "Builder",
+          "elementKind": "interface",
+          "justification": "Only implementations are provided by the runtime."
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.scheduler.SchedulerPoolsConfig",
+          "new": "interface com.zernova.runtime.api.scheduler.SchedulerPoolsConfig",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "annotation": "@com.zernova.api.annotation.NoImplement",
+          "package": "com.zernova.runtime.api.scheduler",
+          "classSimpleName": "SchedulerPoolsConfig",
+          "elementKind": "interface",
+          "justification": "Annotation was missing"
+        },
+        {
+          "code": "java.method.addedToInterface",
+          "new": "method com.zernova.runtime.api.metadata.TypedValue<?> com.zernova.runtime.api.el.ExpressionLanguageSession::evaluate(com.zernova.runtime.api.el.CompiledExpression) throws com.zernova.runtime.api.el.ExpressionExecutionException",
+          "package": "com.zernova.runtime.api.el",
+          "classSimpleName": "ExpressionLanguageSession",
+          "methodName": "evaluate",
+          "elementKind": "method",
+          "justification": "Support for compiled expressions"
+        },
+        {
+          "code": "java.method.addedToInterface",
+          "new": "method com.zernova.runtime.api.metadata.TypedValue<?> com.zernova.runtime.api.el.ExpressionLanguageSession::evaluate(com.zernova.runtime.api.el.CompiledExpression, long) throws com.zernova.runtime.api.el.ExpressionExecutionException",
+          "package": "com.zernova.runtime.api.el",
+          "classSimpleName": "ExpressionLanguageSession",
+          "methodName": "evaluate",
+          "elementKind": "method",
+          "justification": "Support for compiled expressions"
+        },
+        {
+          "code": "java.method.addedToInterface",
+          "new": "method com.zernova.runtime.api.metadata.TypedValue<?> com.zernova.runtime.api.el.ExpressionLanguageSession::evaluate(com.zernova.runtime.api.el.CompiledExpression, com.zernova.runtime.api.metadata.DataType) throws com.zernova.runtime.api.el.ExpressionExecutionException",
+          "package": "com.zernova.runtime.api.el",
+          "classSimpleName": "ExpressionLanguageSession",
+          "methodName": "evaluate",
+          "elementKind": "method",
+          "justification": "Support for compiled expressions"
+        },
+        {
+          "code": "java.method.addedToInterface",
+          "new": "method com.zernova.runtime.api.metadata.TypedValue<?> com.zernova.runtime.api.el.ExpressionLanguageSession::evaluateLogExpression(com.zernova.runtime.api.el.CompiledExpression) throws com.zernova.runtime.api.el.ExpressionExecutionException",
+          "package": "com.zernova.runtime.api.el",
+          "classSimpleName": "ExpressionLanguageSession",
+          "methodName": "evaluateLogExpression",
+          "elementKind": "method",
+          "justification": "Support for compiled expressions"
+        },
+        {
+          "code": "java.method.addedToInterface",
+          "new": "method java.util.Iterator<com.zernova.runtime.api.metadata.TypedValue<?>> com.zernova.runtime.api.el.ExpressionLanguageSession::split(com.zernova.runtime.api.el.CompiledExpression)",
+          "package": "com.zernova.runtime.api.el",
+          "classSimpleName": "ExpressionLanguageSession",
+          "methodName": "split",
+          "elementKind": "method",
+          "justification": "Support for compiled expressions"
+        }
+      ]
+    }
+  },
+  "1.2.0": {
+    "revapi": {
+      "ignore": [
+        {
+          "code": "java.method.visibilityReduced",
+          "old": "method void com.zernova.runtime.api.util.CaseInsensitiveMapWrapper.CaseInsensitiveMapKey::<init>(java.lang.Object)",
+          "new": "method void com.zernova.runtime.api.util.CaseInsensitiveMapWrapper.CaseInsensitiveMapKey::<init>(java.lang.Object)",
+          "oldVisibility": "public",
+          "newVisibility": "private",
+          "package": "com.zernova.runtime.api.util",
+          "classSimpleName": "CaseInsensitiveMapKey",
+          "methodName": "<init>",
+          "elementKind": "constructor",
+          "justification": "This class is not meant to be instantiated by the user"
+        },
+        {
+          "code": "java.method.removed",
+          "old": "method com.zernova.runtime.api.deployment.meta.ZernovaServiceModel.ZernovaServiceModelBuilder com.zernova.runtime.api.deployment.meta.ZernovaServiceModel.ZernovaServiceModelBuilder::withServiceProviderClassName(java.lang.String)",
+          "package": "com.zernova.runtime.api.deployment.meta",
+          "classSimpleName": "ZernovaServiceModelBuilder",
+          "methodName": "withServiceProviderClassName",
+          "elementKind": "method",
+          "justification": "This API is only used by the runtime and the change is necessary for performance reasons"
+        },
+        {
+          "code": "java.method.removed",
+          "old": "method java.lang.String com.zernova.runtime.api.deployment.meta.ZernovaServiceModel::getServiceProviderClassName()",
+          "package": "com.zernova.runtime.api.deployment.meta",
+          "classSimpleName": "ZernovaServiceModel",
+          "methodName": "getServiceProviderClassName",
+          "elementKind": "method",
+          "justification": "This API is only used by the runtime and the change is necessary for performance reasons"
+        },
+        {
+          "code": "java.method.addedToInterface",
+          "new": "method com.zernova.runtime.api.service.ServiceDefinition com.zernova.runtime.api.service.ServiceProvider::getServiceDefinition()",
+          "package": "com.zernova.runtime.api.service",
+          "classSimpleName": "ServiceProvider",
+          "methodName": "getServiceDefinition",
+          "elementKind": "method",
+          "justification": "This API is only used by the runtime and the change is necessary for performance reasons"
+        },
+        {
+          "code": "java.method.removed",
+          "old": "method java.util.List<com.zernova.runtime.api.service.ServiceDefinition> com.zernova.runtime.api.service.ServiceProvider::providedServices()",
+          "package": "com.zernova.runtime.api.service",
+          "classSimpleName": "ServiceProvider",
+          "methodName": "providedServices",
+          "elementKind": "method",
+          "justification": "This API is only used by the runtime and the change is necessary for performance reasons"
+        },
+        {
+          "code": "java.class.nowImplementsInterface",
+          "old": "interface com.zernova.runtime.api.metadata.MetadataCache",
+          "new": "interface com.zernova.runtime.api.metadata.MetadataCache",
+          "interface": "java.io.Serializable",
+          "package": "com.zernova.runtime.api.metadata",
+          "classSimpleName": "MetadataCache",
+          "elementKind": "interface",
+          "justification": "All content was already Serializable so we are declaring it so"
+        },
+        {
+          "code": "java.method.addedToInterface",
+          "new": "method com.zernova.runtime.api.el.ExpressionLanguage com.zernova.runtime.api.el.DefaultExpressionLanguageFactoryService::create(com.zernova.runtime.api.el.ExpressionLanguageConfiguration)",
+          "package": "com.zernova.runtime.api.el",
+          "classSimpleName": "DefaultExpressionLanguageFactoryService",
+          "methodName": "create",
+          "elementKind": "method",
+          "justification": "The expression language implementation should match the Mule Runtime requirements."
+        }
+      ]
+    }
+  },
+  "1.1.4": {
+    "revapi": {
+      "ignore": [
+        {
+          "code": "java.method.added",
+          "new": "method com.zernova.runtime.api.el.BindingContext.Builder com.zernova.runtime.api.el.BindingContextUtils::addFlowNameBindingsToBuilder(com.zernova.runtime.api.component.location.ComponentLocation, com.zernova.runtime.api.el.BindingContext.Builder)",
+          "package": "com.zernova.runtime.api.el",
+          "classSimpleName": "BindingContextUtils",
+          "methodName": "addFlowNameBindingsToBuilder",
+          "elementKind": "method",
+          "justification": "Added for performance"
+        },
+        {
+          "code": "java.method.added",
+          "new": "method java.util.List<V> com.zernova.runtime.api.util.MultiMap<K, V>::removeAll(java.lang.Object)",
+          "package": "com.zernova.runtime.api.util",
+          "classSimpleName": "MultiMap",
+          "methodName": "removeAll",
+          "elementKind": "method",
+          "justification": "Added for performance"
+        },
+        {
+          "code": "java.method.added",
+          "new": "method void com.zernova.runtime.api.deployment.meta.ZernovaDeployableModel.ZernovaDeployableModelBuilder<T extends com.zernova.runtime.api.deployment.meta.AbstractZernovaArtifactModelBuilder, M extends com.zernova.runtime.api.deployment.meta.ZernovaDeployableModel>::setLogConfigFile(java.lang.String)",
+          "package": "com.zernova.runtime.api.deployment.meta",
+          "classSimpleName": "ZernovaDeployableModelBuilder",
+          "methodName": "setLogConfigFile",
+          "elementKind": "method",
+          "justification": "Feature was in Mule 3.x but missing in Mule 4"
+        },
+        {
+          "code": "java.method.added",
+          "new": "method java.lang.String com.zernova.runtime.api.deployment.meta.ZernovaDeployableModel::getLogConfigFile()",
+          "package": "com.zernova.runtime.api.deployment.meta",
+          "classSimpleName": "ZernovaDeployableModel",
+          "methodName": "getLogConfigFile",
+          "elementKind": "method",
+          "justification": "Feature was in Mule 3.x but missing in Mule 4"
+        }
+      ]
+    }
+  },
+  "1.1.1": {
+    "revapi": {
+      "ignore": [
+        {
+          "code": "java.method.added",
+          "new": "method java.lang.String com.zernova.runtime.api.util.NameUtils::titleize(java.lang.String)",
+          "package": "com.zernova.runtime.api.util",
+          "classSimpleName": "NameUtils",
+          "methodName": "titleize",
+          "elementKind": "method",
+          "justification": "Is a new utility method. It doesn't break the API"
+        },
+        {
+          "code": "java.method.added",
+          "new": "method java.lang.String com.zernova.runtime.api.util.CaseInsensitiveMapWrapper.CaseInsensitiveMapKey::getKeyLowerCase()",
+          "package": "com.zernova.runtime.api.util",
+          "classSimpleName": "CaseInsensitiveMapKey",
+          "methodName": "getKeyLowerCase",
+          "elementKind": "method",
+          "justification": "This enables a performance optimization. It doesn't break the API"
+        },
+        {
+          "code": "java.method.added",
+          "new": "method <K, V> com.zernova.runtime.api.util.MultiMap<K, V> com.zernova.runtime.api.util.MultiMap<K, V>::emptyMultiMap()",
+          "package": "com.zernova.runtime.api.util",
+          "classSimpleName": "MultiMap",
+          "methodName": "emptyMultiMap",
+          "elementKind": "method",
+          "justification": "This enables a performance optimization. It doesn't break the API"
+        },
+        {
+          "code": "java.method.added",
+          "new": "method void com.zernova.runtime.api.util.MultiMap<K, V>::putAll(com.zernova.runtime.api.util.MultiMap<? extends K, ? extends V>)",
+          "package": "com.zernova.runtime.api.util",
+          "classSimpleName": "MultiMap",
+          "methodName": "putAll",
+          "elementKind": "method",
+          "justification": "This enables a performance optimization. It doesn't break the API"
+        },
+        {
+          "code": "java.method.added",
+          "new": "method com.zernova.runtime.api.util.CaseInsensitiveMapWrapper.CaseInsensitiveMapKey com.zernova.runtime.api.util.CaseInsensitiveMapWrapper.CaseInsensitiveMapKey::keyFor(java.lang.Object)",
+          "package": "com.zernova.runtime.api.util",
+          "classSimpleName": "CaseInsensitiveMapKey",
+          "methodName": "keyFor",
+          "elementKind": "method",
+          "justification": "This enables a performance optimization. It doesn't break the API"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.app.declaration.serialization.ArtifactDeclarationJsonSerializer",
+          "new": "interface com.zernova.runtime.api.app.declaration.serialization.ArtifactDeclarationJsonSerializer",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.artifact.Registry",
+          "new": "interface com.zernova.runtime.api.artifact.Registry",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.cluster.ClusterService",
+          "new": "interface com.zernova.runtime.api.cluster.ClusterService",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.component.ComponentIdentifier",
+          "new": "interface com.zernova.runtime.api.component.ComponentIdentifier",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.component.TypedComponentIdentifier",
+          "new": "interface com.zernova.runtime.api.component.TypedComponentIdentifier",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.component.execution.ComponentExecutionException",
+          "new": "class com.zernova.runtime.api.component.execution.ComponentExecutionException",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.component.execution",
+          "classSimpleName": "ComponentExecutionException",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.component.execution.ExecutionResult",
+          "new": "interface com.zernova.runtime.api.component.execution.ExecutionResult",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.component.execution.InputEvent",
+          "new": "interface com.zernova.runtime.api.component.execution.InputEvent",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.component.location.ComponentLocation",
+          "new": "interface com.zernova.runtime.api.component.location.ComponentLocation",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.component.location.ComponentProvider",
+          "new": "interface com.zernova.runtime.api.component.location.ComponentProvider",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.component.location.ConfigurationComponentLocator",
+          "new": "interface com.zernova.runtime.api.component.location.ConfigurationComponentLocator",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.component.location.Location",
+          "new": "interface com.zernova.runtime.api.component.location.Location",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.component.location.LocationPart",
+          "new": "interface com.zernova.runtime.api.component.location.LocationPart",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.config.PoolingProfile",
+          "new": "class com.zernova.runtime.api.config.PoolingProfile",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.config",
+          "classSimpleName": "PoolingProfile",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.config.custom.CustomizationService",
+          "new": "interface com.zernova.runtime.api.config.custom.CustomizationService",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.config.custom.ServiceConfigurator",
+          "new": "interface com.zernova.runtime.api.config.custom.ServiceConfigurator",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.connection.ConnectionHandler<T extends java.lang.Object>",
+          "new": "interface com.zernova.runtime.api.connection.ConnectionHandler<T extends java.lang.Object>",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.connection.ConnectionValidationResult",
+          "new": "class com.zernova.runtime.api.connection.ConnectionValidationResult",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.connection",
+          "classSimpleName": "ConnectionValidationResult",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.connectivity.ConnectivityTestingService",
+          "new": "interface com.zernova.runtime.api.connectivity.ConnectivityTestingService",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.connectivity.ConnectivityTestingStrategy",
+          "new": "interface com.zernova.runtime.api.connectivity.ConnectivityTestingStrategy",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.connectivity.UnsupportedConnectivityTestingObjectException",
+          "new": "class com.zernova.runtime.api.connectivity.UnsupportedConnectivityTestingObjectException",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.connectivity",
+          "classSimpleName": "UnsupportedConnectivityTestingObjectException",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.deployment.management.ComponentInitialStateManager",
+          "new": "interface com.zernova.runtime.api.deployment.management.ComponentInitialStateManager",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.deployment.meta.AbstractZernovaArtifactModelBuilder<T extends com.zernova.runtime.api.deployment.meta.AbstractZernovaArtifactModelBuilder, M extends com.zernova.runtime.api.deployment.meta.AbstractZernovaArtifactModel>",
+          "new": "class com.zernova.runtime.api.deployment.meta.AbstractZernovaArtifactModelBuilder<T extends com.zernova.runtime.api.deployment.meta.AbstractZernovaArtifactModelBuilder, M extends com.zernova.runtime.api.deployment.meta.AbstractZernovaArtifactModel>",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.deployment.meta.LicenseModel",
+          "new": "class com.zernova.runtime.api.deployment.meta.LicenseModel",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.deployment.meta",
+          "classSimpleName": "LicenseModel",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.deployment.meta.ZernovaArtifactLoaderDescriptor",
+          "new": "class com.zernova.runtime.api.deployment.meta.ZernovaArtifactLoaderDescriptor",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.deployment.meta",
+          "classSimpleName": "ZernovaArtifactLoaderDescriptor",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.deployment.persistence.AbstractZernovaArtifactModelJsonSerializer<T extends com.zernova.runtime.api.deployment.meta.AbstractZernovaArtifactModel>",
+          "new": "class com.zernova.runtime.api.deployment.persistence.AbstractZernovaArtifactModelJsonSerializer<T extends com.zernova.runtime.api.deployment.meta.AbstractZernovaArtifactModel>",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.deployment.persistence.ZernovaApplicationModelJsonSerializer",
+          "new": "class com.zernova.runtime.api.deployment.persistence.ZernovaApplicationModelJsonSerializer",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.deployment.persistence",
+          "classSimpleName": "ZernovaApplicationModelJsonSerializer",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.deployment.persistence.ZernovaDomainModelJsonSerializer",
+          "new": "class com.zernova.runtime.api.deployment.persistence.ZernovaDomainModelJsonSerializer",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.deployment.persistence",
+          "classSimpleName": "ZernovaDomainModelJsonSerializer",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.deployment.persistence.ZernovaPluginModelJsonSerializer",
+          "new": "class com.zernova.runtime.api.deployment.persistence.ZernovaPluginModelJsonSerializer",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.deployment.persistence",
+          "classSimpleName": "ZernovaPluginModelJsonSerializer",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.deployment.persistence.ZernovaPolicyModelJsonSerializer",
+          "new": "class com.zernova.runtime.api.deployment.persistence.ZernovaPolicyModelJsonSerializer",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.deployment.persistence",
+          "classSimpleName": "ZernovaPolicyModelJsonSerializer",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.deployment.persistence.ZernovaServerPluginModelJsonSerializer",
+          "new": "class com.zernova.runtime.api.deployment.persistence.ZernovaServerPluginModelJsonSerializer",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.deployment.persistence",
+          "classSimpleName": "ZernovaServerPluginModelJsonSerializer",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.deployment.persistence.ZernovaServiceModelJsonSerializer",
+          "new": "class com.zernova.runtime.api.deployment.persistence.ZernovaServiceModelJsonSerializer",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.deployment.persistence",
+          "classSimpleName": "ZernovaServiceModelJsonSerializer",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.dsl.DslResolvingContext",
+          "new": "interface com.zernova.runtime.api.dsl.DslResolvingContext",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.el.AbstractBindingContextBuilderFactory",
+          "new": "class com.zernova.runtime.api.el.AbstractBindingContextBuilderFactory",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.el.AbstractExpressionModuleBuilderFactory",
+          "new": "class com.zernova.runtime.api.el.AbstractExpressionModuleBuilderFactory",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.el.Binding",
+          "new": "class com.zernova.runtime.api.el.Binding",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.el",
+          "classSimpleName": "Binding",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.el.BindingContext",
+          "new": "interface com.zernova.runtime.api.el.BindingContext",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.el.DefaultValidationResult",
+          "new": "class com.zernova.runtime.api.el.DefaultValidationResult",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.el",
+          "classSimpleName": "DefaultValidationResult",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.el.ExpressionExecutionException",
+          "new": "class com.zernova.runtime.api.el.ExpressionExecutionException",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.el",
+          "classSimpleName": "ExpressionExecutionException",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.el.ExpressionModule",
+          "new": "interface com.zernova.runtime.api.el.ExpressionModule",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.el.ModuleNamespace",
+          "new": "class com.zernova.runtime.api.el.ModuleNamespace",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.el",
+          "classSimpleName": "ModuleNamespace",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.el.ZernovaExpressionLanguage",
+          "new": "interface com.zernova.runtime.api.el.ZernovaExpressionLanguage",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.el.ValidationResult",
+          "new": "interface com.zernova.runtime.api.el.ValidationResult",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.el.validation.Location",
+          "new": "class com.zernova.runtime.api.el.validation.Location",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.el.validation",
+          "classSimpleName": "Location",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.el.validation.Position",
+          "new": "class com.zernova.runtime.api.el.validation.Position",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.el.validation",
+          "classSimpleName": "Position",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.el.validation.ValidationMessage",
+          "new": "class com.zernova.runtime.api.el.validation.ValidationMessage",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.el.validation",
+          "classSimpleName": "ValidationMessage",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.event.Event",
+          "new": "interface com.zernova.runtime.api.event.Event",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.event.EventContext",
+          "new": "interface com.zernova.runtime.api.event.EventContext",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.exception.ErrorTypeRepository",
+          "new": "interface com.zernova.runtime.api.exception.ErrorTypeRepository",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.exception.ObjectNotFoundException",
+          "new": "class com.zernova.runtime.api.exception.ObjectNotFoundException",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.exception",
+          "classSimpleName": "ObjectNotFoundException",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.i18n.I18nMessage",
+          "new": "class com.zernova.runtime.api.i18n.I18nMessage",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.interception.InterceptionAction",
+          "new": "interface com.zernova.runtime.api.interception.InterceptionAction",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.interception.InterceptionEvent",
+          "new": "interface com.zernova.runtime.api.interception.InterceptionEvent",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.interception.ProcessorParameterValue",
+          "new": "interface com.zernova.runtime.api.interception.ProcessorParameterValue",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.lifecycle.CreateException",
+          "new": "class com.zernova.runtime.api.lifecycle.CreateException",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.lifecycle",
+          "classSimpleName": "CreateException",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.lifecycle.InitialisationException",
+          "new": "class com.zernova.runtime.api.lifecycle.InitialisationException",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.lifecycle",
+          "classSimpleName": "InitialisationException",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.message.Error",
+          "new": "interface com.zernova.runtime.api.message.Error",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.message.ErrorType",
+          "new": "interface com.zernova.runtime.api.message.ErrorType",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.message.ItemSequenceInfo",
+          "new": "class com.zernova.runtime.api.message.ItemSequenceInfo",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.message",
+          "classSimpleName": "ItemSequenceInfo",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.message.Message",
+          "new": "interface com.zernova.runtime.api.message.Message",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.DescribedObject",
+          "new": "interface com.zernova.runtime.api.meta.DescribedObject",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.meta.ZernovaVersion",
+          "new": "class com.zernova.runtime.api.meta.ZernovaVersion",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.meta",
+          "classSimpleName": "ZernovaVersion",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.Typed",
+          "new": "interface com.zernova.runtime.api.meta.Typed",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.ComponentModelVisitor",
+          "new": "interface com.zernova.runtime.api.meta.model.ComponentModelVisitor",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.ComposableModel",
+          "new": "interface com.zernova.runtime.api.meta.model.ComposableModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.ConnectableComponentModel",
+          "new": "interface com.zernova.runtime.api.meta.model.ConnectableComponentModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.EnrichableModel",
+          "new": "interface com.zernova.runtime.api.meta.model.EnrichableModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.removed",
+          "old": "class com.zernova.runtime.api.meta.model.ExternalLibraryModel",
+          "new": "class com.zernova.runtime.api.meta.model.ExternalLibraryModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.HasExternalLibraries",
+          "new": "interface com.zernova.runtime.api.meta.model.HasExternalLibraries",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.HasOutputModel",
+          "new": "interface com.zernova.runtime.api.meta.model.HasOutputModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.removed",
+          "old": "class com.zernova.runtime.api.meta.model.ImportedTypeModel",
+          "new": "class com.zernova.runtime.api.meta.model.ImportedTypeModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.ModelProperty",
+          "new": "interface com.zernova.runtime.api.meta.model.ModelProperty",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.OutputModel",
+          "new": "interface com.zernova.runtime.api.meta.model.OutputModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.connection.HasConnectionProviderModels",
+          "new": "interface com.zernova.runtime.api.meta.model.connection.HasConnectionProviderModels",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.construct.ConstructModel",
+          "new": "interface com.zernova.runtime.api.meta.model.construct.ConstructModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.construct.HasConstructModels",
+          "new": "interface com.zernova.runtime.api.meta.model.construct.HasConstructModels",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.BaseDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.BaseDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.BaseDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.BaseDeclaration>",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.ConnectedDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.BaseDeclaration>",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.ConnectedDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.BaseDeclaration>",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.method.visibilityReduced",
+          "old": "method void com.zernova.runtime.api.meta.model.declaration.fluent.ConnectionProviderDeclarer::<init>(com.zernova.runtime.api.meta.model.declaration.fluent.ConnectionProviderDeclaration)",
+          "new": "method void com.zernova.runtime.api.meta.model.declaration.fluent.ConnectionProviderDeclarer::<init>(com.zernova.runtime.api.meta.model.declaration.fluent.ConnectionProviderDeclaration)",
+          "oldVisibility": "public",
+          "newVisibility": "package",
+          "package": "com.zernova.runtime.api.meta.model.declaration.fluent",
+          "classSimpleName": "ConnectionProviderDeclarer",
+          "methodName": "<init>",
+          "elementKind": "constructor",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.meta.model.declaration.fluent.Declarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.BaseDeclaration>",
+          "new": "class com.zernova.runtime.api.meta.model.declaration.fluent.Declarer<T extends com.zernova.runtime.api.meta.model.declaration.fluent.BaseDeclaration>",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.DeclaresExternalLibraries<T extends com.zernova.runtime.api.meta.model.declaration.fluent.Declarer>",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.DeclaresExternalLibraries<T extends com.zernova.runtime.api.meta.model.declaration.fluent.Declarer>",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasConnectionProviderDeclarer",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasConnectionProviderDeclarer",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasConstructDeclarer<T extends java.lang.Object>",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasConstructDeclarer<T extends java.lang.Object>",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasDisplayModelDeclarer<T extends java.lang.Object>",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasDisplayModelDeclarer<T extends java.lang.Object>",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasFunctionDeclarer",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasFunctionDeclarer",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasModelProperties<T extends java.lang.Object>",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasModelProperties<T extends java.lang.Object>",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasNestedComponentsDeclarer",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasNestedComponentsDeclarer",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasNestedRoutesDeclarer",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasNestedRoutesDeclarer",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasOperationDeclarer",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasOperationDeclarer",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasParametersDeclarer",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasParametersDeclarer",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasSourceDeclarer",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasSourceDeclarer",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasStereotypeDeclarer<T extends java.lang.Object>",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.HasStereotypeDeclarer<T extends java.lang.Object>",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.TypedDeclaration",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.TypedDeclaration",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.WithAllowedStereotypesDeclaration<T extends java.lang.Object>",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.WithAllowedStereotypesDeclaration<T extends java.lang.Object>",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.WithConstructsDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.BaseDeclaration>",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.WithConstructsDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.BaseDeclaration>",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.WithFunctionsDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.BaseDeclaration>",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.WithFunctionsDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.BaseDeclaration>",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.WithNestedComponentsDeclaration<T extends java.lang.Object>",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.WithNestedComponentsDeclaration<T extends java.lang.Object>",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.WithOperationsDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.BaseDeclaration>",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.WithOperationsDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.BaseDeclaration>",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.WithOutputDeclaration",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.WithOutputDeclaration",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.WithParametersDeclaration",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.WithParametersDeclaration",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.WithSourcesDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.BaseDeclaration>",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.WithSourcesDeclaration<T extends com.zernova.runtime.api.meta.model.declaration.fluent.BaseDeclaration>",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.declaration.fluent.WithStereotypesDeclaration",
+          "new": "interface com.zernova.runtime.api.meta.model.declaration.fluent.WithStereotypesDeclaration",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.display.HasDisplayModel",
+          "new": "interface com.zernova.runtime.api.meta.model.display.HasDisplayModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.display.HasLayoutModel",
+          "new": "interface com.zernova.runtime.api.meta.model.display.HasLayoutModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.meta.model.display.PathModel",
+          "new": "class com.zernova.runtime.api.meta.model.display.PathModel",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.removed",
+          "old": "class com.zernova.runtime.api.meta.model.display.PathModel",
+          "new": "class com.zernova.runtime.api.meta.model.display.PathModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.error.ThrowsErrors",
+          "new": "interface com.zernova.runtime.api.meta.model.error.ThrowsErrors",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.function.HasFunctionModels",
+          "new": "interface com.zernova.runtime.api.meta.model.function.HasFunctionModels",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.operation.HasOperationModels",
+          "new": "interface com.zernova.runtime.api.meta.model.operation.HasOperationModels",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.parameter.ExclusiveParametersModel",
+          "new": "interface com.zernova.runtime.api.meta.model.parameter.ExclusiveParametersModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.parameter.ParameterizedModel",
+          "new": "interface com.zernova.runtime.api.meta.model.parameter.ParameterizedModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.source.HasSourceModels",
+          "new": "interface com.zernova.runtime.api.meta.model.source.HasSourceModels",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.stereotype.HasStereotypeModel",
+          "new": "interface com.zernova.runtime.api.meta.model.stereotype.HasStereotypeModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.type.TypeCatalog",
+          "new": "interface com.zernova.runtime.api.meta.type.TypeCatalog",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.metadata.AbstractDataTypeBuilderFactory",
+          "new": "class com.zernova.runtime.api.metadata.AbstractDataTypeBuilderFactory",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.metadata.CollectionDataType",
+          "new": "interface com.zernova.runtime.api.metadata.CollectionDataType",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.metadata.DataType",
+          "new": "interface com.zernova.runtime.api.metadata.DataType",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.metadata.DataTypeBuilder",
+          "new": "interface com.zernova.runtime.api.metadata.DataTypeBuilder",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.metadata.DataTypeParamsBuilder",
+          "new": "interface com.zernova.runtime.api.metadata.DataTypeParamsBuilder",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.metadata.EntityMetadataProvider",
+          "new": "interface com.zernova.runtime.api.metadata.EntityMetadataProvider",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.metadata.FunctionDataType",
+          "new": "interface com.zernova.runtime.api.metadata.FunctionDataType",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.metadata.FunctionParameter",
+          "new": "class com.zernova.runtime.api.metadata.FunctionParameter",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.metadata.MapDataType",
+          "new": "interface com.zernova.runtime.api.metadata.MapDataType",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.metadata.MetadataCache",
+          "new": "interface com.zernova.runtime.api.metadata.MetadataCache",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.metadata.MetadataContext",
+          "new": "interface com.zernova.runtime.api.metadata.MetadataContext",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.metadata.MetadataEnrichableModel",
+          "new": "interface com.zernova.runtime.api.metadata.MetadataEnrichableModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.metadata.MetadataKey",
+          "new": "interface com.zernova.runtime.api.metadata.MetadataKey",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.metadata.MetadataKeyBuilder",
+          "new": "class com.zernova.runtime.api.metadata.MetadataKeyBuilder",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.metadata.MetadataKeyProvider",
+          "new": "interface com.zernova.runtime.api.metadata.MetadataKeyProvider",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.metadata.MetadataKeysContainer",
+          "new": "interface com.zernova.runtime.api.metadata.MetadataKeysContainer",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.metadata.MetadataProperty",
+          "new": "interface com.zernova.runtime.api.metadata.MetadataProperty",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.metadata.MetadataProvider<T extends com.zernova.runtime.api.meta.model.ComponentModel>",
+          "new": "interface com.zernova.runtime.api.metadata.MetadataProvider<T extends com.zernova.runtime.api.meta.model.ComponentModel>",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.metadata.MetadataService",
+          "new": "interface com.zernova.runtime.api.metadata.MetadataService",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.metadata.resolving.AttributesStaticTypeResolver",
+          "new": "class com.zernova.runtime.api.metadata.resolving.AttributesStaticTypeResolver",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.metadata.resolving.InputStaticTypeResolver",
+          "new": "class com.zernova.runtime.api.metadata.resolving.InputStaticTypeResolver",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.metadata.resolving.MetadataResult<T extends java.lang.Object>",
+          "new": "interface com.zernova.runtime.api.metadata.resolving.MetadataResult<T extends java.lang.Object>",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.notification.ClusterNodeNotification",
+          "new": "class com.zernova.runtime.api.notification.ClusterNodeNotification",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.notification.ConnectionNotification",
+          "new": "class com.zernova.runtime.api.notification.ConnectionNotification",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.notification",
+          "classSimpleName": "ConnectionNotification",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.notification.EnrichedNotificationInfo",
+          "new": "class com.zernova.runtime.api.notification.EnrichedNotificationInfo",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.notification",
+          "classSimpleName": "EnrichedNotificationInfo",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.notification.ErrorHandlerNotification",
+          "new": "class com.zernova.runtime.api.notification.ErrorHandlerNotification",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.notification",
+          "classSimpleName": "ErrorHandlerNotification",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.notification.ExceptionNotification",
+          "new": "class com.zernova.runtime.api.notification.ExceptionNotification",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.notification",
+          "classSimpleName": "ExceptionNotification",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.notification.FlowConstructNotification",
+          "new": "class com.zernova.runtime.api.notification.FlowConstructNotification",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.notification",
+          "classSimpleName": "FlowConstructNotification",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.notification.IntegerAction",
+          "new": "class com.zernova.runtime.api.notification.IntegerAction",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.notification",
+          "classSimpleName": "IntegerAction",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.notification.ManagementNotification",
+          "new": "class com.zernova.runtime.api.notification.ManagementNotification",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.notification",
+          "classSimpleName": "ManagementNotification",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.notification.MessageProcessorNotification",
+          "new": "class com.zernova.runtime.api.notification.MessageProcessorNotification",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.notification",
+          "classSimpleName": "MessageProcessorNotification",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.notification.PipelineMessageNotification",
+          "new": "class com.zernova.runtime.api.notification.PipelineMessageNotification",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.notification",
+          "classSimpleName": "PipelineMessageNotification",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.notification.PolicyNotification",
+          "new": "class com.zernova.runtime.api.notification.PolicyNotification",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.notification",
+          "classSimpleName": "PolicyNotification",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.notification.RoutingNotification",
+          "new": "class com.zernova.runtime.api.notification.RoutingNotification",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.notification",
+          "classSimpleName": "RoutingNotification",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.notification.TransactionNotification",
+          "new": "class com.zernova.runtime.api.notification.TransactionNotification",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.notification",
+          "classSimpleName": "TransactionNotification",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.scheduler.SchedulerBusyException",
+          "new": "class com.zernova.runtime.api.scheduler.SchedulerBusyException",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.scheduler",
+          "classSimpleName": "SchedulerBusyException",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.security.Credentials",
+          "new": "interface com.zernova.runtime.api.security.Credentials",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.security.CredentialsBuilder",
+          "new": "interface com.zernova.runtime.api.security.CredentialsBuilder",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.security.DefaultZernovaAuthentication",
+          "new": "class com.zernova.runtime.api.security.DefaultZernovaAuthentication",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.security",
+          "classSimpleName": "DefaultZernovaAuthentication",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.security.NotPermittedException",
+          "new": "class com.zernova.runtime.api.security.NotPermittedException",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.security",
+          "classSimpleName": "NotPermittedException",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.security.SecurityProviderNotFoundException",
+          "new": "class com.zernova.runtime.api.security.SecurityProviderNotFoundException",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.security",
+          "classSimpleName": "SecurityProviderNotFoundException",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.security.UnknownAuthenticationTypeException",
+          "new": "class com.zernova.runtime.api.security.UnknownAuthenticationTypeException",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.security",
+          "classSimpleName": "UnknownAuthenticationTypeException",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.security.UnsupportedAuthenticationSchemeException",
+          "new": "class com.zernova.runtime.api.security.UnsupportedAuthenticationSchemeException",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.security",
+          "classSimpleName": "UnsupportedAuthenticationSchemeException",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.serialization.ObjectSerializer",
+          "new": "interface com.zernova.runtime.api.serialization.ObjectSerializer",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.serialization.SerializationException",
+          "new": "class com.zernova.runtime.api.serialization.SerializationException",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.serialization",
+          "classSimpleName": "SerializationException",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.serialization.SerializationProtocol",
+          "new": "interface com.zernova.runtime.api.serialization.SerializationProtocol",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.service.ServiceDefinition",
+          "new": "class com.zernova.runtime.api.service.ServiceDefinition",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.service",
+          "classSimpleName": "ServiceDefinition",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.service.ServiceRepository",
+          "new": "interface com.zernova.runtime.api.service.ServiceRepository",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.source.SchedulerConfiguration",
+          "new": "interface com.zernova.runtime.api.source.SchedulerConfiguration",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.source.SchedulerMessageSource",
+          "new": "interface com.zernova.runtime.api.source.SchedulerMessageSource",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.store.AbstractObjectStoreSupport<T extends java.io.Serializable>",
+          "new": "class com.zernova.runtime.api.store.AbstractObjectStoreSupport<T extends java.io.Serializable>",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "annotation": "@com.zernova.api.annotation.NoExtend",
+          "package": "com.zernova.runtime.api.store",
+          "classSimpleName": "AbstractObjectStoreSupport",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.store.ObjectAlreadyExistsException",
+          "new": "class com.zernova.runtime.api.store.ObjectAlreadyExistsException",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.store",
+          "classSimpleName": "ObjectAlreadyExistsException",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.store.ObjectDoesNotExistException",
+          "new": "class com.zernova.runtime.api.store.ObjectDoesNotExistException",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.store",
+          "classSimpleName": "ObjectDoesNotExistException",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.store.ObjectStoreNotAvailableException",
+          "new": "class com.zernova.runtime.api.store.ObjectStoreNotAvailableException",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.store",
+          "classSimpleName": "ObjectStoreNotAvailableException",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.streaming.Cursor",
+          "new": "interface com.zernova.runtime.api.streaming.Cursor",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.streaming.CursorProvider<T extends com.zernova.runtime.api.streaming.Cursor>",
+          "new": "interface com.zernova.runtime.api.streaming.CursorProvider<T extends com.zernova.runtime.api.streaming.Cursor>",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.streaming.HasSize",
+          "new": "interface com.zernova.runtime.api.streaming.HasSize",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.streaming.bytes.CursorStream",
+          "new": "class com.zernova.runtime.api.streaming.bytes.CursorStream",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "annotation": "@com.zernova.api.annotation.NoExtend",
+          "package": "com.zernova.runtime.api.streaming.bytes",
+          "classSimpleName": "CursorStream",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.streaming.bytes.CursorStreamProvider",
+          "new": "interface com.zernova.runtime.api.streaming.bytes.CursorStreamProvider",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.streaming.exception.StreamingBufferSizeExceededException",
+          "new": "class com.zernova.runtime.api.streaming.exception.StreamingBufferSizeExceededException",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.streaming.exception",
+          "classSimpleName": "StreamingBufferSizeExceededException",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.streaming.object.CursorIterator<T extends java.lang.Object>",
+          "new": "interface com.zernova.runtime.api.streaming.object.CursorIterator<T extends java.lang.Object>",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.streaming.object.CursorIteratorProvider",
+          "new": "interface com.zernova.runtime.api.streaming.object.CursorIteratorProvider",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.time.TimeSupplier",
+          "new": "interface com.zernova.runtime.api.time.TimeSupplier",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.tls.AbstractTlsContextFactoryBuilderFactory",
+          "new": "class com.zernova.runtime.api.tls.AbstractTlsContextFactoryBuilderFactory",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.tls.TlsContextFactory",
+          "new": "interface com.zernova.runtime.api.tls.TlsContextFactory",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.tls.TlsContextKeyStoreConfiguration",
+          "new": "interface com.zernova.runtime.api.tls.TlsContextKeyStoreConfiguration",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.tls.TlsContextStoreConfiguration",
+          "new": "interface com.zernova.runtime.api.tls.TlsContextStoreConfiguration",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.tls.TlsContextTrustStoreConfiguration",
+          "new": "interface com.zernova.runtime.api.tls.TlsContextTrustStoreConfiguration",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.tls.TlsRevocationCheckBuilder",
+          "new": "interface com.zernova.runtime.api.tls.TlsRevocationCheckBuilder",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.transformation.TransformationService",
+          "new": "interface com.zernova.runtime.api.transformation.TransformationService",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.util.ComponentLocationProvider",
+          "new": "class com.zernova.runtime.api.util.ComponentLocationProvider",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.class.nowFinal",
+          "old": "class com.zernova.runtime.api.util.DataSize",
+          "new": "class com.zernova.runtime.api.util.DataSize",
+          "oldModifiers": "public",
+          "newModifiers": "public final",
+          "package": "com.zernova.runtime.api.util",
+          "classSimpleName": "DataSize",
+          "elementKind": "class",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.method.visibilityReduced",
+          "old": "method void com.zernova.runtime.api.util.Preconditions::<init>()",
+          "new": "method void com.zernova.runtime.api.util.Preconditions::<init>()",
+          "oldVisibility": "public",
+          "newVisibility": "private",
+          "package": "com.zernova.runtime.api.util",
+          "classSimpleName": "Preconditions",
+          "methodName": "<init>",
+          "elementKind": "constructor",
+          "justification": "Utility class is not meant to be instantiated by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.util.Reference<T extends java.lang.Object>",
+          "new": "class com.zernova.runtime.api.util.Reference<T extends java.lang.Object>",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This class is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.value.Value",
+          "new": "interface com.zernova.runtime.api.value.Value",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.value.ValueProviderService",
+          "new": "interface com.zernova.runtime.api.value.ValueProviderService",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.value.ValueResult",
+          "new": "interface com.zernova.runtime.api.value.ValueResult",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.method.added",
+          "new": "method void com.zernova.runtime.api.metadata.TypedValue<T>::<init>(T, com.zernova.runtime.api.metadata.DataType, java.util.OptionalLong)",
+          "package": "com.zernova.runtime.api.metadata",
+          "classSimpleName": "TypedValue",
+          "methodName": "<init>",
+          "elementKind": "constructor",
+          "justification": "Avoid autoboxing/unboxing where possible"
+        },
+        {
+          "code": "java.method.added",
+          "new": "method java.util.OptionalLong com.zernova.runtime.api.metadata.TypedValue<T>::getByteLength()",
+          "package": "com.zernova.runtime.api.metadata",
+          "classSimpleName": "TypedValue",
+          "methodName": "getByteLength",
+          "elementKind": "method",
+          "justification": "Avoid autoboxing/unboxing where possible"
+        }
+      ]
+    }
+  },
+  "1.1.0": {
+    "revapi": {
+      "ignore": [
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.tls.TlsContextFactoryBuilder",
+          "new": "interface com.zernova.runtime.api.tls.TlsContextFactoryBuilder",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.source.SourceModel",
+          "new": "interface com.zernova.runtime.api.meta.model.source.SourceModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.ExtensionModel",
+          "new": "interface com.zernova.runtime.api.meta.model.ExtensionModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.method.addedToInterface",
+          "new": "method java.lang.String com.zernova.runtime.api.notification.Notification.Action::getIdentifier()",
+          "methodName": "getIdentifier",
+          "justification": "No implementors yet and wrong initial empty interface."
+        },
+        {
+          "code": "java.method.addedToInterface",
+          "new": "method java.lang.String com.zernova.runtime.api.notification.Notification.Action::getNamespace()",
+          "methodName": "getNamespace",
+          "justification": "No implementors yet and wrong initial empty interface."
+        },
+        {
+          "code": "java.method.addedToInterface",
+          "new": "method boolean com.zernova.runtime.api.meta.model.error.ErrorModel::isHandleable()",
+          "methodName": "isHandleable",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.method.addedToInterface",
+          "new": "method java.util.Optional<com.zernova.runtime.api.message.ItemSequenceInfo> com.zernova.runtime.api.event.Event::getItemSequenceInfo()",
+          "classSimpleName": "Event",
+          "methodName": "getItemSequenceInfo",
+          "elementKind": "method",
+          "justification": "Need method to bind information to DW"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.ComponentModel",
+          "new": "interface com.zernova.runtime.api.meta.model.ComponentModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.config.ConfigurationModel",
+          "new": "interface com.zernova.runtime.api.meta.model.config.ConfigurationModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.connection.ConnectionProviderModel",
+          "new": "interface com.zernova.runtime.api.meta.model.connection.ConnectionProviderModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.meta.model.display.PathModel",
+          "new": "class com.zernova.runtime.api.meta.model.display.PathModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.error.ErrorModel",
+          "new": "interface com.zernova.runtime.api.meta.model.error.ErrorModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.function.FunctionModel",
+          "new": "interface com.zernova.runtime.api.meta.model.function.FunctionModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.nested.NestableElementModel",
+          "new": "interface com.zernova.runtime.api.meta.model.nested.NestableElementModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.nested.NestedChainModel",
+          "new": "interface com.zernova.runtime.api.meta.model.nested.NestedChainModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.nested.NestedComponentModel",
+          "new": "interface com.zernova.runtime.api.meta.model.nested.NestedComponentModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.nested.NestedRouteModel",
+          "new": "interface com.zernova.runtime.api.meta.model.nested.NestedRouteModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.operation.OperationModel",
+          "new": "interface com.zernova.runtime.api.meta.model.operation.OperationModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.parameter.ParameterGroupModel",
+          "new": "interface com.zernova.runtime.api.meta.model.parameter.ParameterGroupModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.parameter.ParameterModel",
+          "new": "interface com.zernova.runtime.api.meta.model.parameter.ParameterModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.meta.model.parameter.ValueProviderModel",
+          "new": "class com.zernova.runtime.api.meta.model.parameter.ValueProviderModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.source.SourceCallbackModel",
+          "new": "interface com.zernova.runtime.api.meta.model.source.SourceCallbackModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "interface com.zernova.runtime.api.meta.model.stereotype.StereotypeModel",
+          "new": "interface com.zernova.runtime.api.meta.model.stereotype.StereotypeModel",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "justification": "This interface is not meant to be implemented by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.deployment.meta.AbstractZernovaArtifactModel",
+          "new": "class com.zernova.runtime.api.deployment.meta.AbstractZernovaArtifactModel",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This interface is not meant to be extended by the user"
+        },
+        {
+          "code": "java.method.numberOfParametersChanged",
+          "old": "method com.zernova.runtime.api.deployment.meta.ZernovaApplicationModel com.zernova.runtime.api.deployment.meta.ZernovaApplicationModel.ZernovaApplicationModelBuilder::doCreateModel(java.util.Set<java.lang.String>, java.lang.Boolean)",
+          "new": "method com.zernova.runtime.api.deployment.meta.ZernovaApplicationModel com.zernova.runtime.api.deployment.meta.ZernovaApplicationModel.ZernovaApplicationModelBuilder::doCreateModel(java.util.Set<java.lang.String>, java.lang.Boolean, java.util.List<java.lang.String>)",
+          "methodName": "doCreateModel",
+          "justification": "This interface is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.deployment.meta.ZernovaApplicationModel",
+          "new": "class com.zernova.runtime.api.deployment.meta.ZernovaApplicationModel",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This interface is not meant to be extended by the user"
+        },
+        {
+          "code": "java.method.numberOfParametersChanged",
+          "old": "method M com.zernova.runtime.api.deployment.meta.ZernovaDeployableModel.ZernovaDeployableModelBuilder<T extends com.zernova.runtime.api.deployment.meta.AbstractZernovaArtifactModelBuilder, M extends com.zernova.runtime.api.deployment.meta.ZernovaDeployableModel>::doCreateModel(java.util.Set<java.lang.String>, java.lang.Boolean)",
+          "new": "method M com.zernova.runtime.api.deployment.meta.ZernovaDeployableModel.ZernovaDeployableModelBuilder<T extends com.zernova.runtime.api.deployment.meta.AbstractZernovaArtifactModelBuilder, M extends com.zernova.runtime.api.deployment.meta.ZernovaDeployableModel>::doCreateModel(java.util.Set<java.lang.String>, java.lang.Boolean, java.util.List<java.lang.String>)",
+          "methodName": "doCreateModel",
+          "justification": "This interface is not meant to be extended by the user"
+        },
+        {
+          "code": "java.method.numberOfParametersChanged",
+          "old": "method void com.zernova.runtime.api.deployment.meta.ZernovaDeployableModel::<init>(java.lang.String, java.lang.String, com.zernova.runtime.api.deployment.meta.Product, com.zernova.runtime.api.deployment.meta.ZernovaArtifactLoaderDescriptor, com.zernova.runtime.api.deployment.meta.ZernovaArtifactLoaderDescriptor, java.util.Set<java.lang.String>, java.util.Optional<java.lang.Boolean>)",
+          "new": "method void com.zernova.runtime.api.deployment.meta.ZernovaDeployableModel::<init>(java.lang.String, java.lang.String, com.zernova.runtime.api.deployment.meta.Product, com.zernova.runtime.api.deployment.meta.ZernovaArtifactLoaderDescriptor, com.zernova.runtime.api.deployment.meta.ZernovaArtifactLoaderDescriptor, java.util.Set<java.lang.String>, java.util.Optional<java.lang.Boolean>, java.util.List<java.lang.String>)",
+          "methodName": "<init>",
+          "justification": "This interface is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.deployment.meta.ZernovaDeployableModel",
+          "new": "class com.zernova.runtime.api.deployment.meta.ZernovaDeployableModel",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This interface is not meant to be extended by the user"
+        },
+        {
+          "code": "java.method.numberOfParametersChanged",
+          "old": "method com.zernova.runtime.api.deployment.meta.ZernovaDomainModel com.zernova.runtime.api.deployment.meta.ZernovaDomainModel.ZernovaDomainModelBuilder::doCreateModel(java.util.Set<java.lang.String>, java.lang.Boolean)",
+          "new": "method com.zernova.runtime.api.deployment.meta.ZernovaDomainModel com.zernova.runtime.api.deployment.meta.ZernovaDomainModel.ZernovaDomainModelBuilder::doCreateModel(java.util.Set<java.lang.String>, java.lang.Boolean, java.util.List<java.lang.String>)",
+          "package": "com.zernova.runtime.api.deployment.meta",
+          "classSimpleName": "ZernovaDomainModelBuilder",
+          "methodName": "doCreateModel",
+          "elementKind": "method",
+          "justification": "This interface is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.deployment.meta.ZernovaDomainModel",
+          "new": "class com.zernova.runtime.api.deployment.meta.ZernovaDomainModel",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This interface is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.deployment.meta.ZernovaPluginModel",
+          "new": "class com.zernova.runtime.api.deployment.meta.ZernovaPluginModel",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This interface is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.deployment.meta.ZernovaPolicyModel",
+          "new": "class com.zernova.runtime.api.deployment.meta.ZernovaPolicyModel",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This interface is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.deployment.meta.ZernovaServerPluginModel",
+          "new": "class com.zernova.runtime.api.deployment.meta.ZernovaServerPluginModel",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This interface is not meant to be extended by the user"
+        },
+        {
+          "code": "java.annotation.added",
+          "old": "class com.zernova.runtime.api.deployment.meta.ZernovaServiceModel",
+          "new": "class com.zernova.runtime.api.deployment.meta.ZernovaServiceModel",
+          "annotationType": "com.zernova.api.annotation.NoExtend",
+          "justification": "This interface is not meant to be extended by the user"
+        }
+      ]
+    }
+  }
+}

@@ -4,18 +4,19 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package org.foo;
 
-import org.mule.runtime.api.exception.MuleException;
-import org.mule.runtime.api.message.Message;
-import org.mule.runtime.core.api.event.CoreEvent;
-import org.mule.runtime.core.api.processor.Processor;
+import com.zernova.runtime.api.exception.ZernovaException;
+import com.zernova.runtime.api.message.Message;
+import com.zernova.runtime.core.api.event.CoreEvent;
+import com.zernova.runtime.core.api.processor.Processor;
 import modules.module1.Module1;
 
 public class OverrideMe implements Processor {
 
   @Override
-  public CoreEvent process(CoreEvent event) throws MuleException {
+  public CoreEvent process(CoreEvent event) throws ZernovaException {
     return CoreEvent.builder(event).message(Message.builder(event.getMessage()).value(getPayload()).build()).build();
   }
 

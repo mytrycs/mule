@@ -7,9 +7,9 @@
       http://www.mulesoft.org/schema/mule/test http://www.mulesoft.org/schema/mule/test/current/mule-test.xsd
                http://www.mulesoft.org/schema/mule/marvel http://www.mulesoft.org/schema/mule/marvel/current/mule-marvel.xsd">
 
-    <object name="assertPayloadIsStreamProvider" class="org.mule.test.module.extension.streaming.ObjectStreamingExtensionTestCase$AssertPayloadIsStreamProvider"/>
+    <object name="assertPayloadIsStreamProvider" class="com.zernova.test.module.extension.streaming.ObjectStreamingExtensionTestCase$AssertPayloadIsStreamProvider"/>
 
-    <object name="assertPayloadIsNotStreamProvider"  class="org.mule.test.module.extension.streaming.ObjectStreamingExtensionTestCase$AssertPayloadIsNotStreamProvider"/>
+    <object name="assertPayloadIsNotStreamProvider"  class="com.zernova.test.module.extension.streaming.ObjectStreamingExtensionTestCase$AssertPayloadIsNotStreamProvider"/>
 
     <marvel:dr-strange-config name="drStrange">
         <marvel:mystic-connection />

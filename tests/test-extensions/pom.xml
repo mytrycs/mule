@@ -4,14 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.mule.tests</groupId>
+        <groupId>com.zernova.tests</groupId>
         <artifactId>mule-tests</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>mule-test-extensions-parent</artifactId>
     <packaging>pom</packaging>
-    <name>Parent Pom for Mule Test Extension</name>
+    <name>Parent Pom for ZERNOVA Test Extension</name>
 
     <modules>
         <module>petstore-extension</module>
@@ -83,23 +83,23 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-extensions-api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-core</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>mule-tests-unit</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>

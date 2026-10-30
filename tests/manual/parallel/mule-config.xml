@@ -7,7 +7,7 @@
 
     <mule-environment-properties />
 
-    <connector name="SystemStreamConnector" className="org.mule.providers.stdio.SystemStreamConnector">
+    <connector name="SystemStreamConnector" className="com.zernova.providers.stdio.SystemStreamConnector">
         <properties>
             <property name="promptMessage" value="Please enter something: "/>
             <property name="messageDelayTime" value="1000"/>
@@ -15,7 +15,7 @@
     </connector>
 
     <model name="dummy">
-        <mule-descriptor name="EchoUMO" implementation="org.mule.runtime.core.simple.EchoComponent">
+        <mule-descriptor name="EchoUMO" implementation="com.zernova.runtime.core.simple.EchoComponent">
         </mule-descriptor>
     </model>
 </mule-configuration>

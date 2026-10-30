@@ -146,20 +146,20 @@
 
     <flow name="dynamicConfigIsExpiredBeforeFlowEnds">
         <heisenberg:get-barber-preferences config-ref="heisenbergWithShortExpiration"/>
-        <test:processor class="org.mule.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor" />
+        <test:processor class="com.zernova.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor" />
         <test:processor waitTime="4000"/>
-        <test:processor class="org.mule.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor" />
+        <test:processor class="com.zernova.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor" />
     </flow>
 
     <flow name="dynamicConfigIsExpiredBeforeFlowEndsWhenOperationFails">
         <try>
             <heisenberg:get-barber-preferences config-ref="heisenbergWithShortExpiration"/>
-            <test:processor class="org.mule.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor" />
+            <test:processor class="com.zernova.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor" />
             <heisenberg:failing-paged-operation config-ref="heisenbergWithShortExpiration"/>
             <error-handler>
                 <on-error-continue>
                     <test:processor waitTime="4000"/>
-                    <test:processor class="org.mule.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor" />
+                    <test:processor class="com.zernova.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor" />
                 </on-error-continue>
             </error-handler>
         </try>
@@ -167,19 +167,19 @@
 
     <flow name="dynamicWithShortExpirationForPagedOperation">
         <heisenberg:failing-connectivity-paged-operation failOn="#[vars.failOn]" config-ref="heisenbergWithShortExpiration"/>
-        <test:processor class="org.mule.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
+        <test:processor class="com.zernova.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
         <foreach collection="#[payload]">
-            <test:processor class="org.mule.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
+            <test:processor class="com.zernova.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
             <test:processor waitTime="4000"/>
         </foreach>
         <test:processor waitTime="4000"/>
-        <test:processor class="org.mule.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
+        <test:processor class="com.zernova.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
     </flow>
 
     <flow name="dynamicWithShortExpirationForPagedOperationWithoutReconnection">
         <try>
             <heisenberg:get-barber-preferences config-ref="heisenbergWithShortExpiration"/>
-            <test:processor class="org.mule.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor" />
+            <test:processor class="com.zernova.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor" />
             <heisenberg:failing-connectivity-paged-operation failOn="#[vars.failOn]" config-ref="heisenbergWithShortExpiration">
                 <reconnect count="0"/>
             </heisenberg:failing-connectivity-paged-operation>
@@ -189,7 +189,7 @@
             <error-handler>
                 <on-error-continue>
                     <test:processor waitTime="4000"/>
-                    <test:processor class="org.mule.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor" />
+                    <test:processor class="com.zernova.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor" />
                 </on-error-continue>
             </error-handler>
         </try>
@@ -197,39 +197,39 @@
 
     <flow name="dynamicWithShortExpirationForStreamingOperation">
         <heisenberg:name-as-stream config-ref="heisenbergWithShortExpiration" />
-        <test:processor class="org.mule.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
+        <test:processor class="com.zernova.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
         <test:processor waitTime="4000"/>
-        <test:processor class="org.mule.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
+        <test:processor class="com.zernova.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
         <logger level="ERROR" message="#[payload]"/>
         <test:processor waitTime="4000"/>
-        <test:processor class="org.mule.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
+        <test:processor class="com.zernova.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
     </flow>
 
     <flow name="dynamicWithShortExpirationForConnectedStreamingOperation">
         <heisenberg:name-as-stream config-ref="heisenbergWithShortExpiration" />
-        <test:processor class="org.mule.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
+        <test:processor class="com.zernova.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
         <heisenberg:name-as-stream-connected failOn="#[vars.failOn]" config-ref="heisenbergWithShortExpiration" />
         <test:processor waitTime="4000"/>
-        <test:processor class="org.mule.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
+        <test:processor class="com.zernova.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
         <logger level="ERROR" message="#[payload]"/>
         <test:processor waitTime="4000"/>
-        <test:processor class="org.mule.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
+        <test:processor class="com.zernova.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
     </flow>
 
     <flow name="dynamicWithShortExpirationForConnectedStreamingOperationWithoutReconnection">
         <try>
             <heisenberg:name-as-stream config-ref="heisenbergWithShortExpiration" />
-            <test:processor class="org.mule.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
+            <test:processor class="com.zernova.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
             <heisenberg:name-as-stream-connected failOn="#[vars.failOn]" config-ref="heisenbergWithShortExpiration">
                 <reconnect count="0"/>
             </heisenberg:name-as-stream-connected>
             <test:processor waitTime="4000"/>
-            <test:processor class="org.mule.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
+            <test:processor class="com.zernova.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor"/>
             <logger level="ERROR" message="#[payload]"/>
             <error-handler>
                 <on-error-continue>
                     <test:processor waitTime="4000"/>
-                    <test:processor class="org.mule.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor" />
+                    <test:processor class="com.zernova.test.module.extension.DynamicConfigExpirationTestCase$CaptureProcessor" />
                 </on-error-continue>
             </error-handler>
         </try>

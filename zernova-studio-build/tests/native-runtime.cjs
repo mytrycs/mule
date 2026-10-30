@@ -47,7 +47,7 @@ const {validateArtifact}=require('../dist/portable-packager.cjs');
    await persist();
    await fs.cp(path.join(instance,'runs'),path.join(output,'runs'),{recursive:true}).catch(()=>{});
    await fs.copyFile(path.join(instance,'state.json'),path.join(output,'final-state.json')).catch(()=>{});
-   await fs.writeFile(path.join(output,'source-hashes.json'),JSON.stringify(Object.fromEntries(await Promise.all(['src/portable/bundle.ts','src/portable/packager.ts','src/portable/runtime.ts','runtime-support/java/io/zernova/studio/RuntimeControlAgent.java'].map(async f=>[f,createHash('sha256').update(await fs.readFile(f)).digest('hex')]))),null,2)+'\n');
+   await fs.writeFile(path.join(output,'source-hashes.json'),JSON.stringify(Object.fromEntries(await Promise.all(['src/portable/bundle.ts','src/portable/packager.ts','src/portable/runtime.ts','runtime-support/java/com/zernova/studio/RuntimeControlAgent.java'].map(async f=>[f,createHash('sha256').update(await fs.readFile(f)).digest('hex')]))),null,2)+'\n');
    // Never retain auth tokens in evidence. Only public launch arguments and logs.
    if(rows.some(x=>x.status==='FAIL'))process.exitCode=1;
  }

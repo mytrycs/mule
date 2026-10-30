@@ -4,17 +4,19 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.mule.runtime</groupId>
+        <groupId>com.zernova.runtime</groupId>
         <artifactId>mule</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
     <artifactId>mule-core</artifactId>
     <packaging>jar</packaging>
-    <name>Mule Core</name>
+    <name>ZERNOVA Core</name>
     <description>Mule server and core classes</description>
 
     <properties>
-        <javaModuleName>org.mule.runtime.core</javaModuleName>
+        <!-- Technical product identity; the visible project name remains ZERNOVA. -->
+        <zernovaCompatibilityTitle>Mule Core</zernovaCompatibilityTitle>
+        <javaModuleName>com.zernova.runtime.core</javaModuleName>
         <skipExportTests>false</skipExportTests>
         <!-- because this module requires transitive jakarta.jms.api -->
         <revapi.checkDependencies>true</revapi.checkDependencies>
@@ -53,69 +55,69 @@
     -->
     <dependencies>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-tracer-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-tracer-customization-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-tracer-exporter-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.sdk</groupId>
+            <groupId>com.zernova.sdk</groupId>
             <artifactId>mule-sdk-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-profiling-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-feature-management</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime.boot</groupId>
+            <groupId>com.zernova.runtime.boot</groupId>
             <artifactId>mule-module-logging</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-runtime-errors</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-http-policy-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-tracer-exporter-configuration-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-metrics-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-metrics-exporter-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-manifest</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -125,7 +127,7 @@
         </dependency>
         <dependency>
             <!-- UUID generator, only called directly by mule-core -->
-            <groupId>org.mule.com.github.stephenc.eaio-uuid</groupId>
+            <groupId>com.zernova.com.github.stephenc.eaio-uuid</groupId>
             <artifactId>uuid</artifactId>
         </dependency>
         <dependency>
@@ -207,7 +209,7 @@
             <artifactId>jakarta.jms-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mule.btm.jms</groupId>
+            <groupId>com.zernova.btm.jms</groupId>
             <artifactId>jakarta.jms-api-${jakarta.javax.jms.version}</artifactId>
         </dependency>
 

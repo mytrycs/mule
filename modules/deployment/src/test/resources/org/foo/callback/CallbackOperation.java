@@ -4,17 +4,18 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package org.foo.callback;
 
-import static org.mule.runtime.extension.api.annotation.param.MediaType.TEXT_PLAIN;
-import static org.mule.runtime.core.api.util.ClassUtils.instantiateClass;
-import static org.mule.runtime.extension.api.annotation.param.Optional.PAYLOAD;
+import static com.zernova.runtime.extension.api.annotation.param.MediaType.TEXT_PLAIN;
+import static com.zernova.runtime.core.api.util.ClassUtils.instantiateClass;
+import static com.zernova.runtime.extension.api.annotation.param.Optional.PAYLOAD;
 
-import org.mule.runtime.api.exception.MuleRuntimeException;
-import org.mule.runtime.extension.api.annotation.Alias;
-import org.mule.runtime.extension.api.annotation.param.MediaType;
-import org.mule.runtime.extension.api.annotation.param.Optional;
-import org.mule.runtime.module.deployment.test.api.EventCallback;
+import com.zernova.runtime.api.exception.ZernovaRuntimeException;
+import com.zernova.runtime.extension.api.annotation.Alias;
+import com.zernova.runtime.extension.api.annotation.param.MediaType;
+import com.zernova.runtime.extension.api.annotation.param.Optional;
+import com.zernova.runtime.module.deployment.test.api.EventCallback;
 
 public class CallbackOperation {
 
@@ -26,7 +27,7 @@ public class CallbackOperation {
     } catch (ClassNotFoundException cnfe) {
       throw cnfe;
     } catch (Exception e) {
-      throw new MuleRuntimeException(e);
+      throw new ZernovaRuntimeException(e);
     }
   }
 

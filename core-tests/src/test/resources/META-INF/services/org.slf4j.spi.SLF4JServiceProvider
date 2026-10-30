@@ -1,1 +1,1 @@
-org.mule.slf4j.impl.StaticLoggerBinder
+com.zernova.slf4j.impl.StaticLoggerBinder

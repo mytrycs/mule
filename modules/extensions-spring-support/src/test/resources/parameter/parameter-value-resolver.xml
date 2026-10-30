@@ -6,7 +6,7 @@
                http://www.mulesoft.org/schema/mule/some http://www.mulesoft.org/schema/mule/some/current/mule-some.xsd">
 
     <object name="capture"
-            class="org.mule.test.module.extension.parameter.value.ParameterValueResolverTestCase$CaptureProcessor"/>
+            class="com.zernova.test.module.extension.parameter.value.ParameterValueResolverTestCase$CaptureProcessor"/>
 
     <some:config name="config-with-zoned-date-time-parameter" someParameter="whatever" zonedDateTime="2021-04-27T15:30:00Z"/>
 

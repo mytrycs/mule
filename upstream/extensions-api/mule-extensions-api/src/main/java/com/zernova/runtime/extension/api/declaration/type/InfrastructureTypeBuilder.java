@@ -1,0 +1,155 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.extension.api.declaration.type;
+
+import com.zernova.metadata.api.builder.BaseTypeBuilder;
+import com.zernova.metadata.api.builder.BooleanTypeBuilder;
+import com.zernova.metadata.api.builder.NumberTypeBuilder;
+import com.zernova.metadata.api.builder.ObjectFieldTypeBuilder;
+import com.zernova.metadata.api.builder.ObjectTypeBuilder;
+import com.zernova.metadata.api.builder.StringTypeBuilder;
+import com.zernova.metadata.api.builder.TypeBuilder;
+import com.zernova.metadata.api.model.MetadataType;
+import com.zernova.metadata.java.api.annotation.ClassInformationAnnotation;
+import com.zernova.metadata.java.api.utils.ParsingContext;
+import com.zernova.runtime.api.meta.model.display.LayoutModel;
+import com.zernova.runtime.extension.api.declaration.type.annotation.LayoutTypeAnnotation;
+
+import java.util.stream.Stream;
+
+/**
+ * Base class for a component capable of creating a {@link MetadataType} to be used in an infrastructure parameter
+ *
+ * @since 1.0
+ */
+abstract class InfrastructureTypeBuilder {
+
+  protected ObjectTypeBuilder objectType(BaseTypeBuilder typeBuilder, Class<?> type, ParsingContext context) {
+    final ObjectTypeBuilder objectType = typeBuilder.objectType()
+        .id(type.getName())
+        .with(new ClassInformationAnnotation(type));
+    context.addTypeBuilder(type, objectType);
+
+    return objectType;
+  }
+
+  protected <T extends Enum> ObjectFieldTypeBuilder addEnumField(ObjectTypeBuilder objectType,
+                                                                 BaseTypeBuilder typeBuilder,
+                                                                 String name,
+                                                                 String description,
+                                                                 T defaultValue,
+                                                                 T[] values) {
+
+    String[] valueNames = Stream.of(values)
+        .map(e -> e.name())
+        .toArray(String[]::new);
+
+    return addField(objectType, getEnumType(typeBuilder, defaultValue.name(), valueNames), name, description);
+  }
+
+  protected ObjectFieldTypeBuilder addEnumField(ObjectTypeBuilder objectType,
+                                                BaseTypeBuilder typeBuilder,
+                                                String name,
+                                                String description,
+                                                String defaultValue,
+                                                String... values) {
+    return addField(objectType, getEnumType(typeBuilder, defaultValue, values), name, description);
+  }
+
+  protected StringTypeBuilder getEnumType(BaseTypeBuilder typeBuilder, String defaultValue, String... values) {
+    StringTypeBuilder enumType = typeBuilder.stringType().enumOf(values);
+    if (defaultValue != null) {
+      enumType.defaultValue(defaultValue);
+    }
+
+    return enumType;
+  }
+
+  protected ObjectFieldTypeBuilder addBooleanField(ObjectTypeBuilder objectType,
+                                                   BaseTypeBuilder typeBuilder,
+                                                   String name,
+                                                   String description,
+                                                   Boolean defaultValue) {
+    BooleanTypeBuilder booleanType = typeBuilder.booleanType();
+    if (defaultValue != null) {
+      booleanType.defaultValue(defaultValue.toString());
+    }
+
+    return addField(objectType, booleanType, name, description);
+  }
+
+  protected ObjectFieldTypeBuilder addStringField(ObjectTypeBuilder objectType,
+                                                  BaseTypeBuilder typeBuilder,
+                                                  String name,
+                                                  String description,
+                                                  String defaultValue) {
+
+    final StringTypeBuilder stringType = stringTypeBuilder(typeBuilder, defaultValue);
+    return addField(objectType, stringType, name, description);
+  }
+
+  private StringTypeBuilder stringTypeBuilder(BaseTypeBuilder typeBuilder, String defaultValue) {
+    final StringTypeBuilder stringType = typeBuilder.stringType();
+
+    if (defaultValue != null) {
+      stringType.defaultValue(String.valueOf(defaultValue));
+    }
+    return stringType;
+  }
+
+  protected ObjectFieldTypeBuilder addPasswordField(ObjectTypeBuilder objectType,
+                                                    BaseTypeBuilder typeBuilder,
+                                                    String name,
+                                                    String description,
+                                                    String defaultValue) {
+    final StringTypeBuilder stringType = stringTypeBuilder(typeBuilder, defaultValue);
+
+    return objectType.addField()
+        .key(name)
+        .description(description)
+        .required(false)
+        .with(new LayoutTypeAnnotation(LayoutModel.builder().asPassword().build()))
+        .value(stringType.build());
+  }
+
+  protected ObjectFieldTypeBuilder addIntField(ObjectTypeBuilder objectType,
+                                               BaseTypeBuilder typeBuilder,
+                                               String name,
+                                               String description,
+                                               Integer defaultValue) {
+    final NumberTypeBuilder intType = typeBuilder.numberType().integer();
+
+    if (defaultValue != null) {
+      intType.defaultValue(String.valueOf(defaultValue));
+    }
+
+    return addField(objectType, intType, name, description);
+  }
+
+  protected ObjectFieldTypeBuilder addLongField(ObjectTypeBuilder objectType,
+                                                BaseTypeBuilder typeBuilder,
+                                                String name,
+                                                String description,
+                                                Long defaultValue) {
+
+    final NumberTypeBuilder longType = typeBuilder.numberType()
+        .integer()
+        .with(new ClassInformationAnnotation(Long.class));
+
+    if (defaultValue != null) {
+      longType.defaultValue(String.valueOf(defaultValue));
+    }
+
+    return addField(objectType, longType, name, description);
+  }
+
+  protected ObjectFieldTypeBuilder addField(ObjectTypeBuilder objectType, TypeBuilder typeBuilder, String name,
+                                            String description) {
+    return objectType.addField().key(name).description(description).required(false).value(typeBuilder.build());
+  }
+}

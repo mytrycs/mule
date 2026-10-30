@@ -4,7 +4,7 @@
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 
     <object name="customObjectSerializer"
-            class="org.mule.runtime.config.MuleConfigurationConfiguratorTestCase.TestSerializationProtocol"/>
+            class="com.zernova.runtime.config.ZernovaConfigurationConfiguratorTestCase.TestSerializationProtocol"/>
 
     <error-handler name="errorHandler">
         <on-error-continue type="ANY">

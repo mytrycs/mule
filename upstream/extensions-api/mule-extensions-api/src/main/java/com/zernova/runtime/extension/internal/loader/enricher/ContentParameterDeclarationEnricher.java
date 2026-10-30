@@ -1,0 +1,100 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.extension.internal.loader.enricher;
+
+import static com.zernova.runtime.api.meta.model.parameter.ParameterRole.CONTENT;
+import static com.zernova.runtime.api.meta.model.parameter.ParameterRole.PRIMARY_CONTENT;
+import static com.zernova.runtime.extension.api.annotation.param.Optional.PAYLOAD;
+import static com.zernova.runtime.extension.api.loader.DeclarationEnricherPhase.FINALIZE;
+
+import static java.util.Optional.of;
+import static java.util.stream.Collectors.toList;
+
+import com.zernova.runtime.api.meta.model.ParameterDslConfiguration;
+import com.zernova.runtime.api.meta.model.declaration.fluent.OperationDeclaration;
+import com.zernova.runtime.api.meta.model.declaration.fluent.ParameterDeclaration;
+import com.zernova.runtime.api.meta.model.declaration.fluent.ParameterizedDeclaration;
+import com.zernova.runtime.api.meta.model.declaration.fluent.SourceDeclaration;
+import com.zernova.runtime.api.meta.model.parameter.ParameterRole;
+import com.zernova.runtime.extension.api.annotation.param.Optional;
+import com.zernova.runtime.extension.api.loader.DeclarationEnricherPhase;
+import com.zernova.runtime.extension.api.loader.ExtensionLoadingContext;
+import com.zernova.runtime.extension.api.loader.IdempotentDeclarationEnricherWalkDelegate;
+import com.zernova.runtime.extension.api.loader.WalkingDeclarationEnricher;
+
+import java.util.List;
+
+/**
+ * Sets defaults and other configurations on content parameters so that they provider a consistent experience.
+ * <p>
+ * For example:
+ * <p>
+ * <ul>
+ * <li>Primary content parameters are set as optional and defaulting to {@link Optional#PAYLOAD}</li>
+ * <li>If a component only has one content parameter, then it's assigned the {@link ParameterRole#PRIMARY_CONTENT} role</li>
+ * </ul>
+ * <p>
+ * This all happens for sources and operations. Connection providers and configs are not considered
+ *
+ * @since 1.0
+ */
+public final class ContentParameterDeclarationEnricher implements WalkingDeclarationEnricher {
+
+  @Override
+  public DeclarationEnricherPhase getExecutionPhase() {
+    return FINALIZE;
+  }
+
+  @Override
+  public java.util.Optional<DeclarationEnricherWalkDelegate> getWalkDelegate(ExtensionLoadingContext extensionLoadingContext) {
+    return of(new IdempotentDeclarationEnricherWalkDelegate() {
+
+      @Override
+      protected void onOperation(OperationDeclaration declaration) {
+        doEnrich(declaration);
+      }
+
+      @Override
+      protected void onSource(SourceDeclaration declaration) {
+        doEnrich(declaration);
+      }
+    });
+  }
+
+  private void doEnrich(ParameterizedDeclaration declaration) {
+    List<ParameterDeclaration> contentParameters = getContentParameters(declaration.getAllParameters());
+    if (contentParameters.isEmpty()) {
+      return;
+    }
+
+    if (contentParameters.size() == 1) {
+      contentParameters.get(0).setParameterRole(PRIMARY_CONTENT);
+    }
+
+    contentParameters.forEach(param -> {
+      configureDsl(param);
+      if (param.getRole() == PRIMARY_CONTENT) {
+        if (param.isRequired()) {
+          param.setRequired(false);
+          param.setDefaultValue(PAYLOAD);
+        }
+      }
+    });
+  }
+
+  private void configureDsl(ParameterDeclaration p) {
+    p.setDslConfiguration(ParameterDslConfiguration.builder(p.getDslConfiguration())
+        .allowsReferences(false)
+        .allowsInlineDefinition(true)
+        .build());
+  }
+
+  private List<ParameterDeclaration> getContentParameters(List<ParameterDeclaration> parameters) {
+    return parameters.stream().filter(p -> p.getRole() == PRIMARY_CONTENT || p.getRole() == CONTENT).collect(toList());
+  }
+}

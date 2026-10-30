@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "http://example.com/create-customer-request-type-schema.json",
+  "properties": {
+    "billingAddress": {
+      "items": {
+        "properties": {
+          "address": {
+            "items": {
+              "id": "/properties/billingAddress/items/properties/address/items",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "city": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "postalCode": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "email": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "shippingAddress": {
+      "id": "/properties/shippingAddress",
+      "items": {
+        "id": "/properties/shippingAddress/items",
+        "properties": {
+          "address": {
+            "id": "/properties/shippingAddress/items/properties/address",
+            "items": {
+              "id": "/properties/shippingAddress/items/properties/address/items",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "city": {
+            "id": "/properties/shippingAddress/items/properties/city",
+            "type": "string"
+          },
+          "country": {
+            "id": "/properties/shippingAddress/items/properties/country",
+            "type": "string"
+          },
+          "postalCode": {
+            "id": "/properties/shippingAddress/items/properties/postalCode",
+            "type": "string"
+          },
+          "state": {
+            "id": "/properties/shippingAddress/items/properties/state",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}

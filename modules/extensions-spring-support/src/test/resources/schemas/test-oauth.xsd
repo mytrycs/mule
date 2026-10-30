@@ -30,7 +30,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -70,14 +70,14 @@
             <xs:element minOccurs="0" maxOccurs="1" name="external-pojo">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="stacked-type-pojo-parameter">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -107,7 +107,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="another-connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -119,7 +119,7 @@
                       <xs:element minOccurs="0" maxOccurs="1" name="profile-connection-properties">
                         <xs:complexType>
                           <xs:complexContent>
-                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                           </xs:complexContent>
                         </xs:complexType>
                       </xs:element>
@@ -229,7 +229,7 @@
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="false" name="immediate"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="connectionProperties"></xs:attribute>
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="true" name="prompt"></xs:attribute>
-          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="org.mule.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="com.zernova.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someOauthConnectionProperties"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someConnectionNumbers"></xs:attribute>
           <xs:attribute type="mule:expressionMap" use="optional" name="someMapOfConnectionProperties"></xs:attribute>
@@ -248,14 +248,14 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.oauth.ConnectionProperties">
+  <xs:complexType name="com.zernova.test.oauth.ConnectionProperties">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:sequence minOccurs="0" maxOccurs="1">
           <xs:element minOccurs="0" maxOccurs="1" name="imported-pojo">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -263,17 +263,17 @@
         <xs:attribute type="mule:expressionString" use="optional" name="connectionDescription"></xs:attribute>
         <xs:attribute type="mule:expressionString" use="optional" name="connectionPropertyGrade"></xs:attribute>
         <xs:attribute type="mule:expressionDateTime" use="optional" name="connectionTime"></xs:attribute>
-        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="org.mule.test.oauth.ConnectionTypeEnumType" use="optional" name="connectionType"></xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="com.zernova.test.oauth.ConnectionTypeEnumType" use="optional" name="connectionType"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="extensionManager"></xs:attribute>
         <xs:attribute type="xs:string" use="optional" name="importedPojo"></xs:attribute>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" type="test-oauth:org.mule.test.oauth.ConnectionProperties" abstract="true" name="abstract-connection-properties"></xs:element>
+  <xs:element xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" type="test-oauth:com.zernova.test.oauth.ConnectionProperties" abstract="true" name="abstract-connection-properties"></xs:element>
   <xs:element xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" substitutionGroup="test-oauth:abstract-connection-properties" name="connection-properties">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+        <xs:extension base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -286,7 +286,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -326,14 +326,14 @@
             <xs:element minOccurs="0" maxOccurs="1" name="external-pojo">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="stacked-type-pojo-parameter">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -363,7 +363,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="another-connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -375,7 +375,7 @@
                       <xs:element minOccurs="0" maxOccurs="1" name="profile-connection-properties">
                         <xs:complexType>
                           <xs:complexContent>
-                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                           </xs:complexContent>
                         </xs:complexType>
                       </xs:element>
@@ -485,7 +485,7 @@
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="false" name="immediate"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="connectionProperties"></xs:attribute>
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="true" name="prompt"></xs:attribute>
-          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="org.mule.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="com.zernova.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someOauthConnectionProperties"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someConnectionNumbers"></xs:attribute>
           <xs:attribute type="mule:expressionMap" use="optional" name="someMapOfConnectionProperties"></xs:attribute>
@@ -513,7 +513,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -553,14 +553,14 @@
             <xs:element minOccurs="0" maxOccurs="1" name="external-pojo">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="stacked-type-pojo-parameter">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -590,7 +590,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="another-connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -602,7 +602,7 @@
                       <xs:element minOccurs="0" maxOccurs="1" name="profile-connection-properties">
                         <xs:complexType>
                           <xs:complexContent>
-                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                           </xs:complexContent>
                         </xs:complexType>
                       </xs:element>
@@ -712,7 +712,7 @@
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="false" name="immediate"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="connectionProperties"></xs:attribute>
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="true" name="prompt"></xs:attribute>
-          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="org.mule.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="com.zernova.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someOauthConnectionProperties"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someConnectionNumbers"></xs:attribute>
           <xs:attribute type="mule:expressionMap" use="optional" name="someMapOfConnectionProperties"></xs:attribute>
@@ -740,7 +740,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -780,14 +780,14 @@
             <xs:element minOccurs="0" maxOccurs="1" name="external-pojo">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="stacked-type-pojo-parameter">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -817,7 +817,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="another-connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -829,7 +829,7 @@
                       <xs:element minOccurs="0" maxOccurs="1" name="profile-connection-properties">
                         <xs:complexType>
                           <xs:complexContent>
-                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                           </xs:complexContent>
                         </xs:complexType>
                       </xs:element>
@@ -939,7 +939,7 @@
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="false" name="immediate"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="connectionProperties"></xs:attribute>
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="true" name="prompt"></xs:attribute>
-          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="org.mule.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="com.zernova.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someOauthConnectionProperties"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someConnectionNumbers"></xs:attribute>
           <xs:attribute type="mule:expressionMap" use="optional" name="someMapOfConnectionProperties"></xs:attribute>
@@ -967,7 +967,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -1007,14 +1007,14 @@
             <xs:element minOccurs="0" maxOccurs="1" name="external-pojo">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="stacked-type-pojo-parameter">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -1044,7 +1044,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="another-connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -1056,7 +1056,7 @@
                       <xs:element minOccurs="0" maxOccurs="1" name="profile-connection-properties">
                         <xs:complexType>
                           <xs:complexContent>
-                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                           </xs:complexContent>
                         </xs:complexType>
                       </xs:element>
@@ -1117,7 +1117,7 @@
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="false" name="immediate"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="connectionProperties"></xs:attribute>
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="true" name="prompt"></xs:attribute>
-          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="org.mule.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="com.zernova.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someOauthConnectionProperties"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someConnectionNumbers"></xs:attribute>
           <xs:attribute type="mule:expressionMap" use="optional" name="someMapOfConnectionProperties"></xs:attribute>
@@ -1145,7 +1145,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -1185,14 +1185,14 @@
             <xs:element minOccurs="0" maxOccurs="1" name="external-pojo">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="stacked-type-pojo-parameter">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -1222,7 +1222,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="another-connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -1234,7 +1234,7 @@
                       <xs:element minOccurs="0" maxOccurs="1" name="profile-connection-properties">
                         <xs:complexType>
                           <xs:complexContent>
-                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                           </xs:complexContent>
                         </xs:complexType>
                       </xs:element>
@@ -1344,7 +1344,7 @@
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="false" name="immediate"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="connectionProperties"></xs:attribute>
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="true" name="prompt"></xs:attribute>
-          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="org.mule.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="com.zernova.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someOauthConnectionProperties"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someConnectionNumbers"></xs:attribute>
           <xs:attribute type="mule:expressionMap" use="optional" name="someMapOfConnectionProperties"></xs:attribute>
@@ -1372,7 +1372,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -1412,14 +1412,14 @@
             <xs:element minOccurs="0" maxOccurs="1" name="external-pojo">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="stacked-type-pojo-parameter">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -1449,7 +1449,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="another-connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -1461,7 +1461,7 @@
                       <xs:element minOccurs="0" maxOccurs="1" name="profile-connection-properties">
                         <xs:complexType>
                           <xs:complexContent>
-                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                           </xs:complexContent>
                         </xs:complexType>
                       </xs:element>
@@ -1571,7 +1571,7 @@
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="false" name="immediate"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="connectionProperties"></xs:attribute>
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="true" name="prompt"></xs:attribute>
-          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="org.mule.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="com.zernova.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someOauthConnectionProperties"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someConnectionNumbers"></xs:attribute>
           <xs:attribute type="mule:expressionMap" use="optional" name="someMapOfConnectionProperties"></xs:attribute>
@@ -1599,7 +1599,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -1639,14 +1639,14 @@
             <xs:element minOccurs="0" maxOccurs="1" name="external-pojo">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="stacked-type-pojo-parameter">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -1676,7 +1676,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="another-connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -1688,7 +1688,7 @@
                       <xs:element minOccurs="0" maxOccurs="1" name="profile-connection-properties">
                         <xs:complexType>
                           <xs:complexContent>
-                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                           </xs:complexContent>
                         </xs:complexType>
                       </xs:element>
@@ -1798,7 +1798,7 @@
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="false" name="immediate"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="connectionProperties"></xs:attribute>
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="true" name="prompt"></xs:attribute>
-          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="org.mule.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="com.zernova.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someOauthConnectionProperties"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someConnectionNumbers"></xs:attribute>
           <xs:attribute type="mule:expressionMap" use="optional" name="someMapOfConnectionProperties"></xs:attribute>
@@ -2330,7 +2330,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -2370,14 +2370,14 @@
             <xs:element minOccurs="0" maxOccurs="1" name="external-pojo">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="stacked-type-pojo-parameter">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -2419,7 +2419,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="another-connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -2431,7 +2431,7 @@
                       <xs:element minOccurs="0" maxOccurs="1" name="profile-connection-properties">
                         <xs:complexType>
                           <xs:complexContent>
-                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                           </xs:complexContent>
                         </xs:complexType>
                       </xs:element>
@@ -2492,7 +2492,7 @@
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="false" name="immediate"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="connectionProperties"></xs:attribute>
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="true" name="prompt"></xs:attribute>
-          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="org.mule.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="com.zernova.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someOauthConnectionProperties"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someConnectionNumbers"></xs:attribute>
           <xs:attribute type="mule:expressionMap" use="optional" name="someMapOfConnectionProperties"></xs:attribute>
@@ -2558,7 +2558,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -2598,14 +2598,14 @@
             <xs:element minOccurs="0" maxOccurs="1" name="external-pojo">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="stacked-type-pojo-parameter">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -2635,7 +2635,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="another-connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -2647,7 +2647,7 @@
                       <xs:element minOccurs="0" maxOccurs="1" name="profile-connection-properties">
                         <xs:complexType>
                           <xs:complexContent>
-                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                           </xs:complexContent>
                         </xs:complexType>
                       </xs:element>
@@ -2757,7 +2757,7 @@
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="false" name="immediate"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="connectionProperties"></xs:attribute>
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="true" name="prompt"></xs:attribute>
-          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="org.mule.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="com.zernova.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someOauthConnectionProperties"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someConnectionNumbers"></xs:attribute>
           <xs:attribute type="mule:expressionMap" use="optional" name="someMapOfConnectionProperties"></xs:attribute>
@@ -2802,7 +2802,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -2842,14 +2842,14 @@
             <xs:element minOccurs="0" maxOccurs="1" name="external-pojo">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" maxOccurs="1" name="stacked-type-pojo-parameter">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                  <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -2879,7 +2879,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="another-connection-properties">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                  <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -2891,7 +2891,7 @@
                       <xs:element minOccurs="0" maxOccurs="1" name="profile-connection-properties">
                         <xs:complexType>
                           <xs:complexContent>
-                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:org.mule.test.oauth.ConnectionProperties"></xs:extension>
+                            <xs:extension xmlns:test-oauth="http://www.mulesoft.org/schema/mule/test-oauth" base="test-oauth:com.zernova.test.oauth.ConnectionProperties"></xs:extension>
                           </xs:complexContent>
                         </xs:complexType>
                       </xs:element>
@@ -3001,7 +3001,7 @@
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="false" name="immediate"></xs:attribute>
           <xs:attribute type="xs:string" use="optional" name="connectionProperties"></xs:attribute>
           <xs:attribute type="mule:substitutableBoolean" use="optional" default="true" name="prompt"></xs:attribute>
-          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="org.mule.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
+          <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/test-oauth" type="com.zernova.test.oauth.ConnectionTypeEnumType" use="optional" name="oauthConnectionType"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someOauthConnectionProperties"></xs:attribute>
           <xs:attribute type="mule:expressionList" use="optional" name="someConnectionNumbers"></xs:attribute>
           <xs:attribute type="mule:expressionMap" use="optional" name="someMapOfConnectionProperties"></xs:attribute>
@@ -3041,7 +3041,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:simpleType name="org.mule.test.oauth.ConnectionTypeEnumType">
+  <xs:simpleType name="com.zernova.test.oauth.ConnectionTypeEnumType">
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:string">

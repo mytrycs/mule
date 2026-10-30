@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>mule-test-extensions-parent</artifactId>
-        <groupId>org.mule.tests</groupId>
+        <groupId>com.zernova.tests</groupId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -14,13 +14,13 @@
     <name>Test Connector for new Java version enum values in SDK API</name>
 
     <properties>
-        <javaModuleName>org.mule.test.extension.sdk.java.versions</javaModuleName>
+        <javaModuleName>com.zernova.test.extension.sdk.java.versions</javaModuleName>
         <testExtensionModelLoaderId>java</testExtensionModelLoaderId>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.tests</groupId>
+            <groupId>com.zernova.tests</groupId>
             <artifactId>classloading-extension-sdk-api</artifactId>
             <version>${project.version}</version>
         </dependency>

@@ -3,16 +3,16 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.mule.tests</groupId>
+        <groupId>com.zernova.tests</groupId>
         <artifactId>mule-tests</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
     <artifactId>mule-tests-allure</artifactId>
-    <name>Mule Tests Allure Constants</name>
+    <name>ZERNOVA Tests Allure Constants</name>
     <description>Tests constants to use with Allure Annotations.</description>
 
     <properties>
-        <javaModuleName>org.mule.test.allure</javaModuleName>
+        <javaModuleName>com.zernova.test.allure</javaModuleName>
     </properties>
 
     <dependencies>

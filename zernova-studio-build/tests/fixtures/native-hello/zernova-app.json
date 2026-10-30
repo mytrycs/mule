@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "name": "hello-zernova",
+  "group": "com.zernova.example",
+  "version": "1.0.0",
+  "dependencies": [
+    "http"
+  ]
+}

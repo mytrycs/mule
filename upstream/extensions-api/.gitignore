@@ -1,0 +1,41 @@
+
+# Maven
+target/
+
+
+# Eclipse files
+.classpath
+.project
+.settings
+/workspace/
+
+# IntelliJ Idea files
+*.iml
+*.ipr
+*.iws
+*.idea
+.mule_ide/
+
+# Mac
+.DS_Store
+
+# Test remnants
+objectstore/
+.mule/
+*.log
+temp/
+repository/
+muleEmbeddedDB/
+activemq-data/
+testdir/
+hostkey.ser
+*.h2.db
+*.factorypath
+
+# Allure
+.allure
+
+#Dsql generated files
+mule-extensions-api-dsql/src/main/java/com/zernova/runtime/extension/internal/dsql/MuleDsql.tokens
+mule-extensions-api-dsql/src/main/java/com/zernova/runtime/extension/internal/dsql/ZernovaDsqlLexer.java
+mule-extensions-api-dsql/src/main/java/com/zernova/runtime/extension/internal/dsql/ZernovaDsqlParser.java

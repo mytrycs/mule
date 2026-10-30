@@ -6,25 +6,25 @@
           {
             "ignore": true,
             "code": "java.class.removed",
-            "old": "class org.mule.runtime.module.extension.mule.api.extension.MuleSdkExtensionExtensionModelDeclarer",
+            "old": "class com.zernova.runtime.module.extension.mule.api.extension.ZernovaSdkExtensionExtensionModelDeclarer",
             "justification": "W-13829806: Removed from API, not used/required by external uers"
           },
           {
             "ignore": true,
             "code": "java.class.removed",
-            "old": "class org.mule.runtime.module.extension.mule.api.extension.MuleSdkExtensionExtensionModelProvider",
+            "old": "class com.zernova.runtime.module.extension.mule.api.extension.ZernovaSdkExtensionExtensionModelProvider",
             "justification": "W-13829806: Removed from API, not used/required by external uers"
           },
           {
             "ignore": true,
             "code": "java.class.removed",
-            "old": "class org.mule.runtime.module.extension.mule.api.extension.MuleSdkExtensionRuntimeExtensionModelProvider",
+            "old": "class com.zernova.runtime.module.extension.mule.api.extension.ZernovaSdkExtensionRuntimeExtensionModelProvider",
             "justification": "W-13829806: Removed from API, not used/required by external uers"
           },
           {
             "ignore": true,
             "code": "java.class.removed",
-            "old": "class org.mule.runtime.module.extension.mule.api.loader.MuleSdkExtensionModelLoaderProvider",
+            "old": "class com.zernova.runtime.module.extension.mule.api.loader.ZernovaSdkExtensionModelLoaderProvider",
             "justification": "W-13829806: Removed from API, not used/required by external uers"
           }
         ]
@@ -36,11 +36,11 @@
       "ignore": [
         {
           "code": "java.class.noLongerImplementsInterface",
-          "old": "class org.mule.runtime.module.extension.mule.api.extension.MuleSdkExtensionRuntimeExtensionModelProvider",
-          "new": "class org.mule.runtime.module.extension.mule.api.extension.MuleSdkExtensionRuntimeExtensionModelProvider",
-          "interface": "org.mule.runtime.core.api.extension.RuntimeExtensionModelProvider",
-          "package": "org.mule.runtime.module.extension.mule.api.extension",
-          "classSimpleName": "MuleSdkExtensionRuntimeExtensionModelProvider",
+          "old": "class com.zernova.runtime.module.extension.mule.api.extension.ZernovaSdkExtensionRuntimeExtensionModelProvider",
+          "new": "class com.zernova.runtime.module.extension.mule.api.extension.ZernovaSdkExtensionRuntimeExtensionModelProvider",
+          "interface": "com.zernova.runtime.core.api.extension.RuntimeExtensionModelProvider",
+          "package": "com.zernova.runtime.module.extension.mule.api.extension",
+          "classSimpleName": "ZernovaSdkExtensionRuntimeExtensionModelProvider",
           "elementKind": "class",
           "justification": "W-12947646: Fix split packages between mule-runtime-extension-model and mule-core"
         }

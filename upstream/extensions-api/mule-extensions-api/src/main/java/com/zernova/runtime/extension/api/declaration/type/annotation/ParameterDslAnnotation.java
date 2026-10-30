@@ -1,0 +1,74 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.extension.api.declaration.type.annotation;
+
+import static java.util.Objects.hash;
+
+import com.zernova.metadata.api.annotation.TypeAnnotation;
+
+/**
+ * Contains directives regarding syntax and semantics of the generated XML DSL
+ *
+ * @since 1.0
+ */
+public class ParameterDslAnnotation implements TypeAnnotation {
+
+  public static final String NAME = "parameterDsl";
+
+  private final boolean allowInlineDefinition;
+  private final boolean allowReferences;
+
+  /**
+   * Creates a new instance
+   *
+   * @param allowInlineDefinition whether the associated element should support inline definition as child element
+   * @param allowReferences       whether the associated element should support registry references
+   */
+  public ParameterDslAnnotation(boolean allowInlineDefinition, boolean allowReferences) {
+    this.allowInlineDefinition = allowInlineDefinition;
+    this.allowReferences = allowReferences;
+  }
+
+  /**
+   * @return {@code parameterDsl}
+   */
+  @Override
+  public String getName() {
+    return NAME;
+  }
+
+  /**
+   * @return whether the associated element should support inline definition as child element
+   */
+  public boolean allowsInlineDefinition() {
+    return allowInlineDefinition;
+  }
+
+  /**
+   * @return whether the associated element should support registry references
+   */
+  public boolean allowsReferences() {
+    return allowReferences;
+  }
+
+  @Override
+  public int hashCode() {
+    return hash(allowInlineDefinition, allowReferences);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof ParameterDslAnnotation) {
+      ParameterDslAnnotation other = (ParameterDslAnnotation) obj;
+      return allowInlineDefinition == other.allowsInlineDefinition() &&
+          allowReferences == other.allowsReferences();
+    }
+
+    return false;
+  }
+}

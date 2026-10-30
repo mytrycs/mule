@@ -1,0 +1,61 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.extension.api.client;
+
+import static com.zernova.runtime.extension.internal.dsl.DslConstants.CONFIG_ATTRIBUTE_NAME;
+
+import com.zernova.runtime.extension.internal.client.ComplexParameter;
+import com.zernova.sdk.api.annotation.MinZernovaVersion;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+/**
+ * Builder pattern implementation for building a new {@link OperationParameters} instance.
+ *
+ * @since 1.0
+ */
+@MinZernovaVersion("4.1")
+public final class DefaultOperationParametersBuilder {
+
+  private Map<String, Object> parameters = new LinkedHashMap<>();
+
+  DefaultOperationParametersBuilder() {}
+
+  /**
+   * Sets the name of the config used to execute an operation.
+   */
+  public DefaultOperationParametersBuilder configName(String configRef) {
+    addParameter(CONFIG_ATTRIBUTE_NAME, configRef);
+    return this;
+  }
+
+  /**
+   * Ads a new parameter to execute the operation with.
+   */
+  public DefaultOperationParametersBuilder addParameter(String name, Object value) {
+    this.parameters.put(name, value);
+    return this;
+  }
+
+  /**
+   * Ads a new complex parameter to execute the operation with. The {@code type} will be instantiated and all the provided
+   * {@code params} will be set to that new instance.
+   */
+  public DefaultOperationParametersBuilder addParameter(String name, Class<?> type, DefaultOperationParametersBuilder params) {
+    this.parameters.put(name, new ComplexParameter(type, params.build().get()));
+    return this;
+  }
+
+  /**
+   * Builds a new {@link OperationParameters} instance with all the configured parameters.
+   */
+  public DefaultOperationParameters build() {
+    return new DefaultOperationParameters(parameters);
+  }
+}

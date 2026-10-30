@@ -1,0 +1,60 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.extension.api.persistence.test;
+
+import static com.zernova.runtime.api.metadata.resolving.MetadataResult.success;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import com.zernova.runtime.api.meta.model.source.SourceModel;
+import com.zernova.runtime.api.metadata.descriptor.ComponentMetadataDescriptor;
+import com.zernova.runtime.api.metadata.resolving.MetadataResult;
+import com.zernova.runtime.extension.api.persistence.metadata.ComponentResultJsonSerializer;
+
+import java.io.IOException;
+
+import org.junit.Before;
+import org.junit.Test;
+
+public class SourceMetadataResultPersistenceTestCase extends AbstractMetadataPersistenceTestCase {
+
+  private static final String METADATA_SOURCE_RESULT_JSON = "/metadata/success-result-source-descriptor.json";
+
+  private ComponentMetadataDescriptor<SourceModel> sourceMetadataDescriptor;
+  private final ComponentResultJsonSerializer<SourceModel> metadataDescriptorSerializer =
+      new ComponentResultJsonSerializer<>(true, true);
+
+  @Override
+  @Before
+  public void setUp() throws IOException {
+    super.setUp();
+    sourceMetadataDescriptor = buildTestSourceMetadataDescriptor();
+  }
+
+  @Test
+  public void serializeSuccessMetadataDescriptorResult() throws IOException {
+    MetadataResult<ComponentMetadataDescriptor<SourceModel>> success = success(sourceMetadataDescriptor);
+    String serialized = metadataDescriptorSerializer.serialize(success);
+    assertSerializedJson(serialized, METADATA_SOURCE_RESULT_JSON);
+  }
+
+  @Test
+  public void deserializeSourceMetadataDescriptorResult() throws IOException {
+    String resource = getResourceAsString(METADATA_SOURCE_RESULT_JSON);
+    MetadataResult<ComponentMetadataDescriptor<SourceModel>> metadataResult = metadataDescriptorSerializer.deserialize(resource);
+
+    assertThat(metadataResult.isSuccess(), is(true));
+    assertThat(metadataResult.get().getModel(), is(sourceModel));
+    assertMetadataAttributes(metadataResult.get().getMetadataAttributes(), attributes);
+  }
+
+  private ComponentMetadataDescriptor<SourceModel> buildTestSourceMetadataDescriptor() {
+    return ComponentMetadataDescriptor.builder(sourceModel).withAttributes(attributes).build();
+  }
+}

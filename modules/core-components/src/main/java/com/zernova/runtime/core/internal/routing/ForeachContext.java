@@ -1,0 +1,85 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.core.internal.routing;
+
+import static java.util.Optional.empty;
+
+import com.zernova.runtime.api.message.ItemSequenceInfo;
+import com.zernova.runtime.api.message.Message;
+import com.zernova.runtime.api.metadata.DataType;
+import com.zernova.runtime.api.metadata.TypedValue;
+
+import java.util.Iterator;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
+
+class ForeachContext {
+
+  private Object previousCounter;
+  private Object previousRootMessage;
+  private Message originalMessage;
+  private Optional<ItemSequenceInfo> itemSequenceInfo;
+  private Iterator<TypedValue<?>> iterator;
+  private AtomicInteger elementNumber = new AtomicInteger();
+  private Optional<DataType> batchDataType = empty();
+  private Optional<Runnable> onComplete = empty();
+
+  ForeachContext(Object previousCounter, Object previousRootMessage, Message message,
+                 Optional<ItemSequenceInfo> itemSequenceInfo, Iterator<TypedValue<?>> iterator) {
+    this.previousCounter = previousCounter;
+    this.previousRootMessage = previousRootMessage;
+    this.originalMessage = message;
+    this.itemSequenceInfo = itemSequenceInfo;
+    this.iterator = iterator;
+  }
+
+  Object getPreviousCounter() {
+    return previousCounter;
+  }
+
+  Object getPreviousRootMessage() {
+    return previousRootMessage;
+  }
+
+  Message getOriginalMessage() {
+    return originalMessage;
+  }
+
+  public Iterator<TypedValue<?>> getIterator() {
+    return iterator;
+  }
+
+  public void setIterator(Iterator<TypedValue<?>> iterator) {
+    this.iterator = iterator;
+  }
+
+  AtomicInteger getElementNumber() {
+    return elementNumber;
+  }
+
+  Optional<DataType> getBatchDataType() {
+    return batchDataType;
+  }
+
+  void setBatchDataType(Optional<DataType> batchDataType) {
+    this.batchDataType = batchDataType;
+  }
+
+  public Optional<Runnable> getOnComplete() {
+    return onComplete;
+  }
+
+  public void setOnComplete(Runnable onCompleteConsumer) {
+    this.onComplete = Optional.of(onCompleteConsumer);
+  }
+
+  public Optional<ItemSequenceInfo> getItemSequenceInfo() {
+    return itemSequenceInfo;
+  }
+
+}

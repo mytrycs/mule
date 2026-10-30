@@ -32,7 +32,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="proxy-configuration">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:semantic-terms="http://www.mulesoft.org/schema/mule/semantic-terms" base="semantic-terms:org.mule.test.semantic.extension.ProxyConfiguration"></xs:extension>
+                  <xs:extension xmlns:semantic-terms="http://www.mulesoft.org/schema/mule/semantic-terms" base="semantic-terms:com.zernova.test.semantic.extension.ProxyConfiguration"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -49,7 +49,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.semantic.extension.ProxyConfiguration">
+  <xs:complexType name="com.zernova.test.semantic.extension.ProxyConfiguration">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:attribute type="mule:expressionString" use="required" name="host"></xs:attribute>
@@ -69,7 +69,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="proxy-configuration">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:semantic-terms="http://www.mulesoft.org/schema/mule/semantic-terms" base="semantic-terms:org.mule.test.semantic.extension.ProxyConfiguration"></xs:extension>
+                  <xs:extension xmlns:semantic-terms="http://www.mulesoft.org/schema/mule/semantic-terms" base="semantic-terms:com.zernova.test.semantic.extension.ProxyConfiguration"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -96,7 +96,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="proxy-configuration">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:semantic-terms="http://www.mulesoft.org/schema/mule/semantic-terms" base="semantic-terms:org.mule.test.semantic.extension.ProxyConfiguration"></xs:extension>
+                  <xs:extension xmlns:semantic-terms="http://www.mulesoft.org/schema/mule/semantic-terms" base="semantic-terms:com.zernova.test.semantic.extension.ProxyConfiguration"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -123,7 +123,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="proxy-configuration">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:semantic-terms="http://www.mulesoft.org/schema/mule/semantic-terms" base="semantic-terms:org.mule.test.semantic.extension.ProxyConfiguration"></xs:extension>
+                  <xs:extension xmlns:semantic-terms="http://www.mulesoft.org/schema/mule/semantic-terms" base="semantic-terms:com.zernova.test.semantic.extension.ProxyConfiguration"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -157,7 +157,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="proxy-configuration">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:semantic-terms="http://www.mulesoft.org/schema/mule/semantic-terms" base="semantic-terms:org.mule.test.semantic.extension.ProxyConfiguration"></xs:extension>
+                  <xs:extension xmlns:semantic-terms="http://www.mulesoft.org/schema/mule/semantic-terms" base="semantic-terms:com.zernova.test.semantic.extension.ProxyConfiguration"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -182,7 +182,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="proxy-configuration">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:semantic-terms="http://www.mulesoft.org/schema/mule/semantic-terms" base="semantic-terms:org.mule.test.semantic.extension.ProxyConfiguration"></xs:extension>
+                  <xs:extension xmlns:semantic-terms="http://www.mulesoft.org/schema/mule/semantic-terms" base="semantic-terms:com.zernova.test.semantic.extension.ProxyConfiguration"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -208,7 +208,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="proxy-configuration">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:semantic-terms="http://www.mulesoft.org/schema/mule/semantic-terms" base="semantic-terms:org.mule.test.semantic.extension.ProxyConfiguration"></xs:extension>
+                  <xs:extension xmlns:semantic-terms="http://www.mulesoft.org/schema/mule/semantic-terms" base="semantic-terms:com.zernova.test.semantic.extension.ProxyConfiguration"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>

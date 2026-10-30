@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.mule.tests</groupId>
+        <groupId>com.zernova.tests</groupId>
         <artifactId>mule-test-extensions-parent</artifactId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
@@ -13,11 +13,11 @@
     <artifactId>mule-tx-xa-extension</artifactId>
     <packaging>jar</packaging>
 
-    <name>Mule Transactional XA Test Extension</name>
+    <name>ZERNOVA Transactional XA Test Extension</name>
     <description>A Mule extension for testing XA TX support</description>
 
     <properties>
-        <javaModuleName>org.mule.test.extension.transactionalxa</javaModuleName>
+        <javaModuleName>com.zernova.test.extension.transactionalxa</javaModuleName>
         <testExtensionModelLoaderId>java</testExtensionModelLoaderId>
     </properties>
 </project>

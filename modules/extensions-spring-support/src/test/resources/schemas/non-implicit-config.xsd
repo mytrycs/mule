@@ -16,7 +16,7 @@
             <xs:element minOccurs="0" maxOccurs="1" name="null-safe-pojo">
               <xs:complexType>
                 <xs:complexContent>
-                  <xs:extension xmlns:non-implicit="http://www.mulesoft.org/schema/mule/implicit" base="non-implicit:org.mule.test.nonimplicit.config.extension.extension.api.NullSafePojo"></xs:extension>
+                  <xs:extension xmlns:non-implicit="http://www.mulesoft.org/schema/mule/implicit" base="non-implicit:com.zernova.test.nonimplicit.config.extension.extension.api.NullSafePojo"></xs:extension>
                 </xs:complexContent>
               </xs:complexType>
             </xs:element>
@@ -28,7 +28,7 @@
                       <xs:element minOccurs="0" maxOccurs="1" name="null-safe-pojo-show-in-dsl">
                         <xs:complexType>
                           <xs:complexContent>
-                            <xs:extension xmlns:non-implicit="http://www.mulesoft.org/schema/mule/implicit" base="non-implicit:org.mule.test.nonimplicit.config.extension.extension.api.NullSafePojo"></xs:extension>
+                            <xs:extension xmlns:non-implicit="http://www.mulesoft.org/schema/mule/implicit" base="non-implicit:com.zernova.test.nonimplicit.config.extension.extension.api.NullSafePojo"></xs:extension>
                           </xs:complexContent>
                         </xs:complexType>
                       </xs:element>
@@ -51,7 +51,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.nonimplicit.config.extension.extension.api.NullSafePojo">
+  <xs:complexType name="com.zernova.test.nonimplicit.config.extension.extension.api.NullSafePojo">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:attribute type="mule:expressionInt" use="optional" default="5" name="nullSafeInteger"></xs:attribute>

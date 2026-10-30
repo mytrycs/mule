@@ -26,13 +26,13 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.runtime.api.store.ObjectStore",
+        "typeId": "com.zernova.runtime.api.store.ObjectStore",
         "extensibleType": {},
         "typeAlias": {
           "value": "ObjectStore"
         },
         "classInformation": {
-          "classname": "org.mule.runtime.api.store.ObjectStore",
+          "classname": "com.zernova.runtime.api.store.ObjectStore",
           "hasDefaultConstructor": false,
           "isInterface": true,
           "isInstantiable": false,
@@ -50,9 +50,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.runtime.api.tls.TlsContextFactory",
+        "typeId": "com.zernova.runtime.api.tls.TlsContextFactory",
         "classInformation": {
-          "classname": "org.mule.runtime.api.tls.TlsContextFactory",
+          "classname": "com.zernova.runtime.api.tls.TlsContextFactory",
           "hasDefaultConstructor": false,
           "isInterface": true,
           "isInstantiable": false,
@@ -639,9 +639,9 @@
                 "format": "java",
                 "type": "Object",
                 "annotations": {
-                  "typeId": "org.mule.runtime.extension.api.runtime.ExpirationPolicy",
+                  "typeId": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
                   "classInformation": {
-                    "classname": "org.mule.runtime.extension.api.runtime.ExpirationPolicy",
+                    "classname": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
                     "hasDefaultConstructor": false,
                     "isInterface": true,
                     "isInstantiable": false,
@@ -751,14 +751,14 @@
               "name": "expirationPolicy",
               "description": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit.",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "expiration-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 4
                 }
               }
@@ -833,7 +833,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                      "typeId": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -843,7 +843,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                        "classname": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -887,9 +887,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -1052,7 +1052,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -1062,7 +1062,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -1242,14 +1242,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -1282,18 +1282,18 @@
               "type": "Array",
               "annotations": {
                 "classInformation": {
-                  "classname": "org.mule.runtime.extension.api.runtime.streaming.PagingProvider",
+                  "classname": "com.zernova.runtime.extension.api.runtime.streaming.PagingProvider",
                   "hasDefaultConstructor": false,
                   "isInterface": true,
                   "isInstantiable": false,
                   "isAbstract": true,
                   "isFinal": false,
                   "implementedInterfaces": [
-                    "org.mule.sdk.api.runtime.streaming.PagingProvider"
+                    "com.zernova.sdk.api.runtime.streaming.PagingProvider"
                   ],
                   "parent": "",
                   "genericTypes": [
-                    "org.mule.test.transactional.connection.TestTransactionalConnection",
+                    "com.zernova.test.transactional.connection.TestTransactionalConnection",
                     "java.lang.Integer"
                   ],
                   "isMap": false
@@ -1407,7 +1407,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                      "typeId": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -1417,7 +1417,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                        "classname": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -1461,9 +1461,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -1674,14 +1674,14 @@
                   "name": "streamingStrategy",
                   "description": "Configure if repeatable streams should be used and their behaviour",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-object-streaming-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 2
                     }
                   }
@@ -1884,7 +1884,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -1894,7 +1894,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -2074,14 +2074,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -2111,7 +2111,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.test.transactional.connection.TestTransactionalConnection"
+              "type": "@ref:com.zernova.test.transactional.connection.TestTransactionalConnection"
             },
             "hasDynamicType": true,
             "description": "",
@@ -2158,7 +2158,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                      "typeId": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -2168,7 +2168,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                        "classname": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -2212,9 +2212,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -2459,7 +2459,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -2469,7 +2469,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -2649,14 +2649,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -2698,7 +2698,7 @@
               "format": "java",
               "type": "String",
               "annotations": {
-                "typeId": "org.mule.runtime.extension.api.tx.OperationTransactionalAction",
+                "typeId": "com.zernova.runtime.extension.api.tx.OperationTransactionalAction",
                 "enum": {
                   "type": "[Ljava.lang.String;",
                   "values": [
@@ -2708,7 +2708,7 @@
                   ]
                 },
                 "classInformation": {
-                  "classname": "org.mule.runtime.extension.api.tx.OperationTransactionalAction",
+                  "classname": "com.zernova.runtime.extension.api.tx.OperationTransactionalAction",
                   "hasDefaultConstructor": false,
                   "isInterface": false,
                   "isInstantiable": false,
@@ -2766,7 +2766,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.tx.OperationTransactionalAction",
+                      "typeId": "com.zernova.runtime.extension.api.tx.OperationTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -2776,7 +2776,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.tx.OperationTransactionalAction",
+                        "classname": "com.zernova.runtime.extension.api.tx.OperationTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -2820,9 +2820,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -3067,7 +3067,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -3077,7 +3077,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -3257,14 +3257,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -3297,18 +3297,18 @@
               "type": "Array",
               "annotations": {
                 "classInformation": {
-                  "classname": "org.mule.runtime.extension.api.runtime.streaming.PagingProvider",
+                  "classname": "com.zernova.runtime.extension.api.runtime.streaming.PagingProvider",
                   "hasDefaultConstructor": false,
                   "isInterface": true,
                   "isInstantiable": false,
                   "isAbstract": true,
                   "isFinal": false,
                   "implementedInterfaces": [
-                    "org.mule.sdk.api.runtime.streaming.PagingProvider"
+                    "com.zernova.sdk.api.runtime.streaming.PagingProvider"
                   ],
                   "parent": "",
                   "genericTypes": [
-                    "org.mule.test.transactional.connection.TestTransactionalConnection",
+                    "com.zernova.test.transactional.connection.TestTransactionalConnection",
                     "java.lang.Integer"
                   ],
                   "isMap": false
@@ -3378,7 +3378,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                      "typeId": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -3388,7 +3388,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                        "classname": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -3432,9 +3432,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -3645,14 +3645,14 @@
                   "name": "streamingStrategy",
                   "description": "Configure if repeatable streams should be used and their behaviour",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-object-streaming-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 2
                     }
                   }
@@ -3855,7 +3855,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -3865,7 +3865,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -4045,14 +4045,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -4084,7 +4084,7 @@
               "format": "java",
               "type": "String",
               "annotations": {
-                "typeId": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                "typeId": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                 "enum": {
                   "type": "[Ljava.lang.String;",
                   "values": [
@@ -4094,7 +4094,7 @@
                   ]
                 },
                 "classInformation": {
-                  "classname": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                  "classname": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                   "hasDefaultConstructor": false,
                   "isInterface": false,
                   "isInstantiable": false,
@@ -4152,7 +4152,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                      "typeId": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -4162,7 +4162,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                        "classname": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -4206,9 +4206,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -4453,7 +4453,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -4463,7 +4463,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -4643,14 +4643,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -4683,18 +4683,18 @@
               "type": "Array",
               "annotations": {
                 "classInformation": {
-                  "classname": "org.mule.runtime.extension.api.runtime.streaming.PagingProvider",
+                  "classname": "com.zernova.runtime.extension.api.runtime.streaming.PagingProvider",
                   "hasDefaultConstructor": false,
                   "isInterface": true,
                   "isInstantiable": false,
                   "isAbstract": true,
                   "isFinal": false,
                   "implementedInterfaces": [
-                    "org.mule.sdk.api.runtime.streaming.PagingProvider"
+                    "com.zernova.sdk.api.runtime.streaming.PagingProvider"
                   ],
                   "parent": "",
                   "genericTypes": [
-                    "org.mule.test.transactional.connection.TestTransactionalConnection",
+                    "com.zernova.test.transactional.connection.TestTransactionalConnection",
                     "java.lang.Integer"
                   ],
                   "isMap": false
@@ -4808,7 +4808,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                      "typeId": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -4818,7 +4818,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                        "classname": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -4862,9 +4862,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -5075,14 +5075,14 @@
                   "name": "streamingStrategy",
                   "description": "Configure if repeatable streams should be used and their behaviour",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-object-streaming-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 2
                     }
                   }
@@ -5285,7 +5285,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -5295,7 +5295,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -5475,14 +5475,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -5559,7 +5559,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                      "typeId": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -5569,7 +5569,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                        "classname": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -5613,9 +5613,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -5778,7 +5778,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -5788,7 +5788,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -5968,14 +5968,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -6050,7 +6050,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.transactional.connection.TestTransactionalConnection"
+                    "type": "@ref:com.zernova.test.transactional.connection.TestTransactionalConnection"
                   },
                   "hasDynamicType": false,
                   "required": false,
@@ -6087,7 +6087,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                      "typeId": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -6097,7 +6097,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                        "classname": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -6141,9 +6141,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -6306,7 +6306,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -6316,7 +6316,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -6496,14 +6496,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -6580,7 +6580,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                      "typeId": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -6590,7 +6590,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                        "classname": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -6634,9 +6634,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -6799,7 +6799,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -6809,7 +6809,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -6989,14 +6989,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -7073,7 +7073,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                      "typeId": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -7083,7 +7083,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                        "classname": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -7127,9 +7127,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -7292,7 +7292,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -7302,7 +7302,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -7482,14 +7482,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -7566,7 +7566,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                      "typeId": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -7576,7 +7576,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                        "classname": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -7620,9 +7620,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -7785,7 +7785,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -7795,7 +7795,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -7975,14 +7975,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -8269,14 +8269,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -8286,7 +8286,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.api.config.PoolingProfile",
+                      "typeId": "com.zernova.runtime.api.config.PoolingProfile",
                       "description": {
                         "value": "A pooling profile is used to configure the pooling behaviour of Mule components. Each component can have its own pooling profile."
                       },
@@ -8483,14 +8483,14 @@
                   "name": "poolingProfile",
                   "description": "Characteristics of the connection pool",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "pooling-profile",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 5
                     }
                   }
@@ -8780,14 +8780,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -8842,7 +8842,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.test.transactional.connection.TestTransactionalConnection"
+              "type": "@ref:com.zernova.test.transactional.connection.TestTransactionalConnection"
             },
             "hasDynamicType": true,
             "description": "",
@@ -8904,7 +8904,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.sdk.api.tx.SourceTransactionalAction",
+                      "typeId": "com.zernova.sdk.api.tx.SourceTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -8913,7 +8913,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.sdk.api.tx.SourceTransactionalAction",
+                        "classname": "com.zernova.sdk.api.tx.SourceTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -8988,9 +8988,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -9042,7 +9042,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.runtime.api.tx.TransactionType",
+                      "typeId": "com.zernova.runtime.api.tx.TransactionType",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -9051,7 +9051,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.runtime.api.tx.TransactionType",
+                        "classname": "com.zernova.runtime.api.tx.TransactionType",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -9089,7 +9089,7 @@
                   "name": "transactionType",
                   "description": "The type of transaction to create. Availability will depend on the runtime version.",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 9
                     }
                   }
@@ -9193,7 +9193,7 @@
                           "name": "objectStore"
                         },
                         "model": {
-                          "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                          "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                         },
                         "annotations": {
                           "stereotype": {
@@ -9235,14 +9235,14 @@
                   "name": "redeliveryPolicy",
                   "description": "Defines a policy for processing the redelivery of the same message",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-redelivery-policy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 1
                     }
                   }
@@ -9422,14 +9422,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -9471,7 +9471,7 @@
               "format": "java",
               "type": "String",
               "annotations": {
-                "typeId": "org.mule.runtime.extension.api.tx.SourceTransactionalAction",
+                "typeId": "com.zernova.runtime.extension.api.tx.SourceTransactionalAction",
                 "enum": {
                   "type": "[Ljava.lang.String;",
                   "values": [
@@ -9480,7 +9480,7 @@
                   ]
                 },
                 "classInformation": {
-                  "classname": "org.mule.runtime.extension.api.tx.SourceTransactionalAction",
+                  "classname": "com.zernova.runtime.extension.api.tx.SourceTransactionalAction",
                   "hasDefaultConstructor": false,
                   "isInterface": false,
                   "isInstantiable": false,
@@ -9553,7 +9553,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.runtime.api.tx.TransactionType",
+                      "typeId": "com.zernova.runtime.api.tx.TransactionType",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -9562,7 +9562,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.runtime.api.tx.TransactionType",
+                        "classname": "com.zernova.runtime.api.tx.TransactionType",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -9637,9 +9637,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -9691,7 +9691,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.tx.SourceTransactionalAction",
+                      "typeId": "com.zernova.runtime.extension.api.tx.SourceTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -9700,7 +9700,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.tx.SourceTransactionalAction",
+                        "classname": "com.zernova.runtime.extension.api.tx.SourceTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -9738,7 +9738,7 @@
                   "name": "transactionalAction",
                   "description": "The type of beginning action that sources can take regarding transactions.",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 6
                     }
                   }
@@ -9842,7 +9842,7 @@
                           "name": "objectStore"
                         },
                         "model": {
-                          "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                          "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                         },
                         "annotations": {
                           "stereotype": {
@@ -9884,14 +9884,14 @@
                   "name": "redeliveryPolicy",
                   "description": "Defines a policy for processing the redelivery of the same message",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-redelivery-policy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 1
                     }
                   }
@@ -10071,14 +10071,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -10159,9 +10159,9 @@
                 "format": "java",
                 "type": "Object",
                 "annotations": {
-                  "typeId": "org.mule.runtime.extension.api.runtime.ExpirationPolicy",
+                  "typeId": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
                   "classInformation": {
-                    "classname": "org.mule.runtime.extension.api.runtime.ExpirationPolicy",
+                    "classname": "com.zernova.runtime.extension.api.runtime.ExpirationPolicy",
                     "hasDefaultConstructor": false,
                     "isInterface": true,
                     "isInstantiable": false,
@@ -10271,14 +10271,14 @@
               "name": "expirationPolicy",
               "description": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit.",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "expiration-policy",
                     "prefix": "mule"
                   }
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 4
                 }
               }
@@ -10353,7 +10353,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                      "typeId": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -10363,7 +10363,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                        "classname": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -10407,9 +10407,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -10572,7 +10572,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -10582,7 +10582,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -10762,14 +10762,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -10799,7 +10799,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.test.transactional.connection.SdkTestTransactionalConnection"
+              "type": "@ref:com.zernova.test.transactional.connection.SdkTestTransactionalConnection"
             },
             "hasDynamicType": true,
             "description": "",
@@ -10846,7 +10846,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                      "typeId": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -10856,7 +10856,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                        "classname": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -10900,9 +10900,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -11147,7 +11147,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -11157,7 +11157,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -11337,14 +11337,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -11431,7 +11431,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                      "typeId": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -11441,7 +11441,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                        "classname": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -11485,9 +11485,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -11650,7 +11650,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -11660,7 +11660,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -11840,14 +11840,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -11922,7 +11922,7 @@
                 {
                   "type": {
                     "format": "java",
-                    "type": "@ref:org.mule.test.transactional.connection.SdkTestTransactionalConnection"
+                    "type": "@ref:com.zernova.test.transactional.connection.SdkTestTransactionalConnection"
                   },
                   "hasDynamicType": false,
                   "required": false,
@@ -11959,7 +11959,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                      "typeId": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -11969,7 +11969,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                        "classname": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -12013,9 +12013,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -12178,7 +12178,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -12188,7 +12188,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -12368,14 +12368,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -12452,7 +12452,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                      "typeId": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -12462,7 +12462,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.sdk.api.tx.OperationTransactionalAction",
+                        "classname": "com.zernova.sdk.api.tx.OperationTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -12506,9 +12506,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -12671,7 +12671,7 @@
                   "name": "errorMappings",
                   "description": "Set of error mappings",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "error-mappings",
@@ -12681,7 +12681,7 @@
                     "sinceMuleVersion": {
                       "version": "4.4.0"
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 12
                     }
                   }
@@ -12861,14 +12861,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -13155,14 +13155,14 @@
                   "name": "reconnection",
                   "description": "When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn\u0027t pass after exhausting the associated reconnection strategy",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "reconnection",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -13172,7 +13172,7 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.api.config.PoolingProfile",
+                      "typeId": "com.zernova.runtime.api.config.PoolingProfile",
                       "description": {
                         "value": "A pooling profile is used to configure the pooling behaviour of Mule components. Each component can have its own pooling profile."
                       },
@@ -13369,14 +13369,14 @@
                   "name": "poolingProfile",
                   "description": "Characteristics of the connection pool",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "pooling-profile",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 5
                     }
                   }
@@ -13431,7 +13431,7 @@
           "output": {
             "type": {
               "format": "java",
-              "type": "@ref:org.mule.test.transactional.connection.SdkTestTransactionalConnection"
+              "type": "@ref:com.zernova.test.transactional.connection.SdkTestTransactionalConnection"
             },
             "hasDynamicType": true,
             "description": "",
@@ -13493,7 +13493,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.sdk.api.tx.SourceTransactionalAction",
+                      "typeId": "com.zernova.sdk.api.tx.SourceTransactionalAction",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -13502,7 +13502,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.sdk.api.tx.SourceTransactionalAction",
+                        "classname": "com.zernova.sdk.api.tx.SourceTransactionalAction",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -13546,7 +13546,7 @@
                     "format": "java",
                     "type": "String",
                     "annotations": {
-                      "typeId": "org.mule.runtime.api.tx.TransactionType",
+                      "typeId": "com.zernova.runtime.api.tx.TransactionType",
                       "enum": {
                         "type": "[Ljava.lang.String;",
                         "values": [
@@ -13555,7 +13555,7 @@
                         ]
                       },
                       "classInformation": {
-                        "classname": "org.mule.runtime.api.tx.TransactionType",
+                        "classname": "com.zernova.runtime.api.tx.TransactionType",
                         "hasDefaultConstructor": false,
                         "isInterface": false,
                         "isInstantiable": false,
@@ -13630,9 +13630,9 @@
                     "format": "java",
                     "type": "Object",
                     "annotations": {
-                      "typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                      "typeId": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                       "classInformation": {
-                        "classname": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider",
+                        "classname": "com.zernova.runtime.extension.api.runtime.config.ConfigurationProvider",
                         "hasDefaultConstructor": false,
                         "isInterface": true,
                         "isInstantiable": false,
@@ -13778,7 +13778,7 @@
                           "name": "objectStore"
                         },
                         "model": {
-                          "type": "@ref:org.mule.runtime.api.store.ObjectStore"
+                          "type": "@ref:com.zernova.runtime.api.store.ObjectStore"
                         },
                         "annotations": {
                           "stereotype": {
@@ -13820,14 +13820,14 @@
                   "name": "redeliveryPolicy",
                   "description": "Defines a policy for processing the redelivery of the same message",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-redelivery-policy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 1
                     }
                   }
@@ -14007,14 +14007,14 @@
                   "name": "reconnectionStrategy",
                   "description": "A retry strategy in case of connectivity errors",
                   "modelProperties": {
-                    "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                    "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                       "value": {
                         "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                         "localPart": "abstract-reconnection-strategy",
                         "prefix": "mule"
                       }
                     },
-                    "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                    "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                       "sequence": 3
                     }
                   }
@@ -14207,7 +14207,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -14217,7 +14217,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -14387,7 +14387,7 @@
               "name": "errorMappings",
               "description": "Set of error mappings",
               "modelProperties": {
-                "org.mule.runtime.extension.api.property.QNameModelProperty": {
+                "com.zernova.runtime.extension.api.property.QNameModelProperty": {
                   "value": {
                     "namespaceURI": "http://www.mulesoft.org/schema/mule/core",
                     "localPart": "error-mappings",
@@ -14397,7 +14397,7 @@
                 "sinceMuleVersion": {
                   "version": "4.4.0"
                 },
-                "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {
+                "com.zernova.runtime.extension.api.property.InfrastructureParameterModelProperty": {
                   "sequence": 12
                 }
               }
@@ -14428,7 +14428,7 @@
   "messageSources": [],
   "artifactCoordinates": {
     "artifact id": "mule-tx-extension",
-    "group id": "org.mule.tests",
+    "group id": "com.zernova.tests",
     "version": "1.2.3"
   },
   "notifications": [],
@@ -14464,9 +14464,9 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.transactional.TransactionalOperations",
+        "typeId": "com.zernova.test.transactional.TransactionalOperations",
         "classInformation": {
-          "classname": "org.mule.test.transactional.TransactionalOperations",
+          "classname": "com.zernova.test.transactional.TransactionalOperations",
           "hasDefaultConstructor": true,
           "isInterface": false,
           "isInstantiable": true,
@@ -14487,16 +14487,16 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.transactional.connection.SdkTestTransactionalConnection",
+        "typeId": "com.zernova.test.transactional.connection.SdkTestTransactionalConnection",
         "classInformation": {
-          "classname": "org.mule.test.transactional.connection.SdkTestTransactionalConnection",
+          "classname": "com.zernova.test.transactional.connection.SdkTestTransactionalConnection",
           "hasDefaultConstructor": false,
           "isInterface": true,
           "isInstantiable": false,
           "isAbstract": true,
           "isFinal": false,
           "implementedInterfaces": [
-            "org.mule.sdk.api.connectivity.TransactionalConnection"
+            "com.zernova.sdk.api.connectivity.TransactionalConnection"
           ],
           "parent": "",
           "genericTypes": [],
@@ -14520,16 +14520,16 @@
       "format": "java",
       "type": "Object",
       "annotations": {
-        "typeId": "org.mule.test.transactional.connection.TestTransactionalConnection",
+        "typeId": "com.zernova.test.transactional.connection.TestTransactionalConnection",
         "classInformation": {
-          "classname": "org.mule.test.transactional.connection.TestTransactionalConnection",
+          "classname": "com.zernova.test.transactional.connection.TestTransactionalConnection",
           "hasDefaultConstructor": false,
           "isInterface": true,
           "isInstantiable": false,
           "isAbstract": true,
           "isFinal": false,
           "implementedInterfaces": [
-            "org.mule.runtime.extension.api.connectivity.TransactionalConnection"
+            "com.zernova.runtime.extension.api.connectivity.TransactionalConnection"
           ],
           "parent": "",
           "genericTypes": [],

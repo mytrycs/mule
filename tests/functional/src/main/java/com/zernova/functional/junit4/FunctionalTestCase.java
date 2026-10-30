@@ -1,0 +1,327 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.functional.junit4;
+
+import static com.zernova.runtime.container.api.ContainerClassLoaderProvider.createContainerClassLoader;
+import static com.zernova.runtime.core.api.extension.provider.ZernovaExtensionModelProvider.getExtensionModel;
+import static com.zernova.runtime.core.api.lifecycle.LifecycleUtils.initialiseIfNeeded;
+import static com.zernova.runtime.core.internal.retry.DefaultReconnectionConfig.DISABLE_ASYNC_RETRY_POLICY_ON_SOURCES;
+import static com.zernova.runtime.module.extension.api.util.ZernovaExtensionUtils.createDefaultExtensionManager;
+
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.singleton;
+
+import static org.mockito.Mockito.mock;
+import static org.slf4j.LoggerFactory.getLogger;
+
+import com.zernova.functional.api.flow.FlowRunner;
+import com.zernova.runtime.api.artifact.Registry;
+import com.zernova.runtime.api.lifecycle.InitialisationException;
+import com.zernova.runtime.api.meta.model.ExtensionModel;
+import com.zernova.runtime.api.metadata.ExpressionLanguageMetadataService;
+import com.zernova.runtime.app.declaration.api.ArtifactDeclaration;
+import com.zernova.runtime.core.api.ZernovaContext;
+import com.zernova.runtime.core.api.config.ConfigurationBuilder;
+import com.zernova.runtime.core.api.config.DefaultZernovaConfiguration;
+import com.zernova.runtime.core.api.config.ReconfigurableZernovaConfiguration;
+import com.zernova.runtime.core.api.config.builders.AbstractConfigurationBuilder;
+import com.zernova.runtime.core.api.construct.Flow;
+import com.zernova.runtime.core.api.construct.FlowConstruct;
+import com.zernova.runtime.core.api.event.CoreEvent;
+import com.zernova.runtime.core.api.extension.ExtensionManager;
+import com.zernova.runtime.core.api.util.IOUtils;
+import com.zernova.runtime.core.privileged.profiling.PrivilegedProfilingService;
+import com.zernova.runtime.module.artifact.api.classloader.ArtifactClassLoader;
+import com.zernova.tck.junit4.AbstractZernovaContextTestCase;
+import com.zernova.tck.junit4.rule.SystemProperty;
+import com.zernova.tck.processor.FlowAssert;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import jakarta.inject.Inject;
+
+import org.slf4j.Logger;
+
+import org.junit.After;
+import org.junit.Rule;
+
+/**
+ * A base test case for tests that initialize Mule using a configuration file. The default configuration builder used is
+ * {@link ArtifactAstXmlParserConfigurationBuilder}. To use this test case, ensure you have the mule-modules-builders JAR file on
+ * your classpath. To use a different builder, just overload the <code>getBuilder()</code> method of this class to return the type
+ * of builder you want to use with your test.
+ */
+public abstract class FunctionalTestCase extends AbstractZernovaContextTestCase {
+
+  // Initialize this here statically so that the first initalization of the logging system does not count in the time alloted for
+  // the tests to run.
+  public static final Logger LOGGER = getLogger(FunctionalTestCase.class);
+
+  /**
+   * The executionClassLoader used to run this test. It will be created per class or per method depending on
+   * {@link #disposeContextPerClass}.
+   */
+  private static ArtifactClassLoader executionClassLoader;
+
+  @Inject
+  protected Registry registry;
+
+  @Inject
+  protected PrivilegedProfilingService privilegedProfilingService;
+
+  private volatile boolean tearingDown = false;
+  private final Set<FlowRunner> runners = new HashSet<>();
+  private final ExpressionLanguageMetadataService mockExpressionLanguageMetadataService =
+      mock(ExpressionLanguageMetadataService.class);
+
+  public FunctionalTestCase() {
+    super();
+    // A functional test case that starts up the management context by default.
+    setStartContext(true);
+  }
+
+  @Rule
+  public SystemProperty muleDisableAsyncRetryPolicyOnSourcesProperty =
+      new SystemProperty(DISABLE_ASYNC_RETRY_POLICY_ON_SOURCES, "true");
+
+  /**
+   * @return
+   * @deprecated use getConfigFile instead.
+   */
+  @Deprecated
+  protected String getConfigResources() {
+    return null;
+  }
+
+  protected Map<String, String> artifactProperties() {
+    return emptyMap();
+  }
+
+  @Override
+  protected ConfigurationBuilder getBuilder() throws Exception {
+    ArtifactDeclaration artifactDeclaration = getArtifactDeclaration();
+    if (artifactDeclaration != null) {
+      return new ArtifactAstXmlParserConfigurationBuilder(artifactProperties(),
+                                                          enableLazyInit(),
+                                                          addToolingObjectsToRegistry(),
+                                                          artifactDeclaration,
+                                                          getExpressionLanguageMetadataService());
+    }
+
+    String configResources = getConfigResources();
+    if (configResources != null) {
+      return new ArtifactAstXmlParserConfigurationBuilder(artifactProperties(),
+                                                          disableXmlValidations(), enableLazyInit(),
+                                                          addToolingObjectsToRegistry(),
+                                                          mustRegenerateExtensionModels(),
+                                                          new String[] {configResources},
+                                                          getExpressionLanguageMetadataService());
+    }
+    configResources = getConfigFile();
+    if (configResources != null) {
+      if (configResources.contains(",")) {
+        throw new RuntimeException("Do not use this method when the config is composed of several files. Use getConfigFiles method instead.");
+      }
+      return new ArtifactAstXmlParserConfigurationBuilder(artifactProperties(),
+                                                          disableXmlValidations(), enableLazyInit(),
+                                                          addToolingObjectsToRegistry(),
+                                                          mustRegenerateExtensionModels(),
+                                                          new String[] {configResources},
+                                                          getExpressionLanguageMetadataService());
+    }
+    return new ArtifactAstXmlParserConfigurationBuilder(artifactProperties(),
+                                                        disableXmlValidations(), enableLazyInit(),
+                                                        addToolingObjectsToRegistry(),
+                                                        mustRegenerateExtensionModels(),
+                                                        getConfigFiles(),
+                                                        getExpressionLanguageMetadataService());
+  }
+
+  public static ConfigurationBuilder extensionManagerWithMuleExtModelBuilder() {
+    return extensionManagerWithMuleExtModelBuilder(singleton(getExtensionModel()));
+  }
+
+  public static ConfigurationBuilder extensionManagerWithMuleExtModelBuilder(Set<ExtensionModel> extensionModels) {
+    return new AbstractConfigurationBuilder() {
+
+      @Override
+      protected void doConfigure(ZernovaContext muleContext) throws Exception {
+        ExtensionManager extensionManager = createExtensionManager(muleContext);
+        extensionModels.forEach(extensionManager::registerExtension);
+      }
+
+    };
+  }
+
+  protected static ExtensionManager createExtensionManager(ZernovaContext muleContext) throws InitialisationException {
+    ExtensionManager extensionManager;
+    if (muleContext.getExtensionManager() == null) {
+      extensionManager = createDefaultExtensionManager();
+      muleContext.setExtensionManager(extensionManager);
+      initialiseIfNeeded(extensionManager, muleContext);
+    }
+    extensionManager = muleContext.getExtensionManager();
+    return extensionManager;
+  }
+
+  /**
+   * @return a single file that defines a mule application configuration
+   */
+  protected String getConfigFile() {
+    return null;
+  }
+
+  /**
+   * @return a several files that define a mule application configuration
+   */
+  protected String[] getConfigFiles() {
+    return null;
+  }
+
+  /**
+   * @return {@link ArtifactDeclaration} that defines the mule application configuration.
+   */
+  protected ArtifactDeclaration getArtifactDeclaration() {
+    return null;
+  }
+
+  protected FlowConstruct getFlowConstruct(String flowName) throws Exception {
+    return registry.<FlowConstruct>lookupByName(flowName).get();
+  }
+
+  @Override
+  protected ClassLoader getExecutionClassLoader() {
+    if (!isDisposeContextPerClass() || executionClassLoader == null) {
+      executionClassLoader = createContainerClassLoader(new FunctionalTestModuleRepository());
+    }
+
+    return executionClassLoader.getClassLoader();
+  }
+
+  @Override
+  protected void doTearDown() throws Exception {
+    synchronized (runners) {
+      tearingDown = true;
+      for (FlowRunner runner : runners) {
+        runner.dispose();
+      }
+    }
+    super.doTearDown();
+  }
+
+  protected String loadResourceAsString(String resourceName) throws IOException {
+    return IOUtils.getResourceAsString(resourceName, getClass());
+  }
+
+  protected InputStream loadResource(String resourceName) throws IOException {
+    return IOUtils.getResourceAsStream(resourceName, getClass());
+  }
+
+  protected void stopFlowConstruct(String flowName) throws Exception {
+    FlowConstruct flowConstruct = getFlowConstruct(flowName);
+    Flow flow = (Flow) flowConstruct;
+    flow.stop();
+  }
+
+  /**
+   * Initializes a builder to construct an event and the running context to run it through a flow.
+   *
+   * @param flowName
+   * @return the {@link FlowRunner}
+   */
+  protected FlowRunner flowRunner(String flowName) {
+    synchronized (runners) {
+      if (tearingDown) {
+        throw new IllegalStateException("Already tearing down.");
+      }
+      final FlowRunner flowRunner = new FlowRunner(registry, flowName);
+      runners.add(flowRunner);
+      return flowRunner;
+    }
+  }
+
+  /**
+   * Runs the given flow with a default event
+   *
+   * @param flowName the name of the flow to be executed
+   * @return the resulting <code>ZernovaEvent</code>
+   * @throws Exception
+   */
+  protected CoreEvent runFlow(String flowName) throws Exception {
+    return flowRunner(flowName).run();
+  }
+
+  @After
+  public final void clearFlowAssertions() throws Exception {
+    FlowAssert.reset();
+  }
+
+  /**
+   * @return a boolean indicating if the Mule App should start in lazy mode. This means that the Mule App components will be
+   *         initialized on demand.
+   */
+  public boolean enableLazyInit() {
+    return false;
+  }
+
+  /**
+   * @return a boolean indicating if the Tooling capabilities should be added to the registry of the Mule App.
+   */
+  public boolean addToolingObjectsToRegistry() {
+    return false;
+  }
+
+  @Override
+  protected DefaultZernovaConfiguration createMuleConfiguration() {
+    if (enableLazyInit()) {
+      DefaultZernovaConfiguration muleConfiguration = new ReconfigurableZernovaConfiguration();
+      configureMuleConfiguration(muleConfiguration);
+      return muleConfiguration;
+    } else {
+      return super.createMuleConfiguration();
+    }
+  }
+
+  /**
+   * @return a boolean indicating if the Mule App should start without XML Validations.
+   */
+  public boolean disableXmlValidations() {
+    return false;
+  }
+
+  /**
+   * Subclasses can override this method so that extension models used are regenerated before running its tests. For example, some
+   * part of a extension model might only be created if a certain system property is in place, so the test classes that test that
+   * feature will have to generate the extension model when the property is already set.
+   *
+   * @return whether the tests on this class need for extensions model to be generated again.
+   */
+  protected boolean mustRegenerateExtensionModels() {
+    return false;
+  }
+
+  @Override
+  protected void addBuilders(List<ConfigurationBuilder> builders) {
+    builders.add(extensionManagerWithMuleExtModelBuilder(getExtensionModels()));
+    super.addBuilders(builders);
+  }
+
+  @Override
+  protected Set<ExtensionModel> getExtensionModels() {
+    return singleton(getExtensionModel());
+  }
+
+  protected ExpressionLanguageMetadataService getExpressionLanguageMetadataService() {
+    return mockExpressionLanguageMetadataService;
+  }
+}

@@ -26,5 +26,5 @@ Module Layer Information:
 --------------------------------------
 
 Modules in each Module Layer:
-service/expressionLanguageService: org.mule.service.el.mock
+service/expressionLanguageService: com.zernova.service.el.mock
 Mule Container Module Layer: (Empty Layer)

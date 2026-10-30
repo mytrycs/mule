@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>mule-extensions-api-parent</artifactId>
+        <groupId>com.zernova.runtime</groupId>
+        <version>1.10.0-zernova.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>mule-extensions-api-dsql</artifactId>
+    <version>1.10.0-zernova.1</version>
+    <packaging>jar</packaging>
+    <name>ZERNOVA Extensions API DSQL</name>
+    <description>API for Mule Extensions to add DateSense Query Language support.</description>
+    <url>https://github.com/mulesoft/mule-extensions-api</url>
+
+    <properties>
+        <antlr.output.directory>${project.build.directory}/generated-antlr/com/zernova/runtime/extension/internal/dsql</antlr.output.directory>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.zernova.runtime</groupId>
+            <artifactId>mule-extensions-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr-runtime</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>antlr</groupId>
+                    <artifactId>antlr</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${antlr.output.directory}</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr3-maven-plugin</artifactId>
+                <version>${antlrVersion}</version>
+                <configuration>
+                    <sourceDirectory>${basedir}/src/main/resources/grammar</sourceDirectory>
+                    <outputDirectory>${antlr.output.directory}</outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>antlr</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

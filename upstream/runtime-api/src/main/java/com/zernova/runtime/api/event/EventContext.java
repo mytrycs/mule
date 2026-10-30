@@ -1,0 +1,62 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.api.event;
+
+import com.zernova.api.annotation.NoImplement;
+import com.zernova.runtime.api.component.location.ComponentLocation;
+
+import java.time.Instant;
+
+@NoImplement
+public interface EventContext {
+
+  /**
+   * Unique time-based id (UUID) for this {@link EventContext}.
+   *
+   * @return the UUID for this {@link EventContext}
+   */
+  String getId();
+
+  /**
+   * Unique time-based id (UUID) for this {@link EventContext}'s root.
+   *
+   * @return the UUID for this {@link EventContext}' root.
+   */
+  String getRootId();
+
+  /**
+   * The correlation ID is used to correlate messages between different flows and systems.
+   * <p>
+   * If the connector that receives the source message supports the concept of a correlation ID then the connector should create
+   * an instance of {@link EventContext} using this value. If on the other hand, no correlation ID is received by the source
+   * connector then a time-based UUID, also available via {@link #getId()} is used.
+   *
+   * @return the correlation id.
+   */
+  String getCorrelationId();
+
+  /**
+   * @return a timestamp indicating when the message was received by the connector source.
+   */
+  Instant getReceivedTime();
+
+  /**
+   * @return a timestamp indicating when the execution of this context began.
+   * @since 1.10
+   */
+  default Instant getStartTime() {
+    return Instant.MIN;
+  }
+
+  /**
+   *
+   * @return the location where this context's events come from
+   */
+  ComponentLocation getOriginatingLocation();
+
+}

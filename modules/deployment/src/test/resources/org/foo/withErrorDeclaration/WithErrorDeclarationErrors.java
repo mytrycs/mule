@@ -4,9 +4,10 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package org.foo.withErrorDeclaration;
 
-import org.mule.runtime.extension.api.error.ErrorTypeDefinition;
+import com.zernova.runtime.extension.api.error.ErrorTypeDefinition;
 
 public enum WithErrorDeclarationErrors implements ErrorTypeDefinition<WithErrorDeclarationErrors> {
 

@@ -6,79 +6,79 @@
 	      {
 	        "ignore": true,
 	        "code": "java.class.externalClassExposedInAPI",
-	        "new": "interface org.mule.maven.client.api.LocalRepositorySupplierFactory",
+	        "new": "interface com.zernova.maven.client.api.LocalRepositorySupplierFactory",
 	        "justification": "W-13829806: maven-client is an API owned by the same mule team"
 	      },
 	      {
 	        "ignore": true,
 	        "code": "java.class.externalClassExposedInAPI",
-	        "new": "interface org.mule.maven.client.api.MavenClient",
+	        "new": "interface com.zernova.maven.client.api.MavenClient",
 	        "justification": "W-13829806: maven-client is an API owned by the same mule team"
 	      },
 	      {
 	        "ignore": true,
 	        "code": "java.class.externalClassExposedInAPI",
-	        "new": "interface org.mule.maven.client.api.MavenClientProvider",
+	        "new": "interface com.zernova.maven.client.api.MavenClientProvider",
 	        "justification": "W-13829806: maven-client is an API owned by the same mule team"
 	      },
 	      {
 	        "ignore": true,
 	        "code": "java.class.externalClassExposedInAPI",
-	        "new": "interface org.mule.maven.client.api.MavenReactorResolver",
+	        "new": "interface com.zernova.maven.client.api.MavenReactorResolver",
 	        "justification": "W-13829806: maven-client is an API owned by the same mule team"
 	      },
 	      {
 	        "ignore": true,
 	        "code": "java.class.externalClassExposedInAPI",
-	        "new": "interface org.mule.maven.client.api.PomFileSupplierFactory",
+	        "new": "interface com.zernova.maven.client.api.PomFileSupplierFactory",
 	        "justification": "W-13829806: maven-client is an API owned by the same mule team"
 	      },
 	      {
 	        "ignore": true,
 	        "code": "java.class.externalClassExposedInAPI",
-	        "new": "interface org.mule.maven.client.api.SettingsSupplierFactory",
+	        "new": "interface com.zernova.maven.client.api.SettingsSupplierFactory",
 	        "justification": "W-13829806: maven-client is an API owned by the same mule team"
 	      },
 	      {
 	        "ignore": true,
 	        "code": "java.class.externalClassExposedInAPI",
-	        "new": "interface org.mule.maven.client.api.VersionRangeResult",
+	        "new": "interface com.zernova.maven.client.api.VersionRangeResult",
 	        "justification": "W-13829806: maven-client is an API owned by the same mule team"
 	      },
 	      {
 	        "ignore": true,
 	        "code": "java.class.externalClassExposedInAPI",
-	        "new": "class org.mule.maven.pom.parser.api.model.ArtifactCoordinates",
+	        "new": "class com.zernova.maven.pom.parser.api.model.ArtifactCoordinates",
 	        "justification": "W-13829806: maven-client is an API owned by the same mule team"
 	      },
 	      {
 	        "ignore": true,
 	        "code": "java.class.externalClassExposedInAPI",
-	        "new": "class org.mule.maven.pom.parser.api.model.BundleDependency",
+	        "new": "class com.zernova.maven.pom.parser.api.model.BundleDependency",
 	        "justification": "W-13829806: maven-client is an API owned by the same mule team"
 	      },
 	      {
 	        "ignore": true,
 	        "code": "java.class.externalClassExposedInAPI",
-	        "new": "class org.mule.maven.pom.parser.api.model.BundleDescriptor",
+	        "new": "class com.zernova.maven.pom.parser.api.model.BundleDescriptor",
 	        "justification": "W-13829806: maven-client is an API owned by the same mule team"
 	      },
 	      {
 	        "ignore": true,
 	        "code": "java.class.externalClassExposedInAPI",
-	        "new": "enum org.mule.maven.pom.parser.api.model.BundleScope",
+	        "new": "enum com.zernova.maven.pom.parser.api.model.BundleScope",
 	        "justification": "W-13829806: maven-client is an API owned by the same mule team"
 	      },
 	      {
 	        "ignore": true,
 	        "code": "java.class.externalClassExposedInAPI",
-	        "new": "interface org.mule.maven.pom.parser.api.model.MavenPomModel",
+	        "new": "interface com.zernova.maven.pom.parser.api.model.MavenPomModel",
 	        "justification": "W-13829806: maven-client is an API owned by the same mule team"
 	      },
 	      {
 	        "ignore": true,
 	        "code": "java.class.externalClassExposedInAPI",
-	        "new": "interface org.mule.maven.pom.parser.api.model.PomParentCoordinates",
+	        "new": "interface com.zernova.maven.pom.parser.api.model.PomParentCoordinates",
 	        "justification": "W-13829806: maven-client is an API owned by the same mule team"
 	      }
 	    ]
@@ -90,82 +90,82 @@
       "ignore": [
         {
           "code": "java.annotation.removed",
-          "old": "interface org.mule.maven.client.api.model.Authentication",
-          "new": "interface org.mule.maven.client.api.model.Authentication",
-          "annotationType": "org.mule.api.annotation.NoImplement",
-          "annotation": "@org.mule.api.annotation.NoImplement",
-          "package": "org.mule.maven.client.api.model",
+          "old": "interface com.zernova.maven.client.api.model.Authentication",
+          "new": "interface com.zernova.maven.client.api.model.Authentication",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "annotation": "@com.zernova.api.annotation.NoImplement",
+          "package": "com.zernova.maven.client.api.model",
           "classSimpleName": "Authentication",
           "elementKind": "interface",
           "justification": "Removed mule runtime annotations from independant library"
         },
         {
           "code": "java.annotation.removed",
-          "old": "interface org.mule.maven.client.api.model.MavenConfiguration",
-          "new": "interface org.mule.maven.client.api.model.MavenConfiguration",
-          "annotationType": "org.mule.api.annotation.NoImplement",
-          "annotation": "@org.mule.api.annotation.NoImplement",
-          "package": "org.mule.maven.client.api.model",
+          "old": "interface com.zernova.maven.client.api.model.MavenConfiguration",
+          "new": "interface com.zernova.maven.client.api.model.MavenConfiguration",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "annotation": "@com.zernova.api.annotation.NoImplement",
+          "package": "com.zernova.maven.client.api.model",
           "classSimpleName": "MavenConfiguration",
           "elementKind": "interface",
           "justification": "Removed mule runtime annotations from independant library"
         },
         {
           "code": "java.annotation.removed",
-          "old": "interface org.mule.maven.client.api.model.RemoteRepository",
-          "new": "interface org.mule.maven.client.api.model.RemoteRepository",
-          "annotationType": "org.mule.api.annotation.NoImplement",
-          "annotation": "@org.mule.api.annotation.NoImplement",
-          "package": "org.mule.maven.client.api.model",
+          "old": "interface com.zernova.maven.client.api.model.RemoteRepository",
+          "new": "interface com.zernova.maven.client.api.model.RemoteRepository",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "annotation": "@com.zernova.api.annotation.NoImplement",
+          "package": "com.zernova.maven.client.api.model",
           "classSimpleName": "RemoteRepository",
           "elementKind": "interface",
           "justification": "Removed mule runtime annotations from independant library"
         },
         {
           "code": "java.class.removed",
-          "old": "class org.mule.maven.client.api.model.BundleDependency",
-          "package": "org.mule.maven.client.api.model",
+          "old": "class com.zernova.maven.client.api.model.BundleDependency",
+          "package": "com.zernova.maven.client.api.model",
           "classSimpleName": "BundleDependency",
           "elementKind": "class",
           "justification": "W-12514052: moved to the new pom parser api"
         },
         {
           "code": "java.class.removed",
-          "old": "class org.mule.maven.client.api.model.BundleDescriptor",
-          "package": "org.mule.maven.client.api.model",
+          "old": "class com.zernova.maven.client.api.model.BundleDescriptor",
+          "package": "com.zernova.maven.client.api.model",
           "classSimpleName": "BundleDescriptor",
           "elementKind": "class",
           "justification": "W-12514052: moved to the new pom parser api"
         },
         {
           "code": "java.class.removed",
-          "old": "enum org.mule.maven.client.api.model.BundleScope",
-          "package": "org.mule.maven.client.api.model",
+          "old": "enum com.zernova.maven.client.api.model.BundleScope",
+          "package": "com.zernova.maven.client.api.model",
           "classSimpleName": "BundleScope",
           "elementKind": "enum",
           "justification": "W-12514052: moved to the new pom parser api"
         },
         {
           "code": "java.class.externalClassExposedInAPI",
-          "new": "class org.mule.maven.client.api.model.BundleDependency",
+          "new": "class com.zernova.maven.client.api.model.BundleDependency",
           "classSimpleName": "BundleDependency",
-          "package": "org.mule.maven.client.api.model",
+          "package": "com.zernova.maven.client.api.model",
           "elementKind": "class",
           "justification": "MULE-19688: Need a way to allow lib clients to pass a fully build MavenClient through the MavenClientProvider."
         },
         {
           "code": "java.class.externalClassExposedInAPI",
-          "new": "class org.mule.maven.client.api.model.BundleDescriptor",
+          "new": "class com.zernova.maven.client.api.model.BundleDescriptor",
           "classSimpleName": "BundleDescriptor",
-          "package": "org.mule.maven.client.api.model",
+          "package": "com.zernova.maven.client.api.model",
           "elementKind": "class",
           "justification": "MULE-19688: Need a way to allow lib clients to pass a fully build MavenClient through the MavenClientProvider."
         },
         {
           "code": "java.class.externalClassExposedInAPI",
-          "new": "enum org.mule.maven.client.api.model.BundleScope",
+          "new": "enum com.zernova.maven.client.api.model.BundleScope",
           "classSimpleName": "BundleScope",
-          "package": "org.mule.maven.client.api.model",
+          "package": "com.zernova.maven.client.api.model",
           "elementKind": "enum",
           "justification": "MULE-19688: Need a way to allow lib clients to pass a fully build MavenClient through the MavenClientProvider."
         }
@@ -177,33 +177,33 @@
       "ignore": [
         {
           "code": "java.annotation.added",
-          "old": "interface org.mule.maven.client.api.model.MavenConfiguration",
-          "new": "interface org.mule.maven.client.api.model.MavenConfiguration",
-          "annotationType": "org.mule.api.annotation.NoImplement",
-          "annotation": "@org.mule.api.annotation.NoImplement",
-          "package": "org.mule.maven.client.api.model",
+          "old": "interface com.zernova.maven.client.api.model.MavenConfiguration",
+          "new": "interface com.zernova.maven.client.api.model.MavenConfiguration",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "annotation": "@com.zernova.api.annotation.NoImplement",
+          "package": "com.zernova.maven.client.api.model",
           "classSimpleName": "MavenConfiguration",
           "elementKind": "interface",
           "justification": "Marked as not implemented interface as clients shouldn't implement this internal interface"
         },
         {
           "code": "java.annotation.added",
-          "old": "interface org.mule.maven.client.api.model.Authentication",
-          "new": "interface org.mule.maven.client.api.model.Authentication",
-          "annotationType": "org.mule.api.annotation.NoImplement",
-          "annotation": "@org.mule.api.annotation.NoImplement",
-          "package": "org.mule.maven.client.api.model",
+          "old": "interface com.zernova.maven.client.api.model.Authentication",
+          "new": "interface com.zernova.maven.client.api.model.Authentication",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "annotation": "@com.zernova.api.annotation.NoImplement",
+          "package": "com.zernova.maven.client.api.model",
           "classSimpleName": "Authentication",
           "elementKind": "interface",
           "justification": "Marked as not implemented interface as clients shouldn't implement this internal interface"
         },
         {
           "code": "java.annotation.added",
-          "old": "interface org.mule.maven.client.api.model.RemoteRepository",
-          "new": "interface org.mule.maven.client.api.model.RemoteRepository",
-          "annotationType": "org.mule.api.annotation.NoImplement",
-          "annotation": "@org.mule.api.annotation.NoImplement",
-          "package": "org.mule.maven.client.api.model",
+          "old": "interface com.zernova.maven.client.api.model.RemoteRepository",
+          "new": "interface com.zernova.maven.client.api.model.RemoteRepository",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "annotation": "@com.zernova.api.annotation.NoImplement",
+          "package": "com.zernova.maven.client.api.model",
           "classSimpleName": "RemoteRepository",
           "elementKind": "interface",
           "justification": "Marked as not implemented interface as clients shouldn't implement this internal interface"
@@ -216,11 +216,11 @@
       "ignore": [
         {
           "code": "java.method.visibilityReduced",
-          "old": "method void org.mule.runtime.globalconfig.api.GlobalConfigLoader::<init>()",
-          "new": "method void org.mule.runtime.globalconfig.api.GlobalConfigLoader::<init>()",
+          "old": "method void com.zernova.runtime.globalconfig.api.GlobalConfigLoader::<init>()",
+          "new": "method void com.zernova.runtime.globalconfig.api.GlobalConfigLoader::<init>()",
           "oldVisibility": "public",
           "newVisibility": "private",
-          "package": "org.mule.runtime.globalconfig.api",
+          "package": "com.zernova.runtime.globalconfig.api",
           "classSimpleName": "GlobalConfigLoader",
           "methodName": "<init>",
           "elementKind": "constructor",
@@ -234,11 +234,11 @@
       "ignore": [
         {
           "code": "java.annotation.added",
-          "old": "interface org.mule.maven.client.api.model.MavenConfiguration",
-          "new": "interface org.mule.maven.client.api.model.MavenConfiguration",
-          "annotationType": "org.mule.api.annotation.NoImplement",
-          "annotation": "@org.mule.api.annotation.NoImplement",
-          "package": "org.mule.maven.client.api.model",
+          "old": "interface com.zernova.maven.client.api.model.MavenConfiguration",
+          "new": "interface com.zernova.maven.client.api.model.MavenConfiguration",
+          "annotationType": "com.zernova.api.annotation.NoImplement",
+          "annotation": "@com.zernova.api.annotation.NoImplement",
+          "package": "com.zernova.maven.client.api.model",
           "classSimpleName": "MavenConfiguration",
           "elementKind": "interface",
           "justification": "Marked as not implemented interface as clients shouldn't implement this internal interface"

@@ -4,22 +4,23 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 /**
  * Implementation for the tracer exporter
  *
  * @moduleGraph
  * @since 4.6
  */
-module org.mule.runtime.tracer.exporter.impl {
+module com.zernova.runtime.tracer.exporter.impl {
 
-  requires org.mule.runtime.artifact.ast;
+  requires com.zernova.runtime.artifact.ast;
 
-  requires org.mule.runtime.tracer.api;
-  requires org.mule.runtime.tracer.exporter.api;
-  requires org.mule.runtime.tracer.exporter.configuration.api;
-  requires org.mule.runtime.tracer.exporter.config.impl;
-  requires org.mule.runtime.tracer.internal.impl;
-  requires org.mule.runtime.core;
+  requires com.zernova.runtime.tracer.api;
+  requires com.zernova.runtime.tracer.exporter.api;
+  requires com.zernova.runtime.tracer.exporter.configuration.api;
+  requires com.zernova.runtime.tracer.exporter.config.impl;
+  requires com.zernova.runtime.tracer.internal.impl;
+  requires com.zernova.runtime.core;
 
   requires io.opentelemetry.api;
   requires io.opentelemetry.context;
@@ -32,16 +33,16 @@ module org.mule.runtime.tracer.exporter.impl {
   requires com.google.gson;
   requires org.apache.commons.lang3;
 
-  exports org.mule.runtime.tracer.exporter.impl to
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.tracer.exporter.impl to
+      com.zernova.runtime.spring.config,
       spring.beans;
-  exports org.mule.runtime.tracer.exporter.impl.optel.config to
-      org.mule.runtime.spring.config,
+  exports com.zernova.runtime.tracer.exporter.impl.optel.config to
+      com.zernova.runtime.spring.config,
       spring.beans;
 
-  opens org.mule.runtime.tracer.exporter.impl to
+  opens com.zernova.runtime.tracer.exporter.impl to
       spring.core;
-  opens org.mule.runtime.tracer.exporter.impl.optel.config to
+  opens com.zernova.runtime.tracer.exporter.impl.optel.config to
       spring.core;
 
 }

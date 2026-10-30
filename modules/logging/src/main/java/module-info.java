@@ -4,15 +4,16 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 /**
  * Mule Logging Module.
  *
  * @moduleGraph
  * @since 4.5
  */
-module org.mule.runtime.logging {
+module com.zernova.runtime.logging {
 
-  exports org.mule.runtime.module.log4j.api;
+  exports com.zernova.runtime.module.log4j.api;
 
   // Allows usage of Unsafe for caffeine, required for DataWeave
   // TODO: remove after TD-0231495 is done

@@ -10,12 +10,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.test</groupId>
+            <groupId>com.zernova.test</groupId>
             <artifactId>library</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
-            <groupId>org.mule.test</groupId>
+            <groupId>com.zernova.test</groupId>
             <artifactId>library</artifactId>
             <version>1.0.0</version>
             <classifier>test-jar</classifier>

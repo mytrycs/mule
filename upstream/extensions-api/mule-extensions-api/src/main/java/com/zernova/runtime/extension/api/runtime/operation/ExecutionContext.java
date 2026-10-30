@@ -1,0 +1,88 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.extension.api.runtime.operation;
+
+import com.zernova.api.annotation.NoImplement;
+import com.zernova.runtime.api.meta.model.ComponentModel;
+import com.zernova.runtime.api.meta.model.ExtensionModel;
+import com.zernova.runtime.api.meta.model.config.ConfigurationModel;
+import com.zernova.runtime.api.meta.model.parameter.ParameterModel;
+import com.zernova.runtime.extension.api.runtime.config.ConfigurationInstance;
+
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+/**
+ * Provides context information about the execution of a modeled component
+ *
+ * @param <M> the generic type of of the model which represents the component beign executed
+ * @since 1.0
+ */
+@NoImplement
+public interface ExecutionContext<M extends ComponentModel> {
+
+  /**
+   * Returns whether parameter of name {@code parameterName} has a value associated to it.
+   *
+   * @param parameterName the name of a {@link ParameterModel} of the {@link ComponentModel} being executed
+   * @return {@code true} if the parameter is present.
+   */
+  boolean hasParameter(String parameterName);
+
+  /**
+   * Returns the value associated to a parameter of name {@code parameterName}
+   *
+   * @param parameterName the name of a {@link ParameterModel} of the {@link ComponentModel} being executed
+   * @param <T>           the returned value's generic type
+   * @return the parameter's value or {@code null}. Notice that {@code null} means that the parameter has been resolved to that
+   *         value.
+   * @throws NoSuchElementException if the parameter is not present.
+   */
+  <T> T getParameter(String parameterName);
+
+  /**
+   * Returns the value associated to a parameter of name {@code parameterName} or {@code defaultValue} if such parameter is not
+   * present.
+   *
+   * @param parameterName the name of a {@link ParameterModel} of the {@link ComponentModel} being executed
+   * @param defaultValue  the default value to return in case the parameter is not present
+   * @param <T>           the returned value's generic type
+   * @return @return the parameter's value or {@code defaultValue}
+   * @since 1.3.0
+   */
+  <T> T getParameterOrDefault(String parameterName, T defaultValue);
+
+  /**
+   * Returns an immutable map containing all the parameters associated with this execution. The keys are the parameter names and
+   * the values are... well, the values.
+   * <p>
+   * It is guaranteed that whatever value returned in this map will be the exact same as invoking {@link #getParameter(String)}
+   * with the same key, no matter how many times invoked nor in which order.
+   *
+   * @return an immutable {@link Map} with all the parameters
+   */
+  Map<String, Object> getParameters();
+
+  /**
+   * Returns the {@link ConfigurationInstance} for the operation being executed.
+   *
+   * @return a {@link ConfigurationInstance} consistent with a corresponding {@link ConfigurationModel}
+   */
+  Optional<ConfigurationInstance> getConfiguration();
+
+  /**
+   * @return the {@link ExtensionModel} which owns the {@link #getComponentModel()}
+   */
+  ExtensionModel getExtensionModel();
+
+  /**
+   * @return the model for the component being executed
+   */
+  M getComponentModel();
+}

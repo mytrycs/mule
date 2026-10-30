@@ -6,7 +6,7 @@
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
       http://www.mulesoft.org/schema/mule/reconnection http://www.mulesoft.org/schema/mule/reconnection/current/mule-reconnection.xsd">
 
-    <object name="capture" class="org.mule.test.module.extension.reconnection.ReconnectionTestCase$CaptureProcessor"/>
+    <object name="capture" class="com.zernova.test.module.extension.reconnection.ReconnectionTestCase$CaptureProcessor"/>
 
     <reconnection:config name="reconnection_Config" configId="dsa">
         <reconnection:connection>

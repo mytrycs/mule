@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>mule-test-extensions-parent</artifactId>
-        <groupId>org.mule.tests</groupId>
+        <groupId>com.zernova.tests</groupId>
         <version>4.10.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -12,17 +12,17 @@
     <artifactId>test-config-properties-extension-deprecated-complex</artifactId>
     <packaging>jar</packaging>
 
-    <name>Mule Test Config Properties Extension Complex (deprecated)</name>
+    <name>ZERNOVA Test Config Properties Extension Complex (deprecated)</name>
     <description>A Mule extension with complex elements for testing deprecated Configuration Properties provider</description>
 
     <properties>
-        <javaModuleName>org.mule.test.extension.config.properties.deprecated.complex</javaModuleName>
+        <javaModuleName>com.zernova.test.extension.config.properties.deprecated.complex</javaModuleName>
         <testExtensionModelLoaderId>java</testExtensionModelLoaderId>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.mule.runtime</groupId>
+            <groupId>com.zernova.runtime</groupId>
             <artifactId>mule-module-spring-config</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>

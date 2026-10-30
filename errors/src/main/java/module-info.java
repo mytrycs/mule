@@ -4,27 +4,28 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 /**
  * Mule Runtime Errors.
  *
- * @provides org.mule.runtime.ast.api.error.ErrorTypeRepositoryProvider
+ * @provides com.zernova.runtime.ast.api.error.ErrorTypeRepositoryProvider
  *
  * @moduleGraph
  * @since 4.7
  */
-module org.mule.runtime.errors {
+module com.zernova.runtime.errors {
 
-  requires org.mule.runtime.api;
-  requires org.mule.runtime.artifact.ast;
+  requires com.zernova.runtime.api;
+  requires com.zernova.runtime.artifact.ast;
 
-  exports org.mule.runtime.core.api.error;
-  exports org.mule.runtime.config.internal.error to
-      org.mule.runtime.core,
-      org.mule.runtime.extensions.mule.support,
-      org.mule.runtime.spring.config,
-      org.mule.runtime.artifact.ast.serialization.test;
+  exports com.zernova.runtime.core.api.error;
+  exports com.zernova.runtime.config.internal.error to
+      com.zernova.runtime.core,
+      com.zernova.runtime.extensions.mule.support,
+      com.zernova.runtime.spring.config,
+      com.zernova.runtime.artifact.ast.serialization.test;
 
-  provides org.mule.runtime.ast.api.error.ErrorTypeRepositoryProvider with
-      org.mule.runtime.config.internal.error.CoreErrorTypeRepositoryProvider;
+  provides com.zernova.runtime.ast.api.error.ErrorTypeRepositoryProvider with
+      com.zernova.runtime.config.internal.error.CoreErrorTypeRepositoryProvider;
 
 }

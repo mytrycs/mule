@@ -1,0 +1,44 @@
+/*
+ * Copyright 2023 Salesforce, Inc. All rights reserved.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
+package com.zernova.runtime.core.internal.processor.strategy;
+
+import static com.zernova.runtime.core.api.lifecycle.LifecycleUtils.initialiseIfNeeded;
+
+import com.zernova.runtime.api.exception.ZernovaException;
+import com.zernova.runtime.api.exception.ZernovaRuntimeException;
+import com.zernova.runtime.core.api.ZernovaContext;
+import com.zernova.runtime.core.api.processor.strategy.ProcessingStrategy;
+
+/**
+ * Creates a processing strategy with same behavior as {@link StreamEmitterProcessingStrategyFactory} apart from the fact it will
+ * process synchronously without error when a transaction is active.
+ *
+ * @since 4.3.0
+ */
+public class TransactionAwareStreamEmitterProcessingStrategyFactory extends StreamEmitterProcessingStrategyFactory
+    implements TransactionAwareProcessingStrategyFactory {
+
+  @Override
+  public ProcessingStrategy create(ZernovaContext muleContext, String schedulersNamePrefix) {
+    TransactionAwareStreamEmitterProcessingStrategyDecorator psDecorator =
+        new TransactionAwareStreamEmitterProcessingStrategyDecorator(super.create(muleContext, schedulersNamePrefix));
+
+    try {
+      initialiseIfNeeded(psDecorator, muleContext);
+    } catch (ZernovaException e) {
+      throw new ZernovaRuntimeException(e);
+    }
+
+    return psDecorator;
+  }
+
+  @Override
+  public Class<? extends ProcessingStrategy> getProcessingStrategyType() {
+    return TransactionAwareStreamEmitterProcessingStrategyDecorator.class;
+  }
+}

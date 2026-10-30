@@ -1001,7 +1001,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="complex-acting-parameter">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.ComplexActingParameter"></xs:extension>
+                <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.ComplexActingParameter"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -1011,7 +1011,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="org.mule.test.values.extension.InnerPojo">
+  <xs:complexType name="com.zernova.test.values.extension.InnerPojo">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:sequence minOccurs="0" maxOccurs="1">
@@ -1046,15 +1046,15 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element xmlns:values="http://www.mulesoft.org/schema/mule/values" type="values:org.mule.test.values.extension.InnerPojo" abstract="true" name="abstract-inner-pojo"></xs:element>
+  <xs:element xmlns:values="http://www.mulesoft.org/schema/mule/values" type="values:com.zernova.test.values.extension.InnerPojo" abstract="true" name="abstract-inner-pojo"></xs:element>
   <xs:element xmlns:values="http://www.mulesoft.org/schema/mule/values" substitutionGroup="values:abstract-inner-pojo" name="inner-pojo">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="values:org.mule.test.values.extension.InnerPojo"></xs:extension>
+        <xs:extension base="values:com.zernova.test.values.extension.InnerPojo"></xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="org.mule.test.values.extension.ComplexActingParameter">
+  <xs:complexType name="com.zernova.test.values.extension.ComplexActingParameter">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:sequence minOccurs="0" maxOccurs="1">
@@ -1083,7 +1083,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="inner-pojo-param">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.InnerPojo"></xs:extension>
+                <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.InnerPojo"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -1199,7 +1199,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="acting-parameter">
             <xs:complexType>
               <xs:complexContent>
-                <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:org.mule.test.values.extension.MyPojo"></xs:extension>
+                <xs:extension xmlns:values="http://www.mulesoft.org/schema/mule/values" base="values:com.zernova.test.values.extension.MyPojo"></xs:extension>
               </xs:complexContent>
             </xs:complexType>
           </xs:element>
@@ -1209,7 +1209,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="org.mule.test.values.extension.MyPojo">
+  <xs:complexType name="com.zernova.test.values.extension.MyPojo">
     <xs:complexContent>
       <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractExtensionType">
         <xs:attribute type="mule:expressionBoolean" use="optional" name="pojoBoolean"></xs:attribute>

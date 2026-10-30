@@ -4,20 +4,21 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 /**
  * This module performs memory management for the runtime.
  *
  * @moduleGraph
  * @since 4.6
  */
-module org.mule.runtime.memory.management {
+module com.zernova.runtime.memory.management {
 
-  requires org.mule.runtime.api;
-  requires org.mule.runtime.profiling.api;
+  requires com.zernova.runtime.api;
+  requires com.zernova.runtime.profiling.api;
 
-  exports org.mule.runtime.api.memory.bytebuffer;
+  exports com.zernova.runtime.api.memory.bytebuffer;
 
-  exports org.mule.runtime.internal.memory.management to
-      org.mule.runtime.deployment.model.impl,
-      org.mule.runtime.spring.config;
+  exports com.zernova.runtime.internal.memory.management to
+      com.zernova.runtime.deployment.model.impl,
+      com.zernova.runtime.spring.config;
 }

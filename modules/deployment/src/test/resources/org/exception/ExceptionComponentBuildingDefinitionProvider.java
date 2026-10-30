@@ -4,14 +4,15 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package org.exception;
 
-import static org.mule.runtime.dsl.api.component.AttributeDefinition.Builder.fromSimpleParameter;
-import static org.mule.runtime.dsl.api.component.AttributeDefinition.Builder.fromSimpleReferenceParameter;
-import static org.mule.runtime.dsl.api.component.TypeDefinition.fromType;
-import org.mule.functional.api.component.ThrowProcessor;
-import org.mule.runtime.dsl.api.component.ComponentBuildingDefinition;
-import org.mule.runtime.dsl.api.component.ComponentBuildingDefinitionProvider;
+import static com.zernova.runtime.dsl.api.component.AttributeDefinition.Builder.fromSimpleParameter;
+import static com.zernova.runtime.dsl.api.component.AttributeDefinition.Builder.fromSimpleReferenceParameter;
+import static com.zernova.runtime.dsl.api.component.TypeDefinition.fromType;
+import com.zernova.functional.api.component.ThrowProcessor;
+import com.zernova.runtime.dsl.api.component.ComponentBuildingDefinition;
+import com.zernova.runtime.dsl.api.component.ComponentBuildingDefinitionProvider;
 
 import java.util.ArrayList;
 import java.util.List;

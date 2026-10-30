@@ -4,10 +4,11 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 package org.foo;
 
-import org.mule.runtime.api.interception.ProcessorInterceptor;
-import org.mule.runtime.api.interception.ProcessorInterceptorFactory;
+import com.zernova.runtime.api.interception.ProcessorInterceptor;
+import com.zernova.runtime.api.interception.ProcessorInterceptorFactory;
 
 
 public class LoadsOwnResourceInterceptorFactory implements ProcessorInterceptorFactory {

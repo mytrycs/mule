@@ -4,23 +4,24 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
+/* ZERNOVA namespace refactor Copyright (c) 2026 ZerNova. SPDX-License-Identifier: CPAL-1.0. */
 /**
  * Mule service that provides OAuth authentication support.
  *
  * @moduleGraph
  * @since 4.5
  */
-module org.mule.runtime.oauth.api {
+module com.zernova.runtime.oauth.api {
 
-  requires transitive org.mule.runtime.api;
-  requires transitive org.mule.oauth.client.api;
-  requires org.mule.runtime.http.api;
+  requires transitive com.zernova.runtime.api;
+  requires transitive com.zernova.oauth.client.api;
+  requires com.zernova.runtime.http.api;
 
-  exports org.mule.runtime.oauth.api;
-  exports org.mule.runtime.oauth.api.builder;
-  exports org.mule.runtime.oauth.api.listener;
-  exports org.mule.runtime.oauth.api.state;
+  exports com.zernova.runtime.oauth.api;
+  exports com.zernova.runtime.oauth.api.builder;
+  exports com.zernova.runtime.oauth.api.listener;
+  exports com.zernova.runtime.oauth.api.state;
 
-  opens org.mule.runtime.oauth.api.state to
+  opens com.zernova.runtime.oauth.api.state to
       kryo.shaded;
 }
