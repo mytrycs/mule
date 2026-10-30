@@ -5,6 +5,7 @@
 import { parser as saxParser } from 'sax';
 
 export const CORE_NS = 'https://schemas.zernova.dev/core';
+export const TRANSFORM_NS = 'https://schemas.zernova.dev/transform';
 export const HTTP_NS = 'https://schemas.zernova.dev/http';
 export const DOC_NS = 'https://schemas.zernova.dev/documentation';
 export const XSI_NS = 'http://www.w3.org/2001/XMLSchema-instance';
@@ -22,7 +23,7 @@ export interface RealLogger {
   expressionMode: boolean; notes: string; editable: boolean;
 }
 export interface RealTransform {
-  id: string; kind: 'transform'; displayName: string; script: string; mimeType: string; editable: boolean;
+  id: string; kind: 'transform'; displayName: string; script: string; mimeType: string; attributesScript?: string; variablesScript?: string; editable: boolean;
 }
 export type RealProcessor = RealLogger | RealTransform;
 export type RealComponent = RealListener | RealProcessor;
@@ -31,7 +32,7 @@ export interface RealFlow { id: string; name: string; kind?: 'flow' | 'sub-flow'
 export interface IntegrationModel { valid: boolean; flows: RealFlow[]; configs: RealHttpConfig[]; diagnostics: XmlDiagnostic[] }
 export interface ComponentValues {
   displayName?: string; configId?: string; path?: string; allowedMethods?: string; message?: string;
-  script?: string; mimeType?: string; level?: string; category?: string; responseStatus?: string; responseBody?: string; responseHeaders?: string;
+  script?: string; mimeType?: string; attributesScript?: string; variablesScript?: string; level?: string; category?: string; responseStatus?: string; responseBody?: string; responseHeaders?: string;
 }
 export interface ConfigValues { name: string; protocol: 'HTTP'; host: string; port: string; basePath: string }
 export type XmlOperation =
@@ -198,7 +199,7 @@ function parseInternal(text: string): Parsed {
   for (const [flowIndex, n] of tree.root.children.filter(n => is(n, CORE_NS, 'flow') || is(n, CORE_NS, 'sub-flow')).entries()) {
     const name = value(n, 'name'), id = 'flow:' + name;
     const sources = n.children.filter(c => is(c, HTTP_NS, 'listener'));
-    const unsupported = n.children.filter(c => !is(c, HTTP_NS, 'listener') && !is(c, CORE_NS, 'logger') && !is(c, CORE_NS, 'set-payload') && !is(c, CORE_NS, 'error-handler')).map(c => c.name);
+    const unsupported = n.children.filter(c => !is(c, HTTP_NS, 'listener') && !is(c, CORE_NS, 'logger') && !is(c, CORE_NS, 'set-payload') && !is(c, TRANSFORM_NS, 'message') && !is(c, CORE_NS, 'error-handler')).map(c => c.name);
     const flow: RealFlow = { id, name, kind: n.local as 'flow' | 'sub-flow', source: null, processors: [], editable: unsupported.length === 0 && sources.length <= 1 && (sources.length === 0 || n.children[0] === sources[0]) && (n.local !== 'sub-flow' || sources.length === 0), unsupported };
     model.flows.push(flow); parsed.flowNodes.set(id, n);
     if (!name || flowNames.has(name)) issue('Flow names must be present and unique: ' + name, n.start, n.openEnd, 'flow-name');
@@ -206,7 +207,7 @@ function parseInternal(text: string): Parsed {
     if (sources.length > 1 || (sources.length === 1 && n.children[0] !== sources[0])) issue('A flow supports one Listener in its first source position.', n.start, n.openEnd, 'source-position');
     if (unsupported.length) issue('Unsupported flow content is preserved; visual component edits for this flow are disabled: ' + unsupported.join(', '), n.start, n.openEnd, 'unsupported', 'warning');
     const handler = child(n, CORE_NS, 'error-handler'), onError = handler?.children[0];
-    if (handler) flow.errorHandler = { type: onError?.local ?? 'custom', summary: handler.children.map(c => c.name).join(', '), editable: handler.children.length === 1 && !!onError && [CORE_NS].includes(onError.uri) && ['on-error-propagate', 'on-error-continue'].includes(onError.local) && onError.children.every(c => is(c, CORE_NS, 'logger') || is(c, CORE_NS, 'set-payload')), processors: [] };
+    if (handler) flow.errorHandler = { type: onError?.local ?? 'custom', summary: handler.children.map(c => c.name).join(', '), editable: handler.children.length === 1 && !!onError && [CORE_NS].includes(onError.uri) && ['on-error-propagate', 'on-error-continue'].includes(onError.local) && onError.children.every(c => is(c, CORE_NS, 'logger') || is(c, CORE_NS, 'set-payload') || is(c, TRANSFORM_NS, 'message')), processors: [] };
     const components = [...n.children, ...(flow.errorHandler?.editable ? onError!.children : [])];
     for (const [componentIndex, c] of components.entries()) {
       const componentId = namespacedAttribute(c, DOC_NS, 'id')?.value ?? `legacy:${flowIndex}:${componentIndex}:${c.local}`;
@@ -219,12 +220,12 @@ function parseInternal(text: string): Parsed {
         if (!listener.path || !dynamic(listener.path) && !listener.path.startsWith('/')) issue('Listener path must begin with / or use a runtime property/expression.', c.start, c.openEnd, 'listener-path');
         if (!dynamic(listener.allowedMethods) && !listener.allowedMethods.split(',').every(method => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'].includes(method.trim()))) issue('Use valid comma-separated HTTP methods.', c.start, c.openEnd, 'listener-methods');
         if (!dynamic(listener.responseStatus) && (!/^\d{3}$/.test(listener.responseStatus) || Number(listener.responseStatus) < 100 || Number(listener.responseStatus) > 599)) issue('Response status must be an HTTP code from 100 to 599 or a runtime expression/property.', response?.start ?? c.start, response?.openEnd ?? c.openEnd, 'response-status');
-      } else if (is(c, CORE_NS, 'set-payload')) {
-        const raw = value(c, 'value');
-        const transform: RealTransform = { id: componentId, kind:'transform', displayName:namespacedAttribute(c,DOC_NS,'name')?.value ?? 'Transform Message', script:raw.startsWith('#[') && raw.endsWith(']') ? raw.slice(2,-1) : JSON.stringify(raw), mimeType:value(c,'mimeType','application/java'), editable:flow.editable && c.children.length === 0 };
+      } else if (is(c, CORE_NS, 'set-payload') || is(c, TRANSFORM_NS, 'message')) {
+        const raw = value(c,c.uri === TRANSFORM_NS ? 'payload' : 'value');
+        const transform: RealTransform = { id: componentId, kind:'transform', displayName:namespacedAttribute(c,DOC_NS,'name')?.value ?? 'Transform Message', attributesScript:value(c,'attributes'), variablesScript:value(c,'variables'), script:c.uri === TRANSFORM_NS ? raw : raw.startsWith('#[') && raw.endsWith(']') ? raw.slice(2,-1) : JSON.stringify(raw), mimeType:value(c,'mimeType','application/java'), editable:flow.editable && c.children.length === 0 };
         if (c.parent === onError) flow.errorHandler!.processors.push(transform); else flow.processors.push(transform);
         parsed.nodes.set(componentId,c);
-        if (!transform.script.trim()) issue('Transform Message requires a DataWeave payload script.',c.start,c.openEnd,'transform-script');
+        if (!transform.script.trim() && !transform.attributesScript?.trim() && !transform.variablesScript?.trim()) issue('Transform Message requires a DataWeave payload script.',c.start,c.openEnd,'transform-script');
         if (!transform.mimeType.trim()) issue('Transform Message requires an output MIME type.',c.start,c.openEnd,'transform-mime');
       } else if (is(c, CORE_NS, 'logger')) {
         const rawLevel = value(c, 'level', 'INFO');
@@ -297,8 +298,9 @@ function ensureNamespaces(text: string, operation: XmlOperation): string {
   if (!parsed.model.valid || !root) throw new XmlEditError('Repair XML syntax before visual editing. Source has been preserved.');
   const edits: SourceEdit[] = [];
   const docNeeded = ['insert', 'updateComponent', 'duplicateLogger', 'moveLogger', 'duplicateProcessor', 'moveProcessor', 'createErrorHandler'].includes(operation.kind);
+  const transformNeeded = operation.kind === 'insert' && operation.component === 'transform' || operation.kind === 'updateComponent' && parsed.model.flows.some(f => [...f.processors,...(f.errorHandler?.processors??[])].some(p => p.id === operation.id && p.kind === 'transform'));
   const httpNeeded = operation.kind === 'saveConfig' || operation.kind === 'insert' && operation.component === 'listener';
-  const namespaces: [string, string][] = [...(docNeeded ? [[DOC_NS, 'doc'] as [string,string]] : []), ...(httpNeeded ? [[HTTP_NS, 'http'] as [string,string], [XSI_NS, 'xsi'] as [string,string]] : [])];
+  const namespaces: [string, string][] = [...(transformNeeded ? [[TRANSFORM_NS,'zt'] as [string,string], [XSI_NS,'xsi'] as [string,string]] : []),...(docNeeded ? [[DOC_NS, 'doc'] as [string,string]] : []), ...(httpNeeded ? [[HTTP_NS, 'http'] as [string,string], [XSI_NS, 'xsi'] as [string,string]] : [])];
   for (const [uri, preferred] of namespaces) {
     if (prefixFor(root, uri) !== undefined) continue;
     let prefix = preferred, suffix = 2;
@@ -306,15 +308,29 @@ function ensureNamespaces(text: string, operation: XmlOperation): string {
     setAttribute(root, 'xmlns:' + prefix, uri, edits);
     root.namespaces.set(prefix, uri);
   }
-  if (httpNeeded) {
+  if (httpNeeded || transformNeeded) {
     const schema = namespacedAttribute(root, XSI_NS, 'schemaLocation'), pairs = (schema?.value ?? '').trim().split(/\s+/).filter(Boolean);
     if (pairs.length % 2) throw new XmlEditError('schemaLocation must contain namespace/location pairs. Repair it in XML first.');
     const namespacesInSchema = new Set(pairs.filter((_, index) => index % 2 === 0));
     if (!namespacesInSchema.has(CORE_NS)) pairs.push(CORE_NS, CORE_NS + '/current/zernova.xsd');
-    if (!namespacesInSchema.has(HTTP_NS)) pairs.push(HTTP_NS, HTTP_NS + '/current/zernova-http.xsd');
+    if (transformNeeded && !namespacesInSchema.has(TRANSFORM_NS)) pairs.push(TRANSFORM_NS,TRANSFORM_NS+'/current/transform.xsd');
+    if (httpNeeded && !namespacesInSchema.has(HTTP_NS)) pairs.push(HTTP_NS, HTTP_NS + '/current/zernova-http.xsd');
     if (!schema || pairs.length !== schema.value.trim().split(/\s+/).length) setAttribute(root, schema?.name ?? qname(root, XSI_NS, 'schemaLocation'), pairs.join(' '), edits);
   }
-  return applyEdits(text, edits);
+  let result=applyEdits(text,edits);
+  if(transformNeeded && operation.kind === 'updateComponent') {
+    const current=parseInternal(result), node=current.nodes.get(operation.id);
+    if(node && is(node,CORE_NS,'set-payload')) {
+      const component=current.model.flows.flatMap(f=>[...f.processors,...(f.errorHandler?.processors??[])]).find(p=>p.id===operation.id) as RealTransform;
+      const changes:SourceEdit[]=[{start:node.start+1,end:node.start+1+node.name.length,text:qname(node,TRANSFORM_NS,'message')}];
+      const old=attribute(node,'value');
+      if(old) changes.push({start:old.start,end:old.end,text:' payload="'+escapedAttribute(component.script)+'"'});
+      else setAttribute(node,'payload',component.script,changes);
+      if(!node.selfClosing) changes.push({start:node.closeStart+2,end:node.closeStart+2+node.name.length,text:qname(node,TRANSFORM_NS,'message')});
+      result=applyEdits(result,changes);
+    }
+  }
+  return result;
 }
 function componentAndFlow(parsed: Parsed, id: string): { component: RealComponent; node: Element; flow: RealFlow } {
   for (const flow of parsed.model.flows) { const component = flow.source?.id === id ? flow.source : [...flow.processors, ...(flow.errorHandler?.processors ?? [])].find(p => p.id === id); if (component) { const node = parsed.nodes.get(id)!; if (!component.editable || !flow.editable) throw new XmlEditError('This component/flow contains unsupported constructs. Edit its XML directly; source is preserved.'); return { component, node, flow }; } }
@@ -382,7 +398,7 @@ export function applyOperation(original: string, operation: XmlOperation): XmlEd
       const parent = operation.lane === 'error' ? child(node, CORE_NS, 'error-handler')!.children[0] : node;
       if (processors.length >= 100) throw new XmlEditError('This milestone supports up to 100 processors per lane.');
       const markup = operation.component === 'transform'
-        ? `<${qname(node, CORE_NS, 'set-payload')} ${docName}="Transform Message" ${docId}="${selectionId}" mimeType="application/json" value="${escapedAttribute('#[%dw 2.0\noutput application/json\n---\npayload]')}"/>`
+        ? `<${qname(node, TRANSFORM_NS, 'message')} ${docName}="Transform Message" ${docId}="${selectionId}" mimeType="application/json" payload="${escapedAttribute('%dw 2.0\noutput application/json\n---\npayload')}"/>`
         : `<${qname(node, CORE_NS, 'logger')} ${docName}="Logger" ${docId}="${selectionId}" level="INFO" category="io.zernova.acceptance" message="${escapedAttribute("#['ZERNOVA_TEST ' ++ (attributes.queryParams.testId default 'missing')]")}"/>`;
       const index = operation.index ?? processors.length;
       if (!Number.isInteger(index) || index < 0 || index > processors.length) throw new XmlEditError('Invalid processor insertion position.');
@@ -390,7 +406,7 @@ export function applyOperation(original: string, operation: XmlOperation): XmlEd
     }
   } else if (operation.kind === 'updateComponent') {
     const { component, node } = componentAndFlow(parsed, operation.id), next = operation.values;
-    const allowed = component.kind === 'listener' ? ['displayName', 'configId', 'path', 'allowedMethods', 'responseStatus', 'responseBody', 'responseHeaders'] : component.kind === 'transform' ? ['displayName', 'script', 'mimeType'] : ['displayName', 'message', 'level', 'category'];
+    const allowed = component.kind === 'listener' ? ['displayName', 'configId', 'path', 'allowedMethods', 'responseStatus', 'responseBody', 'responseHeaders'] : component.kind === 'transform' ? ['displayName', 'script', 'mimeType', 'attributesScript', 'variablesScript'] : ['displayName', 'message', 'level', 'category'];
     if (Object.keys(next).some(k => !allowed.includes(k))) throw new XmlEditError('This field does not belong to the selected component.');
     selectionId = namespacedAttribute(node, DOC_NS, 'id')?.value ?? newId();
     setDocAttribute(node, 'id', selectionId, edits);
@@ -404,7 +420,9 @@ export function applyOperation(original: string, operation: XmlOperation): XmlEd
       if (next.allowedMethods !== undefined) setAttribute(node, 'allowedMethods', next.allowedMethods, edits);
       updateResponse(text, node, next, edits);
     } else if (component.kind === 'transform') {
-      if (next.script !== undefined) setAttribute(node,'value', '#[' + next.script + ']',edits);
+      if (next.script !== undefined) setAttribute(node,'payload',next.script,edits);
+      if (next.attributesScript !== undefined) setAttribute(node,'attributes',next.attributesScript,edits);
+      if (next.variablesScript !== undefined) setAttribute(node,'variables',next.variablesScript,edits);
       if (next.mimeType !== undefined) setAttribute(node,'mimeType',next.mimeType,edits);
     } else {
       if (next.message !== undefined) setAttribute(node, 'message', next.message, edits);

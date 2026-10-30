@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zernova xmlns="https://schemas.zernova.dev/core"
+ xmlns:http="https://schemas.zernova.dev/http" xmlns:zt="https://schemas.zernova.dev/transform"
+ xmlns:doc="https://schemas.zernova.dev/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd https://schemas.zernova.dev/http https://schemas.zernova.dev/http/current/zernova-http.xsd https://schemas.zernova.dev/transform https://schemas.zernova.dev/transform/current/transform.xsd">
+ <http:listener-config name="Local_HTTP"><http:listener-connection host="localhost" port="18083"/></http:listener-config>
+ <flow name="transformDebugFlow">
+  <http:listener doc:id="044-source" doc:name="HTTP Listener" config-ref="Local_HTTP" path="/transform" allowedMethods="GET">
+   <http:response statusCode="200"><http:body>#[%dw 2.0
+output application/json
+---
+{payload: payload, attributes: attributes, variables: {savedId: vars.savedId}}]</http:body><http:headers>#[{'Content-Type': 'application/json'}]</http:headers></http:response>
+  </http:listener>
+  <logger doc:id="044-before" doc:name="Before Transform" level="INFO" category="com.zernova.example" message="#['INBOUND ' ++ (attributes.queryParams.testId default 'missing')]"/>
+  <zt:message doc:id="044-transform" doc:name="Transform Message" mimeType="application/java" payload="{message: &quot;Hello from ZERNOVA&quot;}" attributes="{correlation: attributes.queryParams.testId default &quot;missing&quot;, source: &quot;ZERNOVA&quot;}" variables="{savedId: attributes.queryParams.testId default &quot;missing&quot;}"/>
+  <logger doc:id="044-after" doc:name="After Transform" level="INFO" category="com.zernova.example" message="#['OUTBOUND variable=' ++ vars.savedId ++ ' attribute=' ++ attributes.correlation]"/>
+ </flow>
+</zernova>

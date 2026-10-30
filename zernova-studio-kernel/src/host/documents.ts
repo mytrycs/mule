@@ -9,6 +9,7 @@ export interface IntegrationEditorOptions {
   projectName: (uri: vscode.Uri) => string;
   projectRoot?: (uri: vscode.Uri) => vscode.Uri | undefined;
   manualSave?: (document: vscode.TextDocument) => Promise<void>;
+  breakpoint?: (uri: vscode.Uri, id: string) => Promise<void>;
   runtimeState?: (uri: vscode.Uri) => unknown;
   runtimeAction?: (action: RuntimeAction, uri: vscode.Uri) => Promise<void>;
 }
@@ -82,6 +83,7 @@ export class IntegrationEditorProvider implements vscode.CustomTextEditorProvide
           const requestId = rejected && (rejected.type === 'realEdit' || rejected.type === 'realXml') && typeof rejected.requestId === 'string' && /^[A-Za-z0-9_-]{1,100}$/.test(rejected.requestId) ? rejected.requestId : undefined;
           void panel.webview.postMessage({ type: 'realError', message: 'Unsupported or oversized editor request was rejected.', ...(requestId ? { requestId } : {}) }); return;
         }
+        if (message.type === 'realBreakpoint') { void this.options.breakpoint?.(document.uri,message.id).catch(error => panel.webview.postMessage({type:'realError',message:String(error)})); return; }
         // Cancellation must not wait behind the long-running build/run it cancels.
         if (message.type === 'realAction' && message.action === 'cancel') {
           void Promise.resolve(this.options.runtimeAction?.('cancel', document.uri)).catch(error => panel.webview.postMessage({ type: 'realError', message: String(error) }));

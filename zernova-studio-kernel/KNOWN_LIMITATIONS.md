@@ -1,58 +1,42 @@
-# Known limitations — Studio 0.2.0
+# Known limitations — Studio 0.4.4
 
-## Supported milestone
+Studio supports local ZERNOVA XML projects with HTTP Listener, Logger and Transform
+Message. Transform can set payload, attributes and named variables. The base engine
+is Runtime 0.4.1-alpha.1; the portable launcher installs the original ZERNOVA
+Transform 0.4.4 support module into the private runtime. New `zt:message` XML needs
+that support module; an older bare runtime does not provide it.
 
-Real editing and execution are bounded to HTTP Listener and core Logger on the
-existing Linux x86-64 ZERNOVA Runtime Foundation. The implementation keeps the
-approved interface and separate design preview. It is an evaluation milestone,
-not a complete Anypoint Studio replacement.
-
-- The success response is configured on the Listener. Basic error-response
-  editing is not implemented; existing error-response XML is preserved.
-- Only HTTP is editable. HTTPS/TLS, authentication, advanced transport options,
-  HTTP Request, and other connectors are disabled or outside the current editor.
-- Supported flows contain a Listener and zero or more Loggers while being edited;
-  runnable applications require complete valid sources/configuration. Multiple
-  supported flows in one XML can be represented. Unsupported flow constructs
-  remain intact and make affected visual editing read-only.
-- Global configuration selection is scoped to the current XML. Supported renames
-  update local references. Referenced or uncertain cross-file configurations
-  cannot be renamed/deleted blindly; Studio refuses unsafe changes.
-- XML editing is limited to 1 MiB. DTD declarations are not accepted. Runtime
-  expression syntax is ultimately validated by the actual runtime, not evaluated
-  inside the webview.
-- TRACE/DEBUG Logger visibility also depends on the application's logging
-  thresholds. Generated projects use INFO root logging; selecting DEBUG does
-  not lower that threshold automatically.
-- Build/run require a saved, trusted, configured project. Runtime configuration
-  is stored per project on the extension host, not committed as machine paths in
-  application source. Reopening source on another host requires new selections.
-- Runtime state is reconciled from the CLI after reload. A deployed application
-  remains marked **endpoint unverified** in Studio. Independent curl responses
-  and matching application logs verify behavior externally; they do not
-  automatically change this UI status. A running JVM or deployment marker
-  alone is not endpoint-health evidence.
-- Only a private, owned instance is stopped. No shared-instance manager,
-  debugger, automatic hot deployment, API platform, or multi-environment manager
-  is implemented. Build/run/redeploy are explicit actions.
-- Offline use requires legitimate prior preparation of the Runtime and Maven
-  cache. Missing dependencies fail with retained output.
-
-## Platform and test limits
-
-The verified route places VS Code, the extension host, project, Runtime, and
-request on one Linux x86-64 machine. Native macOS/Apple Silicon, Windows, and an
-actual Mac-to-Linux Remote-SSH session are **NOT RUN**. Runtime execution is
-explicitly blocked on unsupported extension hosts. Manual screen-reader testing
-and comprehensive accessibility certification have not been performed.
-
-Test-only displays, profiles, fixtures, and HTTP identifiers are disposable.
-Their absolute paths in evidence describe the verification machine, not required
-installation locations for the owner.
-
-## Future work awaiting separate approval
-
-HTTP Request and additional connectors; broader import/migration; transformations
-and visual DataWeave mapping; metadata services; debugging/MUnit; enterprise
-accounts/cloud control planes; authentication/TLS; commercial licensing and
-distribution. This milestone stops before those features.
+- Local HTTP listeners bind to localhost/127.0.0.1. HTTP Request, HTTPS/TLS and
+  additional connectors are outside the current palette/build profile.
+- The offline builder packages supported XML/resources and bundled dependencies.
+  It does not compile user Java or execute arbitrary Maven goals.
+- Transform outputs evaluate against the same input. A blank script preserves
+  that target. Variables must return an application/java object keyed by variable
+  names; its entries set/replace those variables and preserve other variables.
+  No separate metadata/schema mapping GUI is included.
+- Component breakpoints pause before processors execute. A Listener breakpoint
+  pauses at flow entry, after HTTP acceptance and before its first processor.
+  Next component follows the current execution thread through the supported
+  synchronous processors. Debugging is local and intended for development.
+- Studio has an embedded debug-event console with Continue, Next component and
+  Disconnect. It does not start a VS Code Java debug session. Conditional
+  breakpoints, watch-expression evaluation and Java source stepping are future
+  work. HTTP clients may time out while processing is intentionally paused.
+- Source changes require redeployment before live breakpoint changes. Component
+  IDs keep breakpoints associated with visual nodes; legacy position-based IDs
+  should be replaced by stable documentation IDs before rearranging such flows.
+- Run/Debug profiles expose environment, variables, Java properties, heap, VM
+  options, working directory, timeouts and debug port. The JRE/bootstrap/classpaths
+  remain managed. Runtime replacement restarts this project's private instance.
+- Redeploy on manual save is opt-in; background XML autosaves do not redeploy.
+- Supported XML edits preserve unrelated source. Unsupported constructs remain
+  in XML and can make the affected visual flow read-only. XML is limited to 1 MiB;
+  DTD/entity declarations are not accepted.
+- Listener error-response editing and advanced transport settings remain limited.
+  Logger DEBUG/TRACE output depends on the application's logging thresholds.
+- Studio retains endpoint-unverified status until separately tested with a real
+  request. Deployment markers and JVM banners alone are not HTTP health evidence.
+- This iteration is qualified on local Mac x64. Earlier runtime portability tests
+  do not constitute complete installed-Studio qualification on all six targets.
+- Java remains the compatibility-tested patched Java 17 bundle. Java 21/25 probes
+  encountered extension/connector compatibility failures; Java 25 is not enabled.

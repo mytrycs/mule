@@ -7,7 +7,7 @@ export function responseGeometry(last: Anchor, source: Anchor, bottom: number): 
 export function requestGeometry(source: Anchor, target: Anchor): string {
   return `M ${source.x} ${source.y} L ${target.x} ${target.y} M ${target.x - 5} ${target.y - 4} L ${target.x} ${target.y} L ${target.x - 5} ${target.y + 4}`;
 }
-/** Route through the measured port centers, including zoom, never the card edge. */
+/** Measured icon edges keep forward routes horizontal and return routes on the last output. */
 export function layoutFlows(root: HTMLElement): void {
   for (const lane of root.querySelectorAll<HTMLElement>('.flow-lanes')) {
     const source = lane.querySelector<HTMLElement>('.source-lane .node');
@@ -26,8 +26,8 @@ export function layoutFlows(root: HTMLElement): void {
     response.setAttribute('d',responseGeometry(port(processors[processors.length-1],'[data-anchor="response-origin"]'),port(source,'[data-anchor="response"]'),lane.offsetHeight-22));
     if (request) {
       const first=processors[0], target=point(first.querySelector<HTMLElement>('.node-symbol') ?? first,true);
-      target.x=(first.getBoundingClientRect().left-bounds.left)*scaleX;
-      request.setAttribute('d',requestGeometry(port(source,'[data-anchor="request"]'),target));
+      target.x=((first.querySelector<HTMLElement>('.node-symbol')??first).getBoundingClientRect().left-bounds.left)*scaleX;
+      request.setAttribute('d',requestGeometry({ x:((source.querySelector<HTMLElement>('[data-anchor="request"]')??source).getBoundingClientRect().right-bounds.left)*scaleX, y:target.y },target));
     }
   }
 }

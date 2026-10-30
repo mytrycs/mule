@@ -59,7 +59,7 @@ export async function run() {
   };
   try {
     await check('Installed VSIX and actual custom editor', async () => {
-      assert(subject.extensionPath.startsWith(path.join(root, 'extensions'))); assert.equal(subject.packageJSON.version, '0.4.3');
+      assert(subject.extensionPath.startsWith(path.join(root, 'extensions'))); assert.equal(subject.packageJSON.version, '0.4.4');
       await vscode.commands.executeCommand('zernovaKernelStudio.openIntegration', file);
       for (let i = 0; i < 50 && !api.getProjectDiagnostics().documents.documents.includes(file.toString()); i++) await new Promise(resolve => setTimeout(resolve, 100));
       assert(api.getProjectDiagnostics().documents.documents.includes(file.toString()), 'The actual custom editor must resolve this project, including Windows drive-letter casing');
@@ -122,6 +122,27 @@ export async function run() {
       const before=await runId();await vscode.commands.executeCommand('zernovaKernelStudio.manualSave',uri);
       const state=api.getRuntimeDiagnostics()[0];assert.match(state.buildOutput,/does not compile custom Java/);assert.equal(state.phase,'Failed');assert.equal(await runId(),before);
       await fs.rm(uri.fsPath);await config.update('redeployOnSave',false,vscode.ConfigurationTarget.WorkspaceFolder);return {javaChangeDetected:true,unsupportedBuildReported:true,existingAppRetained:true};
+    });
+    await check('Transform sets payload, attributes and named variables from the same input',async()=>{
+      let inserted=applyOperation(xml,{kind:'insert',flowId:'flow:studioFlow',component:'transform',index:1});
+      let text=applyOperation(inserted.text,{kind:'updateComponent',id:inserted.selectionId!,values:{script:'{message: "Three outputs"}',mimeType:'application/java',attributesScript:'{correlation: attributes.queryParams.testId}',variablesScript:'{savedId: attributes.queryParams.testId}'}}).text;
+      text=applyOperation(text,{kind:'updateComponent',id:parseIntegration(text).flows[0].source!.id,values:{responseBody:'#[%dw 2.0\noutput application/json\n---\n{body: payload, attributes: attributes, savedId: vars.savedId}]',responseHeaders:"#[{'Content-Type': 'application/json'}]"}}).text;
+      await edit(text);assert.equal((await command('run')).application,'DEPLOYED');
+      const id='ALL-'+randomUUID(),response=await fetch(`http://localhost:${port}/hello?testId=${id}`),body=JSON.parse(await response.text());assert.equal(response.status,200);assert.deepEqual(body,{body:{message:'Three outputs'},attributes:{correlation:id},savedId:id});
+      return {sameInput:true,body};
+    });
+    await check('Embedded component debugger pauses HTTP, steps, continues and disconnects without VS Code debug session',async()=>{
+      const current=parseIntegration((await vscode.workspace.openTextDocument(file)).getText()),first=current.flows[0].processors[0];
+      await vscode.commands.executeCommand('zernovaKernelStudio.toggleComponentBreakpoint',file,first.id);
+      const connected=await command('debug');assert.equal(connected.debugConnected,true);assert.equal(vscode.debug.activeDebugSession,undefined);
+      const waitPaused=async(location:string)=>{for(let attempt=0;attempt<150;attempt++){if(api.getRuntimeDiagnostics()[0].debugPaused===location)return;await new Promise(resolve=>setTimeout(resolve,100));}throw new Error('Debugger did not pause at '+location);};
+      let completed=false;const response=fetch(`http://localhost:${port}/hello?testId=DEBUG-044`,{signal:AbortSignal.timeout(30000)});response.then(()=>completed=true,()=>completed=true);
+      await waitPaused('studioFlow/processors/0');await new Promise(resolve=>setTimeout(resolve,200));assert.equal(completed,false);
+      await command('debugStep');await waitPaused('studioFlow/processors/1');assert.equal(completed,false);
+      await command('debugContinue');assert.equal((await response).status,200);
+      const detached=fetch(`http://localhost:${port}/hello?testId=DETACH-044`,{signal:AbortSignal.timeout(30000)});await waitPaused('studioFlow/processors/0');await command('debugDisconnect');assert.equal((await detached).status,200);assert.equal(api.getRuntimeDiagnostics()[0].debugConnected,false);
+      await vscode.commands.executeCommand('zernovaKernelStudio.toggleComponentBreakpoint',file,first.id);
+      return {heldBeforeExecution:true,step:true,continue:true,disconnectResumes:true,defaultDebugSessionOpened:false};
     });
     await check('Final shutdown', async () => { assert.equal((await command('stopRuntime')).process,'STOPPED'); });
   } finally {

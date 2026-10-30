@@ -1,3 +1,4 @@
+import { TRANSFORM_SUPPORT } from './transformSupport';
 /* Copyright (c) 2026 ZerNova. Original Studio lifecycle tooling; see LICENSE.txt.
  * Adapter v2: portable bundled-runtime support. The existing engine alone runs
  * flows/connectors/expressions. Authenticated JVM self-shutdown replaces Linux
@@ -219,13 +220,19 @@ export class BundledRuntime {
     }
     for (const sub of ['apps', 'logs', 'domains', 'domains/default', 'lib', 'lib/user']) { await fs.mkdir(path.join(this.runtime, sub), { recursive: true }); await ordinaryDirectory(path.join(this.runtime, sub)); }
   }
+  private async ensureTransformSupport(): Promise<void> {
+    const file=path.join(this.runtime,'lib/mule/zernova-transform-support.jar'), data=Buffer.from(TRANSFORM_SUPPORT,'base64');
+    const existing=await fs.lstat(file).catch(error=>{if(error.code==='ENOENT')return undefined;throw error;});
+    if(existing){if(existing.isSymbolicLink()||!existing.isFile()||await fileSha(file)!==createHash('sha256').update(data).digest('hex'))throw new Error('Transform support was changed or belongs to another version. Use a new private runtime instance; no file was overwritten.');}
+    else await fs.writeFile(file,data,{flag:'wx',mode:0o600});
+  }
   async start(port: number, signal?: AbortSignal): Promise<PortableStatus> {
     return this.mutate(() => this.startOwned(port, signal));
   }
   private async startOwned(port: number, signal?: AbortSignal): Promise<PortableStatus> {
     cancelled(signal);
     if (await this.alive()) { const state = (await this.state())!; if (state.config.http_port !== port) throw new Error('Stop the project runtime before changing its port.'); return this.status(); }
-    await checkPort(port); const info = await bundleInfo(this.bundle); await this.ensureEngine(signal); const java = await javaExecutable(this.bundle, signal);
+    await checkPort(port); const info = await bundleInfo(this.bundle); await this.ensureEngine(signal); await this.ensureTransformSupport(); const java = await javaExecutable(this.bundle, signal);
     const workingDirectory = !this.runConfiguration.workingDirectory ? this.runtime : path.resolve(this.project,this.runConfiguration.workingDirectory.replaceAll('${project}',this.project).replaceAll('${workspaceFolder}',this.project));
     if (!(await fs.stat(workingDirectory)).isDirectory()) throw new Error('Working directory is not a directory: ' + workingDirectory);
     if (this.debug) await checkPort(this.runConfiguration.debugPort);

@@ -1,43 +1,43 @@
-# ZERNOVA Studio development test
+# ZERNOVA Studio 0.4.4 development test
 
-Studio extension 0.4.0 · ZERNOVA Runtime 0.4.0-alpha.1 · bundled Java 17.
+This Mac x64 VSIX includes Runtime 0.4.1-alpha.1, compatible Java 17 and HTTP
+libraries. The portable launcher adds ZERNOVA Transform support 0.4.4 without
+replacing engine bytecode. Install the supplied VSIX and reload/restart VS Code.
 
-## Install on this Mac
+## Transform and debugging sample
 
-1. In VS Code, open **Extensions**, choose **… → Install from VSIX…**, and select the supplied `zernova-studio-kernel-preview-0.4.0-darwin-x64.vsix`.
-2. Reload VS Code when prompted. This package is for Intel/x64 macOS.
-3. Open the supplied `http-logger-devtest` folder as your workspace.
-4. Open `src/main/zernova/hello.xml` and run **ZERNOVA: Open Integration in Studio** from the Command Palette.
-5. Trust this project to enable local execution. No external Java, Maven or runtime path is required.
+Open `examples/transform-debug-devtest`, then `src/main/zernova/hello.xml` in Studio.
+Run and call `http://localhost:18083/transform?testId=OWNER-044`.
+Expect JSON containing payload.message `Hello from ZERNOVA`, attributes.correlation
+`OWNER-044`, and variables.savedId `OWNER-044`. Application logs show INBOUND and
+OUTBOUND lines. The source has a blue incoming globe above its gray response icon;
+the forward route is straight and the return begins at the last Logger.
 
-## Run the sample
+Select Transform Message to edit independent Payload, Attributes and Variables
+DataWeave scripts. Enter expressions or full `%dw 2.0` scripts without outer `#[ ]`.
+Blank scripts preserve existing values. Variables must produce an application/java
+object such as `{customerId: payload.id}`. All scripts read the same input event.
 
-Open the designer's **Console** tab. Click **Build**, then **Run / Redeploy**. The first startup may take a little time; wait for deployed status.
+Right-click a processor → Add breakpoint, or select it and press F9. Click Debug,
+wait for Debugger connected, then send an HTTP request. Studio Console → Debug
+console shows the pause, Continue, Next component and Disconnect. The request
+stays pending while paused; Continue finishes it. A Listener breakpoint stops
+at flow entry after accepting the request and before the first processor.
 
-Open this URL in a browser:
+The debugger stays within Studio and does not open VS Code's Java debug console.
+It currently has no watch-expression REPL, conditional breakpoints or Java source
+stepping. Stop runtime when done.
 
-`http://127.0.0.1:8081/hello?testId=dev-test-1`
+## Existing projects
 
-Expected response: `Hello from ZERNOVA`.
+Run/Debug have separate dropdowns and draggable configuration windows. Configure
+environment, variables, Java properties, heap, JVM options, working directory,
+timeouts and debugger port. Java/bootstrap/classpaths remain managed.
 
-Click **Refresh logs**, then **Application logs**. Look for `ZERNOVA_TEST dev-test-1`. Change the query test ID to identify another request.
+XML autosaves. Redeploy on manual save defaults to No; enabling it makes explicit
+Save/Command-S/Control-S rebuild a changed deployed project. Runtime replacement
+restarts the private instance and closes existing connections.
 
-Add a second Logger from the palette. The flow should grow wider, with its return line starting at that final Logger. Delete the Logger and the flow should shrink. Edit the remaining Logger's message, save, and **Run / Redeploy** to test your change. Use **Stop runtime** when done.
-
-If port 8081 is occupied, edit the HTTP Listener connection in **Global Elements**, then use the changed port in the URL. Runtime diagnostics report missing or damaged bundled files rather than silently selecting an external runtime.
-
-## Build your own small app
-
-Run **ZERNOVA: New ZERNOVA Project**, select a destination and the HTTP dependency. Add/configure an HTTP Listener and a Logger in the designer. Configure a successful response on the Listener. Save, open Console and Run / Redeploy. New projects use `<zernova>` and bundled ZERNOVA schemas.
-
-## Feedback to send
-
-Include the action you took, what you expected, what happened, a screenshot if visual, and the Console build/application logs if execution failed. Please test create/open, edit/save/reopen, Run, HTTP response, Logger output, add/delete sizing and Stop.
-
-## Scope
-
-This is an internal development alpha delivered as a VS Code extension with its runtime, Java, HTTP dependencies, notices and corresponding runtime source inside the VSIX. The engine is derived from the 4.10 source baseline; the ZERNOVA product version starts independently at 0.4.0-alpha.1. Historical and legally required upstream attribution remains.
-
-The supported authoring/build slice is core + HTTP Listener/Logger. Runtime acceptance also exercises transformation/validation, redeployment and failure recovery. YAML, arbitrary extra connectors and custom Java builds remain future work. Use explicit legacy XML import for supported older projects. This is not a production release.
-
-Run / Redeploy restarts this project's private runtime when replacing an application. Expect a short interruption and a new runtime run ID. Existing client connections are closed; seamless live redeployment is deferred. The runtime is dedicated to this project, and restart uses authenticated shutdown. Acceptance requests are never automatically retried.
+Run errors stay in Studio Console. New `zt:message` applications require the
+Transform support supplied by this version's portable launcher. See
+KNOWN_LIMITATIONS.md for the current development scope.

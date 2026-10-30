@@ -1,3 +1,5 @@
+import { componentLocation } from '../shared/breakpoints';
+import { FlowDebugger } from './flowDebug';
 import * as vscode from 'vscode';
 import { saveAutomatically } from './saves';
 import * as fs from 'node:fs/promises';
@@ -17,6 +19,7 @@ export function assertSupportedHost(platform = process.platform, arch = process.
 export interface RuntimeViewState {
   schemaVersion: 1; projectRoot: string; projectName: string; configured: boolean; phase: string;
   busy: boolean; process: string; application: string; endpoint: string; lastError: string;
+  debugOutput?: string; debugConnected?: boolean; debugPaused?: string; debugBreakpoints?: {uri:string;id:string;path:string}[];
   buildOutput: string; applicationLogs: string; runtimeOutput: string;
   artifact?: string; artifactSha256?: string; port?: number; instanceDirectory?: string;
   evidenceDirectory?: string; offline?: boolean; lastUpdated?: string;
@@ -25,6 +28,7 @@ const MAX_OUTPUT = 250000;
 export class RuntimeManager implements vscode.Disposable {
   private readonly changed = new vscode.EventEmitter<string>();
   readonly onDidChange = this.changed.event;
+  private readonly debuggers = new Map<string,FlowDebugger>();
   private readonly states = new Map<string, RuntimeViewState>();
   private readonly logTimers = new Map<string, ReturnType<typeof setInterval>>();
   private readonly logReading = new Set<string>();
@@ -36,12 +40,12 @@ export class RuntimeManager implements vscode.Disposable {
   private readonly logChannel = vscode.window.createOutputChannel('ZERNOVA Application Logs');
   private readonly diagnostics = vscode.languages.createDiagnosticCollection('zernovaKernelStudio.build');
   constructor(private readonly context: vscode.ExtensionContext, private readonly projects: ProjectManager) {}
-  dispose(): void { for (const timer of this.logTimers.values()) clearInterval(timer); for (const op of this.operations.values()) op.abort(); this.changed.dispose(); this.buildChannel.dispose(); this.runtimeChannel.dispose(); this.logChannel.dispose(); this.diagnostics.dispose(); }
+  dispose(): void { for(const debugger_ of this.debuggers.values()) void debugger_.close(); for (const timer of this.logTimers.values()) clearInterval(timer); for (const op of this.operations.values()) op.abort(); this.changed.dispose(); this.buildChannel.dispose(); this.runtimeChannel.dispose(); this.logChannel.dispose(); this.diagnostics.dispose(); }
   state(project: Project): RuntimeViewState {
     let value = this.states.get(project.root);
     if (!value) {
       value = { schemaVersion: 1, projectRoot: project.root, projectName: project.name, configured: true,
-        phase: 'Bundled runtime ready for diagnostics', busy: false, process: 'UNKNOWN', application: 'NOT_CHECKED', endpoint: 'UNVERIFIED', lastError: '', buildOutput: '', applicationLogs: '', runtimeOutput: '', offline: true,
+        phase: 'Bundled runtime ready for diagnostics', busy: false, process: 'UNKNOWN', application: 'NOT_CHECKED', endpoint: 'UNVERIFIED', lastError: '', debugOutput:'', debugBreakpoints:this.context.workspaceState.get('zernova.breakpoints.'+project.root,[]), buildOutput: '', applicationLogs: '', runtimeOutput: '', offline: true,
         instanceDirectory: this.projects.getSettings(project).instanceDirectory };
       this.states.set(project.root, value);
     }
@@ -72,6 +76,28 @@ export class RuntimeManager implements vscode.Disposable {
     }).catch(error => { this.reportError(project, error); });
     this.manualSaveTasks.set(project.root, task);
     try { await task; } finally { if (this.manualSaveTasks.get(project.root) === task) this.manualSaveTasks.delete(project.root); }
+  }
+  async toggleBreakpoint(project: Project, uri: vscode.Uri, id: string): Promise<void> {
+    const text=(await vscode.workspace.openTextDocument(uri)).getText(), model=parseIntegration(text);
+    const location=componentLocation(model,id);
+    if(!location)throw new Error('Select an executable component.');
+    if(this.state(project).debugConnected && await sourceHash(project.root)!==this.context.workspaceState.get<string>('zernova.deployedHash.'+project.root))throw new Error('Source changed since deployment. Debug/redeploy again before changing breakpoints.');
+    const current=this.state(project).debugBreakpoints??[], key=uri.toString();
+    const next=current.some(b=>b.uri===key&&b.id===id)?current.filter(b=>b.uri!==key||b.id!==id):[...current,{uri:key,id,path:location}];
+    await this.context.workspaceState.update('zernova.breakpoints.'+project.root,next);
+    this.update(project,{debugBreakpoints:next});this.debuggers.get(project.root)?.setBreakpoints(next.map(b=>b.path));
+  }
+  private async attachFlowDebugger(project: Project): Promise<void> {
+    const refreshed=[];
+    for(const bp of this.state(project).debugBreakpoints??[]){
+      const file=vscode.Uri.parse(bp.uri);if(!isInside(project.root,file.fsPath))continue;
+      try{const model=parseIntegration(await fs.readFile(file.fsPath,'utf8')),location=componentLocation(model,bp.id);if(location)refreshed.push({...bp,path:location});}catch{/* Removed files cannot retain a live breakpoint. */}
+    }
+    await this.context.workspaceState.update('zernova.breakpoints.'+project.root,refreshed);this.update(project,{debugBreakpoints:refreshed});
+    const debugger_=new FlowDebugger(stop=>this.update(project,{debugPaused:stop.path}),text=>this.update(project,{debugOutput:((this.state(project).debugOutput??'')+text).slice(-MAX_OUTPUT)}),()=>this.update(project,{debugConnected:false,debugPaused:undefined}));
+    debugger_.setBreakpoints((this.state(project).debugBreakpoints??[]).map(b=>b.path));
+    this.debuggers.set(project.root,debugger_);
+    try{await debugger_.connect(this.projects.getRunConfiguration(project,true).debugPort);this.update(project,{debugConnected:true});}catch(error){await debugger_.close();this.debuggers.delete(project.root);throw error;}
   }
   private trust(): void { if (!vscode.workspace.isTrusted) throw new Error('Workspace trust is required before building or running applications.'); }
   private backend(project: Project): BundledRuntime {
@@ -185,10 +211,12 @@ export class RuntimeManager implements vscode.Disposable {
     catch (error) { this.update(project, { lastError: String(error), phase: 'Status unavailable' }); }
   }
   async execute(action: RuntimeAction, project: Project): Promise<RuntimeViewState> {
+    if (['debugContinue','debugStep','debugDisconnect'].includes(action)) { this.trust(); const debugger_=this.debuggers.get(project.root); if(!debugger_)throw new Error('Start Debug first.'); if(action==='debugDisconnect'){await debugger_.close();this.debuggers.delete(project.root);}else{this.update(project,{debugPaused:undefined});await debugger_.resume(action==='debugStep');} return this.state(project); }
     if (action === 'cancel') { this.operations.get(project.root)?.abort(); return this.state(project); }
     if (this.operations.has(project.root)) throw new Error('A project operation is already in progress.');
     this.trust(); assertSupportedHost();
     if (action === 'configureRun' || action === 'configureDebug') { await this.projects.configureRun(project,action === 'configureDebug'); return this.state(project); }
+    if (['debug','run','stopRuntime','stopApplication'].includes(action)) { await this.debuggers.get(project.root)?.close(); this.debuggers.delete(project.root); }
     const debug = action === 'debug'; if (debug) action = 'run';
     if (action === 'configureRuntime') { await this.projects.configure(project); action = 'diagnostics'; }
     const controller = new AbortController(); this.operations.set(project.root, controller);
@@ -211,10 +239,7 @@ export class RuntimeManager implements vscode.Disposable {
             if (action === 'run') {
               const before = await backend.status();
               if (before.applications[project.artifactId]) { mutated = true; await backend.undeploy(project.artifactId, signal); }
-              if (before.process === 'RUNNING') {
-                const state = JSON.parse(await fs.readFile(path.join(backend.instance, 'state.json'), 'utf8'));
-                if (state.config.http_port !== port) { mutated = true; await backend.stop(signal); }
-              }
+              if (before.process === 'RUNNING') { mutated=true; await backend.stop(signal); }
               if (await sourceHash(project.root) !== artifact.sourceHash || vscode.workspace.textDocuments.some(d => d.isDirty && isInside(project.root, d.uri.fsPath))) throw new Error('Source changed after building. No stale artifact was deployed.');
               this.update(project, { phase: 'Starting runtime' }); mutated = true; await backend.start(port, signal);
               this.update(project, { phase: 'Deploying' }); await backend.deploy(artifact.artifact, project.artifactId, signal);
@@ -235,12 +260,7 @@ export class RuntimeManager implements vscode.Disposable {
       await this.refreshLogs(project).catch(() => {});
       this.reportError(project, error); this.update(project, { phase: signal.aborted ? 'Cancelled' : 'Failed' }); throw error;
     } finally { this.operations.delete(project.root); this.update(project, { busy: false }); if (this.pendingManualSaves.delete(project.root)) void this.manualSaved(project, vscode.Uri.file(path.join(project.root, 'pom.xml'))); await fs.writeFile(path.join(evidence, 'state.json'), JSON.stringify(this.state(project), null, 2)); }
-    if (debug) {
-      const port = this.projects.getRunConfiguration(project,true).debugPort;
-      if (vscode.extensions.getExtension('vscjava.vscode-java-debug')) {
-        await vscode.debug.startDebugging(vscode.workspace.getWorkspaceFolder(vscode.Uri.file(project.root)), { type: 'java', name: 'ZERNOVA · ' + project.name, request: 'attach', hostName: '127.0.0.1', port });
-      } else await studioForm('ZERNOVA Java Debugger', [], async () => true, `The runtime is running with JDWP on localhost:${port}. Attach a Java debugger to this port. Install the VS Code Debugger for Java extension to attach from Studio. This supports Java breakpoints; XML flow stepping is not yet implemented.`);
-    }
+    if (debug) await this.attachFlowDebugger(project);
     return this.state(project);
   }
 }

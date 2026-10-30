@@ -1,6 +1,6 @@
 import { MAX_XML_BYTES, type IntegrationModel, type XmlOperation, type ComponentValues } from './xml';
 
-export const RUNTIME_ACTIONS = ['configureRuntime', 'configureRun', 'configureDebug', 'debug', 'diagnostics', 'build', 'run', 'status', 'logs', 'stopApplication', 'stopRuntime', 'cancel'] as const;
+export const RUNTIME_ACTIONS = ['debugContinue', 'debugStep', 'debugDisconnect', 'configureRuntime', 'configureRun', 'configureDebug', 'debug', 'diagnostics', 'build', 'run', 'status', 'logs', 'stopApplication', 'stopRuntime', 'cancel'] as const;
 export type RuntimeAction = typeof RUNTIME_ACTIONS[number];
 export const REAL_ACTIONS = ['save', 'undo', 'redo', ...RUNTIME_ACTIONS] as const;
 export type RealAction = typeof REAL_ACTIONS[number];
@@ -17,6 +17,7 @@ export interface RealDocumentSnapshot {
 }
 export type RealWebviewMessage =
   | { type: 'ready' }
+  | { type: 'realBreakpoint'; id: string }
   | { type: 'realEdit'; version: number; requestId: string; operation: XmlOperation }
   | { type: 'realXml'; version: number; requestId: string; text: string }
   | { type: 'realAction'; action: RealAction };
@@ -32,7 +33,7 @@ const string = (v: unknown, max = 1000): v is string => typeof v === 'string' &&
 const id = (v: unknown): v is string => string(v, 512) && v.length > 0;
 const requestId = (v: unknown): v is string => typeof v === 'string' && /^[A-Za-z0-9_-]{1,100}$/.test(v);
 const version = (v: unknown): v is number => Number.isSafeInteger(v) && Number(v) > 0;
-const componentKeys: (keyof ComponentValues)[] = ['displayName', 'configId', 'path', 'allowedMethods', 'message', 'level', 'category', 'script', 'mimeType', 'responseStatus', 'responseBody', 'responseHeaders'];
+const componentKeys: (keyof ComponentValues)[] = ['displayName', 'configId', 'path', 'allowedMethods', 'message', 'level', 'category', 'script', 'mimeType', 'attributesScript', 'variablesScript', 'responseStatus', 'responseBody', 'responseHeaders'];
 
 export function parseXmlOperation(input: unknown): XmlOperation | null {
   if (!record(input) || typeof input.kind !== 'string') return null;
@@ -55,6 +56,7 @@ export function parseXmlOperation(input: unknown): XmlOperation | null {
 export function parseRealMessage(input: unknown): RealWebviewMessage | null {
   if (!record(input)) return null;
   try { if (new TextEncoder().encode(JSON.stringify(input)).length > MAX_XML_BYTES + 200000) return null; } catch { return null; }
+  if (input.type === 'realBreakpoint' && only(input,['type','id']) && id(input.id)) return {type:'realBreakpoint',id:input.id};
   if (input.type === 'ready' && only(input, ['type'])) return { type: 'ready' };
   if (input.type === 'realAction' && only(input, ['type', 'action']) && typeof input.action === 'string' && REAL_ACTIONS.includes(input.action as RealAction)) return { type: 'realAction', action: input.action as RealAction };
   if (input.type === 'realXml' && only(input, ['type', 'version', 'requestId', 'text']) && version(input.version) && requestId(input.requestId) && string(input.text, MAX_XML_BYTES) && new TextEncoder().encode(input.text).length <= MAX_XML_BYTES) return { type: 'realXml', version: input.version, requestId: input.requestId, text: input.text };

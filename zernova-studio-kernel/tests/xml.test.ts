@@ -326,3 +326,19 @@ test('Existing native set-payload and handler transforms remain executable edita
   const model=parseIntegration(xml);assert(model.flows[0].editable);assert(model.flows[0].errorHandler!.editable);assert.equal(model.flows[0].errorHandler!.processors[1].kind,'transform');
   const node=model.flows[0].errorHandler!.processors[1];xml=act(xml,{kind:'updateComponent',id:node.id,values:{script:''}});assert(parseIntegration(xml).diagnostics.some(d=>d.code==='transform-script'));
 });
+
+test('Transform preserves independent payload, attributes and named-variable scripts including blank outputs',()=>{
+  let xml=act(fixture(),{kind:'insert',flowId:'flow:helloFlow',component:'transform'});
+  const id=parseIntegration(xml).flows[0].processors.at(-1)!.id;
+  xml=act(xml,{kind:'updateComponent',id,values:{script:'',attributesScript:'%dw 2.0\noutput application/java\n---\n{requestId: attributes.queryParams.id}',variablesScript:'{customer: payload.id, label: "A & B"}'}});
+  const node=parseIntegration(xml).flows[0].processors.at(-1)!;
+  assert(node.kind==='transform');assert.equal(node.script,'');assert.equal(node.variablesScript,'{customer: payload.id, label: "A & B"}');assert.match(node.attributesScript!,/requestId/);
+  assert(!parseIntegration(xml).diagnostics.some(d=>d.code==='transform-script'));
+});
+test('Editing a legacy payload transform upgrades it without losing the script, ID, label, comment or other XML',()=>{
+ let xml=fixture().replace('</flow>','<!-- original -->\n<set-payload xmlns:doc="https://schemas.zernova.dev/documentation" doc:id="old-transform" doc:name="Keep name" value="#[{answer: 42}]" mimeType="application/java"/>\n</flow>');
+ assert(parseIntegration(xml).flows[0].processors.some(p=>p.id==='old-transform'));
+ xml=act(xml,{kind:'updateComponent',id:'old-transform',values:{variablesScript:'{saved: payload}'}});
+ const node=parseIntegration(xml).flows[0].processors.find(p=>p.id==='old-transform')!;
+ assert(node.kind==='transform');assert.equal(node.script,'{answer: 42}');assert.equal(node.displayName,'Keep name');assert.equal(node.variablesScript,'{saved: payload}');assert(xml.includes('<!-- original -->'));
+});

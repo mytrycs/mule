@@ -3,7 +3,15 @@
 Updated October 30, 2026. Active product source: this Mule-derived repository,
 including `zernova-studio-kernel/`, `zernova-studio-build/` and the Java runtime.
 
-## Latest Studio iteration: 0.4.3
+## Latest Studio iteration: 0.4.4
+
+Studio 0.4.4 implements the approved source icon layout and straight route,
+three-output Transform Message, component breakpoints and an embedded debug
+console. The base engine remains Runtime 0.4.1-alpha.1; a new original Transform
+support module is installed by the portable launcher. See STUDIO_FEEDBACK_0.4.4.md
+and JAVA_25_MIGRATION_ASSESSMENT.md. Java 25 remains a separate qualification track.
+
+## Previous Studio iteration: 0.4.3
 
 Studio 0.4.3 adds independent Run/Debug dropdown configurations, JVM/environment/
 working-directory/lifecycle controls, request/response component ports, context
@@ -22,7 +30,7 @@ cases and native GUI interaction. See `STUDIO_FEEDBACK_0.4.2.md` and its evidenc
 
 ## Current position
 
-The active feedback candidate pairs Studio 0.4.3 with independently versioned
+The active feedback candidate pairs Studio 0.4.4 with independently versioned
 ZERNOVA Runtime 0.4.1-alpha.1 and bundled, security-patched Java 17. Application
 format 1 retains its 0.4.0 minimum language/runtime floor. New applications execute
 ZERNOVA XML directly: a `zernova` root, ZERNOVA namespaces, application descriptors

@@ -2,7 +2,7 @@
   "name": "zernova-studio-kernel-preview",
   "displayName": "ZERNOVA Studio",
   "description": "ZERNOVA Studio development alpha with bundled ZERNOVA Runtime and patched Java 17.",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "publisher": "zernova-preview",
   "license": "SEE LICENSE IN LICENSE.txt",
   "private": true,

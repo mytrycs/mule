@@ -22,6 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
     render: webview => renderWebview(webview, context.extensionUri, createInitialState(true), true),
     projectName: uri => projects.nameForUri(uri), projectRoot: uri => projects.rootForUri(uri),
     manualSave: async doc => { if (!await saveAutomatically(doc)) throw new Error('The document could not be saved.'); const project = projects.projectForUri(doc.uri); if (project) await runtime.manualSaved(project, doc.uri); },
+    breakpoint: async (uri,id) => { const project=projects.projectForUri(uri); if(!project) throw new Error('Open a ZERNOVA project.'); await runtime.toggleBreakpoint(project,uri,id); },
     runtimeState: uri => runtime.stateForUri(uri),
     runtimeAction: async (action, uri) => {
       const project = projects.projectForUri(uri);
@@ -160,6 +161,7 @@ export function activate(context: vscode.ExtensionContext) {
       if (!projects.projectForUri(uri)) throw new Error('Open the containing ZERNOVA project first.');
       await documents.open(uri);
     })),
+    vscode.commands.registerCommand('zernovaKernelStudio.toggleComponentBreakpoint', guarded(async (uri,id) => { if(!(uri instanceof vscode.Uri)||typeof id!=='string')throw new Error('Use a Studio component and its ID.'); const project=projects.projectForUri(uri);if(!project)throw new Error('Open a ZERNOVA project.');await runtime.toggleBreakpoint(project,uri,id); })),
     ...RUNTIME_ACTIONS.map(action => vscode.commands.registerCommand('zernovaKernelStudio.' + action, guarded(async candidate => {
       const project = await projects.select(commandUri(candidate)); if (project) { try { return await runtime.execute(action as RuntimeAction, project); } catch (error) { runtime.reportError(project, error); return runtime.state(project); } }
     }))),
