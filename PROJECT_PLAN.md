@@ -5,8 +5,9 @@ including `zernova-studio-kernel/`, `zernova-studio-build/` and the Java runtime
 
 ## Current position
 
-The active development candidate pairs Studio 0.4.0 with independently versioned
-ZERNOVA Runtime 0.4.0-alpha.1 and bundled Java 17. New applications execute
+The active feedback candidate pairs Studio 0.4.1 with independently versioned
+ZERNOVA Runtime 0.4.1-alpha.1 and bundled, security-patched Java 17. Application
+format 1 retains its 0.4.0 minimum language/runtime floor. New applications execute
 ZERNOVA XML directly: a `zernova` root, ZERNOVA namespaces, application descriptors
 and offline packaging. The engine uses `com.zernova` Java packages. The original
 4.10 baseline remains explicitly identified as engine provenance/SDK compatibility.
@@ -16,7 +17,8 @@ Orders JSON transformation/validation, redeployment, shutdown and crash recovery
 The visual flow response starts at the final processor, and flow/subflow cards
 resize as processors are added or removed. A six-platform CI matrix builds and
 tests native runtime and installed Studio packages; final results are recorded in
-`DEV_TEST_VERIFICATION.md` when the candidate completes.
+`STUDIO_FEEDBACK_0.4.1.md` and `verification/studio-0.4.1-devtest/`. The earlier
+0.4.0 qualification remains in `DEV_TEST_VERIFICATION.md`.
 
 The immediate delivery is an internal development alpha for owner feedback.
 Custom Java, arbitrary connector dependencies and YAML remain deferred. Required
@@ -58,11 +60,36 @@ future work and is not part of this delivery.
 
 The owner authorized all six phases and requested a bundled HTTP Listener/Logger
 dev-test delivery, plus intrinsic flow widths and last-component response lines.
-The six-phase development-test slice is implemented and verified on the migration
-branch. The final clean CI run passed source builds, all six native runtime
-suites and all six installed-Studio suites. The owner delivery includes an Intel
+The initial 0.4.0 six-phase development-test slice was implemented and verified on
+the migration branch. Its clean CI run passed source builds, all six native
+runtime suites and all six installed-Studio suites. The owner delivery includes an Intel
 Mac VSIX, bundled runtime/Java, HTTP/Logger sample and verification notes. YAML is
 deferred. See `DEV_TEST_VERIFICATION.md` for the tested scope and evidence.
+
+## Owner feedback iteration: Studio 0.4.1
+
+The next development-test iteration adds deliberate valid-slot component
+placement and pointer dragging, keyboard deletion, XML autosave, collapsible
+flows/error lanes, draggable Studio forms, global/XML context actions, visible
+Run/Java Debug controls, per-project runtime settings, localhost and automatic
+application-log following. Error-handler Loggers execute in the native runtime.
+
+The Debug control exposes Java JDWP attachment; XML flow stepping remains future
+work. Maven-style `-D` properties and environment variables are supported by the
+offline builder; arbitrary Maven goals and external dependencies are deferred.
+
+Java 25 and 21 were actually probed. Extension/connector compatibility checks
+reject the supported HTTP application on those versions. The feedback bundle
+therefore retains the latest pinned Java 17 patch. A newer Java baseline needs
+connector/SDK migration and independent qualification before release.
+
+The final feedback artifact and exact source revision are recorded in
+`STUDIO_FEEDBACK_0.4.1.md`. The Mac Intel artifact passed an additional fresh
+local installed-VSIX suite. Five targets passed the 0.4.1 CI suites; Mac ARM64
+could not acquire a hosted runner and is not qualified for this build. Its
+retry was requested. Once the owner tests this iteration, prioritize any
+remaining basic authoring/lifecycle defects before expanding connector coverage
+or beginning the newer-Java migration. YAML remains deferred.
 
 ## Immediate milestone: reproducible internal release
 

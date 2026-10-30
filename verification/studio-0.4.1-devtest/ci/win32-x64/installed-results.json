@@ -1,0 +1,76 @@
+{
+  "platform": "win32",
+  "arch": "x64",
+  "vscode": "1.144.0",
+  "rows": [
+    {
+      "name": "Installed VSIX and actual custom editor",
+      "status": "PASS",
+      "detail": {
+        "extensionPath": "C:\\Users\\runneradmin\\.zernova-studio-tests\\installed-1793376980145\\extensions\\zernova-preview.zernova-studio-kernel-preview-0.4.1",
+        "model": "studioFlow"
+      }
+    },
+    {
+      "name": "Bundled Java/runtime diagnostics with invalid external tool paths",
+      "status": "PASS",
+      "detail": {
+        "phase": "Diagnostics passed",
+        "offline": true
+      }
+    },
+    {
+      "name": "Studio offline build produces a fresh application",
+      "status": "PASS",
+      "detail": {
+        "artifact": "C:\\Users\\runneradmin\\.zernova-studio-tests\\installed-1793376980145\\workspace\\target\\studio-local-test-1.0.0.zapp",
+        "sha256": "9eaf8a98be9c8f9a4a665100c9b2965dd5085192c74e83ec439e71d167b00adc"
+      }
+    },
+    {
+      "name": "Studio Run deploys to the renamed source-built engine",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "body": "Hello from ZERNOVA",
+        "correlatedLogger": true,
+        "automaticLogRefresh": true,
+        "loggerCount": 2
+      }
+    },
+    {
+      "name": "XML edits save and redeploy without the old route",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "body": "Hello from ZERNOVA",
+        "correlatedLogger": true,
+        "automaticLogRefresh": true,
+        "loggerCount": 2
+      }
+    },
+    {
+      "name": "Stop Application undeploys and retains the private runtime",
+      "status": "PASS"
+    },
+    {
+      "name": "Stop Runtime shuts down the owned engine",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid XML is diagnosed and cannot deploy a stale artifact",
+      "status": "PASS"
+    },
+    {
+      "name": "Restored document runs again and stops cleanly",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "body": "Hello from ZERNOVA",
+        "correlatedLogger": true,
+        "automaticLogRefresh": true,
+        "loggerCount": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-30",
+  "platform": "darwin-x64",
+  "subject": "Installed VSIX in isolated native VS Code Insiders; UI actions through native accessibility and pointer gestures",
+  "project": "/Users/roz/.zernova-studio-tests/2026-10-30T13-49-35-014Z/feedback-ui-041",
+  "checks": {
+    "projectWizardCreatesAndOpensXml": true,
+    "projectWizardDragged": true,
+    "globalWizardDraggedWithDraftRetained": true,
+    "runWizardDraggedWithDraftRetained": true,
+    "paletteClickDoesNotInsert": true,
+    "invalidLaneSlotsDisabled": true,
+    "slotThenPalette": true,
+    "paletteThenSlot": true,
+    "physicalPaletteDragInsertsAtSlot": true,
+    "macDeleteRemovesSelectedComponent": true,
+    "flowCollapseExpand": true,
+    "errorSectionCollapseExpand": true,
+    "createNativeErrorHandlerLogger": true,
+    "designerAutosaves": true,
+    "nativeEditorAutosavesWithoutSave": true,
+    "nativeEditorMarker": "ZERNOVA_AUTOSAVE_UI041",
+    "globalContextMenu": [
+      "Open configuration",
+      "Delete configuration",
+      "New configuration"
+    ],
+    "xmlContextMenu": [
+      "Run / Deploy",
+      "Debug application",
+      "Run configuration",
+      "Build application",
+      "Application logs",
+      "Stop runtime"
+    ],
+    "nativeXmlEditorContextMenu": true,
+    "topRunDeployAndDebugVisible": true
+  },
+  "execution": {
+    "url": "http://localhost:18091/hello?testId=UI041-LOCALHOST",
+    "body": "Hello from ZERNOVA",
+    "loggerLines": [
+      "UI041 qa works qa",
+      "ZERNOVA_TEST UI041-LOCALHOST"
+    ],
+    "refreshedManually": false,
+    "runProfile": {
+      "environment": "qa",
+      "variables": {
+        "TEST_ENV": "qa"
+      },
+      "properties": {
+        "example.property": "works"
+      },
+      "debugPort": 15005
+    },
+    "stoppedViaXmlContextMenu": true
+  },
+  "finalPackageValidation": {
+    "verifiedSourceRevision": "a8578a44a7a48d8ef01fdef58261ee37315b2022",
+    "vsixSha256": "5713bf1adfc52ec9e45c00007924b7e0c5172d9b2ab8e2377bd1a08dcb6e34f2",
+    "cleanCiBundleInstalled": true,
+    "url": "http://localhost:18091/hello?testId=UI041-FINAL-AUTOTAIL",
+    "body": "Hello from ZERNOVA",
+    "visibleLoggerMessages": [
+      "UI041 qa works qa",
+      "ZERNOVA_TEST UI041-FINAL-AUTOTAIL"
+    ],
+    "automaticLogTabSelection": true,
+    "automaticTailVisibleWithoutRefreshOrScroll": true,
+    "invalidLoggerDragOntoHttpSourceRejected": true,
+    "invalidDropMessage": "Choose a valid Processor or Error Handler slot.",
+    "xmlShaBeforeAndAfterInvalidDrop": "16f91961ccbd1b2c3503d3f95986e974b629f187e9bb574bd9e965ff97331d7d",
+    "runtimeStopped": true
+  }
+}

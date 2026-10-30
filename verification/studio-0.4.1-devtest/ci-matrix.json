@@ -1,0 +1,43 @@
+{
+  "run": "https://github.com/mytrycs/mule/actions/runs/41086574445",
+  "verifiedSourceRevision": "a8578a44a7a48d8ef01fdef58261ee37315b2022",
+  "qualifiedTargets": {
+    "darwin-x64": {
+      "nativePassed": 22,
+      "nativeFailed": 0,
+      "installedPassed": 9,
+      "installedFailed": 0
+    },
+    "linux-x64": {
+      "nativePassed": 22,
+      "nativeFailed": 0,
+      "installedPassed": 9,
+      "installedFailed": 0
+    },
+    "linux-arm64": {
+      "nativePassed": 22,
+      "nativeFailed": 0,
+      "installedPassed": 9,
+      "installedFailed": 0
+    },
+    "win32-x64": {
+      "nativePassed": 22,
+      "nativeFailed": 0,
+      "installedPassed": 9,
+      "installedFailed": 0
+    },
+    "win32-arm64": {
+      "nativePassed": 22,
+      "nativeFailed": 0,
+      "installedPassed": 9,
+      "installedFailed": 0
+    }
+  },
+  "darwin-arm64": {
+    "qualification": "NOT_RUN",
+    "reason": "The job was not acquired by Runner of type hosted even after multiple attempts",
+    "runnerNotice": "Due to capacity constraints, jobs targeting macOS arm64 runners may experience longer queue times.",
+    "firstJobId": 124172102138,
+    "retryRequested": true
+  }
+}

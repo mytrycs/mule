@@ -1,0 +1,14 @@
+{
+  "schema_version": 2,
+  "pid": 8480,
+  "run_id": "a9afb5b2-a9b2-4041-86bb-e4622bd83e43",
+  "console_log": "C:\\Users\\runneradmin\\.zernova-native-tests\\ec6f13ec-5c2c-4350-aaee-c8a6ca17e243\\private instance\\runs\\a9afb5b2-a9b2-4041-86bb-e4622bd83e43\\console.log",
+  "runtime_ready": false,
+  "started_utc": "2026-10-30T16:15:32.501Z",
+  "config": {
+    "http_host": "127.0.0.1",
+    "http_port": 18281,
+    "heap_mb": 768
+  },
+  "deployment_attempted": true
+}

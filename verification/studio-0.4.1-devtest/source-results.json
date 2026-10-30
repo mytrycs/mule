@@ -1,0 +1,19 @@
+{
+  "sourceRevision": "a8578a44a7a48d8ef01fdef58261ee37315b2022",
+  "dirty": false,
+  "engineSha256": "15181b8fe0657880029a4b2fc83bcd7cedcf7b5eec7809e4211d5051ec5958a0",
+  "completionRevision": "a8578a44a7a48d8ef01fdef58261ee37315b2022",
+  "treeChangedDuringBuild": false,
+  "resumedLocalBuild": false,
+  "ciRun": "https://github.com/mytrycs/mule/actions/runs/41086574445",
+  "sourceTests": {
+    "total": 429,
+    "passed": 428,
+    "skipped": 1,
+    "failed": 0
+  },
+  "relocationTests": {
+    "passed": 11,
+    "failed": 0
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "src/portable/bundle.ts": "c307b3a7df28ade28426c49f59b2567f0e3d270536e1453dc3aa88a2c0c540ff",
+  "src/portable/packager.ts": "5eccacd2defd86e557bbf9c4d7206e46329279a6a5d0dd9cdc297711bf7901cd",
+  "src/portable/runtime.ts": "cd72304dfff80992c98ed08b77add1f3350c345a7b9815bf0ef90dd147295a59",
+  "runtime-support/java/com/zernova/studio/RuntimeControlAgent.java": "832c7ae4cd2a0ee6a67e9a942c26b139666f8b56172f664fa3f90ffe4faabb83"
+}

@@ -1,0 +1,37 @@
+{
+  "studioVersion": "0.4.1",
+  "runtimeVersion": "0.4.1-alpha.1",
+  "applicationFormat": 1,
+  "minimumApplicationRuntime": "0.4.0",
+  "target": "darwin-x64",
+  "releaseKind": "owner-development-alpha",
+  "verifiedSourceRevision": "a8578a44a7a48d8ef01fdef58261ee37315b2022",
+  "sourceBranch": "codex/studio-devtest-feedback-0.4.1",
+  "ciRun": "https://github.com/mytrycs/mule/actions/runs/41086574445",
+  "vsix": "zernova-studio-kernel-preview-0.4.1-darwin-x64.vsix",
+  "vsixBytes": 199003231,
+  "vsixSha256": "5713bf1adfc52ec9e45c00007924b7e0c5172d9b2ab8e2377bd1a08dcb6e34f2",
+  "engineSha256": "15181b8fe0657880029a4b2fc83bcd7cedcf7b5eec7809e4211d5051ec5958a0",
+  "cleanSourceBuild": true,
+  "resumedSourceBuild": false,
+  "javaVendor": "Eclipse Temurin",
+  "javaVersion": "17.0.21+9",
+  "localInstalled": {
+    "passed": 9,
+    "failed": 0,
+    "vscode": "1.144.0"
+  },
+  "ciQualifiedTargets": [
+    "darwin-x64",
+    "linux-x64",
+    "linux-arm64",
+    "win32-x64",
+    "win32-arm64"
+  ],
+  "darwinArm64Qualification": "NOT_RUN \u2014 hosted runner capacity; retry requested",
+  "limits": [
+    "Java JDWP attachment only; XML flow stepping is future work",
+    "Maven-style -D application properties only; Maven goals are not executed",
+    "Java 21/25 require connector/SDK migration before shipping"
+  ]
+}
