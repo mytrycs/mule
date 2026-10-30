@@ -1,0 +1,63 @@
+# Copyright (c) 2026 ZerNova. Internal build input handling only.
+name: ZERNOVA Studio split input artifacts
+on:
+  push:
+    branches: ['zernova/studio-bundle-0.3.0']
+    paths: ['.github/workflows/zernova-studio-split-inputs.yml']
+  workflow_dispatch:
+permissions:
+  actions: read
+  contents: read
+jobs:
+  split:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Recover the completed input artifact without forwarding API credentials
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os,urllib.request,urllib.error,zipfile,hashlib
+          from pathlib import Path
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+            def redirect_request(self,req,fp,code,msg,headers,newurl): return None
+          api='https://api.github.com/repos/mytrycs/mule/actions/artifacts/12945303188/zip'
+          req=urllib.request.Request(api,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'User-Agent':'ZERNOVA-build','Accept':'application/vnd.github+json'})
+          try: urllib.request.build_opener(NoRedirect).open(req,timeout=60)
+          except urllib.error.HTTPError as e:
+            if e.code!=302: raise
+            url=e.headers['Location']
+          with urllib.request.urlopen(url,timeout=180) as r,open('inputs.zip','wb') as f:
+            while True:
+              b=r.read(1024*1024)
+              if not b:break
+              f.write(b)
+          assert hashlib.sha256(Path('inputs.zip').read_bytes()).hexdigest()=='3a682f2c7d825247be01605e0a66898e21c61e80c0512dc0932ca826657d8462'
+          with zipfile.ZipFile('inputs.zip') as z:
+            for name in z.namelist():
+              if name.endswith('/'):continue
+              if '/' in name or '\\' in name or '..' in name: raise ValueError(name)
+              group='java' if name.startswith('OpenJDK') or name=='java-platform-inputs.json' else 'vscode' if name.startswith('vscode-') else 'tools'
+              p=Path(group)/name;p.parent.mkdir(exist_ok=True);p.write_bytes(z.read(name))
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: zernova-studio-java-platforms
+          path: java/
+          compression-level: 0
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: zernova-studio-node-tools
+          path: tools/
+          compression-level: 0
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: zernova-studio-vscode-host
+          path: vscode/
+          compression-level: 0
+          retention-days: 7
