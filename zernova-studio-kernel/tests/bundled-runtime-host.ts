@@ -61,6 +61,8 @@ export async function run() {
     await check('Installed VSIX and actual custom editor', async () => {
       assert(subject.extensionPath.startsWith(path.join(root, 'extensions'))); assert.equal(subject.packageJSON.version, '0.4.1');
       await vscode.commands.executeCommand('zernovaKernelStudio.openIntegration', file);
+      for (let i = 0; i < 50 && !api.getProjectDiagnostics().documents.documents.includes(file.toString()); i++) await new Promise(resolve => setTimeout(resolve, 100));
+      assert(api.getProjectDiagnostics().documents.documents.includes(file.toString()), 'The actual custom editor must resolve this project, including Windows drive-letter casing');
       return { extensionPath: subject.extensionPath, model: parseIntegration(xml).flows[0].name };
     });
     await check('Bundled Java/runtime diagnostics with invalid external tool paths', async () => { const state = await command('diagnostics'); assert.equal(state.phase, 'Diagnostics passed'); assert(state.runtimeOutput.includes('0.4.1-alpha.1')); return { phase: state.phase, offline: state.offline }; });

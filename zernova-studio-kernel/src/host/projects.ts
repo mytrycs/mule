@@ -63,11 +63,15 @@ export class ProjectManager implements vscode.Disposable {
   list(): Project[] { return [...this.projects.values()]; }
   current(): Project | undefined { return this.selected ? this.projects.get(this.selected) : undefined; }
   rootForUri(uri: vscode.Uri): vscode.Uri | undefined {
-    if (uri.scheme !== 'file') return undefined;
-    const candidates = this.list().filter(p => isInside(p.root, uri.fsPath)).sort((a, b) => b.root.length - a.root.length);
-    return candidates[0] ? vscode.Uri.file(candidates[0].root) : undefined;
+    const project = this.projectForUri(uri);
+    return project ? vscode.Uri.file(project.root) : undefined;
   }
-  projectForUri(uri?: vscode.Uri): Project | undefined { const root = uri ? this.rootForUri(uri)?.fsPath : undefined; return root ? this.projects.get(root) : undefined; }
+  projectForUri(uri?: vscode.Uri): Project | undefined {
+    if (uri?.scheme !== 'file') return undefined;
+    // Keep the stored project object: Uri.fsPath normalizes Windows drive-letter
+    // casing, so converting a realpath map key through a URI can lose its match.
+    return this.list().filter(p => isInside(p.root, uri.fsPath)).sort((a, b) => b.root.length - a.root.length)[0];
+  }
   nameForUri(uri: vscode.Uri): string { return this.projectForUri(uri)?.name ?? path.basename(path.dirname(uri.fsPath)); }
   getSettings(project: Project): RuntimeSettings {
     return { schemaVersion: 2, runtimeHome: path.join(this.context.extensionUri.fsPath, 'runtime'),
