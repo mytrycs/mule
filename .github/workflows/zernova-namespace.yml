@@ -1,7 +1,7 @@
 name: ZERNOVA renamed source and native runtime
 on:
   push:
-    branches: ['codex/zernova-runtime-namespace-refactor']
+    branches: ['codex/zernova-runtime-namespace-refactor', 'codex/studio-devtest-feedback-*']
   workflow_dispatch:
     inputs:
       clean_cache:

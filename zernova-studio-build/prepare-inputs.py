@@ -8,9 +8,11 @@ TARGET=sys.argv[1]
 ROOT=Path(__file__).resolve().parent
 os.chdir(ROOT)
 INPUT=ROOT/'native-inputs';INPUT.mkdir(exist_ok=True)
+PINNED=next(r for r in json.loads((ROOT/'java-inputs.json').read_text()) if r['target']==TARGET)
 FINAL=ROOT/'runtime-inputs'
 if FINAL.exists():
  record=json.loads((FINAL/'bundle.json').read_text())
+ if record.get('inputJavaSha256') != PINNED['sha256']:raise SystemExit('Prepared inputs use an older Java pin; move runtime-inputs aside before rebuilding')
  if record['target']!=TARGET:raise SystemExit('Prepared inputs belong to another target')
  expected=json.loads((FINAL/'input-checksums.json').read_text())
  actual={p.relative_to(FINAL).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in FINAL.rglob('*') if p.is_file() and p.name!='input-checksums.json'}
@@ -58,7 +60,7 @@ def unzip(src,dest,strip=True):
 record=next(r for r in json.loads((ROOT/'java-inputs.json').read_text()) if r['target']==TARGET)
 java=INPUT/record['asset'];java_sha=record['sha256']
 if not java.exists() or sha(java)!=java_sha:download(record['url'],java,java_sha)
-vendor=record.get('vendor','Eclipse Temurin');version=record.get('version','17.0.21+9')
+vendor=record.get('vendor','Eclipse Temurin');version=record['version']
 if TARGET.startswith('win32'):
  unzip(java,OUT/'jdk-input')
  jdk=OUT/'jdk-input';image=OUT/'java'
@@ -120,7 +122,7 @@ for index,deps in [(0,[1,2,3,4,5,6,7]),(1,[8,7])]:
 (http/'classloader-template.json').write_text(json.dumps({'version':'1.2.0','dependencies':[reference(0),reference(1)]},indent=2)+'\n',encoding='utf-8')
 (OUT/'notices').mkdir()
 shutil.copy2(ROOT/'LICENSE.txt',OUT/'notices/ZERNOVA_ORIGINAL_COMPONENTS.txt')
-info={'schemaVersion':1,'product':'ZERNOVA Runtime','version':'0.4.0-alpha.1','engineVersion':'4.10.0-SNAPSHOT','dataweaveVersion':'2.10.0','target':TARGET,'javaHome':java_home,'javaVendor':vendor,'javaVersion':version,'javaArchitecture':'arm64' if TARGET.endswith('arm64') else 'x64','controlAgent':'control/runtime-control.jar','sourceArchive':'sources/ZERNOVA_Runtime_Corresponding_Source.zip','distributionMode':'source-built-development','inputJavaSha256':java_sha}
+info={'schemaVersion':1,'product':'ZERNOVA Runtime','version':'0.4.1-alpha.1','engineVersion':'4.10.0-SNAPSHOT','dataweaveVersion':'2.10.0','target':TARGET,'javaHome':java_home,'javaVendor':vendor,'javaVersion':version,'javaArchitecture':'arm64' if TARGET.endswith('arm64') else 'x64','controlAgent':'control/runtime-control.jar','sourceArchive':'sources/ZERNOVA_Runtime_Corresponding_Source.zip','distributionMode':'source-built-development','inputJavaSha256':java_sha}
 (OUT/'bundle.json').write_text(json.dumps(info,indent=2)+'\n')
 checksums={p.relative_to(OUT).as_posix():sha(p) for p in sorted(OUT.rglob('*')) if p.is_file()}
 (OUT/'input-checksums.json').write_text(json.dumps(checksums,indent=2)+'\n')

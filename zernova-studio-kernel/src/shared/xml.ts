@@ -22,7 +22,8 @@ export interface RealLogger {
   expressionMode: boolean; notes: string; editable: boolean;
 }
 export type RealComponent = RealListener | RealLogger;
-export interface RealFlow { id: string; name: string; kind?: 'flow' | 'sub-flow'; source: RealListener | null; processors: RealLogger[]; editable: boolean; unsupported: string[] }
+export interface RealErrorHandler { type: string; summary: string; editable: boolean; processors: RealLogger[] }
+export interface RealFlow { id: string; name: string; kind?: 'flow' | 'sub-flow'; source: RealListener | null; processors: RealLogger[]; editable: boolean; unsupported: string[]; errorHandler?: RealErrorHandler }
 export interface IntegrationModel { valid: boolean; flows: RealFlow[]; configs: RealHttpConfig[]; diagnostics: XmlDiagnostic[] }
 export interface ComponentValues {
   displayName?: string; configId?: string; path?: string; allowedMethods?: string; message?: string;
@@ -32,7 +33,8 @@ export interface ConfigValues { name: string; protocol: 'HTTP'; host: string; po
 export type XmlOperation =
   | { kind: 'createFlow'; name: string }
   | { kind: 'renameFlow'; flowId: string; name: string }
-  | { kind: 'insert'; flowId: string; component: 'listener' | 'logger'; index?: number }
+  | { kind: 'insert'; flowId: string; component: 'listener' | 'logger'; index?: number; lane?: 'error' }
+  | { kind: 'createErrorHandler'; flowId: string }
   | { kind: 'updateComponent'; id: string; values: ComponentValues }
   | { kind: 'deleteComponent'; id: string }
   | { kind: 'duplicateLogger'; id: string }
@@ -192,14 +194,17 @@ function parseInternal(text: string): Parsed {
   for (const [flowIndex, n] of tree.root.children.filter(n => is(n, CORE_NS, 'flow') || is(n, CORE_NS, 'sub-flow')).entries()) {
     const name = value(n, 'name'), id = 'flow:' + name;
     const sources = n.children.filter(c => is(c, HTTP_NS, 'listener'));
-    const unsupported = n.children.filter(c => !is(c, HTTP_NS, 'listener') && !is(c, CORE_NS, 'logger')).map(c => c.name);
+    const unsupported = n.children.filter(c => !is(c, HTTP_NS, 'listener') && !is(c, CORE_NS, 'logger') && !is(c, CORE_NS, 'error-handler')).map(c => c.name);
     const flow: RealFlow = { id, name, kind: n.local as 'flow' | 'sub-flow', source: null, processors: [], editable: unsupported.length === 0 && sources.length <= 1 && (sources.length === 0 || n.children[0] === sources[0]) && (n.local !== 'sub-flow' || sources.length === 0), unsupported };
     model.flows.push(flow); parsed.flowNodes.set(id, n);
     if (!name || flowNames.has(name)) issue('Flow names must be present and unique: ' + name, n.start, n.openEnd, 'flow-name');
     flowNames.add(name);
     if (sources.length > 1 || (sources.length === 1 && n.children[0] !== sources[0])) issue('A flow supports one Listener in its first source position.', n.start, n.openEnd, 'source-position');
     if (unsupported.length) issue('Unsupported flow content is preserved; visual component edits for this flow are disabled: ' + unsupported.join(', '), n.start, n.openEnd, 'unsupported', 'warning');
-    for (const [componentIndex, c] of n.children.entries()) {
+    const handler = child(n, CORE_NS, 'error-handler'), onError = handler?.children[0];
+    if (handler) flow.errorHandler = { type: onError?.local ?? 'custom', summary: handler.children.map(c => c.name).join(', '), editable: handler.children.length === 1 && !!onError && [CORE_NS].includes(onError.uri) && ['on-error-propagate', 'on-error-continue'].includes(onError.local) && onError.children.every(c => is(c, CORE_NS, 'logger')), processors: [] };
+    const components = [...n.children, ...(flow.errorHandler?.editable ? onError!.children : [])];
+    for (const [componentIndex, c] of components.entries()) {
       const componentId = namespacedAttribute(c, DOC_NS, 'id')?.value ?? `legacy:${flowIndex}:${componentIndex}:${c.local}`;
       if (is(c, HTTP_NS, 'listener')) {
         const response = child(c, HTTP_NS, 'response');
@@ -213,7 +218,8 @@ function parseInternal(text: string): Parsed {
       } else if (is(c, CORE_NS, 'logger')) {
         const rawLevel = value(c, 'level', 'INFO');
         const logger: RealLogger = { id: componentId, kind: 'logger', displayName: namespacedAttribute(c, DOC_NS, 'name')?.value ?? 'Logger', message: value(c, 'message'), level: rawLevel as RealLogLevel, category: value(c, 'category'), expressionMode: value(c, 'message').startsWith('#['), notes: '', editable: flow.editable && c.children.length === 0 };
-        flow.processors.push(logger); parsed.nodes.set(componentId, c);
+        if (c.parent === onError) flow.errorHandler!.processors.push(logger); else flow.processors.push(logger);
+        parsed.nodes.set(componentId, c);
         if (!LOG_LEVELS_REAL.includes(rawLevel as RealLogLevel)) issue('Unsupported Logger level: ' + rawLevel, c.start, c.openEnd, 'logger-level');
         if (!logger.message.trim()) issue('Logger message is required.', c.start, c.openEnd, 'logger-message');
       }
@@ -279,7 +285,7 @@ function ensureNamespaces(text: string, operation: XmlOperation): string {
   const parsed = parseInternal(text), root = parsed.root;
   if (!parsed.model.valid || !root) throw new XmlEditError('Repair XML syntax before visual editing. Source has been preserved.');
   const edits: SourceEdit[] = [];
-  const docNeeded = ['insert', 'updateComponent', 'duplicateLogger', 'moveLogger'].includes(operation.kind);
+  const docNeeded = ['insert', 'updateComponent', 'duplicateLogger', 'moveLogger', 'createErrorHandler'].includes(operation.kind);
   const httpNeeded = operation.kind === 'saveConfig' || operation.kind === 'insert' && operation.component === 'listener';
   const namespaces: [string, string][] = [...(docNeeded ? [[DOC_NS, 'doc'] as [string,string]] : []), ...(httpNeeded ? [[HTTP_NS, 'http'] as [string,string], [XSI_NS, 'xsi'] as [string,string]] : [])];
   for (const [uri, preferred] of namespaces) {
@@ -300,7 +306,7 @@ function ensureNamespaces(text: string, operation: XmlOperation): string {
   return applyEdits(text, edits);
 }
 function componentAndFlow(parsed: Parsed, id: string): { component: RealComponent; node: Element; flow: RealFlow } {
-  for (const flow of parsed.model.flows) { const component = flow.source?.id === id ? flow.source : flow.processors.find(p => p.id === id); if (component) { const node = parsed.nodes.get(id)!; if (!component.editable || !flow.editable) throw new XmlEditError('This component/flow contains unsupported constructs. Edit its XML directly; source is preserved.'); return { component, node, flow }; } }
+  for (const flow of parsed.model.flows) { const component = flow.source?.id === id ? flow.source : [...flow.processors, ...(flow.errorHandler?.processors ?? [])].find(p => p.id === id); if (component) { const node = parsed.nodes.get(id)!; if (!component.editable || !flow.editable) throw new XmlEditError('This component/flow contains unsupported constructs. Edit its XML directly; source is preserved.'); return { component, node, flow }; } }
   throw new XmlEditError('Component no longer exists. Refresh the document and try again.');
 }
 function supportedFlow(parsed: Parsed, id: string): { flow: RealFlow; node: Element } {
@@ -343,8 +349,14 @@ export function applyOperation(original: string, operation: XmlOperation): XmlEd
     if (parsed.model.flows.some(f => f.id !== operation.flowId && f.name === operation.name)) throw new XmlEditError('A flow with this name already exists.');
     if (parsed.all.some(n => is(n, CORE_NS, 'flow-ref') && value(n, 'name') === value(node, 'name'))) throw new XmlEditError('This flow is referenced. Rename it in XML with all references reviewed.');
     setAttribute(node, 'name', operation.name, edits); selectionId = 'flow:' + operation.name;
+  } else if (operation.kind === 'createErrorHandler') {
+    const { node, flow } = supportedFlow(parsed, operation.flowId);
+    if (flow.kind === 'sub-flow' || flow.errorHandler) throw new XmlEditError('Use a flow without an existing error handler. Subflows inherit their caller error handling.');
+    const q = (name: string) => qname(node, CORE_NS, name); selectionId = newId();
+    insertChildren(text, node, `<${q('error-handler')}><${q('on-error-propagate')} type="ANY"><${q('logger')} ${qname(node, DOC_NS, 'id')}="${selectionId}" ${qname(node, DOC_NS, 'name')}="Log error" level="ERROR" message="#[error.description]"/></${q('on-error-propagate')}></${q('error-handler')}>`, edits);
   } else if (operation.kind === 'insert') {
     const { node, flow } = supportedFlow(parsed, operation.flowId);
+    if (operation.lane === 'error' && (operation.component !== 'logger' || !flow.errorHandler?.editable)) throw new XmlEditError('Select a supported error-handler processor slot.');
     if (flow.kind === 'sub-flow' && operation.component === 'listener') throw new XmlEditError('A subflow cannot contain an HTTP Listener. Add the Listener to its calling flow.');
     selectionId = newId();
     const docName = qname(node, DOC_NS, 'name'), docId = qname(node, DOC_NS, 'id');
@@ -355,11 +367,13 @@ export function applyOperation(original: string, operation: XmlOperation): XmlEd
       const markup = `<${q('listener')} config-ref="${escapedAttribute(cfg?.name ?? '')}" path="/hello" allowedMethods="GET" ${docName}="HTTP Listener" ${docId}="${selectionId}">${newline}${indent}  <${q('response')} statusCode="200">${newline}${indent}    <${q('body')}>${escapedText("#['Hello from ZERNOVA']")}</${q('body')}>${newline}${indent}    <${q('headers')}>${escapedText("#[{'Content-Type': 'text/plain; charset=UTF-8'}]")}</${q('headers')}>${newline}${indent}  </${q('response')}>${newline}${indent}</${q('listener')}>`;
       insertChildren(text, node, markup, edits, node.children[0]);
     } else {
-      if (flow.processors.length >= 100) throw new XmlEditError('This milestone supports up to 100 Loggers per flow.');
+      const processors = operation.lane === 'error' ? flow.errorHandler!.processors : flow.processors;
+      const parent = operation.lane === 'error' ? child(node, CORE_NS, 'error-handler')!.children[0] : node;
+      if (processors.length >= 100) throw new XmlEditError('This milestone supports up to 100 Loggers per flow.');
       const markup = `<${qname(node, CORE_NS, 'logger')} ${docName}="Logger" ${docId}="${selectionId}" level="INFO" category="io.zernova.acceptance" message="${escapedAttribute("#['ZERNOVA_TEST ' ++ (attributes.queryParams.testId default 'missing')]")}"/>`;
-      const index = operation.index ?? flow.processors.length;
-      if (!Number.isInteger(index) || index < 0 || index > flow.processors.length) throw new XmlEditError('Invalid Logger insertion position.');
-      insertChildren(text, node, markup, edits, flow.processors[index] ? parsed.nodes.get(flow.processors[index].id) : undefined);
+      const index = operation.index ?? processors.length;
+      if (!Number.isInteger(index) || index < 0 || index > processors.length) throw new XmlEditError('Invalid Logger insertion position.');
+      insertChildren(text, parent, markup, edits, processors[index] ? parsed.nodes.get(processors[index].id) : operation.lane === 'error' ? undefined : child(node, CORE_NS, 'error-handler'));
     }
   } else if (operation.kind === 'updateComponent') {
     const { component, node } = componentAndFlow(parsed, operation.id), next = operation.values;
@@ -395,7 +409,8 @@ export function applyOperation(original: string, operation: XmlOperation): XmlEd
   } else if (operation.kind === 'moveLogger') {
     const { component, node, flow } = componentAndFlow(parsed, operation.id);
     if (component.kind !== 'logger') throw new XmlEditError('Only a Logger can be reordered.');
-    const index = flow.processors.findIndex(p => p.id === component.id), adjacent = flow.processors[index + operation.direction];
+    const processors = flow.processors.some(p => p.id === component.id) ? flow.processors : flow.errorHandler?.processors ?? [];
+    const index = processors.findIndex(p => p.id === component.id), adjacent = processors[index + operation.direction];
     if (!adjacent) throw new XmlEditError('The Logger is already at that edge of the processor lane.');
     const other = parsed.nodes.get(adjacent.id)!;
     const stabilized = (target: Element, id: string): string => { const changes: SourceEdit[] = []; setDocAttribute(target, 'id', id, changes); return applyEdits(text.slice(target.start, target.end), changes.map(e => ({ ...e, start: e.start - target.start, end: e.end - target.start }))); };

@@ -362,3 +362,15 @@ body.vscode-high-contrast button, body.vscode-high-contrast-light button { borde
 }
 
 .subflow-source { display: none; }
+/* Real Studio placement and movable dialogs. */
+.dialog-title { cursor: grab; touch-action: none; user-select: none; }
+.dialog { max-height: calc(100vh - 24px); }
+.palette-item.selected { background: var(--z-selected); outline: 2px solid var(--z-accent); }
+.insertion-slot { flex: 0 0 24px; min-width: 24px; min-height: 46px; margin: 0 4px; border: 1px dashed var(--z-border); color: var(--z-muted); background: transparent; padding: 2px; }
+.insertion-slot.selected,.insertion-slot.drop-valid { outline: 2px solid var(--z-accent); background: var(--z-selected); }
+.insertion-slot:disabled { opacity: .25; }
+.error-section { border-top: 1px dashed var(--z-border); contain: inline-size; }
+.error-toggle { border: 0; background: transparent; width: 100%; text-align: left; padding: 10px; color: var(--z-muted); }
+.error-processors { display: flex; align-items: center; gap: 10px; padding: 12px 0; overflow-x: auto; }
+.real-output-tabs { flex-wrap: wrap; }
+.real-studio .preview-bar { flex-wrap: wrap; height: auto; min-height: 48px; }

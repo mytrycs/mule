@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as fs from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
+import { studioForm } from './forms';
 import { ProjectManager, type Project, isInside } from './projects';
 import { parseIntegration } from '../shared/xml';
 import type { RuntimeAction } from '../shared/realProtocol';
@@ -24,13 +25,15 @@ export class RuntimeManager implements vscode.Disposable {
   private readonly changed = new vscode.EventEmitter<string>();
   readonly onDidChange = this.changed.event;
   private readonly states = new Map<string, RuntimeViewState>();
+  private readonly logTimers = new Map<string, ReturnType<typeof setInterval>>();
+  private readonly logReading = new Set<string>();
   private readonly operations = new Map<string, AbortController>();
   private readonly buildChannel = vscode.window.createOutputChannel('ZERNOVA Build');
   private readonly runtimeChannel = vscode.window.createOutputChannel('ZERNOVA Runtime');
   private readonly logChannel = vscode.window.createOutputChannel('ZERNOVA Application Logs');
   private readonly diagnostics = vscode.languages.createDiagnosticCollection('zernovaKernelStudio.build');
   constructor(private readonly context: vscode.ExtensionContext, private readonly projects: ProjectManager) {}
-  dispose(): void { for (const op of this.operations.values()) op.abort(); this.changed.dispose(); this.buildChannel.dispose(); this.runtimeChannel.dispose(); this.logChannel.dispose(); this.diagnostics.dispose(); }
+  dispose(): void { for (const timer of this.logTimers.values()) clearInterval(timer); for (const op of this.operations.values()) op.abort(); this.changed.dispose(); this.buildChannel.dispose(); this.runtimeChannel.dispose(); this.logChannel.dispose(); this.diagnostics.dispose(); }
   state(project: Project): RuntimeViewState {
     let value = this.states.get(project.root);
     if (!value) {
@@ -47,11 +50,25 @@ export class RuntimeManager implements vscode.Disposable {
   private trust(): void { if (!vscode.workspace.isTrusted) throw new Error('Workspace trust is required before building or running applications.'); }
   private backend(project: Project): BundledRuntime {
     const settings = this.projects.getSettings(project);
-    return new BundledRuntime({ bundle: settings.runtimeHome, instance: settings.instanceDirectory, project: project.root, application: project.artifactId,
+    return new BundledRuntime({ bundle: settings.runtimeHome, instance: settings.instanceDirectory, project: project.root, application: project.artifactId, runConfiguration: this.projects.getRunConfiguration(project),
       onOutput: text => this.append(project, 'runtimeOutput', text) });
+  }
+  private async refreshLogs(project: Project): Promise<void> {
+    if (this.logReading.has(project.root)) return;
+    this.logReading.add(project.root);
+    try {
+      const logs = await this.backend(project).logs(); const text = logs.lines.join('\n').slice(-MAX_OUTPUT);
+      if (text !== this.state(project).applicationLogs) { this.update(project, { applicationLogs: text }); this.logChannel.clear(); this.logChannel.appendLine(text); }
+    } catch (error) { if (!this.operations.has(project.root)) this.update(project, { lastError: 'Log refresh failed: ' + String(error) }); }
+    finally { this.logReading.delete(project.root); }
+  }
+  private followLogs(project: Project, running: boolean): void {
+    if (!running) { const timer = this.logTimers.get(project.root); if (timer) clearInterval(timer); this.logTimers.delete(project.root); return; }
+    if (!this.logTimers.has(project.root)) { const timer = setInterval(() => { void this.refreshLogs(project); }, 1000); timer.unref(); this.logTimers.set(project.root, timer); }
   }
   private reflect(project: Project, status: PortableStatus): void {
     parseRuntimeStatus(status, this.projects.getSettings(project).instanceDirectory);
+    this.followLogs(project, status.process === 'RUNNING');
     const app = status.applications[project.artifactId];
     this.update(project, { process: status.process, application: app?.state ?? 'NOT_DEPLOYED', endpoint: 'UNVERIFIED' });
   }
@@ -83,7 +100,8 @@ export class RuntimeManager implements vscode.Disposable {
     const source = path.join(project.root, 'src/main/zernova');
     const files = (await fs.readdir(source)).filter(name => name.endsWith('.xml'));
     if (!files.length) throw new Error('src/main/zernova is empty. Create Integration XML, create a flow, then add and configure an HTTP Listener and Logger before building.');
-    const properties: Record<string, string> = {};
+    const run = this.projects.getRunConfiguration(project);
+    const properties: Record<string, string> = { ...run.variables, ...run.properties, 'zernova.env': run.environment };
     const propertyFiles = new Set<string>();
     const resources = path.join(project.root, 'src/main/resources');
     const resolved = (value: string): string => value.replace(/\$\{([^}]+)\}/g, (_, name: string) => {
@@ -117,6 +135,7 @@ export class RuntimeManager implements vscode.Disposable {
       for (const line of (await fs.readFile(resolvedFile, 'utf8')).split(/\r?\n/)) {
         const match = /^\s*([^#!\s][^=:]*?)\s*[=:]\s*(.*?)\s*$/.exec(line);
         if (match) {
+          if (Object.hasOwn(run.properties, match[1]) || Object.hasOwn(run.variables, match[1])) continue;
           if (Object.hasOwn(properties, match[1]) && properties[match[1]] !== match[2]) throw new Error('Conflicting property definitions prevent an unambiguous listener preflight: ' + match[1]);
           properties[match[1]] = match[2];
         }
@@ -126,7 +145,7 @@ export class RuntimeManager implements vscode.Disposable {
     const ports = new Set<number>();
     for (const reference of refs) {
       const config = configs.get(reference); if (!config) throw new Error(`Missing HTTP Listener configuration ${reference}.`);
-      if (config.protocol !== 'HTTP' || resolved(config.host) !== '127.0.0.1') throw new Error('This local milestone executes HTTP listeners bound explicitly to 127.0.0.1 only. HTTPS and public bindings are not enabled.');
+      if (config.protocol !== 'HTTP' || !['127.0.0.1', 'localhost'].includes(resolved(config.host).toLowerCase())) throw new Error('This local milestone executes HTTP listeners bound to localhost or 127.0.0.1 only. HTTPS and public bindings are not enabled.');
       const literal = resolved(config.port);
       if (!/^\d+$/.test(literal) || Number(literal) < 1024 || Number(literal) > 65535) throw new Error('Listener port must resolve to an unprivileged integer from 1024 to 65535.');
       ports.add(Number(literal));
@@ -143,9 +162,11 @@ export class RuntimeManager implements vscode.Disposable {
     if (action === 'cancel') { this.operations.get(project.root)?.abort(); return this.state(project); }
     if (this.operations.has(project.root)) throw new Error('A project operation is already in progress.');
     this.trust(); assertSupportedHost();
+    if (action === 'configureRun') { await this.projects.configureRun(project); return this.state(project); }
+    const debug = action === 'debug'; if (debug) action = 'run';
     if (action === 'configureRuntime') { await this.projects.configure(project); action = 'diagnostics'; }
     const controller = new AbortController(); this.operations.set(project.root, controller);
-    const backend = this.backend(project), signal = controller.signal;
+    const backend = debug ? new BundledRuntime({ bundle: this.projects.getSettings(project).runtimeHome, instance: this.projects.getSettings(project).instanceDirectory, project: project.root, application: project.artifactId, runConfiguration: this.projects.getRunConfiguration(project), debug: true, onOutput: text => this.append(project, 'runtimeOutput', text) }) : this.backend(project), signal = controller.signal;
     const evidence = path.join(this.context.globalStorageUri.fsPath, 'runtime-evidence', createHash('sha256').update(project.root).digest('hex').slice(0, 16), new Date().toISOString().replace(/[:.]/g, '-') + '-' + action);
     await fs.mkdir(evidence, { recursive: true }); this.update(project, { busy: true, lastError: '', evidenceDirectory: evidence, phase: 'Checking bundled runtime' });
     let mutated = false;
@@ -156,7 +177,7 @@ export class RuntimeManager implements vscode.Disposable {
           if (action === 'diagnostics') { const result = await backend.doctor(signal); this.append(project, 'runtimeOutput', JSON.stringify(result, null, 2) + '\n'); this.update(project, { phase: 'Diagnostics passed' }); }
           else if (action === 'build' || action === 'run') {
             await this.saveProjectDocuments(project); Object.assign(project, await this.projects.load(project.root));
-            const port = await this.projectPort(project); await this.metadata(project);
+            const port = await this.projectPort(project); if (debug && port === this.projects.getRunConfiguration(project).debugPort) throw new Error('Listener and debugger ports must be different.'); await this.metadata(project);
             this.update(project, { phase: 'Building offline', port, artifact: undefined, artifactSha256: undefined, buildOutput: '' });
             const artifact = await backend.package(project.root, signal);
             this.append(project, 'buildOutput', JSON.stringify(artifact, null, 2) + '\n');
@@ -175,9 +196,7 @@ export class RuntimeManager implements vscode.Disposable {
             }
           } else if (action === 'stopApplication') await backend.undeploy(project.artifactId, signal);
           else if (action === 'stopRuntime') { await backend.stop(signal); await backend.undeploy(project.artifactId, signal); }
-          if (action === 'logs') {
-            const logs = await backend.logs(); const text = logs.lines.join('\n'); this.update(project, { applicationLogs: text.slice(-MAX_OUTPUT) }); this.logChannel.clear(); this.logChannel.appendLine(text);
-          }
+          if (action === 'logs' || action === 'run' || action === 'stopRuntime') await this.refreshLogs(project);
           this.reflect(project, await backend.status());
           if (['status', 'logs', 'stopApplication', 'stopRuntime'].includes(action)) this.update(project, { phase: this.state(project).process === 'STOPPED' ? 'Stopped' : this.state(project).application === 'DEPLOYED' ? 'Deployed · endpoint unverified' : 'Runtime ready · application not deployed' });
         } finally { subscription.dispose(); }
@@ -187,6 +206,12 @@ export class RuntimeManager implements vscode.Disposable {
       try { this.reflect(project, await backend.status()); } catch { /* Keep the last verified state. */ }
       this.update(project, { phase: signal.aborted ? 'Cancelled' : 'Failed', lastError: error instanceof Error ? error.message : String(error) }); throw error;
     } finally { this.operations.delete(project.root); this.update(project, { busy: false }); await fs.writeFile(path.join(evidence, 'state.json'), JSON.stringify(this.state(project), null, 2)); }
+    if (debug) {
+      const port = this.projects.getRunConfiguration(project).debugPort;
+      if (vscode.extensions.getExtension('vscjava.vscode-java-debug')) {
+        await vscode.debug.startDebugging(vscode.workspace.getWorkspaceFolder(vscode.Uri.file(project.root)), { type: 'java', name: 'ZERNOVA · ' + project.name, request: 'attach', hostName: '127.0.0.1', port });
+      } else await studioForm('ZERNOVA Java Debugger', [], async () => true, `The runtime is running with JDWP on localhost:${port}. Attach a Java debugger to this port. Install the VS Code Debugger for Java extension to attach from Studio. This supports Java breakpoints; XML flow stepping is not yet implemented.`);
+    }
     return this.state(project);
   }
 }

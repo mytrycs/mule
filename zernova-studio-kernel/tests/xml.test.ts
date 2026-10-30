@@ -277,3 +277,34 @@ test('subflows grow the same processor model and reject listener insertion', () 
   assert.equal(parseIntegration(xml).flows[0].processors.length, 2);
   assert.throws(() => act(xml, { kind: 'insert', flowId: 'flow:logging', component: 'listener' }), /subflow cannot contain/);
 });
+
+test('Error handler round-trip keeps main and error processors separate and inserts before handler', () => {
+  let xml = act(fixture(), { kind: 'createErrorHandler', flowId: 'flow:helloFlow' });
+  let f = parseIntegration(xml).flows[0];
+  assert(f.editable && f.errorHandler?.editable); assert.equal(f.errorHandler.processors.length, 1);
+  assert.equal(f.processors.length, 1);
+  xml = act(xml, { kind: 'insert', flowId: f.id, component: 'logger' });
+  assert.equal(parseIntegration(xml).flows[0].processors.length, 2);
+  assert(xml.indexOf(parseIntegration(xml).flows[0].processors[1].id) < xml.indexOf('<error-handler'));
+  xml = act(xml, { kind: 'insert', flowId: f.id, component: 'logger', lane: 'error', index: 0 });
+  f = parseIntegration(xml).flows[0]; assert.equal(f.processors.length, 2); assert.equal(f.errorHandler!.processors.length, 2);
+  const errorLogger = f.errorHandler!.processors[0];
+  xml = act(xml, { kind: 'updateComponent', id: errorLogger.id, values: { message: 'Changed error logger' } });
+  xml = act(xml, { kind: 'moveLogger', id: errorLogger.id, direction: 1 });
+  assert.equal(parseIntegration(xml).flows[0].errorHandler!.processors[1].message, 'Changed error logger');
+  xml = act(xml, { kind: 'deleteComponent', id: errorLogger.id });
+  assert.equal(parseIntegration(xml).flows[0].errorHandler!.processors.length, 1);
+});
+test('Invalid error destinations and duplicate handlers are rejected without losing XML', () => {
+  const xml = act(fixture(), { kind: 'createErrorHandler', flowId: 'flow:helloFlow' });
+  assert.throws(() => act(xml, { kind: 'createErrorHandler', flowId: 'flow:helloFlow' }));
+  assert.throws(() => act(xml, { kind: 'insert', flowId: 'flow:helloFlow', component: 'listener', lane: 'error' }));
+  assert.equal(parseXmlOperation({ kind: 'insert', flowId: 'flow:helloFlow', component: 'logger', lane: 'arbitrary' }), null);
+  assert(parseXmlOperation({ kind: 'insert', flowId: 'flow:helloFlow', component: 'logger', lane: 'error', index: 0 }));
+});
+test('Custom error handlers survive normal flow edits without pretending to support their internals', () => {
+  const xml = fixture().replace('</flow>', '<error-handler><on-error-propagate type="ANY"><set-payload value="original"/></on-error-propagate></error-handler></flow>');
+  const f = parseIntegration(xml).flows[0]; assert(f.editable); assert.equal(f.errorHandler!.editable, false);
+  const next = act(xml, { kind: 'insert', flowId: f.id, component: 'logger' });
+  assert(next.includes('<set-payload value="original"/>'));
+});

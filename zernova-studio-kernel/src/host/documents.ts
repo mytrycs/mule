@@ -131,6 +131,8 @@ export class IntegrationEditorProvider implements vscode.CustomTextEditorProvide
               if (!await vscode.workspace.applyEdit(edit)) throw new Error('VS Code refused the edit because the document changed or is read-only.');
             }
             await this.postDocument(editor);
+            if (document.isDirty && !await document.save()) throw new Error('Autosave failed. Check file permissions.');
+            await this.postDocument(editor);
             await panel.webview.postMessage({ type: 'realAck', requestId: message.requestId, version: document.version, ...(selectionId ? { selectionId } : {}) });
           } catch (error) {
             editor.expectedChange = undefined;

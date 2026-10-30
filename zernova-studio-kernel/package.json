@@ -1,8 +1,8 @@
 {
   "name": "zernova-studio-kernel-preview",
   "displayName": "ZERNOVA Studio",
-  "description": "ZERNOVA Studio alpha with bundled ZERNOVA Runtime 0.4.0-alpha.1 and Java.",
-  "version": "0.4.0",
+  "description": "ZERNOVA Studio development alpha with bundled ZERNOVA Runtime and patched Java 17.",
+  "version": "0.4.1",
   "publisher": "zernova-preview",
   "license": "SEE LICENSE IN LICENSE.txt",
   "private": true,
@@ -145,6 +145,18 @@
         "command": "zernovaKernelStudio.importLegacyProject",
         "category": "ZERNOVA",
         "title": "Import Legacy XML Project"
+      },
+      {
+        "command": "zernovaKernelStudio.debug",
+        "category": "ZERNOVA",
+        "title": "Debug Application (Java)",
+        "icon": "$(debug-alt)"
+      },
+      {
+        "command": "zernovaKernelStudio.configureRun",
+        "category": "ZERNOVA",
+        "title": "Run Configuration\u2026",
+        "icon": "$(settings-gear)"
       }
     ],
     "viewsContainers": {
@@ -213,6 +225,38 @@
           "command": "zernovaKernelStudio.run",
           "when": "view == zernovaKernelStudio.projects && viewItem == zernovaKernelStudio.project",
           "group": "runtime@2"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "zernovaKernelStudio.run",
+          "when": "resourceExtname == .xml && resourcePath =~ /src[\\\\/]main[\\\\/]zernova[\\\\/]/",
+          "group": "9_zernova@0"
+        },
+        {
+          "command": "zernovaKernelStudio.debug",
+          "when": "resourceExtname == .xml && resourcePath =~ /src[\\\\/]main[\\\\/]zernova[\\\\/]/",
+          "group": "9_zernova@1"
+        },
+        {
+          "command": "zernovaKernelStudio.configureRun",
+          "when": "resourceExtname == .xml && resourcePath =~ /src[\\\\/]main[\\\\/]zernova[\\\\/]/",
+          "group": "9_zernova@2"
+        },
+        {
+          "command": "zernovaKernelStudio.build",
+          "when": "resourceExtname == .xml && resourcePath =~ /src[\\\\/]main[\\\\/]zernova[\\\\/]/",
+          "group": "9_zernova@3"
+        },
+        {
+          "command": "zernovaKernelStudio.logs",
+          "when": "resourceExtname == .xml && resourcePath =~ /src[\\\\/]main[\\\\/]zernova[\\\\/]/",
+          "group": "9_zernova@4"
+        },
+        {
+          "command": "zernovaKernelStudio.stopRuntime",
+          "when": "resourceExtname == .xml && resourcePath =~ /src[\\\\/]main[\\\\/]zernova[\\\\/]/",
+          "group": "9_zernova@5"
         }
       ]
     },

@@ -105,7 +105,7 @@ def main():
             if (ROOT / name).is_file():
                 z.write(ROOT / name, name)
     revision = json.loads((ROOT / 'zernova-build-evidence/source-build-revision.json').read_text())
-    info = {**baseline, 'version': '0.4.0-alpha.1', 'applicationFormat': 1, 'javaNamespace': 'com.zernova',
+    info = {**baseline, 'version': '0.4.1-alpha.1', 'applicationFormat': 1, 'javaNamespace': 'com.zernova',
             'sourceBuildCommit': revision['sourceRevision'], 'sourceBuildDirty': revision['dirty'] or revision.get('treeChangedDuringBuild', True),
             'sourceBuildResumed': revision.get('resumedLocalBuild', False),
             'sourceTreeCommit': subprocess.check_output(['git', '-C', str(ROOT), 'rev-parse', 'HEAD'], text=True).strip(),

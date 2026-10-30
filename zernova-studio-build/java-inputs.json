@@ -6,7 +6,9 @@
     "status": "VERIFIED_DOWNLOAD",
     "sha256": "9f41bf88c7900c7097444a1bdeb84146ae692bc08842490ab098063c74bf9a8a",
     "bytes": 46726088,
-    "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21%2B9/OpenJDK17U-jre_x64_linux_hotspot_17.0.21_9.tar.gz"
+    "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21%2B9/OpenJDK17U-jre_x64_linux_hotspot_17.0.21_9.tar.gz",
+    "vendor": "Eclipse Temurin",
+    "version": "17.0.21+9"
   },
   {
     "target": "linux-arm64",
@@ -15,7 +17,9 @@
     "status": "VERIFIED_DOWNLOAD",
     "sha256": "1114f09d6174f54270c3117410b5e4022b43ebc0b43b751af08b927c55ed7bb5",
     "bytes": 46103747,
-    "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21%2B9/OpenJDK17U-jre_aarch64_linux_hotspot_17.0.21_9.tar.gz"
+    "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21%2B9/OpenJDK17U-jre_aarch64_linux_hotspot_17.0.21_9.tar.gz",
+    "vendor": "Eclipse Temurin",
+    "version": "17.0.21+9"
   },
   {
     "target": "darwin-x64",
@@ -24,7 +28,9 @@
     "status": "VERIFIED_DOWNLOAD",
     "sha256": "890214eb4d6c88dc06f990d5a6a3b72b91d5dffab6a0a6d8cffb98468bf26181",
     "bytes": 37713920,
-    "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21%2B9/OpenJDK17U-jre_x64_mac_hotspot_17.0.21_9.tar.gz"
+    "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21%2B9/OpenJDK17U-jre_x64_mac_hotspot_17.0.21_9.tar.gz",
+    "vendor": "Eclipse Temurin",
+    "version": "17.0.21+9"
   },
   {
     "target": "darwin-arm64",
@@ -33,7 +39,9 @@
     "status": "VERIFIED_DOWNLOAD",
     "sha256": "a5ab5bacd6e719d5a5570580ed14dceb2ed532208a39af927906b9742da1745e",
     "bytes": 42822064,
-    "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21%2B9/OpenJDK17U-jre_aarch64_mac_hotspot_17.0.21_9.tar.gz"
+    "url": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21%2B9/OpenJDK17U-jre_aarch64_mac_hotspot_17.0.21_9.tar.gz",
+    "vendor": "Eclipse Temurin",
+    "version": "17.0.21+9"
   },
   {
     "target": "win32-x64",

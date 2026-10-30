@@ -36,6 +36,26 @@ class MinZernovaVersionArtifactDescriptorValidatorTestCase extends AbstractZerno
   }
 
   @Test
+  void applicationUsesVersionOfTheLaunchedZernovaDistribution() {
+    final var previous = System.getProperty("zernova.distribution.version");
+    try {
+      System.setProperty("zernova.distribution.version", "0.4.1-alpha.1");
+      final var descriptor = new ApplicationDescriptor("zernova-patch-app");
+      descriptor.setMinZernovaVersion(new ZernovaVersion("0.4.1"));
+      final var validator = new MinZernovaVersionArtifactDescriptorValidator(false, () -> "4.10.0");
+      validator.validate(descriptor);
+      descriptor.setMinZernovaVersion(new ZernovaVersion("0.4.2"));
+      assertThrows(ArtifactDescriptorCreateException.class, () -> validator.validate(descriptor));
+    } finally {
+      if (previous == null) {
+        System.clearProperty("zernova.distribution.version");
+      } else {
+        System.setProperty("zernova.distribution.version", previous);
+      }
+    }
+  }
+
+  @Test
   void validationOk() {
     final var descriptor = mock(ArtifactDescriptor.class);
     when(descriptor.getMinZernovaVersion()).thenReturn(new ZernovaVersion("4.6"));

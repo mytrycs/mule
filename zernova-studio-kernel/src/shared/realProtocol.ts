@@ -1,6 +1,6 @@
 import { MAX_XML_BYTES, type IntegrationModel, type XmlOperation, type ComponentValues } from './xml';
 
-export const RUNTIME_ACTIONS = ['configureRuntime', 'diagnostics', 'build', 'run', 'status', 'logs', 'stopApplication', 'stopRuntime', 'cancel'] as const;
+export const RUNTIME_ACTIONS = ['configureRuntime', 'configureRun', 'debug', 'diagnostics', 'build', 'run', 'status', 'logs', 'stopApplication', 'stopRuntime', 'cancel'] as const;
 export type RuntimeAction = typeof RUNTIME_ACTIONS[number];
 export const REAL_ACTIONS = ['save', 'undo', 'redo', ...RUNTIME_ACTIONS] as const;
 export type RealAction = typeof REAL_ACTIONS[number];
@@ -38,8 +38,9 @@ export function parseXmlOperation(input: unknown): XmlOperation | null {
   if (!record(input) || typeof input.kind !== 'string') return null;
   const op = input;
   if (op.kind === 'createFlow' && only(op, ['kind', 'name']) && string(op.name, 100)) return { kind: op.kind, name: op.name };
+  if (op.kind === 'createErrorHandler' && only(op, ['kind', 'flowId']) && id(op.flowId)) return { kind: op.kind, flowId: op.flowId };
   if (op.kind === 'renameFlow' && only(op, ['kind', 'flowId', 'name']) && id(op.flowId) && string(op.name, 100)) return { kind: op.kind, flowId: op.flowId, name: op.name };
-  if (op.kind === 'insert' && only(op, ['kind', 'flowId', 'component'], ['index']) && id(op.flowId) && (op.component === 'listener' || op.component === 'logger') && (op.index === undefined || Number.isSafeInteger(op.index) && Number(op.index) >= 0 && Number(op.index) <= 100)) return { kind: op.kind, flowId: op.flowId, component: op.component, ...(op.index !== undefined ? { index: Number(op.index) } : {}) };
+  if (op.kind === 'insert' && only(op, ['kind', 'flowId', 'component'], ['index', 'lane']) && (op.lane === undefined || op.lane === 'error') && id(op.flowId) && (op.component === 'listener' || op.component === 'logger') && (op.index === undefined || Number.isSafeInteger(op.index) && Number(op.index) >= 0 && Number(op.index) <= 100)) return { kind: op.kind, flowId: op.flowId, component: op.component, ...(op.index !== undefined ? { index: Number(op.index) } : {}), ...(op.lane === 'error' ? { lane: 'error' as const } : {}) };
   if (op.kind === 'updateComponent' && only(op, ['kind', 'id', 'values']) && id(op.id) && record(op.values) && Object.keys(op.values).length > 0 && Object.keys(op.values).every(k => componentKeys.includes(k as keyof ComponentValues) && string((op.values as Record<string, unknown>)[k], 16000))) return { kind: op.kind, id: op.id, values: { ...op.values } as ComponentValues };
   if ((op.kind === 'deleteComponent' || op.kind === 'duplicateLogger' || op.kind === 'deleteConfig') && only(op, ['kind', 'id']) && id(op.id)) return { kind: op.kind, id: op.id };
   if (op.kind === 'moveLogger' && only(op, ['kind', 'id', 'direction']) && id(op.id) && (op.direction === -1 || op.direction === 1)) return { kind: op.kind, id: op.id, direction: op.direction };

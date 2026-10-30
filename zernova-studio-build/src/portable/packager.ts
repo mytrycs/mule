@@ -134,7 +134,7 @@ export async function validateArtifact(filename: string): Promise<{ sha256: stri
   if (!descriptorEntry || !modelEntry) throw new Error('Application deployment metadata is missing.');
   const descriptor = JSON.parse(await descriptorEntry.async('string'));
   const model = JSON.parse(await modelEntry.async('string'));
-  if (descriptor.requiredProduct !== 'ZERNOVA' || !descriptor.javaSpecificationVersions?.includes('17') || !Array.isArray(descriptor.configs) || !descriptor.configs.length) throw new Error('Application does not declare the required Java 17/kernel compatibility.');
+  if (descriptor.requiredProduct !== 'ZERNOVA' || !descriptor.javaSpecificationVersions?.includes('17') || !Array.isArray(descriptor.configs) || !descriptor.configs.length) throw new Error('Application does not declare the required Java 17/runtime compatibility.');
   if (typeof model.artifactCoordinates?.artifactId !== 'string') throw new Error('Application coordinates are missing.');
   assertAppName(model.artifactCoordinates.artifactId);
   for (const config of descriptor.configs) if (typeof config !== 'string' || !safeRelative(config) || !zip.file(config)) throw new Error('Application config is missing or unsafe.');

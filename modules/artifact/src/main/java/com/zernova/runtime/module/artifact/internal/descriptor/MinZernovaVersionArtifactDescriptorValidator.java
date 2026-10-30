@@ -63,7 +63,7 @@ public class MinZernovaVersionArtifactDescriptorValidator implements ArtifactDes
     // Applications target the independent ZERNOVA product version. Adapted
     // connector metadata still declares its upstream SDK compatibility floor.
     if (descriptor instanceof ApplicationDescriptor) {
-      runtimeVersion = new ZernovaVersion("0.4.0");
+      runtimeVersion = new ZernovaVersion(System.getProperty("zernova.distribution.version", "0.4.0"));
     }
     runtimeVersion = new ZernovaVersion(runtimeVersion.toCompleteNumericVersion().replace("-" + runtimeVersion.getSuffix(), ""));
     if (validateMinZernovaVersionWithSemanticVersion) {

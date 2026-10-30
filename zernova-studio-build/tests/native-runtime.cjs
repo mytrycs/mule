@@ -16,7 +16,7 @@ const {freshFetch:fetch}=require('./http-client.cjs');
  await fs.cp(path.resolve('tests/fixtures/native-hello'),project,{recursive:true});
  const app='hello-zernova',xml=path.join(project,'src/main/zernova/hello.xml');
  const initial=await fs.readFile(xml,'utf8');
- const r=new BundledRuntime({bundle,instance,project,application:app,onOutput:t=>process.stdout.write(t)});
+ const r=new BundledRuntime({bundle,instance,project,application:app,runConfiguration:{environment:'acceptance',variables:{TEST_ZERNOVA_ENV:'present'},properties:{'acceptance.profile':'configured'},debugPort:18282},debug:true,onOutput:t=>process.stdout.write(t)});
  const port=18281,rows=[];let artifact;
  const persist=async()=>fs.writeFile(path.join(output,'results.json'),JSON.stringify({target,platform:process.platform,architecture:process.arch,node:process.version,os:os.release(),bundle,instance,project,completed:rows.length,passed:rows.filter(x=>x.status==='PASS').length,failed:rows.filter(x=>x.status==='FAIL').length,cases:rows},null,2)+'\n');
  async function test(name,fn){try{const detail=await fn();rows.push({name,status:'PASS',detail});console.log('PASS '+name)}catch(e){rows.push({name,status:'FAIL',error:String(e.stack||e)});throw e}finally{await persist()}}
@@ -40,6 +40,9 @@ const {freshFetch:fetch}=require('./http-client.cjs');
    await test('Cancelled package cannot replace the valid artifact',async()=>{const abort=new AbortController();abort.abort();await assert.rejects(r.package(project,abort.signal),/cancelled/i);assert.equal((await validateArtifact(artifact.artifact)).sha256,artifact.sha256)});
    await test('Occupied port is rejected without killing its owner',async()=>{const server=net.createServer();await new Promise((ok,no)=>{server.once('error',no);server.listen(port,'127.0.0.1',ok)});try{await assert.rejects(r.start(port),/unavailable/i);assert(server.listening)}finally{await new Promise(ok=>server.close(ok))}});
    await test('Real source-built engine startup',()=>r.start(port));
+   await test('JDWP debugger handshake is available on loopback',async()=>{
+     await new Promise((resolve,reject)=>{const s=net.createConnection({host:'127.0.0.1',port:18282});let data='';s.setTimeout(5000,()=>s.destroy(new Error('Debugger handshake timed out')));s.on('error',reject);s.on('connect',()=>s.write('JDWP-Handshake'));s.on('data',b=>{data+=b.toString();if(data.length>=14){try{assert.equal(data.slice(0,14),'JDWP-Handshake');s.end();resolve()}catch(e){s.destroy();reject(e)}}})});return{host:'127.0.0.1',debugPort:18282,handshake:true};
+   });
    await test('Authenticated control rejects wrong token',async()=>{await assert.rejects(r.controlRequest('STOP','0'.repeat(64)),/reject/i);assert.equal((await r.status()).process,'RUNNING')});
    await test('Real HTTP Listener and Logger deployment',()=>r.deploy(artifact.artifact));
    await test('Actual HTTP response plus matching fresh Logger',()=>request());
@@ -48,7 +51,7 @@ const {freshFetch:fetch}=require('./http-client.cjs');
    await test('Orders POST JSON transformation, configuration, validation and correlation',async()=>{
      const previousRun=(await r.status()).run_id;
      await r.undeploy();
-     await fs.writeFile(xml,await fs.readFile('tests/fixtures/orders-api/src/main/zernova/orders.xml','utf8'));
+     await fs.writeFile(xml,(await fs.readFile('tests/fixtures/orders-api/src/main/zernova/orders.xml','utf8')).replace('</flow>', `<logger level="INFO" message="#['ZERNOVA_PROFILE ' ++ p('zernova.env') ++ ' ' ++ p('acceptance.profile') ++ ' ' ++ p('TEST_ZERNOVA_ENV')]"/></flow>`));
      await fs.copyFile('tests/fixtures/orders-api/src/main/resources/orders.properties',path.join(project,'src/main/resources/orders.properties'));
      artifact=await r.package();await r.deploy(artifact.artifact);
      const replacementRun=(await r.status()).run_id;assert.notEqual(replacementRun,previousRun,'Replacement must use fresh project JVM services');
@@ -56,12 +59,20 @@ const {freshFetch:fetch}=require('./http-client.cjs');
      const response=await fetch(`http://127.0.0.1:${port}/orders?testId=${id}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:'order-123'}),signal:AbortSignal.timeout(10000)});
      const text=await response.text();assert.equal(response.status,200,text);const body=JSON.parse(text);assert.deepEqual(body,{id:'order-123',status:'accepted',currency:'USD'});
      assert((await r.logs()).lines.some(line=>line.includes('ZERNOVA_TEST '+id)));
+     assert((await r.logs()).lines.some(line=>line.includes('ZERNOVA_PROFILE acceptance configured present')),'Configured environment/properties did not reach runtime');
      const invalid=await fetch(`http://127.0.0.1:${port}/orders`,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}',signal:AbortSignal.timeout(10000)});
      assert.equal(invalid.status,400,await invalid.text());
      return{status:response.status,body,invalidStatus:invalid.status,correlatedLogger:true,previousRun,replacementRun};
    });
    await test('Edit package and redeploy actual changed route',async()=>{await r.undeploy();await fs.writeFile(xml,initial.replace('path="/hello"','path="/hello-v2"'));artifact=await r.package();await r.deploy(artifact.artifact);const result=await request('/hello-v2');const old=await fetch(`http://127.0.0.1:${port}/hello`,{signal:AbortSignal.timeout(5000)});assert.equal(old.status,404);return{...result,oldRouteStatus:old.status}});
    await test('Runtime expression errors produce a real HTTP failure',async()=>{await r.undeploy();await fs.writeFile(xml,initial.replace("#['Hello from ZERNOVA']","#[1 + ]"));const invalid=await r.package();await r.deploy(invalid.artifact);const response=await fetch(`http://127.0.0.1:${port}/hello?testId=ZN-INVALID-EXPRESSION`,{signal:AbortSignal.timeout(10000)});const body=await response.text();assert.equal(response.status,500);return{status:response.status,body:body.slice(0,2000),note:'Response expressions compile on execution; successful deployment is not endpoint validation.'}});
+   await test('Native error handler executes its Logger on a real flow failure',async()=>{
+     await r.undeploy();
+     const invalid=initial.replace(/message="[^"\n]*"/, `message="#[read('invalid JSON','application/json')]"`).replace('</flow>','<error-handler><on-error-propagate type="ANY"><logger level="ERROR" message="ZERNOVA_ERROR_HANDLER_EXECUTED"/></on-error-propagate></error-handler></flow>');
+     assert.notEqual(invalid,initial);await fs.writeFile(xml,invalid);artifact=await r.package();await r.deploy(artifact.artifact);
+     const response=await fetch(`http://127.0.0.1:${port}/hello`);assert.equal(response.status,500,await response.text());
+     let found=false;for(let i=0;i<30;i++){found=(await r.logs()).lines.some(x=>x.includes('ZERNOVA_ERROR_HANDLER_EXECUTED'));if(found)break;await new Promise(r=>setTimeout(r,100))}assert(found,'Error-handler Logger did not execute');return{status:500,errorHandlerLogger:true};
+   });
    await test('Invalid configuration fails deployment rather than reporting healthy',async()=>{await r.undeploy();await fs.writeFile(xml,initial.replace('config-ref="Local_HTTP"','config-ref="Missing_Configuration"'));const invalid=await r.package();await assert.rejects(r.deploy(invalid.artifact),/failed|timed out/i);const status=await r.status();assert.notEqual(status.applications[app].healthy,true);return status});
    await test('Graceful shutdown and failed application cleanup',async()=>{const stopped=await r.stop();await r.undeploy();await checkPort(port);assert.equal((await r.status()).process,'STOPPED');return stopped});
    await test('Second cycle after complete stop',async()=>{await fs.writeFile(xml,initial);artifact=await r.package();await r.start(port);await r.deploy(artifact.artifact);const result=await request();await r.undeploy();const stop=await r.stop();await checkPort(port);return{...result,stop}});

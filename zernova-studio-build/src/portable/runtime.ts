@@ -3,6 +3,7 @@
  * flows/connectors/expressions. Authenticated JVM self-shutdown replaces Linux
  * PID signaling; it does not replace the integration runtime.
  */
+import { validateRunConfiguration, defaultRunConfiguration, type RunConfiguration } from './run-config';
 import * as fs from 'node:fs/promises';
 import path from 'node:path';
 import net from 'node:net';
@@ -17,7 +18,7 @@ interface RuntimeState { schema_version: 2; pid: number; run_id: string; console
 interface AppRecord { sha256: string; run_id: string; log_offset: number; deployed_utc: string; }
 export interface AppStatus { name: string; state: 'NOT_DEPLOYED' | 'STOPPED' | 'DEPLOYING' | 'DEPLOYED' | 'UNHEALTHY'; healthy: boolean; deployment: 'NOT_RUNNING' | 'PENDING' | 'DEPLOYED' | 'FAILED'; endpoint: 'NOT_CHECKED'; }
 export interface PortableStatus { schema_version: 2; product: 'ZERNOVA Runtime'; distribution_version: string; application_format_version: 1; kernel_version: string; upstream_baseline?: string; dataweave_version: string; build_mode: string; process: 'RUNNING' | 'STOPPED'; runtime: 'READY' | 'STARTING' | 'STOPPED'; pid?: number; run_id?: string; work_directory: string; healthy: boolean; applications: Record<string, AppStatus>; }
-export interface RuntimeOptions { bundle: string; instance: string; project: string; application: string; onOutput?: (text: string) => void; startupTimeoutMs?: number; deploymentTimeoutMs?: number; stopTimeoutMs?: number; }
+export interface RuntimeOptions { bundle: string; instance: string; project: string; application: string; onOutput?: (text: string) => void; startupTimeoutMs?: number; deploymentTimeoutMs?: number; stopTimeoutMs?: number; runConfiguration?: RunConfiguration; debug?: boolean; }
 const children = new Map<string, ChildProcess>();
 const MAX_LOG = 8 * 1024 * 1024;
 const errorCode = (e: unknown): string | undefined => (e as NodeJS.ErrnoException)?.code;
@@ -65,6 +66,7 @@ async function pidExists(pid: number): Promise<boolean> {
 export class BundledRuntime {
   readonly bundle: string; readonly instance: string; readonly project: string; readonly application: string;
   readonly runtime: string; readonly control: string;
+  private readonly runConfiguration: RunConfiguration; private readonly debug: boolean;
   private readonly output: (text: string) => void;
   private readonly startupMs: number; private readonly deployMs: number; private readonly stopMs: number;
   constructor(options: RuntimeOptions) {
@@ -72,6 +74,7 @@ export class BundledRuntime {
     assertAppName(options.application); this.application = options.application;
     if (within(this.project, this.instance) || within(this.bundle, this.instance)) throw new Error('Live runtime state must be outside the project and immutable extension package.');
     this.runtime = path.join(this.instance, 'runtime'); this.control = path.join(this.instance, 'control');
+    this.runConfiguration = validateRunConfiguration(options.runConfiguration ?? defaultRunConfiguration()); this.debug = options.debug === true;
     this.output = options.onOutput ?? (() => {});
     this.startupMs = options.startupTimeoutMs ?? 120000; this.deployMs = options.deploymentTimeoutMs ?? 120000; this.stopMs = options.stopTimeoutMs ?? 45000;
     for (const value of [this.startupMs, this.deployMs, this.stopMs]) if (!Number.isInteger(value) || value < 500 || value > 300000) throw new Error('Invalid lifecycle timeout.');
@@ -232,9 +235,11 @@ export class BundledRuntime {
     const logfile = path.join(logdir, 'console.log'), output = await fs.open(logfile, 'wx', 0o600);
     await output.write(`ZERNOVA Runtime ${RUNTIME_VERSION} — bundled source-built development engine\nCopyright (c) 2003-2015 MuleSoft Inc.\nPowered by Mule. MuleSoft is Open for Integration. http://www.MuleSoft.com\n`);
     const args = javaArguments(this.bundle, this.runtime, this.control, info.controlAgent, port);
+    args.unshift(...Object.entries({ ...this.runConfiguration.properties, 'zernova.env': this.runConfiguration.environment }).map(([k,v]) => `-D${k}=${v}`));
+    if (this.debug) { await checkPort(this.runConfiguration.debugPort); args.unshift(`-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=127.0.0.1:${this.runConfiguration.debugPort}`); }
     await writeJson(path.join(logdir, 'launch.json'), { executable: java.executable, args, target: info.target, javaVersion: java.version, networkUsed: false });
     let spawnError: Error | undefined;
-    const child = spawn(java.executable, args, { cwd: this.runtime, env: cleanEnvironment(), shell: false, detached: true, windowsHide: true, stdio: ['ignore', output.fd, output.fd] });
+    const child = spawn(java.executable, args, { cwd: this.runtime, env: { ...cleanEnvironment(), ...this.runConfiguration.variables }, shell: false, detached: true, windowsHide: true, stdio: ['ignore', output.fd, output.fd] });
     child.on('error', e => { spawnError = e; });
     await new Promise<void>((resolve, reject) => { child.once('spawn', resolve); child.once('error', reject); }).finally(() => output.close());
     if (!child.pid) throw new Error('The bundled runtime did not receive a process identity.');
@@ -248,6 +253,7 @@ export class BundledRuntime {
         cancelled(signal);
         if (spawnError || child.exitCode !== null || child.signalCode !== null) throw new Error(`Runtime exited during startup (${child.exitCode ?? child.signalCode ?? spawnError?.message}). Inspect ${logfile}\n${(await this.consoleText(state)).slice(-5000)}`);
         const text = await this.consoleText(state);
+        if (/Failed to deploy artifact ['\[]default['\]]/.test(text)) throw new Error('Default domain failed to deploy; the JVM banner is not runtime readiness. Inspect ' + logfile + '\n' + text.slice(-6000));
         if (text.includes('ZERNOVA Runtime is ready (deployment scan every ') && await this.controlRequest('STATUS')) {
           state.runtime_ready = true; await writeJson(path.join(this.instance, 'state.json'), state); return this.status();
         }

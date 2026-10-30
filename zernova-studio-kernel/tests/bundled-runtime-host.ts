@@ -29,8 +29,9 @@ export async function run() {
   }
   let xml = createIntegrationXml();
   xml = applyOperation(xml, { kind: 'createFlow', name: 'studioFlow' }).text;
-  xml = applyOperation(xml, { kind: 'saveConfig', values: { name: 'HTTP_Listener_config', protocol: 'HTTP', host: '127.0.0.1', port: String(port), basePath: '' } }).text;
+  xml = applyOperation(xml, { kind: 'saveConfig', values: { name: 'HTTP_Listener_config', protocol: 'HTTP', host: 'localhost', port: String(port), basePath: '' } }).text;
   xml = applyOperation(xml, { kind: 'insert', flowId: 'flow:studioFlow', component: 'listener' }).text;
+  xml = applyOperation(xml, { kind: 'insert', flowId: 'flow:studioFlow', component: 'logger' }).text;
   xml = applyOperation(xml, { kind: 'insert', flowId: 'flow:studioFlow', component: 'logger' }).text;
   const file = vscode.Uri.file(path.join(workspace, 'src/main/zernova/hello.xml'));
   await fs.writeFile(file.fsPath, xml);
@@ -42,26 +43,29 @@ export async function run() {
   const edit = async (text: string) => {
     const doc = await vscode.workspace.openTextDocument(file); const change = new vscode.WorkspaceEdit();
     change.replace(file, new vscode.Range(doc.positionAt(0), doc.positionAt(doc.getText().length)), text);
-    assert(await vscode.workspace.applyEdit(change)); assert(await doc.save());
+    assert(await vscode.workspace.applyEdit(change));
+    for (let i = 0; i < 60 && doc.isDirty; i++) await new Promise(resolve => setTimeout(resolve, 50));
+    assert(!doc.isDirty, 'Native XML edits must autosave without explicit Save');
+    assert.equal(await fs.readFile(file.fsPath, 'utf8'), text);
   };
   const request = async (route = '/hello') => {
-    const id = 'STUDIO-' + randomUUID(); const response = await fetch(`http://127.0.0.1:${port}${route}?testId=${id}`);
+    const id = 'STUDIO-' + randomUUID(); const response = await fetch(`http://localhost:${port}${route}?testId=${id}`);
     const body = await response.text(); assert.equal(response.status, 200); assert.equal(body, 'Hello from ZERNOVA');
     let logs = '';
-    for (let attempt = 0; attempt < 20; attempt++) { await command('logs'); logs = api.getRuntimeDiagnostics()[0].applicationLogs; if (logs.includes(id)) break; await new Promise(resolve => setTimeout(resolve, 100)); }
-    assert(logs.includes(id), 'Fresh Logger correlation is visible through Studio');
-    return { status: response.status, body, correlatedLogger: true };
+    for (let attempt = 0; attempt < 60; attempt++) { logs = api.getRuntimeDiagnostics()[0].applicationLogs; if (logs.split('\n').filter((line: string) => line.includes(id)).length >= 2) break; await new Promise(resolve => setTimeout(resolve, 100)); }
+    assert(logs.split('\n').filter((line: string) => line.includes(id)).length >= 2, 'Both fresh Logger entries must appear automatically without Refresh');
+    return { status: response.status, body, correlatedLogger: true, automaticLogRefresh: true, loggerCount: 2 };
   };
   try {
     await check('Installed VSIX and actual custom editor', async () => {
-      assert(subject.extensionPath.startsWith(path.join(root, 'extensions'))); assert.equal(subject.packageJSON.version, '0.4.0');
+      assert(subject.extensionPath.startsWith(path.join(root, 'extensions'))); assert.equal(subject.packageJSON.version, '0.4.1');
       await vscode.commands.executeCommand('zernovaKernelStudio.openIntegration', file);
       return { extensionPath: subject.extensionPath, model: parseIntegration(xml).flows[0].name };
     });
-    await check('Bundled Java/runtime diagnostics with invalid external tool paths', async () => { const state = await command('diagnostics'); assert.equal(state.phase, 'Diagnostics passed'); assert(state.runtimeOutput.includes('0.4.0-alpha.1')); return { phase: state.phase, offline: state.offline }; });
+    await check('Bundled Java/runtime diagnostics with invalid external tool paths', async () => { const state = await command('diagnostics'); assert.equal(state.phase, 'Diagnostics passed'); assert(state.runtimeOutput.includes('0.4.1-alpha.1')); return { phase: state.phase, offline: state.offline }; });
     await check('Studio offline build produces a fresh application', async () => { const state = await command('build'); assert.equal(state.phase, 'Build succeeded · not deployed'); assert(state.artifact.endsWith('.zapp')); return { artifact: state.artifact, sha256: state.artifactSha256 }; });
     await check('Studio Run deploys to the renamed source-built engine', async () => { const state = await command('run'); assert.equal(state.application, 'DEPLOYED'); assert.equal(state.process, 'RUNNING'); return request(); });
-    await check('XML edits save and redeploy without the old route', async () => { await edit(xml.replace('path="/hello"', 'path="/studio-v2"')); const state = await command('run'); assert.equal(state.application, 'DEPLOYED'); const result = await request('/studio-v2'); assert.equal((await fetch(`http://127.0.0.1:${port}/hello`)).status, 404); return result; });
+    await check('XML edits save and redeploy without the old route', async () => { await edit(xml.replace('path="/hello"', 'path="/studio-v2"')); const state = await command('run'); assert.equal(state.application, 'DEPLOYED'); const result = await request('/studio-v2'); assert.equal((await fetch(`http://localhost:${port}/hello`)).status, 404); return result; });
     await check('Stop Application undeploys and retains the private runtime', async () => { const state = await command('stopApplication'); assert.equal(state.process, 'RUNNING'); assert.equal(state.application, 'NOT_DEPLOYED'); });
     await check('Stop Runtime shuts down the owned engine', async () => { const state = await command('stopRuntime'); assert.equal(state.process, 'STOPPED'); });
     await check('Invalid XML is diagnosed and cannot deploy a stale artifact', async () => { await edit(xml.replace('</zernova>', '</broken>')); const state = await command('run'); assert.equal(state.phase, 'Failed'); assert.equal(state.process, 'STOPPED'); assert(state.lastError); });

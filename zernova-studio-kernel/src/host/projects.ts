@@ -1,4 +1,6 @@
 import * as vscode from 'vscode';
+import { studioForm } from './forms';
+import { defaultRunConfiguration, parseRunFields, type RunConfiguration } from '../../../zernova-studio-build/src/portable/run-config';
 import * as fs from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
@@ -105,61 +107,63 @@ export class ProjectManager implements vscode.Disposable {
     return selected?.project;
   }
   async openProject(): Promise<Project | undefined> {
-    const root = await vscode.window.showInputBox({ title: 'Open ZERNOVA Project', prompt: 'Project directory containing pom.xml and zernova-artifact.json', ignoreFocusOut: true, validateInput: value => directory(value, 'Project directory') });
-    return root === undefined ? undefined : this.load(root);
+    const selected = await vscode.window.showOpenDialog({ canSelectFiles: false, canSelectFolders: true, canSelectMany: false, title: 'Open ZERNOVA Project' });
+    return selected?.[0] ? this.load(selected[0].fsPath) : undefined;
   }
   async importLegacyProject(): Promise<Project | undefined> {
-    const source = await vscode.window.showInputBox({ title: 'Import legacy XML project (1/2)', prompt: 'Source project directory. Conversion creates a separate ZERNOVA project.', ignoreFocusOut: true, validateInput: value => directory(value, 'Source directory') });
-    if (source === undefined) return;
-    const destination = await vscode.window.showInputBox({ title: 'Import legacy XML project (2/2)', prompt: 'New destination directory (must not exist)', value: source + '-zernova', ignoreFocusOut: true });
-    if (destination === undefined) return;
-    await importLegacyProject(source, destination);
-    return this.load(destination);
+    return studioForm('Import Legacy XML Project', [
+      { key: 'source', label: 'Source project directory', value: '', browse: true },
+      { key: 'destination', label: 'New destination directory (must not exist)', value: '' },
+    ], async ({ source, destination }) => { await importLegacyProject(source, destination); return this.load(destination); }, 'Creates a separate ZERNOVA project and preserves the original source.');
   }
   async configure(_project: Project): Promise<boolean> {
     void vscode.window.showInformationMessage('Studio uses its bundled ZERNOVA Runtime and Java. No external tools are required for core and HTTP projects.');
     return true;
   }
+  getRunConfiguration(project: Project): RunConfiguration {
+    return this.context.workspaceState.get<RunConfiguration>('zernova.run.' + project.root) ?? defaultRunConfiguration();
+  }
+  async configureRun(project: Project): Promise<boolean> {
+    const current = this.getRunConfiguration(project);
+    return await studioForm('ZERNOVA Run Configuration', [
+      { key: 'environment', label: 'Environment', value: current.environment, hint: 'Exposed as the zernova.env system property.' },
+      { key: 'variables', label: 'Environment variables', value: Object.entries(current.variables).map(([k,v]) => k + '=' + v).join('\n'), multiline: true, hint: 'One NAME=value per line. Stored in this workspace profile; do not put production secrets here.' },
+      { key: 'properties', label: 'Application properties (Maven-style -D)', value: Object.entries(current.properties).map(([k,v]) => '-D' + k + '=' + v).join('\n'), multiline: true, hint: 'One -Dname=value per line. Passed to the runtime JVM and listener preflight. This offline builder does not execute Maven goals.' },
+      { key: 'debugPort', label: 'Java debugger port (localhost only)', value: String(current.debugPort) },
+    ], async fields => { await this.context.workspaceState.update('zernova.run.' + project.root, parseRunFields(fields)); this.changed.fire(); return true; }) ?? false;
+  }
   async createProject(): Promise<Project | undefined> {
-    const parent = await vscode.window.showInputBox({ title: 'New ZERNOVA Project (1/6)', prompt: 'Parent directory (absolute path)', value: vscode.workspace.workspaceFolders?.find(f => f.uri.scheme === 'file')?.uri.fsPath, ignoreFocusOut: true, validateInput: value => directory(value, 'Parent directory') });
-    if (parent === undefined) return;
-    const name = await vscode.window.showInputBox({ title: 'New ZERNOVA Project (2/6)', prompt: 'Project folder name', value: 'zernova-owner-test', ignoreFocusOut: true, validateInput: async value => {
-      if (!artifactPattern.test(value) || value.includes('..')) return 'Use a letter followed by letters, numbers, dots, hyphens or underscores; no parent-path segments.';
-      try { await fs.lstat(path.join(parent, value)); return 'Destination already exists. Choose a new folder; existing content will not be overwritten.'; } catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') return 'Destination cannot be checked.'; }
-      return undefined;
-    } });
-    if (name === undefined) return;
-    const groupId = await vscode.window.showInputBox({ title: 'New ZERNOVA Project (3/6)', prompt: 'Maven groupId', value: 'com.zernova', ignoreFocusOut: true, validateInput: v => groupPattern.test(v) ? undefined : 'Use a dotted Maven group such as io.zernova.' });
-    if (groupId === undefined) return;
-    const artifactId = await vscode.window.showInputBox({ title: 'New ZERNOVA Project (4/6)', prompt: 'Maven artifactId', value: name, ignoreFocusOut: true, validateInput: v => artifactPattern.test(v) && !v.includes('..') ? undefined : 'Use a Maven artifact name without spaces or parent-path segments.' });
-    if (artifactId === undefined) return;
-    const version = await vscode.window.showInputBox({ title: 'New ZERNOVA Project (5/6)', prompt: 'Maven version', value: '1.0.0', ignoreFocusOut: true, validateInput: v => versionPattern.test(v) ? undefined : 'Use an explicit version such as 1.0.0 or 1.0.0-SNAPSHOT.' });
-    if (version === undefined) return;
-    const configure = await vscode.window.showQuickPick([{ label: 'Use bundled runtime · offline', now: true }, { label: 'Create project · edit first', now: false }], { title: 'New ZERNOVA Project (6/6)', placeHolder: 'Create project', ignoreFocusOut: true });
-    if (!configure) return;
-    const canonicalParent = await fs.realpath(parent), root = path.join(canonicalParent, name);
-    const settings = this.getSettings({ root, name, groupId, artifactId, version });
-    await fs.access(canonicalParent, fs.constants.W_OK);
-    await fs.mkdir(root); // Exclusive creation: EEXIST is never overwritten.
-    try {
-      for (const dir of ['src/main/zernova', 'src/main/java', 'src/main/resources', 'src/test']) await fs.mkdir(path.join(root, dir), { recursive: true });
-      const files = projectFiles({ root, name, groupId, artifactId, version });
-      for (const [relative, content] of Object.entries(files)) await fs.writeFile(path.join(root, relative), content, { flag: 'wx' });
-    } catch (error) { await fs.rm(root, { recursive: true, force: true }); throw error; }
-    const project = await this.load(root); if (settings) await this.saveSettings(project, settings);
-    void vscode.window.showInformationMessage(`Created ${name}. src/main/zernova is empty. Use ZERNOVA: New Integration XML, then Create Flow before building.`);
-    return project;
+    return studioForm('New ZERNOVA Project', [
+      { key: 'parent', label: 'Project location', value: vscode.workspace.workspaceFolders?.find(f => f.uri.scheme === 'file')?.uri.fsPath ?? '', browse: true },
+      { key: 'name', label: 'Project folder', value: 'zernova-app' },
+      { key: 'groupId', label: 'Group ID', value: 'com.zernova' },
+      { key: 'artifactId', label: 'Artifact ID', value: 'zernova-app' },
+      { key: 'version', label: 'Version', value: '1.0.0' },
+      { key: 'integration', label: 'Initial integration XML', value: 'hello.xml' },
+    ], async values => {
+      const { parent, name, groupId, artifactId, version, integration } = values;
+      const error = await directory(parent, 'Project location'); if (error) throw new Error(error);
+      if (!artifactPattern.test(name) || name.includes('..')) throw new Error('Use a valid project folder name without parent-path segments.');
+      if (!groupPattern.test(groupId) || !artifactPattern.test(artifactId) || artifactId.includes('..') || !versionPattern.test(version)) throw new Error('Enter valid Group ID, Artifact ID and Version coordinates.');
+      if (!/^[A-Za-z][A-Za-z0-9_.-]{0,100}\.xml$/.test(integration) || integration.includes('..')) throw new Error('Use an XML filename such as hello.xml.');
+      const canonicalParent = await fs.realpath(parent), root = path.join(canonicalParent, name);
+      await fs.access(canonicalParent, fs.constants.W_OK); await fs.mkdir(root);
+      try {
+        for (const dir of ['src/main/zernova', 'src/main/java', 'src/main/resources', 'src/test']) await fs.mkdir(path.join(root, dir), { recursive: true });
+        for (const [relative, content] of Object.entries(projectFiles({ root, name, groupId, artifactId, version }))) await fs.writeFile(path.join(root, relative), content, { flag: 'wx' });
+        await fs.writeFile(path.join(root, 'src/main/zernova', integration), NEW_INTEGRATION_XML.replace('  <!-- Create a flow in ZERNOVA Studio. This document is initially empty. -->', '  <flow name="helloFlow">\n  </flow>'), { flag: 'wx' });
+      } catch (error) { await fs.rm(root, { recursive: true, force: true }); throw error; }
+      return this.load(root);
+    }, 'Create an integration project using bundled ZERNOVA Runtime and Java. Drag this title bar to move the wizard.');
   }
   async newIntegration(project: Project): Promise<vscode.Uri | undefined> {
-    const filename = await vscode.window.showInputBox({ title: 'New Integration XML', prompt: 'XML filename inside src/main/zernova', value: 'hello.xml', ignoreFocusOut: true, validateInput: async value => {
-      if (!/^[A-Za-z][A-Za-z0-9_.-]{0,100}\.xml$/.test(value) || value.includes('..')) return 'Use a filename such as hello.xml; directories and parent-path segments are not allowed.';
-      try { await fs.lstat(path.join(project.root, 'src/main/zernova', value)); return 'This file already exists. Open it from Projects.'; } catch (error) { return (error as NodeJS.ErrnoException).code === 'ENOENT' ? undefined : 'Unable to check destination.'; }
-    } });
-    if (filename === undefined) return;
-    const directory = await fs.realpath(path.join(project.root, 'src/main/zernova'));
-    if (!isInside(project.root, directory)) throw new Error('The ZERNOVA source directory resolves outside this project.');
-    const uri = vscode.Uri.file(path.join(directory, filename));
-    await fs.writeFile(uri.fsPath, NEW_INTEGRATION_XML, { flag: 'wx' }); this.changed.fire(); return uri;
+    return studioForm('New Integration XML', [{ key: 'filename', label: 'XML filename', value: 'hello.xml' }], async ({ filename }) => {
+      if (!/^[A-Za-z][A-Za-z0-9_.-]{0,100}\.xml$/.test(filename) || filename.includes('..')) throw new Error('Use an XML filename such as hello.xml without directories.');
+      const directory = await fs.realpath(path.join(project.root, 'src/main/zernova'));
+      if (!isInside(project.root, directory)) throw new Error('Source directory resolves outside the project.');
+      const uri = vscode.Uri.file(path.join(directory, filename));
+      await fs.writeFile(uri.fsPath, NEW_INTEGRATION_XML, { flag: 'wx' }); this.changed.fire(); return uri;
+    });
   }
   refresh(): void { this.changed.fire(); }
 }
@@ -194,7 +198,7 @@ export function projectFiles(p: Project): Record<string, string> {
 </Configuration>
 `,
     '.gitignore': 'target/\n*.log\n.DS_Store\n',
-    'README.md': `# ${p.name}\n\nCreated by ZERNOVA Studio 0.4.0 with bundled Runtime 0.4.0-alpha.1 (4.10 source baseline, Java 17).\n\nCreate Integration XML, create a flow and add an HTTP Listener and Logger. Save and click Run. The offline builder supports core/XML/resources and the bundled HTTP profile; it rejects custom Java and additional dependencies. Runtime state stays outside the project.\n`,
+    'README.md': `# ${p.name}\n\nCreated by ZERNOVA Studio 0.4.1 with bundled Runtime 0.4.1-alpha.1 (4.10 source baseline, Java 17).\n\nCreate Integration XML, create a flow and add an HTTP Listener and Logger. Save and click Run. The offline builder supports core/XML/resources and the bundled HTTP profile; it rejects custom Java and additional dependencies. Runtime state stays outside the project.\n`,
   };
 }
 
@@ -230,7 +234,7 @@ export async function importLegacyProject(sourceInput: string, destination: stri
     const bytes = await fs.readFile(path.join(resources, name));
     files.set('src/main/resources/' + name, name === 'log4j2.xml' ? bytes.toString('utf8').replaceAll('sys:mule.home', 'sys:zernova.home') : bytes);
   }
-  files.set('migration-report.json', JSON.stringify({ formatVersion: 1, source, converted, runtime: '0.4.0-alpha.1', dependencyProfile: 'bundled HTTP 1.12.2', notes: ['Maven plugins and tests are not executed or copied.', 'Unsupported XML is preserved; review diagnostics and test behavior.'] }, null, 2) + '\n');
+  files.set('migration-report.json', JSON.stringify({ formatVersion: 1, source, converted, runtime: '0.4.1-alpha.1', dependencyProfile: 'bundled HTTP 1.12.2', notes: ['Maven plugins and tests are not executed or copied.', 'Unsupported XML is preserved; review diagnostics and test behavior.'] }, null, 2) + '\n');
   await fs.mkdir(destination);
   for (const [name, data] of files) { const target = path.join(destination, name); await fs.mkdir(path.dirname(target), { recursive: true }); await fs.writeFile(target, data, { flag: 'wx' }); }
 }

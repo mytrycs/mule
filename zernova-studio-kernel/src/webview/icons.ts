@@ -1,5 +1,8 @@
 /** Original compact line icons; no MuleSoft or Studio artwork. */
 const paths: Record<string, string> = {
+  play: '<path d="m7 3 14 9-14 9z"/>',
+  stop: '<rect x="5" y="5" width="14" height="14" rx="1"/>',
+  debug: '<path d="M8 7h8v10a4 4 0 0 1-8 0zM9 3l3 4 3-4M3 10h5m8 0h5M3 16h5m8 0h5M5 22l4-3m6 0 4 3M12 9v11"/>',
   globe: '<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 7h14M5 17h14"/>',
   logger: '<path d="M4 4h16v16H4zM8 8l3 3-3 3M13 15h4M13 8h4"/>',
   request: '<circle cx="12" cy="12" r="9"/><path d="M6 12h12m-4-4 4 4-4 4"/>',

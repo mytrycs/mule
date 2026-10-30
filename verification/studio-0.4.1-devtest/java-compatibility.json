@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-30",
+  "shippedJava": "17.0.21+9 (Windows Microsoft 17.0.21.0.2)",
+  "java25": {
+    "tested": "Temurin 25.0.5+8 macOS x64",
+    "vmStarts": true,
+    "domainDeployment": "FAIL",
+    "error": "Extension module does not support Java 25; supported [1.8,11,17,21]"
+  },
+  "java21": {
+    "tested": "Temurin 21.0.13+9 macOS x64",
+    "vmStarts": true,
+    "domainDeployment": "PASS",
+    "httpApplicationDeployment": "FAIL",
+    "error": "Extension Sockets does not support Java 21; supported [1.8,11,17]"
+  },
+  "decision": "Keep current security-patched Java 17; retain compatibility checks. Java 25 needs connector/SDK compatibility migration and qualification; no fastest-performance claim.",
+  "sources": [
+    "https://www.oracle.com/technetwork/java/javase/tech/eol-135779.html",
+    "https://adoptium.net/temurin/release-notes",
+    "https://docs.mulesoft.com/release-notes/connector/connector-sockets"
+  ]
+}

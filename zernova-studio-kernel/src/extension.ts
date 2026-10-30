@@ -33,6 +33,13 @@ export function activate(context: vscode.ExtensionContext) {
     projects.onDidChange(() => { void documents.refreshRuntime(); }),
     documents.onDidChangeActiveDocument(uri => { const project = uri ? projects.projectForUri(uri) : undefined; if (project) { void projects.select(uri); void runtime.reconcile(project); } }),
   );
+  const xmlSaves = new Map<string, ReturnType<typeof setTimeout>>();
+  context.subscriptions.push(vscode.workspace.onDidChangeTextDocument(event => {
+    const doc = event.document, project = projects.projectForUri(doc.uri);
+    if (!project || !doc.uri.fsPath.endsWith('.xml') || !doc.uri.fsPath.startsWith(path.join(project.root, 'src/main/zernova') + path.sep)) return;
+    const key = doc.uri.toString(); clearTimeout(xmlSaves.get(key));
+    xmlSaves.set(key, setTimeout(() => { xmlSaves.delete(key); if (!doc.isClosed && doc.isDirty) void doc.save(); }, 500));
+  }), { dispose: () => { for (const timer of xmlSaves.values()) clearTimeout(timer); } });
   const initialized = projects.initialize().then(async () => { for (const project of projects.list()) await runtime.reconcile(project); });
   let state = sanitizeState(context.workspaceState.get<unknown>(PREVIEW_STATE_KEY));
   let ready = false;
@@ -118,7 +125,7 @@ export function activate(context: vscode.ExtensionContext) {
     catch (error) { void vscode.window.showErrorMessage('ZERNOVA: ' + (error instanceof Error ? error.message : String(error))); return undefined; }
   };
   context.subscriptions.push(
-    vscode.commands.registerCommand('zernovaKernelStudio.newProject', guarded(async () => { const project = await projects.createProject(); if (project) await vscode.commands.executeCommand('workbench.view.extension.zernovaKernelStudio'); return project?.root; })),
+    vscode.commands.registerCommand('zernovaKernelStudio.newProject', guarded(async () => { const project = await projects.createProject(); if (project) { await vscode.commands.executeCommand('workbench.view.extension.zernovaKernelStudio'); const files = (await fs.readdir(path.join(project.root, 'src/main/zernova'))).filter(f => f.endsWith('.xml')); if (files[0]) await documents.open(vscode.Uri.file(path.join(project.root, 'src/main/zernova', files[0]))); } return project?.root; })),
     vscode.commands.registerCommand('zernovaKernelStudio.importLegacyProject', guarded(async () => { const project = await projects.importLegacyProject(); if (project) await vscode.commands.executeCommand('workbench.view.extension.zernovaKernelStudio'); return project?.root; })),
     vscode.commands.registerCommand('zernovaKernelStudio.openProject', guarded(async () => { const project = await projects.openProject(); if (project) { await runtime.reconcile(project); await vscode.commands.executeCommand('workbench.view.extension.zernovaKernelStudio'); } return project?.root; })),
     vscode.commands.registerCommand('zernovaKernelStudio.selectProject', guarded(async candidate => { const uri = explicitUri(candidate); const project = await projects.select(uri, !uri); if (project) { projects.refresh(); await runtime.reconcile(project); } })),

@@ -46,8 +46,8 @@ const scenarios: PreviewItem[] = [
 ];
 const runtime: PreviewItem[] = [
   { id: 'not-connected', label: 'No runtime connected', icon: 'debug-disconnect', tooltip: 'Design preview only. This extension does not discover, start or communicate with a runtime.' },
-  { id: 'target', label: 'ZERNOVA 0.4.0-alpha.1', icon: 'info', description: 'Reported target' },
-  { id: 'kernel', label: 'ZERNOVA Runtime 0.4.0-alpha.1', icon: 'symbol-module', description: 'Future target' },
+  { id: 'target', label: 'ZERNOVA 0.4.1-alpha.1', icon: 'info', description: 'Reported target' },
+  { id: 'kernel', label: 'ZERNOVA Runtime 0.4.1-alpha.1', icon: 'symbol-module', description: 'Future target' },
   { id: 'dataweave', label: 'DataWeave 2.10.0', icon: 'symbol-operator', description: 'Future target' },
 ];
 
