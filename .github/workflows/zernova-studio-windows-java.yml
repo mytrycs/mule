@@ -1,0 +1,62 @@
+# Copyright (c) 2026 ZerNova. Internal development inputs; no public release.
+name: ZERNOVA Studio Windows Java
+on:
+  push:
+    branches: ['zernova/studio-bundle-0.3.0']
+    paths: ['.github/workflows/zernova-studio-windows-java.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  java:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: windows-2025
+            arch: x64
+            target: win32-x64
+          - runner: windows-11-arm
+            arch: aarch64
+            target: win32-arm64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    steps:
+      - name: Verify, extract and create an all-module Java 17 runtime
+        shell: pwsh
+        env:
+          ZN_ARCH: ${{ matrix.arch }}
+          ZN_TARGET: ${{ matrix.target }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $name = "microsoft-jdk-17.0.21.0.2-windows-$env:ZN_ARCH.zip"
+          $url = "https://aka.ms/download-jdk/$name"
+          Invoke-WebRequest "$url.sha256sum.txt" -OutFile checksum.txt
+          Invoke-WebRequest $url -OutFile $name
+          $expected = ((Get-Content checksum.txt -Raw).Trim() -split '\s+')[0].ToLower()
+          $actual = (Get-FileHash $name -Algorithm SHA256).Hash.ToLower()
+          if ($expected -ne $actual) { throw 'Java archive checksum mismatch' }
+          Expand-Archive $name -DestinationPath jdk-input
+          $jdk = (Get-ChildItem jdk-input -Directory | Select-Object -First 1).FullName
+          New-Item -ItemType Directory -Force out | Out-Null
+          & "$jdk\bin\java.exe" -XshowSettings:properties -version 2>&1 | Out-File out\java-version.txt
+          if ($LASTEXITCODE -ne 0) { throw 'Java did not execute' }
+          & "$jdk\bin\jlink.exe" --module-path "$jdk\jmods" --add-modules ALL-MODULE-PATH --output out\java --no-header-files --no-man-pages --compress=2
+          if ($LASTEXITCODE -ne 0) { throw 'Runtime image creation failed' }
+          Copy-Item "$jdk\NOTICE" out\java\ -ErrorAction SilentlyContinue
+          Copy-Item "$jdk\LICENSE" out\java\ -ErrorAction SilentlyContinue
+          Copy-Item "$jdk\DISCLAIMER" out\java\ -ErrorAction SilentlyContinue
+          $fonts = Get-ChildItem out\java -File -Recurse | Where-Object { $_.Extension -in '.ttf','.otf','.woff','.woff2','.eot','.ttc' }
+          if ($fonts) { throw 'Font files must not enter a deliverable' }
+          & out\java\bin\java.exe -version 2>&1 | Out-File out\runtime-version.txt
+          if ($LASTEXITCODE -ne 0) { throw 'Generated Java image failed' }
+          @{target=$env:ZN_TARGET; vendor='Microsoft'; version='17.0.21.0.2'; archive=$name; sourceUrl=$url; archiveSha256=$actual; mode='jlink ALL-MODULE-PATH; no engine modules removed'; nativeExecution='PASS'; runner='${{ matrix.runner }}'} | ConvertTo-Json | Set-Content out\provenance.json
+          Compress-Archive out\java -DestinationPath "out\zernova-java-$env:ZN_TARGET.zip"
+          Remove-Item out\java -Recurse -Force
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: zernova-studio-java-${{ matrix.target }}
+          path: out/
+          compression-level: 0
+          retention-days: 7
