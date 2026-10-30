@@ -31,7 +31,11 @@ mvn --version > "$EVIDENCE/maven.txt"
 for component in mule-api mule-extensions-api; do
   stage "$component-build" mvn "${COMMON[@]}" -f ".zernova-upstream/$component/pom.xml" install
 done
-stage route-model-tests mvn -B -V -e -f .zernova-upstream/mule-extensions-api/mule-extensions-api/pom.xml -Dtest=ExtensionModelUtilsTestCase -DskipTests=false -DskipVerifications=true -DskipRevapiCheck=true -Drevapi.skip=true test
+# This API intentionally depends on Mockito-inline 4.11 for Java 8 compatibility.
+# Do not inject the newer parent's Mockito 5 agent into that test JVM. Mockito 4's
+# own inline instrumentation remains active; no assertions or tests are skipped.
+printf 'Extensions API tests use their declared Mockito-inline 4.11.0. The incompatible inherited Mockito 5 javaagent argument is omitted; inline mocking and all selected assertions execute.\n' > "$EVIDENCE/route-test-instrumentation.txt"
+stage route-model-tests mvn -B -V -e -f .zernova-upstream/mule-extensions-api/mule-extensions-api/pom.xml -Dtest=ExtensionModelUtilsTestCase -DskipTests=false -Dsurefire.args.mockito= -DskipVerifications=true -DskipRevapiCheck=true -Drevapi.skip=true test
 stage source-build mvn "${COMMON[@]}" install
 cp "$EVIDENCE/source-build-exit-code.txt" "$EVIDENCE/build-exit-code.txt"
 printf 'Kernel/API compilation passed; all reactor tests compiled. Route-model tests executed; other tests not executed in compilation gate. Historical API comparisons skipped. Full assembly and real execution remain separate.\n' > "$EVIDENCE/SCOPE.txt"
