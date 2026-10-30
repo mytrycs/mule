@@ -26,6 +26,10 @@ class NamespaceRelocationTest(unittest.TestCase):
             self.assertEqual(self.relocation.text(old), new)
         self.assertEqual(self.relocation.text('http://www.mulesoft.org/schema/mule/core'),
                          'http://www.mulesoft.org/schema/mule/core')
+        self.assertEqual(self.relocation.text('http://www.mulesoft.org/mule-guide'),
+                         'http://www.mulesoft.org/mule-guide')
+        self.assertEqual(self.relocation.text(r'\u0027org.mule.runtime.MuleProbe\u0027'),
+                         r'\u0027com.zernova.runtime.ZernovaProbe\u0027')
 
     def test_actual_jvm_class_linkage_reflection_and_modified_utf8(self):
         with tempfile.TemporaryDirectory() as temp:

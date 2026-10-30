@@ -31,8 +31,12 @@ class Relocation:
     def text(self, value):
         if not any(s in value for s in ('org.mule', 'org/mule', 'Mule', 'io.zernova.studio', 'io/zernova/studio')):
             return value
-        value = re.sub(r'(?<![A-Za-z0-9_])org\.mule(?=\.|\b)', 'com.zernova', value)
-        value = re.sub(r'org/mule(?=/|\b)', 'com/zernova', value)
+        # Source Unicode escapes can immediately precede a qualified class
+        # name (for example, \\u0027org.mule...); do not rely on a word boundary.
+        value = re.sub(r'org\.mule(?=\.|\b)', 'com.zernova', value)
+        # JVM descriptors permit Lorg/mule..., while website domains ending in
+        # .org/mule are URLs and must remain intact.
+        value = re.sub(r'(?:(?<![A-Za-z0-9_.])|(?<=L))org/mule(?=/|\b)', 'com/zernova', value)
         value = value.replace('io.zernova.studio', 'com.zernova.studio')
         value = value.replace('io/zernova/studio', 'com/zernova/studio')
         return TOKEN.sub(lambda m: self.names.get(m[0], m[0]), value)

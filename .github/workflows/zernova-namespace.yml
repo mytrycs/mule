@@ -27,6 +27,8 @@ jobs:
           key: zernova-namespace-${{ runner.os }}-${{ hashFiles('zernova-build/namespace-map.json', 'zernova-build/refactor_namespace.py', 'upstream/**/pom.xml', 'pom.xml') }}
       - name: Build renamed API, kernel and standalone from tracked source
         run: bash zernova-build/build-source.sh
+      - name: Verify API serialization, boot, container, launcher, HTTP and route models
+        run: bash zernova-build/test-source.sh
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: zernova-renamed-engine

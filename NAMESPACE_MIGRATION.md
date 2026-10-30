@@ -51,6 +51,7 @@ Java and dependencies; they do not run the bootstrap.
 
 ```sh
 bash zernova-build/build-source.sh
+bash zernova-build/test-source.sh
 npm ci
 npm run build:portable
 ```

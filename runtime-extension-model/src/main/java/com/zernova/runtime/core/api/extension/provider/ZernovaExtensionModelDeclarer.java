@@ -457,7 +457,7 @@ public class ZernovaExtensionModelDeclarer {
     OperationDeclarer logger = extensionDeclarer.withOperation("logger")
         .describedAs("Performs logging using an expression to determine the message to be logged. By default, if a message is not specified, the current Mule Message is logged "
             + "using the " + DEFAULT_LOG_LEVEL
-            + " level to the \u0027org.mule.runtime.core.api.processor.LoggerMessageProcessor\u0027 category but "
+            + " level to the \u0027com.zernova.runtime.core.api.processor.LoggerMessageProcessor\u0027 category but "
             + "the level and category can both be configured to suit your needs.");
 
     withNoErrorMapping(logger);
