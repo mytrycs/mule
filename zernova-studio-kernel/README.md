@@ -1,3 +1,29 @@
+# ZERNOVA Studio 0.5.0 development release
+
+Studio bundles the source-built ZERNOVA Runtime 0.4.1-alpha.1, patched Java 17,
+the HTTP dependency profile and original ZERNOVA support module 0.5.0. Projects
+use ZERNOVA namespaces and `src/main/zernova`; supported applications need no
+external Java, Maven or runtime configuration.
+
+This version adds the core component/transformer catalog, nested scopes/routes,
+Scheduler, external DataWeave Transform outputs, HTTP error responses,
+environment/global properties and a Z-branded deployment console with lifecycle
+stages. Use **ZERNOVA: New ZERNOVA Project**, create integration XML and a flow,
+then add/configure components and click Run. Palette selection requires a valid
+placement, or use drag and drop. New Transform components default to Payload;
+Attributes and Variables are optional.
+
+Read [DEV_TEST_START_HERE.md](https://github.com/mytrycs/mule/blob/codex/studio-core-catalog-0.5.0/zernova-studio-kernel/DEV_TEST_START_HERE.md) for the owner test and
+[KNOWN_LIMITATIONS.md](https://github.com/mytrycs/mule/blob/codex/studio-core-catalog-0.5.0/zernova-studio-kernel/KNOWN_LIMITATIONS.md) for exact Batch/Cache semantics,
+debugging, offline build and platform scope. Batch and Cache are original local
+ZERNOVA implementations; they do not claim Mule Enterprise feature parity.
+Qualification for this iteration is Mac x64. YAML and Java 25 remain future work.
+
+The following sections retain earlier implementation history and verification;
+their versions/results are not evidence for this release.
+
+---
+
 # ZERNOVA Studio 0.4.0 alpha
 
 This development package contains ZERNOVA Runtime 0.4.0-alpha.1, Java 17 and the

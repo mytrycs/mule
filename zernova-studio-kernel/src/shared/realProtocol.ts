@@ -1,3 +1,4 @@
+import { coreDefinition } from './coreCatalog';
 import { MAX_XML_BYTES, type IntegrationModel, type XmlOperation, type ComponentValues } from './xml';
 
 export const RUNTIME_ACTIONS = ['debugContinue', 'debugStep', 'debugDisconnect', 'configureRuntime', 'configureRun', 'configureDebug', 'debug', 'diagnostics', 'build', 'run', 'status', 'logs', 'stopApplication', 'stopRuntime', 'cancel'] as const;
@@ -15,7 +16,10 @@ export interface RealDocumentSnapshot {
   /** Present only while this exact text is the expected result of that request. */
   changeRequestId?: string;
 }
+export type ResourceAction = 'configureScript'|'openScript'|'configureEnvironment'|'addGlobalProperty'|'addPropertyFile';
+export type TransformTarget='payload'|'attributes'|'variables';
 export type RealWebviewMessage =
+  | { type:'realResource'; action:ResourceAction; id?:string; target?:TransformTarget }
   | { type: 'ready' }
   | { type: 'realBreakpoint'; id: string }
   | { type: 'realEdit'; version: number; requestId: string; operation: XmlOperation }
@@ -33,15 +37,19 @@ const string = (v: unknown, max = 1000): v is string => typeof v === 'string' &&
 const id = (v: unknown): v is string => string(v, 512) && v.length > 0;
 const requestId = (v: unknown): v is string => typeof v === 'string' && /^[A-Za-z0-9_-]{1,100}$/.test(v);
 const version = (v: unknown): v is number => Number.isSafeInteger(v) && Number(v) > 0;
-const componentKeys: (keyof ComponentValues)[] = ['displayName', 'configId', 'path', 'allowedMethods', 'message', 'level', 'category', 'script', 'mimeType', 'attributesScript', 'variablesScript', 'responseStatus', 'responseBody', 'responseHeaders'];
+const componentKeys: (keyof ComponentValues)[] = ['displayName', 'configId', 'path', 'allowedMethods', 'message', 'level', 'category', 'script', 'mimeType', 'payloadResource', 'attributesResource', 'variablesResource', 'errorStatus', 'errorBody', 'errorHeaders', 'attributesScript', 'variablesScript', 'responseStatus', 'responseBody', 'responseHeaders'];
 
 export function parseXmlOperation(input: unknown): XmlOperation | null {
   if (!record(input) || typeof input.kind !== 'string') return null;
   const op = input;
-  if (op.kind === 'createFlow' && only(op, ['kind', 'name']) && string(op.name, 100)) return { kind: op.kind, name: op.name };
+  if(op.kind==='savePropertyFile'&&only(op,['kind','file'],['id'])&&string(op.file,512)&&(op.id===undefined||id(op.id)))return {kind:op.kind,file:op.file,...(op.id?{id:op.id}: {})};
+  if(op.kind==='saveGlobalProperty'&&only(op,['kind','name','value'])&&string(op.name,120)&&string(op.value,16000))return {kind:op.kind,name:op.name,value:op.value};
+  if((op.kind==='deletePropertyFile'||op.kind==='deleteGlobalProperty')&&only(op,['kind','id'])&&id(op.id))return {kind:op.kind,id:op.id};
+  if (op.kind === 'createFlow' && only(op, ['kind', 'name'],['flowKind']) && string(op.name,100)&&(op.flowKind===undefined||op.flowKind==='flow'||op.flowKind==='sub-flow')) return { kind: op.kind, name: op.name,...(op.flowKind==='flow'||op.flowKind==='sub-flow'?{flowKind:op.flowKind}:{}) };
   if (op.kind === 'createErrorHandler' && only(op, ['kind', 'flowId']) && id(op.flowId)) return { kind: op.kind, flowId: op.flowId };
   if (op.kind === 'renameFlow' && only(op, ['kind', 'flowId', 'name']) && id(op.flowId) && string(op.name, 100)) return { kind: op.kind, flowId: op.flowId, name: op.name };
-  if (op.kind === 'insert' && only(op, ['kind', 'flowId', 'component'], ['index', 'lane']) && (op.lane === undefined || op.lane === 'error') && id(op.flowId) && (op.component === 'listener' || op.component === 'logger' || op.component === 'transform') && (op.index === undefined || Number.isSafeInteger(op.index) && Number(op.index) >= 0 && Number(op.index) <= 100)) return { kind: op.kind, flowId: op.flowId, component: op.component, ...(op.index !== undefined ? { index: Number(op.index) } : {}), ...(op.lane === 'error' ? { lane: 'error' as const } : {}) };
+  if (op.kind === 'insert' && only(op, ['kind', 'flowId', 'component'], ['index', 'lane','parentId']) && (op.lane === undefined || op.lane === 'error') && (op.parentId===undefined||id(op.parentId)) && id(op.flowId) && (op.component === 'listener' || op.component === 'scheduler' || op.component === 'logger' || op.component === 'transform'||typeof op.component==='string'&&!!coreDefinition(op.component)) && (op.index === undefined || Number.isSafeInteger(op.index) && Number(op.index) >= 0 && Number(op.index) <= 100)) return { kind: op.kind, flowId: op.flowId, component: op.component, ...(op.index !== undefined ? { index: Number(op.index) } : {}), ...(op.lane === 'error' ? { lane: 'error' as const } : {}),...(id(op.parentId)?{parentId:op.parentId}: {}) };
+  if(op.kind==='updateCore'&&only(op,['kind','id','values'])&&id(op.id)&&record(op.values)&&Object.keys(op.values).length>0&&Object.keys(op.values).length<=30&&Object.entries(op.values).every(([k,v])=>/^[A-Za-z][A-Za-z0-9]*$/.test(k)&&string(v,16000)))return {kind:op.kind,id:op.id,values:op.values as Record<string,string>};
   if (op.kind === 'updateComponent' && only(op, ['kind', 'id', 'values']) && id(op.id) && record(op.values) && Object.keys(op.values).length > 0 && Object.keys(op.values).every(k => componentKeys.includes(k as keyof ComponentValues) && string((op.values as Record<string, unknown>)[k], 16000))) return { kind: op.kind, id: op.id, values: { ...op.values } as ComponentValues };
   if ((op.kind === 'deleteComponent' || op.kind === 'duplicateLogger' || op.kind === 'duplicateProcessor' || op.kind === 'deleteConfig') && only(op, ['kind', 'id']) && id(op.id)) return { kind: op.kind, id: op.id };
   if ((op.kind === 'moveLogger' || op.kind === 'moveProcessor') && only(op, ['kind', 'id', 'direction']) && id(op.id) && (op.direction === -1 || op.direction === 1)) return { kind: op.kind, id: op.id, direction: op.direction };
@@ -56,6 +64,7 @@ export function parseXmlOperation(input: unknown): XmlOperation | null {
 export function parseRealMessage(input: unknown): RealWebviewMessage | null {
   if (!record(input)) return null;
   try { if (new TextEncoder().encode(JSON.stringify(input)).length > MAX_XML_BYTES + 200000) return null; } catch { return null; }
+  if(input.type==='realResource'&&only(input,['type','action'],['id','target'])&&['configureScript','openScript','configureEnvironment','addGlobalProperty','addPropertyFile'].includes(String(input.action))&&(input.id===undefined||id(input.id))&&(input.target===undefined||['payload','attributes','variables'].includes(String(input.target))))return {type:'realResource',action:input.action as ResourceAction,...(input.id?{id:input.id as string}:{}),...(input.target?{target:input.target as TransformTarget}:{})};
   if (input.type === 'realBreakpoint' && only(input,['type','id']) && id(input.id)) return {type:'realBreakpoint',id:input.id};
   if (input.type === 'ready' && only(input, ['type'])) return { type: 'ready' };
   if (input.type === 'realAction' && only(input, ['type', 'action']) && typeof input.action === 'string' && REAL_ACTIONS.includes(input.action as RealAction)) return { type: 'realAction', action: input.action as RealAction };

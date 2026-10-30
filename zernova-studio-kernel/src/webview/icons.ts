@@ -4,6 +4,8 @@ const paths: Record<string, string> = {
   build: '<path d="m4 21 9-9M9 3l4 4 4-1 4 4-6 6-4-4 1-4-4-4z"/>',
   transform: '<path d="M3 6h6l6 12h6M3 18h6l6-12h6m-4-4 4 4-4 4m0 4 4 4-4 4"/>',
   sourceResponse: '<path d="M9 4H4v16h5M9 12h12m-6-6 6 6-6 6"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/>',
+  scope:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 15h4m2-2 2 2-2 2"/>',
   response: '<circle cx="12" cy="12" r="9"/><path d="M18 12H6l4-4m-4 4 4 4"/>',
   arrowUp: '<path d="M12 21V3m-6 6 6-6 6 6"/>',
   arrowDown: '<path d="M12 3v18m-6-6 6 6 6-6"/>',

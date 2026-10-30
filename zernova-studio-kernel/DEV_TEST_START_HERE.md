@@ -1,43 +1,45 @@
-# ZERNOVA Studio 0.4.4 development test
+# Studio 0.5.0 development test
 
-This Mac x64 VSIX includes Runtime 0.4.1-alpha.1, compatible Java 17 and HTTP
-libraries. The portable launcher adds ZERNOVA Transform support 0.4.4 without
-replacing engine bytecode. Install the supplied VSIX and reload/restart VS Code.
+Install the Mac x64 VSIX, then reload VS Code. Open your existing ZERNOVA project
+or the supplied `ZERNOVA_0.5.0_Sample` folder, and open `src/main/zernova/hello.xml`
+with ZERNOVA Studio. Runtime and Java are bundled.
 
-## Transform and debugging sample
+1. Click Run. The embedded Console has a Deployment tab showing the Z logo,
+   application/environment/version details, Build succeeded and deployment stages.
+   Application logs remain available in their own tab.
+2. Request `http://localhost:18081/hello` in the supplied sample. Expect JSON with
+   a greeting and active environment. The Logger writes a matching application entry.
+3. Select Transform Message. Payload is the default output. Add Attributes or
+   Variables if needed; remove Payload after another output exists. Configure source
+   opens a draggable form for inline script, an existing `dwl` file or a new file.
+   Open external file edits the linked resource in the code editor.
+4. Select the HTTP Listener to configure success and error responses. Transform
+   Message does not own HTTP response settings.
+5. Open Global Elements → Environment & properties. Choose an environment and a
+   property file pattern. The supplied sample has development and test files.
+   Run/Debug profiles can subsequently override the environment and other settings.
+6. Search the palette for core components. Drag a processor into a valid scope/route,
+   or select it in the palette then click a valid empty location. Scope headers expand
+   and collapse. When/Otherwise belong to Choice, Route belongs to routers, Batch Step
+   belongs to Batch Job and Batch Aggregator belongs to a Step.
+7. Review KNOWN_LIMITATIONS.md before testing Batch, Cache or advanced scenarios.
+   Extra `Core_Catalog_Sample` and `Batch_Sample` folders contain runtime-tested examples.
 
-Open `examples/transform-debug-devtest`, then `src/main/zernova/hello.xml` in Studio.
-Run and call `http://localhost:18083/transform?testId=OWNER-044`.
-Expect JSON containing payload.message `Hello from ZERNOVA`, attributes.correlation
-`OWNER-044`, and variables.savedId `OWNER-044`. Application logs show INBOUND and
-OUTBOUND lines. The source has a blue incoming globe above its gray response icon;
-the forward route is straight and the return begins at the last Logger.
+Property examples:
 
-Select Transform Message to edit independent Payload, Attributes and Variables
-DataWeave scripts. Enter expressions or full `%dw 2.0` scripts without outer `#[ ]`.
-Blank scripts preserve existing values. Variables must produce an application/java
-object such as `{customerId: payload.id}`. All scripts read the same input event.
+```xml
+<global-property name="zernova.env" value="development"/>
+<configuration-properties file="config/application-${zernova.env}.properties"/>
+```
 
-Right-click a processor → Add breakpoint, or select it and press F9. Click Debug,
-wait for Debugger connected, then send an HTTP request. Studio Console → Debug
-console shows the pause, Continue, Next component and Disconnect. The request
-stays pending while paused; Continue finishes it. A Listener breakpoint stops
-at flow entry after accepting the request and before the first processor.
+```dataweave
+%dw 2.0
+output application/json
+---
+{message: p('app.message'), label: "Environment $(p('zernova.env'))"}
+```
 
-The debugger stays within Studio and does not open VS Code's Java debug console.
-It currently has no watch-expression REPL, conditional breakpoints or Java source
-stepping. Stop runtime when done.
-
-## Existing projects
-
-Run/Debug have separate dropdowns and draggable configuration windows. Configure
-environment, variables, Java properties, heap, JVM options, working directory,
-timeouts and debugger port. Java/bootstrap/classpaths remain managed.
-
-XML autosaves. Redeploy on manual save defaults to No; enabling it makes explicit
-Save/Command-S/Control-S rebuild a changed deployed project. Runtime replacement
-restarts the private instance and closes existing connections.
-
-Run errors stay in Studio Console. New `zt:message` applications require the
-Transform support supplied by this version's portable launcher. See
-KNOWN_LIMITATIONS.md for the current development scope.
+Enable redeploy on manual save in Run configuration if desired. XML autosaves keep
+editing safe; explicit Save triggers redeployment only when this option is enabled.
+Manual saves of linked `.dwl` and property files also participate. Test endpoints
+with real requests: a successful deployment alone is not an endpoint health test.

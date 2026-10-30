@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { randomBytes } from 'node:crypto';
 import { installDialogDragging } from '../webview/dialogDrag';
-export interface FormField { key: string; label: string; value: string; multiline?: boolean; hint?: string; browse?: boolean; options?: {value: string; label: string}[]; section?: string; }
+export interface FormField { key: string; label: string; value: string; multiline?: boolean; hint?: string; browse?: boolean; options?: {value: string; label: string}[]; section?: string; maxLength?:number; }
 const escape = (value: string) => value.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
 /** A draggable, validated Studio form. Values are data, never executable commands. */
 export function studioForm<T>(title: string, fields: FormField[], submit: (values: Record<string, string>) => Promise<T>, help = ''): Promise<T | undefined> {
@@ -20,7 +20,7 @@ export function studioForm<T>(title: string, fields: FormField[], submit: (value
         const result = await vscode.window.showOpenDialog({ canSelectFiles: false, canSelectFolders: true, canSelectMany: false, title: 'Choose project parent directory' });
         if (result?.[0]) await panel.webview.postMessage({ type: 'field', key: message.key, value: result[0].fsPath }); return;
       }
-      if (message.type !== 'submit' || !message.values || typeof message.values !== 'object' || Object.keys(message.values).length !== fields.length || !fields.every(f => typeof message.values[f.key] === 'string' && message.values[f.key].length <= 16384)) return;
+      if (message.type !== 'submit' || !message.values || typeof message.values !== 'object' || Object.keys(message.values).length !== fields.length || !fields.every(f => typeof message.values[f.key] === 'string' && message.values[f.key].length <= (f.maxLength??16384))) return;
       busy = true;
       try { const result = await submit(message.values); finish(result); panel.dispose(); }
       catch (error) { await panel.webview.postMessage({ type: 'error', message: error instanceof Error ? error.message : String(error) }); }
@@ -36,7 +36,7 @@ export function studioForm<T>(title: string, fields: FormField[], submit: (value
     document.querySelectorAll('[data-section-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-section-tab]').forEach(t=>t.setAttribute('aria-selected',String(t===b)));document.querySelectorAll('[data-form-section]').forEach(s=>s.hidden=s.dataset.formSection!==b.dataset.sectionTab);});
     form.onsubmit=e=>{e.preventDefault();error.textContent='';form.querySelector('[type=submit]').disabled=true;vscode.postMessage({type:'submit',values:Object.fromEntries(new FormData(form))});};
     window.addEventListener('message',e=>{const m=e.data;if(m.type==='error'){error.textContent=m.message;form.querySelector('[type=submit]').disabled=false;}if(m.type==='field'){const f=document.getElementById(m.key);if(f)f.value=m.value;}});
-    document.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();vscode.postMessage({type:'cancel'});}if(e.key==='Tab'){const items=[...form.querySelectorAll('button:not(:disabled),input,textarea,[tabindex="0"]')];const first=items[0],last=items.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();vscode.postMessage({type:'cancel'});}if(e.key==='Tab'){const items=[...form.querySelectorAll('button:not(:disabled),input,textarea,select,[tabindex="0"]')];const visible=items.filter(x=>x.offsetParent!==null),first=visible[0],last=visible.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}});
     document.querySelector('input,textarea')?.focus();
     </script></body></html>`;
   });

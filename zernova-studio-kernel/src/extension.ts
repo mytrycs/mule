@@ -1,3 +1,4 @@
+import { ResourceManager } from './host/resources';
 import * as vscode from 'vscode';
 import { saveAutomatically, isAutomaticSave } from './host/saves';
 import { createInitialState, sanitizeState, cloneState, PREVIEW_STATE_KEY, DEFAULT_LAYOUT, type PreviewState, type Scenario } from './shared/model';
@@ -18,10 +19,12 @@ let activePanel: vscode.WebviewPanel | undefined;
 export function activate(context: vscode.ExtensionContext) {
   const projects = new ProjectManager(context);
   const runtime = new RuntimeManager(context, projects);
+  const resources=new ResourceManager(projects);
   const documents = new IntegrationEditorProvider(context, {
     render: webview => renderWebview(webview, context.extensionUri, createInitialState(true), true),
     projectName: uri => projects.nameForUri(uri), projectRoot: uri => projects.rootForUri(uri),
     manualSave: async doc => { if (!await saveAutomatically(doc)) throw new Error('The document could not be saved.'); const project = projects.projectForUri(doc.uri); if (project) await runtime.manualSaved(project, doc.uri); },
+    resourceAction:(uri,action,id,target)=>resources.action(uri,action,id,target),
     breakpoint: async (uri,id) => { const project=projects.projectForUri(uri); if(!project) throw new Error('Open a ZERNOVA project.'); await runtime.toggleBreakpoint(project,uri,id); },
     runtimeState: uri => runtime.stateForUri(uri),
     runtimeAction: async (action, uri) => {

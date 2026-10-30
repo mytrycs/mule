@@ -59,7 +59,7 @@ export async function run() {
   };
   try {
     await check('Installed VSIX and actual custom editor', async () => {
-      assert(subject.extensionPath.startsWith(path.join(root, 'extensions'))); assert.equal(subject.packageJSON.version, '0.4.4');
+      assert(subject.extensionPath.startsWith(path.join(root, 'extensions'))); assert.equal(subject.packageJSON.version, '0.5.0');
       await vscode.commands.executeCommand('zernovaKernelStudio.openIntegration', file);
       for (let i = 0; i < 50 && !api.getProjectDiagnostics().documents.documents.includes(file.toString()); i++) await new Promise(resolve => setTimeout(resolve, 100));
       assert(api.getProjectDiagnostics().documents.documents.includes(file.toString()), 'The actual custom editor must resolve this project, including Windows drive-letter casing');
@@ -67,7 +67,7 @@ export async function run() {
     });
     await check('Bundled Java/runtime diagnostics with invalid external tool paths', async () => { const state = await command('diagnostics'); assert.equal(state.phase, 'Diagnostics passed'); assert(state.runtimeOutput.includes('0.4.1-alpha.1')); return { phase: state.phase, offline: state.offline }; });
     await check('Studio offline build produces a fresh application', async () => { const state = await command('build'); assert.equal(state.phase, 'Build succeeded · not deployed'); assert(state.artifact.endsWith('.zapp')); return { artifact: state.artifact, sha256: state.artifactSha256 }; });
-    await check('Studio Run deploys to the renamed source-built engine', async () => { const state = await command('run'); assert.equal(state.application, 'DEPLOYED'); assert.equal(state.process, 'RUNNING'); return request(); });
+    await check('Studio Run deploys to the renamed source-built engine', async () => { const state = await command('run'); assert.equal(state.application, 'DEPLOYED'); assert.equal(state.process, 'RUNNING'); assert(state.deploymentOutput.includes('Z E R N O V A'));assert(state.deploymentOutput.includes('BUILD'));assert(state.deploymentOutput.includes('DEPLOY'));return request(); });
     await check('XML edits save and redeploy without the old route', async () => { await edit(xml.replace('path="/hello"', 'path="/studio-v2"')); const state = await command('run'); assert.equal(state.application, 'DEPLOYED'); const result = await request('/studio-v2'); assert.equal((await fetch(`http://localhost:${port}/hello`)).status, 404); return result; });
     await check('Stop Application undeploys and retains the private runtime', async () => { const state = await command('stopApplication'); assert.equal(state.process, 'RUNNING'); assert.equal(state.application, 'NOT_DEPLOYED'); });
     await check('Stop Runtime shuts down the owned engine', async () => { const state = await command('stopRuntime'); assert.equal(state.process, 'STOPPED'); });
@@ -108,6 +108,21 @@ export async function run() {
       await waitForHttpReady(`http://localhost:${port}/hello`);const id='TRANSFORM-'+randomUUID();const response=await fetch(`http://localhost:${port}/hello?testId=${id}`);const body=JSON.parse(await response.text());
       assert.equal(response.status,200);assert.deepEqual(body,{message:'Hello from Transform',testId:id,environment:'development'});
       return {nativeDataWeave:true,status:response.status,body};
+    });
+    await check('Installed Studio deploys an external transform with environment properties and nested core scope',async()=>{
+      const resources=path.join(workspace,'src/main/resources');await fs.mkdir(path.join(resources,'dwl'),{recursive:true});await fs.mkdir(path.join(resources,'config'),{recursive:true});
+      await fs.writeFile(path.join(resources,'dwl/message.dwl'),'%dw 2.0\noutput application/json\n---\n{message:p("app.message"),environment:p("zernova.env"),value:vars.coreValue}');
+      await fs.writeFile(path.join(resources,'config/development.properties'),'app.message=External ZERNOVA mapping\n');
+      let text=applyOperation(xml,{kind:'saveGlobalProperty',name:'zernova.env',value:'development'}).text;
+      text=applyOperation(text,{kind:'savePropertyFile',file:'config/${zernova.env}.properties'}).text;
+      const scope=applyOperation(text,{kind:'insert',flowId:'flow:studioFlow',component:'try',index:0});text=scope.text;
+      const variable=applyOperation(text,{kind:'insert',flowId:'flow:studioFlow',component:'set-variable',parentId:scope.selectionId});text=variable.text;
+      text=applyOperation(text,{kind:'updateCore',id:variable.selectionId!,values:{variableName:'coreValue',value:'native scope'}}).text;
+      const transform=applyOperation(text,{kind:'insert',flowId:'flow:studioFlow',component:'transform'});text=transform.text;
+      text=applyOperation(text,{kind:'updateComponent',id:transform.selectionId!,values:{script:'',payloadResource:'dwl/message.dwl',mimeType:'application/json'}}).text;
+      text=applyOperation(text,{kind:'updateComponent',id:parseIntegration(text).flows[0].source!.id,values:{responseBody:'#[payload]',responseHeaders:"#[{'Content-Type':'application/json'}]",errorStatus:'503',errorBody:"#['ZERNOVA error']"}}).text;
+      await edit(text);const state=await command('run');assert.equal(state.application,'DEPLOYED');await waitForHttpReady(`http://localhost:${port}/hello`);
+      const response=await fetch(`http://localhost:${port}/hello`);assert.equal(response.status,200);const body=JSON.parse(await response.text());assert.deepEqual(body,{message:'External ZERNOVA mapping',environment:'development',value:'native scope'});return body;
     });
     await check('Listener-only run failure stays in Console and retains the deployed app', async () => {
       await config.update('redeployOnSave',false,vscode.ConfigurationTarget.WorkspaceFolder);

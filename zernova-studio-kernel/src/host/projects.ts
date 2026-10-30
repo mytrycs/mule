@@ -129,6 +129,10 @@ export class ProjectManager implements vscode.Disposable {
     if (vscode.workspace.getWorkspaceFolder(vscode.Uri.file(project.root))) value.redeployOnSave = vscode.workspace.getConfiguration('zernovaKernelStudio', vscode.Uri.file(project.root)).get<boolean>('redeployOnSave', false);
     return value;
   }
+  async setEnvironment(project:Project,environment:string):Promise<void>{
+    for(const debug of [false,true])await this.context.workspaceState.update((debug?'zernova.debug.':'zernova.run.')+project.root,{...this.getRunConfiguration(project,debug),environment});
+    this.changed.fire();
+  }
   async configureRun(project: Project, debug = false): Promise<boolean> {
     const current = this.getRunConfiguration(project,debug);
     const yesNo = [{value:'false',label:'No'},{value:'true',label:'Yes'}];
@@ -142,6 +146,7 @@ export class ProjectManager implements vscode.Disposable {
       { key:'maximumHeapMB',label:'Maximum heap (MB)',value:String(current.maximumHeapMB),section:'Java VM' },
       { key:'properties',label:'Application system properties (-D)',value:Object.entries(current.properties).map(([k,v])=>'-D'+k+'='+v).join('\n'),multiline:true,section:'Java VM',hint:'One -Dname=value per line. These are JVM properties; Maven goals are not executed.' },
       { key:'jvmArguments',label:'Additional JVM options',value:(current.jvmArguments ?? []).join('\n'),multiline:true,section:'Java VM',hint:'One literal option per line, for example -ea or -XX:+UseG1GC. GC, diagnostics, stack and module-opening options are supported. JRE, agents, classpath and bootstrap are managed by Studio.' },
+      { key:'deploymentScanIntervalMs',label:'Deployment scan interval (ms)',value:String(current.deploymentScanIntervalMs??1000),section:'Lifecycle',hint:'Local development default 1000. Smaller intervals detect staged application changes sooner; this does not change application throughput.' },
       { key:'startupTimeoutSeconds',label:'Runtime startup timeout (seconds)',value:String(current.startupTimeoutSeconds),section:'Lifecycle' },
       { key:'deploymentTimeoutSeconds',label:'Application deployment timeout (seconds)',value:String(current.deploymentTimeoutSeconds),section:'Lifecycle' },
       { key:'stopTimeoutSeconds',label:'Runtime shutdown timeout (seconds)',value:String(current.stopTimeoutSeconds),section:'Lifecycle' },
@@ -219,7 +224,7 @@ export function projectFiles(p: Project): Record<string, string> {
 </Configuration>
 `,
     '.gitignore': 'target/\n*.log\n.DS_Store\n',
-    'README.md': `# ${p.name}\n\nCreated by ZERNOVA Studio 0.4.1 with bundled Runtime 0.4.1-alpha.1 (4.10 source baseline, Java 17).\n\nCreate Integration XML, create a flow and add an HTTP Listener and Logger. Save and click Run. The offline builder supports core/XML/resources and the bundled HTTP profile; it rejects custom Java and additional dependencies. Runtime state stays outside the project.\n`,
+    'README.md': `# ${p.name}\n\nCreated by ZERNOVA Studio 0.5.0 with bundled Runtime 0.4.1-alpha.1 (4.10 source baseline, Java 17).\n\nCreate Integration XML, create a flow and add an HTTP Listener and Logger. Save and click Run. The offline builder supports core/XML/resources and the bundled HTTP profile; it rejects custom Java and additional dependencies. Runtime state stays outside the project.\n`,
   };
 }
 

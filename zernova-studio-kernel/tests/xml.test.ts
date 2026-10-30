@@ -13,7 +13,7 @@ function fixture(): string {
   xml = act(xml, { kind: 'insert', flowId: 'flow:helloFlow', component: 'listener' });
   return act(xml, { kind: 'insert', flowId: 'flow:helloFlow', component: 'logger' });
 }
-function source(xml: string) { return parseIntegration(xml).flows[0].source!; }
+function source(xml:string){const node=parseIntegration(xml).flows[0].source;assert(node?.kind==='listener');return node;}
 function logger(xml: string, index = 0) { const node=parseIntegration(xml).flows[0].processors[index]; assert(node.kind === 'logger'); return node; }
 
 test('new real document contains no flow or fixture and accepts explicit flow creation', () => {
@@ -106,11 +106,11 @@ test('comments, CDATA, Unicode, unknown attributes and unrelated formatting surv
 });
 
 test('unsupported constructs make their flow read-only but remain intact while another flow is edited', () => {
-  const other = '<flow name="other"><set-variable variableName="owner" value="#[{x:1}]"/><logger message="old"/></flow>';
+  const other = '<flow name="other"><future-processor value="#[{x:1}]"/><logger message="old"/></flow>';
   let xml = fixture().replace('</zernova>', '  ' + other + '\n</zernova>');
   const model = parseIntegration(xml);
   assert.equal(model.flows[1].editable, false);
-  assert.deepEqual(model.flows[1].unsupported, ['set-variable']);
+  assert.deepEqual(model.flows[1].unsupported, ['future-processor']);
   assert.throws(() => act(xml, { kind: 'insert', flowId: 'flow:other', component: 'logger' }), /unsupported/);
   xml = act(xml, { kind: 'updateComponent', id: logger(xml).id, values: { category: 'io.owner' } });
   assert.ok(xml.includes(other));
@@ -302,9 +302,9 @@ test('Invalid error destinations and duplicate handlers are rejected without los
   assert.equal(parseXmlOperation({ kind: 'insert', flowId: 'flow:helloFlow', component: 'logger', lane: 'arbitrary' }), null);
   assert(parseXmlOperation({ kind: 'insert', flowId: 'flow:helloFlow', component: 'logger', lane: 'error', index: 0 }));
 });
-test('Custom error handlers survive normal flow edits without pretending to support their internals', () => {
+test('Extended error handlers keep variable processors editable and preserve their XML', () => {
   const xml = fixture().replace('</flow>', '<error-handler><on-error-propagate type="ANY"><set-variable variableName="owner" value="original"/></on-error-propagate></error-handler></flow>');
-  const f = parseIntegration(xml).flows[0]; assert(f.editable); assert.equal(f.errorHandler!.editable, false);
+  const f = parseIntegration(xml).flows[0]; assert(f.editable); assert.equal(f.errorHandler!.editable, true);
   const next = act(xml, { kind: 'insert', flowId: f.id, component: 'logger' });
   assert(next.includes('<set-variable variableName="owner" value="original"/>'));
 });
@@ -336,9 +336,9 @@ test('Transform preserves independent payload, attributes and named-variable scr
   assert(!parseIntegration(xml).diagnostics.some(d=>d.code==='transform-script'));
 });
 test('Editing a legacy payload transform upgrades it without losing the script, ID, label, comment or other XML',()=>{
- let xml=fixture().replace('</flow>','<!-- original -->\n<set-payload xmlns:doc="https://schemas.zernova.dev/documentation" doc:id="old-transform" doc:name="Keep name" value="#[{answer: 42}]" mimeType="application/java"/>\n</flow>');
+ let xml=fixture().replace('</flow>','<!-- original -->\n<set-payload xmlns:doc="https://schemas.zernova.dev/documentation" doc:id="old-transform" doc:name="Keep name" value="#[%dw 2.0&#10;output application/java&#10;---&#10;{answer: 42}]" mimeType="application/java"/>\n</flow>');
  assert(parseIntegration(xml).flows[0].processors.some(p=>p.id==='old-transform'));
  xml=act(xml,{kind:'updateComponent',id:'old-transform',values:{variablesScript:'{saved: payload}'}});
  const node=parseIntegration(xml).flows[0].processors.find(p=>p.id==='old-transform')!;
- assert(node.kind==='transform');assert.equal(node.script,'{answer: 42}');assert.equal(node.displayName,'Keep name');assert.equal(node.variablesScript,'{saved: payload}');assert(xml.includes('<!-- original -->'));
+ assert(node.kind==='transform');assert.equal(node.script,'%dw 2.0\noutput application/java\n---\n{answer: 42}');assert.equal(node.displayName,'Keep name');assert.equal(node.variablesScript,'{saved: payload}');assert(xml.includes('<!-- original -->'));
 });

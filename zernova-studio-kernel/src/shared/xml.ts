@@ -1,3 +1,4 @@
+import { coreDefinition, coreElement, acceptsChild } from './coreCatalog';
 /** Namespace-aware XML projection and lossless edits for the bounded real editor.
  * SAX validates well-formed XML. The lexical tree retains original source spans;
  * visual edits change those spans, never serialize a recognized-field subset.
@@ -16,29 +17,38 @@ export interface XmlDiagnostic { message: string; severity: 'error' | 'warning';
 export interface RealHttpConfig { id: string; name: string; protocol: string; host: string; port: string; basePath: string; editable: boolean }
 export interface RealListener {
   id: string; kind: 'listener'; displayName: string; configId: string; path: string; allowedMethods: string; notes: string;
-  responseStatus: string; responseBody: string; responseHeaders: string; editable: boolean;
+  errorStatus: string; errorBody: string; errorHeaders: string; responseStatus: string; responseBody: string; responseHeaders: string; editable: boolean;
 }
 export interface RealLogger {
   id: string; kind: 'logger'; displayName: string; message: string; level: RealLogLevel; category: string;
   expressionMode: boolean; notes: string; editable: boolean;
 }
 export interface RealTransform {
-  id: string; kind: 'transform'; displayName: string; script: string; mimeType: string; attributesScript?: string; variablesScript?: string; editable: boolean;
+  id: string; kind: 'transform'; displayName: string; script: string; mimeType: string; attributesScript?: string; variablesScript?: string; payloadResource?: string; attributesResource?: string; variablesResource?: string; editable: boolean;
 }
-export type RealProcessor = RealLogger | RealTransform;
-export type RealComponent = RealListener | RealProcessor;
-export interface RealErrorHandler { type: string; summary: string; editable: boolean; processors: RealProcessor[] }
-export interface RealFlow { id: string; name: string; kind?: 'flow' | 'sub-flow'; source: RealListener | null; processors: RealProcessor[]; editable: boolean; unsupported: string[]; errorHandler?: RealErrorHandler }
-export interface IntegrationModel { valid: boolean; flows: RealFlow[]; configs: RealHttpConfig[]; diagnostics: XmlDiagnostic[] }
+export interface RealCore {id:string;kind:'core';coreType:string;displayName:string;values:Record<string,string>;children:RealProcessor[];editable:boolean;}
+export interface RealScheduler {id:string;kind:'scheduler';displayName:string;values:Record<string,string>;editable:boolean;}
+export type RealProcessor = RealLogger | RealTransform | RealCore;
+export type RealComponent = RealListener | RealScheduler | RealProcessor;
+export interface RealErrorHandler { component?:RealCore; type: string; summary: string; editable: boolean; processors: RealProcessor[] }
+export interface RealFlow { id: string; name: string; kind?: 'flow' | 'sub-flow'; source: RealListener | RealScheduler | null; processors: RealProcessor[]; editable: boolean; unsupported: string[]; errorHandler?: RealErrorHandler }
+export interface RealPropertyFile { id:string; file:string; }
+export interface RealGlobalProperty { id:string; name:string; value:string; }
+export interface IntegrationModel { properties?:RealPropertyFile[]; globalProperties?:RealGlobalProperty[]; valid: boolean; flows: RealFlow[]; configs: RealHttpConfig[]; diagnostics: XmlDiagnostic[] }
 export interface ComponentValues {
   displayName?: string; configId?: string; path?: string; allowedMethods?: string; message?: string;
-  script?: string; mimeType?: string; attributesScript?: string; variablesScript?: string; level?: string; category?: string; responseStatus?: string; responseBody?: string; responseHeaders?: string;
+  script?: string; mimeType?: string; payloadResource?: string; attributesResource?: string; variablesResource?: string; errorStatus?: string; errorBody?: string; errorHeaders?: string; attributesScript?: string; variablesScript?: string; level?: string; category?: string; responseStatus?: string; responseBody?: string; responseHeaders?: string;
 }
 export interface ConfigValues { name: string; protocol: 'HTTP'; host: string; port: string; basePath: string }
 export type XmlOperation =
-  | { kind: 'createFlow'; name: string }
+  | { kind:'savePropertyFile'; id?:string; file:string }
+  | { kind:'saveGlobalProperty'; name:string; value:string }
+  | { kind:'deletePropertyFile'; id:string }
+  | { kind:'deleteGlobalProperty'; id:string }
+  | { kind: 'createFlow'; name: string; flowKind?:'flow'|'sub-flow' }
+  | { kind:'updateCore';id:string;values:Record<string,string> }
   | { kind: 'renameFlow'; flowId: string; name: string }
-  | { kind: 'insert'; flowId: string; component: 'listener' | 'logger' | 'transform'; index?: number; lane?: 'error' }
+  | { kind: 'insert'; flowId: string; component: string; index?: number; lane?: 'error'; parentId?:string }
   | { kind: 'createErrorHandler'; flowId: string }
   | { kind: 'updateComponent'; id: string; values: ComponentValues }
   | { kind: 'deleteComponent'; id: string }
@@ -184,6 +194,13 @@ function parseInternal(text: string): Parsed {
   model.valid = true;
   const docIds = new Set<string>();
   for (const n of tree.all) { const id = namespacedAttribute(n, DOC_NS, 'id')?.value; if (id && docIds.has(id)) issue('Duplicate documentation ID: ' + id, n.start, n.openEnd, 'duplicate-id'); if (id) docIds.add(id); }
+  model.properties=[];model.globalProperties=[];
+  for(const [index,n] of tree.root.children.filter(n=>is(n,CORE_NS,'configuration-properties')).entries()){
+    const id='property-file:'+index;model.properties.push({id,file:value(n,'file')});parsed.configNodes.set(id,n);
+  }
+  for(const n of tree.root.children.filter(n=>is(n,CORE_NS,'global-property'))){
+    const name=value(n,'name'),id='global-property:'+name;model.globalProperties.push({id,name,value:value(n,'value')});parsed.configNodes.set(id,n);
+  }
   const configNames = new Set<string>();
   for (const n of tree.root.children.filter(n => is(n, HTTP_NS, 'listener-config'))) {
     const name = value(n, 'name'), id = 'config:' + name, connection = child(n, HTTP_NS, 'listener-connection');
@@ -198,8 +215,8 @@ function parseInternal(text: string): Parsed {
   const flowNames = new Set<string>();
   for (const [flowIndex, n] of tree.root.children.filter(n => is(n, CORE_NS, 'flow') || is(n, CORE_NS, 'sub-flow')).entries()) {
     const name = value(n, 'name'), id = 'flow:' + name;
-    const sources = n.children.filter(c => is(c, HTTP_NS, 'listener'));
-    const unsupported = n.children.filter(c => !is(c, HTTP_NS, 'listener') && !is(c, CORE_NS, 'logger') && !is(c, CORE_NS, 'set-payload') && !is(c, TRANSFORM_NS, 'message') && !is(c, CORE_NS, 'error-handler')).map(c => c.name);
+    const sources = n.children.filter(c => is(c, HTTP_NS, 'listener')||is(c,CORE_NS,'scheduler'));
+    const unsupported = n.children.filter(c => !is(c, HTTP_NS, 'listener') && !is(c, CORE_NS, 'logger') && !is(c, CORE_NS, 'set-payload') && !is(c, TRANSFORM_NS, 'message') && !is(c, CORE_NS, 'error-handler')&&!is(c,CORE_NS,'scheduler')&&!coreElement(c.uri,c.local)).map(c => c.name);
     const flow: RealFlow = { id, name, kind: n.local as 'flow' | 'sub-flow', source: null, processors: [], editable: unsupported.length === 0 && sources.length <= 1 && (sources.length === 0 || n.children[0] === sources[0]) && (n.local !== 'sub-flow' || sources.length === 0), unsupported };
     model.flows.push(flow); parsed.flowNodes.set(id, n);
     if (!name || flowNames.has(name)) issue('Flow names must be present and unique: ' + name, n.start, n.openEnd, 'flow-name');
@@ -211,21 +228,29 @@ function parseInternal(text: string): Parsed {
     const components = [...n.children, ...(flow.errorHandler?.editable ? onError!.children : [])];
     for (const [componentIndex, c] of components.entries()) {
       const componentId = namespacedAttribute(c, DOC_NS, 'id')?.value ?? `legacy:${flowIndex}:${componentIndex}:${c.local}`;
-      if (is(c, HTTP_NS, 'listener')) {
-        const response = child(c, HTTP_NS, 'response');
-        const safeChildren = c.children.every(v => is(v, HTTP_NS, 'response') || is(v, HTTP_NS, 'error-response')) && c.children.filter(v => is(v, HTTP_NS, 'response')).length <= 1;
-        const listener: RealListener = { id: componentId, kind: 'listener', displayName: namespacedAttribute(c, DOC_NS, 'name')?.value ?? 'HTTP Listener', configId: 'config:' + value(c, 'config-ref'), path: value(c, 'path'), allowedMethods: value(c, 'allowedMethods', 'GET'), notes: '', responseStatus: response ? value(response, 'statusCode', '200') : '200', responseBody: content(text, response && child(response, HTTP_NS, 'body')), responseHeaders: content(text, response && child(response, HTTP_NS, 'headers')), editable: flow.editable && safeChildren && (!response || response.children.every(v => is(v, HTTP_NS, 'body') || is(v, HTTP_NS, 'headers')) && response.children.filter(v => is(v, HTTP_NS, 'body')).length <= 1 && response.children.filter(v => is(v, HTTP_NS, 'headers')).length <= 1) };
+      if(is(c,CORE_NS,'scheduler')){
+        const scheduling=child(c,CORE_NS,'scheduling-strategy');const strategy=scheduling?.children[0];
+        const schedulerSafe=c.children.length===1&&scheduling?.children.length===1&&strategy?.uri===CORE_NS&&['fixed-frequency','cron'].includes(strategy.local)&&strategy.children.length===0&&strategy.attributes.every(a=>a.name==='xmlns'||a.name.startsWith('xmlns:')||['frequency','timeUnit','startDelay','expression','timeZone'].includes(a.name)); 
+        flow.source={id:componentId,kind:'scheduler',displayName:namespacedAttribute(c,DOC_NS,'name')?.value??'Scheduler',values:{frequency:strategy?value(strategy,'frequency','1000'):'1000',timeUnit:strategy?value(strategy,'timeUnit','MILLISECONDS'):'MILLISECONDS',startDelay:strategy?value(strategy,'startDelay','0'):'0',cron:strategy?.local==='cron'?value(strategy,'expression'):'',timeZone:strategy?.local==='cron'?value(strategy,'timeZone'):'',disallowConcurrentExecution:value(c,'disallowConcurrentExecution','true')},editable:flow.editable&&!!schedulerSafe};parsed.nodes.set(componentId,c);
+      }else if (is(c, HTTP_NS, 'listener')) {
+        const response = child(c, HTTP_NS, 'response'), errorResponse=child(c,HTTP_NS,'error-response');
+        const safeChildren = c.children.filter(v=>is(v,HTTP_NS,'error-response')).length<=1 && c.children.every(v => is(v, HTTP_NS, 'response') || is(v, HTTP_NS, 'error-response')) && c.children.filter(v => is(v, HTTP_NS, 'response')).length <= 1;
+        const listener: RealListener = { id: componentId, kind: 'listener', displayName: namespacedAttribute(c, DOC_NS, 'name')?.value ?? 'HTTP Listener', configId: 'config:' + value(c, 'config-ref'), path: value(c, 'path'), allowedMethods: value(c, 'allowedMethods', 'GET'), notes: '', errorStatus:errorResponse?value(errorResponse,'statusCode','500'):'500',errorBody:content(text,errorResponse&&child(errorResponse,HTTP_NS,'body')),errorHeaders:content(text,errorResponse&&child(errorResponse,HTTP_NS,'headers')), responseStatus: response ? value(response, 'statusCode', '200') : '200', responseBody: content(text, response && child(response, HTTP_NS, 'body')), responseHeaders: content(text, response && child(response, HTTP_NS, 'headers')), editable: flow.editable && safeChildren && (!errorResponse || errorResponse.children.every(v=>is(v,HTTP_NS,'body')||is(v,HTTP_NS,'headers')) && errorResponse.children.filter(v=>is(v,HTTP_NS,'body')).length<=1 && errorResponse.children.filter(v=>is(v,HTTP_NS,'headers')).length<=1) && (!response || response.children.every(v => is(v, HTTP_NS, 'body') || is(v, HTTP_NS, 'headers')) && response.children.filter(v => is(v, HTTP_NS, 'body')).length <= 1 && response.children.filter(v => is(v, HTTP_NS, 'headers')).length <= 1) };
         flow.source ??= listener; parsed.nodes.set(componentId, c);
         if (!model.configs.some(cfg => cfg.id === listener.configId)) issue('Listener references a missing HTTP configuration: ' + value(c, 'config-ref'), c.start, c.openEnd, 'config-reference');
         if (!listener.path || !dynamic(listener.path) && !listener.path.startsWith('/')) issue('Listener path must begin with / or use a runtime property/expression.', c.start, c.openEnd, 'listener-path');
         if (!dynamic(listener.allowedMethods) && !listener.allowedMethods.split(',').every(method => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'].includes(method.trim()))) issue('Use valid comma-separated HTTP methods.', c.start, c.openEnd, 'listener-methods');
         if (!dynamic(listener.responseStatus) && (!/^\d{3}$/.test(listener.responseStatus) || Number(listener.responseStatus) < 100 || Number(listener.responseStatus) > 599)) issue('Response status must be an HTTP code from 100 to 599 or a runtime expression/property.', response?.start ?? c.start, response?.openEnd ?? c.openEnd, 'response-status');
-      } else if (is(c, CORE_NS, 'set-payload') || is(c, TRANSFORM_NS, 'message')) {
+      } else if (is(c, CORE_NS, 'set-payload') && (namespacedAttribute(c,DOC_NS,'name')?.value==='Transform Message'||value(c,'value').startsWith('#[%dw')) || is(c, TRANSFORM_NS, 'message')) {
         const raw = value(c,c.uri === TRANSFORM_NS ? 'payload' : 'value');
-        const transform: RealTransform = { id: componentId, kind:'transform', displayName:namespacedAttribute(c,DOC_NS,'name')?.value ?? 'Transform Message', attributesScript:value(c,'attributes'), variablesScript:value(c,'variables'), script:c.uri === TRANSFORM_NS ? raw : raw.startsWith('#[') && raw.endsWith(']') ? raw.slice(2,-1) : JSON.stringify(raw), mimeType:value(c,'mimeType','application/java'), editable:flow.editable && c.children.length === 0 };
+        const transform: RealTransform = { id: componentId, kind:'transform', displayName:namespacedAttribute(c,DOC_NS,'name')?.value ?? 'Transform Message', payloadResource:value(c,'payloadResource'),attributesResource:value(c,'attributesResource'),variablesResource:value(c,'variablesResource'),attributesScript:value(c,'attributes'), variablesScript:value(c,'variables'), script:c.uri === TRANSFORM_NS ? raw : raw.startsWith('#[') && raw.endsWith(']') ? raw.slice(2,-1) : JSON.stringify(raw), mimeType:value(c,'mimeType','application/java'), editable:flow.editable && c.children.length === 0 };
         if (c.parent === onError) flow.errorHandler!.processors.push(transform); else flow.processors.push(transform);
         parsed.nodes.set(componentId,c);
-        if (!transform.script.trim() && !transform.attributesScript?.trim() && !transform.variablesScript?.trim()) issue('Transform Message requires a DataWeave payload script.',c.start,c.openEnd,'transform-script');
+        if (![transform.script,transform.attributesScript,transform.variablesScript,transform.payloadResource,transform.attributesResource,transform.variablesResource].some(v=>v?.trim())) issue('Transform Message requires a DataWeave payload script.',c.start,c.openEnd,'transform-script');
+        for(const [script,resource] of [[transform.script,transform.payloadResource],[transform.attributesScript,transform.attributesResource],[transform.variablesScript,transform.variablesResource]]) {
+          if(resource && (!/^dwl\/[A-Za-z0-9_./-]+\.dwl$/.test(resource)||resource.split('/').some(v=>v==='..'||v==='.'||!v)))issue('DataWeave resources must name a .dwl file under src/main/resources/dwl.',c.start,c.openEnd,'transform-resource');
+          if(resource && script?.trim())issue('Choose inline script or external resource for each Transform output.',c.start,c.openEnd,'transform-source');
+        }
         if (!transform.mimeType.trim()) issue('Transform Message requires an output MIME type.',c.start,c.openEnd,'transform-mime');
       } else if (is(c, CORE_NS, 'logger')) {
         const rawLevel = value(c, 'level', 'INFO');
@@ -234,8 +259,9 @@ function parseInternal(text: string): Parsed {
         parsed.nodes.set(componentId, c);
         if (!LOG_LEVELS_REAL.includes(rawLevel as RealLogLevel)) issue('Unsupported Logger level: ' + rawLevel, c.start, c.openEnd, 'logger-level');
         if (!logger.message.trim()) issue('Logger message is required.', c.start, c.openEnd, 'logger-message');
-      }
+      } else if(coreElement(c.uri,c.local)&&!is(c,CORE_NS,'error-handler')){const processor=projectProcessor(c,parsed,flow.editable,flowIndex,issue);if(processor){if(c.parent===onError)flow.errorHandler!.processors.push(processor);else flow.processors.push(processor);}}
     }
+    if(handler){const projected=projectProcessor(handler,parsed,true,flowIndex,issue);if(projected?.kind==='core'){flow.errorHandler={component:projected,type:projected.children.map(c=>c.kind==='core'?c.coreType:c.kind).join(', '),summary:'Local error handler',editable:projected.editable,processors:projected.children[0]?.kind==='core'?projected.children[0].children:[]};}}
   }
   if (!model.flows.length) issue('Create a flow, then add an HTTP Listener and Logger before building.', tree.root.start, tree.root.openEnd, 'empty-project', 'warning');
   if (model.diagnostics.some(d => ['duplicate-id', 'flow-name', 'config-name'].includes(d.code))) {
@@ -244,6 +270,51 @@ function parseInternal(text: string): Parsed {
     for (const config of model.configs) config.editable = false;
   }
   return parsed;
+}
+
+export function processorTree(flow:RealFlow):RealProcessor[]{
+ const out:RealProcessor[]=[];
+ const visit=(node:RealProcessor)=>{out.push(node);if(node.kind==='core')node.children.forEach(visit);};
+ flow.processors.forEach(visit);
+ if(flow.errorHandler?.component)visit(flow.errorHandler.component);else flow.errorHandler?.processors.forEach(visit);
+ return out;
+}
+function projectProcessor(node:Element,parsed:Parsed,editable:boolean,flowIndex:number,issue:(message:string,start?:number,end?:number,code?:string,severity?:'error'|'warning')=>void):RealProcessor|undefined{
+ const id=namespacedAttribute(node,DOC_NS,'id')?.value??`legacy:${flowIndex}:nested:${node.start}:${node.local}`;
+ const name=namespacedAttribute(node,DOC_NS,'name')?.value;
+ parsed.nodes.set(id,node);
+ if(is(node,CORE_NS,'logger')){
+  return {id,kind:'logger',displayName:name??'Logger',message:value(node,'message'),level:value(node,'level','INFO') as RealLogLevel,category:value(node,'category'),expressionMode:value(node,'message').startsWith('#['),notes:'',editable:editable&&!node.children.length};
+ }
+ if(is(node,TRANSFORM_NS,'message')||is(node,CORE_NS,'set-payload')&&(name==='Transform Message'||value(node,'value').startsWith('#[%dw'))){
+  const raw=value(node,node.uri===TRANSFORM_NS?'payload':'value');
+  const outputs=[[raw,value(node,'payloadResource')],[value(node,'attributes'),value(node,'attributesResource')],[value(node,'variables'),value(node,'variablesResource')]];
+  if(!outputs.some(pair=>pair.some(v=>v.trim())))issue('Transform Message needs at least one output.',node.start,node.openEnd,'transform-script');
+  for(const [script,resource]of outputs){if(resource&&(!/^dwl\/[A-Za-z0-9_./-]+\.dwl$/.test(resource)||resource.split('/').some(v=>!v||v==='.'||v==='..')))issue('DataWeave resources must be under src/main/resources/dwl.',node.start,node.openEnd,'transform-resource');if(resource&&script.trim())issue('Choose inline script or external resource for each Transform output.',node.start,node.openEnd,'transform-source');}
+  return {id,kind:'transform',displayName:name??'Transform Message',script:node.uri===TRANSFORM_NS?raw:raw.startsWith('#[')&&raw.endsWith(']')?raw.slice(2,-1):JSON.stringify(raw),mimeType:value(node,'mimeType','application/java'),attributesScript:value(node,'attributes'),variablesScript:value(node,'variables'),payloadResource:value(node,'payloadResource'),attributesResource:value(node,'attributesResource'),variablesResource:value(node,'variablesResource'),editable:editable&&!node.children.length};
+ }
+ const definition=coreElement(node.uri,node.local);if(!definition)return undefined;
+ const values=Object.fromEntries(definition.fields.map(field=>[field.key,value(node,field.key,field.initial)]));
+ const children=node.children.map(c=>projectProcessor(c,parsed,editable,flowIndex,issue)).filter((c):c is RealProcessor=>!!c);
+ const safe=node.children.length===children.length&&children.every(c=>c.editable);
+ const component:RealCore={id,kind:'core',coreType:definition.key,displayName:name??definition.name,values,children,editable:editable&&safe};
+ if(!safe)issue('Unsupported child content is preserved in '+definition.name+'.',node.start,node.openEnd,'unsupported','warning');
+ for(const field of definition.fields)if(field.required&&!values[field.key]?.trim())issue(definition.name+' requires '+field.label+'.',node.start,node.openEnd,'component-field');
+ if(definition.minimum&&children.filter(c=>c.kind!=='core'||c.coreType!=='error-handler').length<definition.minimum)issue(definition.name+' needs at least '+definition.minimum+' child component(s).',node.start,node.openEnd,'component-children');
+ return component;
+}
+function catalogMarkup(key:string,node:Element,id:string):string{
+ const definition=coreDefinition(key);if(!definition)throw new XmlEditError('Unknown core component.');
+ const name=qname(node,definition.namespace==='core'?CORE_NS:TRANSFORM_NS,definition.local),docName=qname(node,DOC_NS,'name'),docId=qname(node,DOC_NS,'id');
+ const attrs=definition.fields.filter(f=>f.initial!=='').map(f=>` ${f.key}="${escapedAttribute(f.initial)}"`).join('');
+ const logger=()=>`<${qname(node,CORE_NS,'logger')} ${docName}="Logger" ${docId}="${newId()}" level="INFO" message="Processing ${escapedAttribute(definition.name)}"/>`;
+ let body='';
+ if(definition.children==='choice')body=catalogMarkup('when',node,newId())+catalogMarkup('otherwise',node,newId());
+ else if(definition.children==='routes')body=catalogMarkup('route',node,newId())+catalogMarkup('route',node,newId());
+ else if(definition.children==='handlers')body=catalogMarkup('on-error-propagate',node,newId());
+ else if(definition.children==='batch')body=catalogMarkup('batch-step',node,newId());
+ else if(definition.children)body=logger()+(['first-successful','round-robin'].includes(key)?logger():'');
+ return `<${name} ${docName}="${escapedAttribute(definition.name)}" ${docId}="${id}"${attrs}${body?'>'+body+'</'+name+'>':'/>'}`;
 }
 
 export function parseIntegration(text: string): IntegrationModel { return parseInternal(text).model; }
@@ -266,6 +337,7 @@ function applyEdits(text: string, edits: SourceEdit[]): string {
   for (const edit of ordered) { if (edit.start < 0 || edit.end < edit.start || edit.end > text.length || edit.end > previous) throw new XmlEditError('Overlapping source edit refused.'); text = text.slice(0, edit.start) + edit.text + text.slice(edit.end); previous = edit.start; }
   return text;
 }
+function removeAttribute(node:Element,name:string,edits:SourceEdit[]):void{const existing=attribute(node,name);if(existing)edits.push({start:existing.start,end:existing.end,text:''});}
 function setAttribute(node: Element, name: string, next: string, edits: SourceEdit[]): void {
   const old = attribute(node, name);
   if (old) { if (old.value !== next) edits.push({ start: old.valueStart, end: old.valueEnd, text: escapedAttribute(next, old.quote) }); }
@@ -297,8 +369,8 @@ function ensureNamespaces(text: string, operation: XmlOperation): string {
   const parsed = parseInternal(text), root = parsed.root;
   if (!parsed.model.valid || !root) throw new XmlEditError('Repair XML syntax before visual editing. Source has been preserved.');
   const edits: SourceEdit[] = [];
-  const docNeeded = ['insert', 'updateComponent', 'duplicateLogger', 'moveLogger', 'duplicateProcessor', 'moveProcessor', 'createErrorHandler'].includes(operation.kind);
-  const transformNeeded = operation.kind === 'insert' && operation.component === 'transform' || operation.kind === 'updateComponent' && parsed.model.flows.some(f => [...f.processors,...(f.errorHandler?.processors??[])].some(p => p.id === operation.id && p.kind === 'transform'));
+  const docNeeded = ['insert', 'updateComponent', 'updateCore', 'duplicateLogger', 'moveLogger', 'duplicateProcessor', 'moveProcessor', 'createErrorHandler'].includes(operation.kind);
+  const transformNeeded = operation.kind === 'insert' && (operation.component === 'transform'||coreDefinition(operation.component)?.namespace==='support') || operation.kind === 'updateComponent' && parsed.model.flows.some(f => processorTree(f).some(p => p.id === operation.id && p.kind === 'transform'));
   const httpNeeded = operation.kind === 'saveConfig' || operation.kind === 'insert' && operation.component === 'listener';
   const namespaces: [string, string][] = [...(transformNeeded ? [[TRANSFORM_NS,'zt'] as [string,string], [XSI_NS,'xsi'] as [string,string]] : []),...(docNeeded ? [[DOC_NS, 'doc'] as [string,string]] : []), ...(httpNeeded ? [[HTTP_NS, 'http'] as [string,string], [XSI_NS, 'xsi'] as [string,string]] : [])];
   for (const [uri, preferred] of namespaces) {
@@ -321,7 +393,7 @@ function ensureNamespaces(text: string, operation: XmlOperation): string {
   if(transformNeeded && operation.kind === 'updateComponent') {
     const current=parseInternal(result), node=current.nodes.get(operation.id);
     if(node && is(node,CORE_NS,'set-payload')) {
-      const component=current.model.flows.flatMap(f=>[...f.processors,...(f.errorHandler?.processors??[])]).find(p=>p.id===operation.id) as RealTransform;
+      const component=current.model.flows.flatMap(processorTree).find(p=>p.id===operation.id) as RealTransform;
       const changes:SourceEdit[]=[{start:node.start+1,end:node.start+1+node.name.length,text:qname(node,TRANSFORM_NS,'message')}];
       const old=attribute(node,'value');
       if(old) changes.push({start:old.start,end:old.end,text:' payload="'+escapedAttribute(component.script)+'"'});
@@ -333,7 +405,7 @@ function ensureNamespaces(text: string, operation: XmlOperation): string {
   return result;
 }
 function componentAndFlow(parsed: Parsed, id: string): { component: RealComponent; node: Element; flow: RealFlow } {
-  for (const flow of parsed.model.flows) { const component = flow.source?.id === id ? flow.source : [...flow.processors, ...(flow.errorHandler?.processors ?? [])].find(p => p.id === id); if (component) { const node = parsed.nodes.get(id)!; if (!component.editable || !flow.editable) throw new XmlEditError('This component/flow contains unsupported constructs. Edit its XML directly; source is preserved.'); return { component, node, flow }; } }
+  for (const flow of parsed.model.flows) { const component = flow.source?.id === id ? flow.source : processorTree(flow).find(p=>p.id===id); if (component) { const node = parsed.nodes.get(id)!; if (!component.editable || !flow.editable) throw new XmlEditError('This component/flow contains unsupported constructs. Edit its XML directly; source is preserved.'); return { component, node, flow }; } }
   throw new XmlEditError('Component no longer exists. Refresh the document and try again.');
 }
 function supportedFlow(parsed: Parsed, id: string): { flow: RealFlow; node: Element } {
@@ -342,12 +414,13 @@ function supportedFlow(parsed: Parsed, id: string): { flow: RealFlow; node: Elem
   if (!flow.editable) throw new XmlEditError('This flow contains unsupported constructs. Its XML is preserved; visual edits are disabled.');
   return { flow, node };
 }
-function updateResponse(text: string, listener: Element, values: ComponentValues, edits: SourceEdit[]): void {
+function updateResponse(text: string, listener: Element, values: ComponentValues, edits: SourceEdit[], error=false): void {
   if (values.responseStatus === undefined && values.responseBody === undefined && values.responseHeaders === undefined) return;
-  const response = child(listener, HTTP_NS, 'response'), newline = eol(text), indent = indentation(text, listener);
+  const responseName=error?'error-response':'response';
+  const response = child(listener, HTTP_NS, responseName), newline = eol(text), indent = indentation(text, listener);
   if (!response) {
-    const body = values.responseBody ?? '#[payload]', headers = values.responseHeaders ?? "#[{'Content-Type': 'text/plain; charset=UTF-8'}]";
-    const markup = `<${qname(listener, HTTP_NS, 'response')} statusCode="${escapedAttribute(values.responseStatus ?? '200')}">${newline}${indent}    <${qname(listener, HTTP_NS, 'body')}>${escapedText(body)}</${qname(listener, HTTP_NS, 'body')}>${newline}${indent}    <${qname(listener, HTTP_NS, 'headers')}>${escapedText(headers)}</${qname(listener, HTTP_NS, 'headers')}>${newline}${indent}  </${qname(listener, HTTP_NS, 'response')}>`;
+    const body = values.responseBody ?? (error?"#[error.description default 'Internal Server Error']":'#[payload]'), headers = values.responseHeaders ?? "#[{'Content-Type': 'text/plain; charset=UTF-8'}]";
+    const markup = `<${qname(listener, HTTP_NS, responseName)} statusCode="${escapedAttribute(values.responseStatus ?? (error?'500':'200'))}">${newline}${indent}    <${qname(listener, HTTP_NS, 'body')}>${escapedText(body)}</${qname(listener, HTTP_NS, 'body')}>${newline}${indent}    <${qname(listener, HTTP_NS, 'headers')}>${escapedText(headers)}</${qname(listener, HTTP_NS, 'headers')}>${newline}${indent}  </${qname(listener, HTTP_NS, responseName)}>`;
     insertChildren(text, listener, markup, edits); return;
   }
   if (values.responseStatus !== undefined) setAttribute(response, 'statusCode', values.responseStatus, edits);
@@ -365,10 +438,25 @@ export function applyOperation(original: string, operation: XmlOperation): XmlEd
   const parsed = parseInternal(text), root = parsed.root!, edits: SourceEdit[] = [];
   if (parsed.model.diagnostics.some(d => ['duplicate-id', 'flow-name', 'config-name'].includes(d.code))) throw new XmlEditError('Repair duplicate or missing names/documentation IDs in XML before visual editing. Ambiguous source targets are never changed.');
   let selectionId: string | undefined;
-  if (operation.kind === 'createFlow') {
+  if(operation.kind==='saveGlobalProperty'){
+    if(!/^[A-Za-z_][A-Za-z0-9_.-]{0,119}$/.test(operation.name))throw new XmlEditError('Use a valid property name.');
+    const existing=(parsed.model.globalProperties??[]).find(v=>v.name===operation.name);
+    if(existing)setAttribute(parsed.configNodes.get(existing.id)!,'value',operation.value,edits);
+    else insertChildren(text,root,`<${qname(root,CORE_NS,'global-property')} name="${escapedAttribute(operation.name)}" value="${escapedAttribute(operation.value)}"/>`,edits);
+  }else if(operation.kind==='savePropertyFile'){
+    if(!operation.file.trim()||operation.file.length>512||operation.file.startsWith('/')||operation.file.includes('\\')||operation.file.split('/').some(p=>p==='..'||p==='.')||!operation.file.endsWith('.properties'))throw new XmlEditError('Use a relative .properties resource path.');
+    const node=operation.id?parsed.configNodes.get(operation.id):undefined;
+    if(operation.id&&!node)throw new XmlEditError('Property-file configuration no longer exists.');
+    if(node)setAttribute(node,'file',operation.file,edits);
+    else insertChildren(text,root,`<${qname(root,CORE_NS,'configuration-properties')} file="${escapedAttribute(operation.file)}"/>`,edits);
+  }else if(operation.kind==='deletePropertyFile'||operation.kind==='deleteGlobalProperty'){
+    const node=parsed.configNodes.get(operation.id);
+    if(!node||node.local!==(operation.kind==='deletePropertyFile'?'configuration-properties':'global-property'))throw new XmlEditError('Configuration no longer exists.');
+    edits.push({start:node.start,end:node.end,text:''});
+  }else if (operation.kind === 'createFlow') {
     requireName(operation.name, 'Flow name');
     if (parsed.model.flows.some(f => f.name === operation.name)) throw new XmlEditError('A flow with this name already exists.');
-    insertChildren(text, root, `<${qname(root, CORE_NS, 'flow')} name="${escapedAttribute(operation.name)}">${eol(text)}  </${qname(root, CORE_NS, 'flow')}>`, edits);
+    insertChildren(text, root, `<${qname(root, CORE_NS, operation.flowKind??'flow')} name="${escapedAttribute(operation.name)}">${eol(text)}  </${qname(root, CORE_NS, operation.flowKind??'flow')}>`, edits);
     selectionId = 'flow:' + operation.name;
   } else if (operation.kind === 'renameFlow') {
     const { node } = supportedFlow(parsed, operation.flowId);
@@ -387,26 +475,53 @@ export function applyOperation(original: string, operation: XmlOperation): XmlEd
     if (flow.kind === 'sub-flow' && operation.component === 'listener') throw new XmlEditError('A subflow cannot contain an HTTP Listener. Add the Listener to its calling flow.');
     selectionId = newId();
     const docName = qname(node, DOC_NS, 'name'), docId = qname(node, DOC_NS, 'id');
-    if (operation.component === 'listener') {
+    if(operation.component==='scheduler'){
+      if(flow.source||flow.kind==='sub-flow')throw new XmlEditError('Scheduler needs an empty flow source.');
+      const q=(name:string)=>qname(node,CORE_NS,name);insertChildren(text,node,`<${q('scheduler')} ${docName}="Scheduler" ${docId}="${selectionId}" disallowConcurrentExecution="true"><${q('scheduling-strategy')}><${q('fixed-frequency')} frequency="1000" timeUnit="MILLISECONDS"/></${q('scheduling-strategy')}></${q('scheduler')}>`,edits,node.children[0]);
+    }else if (operation.component === 'listener') {
+      if(flow.kind==='sub-flow')throw new XmlEditError('Subflows do not accept sources.');
       if (flow.source) throw new XmlEditError('This flow already has a Listener. A flow accepts one source.');
       const cfg = parsed.model.configs.find(c => c.editable && c.protocol === 'HTTP');
       const newline = eol(text), indent = indentation(text, node) + '  ', q = (name: string) => qname(node, HTTP_NS, name);
       const markup = `<${q('listener')} config-ref="${escapedAttribute(cfg?.name ?? '')}" path="/hello" allowedMethods="GET" ${docName}="HTTP Listener" ${docId}="${selectionId}">${newline}${indent}  <${q('response')} statusCode="200">${newline}${indent}    <${q('body')}>${escapedText("#['Hello from ZERNOVA']")}</${q('body')}>${newline}${indent}    <${q('headers')}>${escapedText("#[{'Content-Type': 'text/plain; charset=UTF-8'}]")}</${q('headers')}>${newline}${indent}  </${q('response')}>${newline}${indent}</${q('listener')}>`;
       insertChildren(text, node, markup, edits, node.children[0]);
     } else {
-      const processors = operation.lane === 'error' ? flow.errorHandler!.processors : flow.processors;
-      const parent = operation.lane === 'error' ? child(node, CORE_NS, 'error-handler')!.children[0] : node;
+      if(operation.component==='error-handler'&&!operation.parentId&&flow.errorHandler)throw new XmlEditError('This flow already has an error handler.');
+      const container=operation.parentId?componentAndFlow(parsed,operation.parentId):undefined;
+      if(container&&(container.flow.id!==flow.id||container.component.kind!=='core'||!acceptsChild(container.component.coreType,operation.component)))throw new XmlEditError('Choose a valid component container.');
+      if(!container&&!acceptsChild('flow',operation.component))throw new XmlEditError('This component needs a matching scope or route.');
+      const processors = container&&container.component.kind==='core'?container.component.children:operation.lane === 'error' ? flow.errorHandler!.processors : flow.processors;
+      const parent = container?container.node:operation.lane === 'error' ? child(node, CORE_NS, 'error-handler')!.children[0] : node;
       if (processors.length >= 100) throw new XmlEditError('This milestone supports up to 100 processors per lane.');
-      const markup = operation.component === 'transform'
+      let markup = coreDefinition(operation.component)?catalogMarkup(operation.component,node,selectionId):operation.component === 'transform'
         ? `<${qname(node, TRANSFORM_NS, 'message')} ${docName}="Transform Message" ${docId}="${selectionId}" mimeType="application/json" payload="${escapedAttribute('%dw 2.0\noutput application/json\n---\npayload')}"/>`
         : `<${qname(node, CORE_NS, 'logger')} ${docName}="Logger" ${docId}="${selectionId}" level="INFO" category="io.zernova.acceptance" message="${escapedAttribute("#['ZERNOVA_TEST ' ++ (attributes.queryParams.testId default 'missing')]")}"/>`;
-      const index = operation.index ?? processors.length;
+      let index = operation.index ?? processors.length;
+      const unique=['otherwise','error-handler','batch-on-complete','batch-aggregator'];
+      if(unique.includes(operation.component)&&processors.some(p=>p.kind==='core'&&p.coreType===operation.component))throw new XmlEditError('This container already has '+operation.component+'.');
+      if(operation.component==='batch-step'){const used=new Set(processors.filter(p=>p.kind==='core').map(p=>(p as RealCore).values.name));let step='step',suffix=2;while(used.has(step))step='step'+suffix++;markup=markup.replace('name="step"','name="'+step+'"');}
+      const terminalIndex=processors.findIndex(p=>p.kind==='core'&&['otherwise','error-handler','batch-on-complete','batch-aggregator'].includes(p.coreType));
+      if(terminalIndex>=0&&!unique.includes(operation.component))index=Math.min(index,terminalIndex);
+      if(unique.includes(operation.component))index=processors.length;
       if (!Number.isInteger(index) || index < 0 || index > processors.length) throw new XmlEditError('Invalid processor insertion position.');
-      insertChildren(text, parent, markup, edits, processors[index] ? parsed.nodes.get(processors[index].id) : operation.lane === 'error' ? undefined : child(node, CORE_NS, 'error-handler'));
+      insertChildren(text, parent, markup, edits, processors[index] ? parsed.nodes.get(processors[index].id) : operation.lane === 'error' ? undefined : child(parent, CORE_NS, 'error-handler'));
     }
+  }else if(operation.kind==='updateCore'){
+    const {component,node}=componentAndFlow(parsed,operation.id);
+    if(component.kind==='scheduler'){
+      const allowed=['displayName','frequency','timeUnit','startDelay','cron','timeZone','disallowConcurrentExecution'];if(Object.keys(operation.values).some(k=>!allowed.includes(k)))throw new XmlEditError('Unsupported Scheduler field.');
+      const values={...component.values,...operation.values};if(operation.values.displayName!==undefined)setDocAttribute(node,'name',operation.values.displayName,edits);
+      setAttribute(node,'disallowConcurrentExecution',values.disallowConcurrentExecution,edits);
+      const strategy=child(node,CORE_NS,'scheduling-strategy');const existingStrategy=strategy?.children[0];const q=(local:string)=>qname(node,CORE_NS,local);const inner=values.cron?`<${q('cron')} expression="${escapedAttribute(values.cron)}"${values.timeZone?' timeZone="'+escapedAttribute(values.timeZone)+'"':''}/>`:`<${q('fixed-frequency')} frequency="${escapedAttribute(values.frequency)}" timeUnit="${escapedAttribute(values.timeUnit)}" startDelay="${escapedAttribute(values.startDelay)}"/>`;
+      if(existingStrategy&&existingStrategy.local===(values.cron?'cron':'fixed-frequency')){for(const key of(values.cron?['expression','timeZone']:['frequency','timeUnit','startDelay'])){const val=key==='expression'?values.cron:values[key];if(key==='timeZone'&&!val)removeAttribute(existingStrategy,key,edits);else setAttribute(existingStrategy,key,val??'',edits);}}else if(strategy)edits.push({start:strategy.start,end:strategy.end,text:`<${q('scheduling-strategy')}>${inner}</${q('scheduling-strategy')}>`});else insertChildren(text,node,`<${q('scheduling-strategy')}>${inner}</${q('scheduling-strategy')}>`,edits);
+    }else if(component.kind==='core'){
+      const definition=coreDefinition(component.coreType)!;if(Object.keys(operation.values).some(k=>k!=='displayName'&&!definition.fields.some(f=>f.key===k)))throw new XmlEditError('Unsupported component field.');
+      for(const [key,value] of Object.entries(operation.values))if(key==='displayName')setDocAttribute(node,'name',value,edits);else setAttribute(node,key,value,edits);
+    }else throw new XmlEditError('Choose a core component.');
+    selectionId=namespacedAttribute(node,DOC_NS,'id')?.value??newId();setDocAttribute(node,'id',selectionId,edits);
   } else if (operation.kind === 'updateComponent') {
     const { component, node } = componentAndFlow(parsed, operation.id), next = operation.values;
-    const allowed = component.kind === 'listener' ? ['displayName', 'configId', 'path', 'allowedMethods', 'responseStatus', 'responseBody', 'responseHeaders'] : component.kind === 'transform' ? ['displayName', 'script', 'mimeType', 'attributesScript', 'variablesScript'] : ['displayName', 'message', 'level', 'category'];
+    const allowed = component.kind === 'listener' ? ['displayName', 'configId', 'path', 'allowedMethods', 'responseStatus', 'responseBody', 'responseHeaders', 'errorStatus', 'errorBody', 'errorHeaders'] : component.kind === 'transform' ? ['displayName', 'script', 'mimeType', 'attributesScript', 'variablesScript', 'payloadResource', 'attributesResource', 'variablesResource'] : ['displayName', 'message', 'level', 'category'];
     if (Object.keys(next).some(k => !allowed.includes(k))) throw new XmlEditError('This field does not belong to the selected component.');
     selectionId = namespacedAttribute(node, DOC_NS, 'id')?.value ?? newId();
     setDocAttribute(node, 'id', selectionId, edits);
@@ -419,10 +534,12 @@ export function applyOperation(original: string, operation: XmlOperation): XmlEd
       if (next.path !== undefined) setAttribute(node, 'path', next.path, edits);
       if (next.allowedMethods !== undefined) setAttribute(node, 'allowedMethods', next.allowedMethods, edits);
       updateResponse(text, node, next, edits);
+      updateResponse(text,node,{responseStatus:next.errorStatus,responseBody:next.errorBody,responseHeaders:next.errorHeaders},edits,true);
     } else if (component.kind === 'transform') {
       if (next.script !== undefined) setAttribute(node,'payload',next.script,edits);
       if (next.attributesScript !== undefined) setAttribute(node,'attributes',next.attributesScript,edits);
       if (next.variablesScript !== undefined) setAttribute(node,'variables',next.variablesScript,edits);
+      for(const key of ['payloadResource','attributesResource','variablesResource'] as const)if(next[key]!==undefined)setAttribute(node,key,next[key]!,edits);
       if (next.mimeType !== undefined) setAttribute(node,'mimeType',next.mimeType,edits);
     } else {
       if (next.message !== undefined) setAttribute(node, 'message', next.message, edits);
@@ -433,18 +550,22 @@ export function applyOperation(original: string, operation: XmlOperation): XmlEd
     const { node } = componentAndFlow(parsed, operation.id); edits.push({ start: node.start, end: node.end, text: '' });
   } else if ((operation.kind === 'duplicateLogger' || operation.kind === 'duplicateProcessor')) {
     const { component, node, flow } = componentAndFlow(parsed, operation.id);
-    if (component.kind === 'listener') throw new XmlEditError('Only processors can be duplicated.');
+    if(component.kind==='core'&&['error-handler','otherwise','batch-on-complete','batch-aggregator'].includes(component.coreType))throw new XmlEditError('This container allows only one '+component.displayName+'.');
+    if (component.kind === 'listener'||component.kind==='scheduler') throw new XmlEditError('Only processors can be duplicated.');
     const lane = flow.processors.some(p=>p.id === component.id) ? flow.processors : flow.errorHandler?.processors ?? [];
     if (lane.length >= 100) throw new XmlEditError('This milestone supports up to 100 processors per lane.');
     selectionId = newId();
     const local: SourceEdit[] = [];
     setDocAttribute(node, 'id', selectionId, local);
+    for(const descendant of parsed.all.filter(n=>n!==node&&n.start>node.start&&n.end<=node.end))if(namespacedAttribute(descendant,DOC_NS,'id'))setDocAttribute(descendant,'id',newId(),local);
+    if(component.kind==='core'&&component.coreType==='batch-step'){let suffix=2;const used=new Set(processorTree(flow).filter(p=>p.kind==='core'&&p.coreType==='batch-step').map(p=>(p as RealCore).values.name));let name=component.values.name+'Copy';while(used.has(name))name=component.values.name+'Copy'+suffix++;setAttribute(node,'name',name,local);}
     const snippet = applyEdits(text.slice(node.start, node.end), local.map(e => ({ ...e, start: e.start - node.start, end: e.end - node.start })));
     edits.push({ start: node.end, end: node.end, text: eol(text) + indentation(text, node) + snippet });
   } else if ((operation.kind === 'moveLogger' || operation.kind === 'moveProcessor')) {
     const { component, node, flow } = componentAndFlow(parsed, operation.id);
-    if (component.kind === 'listener') throw new XmlEditError('Only processors can be reordered.');
-    const processors = flow.processors.some(p => p.id === component.id) ? flow.processors : flow.errorHandler?.processors ?? [];
+    if (component.kind === 'listener'||component.kind==='scheduler') throw new XmlEditError('Only processors can be reordered.');
+    if(component.kind==='core'&&['error-handler','otherwise','batch-on-complete','batch-aggregator'].includes(component.coreType))throw new XmlEditError('This element stays at the end of its container.');
+    const processors=processorTree(flow).filter(p=>parsed.nodes.get(p.id)?.parent===node.parent&&!(p.kind==='core'&&['error-handler','otherwise','batch-on-complete','batch-aggregator'].includes(p.coreType)));
     const index = processors.findIndex(p => p.id === component.id), adjacent = processors[index + operation.direction];
     if (!adjacent) throw new XmlEditError('The component is already at that edge of the processor lane.');
     const other = parsed.nodes.get(adjacent.id)!;

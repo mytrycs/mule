@@ -1,3 +1,7 @@
+import net from 'node:net';
+import { deploymentBanner, stageLine, deploymentConsole } from '../shared/deploymentLog';
+import { RUNTIME_VERSION } from '../../../zernova-studio-build/src/portable/bundle';
+import { projectProperties } from './propertyResolution';
 import { componentLocation } from '../shared/breakpoints';
 import { FlowDebugger } from './flowDebug';
 import * as vscode from 'vscode';
@@ -19,7 +23,7 @@ export function assertSupportedHost(platform = process.platform, arch = process.
 export interface RuntimeViewState {
   schemaVersion: 1; projectRoot: string; projectName: string; configured: boolean; phase: string;
   busy: boolean; process: string; application: string; endpoint: string; lastError: string;
-  debugOutput?: string; debugConnected?: boolean; debugPaused?: string; debugBreakpoints?: {uri:string;id:string;path:string}[];
+  deploymentOutput?:string; runtimeConsole?:string; debugOutput?: string; debugConnected?: boolean; debugPaused?: string; debugBreakpoints?: {uri:string;id:string;path:string}[];
   buildOutput: string; applicationLogs: string; runtimeOutput: string;
   artifact?: string; artifactSha256?: string; port?: number; instanceDirectory?: string;
   evidenceDirectory?: string; offline?: boolean; lastUpdated?: string;
@@ -54,7 +58,9 @@ export class RuntimeManager implements vscode.Disposable {
   stateForUri(uri: vscode.Uri): RuntimeViewState | undefined { const project = this.projects.projectForUri(uri); return project ? this.state(project) : undefined; }
   private update(project: Project, patch: Partial<RuntimeViewState>): void { this.states.set(project.root, { ...this.state(project), ...patch, lastUpdated: new Date().toISOString() }); this.changed.fire(project.root); }
   private append(project: Project, stream: 'buildOutput' | 'runtimeOutput', text: string): void { this.update(project, { [stream]: (this.state(project)[stream] + text).slice(-MAX_OUTPUT) }); (stream === 'buildOutput' ? this.buildChannel : this.runtimeChannel).append(text); }
+  private deploymentStage(project:Project,stage:string,message:string,elapsedMs?:number):void{this.update(project,{deploymentOutput:((this.state(project).deploymentOutput??'')+stageLine(stage,message,elapsedMs)).slice(-MAX_OUTPUT)});}
   reportError(project: Project, error: unknown): void {
+    this.deploymentStage(project,'FAILED',error instanceof Error?error.message:String(error));
     const text = error instanceof Error ? error.message : String(error);
     if (this.state(project).lastError !== text) this.append(project, 'buildOutput', `\n[${new Date().toISOString()}] ERROR: ${text}\n`);
     this.update(project, { lastError: text, ...(!this.operations.has(project.root) ? {phase:'Failed'} : {}) });
@@ -109,7 +115,9 @@ export class RuntimeManager implements vscode.Disposable {
     if (this.logReading.has(project.root)) return;
     this.logReading.add(project.root);
     try {
-      const logs = await this.backend(project).logs(); const text = logs.lines.join('\n').slice(-MAX_OUTPUT);
+      const backend=this.backend(project);const [logs,consoleLog]=await Promise.all([backend.logs(),backend.consoleLog()]);
+      const presented=deploymentConsole(consoleLog.text);if(presented!==this.state(project).runtimeConsole)this.update(project,{runtimeConsole:presented});
+      const text = logs.lines.join('\n').slice(-MAX_OUTPUT);
       if (text !== this.state(project).applicationLogs) { this.update(project, { applicationLogs: text }); this.logChannel.clear(); this.logChannel.appendLine(text); }
     } catch (error) { if (!this.operations.has(project.root)) this.update(project, { lastError: 'Log refresh failed: ' + String(error) }); }
     finally { this.logReading.delete(project.root); }
@@ -153,12 +161,7 @@ export class RuntimeManager implements vscode.Disposable {
     const files = (await fs.readdir(source)).filter(name => name.endsWith('.xml'));
     if (!files.length) throw new Error('src/main/zernova is empty. Create Integration XML, create a flow, then add and configure an HTTP Listener and Logger before building.');
     const run = this.projects.getRunConfiguration(project,debug);
-    const properties: Record<string, string> = { ...run.variables, ...run.properties, 'zernova.env': run.environment };
-    const propertyFiles = new Set<string>();
-    const resources = path.join(project.root, 'src/main/resources');
-    const resolved = (value: string): string => value.replace(/\$\{([^}]+)\}/g, (_, name: string) => {
-      if (!(name in properties)) throw new Error(`Unresolved listener property ${name}. Use a literal or a root .properties resource for this milestone.`); return properties[name];
-    });
+    const models:ReturnType<typeof parseIntegration>[]=[];
     const configs = new Map<string, { host: string; port: string; protocol: string }>();
     const refs: string[] = []; let flowCount = 0;
     for (const file of files) {
@@ -169,30 +172,13 @@ export class RuntimeManager implements vscode.Disposable {
         const d = new vscode.Diagnostic(new vscode.Range(start, start.translate(0, 1)), issue.message, vscode.DiagnosticSeverity.Error); d.source = 'ZERNOVA build'; return d;
       }));
       if (!model.valid || issues.length) throw new Error(`Fix ${file} before building: ${issues[0]?.message ?? 'Invalid integration XML.'}`);
-      const propertyParser = saxParser(true, { xmlns: true });
-      propertyParser.onopentag = tag => {
-        if (tag.uri !== 'https://schemas.zernova.dev/core' || tag.local !== 'configuration-properties') return;
-        const attr = tag.attributes.file as { value?: string } | undefined;
-        if (typeof attr?.value !== 'string' || !/^[A-Za-z0-9_.\/-]+\.properties$/.test(attr.value) || path.isAbsolute(attr.value) || attr.value.split('/').includes('..')) throw new Error('Runtime port preflight supports explicitly declared relative .properties resources only.');
-        propertyFiles.add(attr.value);
-      };
-      propertyParser.write(text).close();
+      models.push(model);
       flowCount += model.flows.length;
       for (const config of model.configs) { if (configs.has(config.id)) throw new Error(`Duplicate HTTP configuration across files: ${config.name}`); configs.set(config.id, config); }
-      for (const flow of model.flows) if (flow.source) { if (!flow.processors.length) throw new Error(`Flow ${flow.name} has an HTTP Listener but no processors. Add a processor, such as Logger, before running this application.`); refs.push(flow.source.configId); }
+      for (const flow of model.flows) if (flow.source) { if (!flow.processors.length) throw new Error(`Flow ${flow.name} has an HTTP Listener but no processors. Add a processor, such as Logger, before running this application.`); if(flow.source.kind==='listener')refs.push(flow.source.configId); }
     }
-    for (const file of propertyFiles) {
-      const resolvedFile = await fs.realpath(path.join(resources, file));
-      if (!isInside(resources, resolvedFile)) throw new Error('Property resource resolves outside this project.');
-      for (const line of (await fs.readFile(resolvedFile, 'utf8')).split(/\r?\n/)) {
-        const match = /^\s*([^#!\s][^=:]*?)\s*[=:]\s*(.*?)\s*$/.exec(line);
-        if (match) {
-          if (Object.hasOwn(run.properties, match[1]) || Object.hasOwn(run.variables, match[1])) continue;
-          if (Object.hasOwn(properties, match[1]) && properties[match[1]] !== match[2]) throw new Error('Conflicting property definitions prevent an unambiguous listener preflight: ' + match[1]);
-          properties[match[1]] = match[2];
-        }
-      }
-    }
+    const {resolve:resolved}=await projectProperties(project.root,models,run);
+    if(!refs.length&&models.some(m=>m.flows.some(f=>f.source?.kind==='scheduler'))){const socket=net.createServer();await new Promise<void>(resolve=>socket.listen(0,'127.0.0.1',resolve));const port=(socket.address() as net.AddressInfo).port;await new Promise<void>(resolve=>socket.close(()=>resolve()));return port;}
     if (!flowCount || !refs.length) throw new Error('No runnable HTTP flow exists. Create a flow and add a configured HTTP Listener source.');
     const ports = new Set<number>();
     for (const reference of refs) {
@@ -223,7 +209,8 @@ export class RuntimeManager implements vscode.Disposable {
     const backend = debug ? new BundledRuntime({ bundle: this.projects.getSettings(project).runtimeHome, instance: this.projects.getSettings(project).instanceDirectory, project: project.root, application: project.artifactId, runConfiguration: this.projects.getRunConfiguration(project,true), debug: true, onOutput: text => this.append(project, 'runtimeOutput', text) }) : this.backend(project), signal = controller.signal;
     const evidence = path.join(this.context.globalStorageUri.fsPath, 'runtime-evidence', createHash('sha256').update(project.root).digest('hex').slice(0, 16), new Date().toISOString().replace(/[:.]/g, '-') + '-' + action);
     await fs.mkdir(evidence, { recursive: true }); this.update(project, { busy: true, lastError: '', evidenceDirectory: evidence, phase: 'Checking bundled runtime' });
-    let mutated = false;
+    let mutated = false;const started=Date.now();
+    if(action==='build'||action==='run')this.update(project,{deploymentOutput:deploymentBanner(project.artifactId,this.projects.getRunConfiguration(project,debug).environment,String(this.context.extension.packageJSON.version),RUNTIME_VERSION),runtimeConsole:''});
     try {
       await vscode.window.withProgress({ location: vscode.ProgressLocation.Notification, title: `ZERNOVA · ${action} · ${project.name}`, cancellable: true }, async (_progress, token) => {
         const subscription = token.onCancellationRequested(() => controller.abort());
@@ -233,19 +220,23 @@ export class RuntimeManager implements vscode.Disposable {
             await this.saveProjectDocuments(project); Object.assign(project, await this.projects.load(project.root));
             const port = await this.projectPort(project,debug); if (debug && port === this.projects.getRunConfiguration(project,true).debugPort) throw new Error('Listener and debugger ports must be different.'); await this.metadata(project);
             this.update(project, { phase: 'Building offline', port, artifact: undefined, artifactSha256: undefined, buildOutput: '' });
+            this.deploymentStage(project,'BUILD','Building the current sources offline');const buildStarted=Date.now();
             const artifact = await backend.package(project.root, signal);
+            this.deploymentStage(project,'BUILD','SUCCEEDED · '+path.basename(artifact.artifact),Date.now()-buildStarted);
             this.append(project, 'buildOutput', JSON.stringify(artifact, null, 2) + '\n');
             this.update(project, { artifact: artifact.artifact, artifactSha256: artifact.sha256, phase: 'Build succeeded · not deployed' });
             if (action === 'run') {
+              this.deploymentStage(project,'DEPLOY','Starting application deployment');
               const before = await backend.status();
               if (before.applications[project.artifactId]) { mutated = true; await backend.undeploy(project.artifactId, signal); }
               if (before.process === 'RUNNING') { mutated=true; await backend.stop(signal); }
               if (await sourceHash(project.root) !== artifact.sourceHash || vscode.workspace.textDocuments.some(d => d.isDirty && isInside(project.root, d.uri.fsPath))) throw new Error('Source changed after building. No stale artifact was deployed.');
-              this.update(project, { phase: 'Starting runtime' }); mutated = true; await backend.start(port, signal);
-              this.update(project, { phase: 'Deploying' }); await backend.deploy(artifact.artifact, project.artifactId, signal);
+              this.update(project, { phase: 'Starting runtime' });this.deploymentStage(project,'RUNTIME','Starting the owned runtime and compatible Java');this.followLogs(project,true); mutated = true; await backend.start(port, signal);
+              this.deploymentStage(project,'RUNTIME','READY');
+              this.update(project, { phase: 'Deploying' });this.deploymentStage(project,'DEPLOY','Deploying '+project.artifactId); await backend.deploy(artifact.artifact, project.artifactId, signal);
               await this.context.workspaceState.update('zernova.deployedHash.' + project.root, artifact.sourceHash);
               await this.context.workspaceState.update('zernova.launchMode.' + project.root,debug ? 'debug' : 'run');
-              this.update(project, { phase: 'Deployed · endpoint unverified' });
+              this.update(project, { phase: 'Deployed · endpoint unverified' });this.deploymentStage(project,'DEPLOY','SUCCEEDED · Send a request to test the endpoint',Date.now()-started);
             }
           } else if (action === 'stopApplication') await backend.undeploy(project.artifactId, signal);
           else if (action === 'stopRuntime') { await backend.stop(signal); await backend.undeploy(project.artifactId, signal); }

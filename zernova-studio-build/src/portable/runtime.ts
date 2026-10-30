@@ -1,3 +1,4 @@
+import previousSupportVersions from '../../transform-support/previous-versions.json';
 import { TRANSFORM_SUPPORT } from './transformSupport';
 /* Copyright (c) 2026 ZerNova. Original Studio lifecycle tooling; see LICENSE.txt.
  * Adapter v2: portable bundled-runtime support. The existing engine alone runs
@@ -63,6 +64,10 @@ async function pidExists(pid: number): Promise<boolean> {
     }
     return true;
   } catch (e) { if (errorCode(e) === 'ESRCH') return false; return true; }
+}
+export function launchEnvironment(run:RunConfiguration):NodeJS.ProcessEnv {
+ const inherited=run.inheritEnvironment!==false?cleanEnvironment():Object.fromEntries(Object.entries(cleanEnvironment()).filter(([key])=>['SystemRoot','SYSTEMROOT','WINDIR','TEMP','TMP','HOME'].includes(key)));
+ return {...inherited,...run.variables};
 }
 export class BundledRuntime {
   readonly bundle: string; readonly instance: string; readonly project: string; readonly application: string;
@@ -177,6 +182,9 @@ export class BundledRuntime {
     try { const size = (await f.stat()).size; const start = Math.max(offset, size - MAX_LOG); const data = Buffer.alloc(Math.max(0, size - start)); await f.read(data, 0, data.length, start); return data.toString('utf8'); }
     finally { await f.close(); }
   }
+  async consoleLog():Promise<{log?:string;text:string}>{
+    await this.ownership();const state=await this.state();return state?{log:state.console_log,text:await this.consoleText(state)}:{text:''};
+  }
   async status(): Promise<PortableStatus> {
     if (await exists(this.instance)) await this.ownership();
     const state = await this.state(), alive = await this.alive(), records = await this.registry();
@@ -223,8 +231,15 @@ export class BundledRuntime {
   private async ensureTransformSupport(): Promise<void> {
     const file=path.join(this.runtime,'lib/mule/zernova-transform-support.jar'), data=Buffer.from(TRANSFORM_SUPPORT,'base64');
     const existing=await fs.lstat(file).catch(error=>{if(error.code==='ENOENT')return undefined;throw error;});
-    if(existing){if(existing.isSymbolicLink()||!existing.isFile()||await fileSha(file)!==createHash('sha256').update(data).digest('hex'))throw new Error('Transform support was changed or belongs to another version. Use a new private runtime instance; no file was overwritten.');}
-    else await fs.writeFile(file,data,{flag:'wx',mode:0o600});
+    if(existing){
+      if(existing.isSymbolicLink()||!existing.isFile())throw new Error('Runtime support must be an ordinary managed file.');
+      const actual=await fileSha(file), expected=createHash('sha256').update(data).digest('hex');
+      if(actual===expected)return;
+      if(!Object.values(previousSupportVersions).includes(actual))throw new Error('Runtime support was changed or belongs to an unknown version; no file was overwritten.');
+      const archive=path.join(this.instance,'support-history');await fs.mkdir(archive,{recursive:true,mode:0o700});await ordinaryDirectory(archive);
+      await fs.rename(file,path.join(archive,actual+'-'+randomUUID()+'.jar'));
+    }
+    await fs.writeFile(file,data,{flag:'wx',mode:0o600});
   }
   async start(port: number, signal?: AbortSignal): Promise<PortableStatus> {
     return this.mutate(() => this.startOwned(port, signal));
@@ -246,12 +261,13 @@ export class BundledRuntime {
     await output.write(`ZERNOVA Runtime ${RUNTIME_VERSION} — bundled source-built development engine\nCopyright (c) 2003-2015 MuleSoft Inc.\nPowered by Mule. MuleSoft is Open for Integration. http://www.MuleSoft.com\n`);
     const args = javaArguments(this.bundle, this.runtime, this.control, info.controlAgent, port, this.runConfiguration.maximumHeapMB);
     args[0] = `-Xms${this.runConfiguration.initialHeapMB}m`;
+    args.splice(args.findIndex(a=>a.startsWith('--module=')),0,`-Dmule.launcher.changeCheckInterval=${this.runConfiguration.deploymentScanIntervalMs}`);
     args.splice(args.findIndex(a => a.startsWith('--module=')),0,...this.runConfiguration.jvmArguments!,...Object.entries({ ...this.runConfiguration.properties, 'zernova.env': this.runConfiguration.environment }).map(([k,v]) => `-D${k}=${v}`));
     if (this.debug) { args.unshift(`-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=127.0.0.1:${this.runConfiguration.debugPort}`); }
     await writeJson(path.join(logdir, 'launch.json'), { executable: java.executable, args, target: info.target, javaVersion: java.version, workingDirectory, networkUsed: false });
-    const inherited = this.runConfiguration.inheritEnvironment ? cleanEnvironment() : Object.fromEntries(Object.entries(cleanEnvironment()).filter(([key]) => ['SystemRoot','SYSTEMROOT','WINDIR','TEMP','TMP','HOME'].includes(key)));
+    const environment=launchEnvironment(this.runConfiguration);
     let spawnError: Error | undefined;
-    const child = spawn(java.executable, args, { cwd: workingDirectory, env: { ...inherited, ...this.runConfiguration.variables }, shell: false, detached: true, windowsHide: true, stdio: ['ignore', output.fd, output.fd] });
+    const child = spawn(java.executable, args, { cwd: workingDirectory, env:environment, shell: false, detached: true, windowsHide: true, stdio: ['ignore', output.fd, output.fd] });
     child.on('error', e => { spawnError = e; });
     await new Promise<void>((resolve, reject) => { child.once('spawn', resolve); child.once('error', reject); }).finally(() => output.close());
     if (!child.pid) throw new Error('The bundled runtime did not receive a process identity.');
