@@ -166,7 +166,7 @@ public final class XmlModelUtils {
   }
 
   private static String buildDefaultXsdFileName(String namespace) {
-    return String.format("mule-%s%s", namespace, XSD_EXTENSION);
+    return String.format("zernova-%s%s", namespace, XSD_EXTENSION);
   }
 
   private static String buildDefaultSchemaLocation(String namespaceLocation, String xsdFileName) {

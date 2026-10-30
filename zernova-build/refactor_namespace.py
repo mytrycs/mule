@@ -42,6 +42,7 @@ def application_text(value):
                      ('MinMuleVersion', 'MinZernovaVersion')]:
         value = value.replace(old, new)
     value = re.sub(r'mule(?=(?:-[A-Za-z0-9_-]+)?\.xsd|\.schemas)', 'zernova', value)
+    value = value.replace('mule-%s', 'zernova-%s')
     value = re.sub(r'\bMULE_EE\b', 'ZERNOVA_EE', value)
     value = re.sub(r'\bMULE\b(?!-\d)', 'ZERNOVA', value)
     value = re.sub(r'([\"\x27])mule\1', lambda m: m[1] + 'zernova' + m[1], value)

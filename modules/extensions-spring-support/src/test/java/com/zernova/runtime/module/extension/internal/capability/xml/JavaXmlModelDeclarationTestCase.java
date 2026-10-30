@@ -34,7 +34,7 @@ public class JavaXmlModelDeclarationTestCase extends AbstractZernovaTestCase {
   private static final String NAMESPACE_LOCATION = "NAMESPACE_LOCATION";
   private static final String DEFAULT_NAMESPACE_LOCATION_MASK = "https://schemas.zernova.dev/%s";
   private static final String DEFAULT_SCHEMA_LOCATION_MASK = "%s/current/%s";
-  private static final String XSD_FILENAME_MASK = "mule-%s.xsd";
+  private static final String XSD_FILENAME_MASK = "zernova-%s.xsd";
 
   private static final String EXTENSION = "Extension";
   private static final String EXTENSION_NAME = "Xml Model " + EXTENSION;
