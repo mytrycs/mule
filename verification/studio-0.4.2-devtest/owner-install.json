@@ -1,0 +1,10 @@
+{
+  "installedVersion": "zernova-preview.zernova-studio-kernel-preview@0.4.2",
+  "application": "/Applications/Visual Studio Code.app",
+  "profile": "default owner profile",
+  "cliInstallation": "PASS",
+  "activatedAfterWindowReload": true,
+  "nativeGuiNewPlacementHelpVerified": true,
+  "nativeGuiInsertionPlaceholdersAbsent": true,
+  "existingStopAndDebugSessionFinishedBeforeReload": true
+}

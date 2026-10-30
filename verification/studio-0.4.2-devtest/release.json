@@ -1,0 +1,14 @@
+{
+  "studioVersion": "0.4.2",
+  "runtimeVersion": "0.4.1-alpha.1",
+  "verifiedStudioCodeCommit": "fce9d2f1c5af4d43afc7ef4795a6d60d96b2e0a3",
+  "runtimeSourceCommit": "a8578a44a7a48d8ef01fdef58261ee37315b2022",
+  "vsixSha256": "e5e1fb24115b5420b3ce6713f6f72e13d152a461eeacfeeb96c725f6352fc7fc",
+  "target": "darwin-x64",
+  "unitPassed": 72,
+  "geometryChecks": 3,
+  "installedPassed": 16,
+  "installedFailed": 0,
+  "runtimeRebuilt": false,
+  "runtimeEngineSha256": "15181b8fe0657880029a4b2fc83bcd7cedcf7b5eec7809e4211d5051ec5958a0"
+}

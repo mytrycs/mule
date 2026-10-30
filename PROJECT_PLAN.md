@@ -3,9 +3,17 @@
 Updated October 30, 2026. Active product source: this Mule-derived repository,
 including `zernova-studio-kernel/`, `zernova-studio-build/` and the Java runtime.
 
+## Latest Studio-only iteration
+
+Studio 0.4.2 retains Runtime 0.4.1-alpha.1. It removes processor placeholders,
+uses open-canvas click/drag placement, retains run failures in Console, and adds
+opt-in redeploy on explicit manual save while preserving XML autosave. Local
+Mac x64 qualification includes 72 unit tests, three geometry checks, 16 installed
+cases and native GUI interaction. See `STUDIO_FEEDBACK_0.4.2.md` and its evidence.
+
 ## Current position
 
-The active feedback candidate pairs Studio 0.4.1 with independently versioned
+The active feedback candidate pairs Studio 0.4.2 with independently versioned
 ZERNOVA Runtime 0.4.1-alpha.1 and bundled, security-patched Java 17. Application
 format 1 retains its 0.4.0 minimum language/runtime floor. New applications execute
 ZERNOVA XML directly: a `zernova` root, ZERNOVA namespaces, application descriptors

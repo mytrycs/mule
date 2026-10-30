@@ -1,0 +1,21 @@
+{
+  "studioVersion": "0.4.2",
+  "platform": "darwin-x64",
+  "noProcessorPlaceholderElements": true,
+  "paletteClickArmsOnly": true,
+  "clickOpenCanvasInsertsBeforeFirstProcessor": true,
+  "dragReordersBetweenProcessors": true,
+  "paletteDragAppendsAfterLastProcessor": true,
+  "runConfigurationNoDefaultAndYesSaved": true,
+  "guiPropertyAutosaveDoesNotRestartJvm": true,
+  "actualCmdSInDesignerRedeploys": true,
+  "oldRunId": "55a2f81b-3377-4a2f-b1ab-81aa87ee6aae",
+  "newRunId": "855838c1-5772-4e17-9130-447a5c3e10e8",
+  "httpBody": "Hello from ZERNOVA",
+  "freshLogger": "UI042_MANUAL_SAVE",
+  "listenerOnlyErrorVisibleInConsole": true,
+  "errorStillVisibleAfterContextSave": true,
+  "canvasContextMenuSave": true,
+  "privateGuiRuntimeStopped": true,
+  "testProjectRestored": true
+}
