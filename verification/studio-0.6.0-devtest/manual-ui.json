@@ -1,0 +1,64 @@
+{
+  "profile": "/Users/roz/.zernova-studio-tests/gui-060-1793391037623",
+  "build": "0.6.0 preliminary; final adds layout polish and removes redundant new-file property reference",
+  "checks": [
+    {
+      "name": "All 21 flows/subflows share one XML canvas without picker",
+      "status": "PASS"
+    },
+    {
+      "name": "Inline New Integration popup drags and creates a separate editor tab",
+      "status": "PASS"
+    },
+    {
+      "name": "Existing original XML tab remains open",
+      "status": "PASS"
+    },
+    {
+      "name": "Two new flows and one subflow append to the same XML and stay visible",
+      "status": "PASS"
+    },
+    {
+      "name": "Empty For Each accepts a real nested Logger; deletion restores empty frame",
+      "status": "PASS"
+    },
+    {
+      "name": "Distinct component icons in palette and scope header",
+      "status": "PASS"
+    },
+    {
+      "name": "Project and dependency context menus expose applicable actions",
+      "status": "PASS"
+    },
+    {
+      "name": "Bundled HTTP dependency expands to physical JAR artifacts",
+      "status": "PASS"
+    },
+    {
+      "name": "Add unsupported Maven declaration marks it unavailable and blocks build clearly",
+      "status": "PASS"
+    },
+    {
+      "name": "Remove declaration restores supported dependency set",
+      "status": "PASS"
+    }
+  ],
+  "finalVSIXChecks": [
+    {
+      "name": "Shared firstCanvas/secondCanvas/helperCanvas with full names and empty For Each",
+      "status": "PASS"
+    },
+    {
+      "name": "ZERNOVA Artifacts, Maven Dependencies, Project Artifacts before source files",
+      "status": "PASS"
+    },
+    {
+      "name": "New XML popup overlays existing file and Enter opens final-check.xml in separate tab",
+      "status": "PASS"
+    },
+    {
+      "name": "POM file context menu exposes open, run/debug/build, dependencies and resource actions",
+      "status": "PASS"
+    }
+  ]
+}

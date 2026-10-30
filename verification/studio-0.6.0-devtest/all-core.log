@@ -1,0 +1,65 @@
+PASS Coverage: all declared core components in one application
+Starting bundled ZERNOVA Runtime on darwin-x64; console: /Users/roz/.zernova-studio-tests/all-core-060-Fshrc6/instance/runs/9a953cff-6152-4cea-9a6d-23915bccf272/console.log
+PASS Build, start and deploy the complete all-core application
+PASS Transform Message external payload, attributes and variables
+PASS Set Payload, Set Variable, Remove Variable
+PASS Flow Reference executes a Subflow and returns
+PASS Parse Template resolves external template and variable
+PASS Choice selects When and Otherwise routes
+PASS First Successful recovers from a failing first route
+PASS Round Robin alternates routes
+PASS Scatter-Gather collects both route messages
+PASS For Each iterates records and accumulates a variable
+PASS Try contains a local Error Handler and On Error Continue
+PASS Until Successful retries a real transient resource failure
+PASS Async executes its child without replacing the main payload
+PASS Cache hits reuse a message and LRU eviction removes the old entry
+PASS Cache TTL expires an entry
+PASS Dynamic Evaluate executes a selected full DataWeave script
+PASS Custom Business Event emits structured fields and correlation data
+PASS Flow-level On Error Continue returns a normal HTTP response
+PASS On Error Propagate reaches the Listener error-response configuration
+PASS Batch Job/Step/Aggregator/On Complete process successes and failures asynchronously
+PASS Scheduler triggers the actual scheduled flow
+PASS Logger entries are available in application logs
+{
+  "base": "/Users/roz/.zernova-studio-tests/all-core-060-Fshrc6",
+  "project": "/Users/roz/.zernova-studio-tests/all-core-060-Fshrc6/project",
+  "passed": 23,
+  "failed": 0,
+  "catalogCoverage": [
+    "async",
+    "batch-aggregator",
+    "batch-job",
+    "batch-on-complete",
+    "batch-step",
+    "business-event",
+    "cache",
+    "choice",
+    "dynamic-evaluate",
+    "error-handler",
+    "first-successful",
+    "flow",
+    "flow-ref",
+    "foreach",
+    "listener",
+    "logger",
+    "on-error-continue",
+    "on-error-propagate",
+    "otherwise",
+    "parse-template",
+    "raise-error",
+    "remove-variable",
+    "round-robin",
+    "route",
+    "scatter-gather",
+    "scheduler",
+    "set-payload",
+    "set-variable",
+    "sub-flow",
+    "transform",
+    "try",
+    "until-successful",
+    "when"
+  ]
+}

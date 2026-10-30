@@ -1,0 +1,230 @@
+{
+  "target": "darwin-x64",
+  "project": "/Users/roz/.zernova-studio-tests/all-core-060-Fshrc6/project",
+  "port": 55217,
+  "catalogCoverage": [
+    "async",
+    "batch-aggregator",
+    "batch-job",
+    "batch-on-complete",
+    "batch-step",
+    "business-event",
+    "cache",
+    "choice",
+    "dynamic-evaluate",
+    "error-handler",
+    "first-successful",
+    "flow",
+    "flow-ref",
+    "foreach",
+    "listener",
+    "logger",
+    "on-error-continue",
+    "on-error-propagate",
+    "otherwise",
+    "parse-template",
+    "raise-error",
+    "remove-variable",
+    "round-robin",
+    "route",
+    "scatter-gather",
+    "scheduler",
+    "set-payload",
+    "set-variable",
+    "sub-flow",
+    "transform",
+    "try",
+    "until-successful",
+    "when"
+  ],
+  "required": [
+    "async",
+    "batch-aggregator",
+    "batch-job",
+    "batch-on-complete",
+    "batch-step",
+    "business-event",
+    "cache",
+    "choice",
+    "dynamic-evaluate",
+    "error-handler",
+    "first-successful",
+    "flow",
+    "flow-ref",
+    "foreach",
+    "listener",
+    "logger",
+    "on-error-continue",
+    "on-error-propagate",
+    "otherwise",
+    "parse-template",
+    "raise-error",
+    "remove-variable",
+    "round-robin",
+    "route",
+    "scatter-gather",
+    "scheduler",
+    "set-payload",
+    "set-variable",
+    "sub-flow",
+    "transform",
+    "try",
+    "until-successful",
+    "when"
+  ],
+  "artifact": "404579597e0341e530c8129c98c23650e7c71716b375c53143cb7ebc67ad8928",
+  "checks": [
+    {
+      "name": "Coverage: all declared core components in one application",
+      "status": "PASS",
+      "detail": {
+        "flows": 21,
+        "components": [
+          "async",
+          "batch-aggregator",
+          "batch-job",
+          "batch-on-complete",
+          "batch-step",
+          "business-event",
+          "cache",
+          "choice",
+          "dynamic-evaluate",
+          "error-handler",
+          "first-successful",
+          "flow",
+          "flow-ref",
+          "foreach",
+          "listener",
+          "logger",
+          "on-error-continue",
+          "on-error-propagate",
+          "otherwise",
+          "parse-template",
+          "raise-error",
+          "remove-variable",
+          "round-robin",
+          "route",
+          "scatter-gather",
+          "scheduler",
+          "set-payload",
+          "set-variable",
+          "sub-flow",
+          "transform",
+          "try",
+          "until-successful",
+          "when"
+        ]
+      }
+    },
+    {
+      "name": "Build, start and deploy the complete all-core application",
+      "status": "PASS",
+      "detail": {
+        "artifact": "/Users/roz/.zernova-studio-tests/all-core-060-Fshrc6/project/target/all-core-1.0.0.zapp",
+        "port": 55217
+      }
+    },
+    {
+      "name": "Transform Message external payload, attributes and variables",
+      "status": "PASS",
+      "detail": {
+        "payload": {
+          "message": "Hello from ZERNOVA",
+          "environment": "development",
+          "testId": "ALL-CORE-060"
+        },
+        "variables": {
+          "transformed": true,
+          "source": "external-variables"
+        },
+        "marker": "external-attributes"
+      }
+    },
+    {
+      "name": "Set Payload, Set Variable, Remove Variable",
+      "status": "PASS"
+    },
+    {
+      "name": "Flow Reference executes a Subflow and returns",
+      "status": "PASS"
+    },
+    {
+      "name": "Parse Template resolves external template and variable",
+      "status": "PASS"
+    },
+    {
+      "name": "Choice selects When and Otherwise routes",
+      "status": "PASS"
+    },
+    {
+      "name": "First Successful recovers from a failing first route",
+      "status": "PASS"
+    },
+    {
+      "name": "Round Robin alternates routes",
+      "status": "PASS"
+    },
+    {
+      "name": "Scatter-Gather collects both route messages",
+      "status": "PASS"
+    },
+    {
+      "name": "For Each iterates records and accumulates a variable",
+      "status": "PASS"
+    },
+    {
+      "name": "Try contains a local Error Handler and On Error Continue",
+      "status": "PASS"
+    },
+    {
+      "name": "Until Successful retries a real transient resource failure",
+      "status": "PASS"
+    },
+    {
+      "name": "Async executes its child without replacing the main payload",
+      "status": "PASS"
+    },
+    {
+      "name": "Cache hits reuse a message and LRU eviction removes the old entry",
+      "status": "PASS"
+    },
+    {
+      "name": "Cache TTL expires an entry",
+      "status": "PASS"
+    },
+    {
+      "name": "Dynamic Evaluate executes a selected full DataWeave script",
+      "status": "PASS"
+    },
+    {
+      "name": "Custom Business Event emits structured fields and correlation data",
+      "status": "PASS"
+    },
+    {
+      "name": "Flow-level On Error Continue returns a normal HTTP response",
+      "status": "PASS"
+    },
+    {
+      "name": "On Error Propagate reaches the Listener error-response configuration",
+      "status": "PASS"
+    },
+    {
+      "name": "Batch Job/Step/Aggregator/On Complete process successes and failures asynchronously",
+      "status": "PASS",
+      "detail": {
+        "jobId": "3b3f6366-7d7e-4db8-87b7-35f7067017b0",
+        "total": 5,
+        "failed": 1,
+        "processed": 5
+      }
+    },
+    {
+      "name": "Scheduler triggers the actual scheduled flow",
+      "status": "PASS"
+    },
+    {
+      "name": "Logger entries are available in application logs",
+      "status": "PASS"
+    }
+  ]
+}

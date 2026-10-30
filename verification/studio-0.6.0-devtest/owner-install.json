@@ -1,0 +1,27 @@
+{
+  "version": "0.6.0",
+  "profile": "Default",
+  "installedPath": "/Users/roz/.vscode/extensions/zernova-preview.zernova-studio-kernel-preview-0.6.0",
+  "assetsMatchFinalVSIX": {
+    "dist/extension.js": "df977551d1328305ea470107c8f37ee96db17a6a041c02d7d4ffde66074570ef",
+    "media/studio.js": "403de5c81d97c4984ccdf903097281dee387716529de8f8b659890ce9aec42b1",
+    "media/studio.css": "65d01c4231b73e5ce32acef8efe235a111c43f3c08c1e0cc4c003874692379f3",
+    "runtime/bundle.json": "5cf430359adbba7ef3c571f0d4e10808534960812a752889046d0edfe7b3851a"
+  },
+  "packageManifestMatches": true,
+  "activeUI": {
+    "sharedCanvas": true,
+    "visibleExistingFlows": [
+      "helloFlow",
+      "newFlow"
+    ],
+    "flowPickerRemoved": true,
+    "savedDocument": true,
+    "runtime": "Not started during this update",
+    "artifactGroups": [
+      "ZERNOVA Artifacts",
+      "Maven Dependencies",
+      "Project Artifacts"
+    ]
+  }
+}

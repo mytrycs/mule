@@ -1,0 +1,10 @@
+{
+  "studio": "0.6.0",
+  "runtime": "0.4.1-alpha.1",
+  "coreSupport": "0.5.0",
+  "target": "darwin-x64",
+  "implementationCommit": "63773615b88cb51864271336c96ac805a7f5ec12",
+  "branch": "codex/studio-workbench-0.6.0",
+  "handoff": "/Users/roz/Downloads/ZERNOVA_Studio_0.6.0_Dev_Test",
+  "scope": "Shared XML canvas, inline forms, explorer/dependency workbench, empty scopes, distinct icons, complete core sample"
+}

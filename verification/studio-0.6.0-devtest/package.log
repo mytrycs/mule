@@ -1,0 +1,43 @@
+
+> zernova-studio-kernel-preview@0.6.0 package
+> node scripts/package.mjs
+
+Executing prepublish script 'npm run vscode:prepublish'...
+
+> zernova-studio-kernel-preview@0.6.0 vscode:prepublish
+> npm run build && node scripts/verify-package.mjs
+
+
+> zernova-studio-kernel-preview@0.6.0 build
+> node scripts/build.mjs
+
+Built new ZERNOVA Studio host and offline webview.
+{"packagedRuntime":"0.4.1-alpha.1","target":"darwin-x64","files":687,"bytes":294929997}
+ INFO  Files included in the VSIX:
+zernova-studio-kernel-preview-0.6.0-darwin-x64.vsix
+├─ [Content_Types].xml 
+├─ extension.vsixmanifest 
+└─ extension/
+   ├─ COMPATIBILITY.md [3.37 KB]
+   ├─ DEV_TEST_START_HERE.md [3.05 KB]
+   ├─ IMPORT_PROVENANCE.json [0.33 KB]
+   ├─ KNOWN_LIMITATIONS.md [7.07 KB]
+   ├─ LICENSE.txt [0.67 KB]
+   ├─ STUDIO_LOCAL_VERIFICATION.md [4.02 KB]
+   ├─ TESTING_STEP_BY_STEP.md [24.56 KB]
+   ├─ THIRD_PARTY_NOTICES.md [6.13 KB]
+   ├─ changelog.md [1.86 KB]
+   ├─ package.json [22.87 KB]
+   ├─ readme.md [9.32 KB]
+   ├─ assets/ (5 files) [3.57 KB]
+   ├─ dist/ (1 file) [759.7 KB]
+   ├─ docs/ (13 files) [97.25 KB]
+   ├─ examples/ (38 files) [41.9 KB]
+   ├─ licenses/ (15 files) [51.83 KB]
+   ├─ media/ (2 files) [293.61 KB]
+   ├─ runtime/ (688 files) [281.4 MB]
+   └─ themes/ (2 files) [8.04 KB]
+
+=> Run vsce ls --tree to see all included files.
+
+ DONE  Packaged: dist/zernova-studio-kernel-preview-0.6.0-darwin-x64.vsix (777 files, 189.89 MB)

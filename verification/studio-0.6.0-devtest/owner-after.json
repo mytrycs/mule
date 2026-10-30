@@ -1,0 +1,14 @@
+{
+  "files": {
+    "pom.xml": "c1698fca70f551a8cd57e813cbc6f854af18cefdce35a60900f795b18609652e",
+    "README.md": "c1a1ca00c34d62ededc2a12661c9f6097bdc619577e142273777b424af7ce54c",
+    ".gitignore": "5404490a9d2d34d5aa25ace0f7576304bfd2d8fd86dd7efa920212c14f2f0c6a",
+    "zernova-artifact.json": "54e864634b31a2685052b5ad13b7af6ee0ee403c33b3b2c9d2b5b4da2915e6ab",
+    "zernova-app.json": "cb996cddfd05cd07a9f068553651b56761367c66a01ed023f1633fb063ba5794",
+    "src/main/zernova/hello.xml": "ca0f400225db193d3e82d709fbd25af018572b9146f8d2bd1cd751849bcc33d8",
+    "src/main/resources/log4j2.xml": "a4c45d13708520f9f24de534c6c687ad745cf0aee8e6f942f5f60e0fbe30cae9",
+    "src/main/resources/application.properties": "d45a2c3f4cee1e447fb350ca4d49ecde5395f4410feb9ecfba771068c4ef3ad5"
+  },
+  "unchanged": true,
+  "count": 8
+}

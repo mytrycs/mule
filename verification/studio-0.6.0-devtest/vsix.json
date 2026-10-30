@@ -1,0 +1,8 @@
+{
+  "file": "zernova-studio-kernel-preview-0.6.0-darwin-x64.vsix",
+  "bytes": 199108938,
+  "sha256": "00449e5450845c48456d4a81a28ab879318bba8432b640333920196d3633ee78",
+  "target": "darwin-x64",
+  "studio": "0.6.0",
+  "runtime": "0.4.1-alpha.1"
+}
