@@ -41,9 +41,13 @@ def main():
         raise SystemExit('Input Java bundle does not match target')
     # Compilation success is required; never label a patched vendor core as a
     # fresh source build. The engine archive itself is audited below.
-    gate = ROOT / 'zernova-build-evidence/source-build-exit-code.txt'
-    if not gate.exists() or gate.read_text().strip() != '0':
-        raise SystemExit('The renamed source-build gate must pass first')
+    for name in ['api-build', 'extensions-api-build', 'source-build', 'distribution-build']:
+        gate = ROOT / ('zernova-build-evidence/' + name + '-exit-code.txt')
+        if not gate.exists() or gate.read_text().strip() != '0':
+            raise SystemExit('The compilation gate must pass first: ' + name)
+    revision = json.loads((ROOT / 'zernova-build-evidence/source-build-revision.json').read_text())
+    if revision.get('engineSha256') != sha(args.engine):
+        raise SystemExit('Engine archive does not match successful source-build provenance')
     args.output.mkdir(parents=True)
     for folder in ['java', 'connectors', 'notices']:
         shutil.copytree(args.inputs / folder, args.output / folder)
@@ -91,7 +95,7 @@ def main():
             for path in sorted((ROOT / folder).rglob('*')):
                 if path.is_file() and not any(p in excluded or p.startswith('.zernova-') for p in path.relative_to(ROOT).parts):
                     z.write(path, path.relative_to(ROOT).as_posix())
-        for name in ['pom.xml', 'LICENSE.txt', 'README.md', 'NAMESPACE_MIGRATION.md',
+        for name in ['pom.xml', 'LICENSE.txt', 'README.md', 'NAMESPACE_MIGRATION.md', 'APPLICATION_FORMAT.md',
                      'package.json', 'package-lock.json',
                      'zernova-studio-build/RuntimeControlAgent.java', 'zernova-studio-build/LICENSE.txt',
                      'zernova-studio-build/assemble-native.py', 'zernova-studio-build/prepare-native.py',
@@ -101,8 +105,9 @@ def main():
             if (ROOT / name).is_file():
                 z.write(ROOT / name, name)
     revision = json.loads((ROOT / 'zernova-build-evidence/source-build-revision.json').read_text())
-    info = {**baseline, 'version': '0.4.0-alpha.1', 'javaNamespace': 'com.zernova',
-            'sourceBuildCommit': revision['sourceRevision'], 'sourceBuildDirty': revision['dirty'],
+    info = {**baseline, 'version': '0.4.0-alpha.1', 'applicationFormat': 1, 'javaNamespace': 'com.zernova',
+            'sourceBuildCommit': revision['sourceRevision'], 'sourceBuildDirty': revision['dirty'] or revision.get('treeChangedDuringBuild', True),
+            'sourceBuildResumed': revision.get('resumedLocalBuild', False),
             'sourceTreeCommit': subprocess.check_output(['git', '-C', str(ROOT), 'rev-parse', 'HEAD'], text=True).strip(),
             'inputEngineSha256': sha(args.engine), 'sourceArchive': source_archive.relative_to(args.output).as_posix(),
             'sourceArchiveSha256': sha(source_archive), 'engineBuild': 'compiled-from-renamed-source'}

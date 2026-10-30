@@ -80,7 +80,7 @@ public class MinZernovaVersionArtifactDescriptorValidator implements ArtifactDes
 
   private void doValidation(ArtifactDescriptor descriptor, ZernovaVersion minZernovaVersion, ZernovaVersion runtimeVersion) {
     if (runtimeVersion.priorTo(minZernovaVersion)) {
-      throw new ArtifactDescriptorCreateException(format("Artifact %s requires a newer runtime version. Artifact required version is %s and Mule Runtime version is %s",
+      throw new ArtifactDescriptorCreateException(format("Artifact %s requires a newer runtime version. Artifact required version is %s and ZERNOVA Runtime version is %s",
                                                          descriptor.getName(),
                                                          descriptor.getMinZernovaVersion().toCompleteNumericVersion(),
                                                          runtimeVersion.toCompleteNumericVersion()));

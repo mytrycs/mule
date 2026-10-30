@@ -547,7 +547,7 @@
                         <licenseSet>
                             <header>${licensePath}</header>
                             <includes><include>**/*.java</include></includes>
-                            <excludes><exclude>zernova-studio-build/**</exclude><exclude>**/src/main/java/com/zernova/runtime/http/support/internal/HttpProtocolCompatibility.java</exclude><exclude>**/src/test/java/com/zernova/runtime/http/support/internal/HttpProtocolCompatibilityTestCase.java</exclude><exclude>**/src/main/java/com/zernova/runtime/http/support/internal/message/Part.java</exclude><exclude>**/src/main/java/com/zernova/runtime/http/support/internal/message/MultipartEntityView.java</exclude></excludes>
+                            <excludes><exclude>.zernova-*/**</exclude><exclude>zernova-studio-build/**</exclude><exclude>**/src/main/java/com/zernova/runtime/http/support/internal/HttpProtocolCompatibility.java</exclude><exclude>**/src/test/java/com/zernova/runtime/http/support/internal/HttpProtocolCompatibilityTestCase.java</exclude><exclude>**/src/main/java/com/zernova/runtime/http/support/internal/message/Part.java</exclude><exclude>**/src/main/java/com/zernova/runtime/http/support/internal/message/MultipartEntityView.java</exclude></excludes>
                         </licenseSet>
                         <licenseSet>
                             <inlineHeader><![CDATA[Copyright (c) 2026 ZerNova.

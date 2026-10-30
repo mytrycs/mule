@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { runProcess } from '../src/host/process';
 import { assertRuntimeIdentity, parseRuntimeStatus } from '../src/shared/runtimeContract';
 
-const identity = { schema_version: 2, product: 'ZERNOVA Runtime', distribution_version: '0.4.0-alpha.1', kernel_version: '0.4.0-alpha.1', dataweave_version: '2.10.0', build_mode: 'source-built-development' };
+const identity = { schema_version: 2, application_format_version: 1, product: 'ZERNOVA Runtime', distribution_version: '0.4.0-alpha.1', kernel_version: '0.4.0-alpha.1', dataweave_version: '2.10.0', build_mode: 'source-built-development' };
 const state = () => ({ ...identity, process: 'RUNNING', runtime: 'READY', healthy: true, work_directory: '/tmp/zernova-studio-test', applications: { owner: { name: 'owner', state: 'DEPLOYED', healthy: true, deployment: 'DEPLOYED', endpoint: 'NOT_CHECKED' } } });
 
 test('observed runtime identity is pinned separately from the plugin build framework', () => {

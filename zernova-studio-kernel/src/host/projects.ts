@@ -4,7 +4,7 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 import * as sax from 'sax';
 import { convertLegacyIntegrationXml } from '../shared/xml';
-import { walkFiles } from '../../../zernova-studio-build/src/portable/bundle';
+import { RUNTIME_VERSION, walkFiles } from '../../../zernova-studio-build/src/portable/bundle';
 
 export interface Project { root: string; name: string; groupId: string; artifactId: string; version: string; }
 export interface RuntimeSettings { schemaVersion: 2; runtimeHome: string; instanceDirectory: string; offline: true; }
@@ -69,7 +69,7 @@ export class ProjectManager implements vscode.Disposable {
   nameForUri(uri: vscode.Uri): string { return this.projectForUri(uri)?.name ?? path.basename(path.dirname(uri.fsPath)); }
   getSettings(project: Project): RuntimeSettings {
     return { schemaVersion: 2, runtimeHome: path.join(this.context.extensionUri.fsPath, 'runtime'),
-      instanceDirectory: path.join(this.context.globalStorageUri.fsPath, 'instances', createHash('sha256').update(project.root).digest('hex').slice(0, 20)), offline: true };
+      instanceDirectory: path.join(this.context.globalStorageUri.fsPath, 'instances', RUNTIME_VERSION, createHash('sha256').update(project.root).digest('hex').slice(0, 20)), offline: true };
   }
   async saveSettings(_project: Project, _settings: RuntimeSettings): Promise<void> { this.changed.fire(); }
   async initialize(): Promise<void> {

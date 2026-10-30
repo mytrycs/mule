@@ -75,7 +75,9 @@ button.icon-button:hover { background: var(--z-hover); border-color: var(--z-bor
 .flow-card { border: 1px solid color-mix(in srgb, var(--z-accent) 55%, var(--z-border)); background: var(--z-canvas); border-radius: 3px; width: max-content; min-width: 375px; transform-origin: top left; }
 .flow-heading { height: 31px; display: flex; align-items: center; gap: 5px; padding: 2px 7px; border-bottom: 1px solid var(--z-divider); background: color-mix(in srgb, var(--z-selected) 36%, var(--z-editor)); font-size: 12px; font-weight: 650; }
 .flow-heading button { min-height: 24px; }
-.flow-name { flex: 1; }
+.flow-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.flow-heading, .flow-card > .error-region, .flow-card > .real-unsupported { contain: inline-size; }
+.flow-card.subflow-card { min-width: 210px; }
 .fixture-tag { color: var(--z-muted); font-size: 10px; font-weight: 400; letter-spacing: .15px; padding-right: 6px; }
 .flow-lanes { display: flex; position: relative; min-height: 190px; }
 .source-lane { width: 175px; min-width: 175px; border-right: 1px solid var(--z-border); position: relative; padding: 39px 14px 41px 54px; }

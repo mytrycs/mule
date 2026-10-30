@@ -6,6 +6,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 mkdir -p zernova-build-evidence
 rm -f zernova-build-evidence/{api-build,extensions-api-build,source-build,distribution-build}-exit-code.txt
+rm -f zernova-build-evidence/source-build-resumed.json
 export PATH="$(python3 zernova-build/toolchain.py):$PATH"
 mvn -version > zernova-build-evidence/toolchain.txt
 python3 zernova-build/bootstrap_dependencies.py "$@"
@@ -33,4 +34,5 @@ stage api-build mvn "${COMMON[@]}" -f upstream/runtime-api/pom.xml clean install
 stage extensions-api-build mvn "${COMMON[@]}" -f upstream/extensions-api/pom.xml clean install
 stage source-build mvn "${COMMON[@]}" clean install
 stage distribution-build mvn "${COMMON[@]}" -f upstream/distributions/pom.xml -pl standalone -am clean install
+python3 zernova-build/finalize_source.py
 printf 'Renamed APIs, complete kernel reactor and standalone distribution compiled from tracked com.zernova sources. Tests compiled; runtime acceptance and selected unit tests are separate gates.\n' > zernova-build-evidence/SCOPE.txt

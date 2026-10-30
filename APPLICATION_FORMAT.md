@@ -41,3 +41,8 @@ symbol. A subflow has no HTTP source and does not draw a fictitious Listener.
 Required upstream licenses, authorship and historical issue references remain
 accurate. Internal inherited engine Maven module names/launch compatibility
 properties are distinct from the new XML/application contract.
+
+Runtime state is separated by product version in Studio. The standalone control
+API rejects state owned by another runtime/application-format version instead
+of labelling an older JVM as current. Stop the previous version before upgrade;
+retain its package if needed to stop its existing instance.

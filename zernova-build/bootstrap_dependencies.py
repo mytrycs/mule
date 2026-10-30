@@ -31,7 +31,7 @@ def main():
     marker = output / '.zernova-namespace-relocation.json'
     digest = hashlib.sha256(mapping.read_bytes()).hexdigest()
     if marker.exists():
-        if json.loads(marker.read_text())['classMapSha256'] != digest or json.loads(marker.read_text()).get('applicationFormat') != 1:
+        if json.loads(marker.read_text())['classMapSha256'] != digest or json.loads(marker.read_text()).get('applicationFormat') != 1 or json.loads(marker.read_text()).get('contractRevision') != 3:
             raise SystemExit('Namespace map changed; move .zernova-m2 aside and bootstrap again')
         print('Private ZERNOVA dependency repository is ready')
         return

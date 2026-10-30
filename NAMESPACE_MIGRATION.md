@@ -1,3 +1,8 @@
+> The 0.4.0 XML migration is described in APPLICATION_FORMAT.md. The evidence
+> below records the previous Java namespace milestone; it does not qualify the
+> current XML/deployment-contract build. See the new dev-test evidence when
+> generated.
+
 # ZERNOVA Java namespace migration — 0.3.0-dev.2
 
 This branch starts from `zernova/studio-bundle-0.3.0` at

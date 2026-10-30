@@ -7,10 +7,11 @@ import { spawn } from 'node:child_process';
 
 export const STUDIO_VERSION = '0.4.0';
 export const RUNTIME_VERSION = '0.4.0-alpha.1';
+export const APPLICATION_FORMAT_VERSION = 1;
 export const ENGINE_VERSION = '4.10.0-SNAPSHOT';
 export const TARGETS = ['linux-x64', 'linux-arm64', 'darwin-x64', 'darwin-arm64', 'win32-x64', 'win32-arm64'] as const;
 export interface BundleInfo {
-  schemaVersion: 1; product: 'ZERNOVA Runtime'; version: string; engineVersion: string;
+  schemaVersion: 1; product: 'ZERNOVA Runtime'; version: string; engineVersion: string; applicationFormat: number;
   dataweaveVersion: string; sourceBuildCommit: string; target: string; javaHome: string;
   javaVendor: string; javaVersion: string; javaArchitecture: string; controlAgent: string;
   sourceArchive: string; distributionMode: 'source-built-development';
@@ -65,7 +66,7 @@ export function targetForHost(platform = process.platform, arch = process.arch):
 }
 export async function bundleInfo(root: string, checkHost = true): Promise<BundleInfo> {
   const info = await readJson<BundleInfo>(path.join(root, 'bundle.json')).catch(() => { throw new Error('The bundled ZERNOVA Runtime is missing or damaged. Reinstall this platform’s full VSIX; no external runtime configuration is required.'); });
-  if (info.schemaVersion !== 1 || info.product !== 'ZERNOVA Runtime' || info.version !== RUNTIME_VERSION || info.engineVersion !== ENGINE_VERSION || info.dataweaveVersion !== '2.10.0' || info.distributionMode !== 'source-built-development') throw new Error('Unexpected bundled runtime identity. This Studio requires the source-built 4.10 development engine.');
+  if (info.schemaVersion !== 1 || info.product !== 'ZERNOVA Runtime' || info.version !== RUNTIME_VERSION || info.applicationFormat !== APPLICATION_FORMAT_VERSION || info.engineVersion !== ENGINE_VERSION || info.dataweaveVersion !== '2.10.0' || info.distributionMode !== 'source-built-development') throw new Error(`Unexpected bundled runtime identity. This Studio requires ZERNOVA Runtime ${RUNTIME_VERSION}, application format ${APPLICATION_FORMAT_VERSION}.`);
   for (const field of [info.javaHome, info.controlAgent, info.sourceArchive]) if (!safeRelative(field)) throw new Error('Unsafe packaged runtime path.');
   if (checkHost && info.target !== targetForHost()) throw new Error(`This VSIX contains ${info.target}, but the extension host is ${targetForHost()}. Install the matching platform VSIX in the host where the project executes.`);
   return info;

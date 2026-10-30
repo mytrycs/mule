@@ -43,6 +43,7 @@ def application_text(value):
         value = value.replace(old, new)
     value = re.sub(r'mule(?=(?:-[A-Za-z0-9_-]+)?\.xsd|\.schemas)', 'zernova', value)
     value = value.replace('mule-%s', 'zernova-%s')
+    value = value.replace('src/main/mule', 'src/main/zernova').replace('src\\main\\mule', 'src\\main\\zernova')
     value = re.sub(r'\bMULE_EE\b', 'ZERNOVA_EE', value)
     value = re.sub(r'\bMULE\b(?!-\d)', 'ZERNOVA', value)
     value = re.sub(r'([\"\x27])mule\1', lambda m: m[1] + 'zernova' + m[1], value)
@@ -82,6 +83,11 @@ class Relocation:
         if not any(s in data for s in candidates):
             return data
         count = struct.unpack_from('>H', data, 8)[0]
+        # Maven's packaging enums derive their XML spelling from enum.name(),
+        # rather than a string literal. Adapt those enum declarations AND all
+        # field references in callers; unrelated engine constants keep their ABI.
+        packaging_enum = self.application_format and any(prefix in data for prefix in (
+            b'org/mule/tools/api/packager/packaging/', b'com/zernova/tools/api/packager/packaging/'))
         output, offset, index = bytearray(data[:10]), 10, 1
         sizes = {3: 4, 4: 4, 5: 8, 6: 8, 7: 2, 8: 2, 9: 4, 10: 4, 11: 4,
                  12: 4, 15: 3, 16: 2, 17: 4, 18: 4, 19: 2, 20: 2}
@@ -96,6 +102,9 @@ class Relocation:
                 if len(raw) != length:
                     raise ValueError('Truncated UTF-8 constant')
                 raw = self.text(raw.decode('latin1')).encode('latin1')
+                if packaging_enum:
+                    raw = re.sub(rb'^MULE_(APPLICATION(?:_EXAMPLE|_TEMPLATE)?|DOMAIN(?:_BUNDLE)?|PLUGIN)$',
+                                 rb'ZERNOVA_\1', raw)
                 output.extend(struct.pack('>H', len(raw)))
                 output.extend(raw)
                 offset += length
@@ -328,6 +337,7 @@ def main():
     report = args.output / '.zernova-namespace-relocation.json'
     report.write_text(json.dumps({'schemaVersion': 1, 'namespace': 'com.zernova',
                                  'applicationFormat': 1 if args.application_format else 0,
+                                 'contractRevision': 3 if args.application_format else 0,
                                  'classMapSha256': hashlib.sha256(args.map.read_bytes()).hexdigest(),
                                  'changes': records}, indent=2) + '\n')
     print('Relocated files:', len(records))

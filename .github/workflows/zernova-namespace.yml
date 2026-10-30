@@ -30,7 +30,7 @@ jobs:
           name: zernova-renamed-engine
           path: |
             upstream/distributions/standalone/target/mule-standalone-4.10.0-SNAPSHOT.zip
-            zernova-build-evidence/source-build-exit-code.txt
+            zernova-build-evidence/*-exit-code.txt
             zernova-build-evidence/source-build-revision.json
           retention-days: 30
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

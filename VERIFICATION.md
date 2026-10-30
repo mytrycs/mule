@@ -1,3 +1,8 @@
+> The 0.4.0 XML migration is described in APPLICATION_FORMAT.md. The evidence
+> below records the previous Java namespace milestone; it does not qualify the
+> current XML/deployment-contract build. See the new dev-test evidence when
+> generated.
+
 # ZERNOVA namespace refactor verification
 
 Validated locally on **October 30, 2026**, on **macOS x64**, using Java 17 and

@@ -26,7 +26,7 @@ export async function applicationMetadata(project: string): Promise<ApplicationM
   return data;
 }
 export async function sourceDirectory(project: string): Promise<string> {
-  const roots = ['src/main/zernova', 'src/main/mule'];
+  const roots = ['src/main/zernova'];
   const present: string[] = [];
   for (const rel of roots) {
     const dir = path.join(project, rel);
@@ -39,7 +39,7 @@ export async function sourceDirectory(project: string): Promise<string> {
     for (const dir of present) if ((await walkFiles(dir)).length) nonempty.push(dir);
     if (nonempty.length === 1) return nonempty[0];
   }
-  throw new Error('Use one integration source directory: src/main/zernova (new applications) or the preserved compatibility path.');
+  throw new Error('Create src/main/zernova for integration sources. Use explicit legacy import to convert older projects.');
 }
 export async function sourceHash(project: string): Promise<string> {
   const digest = createHash('sha256');

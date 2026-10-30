@@ -6,7 +6,7 @@ export interface RuntimeStatus {
 }
 const record = (value: unknown): value is Record<string, unknown> => !!value && typeof value === 'object' && !Array.isArray(value);
 export function assertRuntimeIdentity(value: unknown): asserts value is Record<string, unknown> {
-  if (!record(value) || value.schema_version !== 2 || value.product !== 'ZERNOVA Runtime' || value.distribution_version !== '0.4.0-alpha.1' || value.kernel_version !== '0.4.0-alpha.1' || value.dataweave_version !== '2.10.0' || value.build_mode !== 'source-built-development') {
+  if (!record(value) || value.schema_version !== 2 || value.application_format_version !== 1 || value.product !== 'ZERNOVA Runtime' || value.distribution_version !== '0.4.0-alpha.1' || value.kernel_version !== '0.4.0-alpha.1' || value.dataweave_version !== '2.10.0' || value.build_mode !== 'source-built-development') {
     throw new Error('Unexpected bundled runtime identity. Studio requires ZERNOVA 0.4.0-alpha.1 / the source-built 4.10 baseline / DataWeave 2.10.0.');
   }
 }

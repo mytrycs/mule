@@ -27,6 +27,12 @@ const {validateArtifact}=require('../dist/portable-packager.cjs');
  }
  try{
    await test('Native bundled Java architecture and complete integrity',()=>r.doctor());
+   await test('Older runtime instance is rejected instead of being relabelled',async()=>{
+     const oldInstance=path.join(base,'older instance');await fs.mkdir(oldInstance);
+     await fs.writeFile(path.join(oldInstance,'studio-owner.json'),JSON.stringify({schemaVersion:2,product:'ZERNOVA Studio',projectRoot:project,application:app,engineVersion:'4.10.0-SNAPSHOT',runtimeVersion:'0.3.0-dev.2',applicationFormat:1}));
+     const older=new BundledRuntime({bundle,instance:oldInstance,project,application:app});
+     await assert.rejects(older.status(),/different ZERNOVA runtime/);return{rejected:true};
+   });
    await test('Offline build in path containing spaces',async()=>{artifact=await r.package();assert.equal(artifact.networkUsed,false);return artifact});
    await test('Deterministic repackage',async()=>{const repeated=await r.package();assert.equal(artifact.sha256,repeated.sha256);return{sha256:repeated.sha256}});
    await test('Unsafe XML does not replace last valid artifact',async()=>{await fs.writeFile(xml,initial.replace('<zernova ', '<!DOCTYPE mule [<!ENTITY x SYSTEM "file:///etc/passwd">]>\n<zernova '));await assert.rejects(r.package(),/DTD|entity/i);assert.equal((await validateArtifact(artifact.artifact)).sha256,artifact.sha256);await fs.writeFile(xml,initial)});

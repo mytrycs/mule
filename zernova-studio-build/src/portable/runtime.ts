@@ -16,7 +16,7 @@ interface AgentEndpoint { schemaVersion: 1; product: 'ZERNOVA Runtime Control'; 
 interface RuntimeState { schema_version: 2; pid: number; run_id: string; console_log: string; runtime_ready: boolean; started_utc: string; config: { http_host: '127.0.0.1'; http_port: number; heap_mb: number }; }
 interface AppRecord { sha256: string; run_id: string; log_offset: number; deployed_utc: string; }
 export interface AppStatus { name: string; state: 'NOT_DEPLOYED' | 'STOPPED' | 'DEPLOYING' | 'DEPLOYED' | 'UNHEALTHY'; healthy: boolean; deployment: 'NOT_RUNNING' | 'PENDING' | 'DEPLOYED' | 'FAILED'; endpoint: 'NOT_CHECKED'; }
-export interface PortableStatus { schema_version: 2; product: 'ZERNOVA Runtime'; distribution_version: string; kernel_version: string; upstream_baseline?: string; dataweave_version: string; build_mode: string; process: 'RUNNING' | 'STOPPED'; runtime: 'READY' | 'STARTING' | 'STOPPED'; pid?: number; run_id?: string; work_directory: string; healthy: boolean; applications: Record<string, AppStatus>; }
+export interface PortableStatus { schema_version: 2; product: 'ZERNOVA Runtime'; distribution_version: string; application_format_version: 1; kernel_version: string; upstream_baseline?: string; dataweave_version: string; build_mode: string; process: 'RUNNING' | 'STOPPED'; runtime: 'READY' | 'STARTING' | 'STOPPED'; pid?: number; run_id?: string; work_directory: string; healthy: boolean; applications: Record<string, AppStatus>; }
 export interface RuntimeOptions { bundle: string; instance: string; project: string; application: string; onOutput?: (text: string) => void; startupTimeoutMs?: number; deploymentTimeoutMs?: number; stopTimeoutMs?: number; }
 const children = new Map<string, ChildProcess>();
 const MAX_LOG = 8 * 1024 * 1024;
@@ -77,7 +77,7 @@ export class BundledRuntime {
     for (const value of [this.startupMs, this.deployMs, this.stopMs]) if (!Number.isInteger(value) || value < 500 || value > 300000) throw new Error('Invalid lifecycle timeout.');
   }
   identity(): Omit<PortableStatus, 'process' | 'runtime' | 'work_directory' | 'healthy' | 'applications'> {
-    return { schema_version: 2, product: 'ZERNOVA Runtime', distribution_version: RUNTIME_VERSION, kernel_version: RUNTIME_VERSION, upstream_baseline: ENGINE_VERSION, dataweave_version: '2.10.0', build_mode: 'source-built-development' };
+    return { schema_version: 2, product: 'ZERNOVA Runtime', application_format_version: 1, distribution_version: RUNTIME_VERSION, kernel_version: RUNTIME_VERSION, upstream_baseline: ENGINE_VERSION, dataweave_version: '2.10.0', build_mode: 'source-built-development' };
   }
   async ownership(): Promise<void> {
     // Check every existing ancestor for redirection before creating private state.
@@ -92,7 +92,7 @@ export class BundledRuntime {
     if (!await exists(this.instance)) {
       try { await fs.mkdir(this.instance, { mode: 0o700 }); }
       catch (e) { if (errorCode(e) !== 'EEXIST') throw e; }
-      try { await fs.writeFile(marker, JSON.stringify({ schemaVersion: 2, product: 'ZERNOVA Studio', projectRoot: this.project, application: this.application, engineVersion: ENGINE_VERSION }) + '\n', { flag: 'wx', mode: 0o600 }); }
+      try { await fs.writeFile(marker, JSON.stringify({ schemaVersion: 2, product: 'ZERNOVA Studio', projectRoot: this.project, application: this.application, engineVersion: ENGINE_VERSION, runtimeVersion: RUNTIME_VERSION, applicationFormat: 1 }) + '\n', { flag: 'wx', mode: 0o600 }); }
       catch (e) { if (errorCode(e) !== 'EEXIST') throw e; }
     }
     await ordinaryDirectory(this.instance);
@@ -100,6 +100,7 @@ export class BundledRuntime {
     if (process.getuid && stat.uid !== process.getuid()) throw new Error('The runtime state directory belongs to another user.');
     const owner = await optionalJson<Record<string, unknown>>(marker, {});
     if (owner.schemaVersion !== 2 || owner.projectRoot !== this.project || owner.application !== this.application || owner.engineVersion !== ENGINE_VERSION) throw new Error('This runtime state directory is unrecognized or belongs to another project. It will not be reused or stopped.');
+    if (owner.runtimeVersion !== RUNTIME_VERSION || owner.applicationFormat !== 1) throw new Error('This instance belongs to a different ZERNOVA runtime/application version. Stop it using its original Studio/runtime before upgrading; use a new private instance for this version.');
     if (process.platform !== 'win32') await fs.chmod(this.instance, 0o700);
   }
   private async mutate<T>(work: () => Promise<T>): Promise<T> {

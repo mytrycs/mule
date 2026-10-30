@@ -54,7 +54,7 @@ class MinZernovaVersionArtifactDescriptorValidatorTestCase extends AbstractZerno
     final var validator = new MinZernovaVersionArtifactDescriptorValidator(false, () -> "4.9");
     var thrown = assertThrows(ArtifactDescriptorCreateException.class, () -> validator.validate(descriptor));
     assertThat(thrown.getMessage(),
-               is("Artifact test requires a newer runtime version. Artifact required version is 4.99999.0 and Mule Runtime version is 4.9.0"));
+               is("Artifact test requires a newer runtime version. Artifact required version is 4.99999.0 and ZERNOVA Runtime version is 4.9.0"));
   }
 
   @Test

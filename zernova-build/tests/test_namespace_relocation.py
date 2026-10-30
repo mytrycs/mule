@@ -41,6 +41,20 @@ class NamespaceRelocationTest(unittest.TestCase):
             result = subprocess.run(['java', '-cp', str(root), 'Contract', 'getMinZernovaVersion'], check=True, capture_output=True, text=True)
             self.assertEqual(result.stdout, 'zernova')
 
+    def test_packaging_enum_derived_names_and_callers(self):
+        relocation = MODULE.Relocation({}, application_format=True)
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            folder = root / 'com/zernova/tools/api/packager/packaging'
+            folder.mkdir(parents=True)
+            (folder / 'PackagingType.java').write_text('package com.zernova.tools.api.packager.packaging; public enum PackagingType { MULE_APPLICATION, MULE_DOMAIN; public String toString() { return name().toLowerCase(java.util.Locale.ROOT).replace("_", "-"); } }')
+            (root / 'Probe.java').write_text('import com.zernova.tools.api.packager.packaging.PackagingType; public class Probe { public static void main(String[] args) { System.out.print(PackagingType.MULE_APPLICATION + ":" + PackagingType.valueOf(args[0])); } }')
+            subprocess.run(['javac', '--release', '17', str(folder / 'PackagingType.java'), str(root / 'Probe.java')], check=True, capture_output=True)
+            for path in root.rglob('*.class'):
+                path.write_bytes(relocation.classfile(path.read_bytes()))
+            result = subprocess.run(['java', '-cp', str(root), 'Probe', 'ZERNOVA_APPLICATION'], check=True, capture_output=True, text=True)
+            self.assertEqual(result.stdout, 'zernova-application:zernova-application')
+
     def test_descriptor_paths_modules_and_coordinates(self):
         for old, new in [
             ('Lorg/mule/runtime/MuleProbe;', 'Lcom/zernova/runtime/ZernovaProbe;'),

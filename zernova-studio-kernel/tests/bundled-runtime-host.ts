@@ -46,7 +46,8 @@ export async function run() {
   const request = async (route = '/hello') => {
     const id = 'STUDIO-' + randomUUID(); const response = await fetch(`http://127.0.0.1:${port}${route}?testId=${id}`);
     const body = await response.text(); assert.equal(response.status, 200); assert.equal(body, 'Hello from ZERNOVA');
-    await command('logs'); const logs = api.getRuntimeDiagnostics()[0].applicationLogs;
+    let logs = '';
+    for (let attempt = 0; attempt < 20; attempt++) { await command('logs'); logs = api.getRuntimeDiagnostics()[0].applicationLogs; if (logs.includes(id)) break; await new Promise(resolve => setTimeout(resolve, 100)); }
     assert(logs.includes(id), 'Fresh Logger correlation is visible through Studio');
     return { status: response.status, body, correlatedLogger: true };
   };
