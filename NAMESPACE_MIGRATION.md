@@ -95,7 +95,7 @@ The following commands use the same backend independently of VS Code:
 ```sh
 node zernova-studio-build/cli.cjs run \
   --project zernova-studio-build/tests/fixtures/native-hello \
-  --instance /tmp/zernova-sample-instance --app hello-zernova --port 18081
+  --instance "$HOME/.zernova/sample-instance" --app hello-zernova --port 18081
 curl 'http://127.0.0.1:18081/hello?testId=manual-test'
 ```
 

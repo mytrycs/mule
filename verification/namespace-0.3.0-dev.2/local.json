@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-30",
+  "host": {
+    "platform": "darwin",
+    "architecture": "x64",
+    "node": "v22.23.3",
+    "os": "25.6.0"
+  },
+  "sourceBuild": {
+    "api": "PASS",
+    "extensionApi": "PASS",
+    "kernelModules": 123,
+    "kernel": "PASS",
+    "standaloneAssembly": "PASS"
+  },
+  "unitTests": [
+    {
+      "module": "manifest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "modules/boot-api",
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "modules/container",
+      "tests": 65,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    {
+      "module": "modules/launcher",
+      "tests": 50,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "modules/http-support",
+      "tests": 237,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "upstream/runtime-api",
+      "tests": 36,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "upstream/extensions-api/mule-extensions-api",
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "core-tests",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "relocationTests": {
+    "passed": 8,
+    "failed": 0
+  },
+  "namespaceAudit": {
+    "schemaVersion": 1,
+    "counts": {
+      "sources": 7272,
+      "archives": 372,
+      "classes": 90079
+    },
+    "passed": true,
+    "errors": []
+  },
+  "nativeAcceptance": {
+    "passed": 16,
+    "failed": 0,
+    "cases": [
+      {
+        "name": "Native bundled Java architecture and complete integrity",
+        "status": "PASS"
+      },
+      {
+        "name": "Offline build in path containing spaces",
+        "status": "PASS"
+      },
+      {
+        "name": "Deterministic repackage",
+        "status": "PASS"
+      },
+      {
+        "name": "Unsafe XML does not replace last valid artifact",
+        "status": "PASS"
+      },
+      {
+        "name": "Occupied port is rejected without killing its owner",
+        "status": "PASS"
+      },
+      {
+        "name": "Real source-built engine startup",
+        "status": "PASS"
+      },
+      {
+        "name": "Authenticated control rejects wrong token",
+        "status": "PASS"
+      },
+      {
+        "name": "Real HTTP Listener and Logger deployment",
+        "status": "PASS"
+      },
+      {
+        "name": "Actual HTTP response plus matching fresh Logger",
+        "status": "PASS"
+      },
+      {
+        "name": "A new manager reconciles the live runtime",
+        "status": "PASS"
+      },
+      {
+        "name": "Refuse unrelated application ownership",
+        "status": "PASS"
+      },
+      {
+        "name": "Edit package and redeploy actual changed route",
+        "status": "PASS"
+      },
+      {
+        "name": "Runtime expression errors produce a real HTTP failure",
+        "status": "PASS"
+      },
+      {
+        "name": "Invalid configuration fails deployment rather than reporting healthy",
+        "status": "PASS"
+      },
+      {
+        "name": "Graceful shutdown and failed application cleanup",
+        "status": "PASS"
+      },
+      {
+        "name": "Second cycle after complete stop",
+        "status": "PASS"
+      }
+    ]
+  },
+  "bundle": {
+    "version": "0.3.0-dev.2",
+    "javaNamespace": "com.zernova",
+    "engineBuild": "compiled-from-renamed-source",
+    "inputEngineSha256": "33d1ab359740c27cf2d12ccb4c65c699ca40351731a8543f2f28acdac63acdf3",
+    "inputJavaSha256": "890214eb4d6c88dc06f990d5a6a3b72b91d5dffab6a0a6d8cffb98468bf26181",
+    "sourceArchiveSha256": "7a45ba5165ed453e79fc6ef3f2fb4f2d2553532bbecd9768cc37339063721faf",
+    "sourceTreeCommit": "471624f26a2649336286b837237ed41301a9f503",
+    "sourceBuildCommit": "1dffce433caff3fd61ac4daa20707317092c95b3",
+    "sourceBuildDirty": true
+  },
+  "scope": "Local macOS x64 validation. Six-platform CI results are a separate gate.",
+  "standaloneCli": {
+    "status": "PASS",
+    "http": {
+      "status": 200,
+      "body": "Hello from ZERNOVA"
+    },
+    "finalProcess": "STOPPED"
+  }
+}
