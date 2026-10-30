@@ -1,0 +1,23 @@
+{
+  "studioVersion": "0.4.4",
+  "target": "darwin-x64",
+  "baseRuntimeVersion": "0.4.1-alpha.1",
+  "transformSupportVersion": "0.4.4",
+  "java": "17.0.21+9",
+  "sourceCodeCommit": "f7515baf003936942980c8649d5461c4141cb0fb",
+  "vsixSha256": "ca702a8f8c8e9e5f8f2c1d3be07c738d0e40db21bc495476efcf0207d5f4468c",
+  "unitPassed": 77,
+  "geometryChecks": 4,
+  "nativePassed": 23,
+  "finalPackagingExecutableComparison": {
+    "matchedFiles": 691,
+    "description": "Documentation and sample additions only after qualification; every executable, webview asset and runtime file is byte-identical."
+  },
+  "installedPassed": 19,
+  "installedFailed": 0,
+  "installedVscode": "1.144.0",
+  "baseRuntimeSourceCommit": "a8578a44a7a48d8ef01fdef58261ee37315b2022",
+  "baseEngineSha256": "15181b8fe0657880029a4b2fc83bcd7cedcf7b5eec7809e4211d5051ec5958a0",
+  "transformSupportSha256": "198fe060babb3d2a121423cda2c8ad2f7cae0a75df4ab0c0f123178dfb63513a",
+  "transformSupportRebuildReproducible": true
+}

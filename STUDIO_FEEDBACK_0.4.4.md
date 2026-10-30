@@ -39,3 +39,26 @@ removed or accidentally resumed by that earlier transition.
 Validation and installation evidence is recorded under
 `verification/studio-0.4.4-devtest/`. Local Mac x64 qualification is separate from
 future installed-Studio qualification on the other five targets.
+
+## Local qualification
+
+- Typecheck/build, 77 unit/backend/XML cases and four geometry checks passed.
+- All 23 native runtime cases passed with the original Transform module installed.
+- All 19 installed-Studio cases passed in a fresh VS Code 1.144.0 profile, without
+  Java debugger extensions and with invalid external Java/Maven paths.
+- Installed tests verified three real event outputs; an HTTP request stayed pending
+  at its breakpoint, stepped to the next component, continued, and also completed
+  after debugger disconnect. No VS Code debug session was created.
+- Native GUI tests verified the straight Listener → Logger route, source indicators,
+  three script editors, breakpoint context menu/persistence and yellow current-node
+  marker. The final step/continue returned correlated JSON. The runtime was stopped
+  and the isolated GUI app closed.
+- The new sample packaged offline and returned the expected three-output JSON plus
+  both correlated Logger lines. Its runtime was stopped.
+- The original Java module rebuild reproduced its embedded bytes. Final packaging
+  added docs/sample only; all 691 executable/webview/runtime files match the tested
+  VSIX byte-for-byte. ZIP CRC checks passed.
+
+Studio 0.4.4 is installed and active in the owner’s main VS Code Default profile.
+The original workspace was restored after a graceful restart, and the owner
+project’s eight source/metadata files are unchanged. The owner runtime remains stopped.

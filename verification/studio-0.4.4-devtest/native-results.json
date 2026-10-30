@@ -1,0 +1,300 @@
+{
+  "target": "darwin-x64",
+  "platform": "darwin",
+  "architecture": "x64",
+  "node": "v22.23.3",
+  "os": "25.6.0",
+  "bundle": "/Users/roz/Documents/ChatGPT/ZERNOVA/mule-kernel/zernova-studio-kernel/runtime",
+  "instance": "/Users/roz/.zernova-native-tests/0bc8e2ea-0ec0-40fd-83d8-3b2c7909bbb5/private instance",
+  "project": "/Users/roz/.zernova-native-tests/0bc8e2ea-0ec0-40fd-83d8-3b2c7909bbb5/Project with spaces",
+  "completed": 23,
+  "passed": 23,
+  "failed": 0,
+  "cases": [
+    {
+      "name": "Native bundled Java architecture and complete integrity",
+      "status": "PASS",
+      "detail": {
+        "schema_version": 2,
+        "product": "ZERNOVA Runtime",
+        "application_format_version": 1,
+        "distribution_version": "0.4.1-alpha.1",
+        "kernel_version": "0.4.1-alpha.1",
+        "upstream_baseline": "4.10.0-SNAPSHOT",
+        "dataweave_version": "2.10.0",
+        "build_mode": "source-built-development",
+        "dependency_check": "PASS",
+        "target": "darwin-x64",
+        "java_version": "java.runtime.name = OpenJDK Runtime Environment\n    java.vm.name = OpenJDK 64-Bit Server VM\n    os.arch = x86_64\nopenjdk version \"17.0.21\" 2026-10-20\nOpenJDK Runtime Environment Temurin-17.0.21+9 (build 17.0.21+9)\nOpenJDK 64-Bit Server VM Temurin-17.0.21+9 (build 17.0.21+9, mixed mode)",
+        "java_bundled": true,
+        "engine_bundled": true,
+        "network_used": false,
+        "integrity": {
+          "files": 687,
+          "bytes": 294929997
+        },
+        "adapter_version": 2,
+        "customer_release": "NOT_CLEARED"
+      }
+    },
+    {
+      "name": "Older runtime instance is rejected instead of being relabelled",
+      "status": "PASS",
+      "detail": {
+        "rejected": true
+      }
+    },
+    {
+      "name": "Offline build in path containing spaces",
+      "status": "PASS",
+      "detail": {
+        "status": "PACKAGED",
+        "artifact": "/Users/roz/.zernova-native-tests/0bc8e2ea-0ec0-40fd-83d8-3b2c7909bbb5/Project with spaces/target/hello-zernova-1.0.0.zapp",
+        "sha256": "4622f673a2df8b44134c72b8dc3c9be2093912104051527ccab8e587d9089073",
+        "bytes": 2368469,
+        "sourceHash": "a871e46342debfd52215111c72526fa92744dca51034d26c054ce68c0c254ac1",
+        "networkUsed": false
+      }
+    },
+    {
+      "name": "Deterministic repackage",
+      "status": "PASS",
+      "detail": {
+        "sha256": "4622f673a2df8b44134c72b8dc3c9be2093912104051527ccab8e587d9089073"
+      }
+    },
+    {
+      "name": "Unsafe XML does not replace last valid artifact",
+      "status": "PASS"
+    },
+    {
+      "name": "Cancelled package cannot replace the valid artifact",
+      "status": "PASS"
+    },
+    {
+      "name": "Occupied port is rejected without killing its owner",
+      "status": "PASS"
+    },
+    {
+      "name": "Real source-built engine startup",
+      "status": "PASS",
+      "detail": {
+        "schema_version": 2,
+        "product": "ZERNOVA Runtime",
+        "application_format_version": 1,
+        "distribution_version": "0.4.1-alpha.1",
+        "kernel_version": "0.4.1-alpha.1",
+        "upstream_baseline": "4.10.0-SNAPSHOT",
+        "dataweave_version": "2.10.0",
+        "build_mode": "source-built-development",
+        "process": "RUNNING",
+        "runtime": "READY",
+        "pid": 61346,
+        "run_id": "3f3aed6e-cd17-4123-bdab-befc1d33ed1e",
+        "work_directory": "/Users/roz/.zernova-native-tests/0bc8e2ea-0ec0-40fd-83d8-3b2c7909bbb5/private instance",
+        "healthy": true,
+        "applications": {}
+      }
+    },
+    {
+      "name": "Configured JVM heap, options and working directory reach the child",
+      "status": "PASS",
+      "detail": {
+        "initialHeapMB": 128,
+        "maximumHeapMB": 512,
+        "vmOptions": true,
+        "workingDirectory": "/Users/roz/.zernova-native-tests/0bc8e2ea-0ec0-40fd-83d8-3b2c7909bbb5/Project with spaces"
+      }
+    },
+    {
+      "name": "JDWP debugger handshake is available on loopback",
+      "status": "PASS",
+      "detail": {
+        "host": "127.0.0.1",
+        "debugPort": 18282,
+        "handshake": true
+      }
+    },
+    {
+      "name": "Authenticated control rejects wrong token",
+      "status": "PASS"
+    },
+    {
+      "name": "Real HTTP Listener and Logger deployment",
+      "status": "PASS",
+      "detail": {
+        "application": {
+          "name": "hello-zernova",
+          "state": "DEPLOYED",
+          "healthy": true,
+          "deployment": "DEPLOYED",
+          "endpoint": "NOT_CHECKED"
+        },
+        "artifact_sha256": "4622f673a2df8b44134c72b8dc3c9be2093912104051527ccab8e587d9089073"
+      }
+    },
+    {
+      "name": "Actual HTTP response plus matching fresh Logger",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "body": "Hello from ZERNOVA",
+        "testId": "ZN-c44d7f93-a58f-4a9d-a6f7-834b82b763cd",
+        "matchingLogs": [
+          "INFO  2026-10-30 11:15:56,283 [[MuleRuntime].uber.09: [hello-zernova].helloFlow.CPU_LITE @30d76616] [processor: helloFlow/processors/0; event: f3502870-d48d-11f1-bc8b-88665a34b8f9] io.zernova.acceptance: ZERNOVA_TEST ZN-c44d7f93-a58f-4a9d-a6f7-834b82b763cd"
+        ]
+      }
+    },
+    {
+      "name": "A new manager reconciles the live runtime",
+      "status": "PASS",
+      "detail": {
+        "schema_version": 2,
+        "product": "ZERNOVA Runtime",
+        "application_format_version": 1,
+        "distribution_version": "0.4.1-alpha.1",
+        "kernel_version": "0.4.1-alpha.1",
+        "upstream_baseline": "4.10.0-SNAPSHOT",
+        "dataweave_version": "2.10.0",
+        "build_mode": "source-built-development",
+        "process": "RUNNING",
+        "runtime": "READY",
+        "pid": 61346,
+        "run_id": "3f3aed6e-cd17-4123-bdab-befc1d33ed1e",
+        "work_directory": "/Users/roz/.zernova-native-tests/0bc8e2ea-0ec0-40fd-83d8-3b2c7909bbb5/private instance",
+        "healthy": true,
+        "applications": {
+          "hello-zernova": {
+            "name": "hello-zernova",
+            "state": "DEPLOYED",
+            "healthy": true,
+            "deployment": "DEPLOYED",
+            "endpoint": "NOT_CHECKED"
+          }
+        }
+      }
+    },
+    {
+      "name": "Refuse unrelated application ownership",
+      "status": "PASS"
+    },
+    {
+      "name": "Orders POST JSON transformation, configuration, validation and correlation",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "body": {
+          "id": "order-123",
+          "status": "accepted",
+          "currency": "USD"
+        },
+        "invalidStatus": 400,
+        "correlatedLogger": true,
+        "previousRun": "3f3aed6e-cd17-4123-bdab-befc1d33ed1e",
+        "replacementRun": "cee5d510-b254-46ee-80a0-825a8c152537"
+      }
+    },
+    {
+      "name": "Edit package and redeploy actual changed route",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "body": "Hello from ZERNOVA",
+        "testId": "ZN-32ea0111-fcca-4573-abb6-43177f2094ac",
+        "matchingLogs": [
+          "INFO  2026-10-30 11:16:46,534 [[MuleRuntime].uber.14: [hello-zernova].helloFlow.CPU_LITE @63ebfb8b] [processor: helloFlow/processors/0; event: 1143da20-d48e-11f1-9633-88665a34b8f9] io.zernova.acceptance: ZERNOVA_TEST ZN-32ea0111-fcca-4573-abb6-43177f2094ac"
+        ],
+        "oldRouteStatus": 404
+      }
+    },
+    {
+      "name": "Runtime expression errors produce a real HTTP failure",
+      "status": "PASS",
+      "detail": {
+        "status": 500,
+        "body": "\"Script '1 + ' has errors: \n\tMissing addition expression. at 1 : 4\" evaluating expression: \"#[1 + ]\".",
+        "note": "Response expressions compile on execution; successful deployment is not endpoint validation."
+      }
+    },
+    {
+      "name": "Native error handler executes its Logger on a real flow failure",
+      "status": "PASS",
+      "detail": {
+        "status": 500,
+        "errorHandlerLogger": true
+      }
+    },
+    {
+      "name": "Invalid configuration fails deployment rather than reporting healthy",
+      "status": "PASS",
+      "detail": {
+        "schema_version": 2,
+        "product": "ZERNOVA Runtime",
+        "application_format_version": 1,
+        "distribution_version": "0.4.1-alpha.1",
+        "kernel_version": "0.4.1-alpha.1",
+        "upstream_baseline": "4.10.0-SNAPSHOT",
+        "dataweave_version": "2.10.0",
+        "build_mode": "source-built-development",
+        "process": "RUNNING",
+        "runtime": "READY",
+        "pid": 61839,
+        "run_id": "8437a6c5-5daa-43cd-9e60-6680a09df53d",
+        "work_directory": "/Users/roz/.zernova-native-tests/0bc8e2ea-0ec0-40fd-83d8-3b2c7909bbb5/private instance",
+        "healthy": false,
+        "applications": {
+          "hello-zernova": {
+            "name": "hello-zernova",
+            "state": "UNHEALTHY",
+            "healthy": false,
+            "deployment": "FAILED",
+            "endpoint": "NOT_CHECKED"
+          }
+        }
+      }
+    },
+    {
+      "name": "Graceful shutdown and failed application cleanup",
+      "status": "PASS",
+      "detail": {
+        "process": "STOPPED",
+        "forced": false,
+        "signal_sent": false,
+        "shutdown": "authenticated JVM self-shutdown",
+        "pid": 61839
+      }
+    },
+    {
+      "name": "Second cycle after complete stop",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "body": "Hello from ZERNOVA",
+        "testId": "ZN-0ee872a5-6b6c-40e6-8176-0f44e9ec86d6",
+        "matchingLogs": [
+          "INFO  2026-10-30 11:19:19,637 [[MuleRuntime].uber.15: [hello-zernova].helloFlow.CPU_LITE @5c3216fc] [processor: helloFlow/processors/0; event: 6c850ee0-d48e-11f1-b914-88665a34b8f9] io.zernova.acceptance: ZERNOVA_TEST ZN-0ee872a5-6b6c-40e6-8176-0f44e9ec86d6"
+        ],
+        "stop": {
+          "process": "STOPPED",
+          "forced": false,
+          "signal_sent": false,
+          "shutdown": "authenticated JVM self-shutdown",
+          "pid": 61908
+        }
+      }
+    },
+    {
+      "name": "Owned JVM crash is detected and the project can recover",
+      "status": "PASS",
+      "detail": {
+        "crashDetected": true,
+        "status": 200,
+        "body": "Hello from ZERNOVA",
+        "testId": "ZN-e7e6f188-f29d-4206-a04b-4119f35fc3ce",
+        "matchingLogs": [
+          "INFO  2026-10-30 11:20:33,947 [[MuleRuntime].uber.05: [hello-zernova].helloFlow.CPU_LITE @13b43769] [processor: helloFlow/processors/0; event: 98cf19f0-d48e-11f1-8b51-88665a34b8f9] io.zernova.acceptance: ZERNOVA_TEST ZN-e7e6f188-f29d-4206-a04b-4119f35fc3ce"
+        ]
+      }
+    }
+  ]
+}

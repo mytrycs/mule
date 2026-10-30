@@ -1,0 +1,24 @@
+{
+  "studioVersion": "0.4.4",
+  "sourceIncomingGlobeAboveGrayOutgoingIcon": true,
+  "straightListenerToLoggerRoute": true,
+  "returnFromLastTransform": true,
+  "threeTransformScriptEditors": true,
+  "guiEditedAttributesScript": "{guiResponse: \"changed\"}",
+  "guiEditedVariablesScript": "{guiVariable: \"GUI-044\"}",
+  "guiBreakpointViaContextMenu": true,
+  "guiBreakpointPersistedAcrossReload": true,
+  "guiRequestPausedBeforeLogger": true,
+  "guiNextComponentPausedBeforeTransform": true,
+  "guiContinueHttpResponse": {
+    "message": "Hello from ZERNOVA Transform",
+    "environment": "development",
+    "testId": "GUI-044-FINAL"
+  },
+  "embeddedDebugConsoleAndControls": true,
+  "externalVsCodeDebugConsoleOpened": false,
+  "runtimeStopRequested": true,
+  "runtimeStopped": true,
+  "isolatedGuiAppClosed": true,
+  "finalStepPauseConfirmed": true
+}

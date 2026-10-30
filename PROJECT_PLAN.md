@@ -9,7 +9,9 @@ Studio 0.4.4 implements the approved source icon layout and straight route,
 three-output Transform Message, component breakpoints and an embedded debug
 console. The base engine remains Runtime 0.4.1-alpha.1; a new original Transform
 support module is installed by the portable launcher. See STUDIO_FEEDBACK_0.4.4.md
-and JAVA_25_MIGRATION_ASSESSMENT.md. Java 25 remains a separate qualification track.
+and JAVA_25_MIGRATION_ASSESSMENT.md. Qualification passes 77 unit cases, four geometry
+checks, 23 native cases, 19 installed cases and the native GUI/HTTP workflow.
+Java 25 remains a separate qualification track.
 
 ## Previous Studio iteration: 0.4.3
 

@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "body": {
+    "payload": {
+      "message": "Hello from ZERNOVA"
+    },
+    "attributes": {
+      "correlation": "OWNER-044",
+      "source": "ZERNOVA"
+    },
+    "variables": {
+      "savedId": "OWNER-044"
+    }
+  },
+  "artifact": {
+    "status": "PACKAGED",
+    "artifact": "/Users/roz/Documents/ChatGPT/ZERNOVA/mule-kernel/zernova-studio-kernel/examples/transform-debug-devtest/target/transform-debug-devtest-1.0.0.zapp",
+    "sha256": "64eb0aec5da6dbd838feaad239396f42c2d5e42878f6eef334cc920ff4fc3cbc",
+    "bytes": 2369172,
+    "sourceHash": "f375c8c8546c5f7ddae401c92f65e20082386f501f0aef080d92348a4cb1e788",
+    "networkUsed": false
+  },
+  "logs": [
+    "2026-10-30T11:22:37,278 INFO  [[MuleRuntime].uber.07: [transform-debug-devtest].transformDebugFlow.CPU_LITE @169d15f5] com.zernova.example: INBOUND OWNER-044",
+    "2026-10-30T11:22:37,356 INFO  [[MuleRuntime].uber.07: [transform-debug-devtest].transformDebugFlow.CPU_LITE @169d15f5] com.zernova.example: OUTBOUND variable=OWNER-044 attribute=OWNER-044"
+  ]
+}
