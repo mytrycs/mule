@@ -6,7 +6,7 @@ import net from 'node:net';
 import { randomUUID } from 'node:crypto';
 import { projectFiles } from '../src/host/projects';
 import { createIntegrationXml, applyOperation, parseIntegration } from '../src/shared/xml';
-import { freshFetch as fetch } from '../../zernova-studio-build/tests/http-client.cjs';
+import { freshFetch as fetch, waitForHttpReady } from '../../zernova-studio-build/tests/http-client.cjs';
 
 export async function run() {
   const root = process.env.ZN_STUDIO_TEST_ROOT!;
@@ -49,6 +49,7 @@ export async function run() {
     assert.equal(await fs.readFile(file.fsPath, 'utf8'), text);
   };
   const request = async (route = '/hello') => {
+    await waitForHttpReady(`http://localhost:${port}${route}`);
     const id = 'STUDIO-' + randomUUID(); const response = await fetch(`http://localhost:${port}${route}?testId=${id}`);
     const body = await response.text(); assert.equal(response.status, 200); assert.equal(body, 'Hello from ZERNOVA');
     let logs = '';

@@ -25,3 +25,23 @@ exports.freshFetch = (url, options = {}) => new Promise((resolve, reject) => {
   if (options.body !== undefined) request.write(options.body);
   request.end();
 });
+
+// The deployment banner can precede HTTP listener activation. Probe separately
+// with GET before the functional assertion; never retry the asserted request or
+// a POST. Only connection refusal and startup 503 are transient here.
+exports.waitForHttpReady = async url => {
+  const deadline = Date.now() + 15000;
+  let last = 'not contacted';
+  while (Date.now() < deadline) {
+    try {
+      const response = await exports.freshFetch(url, { signal: AbortSignal.timeout(2000) });
+      last = `HTTP ${response.status}`;
+      if (response.status !== 503) return;
+    } catch (error) {
+      if (error.code !== 'ECONNREFUSED') throw error;
+      last = error.code;
+    }
+    await new Promise(resolve => setTimeout(resolve, 100));
+  }
+  throw new Error(`HTTP listener did not become ready within 15 seconds: ${last}`);
+};
