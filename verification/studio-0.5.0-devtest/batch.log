@@ -1,0 +1,7 @@
+Starting bundled ZERNOVA Runtime on darwin-x64; console: /Users/roz/.zernova-studio-tests/batch-050-x4dptT/instance/runs/ac23189b-c895-4b8e-8203-05dc7b464de7/console.log
+{
+  "passed": [
+    "durable batch records/groups/completion"
+  ],
+  "project": "/Users/roz/.zernova-studio-tests/batch-050-x4dptT/project"
+}

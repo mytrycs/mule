@@ -1,0 +1,599 @@
+
+> zernova-studio-kernel-preview@0.5.0 test
+> node scripts/test.mjs
+
+TAP version 13
+# Subtest: every catalog entry projects and round-trips editable native XML in a valid parent
+ok 1 - every catalog entry projects and round-trips editable native XML in a valid parent
+  ---
+  duration_ms: 193.340151
+  type: 'test'
+  ...
+# Subtest: nested edits preserve enclosing XML, create unique descendant IDs and map breakpoint locations
+ok 2 - nested edits preserve enclosing XML, create unique descendant IDs and map breakpoint locations
+  ---
+  duration_ms: 21.392645
+  type: 'test'
+  ...
+# Subtest: external transform targets, listener errors and environment configuration round-trip
+ok 3 - external transform targets, listener errors and environment configuration round-trip
+  ---
+  duration_ms: 67.758413
+  type: 'test'
+  ...
+# Subtest: Scheduler editing preserves cron time zone and comments
+ok 4 - Scheduler editing preserves cron time zone and comments
+  ---
+  duration_ms: 10.477863
+  type: 'test'
+  ...
+# Subtest: nested insertion stays inside its scope when the flow has an error handler; terminal routes stay last
+ok 5 - nested insertion stays inside its scope when the flow has an error handler; terminal routes stay last
+  ---
+  duration_ms: 38.661594
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 367.469817
+Flow request/return geometry: 4 checks passed
+TAP version 13
+# Subtest: fixture identity targets only the new Mule-compatible presentation model
+ok 1 - fixture identity targets only the new Mule-compatible presentation model
+  ---
+  duration_ms: 11.096046
+  type: 'test'
+  ...
+# Subtest: initial states, cloned states and frozen layout defaults share no mutable state
+ok 2 - initial states, cloned states and frozen layout defaults share no mutable state
+  ---
+  duration_ms: 0.8658
+  type: 'test'
+  ...
+# Subtest: palette source lane rejects a second source and wrong placements without mutation
+ok 3 - palette source lane rejects a second source and wrong placements without mutation
+  ---
+  duration_ms: 1.360965
+  type: 'test'
+  ...
+# Subtest: empty fixture accepts a Listener and Logger with stable IDs and selection
+ok 4 - empty fixture accepts a Listener and Logger with stable IDs and selection
+  ---
+  duration_ms: 1.548373
+  type: 'test'
+  ...
+# Subtest: inserting a Listener with no configuration gives an explicit error
+ok 5 - inserting a Listener with no configuration gives an explicit error
+  ---
+  duration_ms: 0.774064
+  type: 'test'
+  ...
+# Subtest: duplicate, reorder and delete preserve moved Logger properties and selection
+ok 6 - duplicate, reorder and delete preserve moved Logger properties and selection
+  ---
+  duration_ms: 2.772307
+  type: 'test'
+  ...
+# Subtest: source cannot be duplicated or moved into processors
+ok 7 - source cannot be duplicated or moved into processors
+  ---
+  duration_ms: 0.870106
+  type: 'test'
+  ...
+# Subtest: bounded insertion caps the processor list
+ok 8 - bounded insertion caps the processor list
+  ---
+  duration_ms: 4.9934
+  type: 'test'
+  ...
+# Subtest: one-step UI undo/redo restores fixtures without sharing mutable snapshots
+ok 9 - one-step UI undo/redo restores fixtures without sharing mutable snapshots
+  ---
+  duration_ms: 1.912577
+  type: 'test'
+  ...
+# Subtest: new edit after undo invalidates the redo snapshot
+ok 10 - new edit after undo invalidates the redo snapshot
+  ---
+  duration_ms: 1.438331
+  type: 'test'
+  ...
+# Subtest: configuration draft cancellation is independent; saved edits keep references stable
+ok 11 - configuration draft cancellation is independent; saved edits keep references stable
+  ---
+  duration_ms: 1.799548
+  type: 'test'
+  ...
+# Subtest: referenced global configuration cannot be silently deleted
+ok 12 - referenced global configuration cannot be silently deleted
+  ---
+  duration_ms: 0.563476
+  type: 'test'
+  ...
+# Subtest: configuration save validates duplicate names and caps new configurations
+ok 13 - configuration save validates duplicate names and caps new configurations
+  ---
+  duration_ms: 1.861157
+  type: 'test'
+  ...
+# Subtest: local form validation rejects missing values, bad path and out-of-range port
+ok 14 - local form validation rejects missing values, bad path and out-of-range port
+  ---
+  duration_ms: 1.0538
+  type: 'test'
+  ...
+# Subtest: XML is derived from current fields and uses ZERNOVA application identifiers
+ok 15 - XML is derived from current fields and uses ZERNOVA application identifiers
+  ---
+  duration_ms: 0.849071
+  type: 'test'
+  ...
+# Subtest: XML attribute escaping contains malicious tags, ampersands, quotes and multiline expressions
+ok 16 - XML attribute escaping contains malicious tags, ampersands, quotes and multiline expressions
+  ---
+  duration_ms: 0.81257
+  type: 'test'
+  ...
+# Subtest: missing, old-version, oversized and cyclic persisted values reset safely
+ok 17 - missing, old-version, oversized and cyclic persisted values reset safely
+  ---
+  duration_ms: 16.668955
+  type: 'test'
+  ...
+# Subtest: persisted duplicate IDs, orphaned selection and unsafe fields are dropped
+ok 18 - persisted duplicate IDs, orphaned selection and unsafe fields are dropped
+  ---
+  duration_ms: 1.184263
+  type: 'test'
+  ...
+# Subtest: invalid persisted configuration reference resolves safely or removes orphan source
+ok 19 - invalid persisted configuration reference resolves safely or removes orphan source
+  ---
+  duration_ms: 0.597582
+  type: 'test'
+  ...
+# Subtest: layout, zoom, string and processor limits survive hostile saved values
+ok 20 - layout, zoom, string and processor limits survive hostile saved values
+  ---
+  duration_ms: 1.228593
+  type: 'test'
+  ...
+# Subtest: state validator is order-independent but rejects additional capability fields
+ok 21 - state validator is order-independent but rejects additional capability fields
+  ---
+  duration_ms: 1.031973
+  type: 'test'
+  ...
+# Subtest: bounded maximum long-Unicode fixture remains persistable and over-limit Unicode is rejected
+ok 22 - bounded maximum long-Unicode fixture remains persistable and over-limit Unicode is rejected
+  ---
+  duration_ms: 103.832724
+  type: 'test'
+  ...
+# Subtest: closed webview protocol accepts only complete permitted messages
+ok 23 - closed webview protocol accepts only complete permitted messages
+  ---
+  duration_ms: 1.188807
+  type: 'test'
+  ...
+# Subtest: all bounded scenarios navigate the same state, preserving edited component properties
+ok 24 - all bounded scenarios navigate the same state, preserving edited component properties
+  ---
+  duration_ms: 0.871559
+  type: 'test'
+  ...
+# Subtest: DataWeave presentation is explicitly a fixed, illustrative fixture
+ok 25 - DataWeave presentation is explicitly a fixed, illustrative fixture
+  ---
+  duration_ms: 0.294761
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 215.540987
+TAP version 13
+# Subtest: Open canvas points resolve before, between and after components
+ok 1 - Open canvas points resolve before, between and after components
+  ---
+  duration_ms: 3.09341
+  type: 'test'
+  ...
+# Subtest: Dragging an existing component accounts for its removed position
+ok 2 - Dragging an existing component accounts for its removed position
+  ---
+  duration_ms: 0.52477
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 32.703789
+TAP version 13
+# Subtest: a reset control socket reports a dead JVM and refuses an unauthenticated live PID
+ok 1 - a reset control socket reports a dead JVM and refuses an unauthenticated live PID
+  ---
+  duration_ms: 523.84148
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 541.857831
+TAP version 13
+# Subtest: Java properties parsing handles escaped delimiters, Unicode, continuations and rejects malformed Unicode
+ok 1 - Java properties parsing handles escaped delimiters, Unicode, continuations and rejects malformed Unicode
+  ---
+  duration_ms: 7.619752
+  type: 'test'
+  ...
+# Subtest: environment file selection and system/environment/application/global precedence agree
+ok 2 - environment file selection and system/environment/application/global precedence agree
+  ---
+  duration_ms: 73.916826
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 104.855495
+TAP version 13
+# Subtest: Maven-style properties remain literal arguments, including spaces and shell syntax
+ok 1 - Maven-style properties remain literal arguments, including spaces and shell syntax
+  ---
+  duration_ms: 5.962639
+  type: 'test'
+  ...
+# Subtest: Run configurations reject goals, duplicate settings and reserved injection switches
+ok 2 - Run configurations reject goals, duplicate settings and reserved injection switches
+  ---
+  duration_ms: 2.412992
+  type: 'test'
+  ...
+# Subtest: Redeploy on manual save is opt-in and validates Yes/No values
+ok 3 - Redeploy on manual save is opt-in and validates Yes/No values
+  ---
+  duration_ms: 0.785571
+  type: 'test'
+  ...
+# Subtest: Java launch settings validate heap, VM options, environment inheritance and timeouts
+ok 4 - Java launch settings validate heap, VM options, environment inheritance and timeouts
+  ---
+  duration_ms: 6.551524
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 49.95677
+TAP version 13
+# Subtest: observed runtime identity is pinned separately from the plugin build framework
+ok 1 - observed runtime identity is pinned separately from the plugin build framework
+  ---
+  duration_ms: 4.57575
+  type: 'test'
+  ...
+# Subtest: process running never upgrades failed app health
+ok 2 - process running never upgrades failed app health
+  ---
+  duration_ms: 1.272077
+  type: 'test'
+  ...
+# Subtest: deployment success without a health request preserves NOT_CHECKED endpoint
+ok 3 - deployment success without a health request preserves NOT_CHECKED endpoint
+  ---
+  duration_ms: 0.539559
+  type: 'test'
+  ...
+# Subtest: status for a different private directory is rejected
+ok 4 - status for a different private directory is rejected
+  ---
+  duration_ms: 0.47449
+  type: 'test'
+  ...
+# Subtest: malformed and contradictory status fields cannot produce healthy badges
+ok 5 - malformed and contradictory status fields cannot produce healthy badges
+  ---
+  duration_ms: 1.034667
+  type: 'test'
+  ...
+# Subtest: process arguments remain literal data, without shell expansion
+ok 6 - process arguments remain literal data, without shell expansion
+  ---
+  duration_ms: 229.449908
+  type: 'test'
+  ...
+# Subtest: process result retains real nonzero exit and stderr
+ok 7 - process result retains real nonzero exit and stderr
+  ---
+  duration_ms: 215.18864
+  type: 'test'
+  ...
+# Subtest: cancellation terminates the spawned process group within a bound
+ok 8 - cancellation terminates the spawned process group within a bound
+  ---
+  duration_ms: 193.649507
+  type: 'test'
+  ...
+# Subtest: bounded timeout is distinguished from cancellation and success
+ok 9 - bounded timeout is distinguished from cancellation and success
+  ---
+  duration_ms: 209.421685
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 883.864877
+TAP version 13
+# Subtest: Programmatic autosaves remain marked through the save event and clear afterwards
+ok 1 - Programmatic autosaves remain marked through the save event and clear afterwards
+  ---
+  duration_ms: 5.849381
+  type: 'test'
+  ...
+# Subtest: Failed programmatic saves cannot suppress a later owner save
+ok 2 - Failed programmatic saves cannot suppress a later owner save
+  ---
+  duration_ms: 2.108872
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 49.352152
+TAP version 13
+# Subtest: new real document contains no flow or fixture and accepts explicit flow creation
+ok 1 - new real document contains no flow or fixture and accepts explicit flow creation
+  ---
+  duration_ms: 33.503267
+  type: 'test'
+  ...
+# Subtest: incomplete authoring permits adding Listener before creating a configuration
+ok 2 - incomplete authoring permits adding Listener before creating a configuration
+  ---
+  duration_ms: 35.646023
+  type: 'test'
+  ...
+# Subtest: Listener and core Logger are the only generated processors, with response fields on source
+ok 3 - Listener and core Logger are the only generated processors, with response fields on source
+  ---
+  duration_ms: 30.218671
+  type: 'test'
+  ...
+# Subtest: one valid source position and duplicate flow/config names are enforced
+ok 4 - one valid source position and duplicate flow/config names are enforced
+  ---
+  duration_ms: 35.913831
+  type: 'test'
+  ...
+# Subtest: a literal path edit changes only its original attribute span
+ok 5 - a literal path edit changes only its original attribute span
+  ---
+  duration_ms: 12.576319
+  type: 'test'
+  ...
+# Subtest: intermediate property typing persists safely with semantic errors that clear on completion
+ok 6 - intermediate property typing persists safely with semantic errors that clear on completion
+  ---
+  duration_ms: 33.953904
+  type: 'test'
+  ...
+# Subtest: namespace aliases are resolved by URI and retained through edits
+ok 7 - namespace aliases are resolved by URI and retained through edits
+  ---
+  duration_ms: 26.472423
+  type: 'test'
+  ...
+# Subtest: comments, CDATA, Unicode, unknown attributes and unrelated formatting survive visual changes
+ok 8 - comments, CDATA, Unicode, unknown attributes and unrelated formatting survive visual changes
+  ---
+  duration_ms: 23.440057
+  type: 'test'
+  ...
+# Subtest: unsupported constructs make their flow read-only but remain intact while another flow is edited
+ok 9 - unsupported constructs make their flow read-only but remain intact while another flow is edited
+  ---
+  duration_ms: 38.171634
+  type: 'test'
+  ...
+# Subtest: invalid XML is diagnosed and visual edits never replace it with a valid model
+ok 10 - invalid XML is diagnosed and visual edits never replace it with a valid model
+  ---
+  duration_ms: 21.63989
+  type: 'test'
+  ...
+# Subtest: well-formedness supplements reject duplicate attrs, expanded aliases, multiple roots and illegal characters
+ok 11 - well-formedness supplements reject duplicate attrs, expanded aliases, multiple roots and illegal characters
+  ---
+  duration_ms: 2.140048
+  type: 'test'
+  ...
+# Subtest: DOCTYPE/entities are rejected without fetching external resources
+ok 12 - DOCTYPE/entities are rejected without fetching external resources
+  ---
+  duration_ms: 1.073478
+  type: 'test'
+  ...
+# Subtest: oversized UTF-8 files are rejected consistently by model and bridge
+ok 13 - oversized UTF-8 files are rejected consistently by model and bridge
+  ---
+  duration_ms: 31.190077
+  type: 'test'
+  ...
+# Subtest: Logger literal/expression values preserve Unicode, newlines and XML characters
+ok 14 - Logger literal/expression values preserve Unicode, newlines and XML characters
+  ---
+  duration_ms: 40.366186
+  type: 'test'
+  ...
+# Subtest: response status/body/headers edit children without changing other response settings
+ok 15 - response status/body/headers edit children without changing other response settings
+  ---
+  duration_ms: 47.336292
+  type: 'test'
+  ...
+# Subtest: duplicate, reorder and delete retain Logger data and unique stable doc IDs
+ok 16 - duplicate, reorder and delete retain Logger data and unique stable doc IDs
+  ---
+  duration_ms: 70.529939
+  type: 'test'
+  ...
+# Subtest: legacy Logger acquires doc:id for future stable selection while preserving its original attributes
+ok 17 - legacy Logger acquires doc:id for future stable selection while preserving its original attributes
+  ---
+  duration_ms: 5.020708
+  type: 'test'
+  ...
+# Subtest: Listener cannot be duplicated/moved and editing a field from another kind is refused
+ok 18 - Listener cannot be duplicated/moved and editing a field from another kind is refused
+  ---
+  duration_ms: 36.80873
+  type: 'test'
+  ...
+# Subtest: configuration rename updates supported same-document references and preserves unknown attributes
+ok 19 - configuration rename updates supported same-document references and preserves unknown attributes
+  ---
+  duration_ms: 26.985675
+  type: 'test'
+  ...
+# Subtest: configuration deletion refuses references and rename refuses unsupported reference types
+ok 20 - configuration deletion refuses references and rename refuses unsupported reference types
+  ---
+  duration_ms: 16.29248
+  type: 'test'
+  ...
+# Subtest: HTTP settings validate static values and preserve runtime properties as unevaluated text
+ok 21 - HTTP settings validate static values and preserve runtime properties as unevaluated text
+  ---
+  duration_ms: 14.051799
+  type: 'test'
+  ...
+# Subtest: missing HTTP/doc namespaces and schema entries are added once without replacing existing declarations
+ok 22 - missing HTTP/doc namespaces and schema entries are added once without replacing existing declarations
+  ---
+  duration_ms: 3.702369
+  type: 'test'
+  ...
+# Subtest: non-HTTP config, unknown Listener children and duplicate source positions are read-only
+ok 23 - non-HTTP config, unknown Listener children and duplicate source positions are read-only
+  ---
+  duration_ms: 8.758781
+  type: 'test'
+  ...
+# Subtest: real protocol rejects arbitrary command/path payloads, unknown fields and stale-version shapes
+ok 24 - real protocol rejects arbitrary command/path payloads, unknown fields and stale-version shapes
+  ---
+  duration_ms: 1.910042
+  type: 'test'
+  ...
+# Subtest: preview and real protocols remain isolated capability surfaces
+ok 25 - preview and real protocols remain isolated capability surfaces
+  ---
+  duration_ms: 0.842394
+  type: 'test'
+  ...
+# Subtest: legacy import changes XML contracts without rewriting application data
+ok 26 - legacy import changes XML contracts without rewriting application data
+  ---
+  duration_ms: 4.724586
+  type: 'test'
+  ...
+# Subtest: subflows grow the same processor model and reject listener insertion
+ok 27 - subflows grow the same processor model and reject listener insertion
+  ---
+  duration_ms: 10.672849
+  type: 'test'
+  ...
+# Subtest: Error handler round-trip keeps main and error processors separate and inserts before handler
+ok 28 - Error handler round-trip keeps main and error processors separate and inserts before handler
+  ---
+  duration_ms: 94.403581
+  type: 'test'
+  ...
+# Subtest: Invalid error destinations and duplicate handlers are rejected without losing XML
+ok 29 - Invalid error destinations and duplicate handlers are rejected without losing XML
+  ---
+  duration_ms: 27.3601
+  type: 'test'
+  ...
+# Subtest: Extended error handlers keep variable processors editable and preserve their XML
+ok 30 - Extended error handlers keep variable processors editable and preserve their XML
+  ---
+  duration_ms: 17.047022
+  type: 'test'
+  ...
+# Subtest: Transform Message scripts round-trip without disturbing unrelated XML, and participate in processor operations
+ok 31 - Transform Message scripts round-trip without disturbing unrelated XML, and participate in processor operations
+  ---
+  duration_ms: 40.390552
+  type: 'test'
+  ...
+# Subtest: Existing native set-payload and handler transforms remain executable editable XML
+ok 32 - Existing native set-payload and handler transforms remain executable editable XML
+  ---
+  duration_ms: 25.425587
+  type: 'test'
+  ...
+# Subtest: Transform preserves independent payload, attributes and named-variable scripts including blank outputs
+ok 33 - Transform preserves independent payload, attributes and named-variable scripts including blank outputs
+  ---
+  duration_ms: 28.881022
+  type: 'test'
+  ...
+# Subtest: Editing a legacy payload transform upgrades it without losing the script, ID, label, comment or other XML
+ok 34 - Editing a legacy payload transform upgrades it without losing the script, ID, label, comment or other XML
+  ---
+  duration_ms: 19.386638
+  type: 'test'
+  ...
+1..34
+# tests 34
+# suites 0
+# pass 34
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1005.547568

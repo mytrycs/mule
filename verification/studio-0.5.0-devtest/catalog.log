@@ -1,0 +1,22 @@
+Starting bundled ZERNOVA Runtime on darwin-x64; console: /Users/roz/.zernova-studio-tests/catalog-050-j7Azg1/instance/runs/f9e906a7-26ff-49f2-9090-38c12a6f76f1/console.log
+{
+  "passed": [
+    "set/remove variable and set payload",
+    "flow reference/subflow",
+    "parse template",
+    "choice/when/otherwise",
+    "first successful",
+    "round robin",
+    "scatter gather/routes",
+    "for each",
+    "try/on error continue",
+    "until successful",
+    "async",
+    "dynamic evaluate",
+    "business event",
+    "bounded cache",
+    "JSON stream cache hit",
+    "scheduler/async/business logs"
+  ],
+  "project": "/Users/roz/.zernova-studio-tests/catalog-050-j7Azg1/project"
+}

@@ -1,0 +1,10 @@
+Starting bundled ZERNOVA Runtime on darwin-x64; console: /Users/roz/.zernova-studio-tests/batch-recovery-050-v3X9sS/instance/runs/b574cf0f-029b-4cbe-8669-82a4d7328606/console.log
+Starting bundled ZERNOVA Runtime on darwin-x64; console: /Users/roz/.zernova-studio-tests/batch-recovery-050-v3X9sS/instance/runs/1c886a25-32e8-4f31-aa4d-98a993011264/console.log
+{
+  "passed": [
+    "batch record isolation and ONLY_FAILURES policy",
+    "empty batch completion",
+    "pending durable batch resumes after complete JVM restart"
+  ],
+  "project": "/Users/roz/.zernova-studio-tests/batch-recovery-050-v3X9sS/project"
+}

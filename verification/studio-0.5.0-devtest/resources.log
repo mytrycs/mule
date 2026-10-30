@@ -1,0 +1,29 @@
+Starting bundled ZERNOVA Runtime on darwin-x64; console: /Users/roz/.zernova-studio-tests/resource-050-kmoRs4/instance/runs/b7d48d41-4b06-4426-a026-2fe1d2cff8e8/console.log
+{
+  "passed": true,
+  "project": "/Users/roz/.zernova-studio-tests/resource-050-kmoRs4/project",
+  "externalResourceOutputs": {
+    "payload": {
+      "message": "Café example",
+      "environment": "qa",
+      "applicationOnly": "file",
+      "globalOnly": "global",
+      "envWins": "environment",
+      "systemWins": "system",
+      "interpolated": "Value Café example"
+    },
+    "attributes": {
+      "origin": "qa"
+    },
+    "variables": {
+      "saved": "Café example"
+    }
+  },
+  "errorResponse": {
+    "status": 503,
+    "body": {
+      "failed": true,
+      "environment": "qa"
+    }
+  }
+}
