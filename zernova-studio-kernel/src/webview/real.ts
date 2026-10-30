@@ -142,6 +142,8 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
   function render(): void {
     if (pointerPlacement?.active) return;
     const focus = focusSnapshot();
+    const oldLogs = root.querySelector<HTMLElement>('[data-scroll="console-logs"]');
+    const followLogTail = !oldLogs || oldLogs.scrollHeight - oldLogs.clientHeight - oldLogs.scrollTop < 40;
     const scrolls = [...root.querySelectorAll<HTMLElement>('[data-scroll]')].map(el => [el.dataset.scroll!, el.scrollTop, el.scrollLeft] as const);
     window.document.body.dataset.previewTheme = view.theme;
     window.document.documentElement.style.setProperty('--logo-url', `url("${window.__ZERNOVA_ASSETS__.logo.replace(/"/g, '%22')}")`);
@@ -150,6 +152,7 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
       ${renderDialog()}${contextMenu ? renderMenu() : ''}<div class="sr-only" role="status" aria-live="polite">${escape(toast)}</div>${toast ? `<div class="toast${toastError ? ' error' : ''}" data-testid="toast">${icon(toastError ? 'warning' : 'info')}<span>${escape(toast)}</span></div>` : ''}</main>`;
     for (const [key, top, left] of scrolls) { const el = root.querySelector<HTMLElement>(`[data-scroll="${CSS.escape(key)}"]`); if (el) { el.scrollTop = top; el.scrollLeft = left; } }
     layoutFlows(root);
+    if (view.lower === 'console' && view.consoleTab === 'logs' && followLogTail) { const logs = root.querySelector<HTMLElement>('[data-scroll="console-logs"]'); if (logs) logs.scrollTop = logs.scrollHeight; }
     restoreFocus(focus);
     if (configDialog || flowDialog || deleteDialog) {
       root.querySelector('.workspace')?.setAttribute('inert', ''); root.querySelector('.preview-bar')?.setAttribute('inert', '');
@@ -235,7 +238,7 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
   function renderConsole(): string {
     const busy = !!runtime.busy;
     const log = view.consoleTab === 'build' ? display(runtime.buildOutput ?? '') : view.consoleTab === 'logs' ? display(runtime.applicationLogs ?? '') : JSON.stringify(runtime, (key, value) => ['buildOutput', 'applicationLogs'].includes(key) ? undefined : value, 2);
-    return `<section class="real-console" aria-label="Real runtime and build output"><div class="real-console-actions">${button('runtime-build', 'Build', 'code', busy)}${button('runtime-run', 'Run / Redeploy', 'logger', busy, 'primary')}${button('runtime-status', 'Status', undefined, busy)}${button('runtime-logs', 'Refresh logs', undefined, busy)}${button('runtime-stopApplication', 'Undeploy', undefined, busy)}${button('runtime-stopRuntime', 'Stop runtime', undefined, busy)}${button('runtime-cancel', 'Cancel', undefined, !busy)}</div><nav class="real-output-tabs" role="tablist" aria-label="Output source">${[['build', 'Build output'], ['logs', 'Application logs · live'], ['runtime', 'Runtime output'], ['status', 'Runtime status']].map(([id, name]) => `<button class="tab${view.consoleTab === id ? ' active' : ''}" role="tab" aria-selected="${view.consoleTab === id}" data-action="console-${id}" data-focus="console-${id}">${name}</button>`).join('')}</nav><pre class="real-output" data-scroll="console-${view.consoleTab}" tabindex="0" aria-label="${view.consoleTab === 'logs' ? 'Application runtime logs' : view.consoleTab === 'build' ? 'Actual build output' : 'Runtime status JSON'}">${escape(log || (view.consoleTab === 'logs' ? 'Following application logs automatically. Send a request to execute your Logger; no entries have been written yet.' : 'No operation output yet.'))}</pre></section>`;
+    return `<section class="real-console" aria-label="Real runtime and build output"><div class="real-console-actions">${button('runtime-build', 'Build', 'code', busy)}${button('runtime-run', 'Run / Redeploy', 'logger', busy, 'primary')}${button('runtime-status', 'Status', undefined, busy)}${button('runtime-logs', 'Refresh logs', undefined, busy)}${button('followLogs', 'Follow latest')}${button('runtime-stopApplication', 'Undeploy', undefined, busy)}${button('runtime-stopRuntime', 'Stop runtime', undefined, busy)}${button('runtime-cancel', 'Cancel', undefined, !busy)}</div><nav class="real-output-tabs" role="tablist" aria-label="Output source">${[['build', 'Build output'], ['logs', 'Application logs · live'], ['runtime', 'Runtime output'], ['status', 'Runtime status']].map(([id, name]) => `<button class="tab${view.consoleTab === id ? ' active' : ''}" role="tab" aria-selected="${view.consoleTab === id}" data-action="console-${id}" data-focus="console-${id}">${name}</button>`).join('')}</nav><pre class="real-output" data-scroll="console-${view.consoleTab}" tabindex="0" aria-label="${view.consoleTab === 'logs' ? 'Application runtime logs' : view.consoleTab === 'build' ? 'Actual build output' : 'Runtime status JSON'}">${escape(log || (view.consoleTab === 'logs' ? 'Following application logs automatically. Send a request to execute your Logger; no entries have been written yet.' : 'No operation output yet.'))}</pre></section>`;
   }
   function renderOutline(): string {
     return `<div class="lower-placeholder" data-scroll="outline"><h3>${escape(document?.projectName ?? 'Project')}</h3>${document?.model.flows.map(f => `<h4>${escape(f.name)}${f.editable ? '' : ' · read only'}</h4>${[...(f.source ? [f.source] : []), ...f.processors].map(n => `<button class="outline-row" data-action="outline-select" data-flow="${escape(f.id)}" data-node="${escape(n.id)}">${icon(n.kind === 'listener' ? 'globe' : 'logger')}${escape(n.displayName)}</button>`).join('')}`).join('') ?? ''}</div>`;
@@ -290,6 +293,7 @@ export function mountReal(root: HTMLElement, vscode: VSCodeBridge): void {
     if (name.startsWith('console-')) { setView(() => { view.consoleTab = name.slice(8) as ViewState['consoleTab']; }); return; }
     const f = flow(), c = component();
     switch (name) {
+      case 'followLogs': view.lower = 'console'; view.consoleTab = 'logs'; render(); { const logs = root.querySelector<HTMLElement>('[data-scroll="console-logs"]'); if (logs) logs.scrollTop = logs.scrollHeight; } break;
       case 'toggleFlow': if (f) setView(() => { collapsedFlows.has(f.id) ? collapsedFlows.delete(f.id) : collapsedFlows.add(f.id); }); break;
       case 'toggleError': if (f) setView(() => { openErrors.has(f.id) ? openErrors.delete(f.id) : openErrors.add(f.id); }); break;
       case 'addErrorHandler': if (f) edit({ kind: 'createErrorHandler', flowId: f.id }); break;

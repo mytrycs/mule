@@ -4,6 +4,7 @@ import { parseRunFields, validateRunConfiguration, defaultRunConfiguration } fro
 test('Maven-style properties remain literal arguments, including spaces and shell syntax', () => {
   const r = parseRunFields({ environment: 'qa', debugPort: '5005', variables: 'GREETING=hello world', properties: '-Dhttp.port=18081\n-Dmessage=literal $(never-run) and spaces' });
   assert.equal(r.properties.message, 'literal $(never-run) and spaces'); assert.equal(r.variables.GREETING, 'hello world');
+  assert.equal(parseRunFields({ environment: 'qa', debugPort: '5005', variables: '', properties: '-Denabled' }).properties.enabled, 'true');
 });
 test('Run configurations reject goals, duplicate settings and reserved injection switches', () => {
   const base = { environment: 'qa', debugPort: '5005', variables: '', properties: '' };
