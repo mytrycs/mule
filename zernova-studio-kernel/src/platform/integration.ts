@@ -206,17 +206,24 @@ export function registerPlatformIntegration(
       );
     const c = await getClient(),
       device = await c.begin();
+    const target = device.verification_uri + "?code=" + device.user_code;
+    const browserHosted = vscode.env.uiKind === vscode.UIKind.Web;
+    const action = browserHosted
+      ? "Copy Platform sign-in link"
+      : "Open Platform sign-in";
     const choice = await vscode.window.showInformationMessage(
       "Studio verification code: " +
         device.user_code +
-        ". Approve only this code in your Platform browser window.",
+        ". Approve only this code in your Platform browser window." +
+        (browserHosted
+          ? " Paste the copied HTTPS link into a browser tab; this keeps the customer sign-in origin outside IDE port proxies."
+          : ""),
       { modal: true },
-      "Open Platform sign-in",
+      action,
     );
-    if (choice !== "Open Platform sign-in")
-      throw new Error("Studio connection canceled.");
-    const target = device.verification_uri + "?code=" + device.user_code;
-    if (!(await vscode.env.openExternal(vscode.Uri.parse(target))))
+    if (choice !== action) throw new Error("Studio connection canceled.");
+    if (browserHosted) await vscode.env.clipboard.writeText(target);
+    else if (!(await vscode.env.openExternal(vscode.Uri.parse(target))))
       throw new Error(
         "Open the Platform verification page from Identity & access and enter code " +
           device.user_code +
