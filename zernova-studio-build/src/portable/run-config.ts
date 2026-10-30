@@ -1,7 +1,8 @@
 /** Run configuration data. No shell command or Maven goal is executed. */
-export interface RunConfiguration { environment: string; variables: Record<string, string>; properties: Record<string, string>; debugPort: number; }
-export const defaultRunConfiguration = (): RunConfiguration => ({ environment: 'development', variables: {}, properties: {}, debugPort: 5005 });
+export interface RunConfiguration { environment: string; variables: Record<string, string>; properties: Record<string, string>; debugPort: number; redeployOnSave?: boolean; }
+export const defaultRunConfiguration = (): RunConfiguration => ({ environment: 'development', variables: {}, properties: {}, debugPort: 5005, redeployOnSave: false });
 export function validateRunConfiguration(value: RunConfiguration): RunConfiguration {
+  if (value.redeployOnSave !== undefined && typeof value.redeployOnSave !== 'boolean') throw new Error('Redeploy on manual save must be Yes or No.');
   if (!/^[A-Za-z0-9_.-]{1,80}$/.test(value.environment)) throw new Error('Environment must use letters, numbers, dots, underscores or hyphens.');
   if (!Number.isInteger(value.debugPort) || value.debugPort < 1024 || value.debugPort > 65535) throw new Error('Debug port must be between 1024 and 65535.');
   for (const [key, item] of Object.entries(value.variables)) {
@@ -13,7 +14,7 @@ export function validateRunConfiguration(value: RunConfiguration): RunConfigurat
     if (typeof item !== 'string' || item.length > 8192 || /[\0\r\n]/.test(item)) throw new Error('Property values must be single-line strings.');
   }
   if (Object.keys(value.variables).length > 100 || Object.keys(value.properties).length > 100) throw new Error('Use at most 100 variables and 100 properties.');
-  return { environment: value.environment, debugPort: value.debugPort, variables: { ...value.variables }, properties: { ...value.properties } };
+  return { redeployOnSave: value.redeployOnSave === true, environment: value.environment, debugPort: value.debugPort, variables: { ...value.variables }, properties: { ...value.properties } };
 }
 export function parseRunFields(fields: Record<string, string>): RunConfiguration {
   const pairs = (text: string, property: boolean): Record<string, string> => {
@@ -25,5 +26,6 @@ export function parseRunFields(fields: Record<string, string>): RunConfiguration
     }
     return result;
   };
-  return validateRunConfiguration({ environment: fields.environment, debugPort: Number(fields.debugPort), variables: pairs(fields.variables, false), properties: pairs(fields.properties, true) });
+  if (fields.redeployOnSave !== undefined && !['true', 'false'].includes(fields.redeployOnSave)) throw new Error('Redeploy on manual save must be Yes or No.');
+  return validateRunConfiguration({ redeployOnSave: fields.redeployOnSave === 'true', environment: fields.environment, debugPort: Number(fields.debugPort), variables: pairs(fields.variables, false), properties: pairs(fields.properties, true) });
 }

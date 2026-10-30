@@ -2,7 +2,7 @@
   "name": "zernova-studio-kernel-preview",
   "displayName": "ZERNOVA Studio",
   "description": "ZERNOVA Studio development alpha with bundled ZERNOVA Runtime and patched Java 17.",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "publisher": "zernova-preview",
   "license": "SEE LICENSE IN LICENSE.txt",
   "private": true,
@@ -157,6 +157,10 @@
         "category": "ZERNOVA",
         "title": "Run Configuration\u2026",
         "icon": "$(settings-gear)"
+      },
+      {
+        "command": "zernovaKernelStudio.manualSave",
+        "title": "ZERNOVA: Save and Apply Redeploy Setting"
       }
     ],
     "viewsContainers": {
@@ -229,6 +233,11 @@
       ],
       "editor/context": [
         {
+          "command": "zernovaKernelStudio.manualSave",
+          "when": "resourcePath =~ /src[\\\\/]main[\\\\/]|[\\\\/]pom\\.xml$|[\\\\/]zernova-(app|artifact)\\.json$/",
+          "group": "9_zernova@-1"
+        },
+        {
           "command": "zernovaKernelStudio.run",
           "when": "resourceExtname == .xml && resourcePath =~ /src[\\\\/]main[\\\\/]zernova[\\\\/]/",
           "group": "9_zernova@0"
@@ -283,7 +292,26 @@
         ],
         "priority": "option"
       }
-    ]
+    ],
+    "keybindings": [
+      {
+        "command": "zernovaKernelStudio.manualSave",
+        "key": "ctrl+s",
+        "mac": "cmd+s",
+        "when": "editorTextFocus && resourcePath =~ /src[\\\\/]main[\\\\/]|[\\\\/]pom\\.xml$|[\\\\/]zernova-(app|artifact)\\.json$/"
+      }
+    ],
+    "configuration": {
+      "title": "ZERNOVA Studio",
+      "properties": {
+        "zernovaKernelStudio.redeployOnSave": {
+          "type": "boolean",
+          "default": false,
+          "scope": "resource",
+          "description": "Rebuild and redeploy changed build inputs on explicit manual save, only while the app is deployed. Background XML autosaves never redeploy."
+        }
+      }
+    }
   },
   "scripts": {
     "build": "node scripts/build.mjs",

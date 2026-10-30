@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { saveAutomatically } from './saves';
 import * as fs from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
@@ -27,6 +28,8 @@ export class RuntimeManager implements vscode.Disposable {
   private readonly states = new Map<string, RuntimeViewState>();
   private readonly logTimers = new Map<string, ReturnType<typeof setInterval>>();
   private readonly logReading = new Set<string>();
+  private readonly pendingManualSaves = new Set<string>();
+  private readonly manualSaveTasks = new Map<string, Promise<void>>();
   private readonly operations = new Map<string, AbortController>();
   private readonly buildChannel = vscode.window.createOutputChannel('ZERNOVA Build');
   private readonly runtimeChannel = vscode.window.createOutputChannel('ZERNOVA Runtime');
@@ -47,6 +50,29 @@ export class RuntimeManager implements vscode.Disposable {
   stateForUri(uri: vscode.Uri): RuntimeViewState | undefined { const project = this.projects.projectForUri(uri); return project ? this.state(project) : undefined; }
   private update(project: Project, patch: Partial<RuntimeViewState>): void { this.states.set(project.root, { ...this.state(project), ...patch, lastUpdated: new Date().toISOString() }); this.changed.fire(project.root); }
   private append(project: Project, stream: 'buildOutput' | 'runtimeOutput', text: string): void { this.update(project, { [stream]: (this.state(project)[stream] + text).slice(-MAX_OUTPUT) }); (stream === 'buildOutput' ? this.buildChannel : this.runtimeChannel).append(text); }
+  reportError(project: Project, error: unknown): void {
+    const text = error instanceof Error ? error.message : String(error);
+    if (this.state(project).lastError !== text) this.append(project, 'buildOutput', `\n[${new Date().toISOString()}] ERROR: ${text}\n`);
+    this.update(project, { lastError: text, ...(!this.operations.has(project.root) ? {phase:'Failed'} : {}) });
+  }
+  async manualSaved(project: Project, uri: vscode.Uri): Promise<void> {
+    const relative = path.relative(project.root, uri.fsPath).split(path.sep).join('/');
+    if (!(relative.startsWith('src/') || ['pom.xml', 'zernova-app.json', 'zernova-artifact.json'].includes(relative)) || !this.projects.getRunConfiguration(project).redeployOnSave) return;
+    const previous = this.manualSaveTasks.get(project.root) ?? Promise.resolve();
+    const task = previous.then(async () => {
+      if (!this.projects.getRunConfiguration(project).redeployOnSave) return;
+      if (this.operations.has(project.root)) { if (this.state(project).application === 'DEPLOYED') this.pendingManualSaves.add(project.root); return; }
+      this.trust();
+      const status = await this.backend(project).status();
+      if (status.applications[project.artifactId]?.state !== 'DEPLOYED') return;
+      const hash = await sourceHash(project.root);
+      if (hash === this.context.workspaceState.get<string>('zernova.deployedHash.' + project.root)) return;
+      this.append(project, 'buildOutput', `\nManual save: rebuilding and redeploying ${path.basename(uri.fsPath)}.\n`);
+      await this.execute('run', project);
+    }).catch(error => { this.reportError(project, error); });
+    this.manualSaveTasks.set(project.root, task);
+    try { await task; } finally { if (this.manualSaveTasks.get(project.root) === task) this.manualSaveTasks.delete(project.root); }
+  }
   private trust(): void { if (!vscode.workspace.isTrusted) throw new Error('Workspace trust is required before building or running applications.'); }
   private backend(project: Project): BundledRuntime {
     const settings = this.projects.getSettings(project);
@@ -94,7 +120,7 @@ export class RuntimeManager implements vscode.Disposable {
     if (!dirty.length) return;
     const choice = await studioForm('Save Project Documents', [], async () => true, `Save ${dirty.length} unsaved project document(s) before building the current application?`);
     if (!choice) throw new Error('Build cancelled: unsaved documents were not saved. No existing artifact was deployed.');
-    for (const doc of dirty) if (!await doc.save()) throw new Error(`Could not save ${doc.uri.fsPath}. No application was built or deployed.`);
+    for (const doc of dirty) if (!await saveAutomatically(doc)) throw new Error(`Could not save ${doc.uri.fsPath}. No application was built or deployed.`);
   }
   private async projectPort(project: Project): Promise<number> {
     const source = path.join(project.root, 'src/main/zernova');
@@ -127,7 +153,7 @@ export class RuntimeManager implements vscode.Disposable {
       propertyParser.write(text).close();
       flowCount += model.flows.length;
       for (const config of model.configs) { if (configs.has(config.id)) throw new Error(`Duplicate HTTP configuration across files: ${config.name}`); configs.set(config.id, config); }
-      for (const flow of model.flows) if (flow.source) refs.push(flow.source.configId);
+      for (const flow of model.flows) if (flow.source) { if (!flow.processors.length) throw new Error(`Flow ${flow.name} has an HTTP Listener but no processors. Add a processor, such as Logger, before running this application.`); refs.push(flow.source.configId); }
     }
     for (const file of propertyFiles) {
       const resolvedFile = await fs.realpath(path.join(resources, file));
@@ -192,6 +218,7 @@ export class RuntimeManager implements vscode.Disposable {
               if (await sourceHash(project.root) !== artifact.sourceHash || vscode.workspace.textDocuments.some(d => d.isDirty && isInside(project.root, d.uri.fsPath))) throw new Error('Source changed after building. No stale artifact was deployed.');
               this.update(project, { phase: 'Starting runtime' }); mutated = true; await backend.start(port, signal);
               this.update(project, { phase: 'Deploying' }); await backend.deploy(artifact.artifact, project.artifactId, signal);
+              await this.context.workspaceState.update('zernova.deployedHash.' + project.root, artifact.sourceHash);
               this.update(project, { phase: 'Deployed · endpoint unverified' });
             }
           } else if (action === 'stopApplication') await backend.undeploy(project.artifactId, signal);
@@ -204,8 +231,9 @@ export class RuntimeManager implements vscode.Disposable {
     } catch (error) {
       if (signal.aborted && mutated) { try { await backend.stop(); await backend.undeploy(); } catch (cleanup) { this.append(project, 'runtimeOutput', 'Cleanup requires attention: ' + String(cleanup)); } }
       try { this.reflect(project, await backend.status()); } catch { /* Keep the last verified state. */ }
-      this.update(project, { phase: signal.aborted ? 'Cancelled' : 'Failed', lastError: error instanceof Error ? error.message : String(error) }); throw error;
-    } finally { this.operations.delete(project.root); this.update(project, { busy: false }); await fs.writeFile(path.join(evidence, 'state.json'), JSON.stringify(this.state(project), null, 2)); }
+      await this.refreshLogs(project).catch(() => {});
+      this.reportError(project, error); this.update(project, { phase: signal.aborted ? 'Cancelled' : 'Failed' }); throw error;
+    } finally { this.operations.delete(project.root); this.update(project, { busy: false }); if (this.pendingManualSaves.delete(project.root)) void this.manualSaved(project, vscode.Uri.file(path.join(project.root, 'pom.xml'))); await fs.writeFile(path.join(evidence, 'state.json'), JSON.stringify(this.state(project), null, 2)); }
     if (debug) {
       const port = this.projects.getRunConfiguration(project).debugPort;
       if (vscode.extensions.getExtension('vscjava.vscode-java-debug')) {

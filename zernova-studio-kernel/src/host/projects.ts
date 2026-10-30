@@ -125,16 +125,19 @@ export class ProjectManager implements vscode.Disposable {
     return true;
   }
   getRunConfiguration(project: Project): RunConfiguration {
-    return this.context.workspaceState.get<RunConfiguration>('zernova.run.' + project.root) ?? defaultRunConfiguration();
+    const value = { ...defaultRunConfiguration(), ...this.context.workspaceState.get<RunConfiguration>('zernova.run.' + project.root) };
+    if (vscode.workspace.getWorkspaceFolder(vscode.Uri.file(project.root))) value.redeployOnSave = vscode.workspace.getConfiguration('zernovaKernelStudio', vscode.Uri.file(project.root)).get<boolean>('redeployOnSave', false);
+    return value;
   }
   async configureRun(project: Project): Promise<boolean> {
     const current = this.getRunConfiguration(project);
     return await studioForm('ZERNOVA Run Configuration', [
+      { key: 'redeployOnSave', label: 'Redeploy on manual save', value: String(current.redeployOnSave === true), options: [{value:'false',label:'No'}, {value:'true',label:'Yes'}], hint: 'Only when deployed and build inputs changed. Background XML autosaves never redeploy. Java sources still require supported build capabilities.' },
       { key: 'environment', label: 'Environment', value: current.environment, hint: 'Exposed as the zernova.env system property.' },
       { key: 'variables', label: 'Environment variables', value: Object.entries(current.variables).map(([k,v]) => k + '=' + v).join('\n'), multiline: true, hint: 'One NAME=value per line. Stored in this workspace profile; do not put production secrets here.' },
       { key: 'properties', label: 'Application properties (Maven-style -D)', value: Object.entries(current.properties).map(([k,v]) => '-D' + k + '=' + v).join('\n'), multiline: true, hint: 'One -Dname=value per line. Passed to the runtime JVM and listener preflight. This offline builder does not execute Maven goals.' },
       { key: 'debugPort', label: 'Java debugger port (localhost only)', value: String(current.debugPort) },
-    ], async fields => { await this.context.workspaceState.update('zernova.run.' + project.root, parseRunFields(fields)); this.changed.fire(); return true; }) ?? false;
+    ], async fields => { const value = parseRunFields(fields); await this.context.workspaceState.update('zernova.run.' + project.root, value); if (vscode.workspace.getWorkspaceFolder(vscode.Uri.file(project.root))) await vscode.workspace.getConfiguration('zernovaKernelStudio', vscode.Uri.file(project.root)).update('redeployOnSave', value.redeployOnSave, vscode.ConfigurationTarget.WorkspaceFolder); this.changed.fire(); return true; }) ?? false;
   }
   async createProject(): Promise<Project | undefined> {
     return studioForm('New ZERNOVA Project', [

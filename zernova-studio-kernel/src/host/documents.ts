@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { saveAutomatically } from './saves';
 import { applyOperation, findConfigurationReferences, parseIntegration, XmlEditError, type XmlOperation } from '../shared/xml';
 import { parseRealMessage, type RealDocumentSnapshot, type RuntimeAction } from '../shared/realProtocol';
 
@@ -7,6 +8,7 @@ export interface IntegrationEditorOptions {
   render: (webview: vscode.Webview, initial: RealDocumentSnapshot) => string;
   projectName: (uri: vscode.Uri) => string;
   projectRoot?: (uri: vscode.Uri) => vscode.Uri | undefined;
+  manualSave?: (document: vscode.TextDocument) => Promise<void>;
   runtimeState?: (uri: vscode.Uri) => unknown;
   runtimeAction?: (action: RuntimeAction, uri: vscode.Uri) => Promise<void>;
 }
@@ -100,7 +102,7 @@ export class IntegrationEditorProvider implements vscode.CustomTextEditorProvide
           try {
             if (message.type === 'ready') { await this.postDocument(editor); await this.refreshRuntime(document.uri); return; }
             if (message.type === 'realAction') {
-              if (message.action === 'save') { if (!await document.save()) throw new Error('The document could not be saved. Check permissions and try again.'); await this.postDocument(editor); }
+              if (message.action === 'save') { if (this.options.manualSave) await this.options.manualSave(document); else if (!await saveAutomatically(document)) throw new Error('The document could not be saved. Check permissions and try again.'); await this.postDocument(editor); }
               else if (message.action === 'undo' || message.action === 'redo') {
                 if (!panel.active) throw new Error('Focus this integration editor before using Undo or Redo.');
                 await vscode.commands.executeCommand(message.action); await this.postDocument(editor);
@@ -131,7 +133,7 @@ export class IntegrationEditorProvider implements vscode.CustomTextEditorProvide
               if (!await vscode.workspace.applyEdit(edit)) throw new Error('VS Code refused the edit because the document changed or is read-only.');
             }
             await this.postDocument(editor);
-            if (document.isDirty && !await document.save()) throw new Error('Autosave failed. Check file permissions.');
+            if (document.isDirty && !await saveAutomatically(document)) throw new Error('Autosave failed. Check file permissions.');
             await this.postDocument(editor);
             await panel.webview.postMessage({ type: 'realAck', requestId: message.requestId, version: document.version, ...(selectionId ? { selectionId } : {}) });
           } catch (error) {

@@ -12,3 +12,10 @@ test('Run configurations reject goals, duplicate settings and reserved injection
   for (const variables of ['JAVA_TOOL_OPTIONS=-javaagent:untrusted', 'LD_PRELOAD=/tmp/a', 'invalid line']) assert.throws(() => parseRunFields({ ...base, variables }));
   assert.throws(() => validateRunConfiguration({ ...defaultRunConfiguration(), debugPort: 80 }));
 });
+test('Redeploy on manual save is opt-in and validates Yes/No values', () => {
+  const fields = { environment:'dev',debugPort:'5005',variables:'',properties:'' };
+  assert.equal(defaultRunConfiguration().redeployOnSave,false);
+  assert.equal(parseRunFields(fields).redeployOnSave,false);
+  assert.equal(parseRunFields({...fields,redeployOnSave:'true'}).redeployOnSave,true);
+  assert.throws(()=>parseRunFields({...fields,redeployOnSave:'sometimes'}));
+});

@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { saveAutomatically, isAutomaticSave } from './host/saves';
 import { createInitialState, sanitizeState, cloneState, PREVIEW_STATE_KEY, DEFAULT_LAYOUT, type PreviewState, type Scenario } from './shared/model';
 import { parseWebviewMessage, isScenario } from './shared/protocol';
 import { registerNavigation } from './host/navigation';
@@ -20,11 +21,12 @@ export function activate(context: vscode.ExtensionContext) {
   const documents = new IntegrationEditorProvider(context, {
     render: webview => renderWebview(webview, context.extensionUri, createInitialState(true), true),
     projectName: uri => projects.nameForUri(uri), projectRoot: uri => projects.rootForUri(uri),
+    manualSave: async doc => { if (!await saveAutomatically(doc)) throw new Error('The document could not be saved.'); const project = projects.projectForUri(doc.uri); if (project) await runtime.manualSaved(project, doc.uri); },
     runtimeState: uri => runtime.stateForUri(uri),
     runtimeAction: async (action, uri) => {
       const project = projects.projectForUri(uri);
       if (!project) throw new Error('Open this file through ZERNOVA: Open ZERNOVA Project before executing it.');
-      await runtime.execute(action, project);
+      try { await runtime.execute(action, project); } catch (error) { runtime.reportError(project, error); throw error; }
     },
   });
   context.subscriptions.push(projects, runtime, documents,
@@ -38,8 +40,16 @@ export function activate(context: vscode.ExtensionContext) {
     const doc = event.document, project = projects.projectForUri(doc.uri);
     if (!project || !doc.uri.fsPath.endsWith('.xml') || !isInside(path.join(project.root, 'src/main/zernova'), doc.uri.fsPath)) return;
     const key = doc.uri.toString(); clearTimeout(xmlSaves.get(key));
-    xmlSaves.set(key, setTimeout(() => { xmlSaves.delete(key); if (!doc.isClosed && doc.isDirty) void doc.save(); }, 500));
+    xmlSaves.set(key, setTimeout(() => { xmlSaves.delete(key); if (!doc.isClosed && doc.isDirty) void saveAutomatically(doc); }, 500));
   }), { dispose: () => { for (const timer of xmlSaves.values()) clearTimeout(timer); } });
+  const nativeManualSaves = new Set<string>();
+  context.subscriptions.push(vscode.workspace.onWillSaveTextDocument(event => {
+    if (event.reason === vscode.TextDocumentSaveReason.Manual && !isAutomaticSave(event.document.uri)) nativeManualSaves.add(event.document.uri.toString());
+  }), vscode.workspace.onDidSaveTextDocument(doc => {
+    const explicit = nativeManualSaves.delete(doc.uri.toString());
+    const project = projects.projectForUri(doc.uri);
+    if (explicit && !isAutomaticSave(doc.uri) && project) void runtime.manualSaved(project, doc.uri);
+  }));
   const initialized = projects.initialize().then(async () => { for (const project of projects.list()) await runtime.reconcile(project); });
   let state = sanitizeState(context.workspaceState.get<unknown>(PREVIEW_STATE_KEY));
   let ready = false;
@@ -119,12 +129,18 @@ export function activate(context: vscode.ExtensionContext) {
   const explicitUri = (candidate?: unknown): vscode.Uri | undefined => candidate instanceof vscode.Uri ? candidate
     : candidate && typeof candidate === 'object' && 'uri' in candidate && (candidate as { uri: unknown }).uri instanceof vscode.Uri ? (candidate as { uri: vscode.Uri }).uri
     : undefined;
-  const commandUri = (candidate?: unknown): vscode.Uri | undefined => explicitUri(candidate) ?? documents.activeDocumentUri() ?? vscode.window.activeTextEditor?.document.uri;
+  const commandUri = (candidate?: unknown): vscode.Uri | undefined => explicitUri(candidate) ?? vscode.window.activeTextEditor?.document.uri ?? documents.activeDocumentUri();
   const guarded = (callback: (...args: unknown[]) => Promise<unknown>) => async (...args: unknown[]) => {
     try { await initialized; return await callback(...args); }
     catch (error) { void vscode.window.showErrorMessage('ZERNOVA: ' + (error instanceof Error ? error.message : String(error))); return undefined; }
   };
   context.subscriptions.push(
+    vscode.commands.registerCommand('zernovaKernelStudio.manualSave', guarded(async candidate => {
+      const uri = commandUri(candidate); if (!uri) return;
+      const doc = await vscode.workspace.openTextDocument(uri);
+      if (!await saveAutomatically(doc)) throw new Error('The document could not be saved.');
+      const project = projects.projectForUri(uri); if (project) await runtime.manualSaved(project, uri);
+    })),
     vscode.commands.registerCommand('zernovaKernelStudio.newProject', guarded(async () => { const project = await projects.createProject(); if (project) { await vscode.commands.executeCommand('workbench.view.extension.zernovaKernelStudio'); const files = (await fs.readdir(path.join(project.root, 'src/main/zernova'))).filter(f => f.endsWith('.xml')); if (files[0]) await documents.open(vscode.Uri.file(path.join(project.root, 'src/main/zernova', files[0]))); } return project?.root; })),
     vscode.commands.registerCommand('zernovaKernelStudio.importLegacyProject', guarded(async () => { const project = await projects.importLegacyProject(); if (project) await vscode.commands.executeCommand('workbench.view.extension.zernovaKernelStudio'); return project?.root; })),
     vscode.commands.registerCommand('zernovaKernelStudio.openProject', guarded(async () => { const project = await projects.openProject(); if (project) { await runtime.reconcile(project); await vscode.commands.executeCommand('workbench.view.extension.zernovaKernelStudio'); } return project?.root; })),
@@ -145,7 +161,7 @@ export function activate(context: vscode.ExtensionContext) {
       await documents.open(uri);
     })),
     ...RUNTIME_ACTIONS.map(action => vscode.commands.registerCommand('zernovaKernelStudio.' + action, guarded(async candidate => {
-      const project = await projects.select(commandUri(candidate)); if (project) return runtime.execute(action as RuntimeAction, project);
+      const project = await projects.select(commandUri(candidate)); if (project) { try { return await runtime.execute(action as RuntimeAction, project); } catch (error) { runtime.reportError(project, error); return runtime.state(project); } }
     }))),
   );
   context.subscriptions.push(
