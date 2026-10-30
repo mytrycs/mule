@@ -1,0 +1,144 @@
+{
+  "platform": "darwin",
+  "arch": "x64",
+  "vscode": "1.144.0",
+  "rows": [
+    {
+      "name": "Installed VSIX and actual custom editor",
+      "status": "PASS",
+      "detail": {
+        "extensionPath": "/Users/roz/.zernova-studio-tests/installed-1793381791652/extensions/zernova-preview.zernova-studio-kernel-preview-0.4.3",
+        "model": "studioFlow"
+      }
+    },
+    {
+      "name": "Bundled Java/runtime diagnostics with invalid external tool paths",
+      "status": "PASS",
+      "detail": {
+        "phase": "Diagnostics passed",
+        "offline": true
+      }
+    },
+    {
+      "name": "Studio offline build produces a fresh application",
+      "status": "PASS",
+      "detail": {
+        "artifact": "/Users/roz/.zernova-studio-tests/installed-1793381791652/workspace/target/studio-local-test-1.0.0.zapp",
+        "sha256": "3e0cc189608012a189f64808babb2b280ea565d9993a76e4846627c7ee4837d5"
+      }
+    },
+    {
+      "name": "Studio Run deploys to the renamed source-built engine",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "body": "Hello from ZERNOVA",
+        "correlatedLogger": true,
+        "automaticLogRefresh": true,
+        "loggerCount": 2
+      }
+    },
+    {
+      "name": "XML edits save and redeploy without the old route",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "body": "Hello from ZERNOVA",
+        "correlatedLogger": true,
+        "automaticLogRefresh": true,
+        "loggerCount": 2
+      }
+    },
+    {
+      "name": "Stop Application undeploys and retains the private runtime",
+      "status": "PASS"
+    },
+    {
+      "name": "Stop Runtime shuts down the owned engine",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid XML is diagnosed and cannot deploy a stale artifact",
+      "status": "PASS"
+    },
+    {
+      "name": "Restored document runs again",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "body": "Hello from ZERNOVA",
+        "correlatedLogger": true,
+        "automaticLogRefresh": true,
+        "loggerCount": 2
+      }
+    },
+    {
+      "name": "Redeploy setting defaults off; manual save retains the deployed JVM",
+      "status": "PASS",
+      "detail": {
+        "defaultOff": true
+      }
+    },
+    {
+      "name": "Background XML autosave never redeploys when the setting is on",
+      "status": "PASS",
+      "detail": {
+        "autosaved": true,
+        "redeployed": false
+      }
+    },
+    {
+      "name": "Explicit save of already autosaved XML redeploys once; unchanged save does not",
+      "status": "PASS",
+      "detail": {
+        "changedSaveRedeployed": true,
+        "unchangedSaveRedeployed": false
+      }
+    },
+    {
+      "name": "Manual property-file save redeploys the running app",
+      "status": "PASS",
+      "detail": {
+        "status": 200,
+        "body": "Hello from ZERNOVA",
+        "correlatedLogger": true,
+        "automaticLogRefresh": true,
+        "loggerCount": 2
+      }
+    },
+    {
+      "name": "Transform Message creates native DataWeave XML and returns actual JSON",
+      "status": "PASS",
+      "detail": {
+        "nativeDataWeave": true,
+        "status": 200,
+        "body": {
+          "message": "Hello from Transform",
+          "testId": "TRANSFORM-34486250-35d8-42f3-8ebe-f11b194e89c1",
+          "environment": "development"
+        }
+      }
+    },
+    {
+      "name": "Listener-only run failure stays in Console and retains the deployed app",
+      "status": "PASS",
+      "detail": {
+        "persistentBuildError": true,
+        "existingAppRetained": true
+      }
+    },
+    {
+      "name": "Manual Java save attempts a build and retains its unsupported-build error",
+      "status": "PASS",
+      "detail": {
+        "javaChangeDetected": true,
+        "unsupportedBuildReported": true,
+        "existingAppRetained": true
+      }
+    },
+    {
+      "name": "Final shutdown",
+      "status": "PASS"
+    }
+  ]
+}

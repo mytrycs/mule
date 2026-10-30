@@ -1,0 +1,7 @@
+{
+  "sample": "transform-message-devtest",
+  "status": "PACKAGED",
+  "networkUsed": false,
+  "bytes": 2369093,
+  "route": "http://localhost:18082/transform?testId=OWNER-043"
+}

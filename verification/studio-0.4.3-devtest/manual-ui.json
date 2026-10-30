@@ -1,0 +1,40 @@
+{
+  "studioVersion": "0.4.3",
+  "runDropdownConfiguration": true,
+  "debugDropdownConfiguration": true,
+  "independentRunDebugProfiles": true,
+  "runEnvironmentAfterDebugProfileSave": "qa",
+  "debugEnvironment": "debug-qa",
+  "debugPort": 15006,
+  "tabbedDraggableRunDialog": true,
+  "managedJreBootstrapExplained": true,
+  "sourceRequestResponseIndicators": true,
+  "responseArrowThroughLastTransformOutputPort": true,
+  "contextMenuIconsVisuallyVerified": true,
+  "realProjectBadgeRemoved": true,
+  "transformPaletteInsertionAndScriptEditor": true,
+  "transformPayloadResponseButton": true,
+  "guiRunConfigurationApplied": {
+    "initialHeapMB": 128,
+    "maximumHeapMB": 1024,
+    "jvmArguments": [
+      "-ea"
+    ],
+    "workingDirectory": "${project}",
+    "inheritEnvironment": false
+  },
+  "httpResult": {
+    "message": "Hello from GUI Transform",
+    "environment": "qa",
+    "workingDirectory": "/Users/roz/.zernova-studio-tests/2026-10-30T13-49-35-014Z/feedback-ui-041",
+    "testId": "GUI043-TRANSFORM"
+  },
+  "minimalListenerTransformOnlyResponse": {
+    "message": "Hello from GUI Transform",
+    "environment": "qa",
+    "workingDirectory": "/Users/roz/.zernova-studio-tests/2026-10-30T13-49-35-014Z/feedback-ui-041",
+    "testId": "GUI043-TRANSFORM-ONLY"
+  },
+  "runtimeStopped": true,
+  "testProjectRestored": true
+}

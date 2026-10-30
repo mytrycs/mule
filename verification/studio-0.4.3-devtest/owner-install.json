@@ -1,0 +1,21 @@
+{
+  "studioVersion": "0.4.3",
+  "extensionId": "zernova-preview.zernova-studio-kernel-preview",
+  "installedIn": "/Applications/Visual Studio Code.app",
+  "profile": "Default",
+  "cliInstallation": "success",
+  "cliListedVersion": "0.4.3",
+  "mainWindowActivationVerified": true,
+  "activationRecovery": "Window reload left blank renderer; graceful Quit and reopen restored workspace and Studio.",
+  "visibleControls": [
+    "Run options",
+    "Debug options",
+    "Request into flow",
+    "Response to caller",
+    "Transform Message"
+  ],
+  "realProjectBadgeRemoved": true,
+  "ownerProjectModified": false,
+  "ownerProjectRunning": false,
+  "verifiedAtUtc": "2026-10-30T17:52:10.165073+00:00"
+}

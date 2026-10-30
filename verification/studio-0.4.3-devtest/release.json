@@ -1,0 +1,18 @@
+{
+  "studioVersion": "0.4.3",
+  "runtimeVersion": "0.4.1-alpha.1",
+  "target": "darwin-x64",
+  "verifiedStudioCodeCommit": "454401e9bcab29cb21321c5d6aa3aa5be3c858b1",
+  "runtimeSourceCommit": "a8578a44a7a48d8ef01fdef58261ee37315b2022",
+  "runtimeEngineSha256": "15181b8fe0657880029a4b2fc83bcd7cedcf7b5eec7809e4211d5051ec5958a0",
+  "vsixSha256": "272f907ae479f849eaa3dfc6948e6adea0c346478f52af1702617d3592d1ef6c",
+  "unitPassed": 75,
+  "geometryChecks": 4,
+  "nativePassed": 23,
+  "installedPassed": 17,
+  "installedFailed": 0,
+  "finalPackagingExecutableComparison": {
+    "matchedFiles": 691,
+    "description": "Only sample/docs packaging additions after qualification; every executable, webview asset and runtime file is byte-identical to the installed/UI-tested VSIX."
+  }
+}
