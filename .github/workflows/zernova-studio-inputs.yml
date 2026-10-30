@@ -1,0 +1,85 @@
+# Copyright (c) 2026 ZerNova. Original build orchestration.
+# Internal development artifacts only; does not publish a customer release.
+name: ZERNOVA Studio bundle inputs
+on:
+  push:
+    branches: ['zernova/studio-bundle-0.3.0']
+    paths: ['.github/workflows/zernova-studio-inputs.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  inputs:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Prepare pinned Node build tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p studio-inputs/node-tools
+          cd studio-inputs/node-tools
+          printf '{"name":"zernova-studio-build-inputs","version":"0.3.0","private":true}\n' > package.json
+          npm install --ignore-scripts --save-exact esbuild@0.28.2 typescript@5.9.3 sax@1.6.1 @types/node@24.10.1 @types/vscode@1.96.0 @vscode/test-electron@3.1.0 @vscode/vsce@4.1.0 playwright@1.64.1 axe-core@4.11.0 marked@18.1.2 jszip@3.10.1
+          node node_modules/esbuild/install.js
+          node --version > node-version.txt
+          npm --version > npm-version.txt
+          cd ..
+          tar -czf node-tools-linux-x64.tar.gz node-tools
+          rm -rf node-tools
+      - name: Retrieve Java 17 platform packages with publisher checksums
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import urllib.request,json,hashlib,concurrent.futures
+          from pathlib import Path
+          out=Path('studio-inputs'); out.mkdir(exist_ok=True)
+          url='https://api.github.com/repos/adoptium/temurin17-binaries/releases/tags/jdk-17.0.21%2B9'
+          req=urllib.request.Request(url,headers={'User-Agent':'ZERNOVA-Studio-build'})
+          with urllib.request.urlopen(req,timeout=60) as r: release=json.load(r)
+          assets={a['name']:a for a in release['assets']}
+          targets={
+            'linux-x64':('x64','linux','tar.gz'),
+            'linux-arm64':('aarch64','linux','tar.gz'),
+            'darwin-x64':('x64','mac','tar.gz'),
+            'darwin-arm64':('aarch64','mac','tar.gz'),
+            'win32-x64':('x64','windows','zip'),
+            'win32-arm64':('aarch64','windows','zip'),
+          }
+          def get(item):
+            target,(arch,os,ext)=item
+            name=f'OpenJDK17U-jre_{arch}_{os}_hotspot_17.0.21_9.{ext}'
+            row={'target':target,'asset':name,'release':release['html_url']}
+            if name not in assets:
+              row['status']='NOT_PUBLISHED'; return row
+            a=assets[name]; checksum=assets.get(name+'.sha256.txt')
+            if not checksum: raise RuntimeError('Publisher checksum missing: '+name)
+            with urllib.request.urlopen(checksum['browser_download_url'],timeout=60) as r: expected=r.read().decode().split()[0]
+            req=urllib.request.Request(a['browser_download_url'],headers={'User-Agent':'ZERNOVA-Studio-build'})
+            with urllib.request.urlopen(req,timeout=180) as r: data=r.read()
+            actual=hashlib.sha256(data).hexdigest()
+            if actual!=expected: raise RuntimeError('Checksum mismatch: '+name)
+            (out/name).write_bytes(data)
+            row.update(status='VERIFIED_DOWNLOAD',sha256=actual,bytes=len(data),url=a['browser_download_url'])
+            return row
+          rows=list(concurrent.futures.ThreadPoolExecutor(max_workers=3).map(get,targets.items()))
+          (out/'java-platform-inputs.json').write_text(json.dumps(rows,indent=2)+'\n')
+          print(json.dumps(rows,indent=2))
+          PY
+      - name: Retrieve Linux VS Code desktop test host
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 2 'https://update.code.visualstudio.com/1.144.0/linux-x64/stable' --output studio-inputs/vscode-1.144.0-linux-x64.tar.gz
+          sha256sum studio-inputs/* > input-checksums.txt
+          mv input-checksums.txt studio-inputs/
+      - name: Retain input archives
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: zernova-studio-bundle-inputs
+          path: studio-inputs/
+          compression-level: 0
+          retention-days: 7
