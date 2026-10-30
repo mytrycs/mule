@@ -146,8 +146,8 @@ export class BundledRuntime {
           end(undefined, response);
         } catch { end(new Error('Invalid runtime control response.')); }
       });
-      socket.on('error', e => { if (errorCode(e) === 'ECONNREFUSED') end(); else end(e); });
-      socket.on('end', () => { if (!finished) end(new Error('Runtime control closed without a valid response.')); });
+      socket.on('error', e => { if (['ECONNREFUSED', 'ECONNRESET', 'EPIPE'].includes(errorCode(e) ?? '')) end(); else end(e); });
+      socket.on('end', () => { if (!finished) end(); });
     });
   }
   private async alive(): Promise<boolean> {
@@ -156,8 +156,15 @@ export class BundledRuntime {
     if (child && child.pid === state.pid && (child.exitCode !== null || child.signalCode !== null)) return false;
     const response = await this.controlRequest('STATUS');
     if (response) return true;
-    if (await pidExists(state.pid)) throw new Error('A recorded process may still be alive, but its authenticated control endpoint is unavailable. Studio will not signal that PID or start a duplicate. Inspect the retained runtime log.');
-    return false;
+    // A killed JVM can reset a connected socket before its exit event is
+    // delivered. Allow that event to settle, but never infer process death
+    // solely from a broken control connection.
+    for (let attempt = 0; attempt < 10; attempt++) {
+      if (child && child.pid === state.pid && (child.exitCode !== null || child.signalCode !== null)) return false;
+      if (!await pidExists(state.pid)) return false;
+      await sleep(25);
+    }
+    throw new Error('A recorded process may still be alive, but its authenticated control endpoint is unavailable. Studio will not signal that PID or start a duplicate. Inspect the retained runtime log.');
   }
   private async consoleText(state: RuntimeState, offset = 0): Promise<string> {
     if (!within(path.join(this.instance, 'runs'), state.console_log)) throw new Error('Runtime log path escaped its owned instance.');
@@ -341,7 +348,8 @@ export class BundledRuntime {
   }
   async logs(name = this.application, lines = 1000): Promise<{ log: string; lines: string[] }> {
     if (name !== this.application || !Number.isInteger(lines) || lines < 1 || lines > 10000) throw new Error('Invalid application log request.');
-    const logfile = path.join(this.runtime, 'logs', 'mule-app-' + name + '.log');
+    const zernovaLog = path.join(this.runtime, 'logs', 'zernova-app-' + name + '.log');
+    const logfile = await exists(zernovaLog) ? zernovaLog : path.join(this.runtime, 'logs', 'mule-app-' + name + '.log');
     if ((await fs.lstat(logfile).catch(() => undefined))?.isSymbolicLink()) throw new Error('Application log is an unexpected symlink.');
     const file = await fs.open(logfile, 'r').catch(e => { if (e.code === 'ENOENT') return undefined; throw e; });
     if (!file) return { log: logfile, lines: [] };
