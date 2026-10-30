@@ -30,6 +30,7 @@ const {validateArtifact}=require('../dist/portable-packager.cjs');
    await test('Offline build in path containing spaces',async()=>{artifact=await r.package();assert.equal(artifact.networkUsed,false);return artifact});
    await test('Deterministic repackage',async()=>{const repeated=await r.package();assert.equal(artifact.sha256,repeated.sha256);return{sha256:repeated.sha256}});
    await test('Unsafe XML does not replace last valid artifact',async()=>{await fs.writeFile(xml,initial.replace('<zernova ', '<!DOCTYPE mule [<!ENTITY x SYSTEM "file:///etc/passwd">]>\n<zernova '));await assert.rejects(r.package(),/DTD|entity/i);assert.equal((await validateArtifact(artifact.artifact)).sha256,artifact.sha256);await fs.writeFile(xml,initial)});
+   await test('Cancelled package cannot replace the valid artifact',async()=>{const abort=new AbortController();abort.abort();await assert.rejects(r.package(project,abort.signal),/cancelled/i);assert.equal((await validateArtifact(artifact.artifact)).sha256,artifact.sha256)});
    await test('Occupied port is rejected without killing its owner',async()=>{const server=net.createServer();await new Promise((ok,no)=>{server.once('error',no);server.listen(port,'127.0.0.1',ok)});try{await assert.rejects(r.start(port),/unavailable/i);assert(server.listening)}finally{await new Promise(ok=>server.close(ok))}});
    await test('Real source-built engine startup',()=>r.start(port));
    await test('Authenticated control rejects wrong token',async()=>{await assert.rejects(r.controlRequest('STOP','0'.repeat(64)),/reject/i);assert.equal((await r.status()).process,'RUNNING')});
@@ -37,11 +38,32 @@ const {validateArtifact}=require('../dist/portable-packager.cjs');
    await test('Actual HTTP response plus matching fresh Logger',()=>request());
    await test('A new manager reconciles the live runtime',async()=>{const next=new BundledRuntime({bundle,instance,project,application:app});const status=await next.status();assert.equal(status.process,'RUNNING');assert.equal(status.applications[app].state,'DEPLOYED');return status});
    await test('Refuse unrelated application ownership',async()=>{const other=new BundledRuntime({bundle,instance,project:project+'-other',application:'other-app'});await assert.rejects(other.stop(),/different|unrecognized|another/i);assert.equal((await r.status()).process,'RUNNING')});
+   await test('Orders POST JSON transformation, configuration, validation and correlation',async()=>{
+     await r.undeploy();
+     await fs.writeFile(xml,await fs.readFile('tests/fixtures/orders-api/src/main/zernova/orders.xml','utf8'));
+     await fs.copyFile('tests/fixtures/orders-api/src/main/resources/orders.properties',path.join(project,'src/main/resources/orders.properties'));
+     artifact=await r.package();await r.deploy(artifact.artifact);
+     const id='ORDER-'+randomUUID();
+     const response=await fetch(`http://127.0.0.1:${port}/orders?testId=${id}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:'order-123'}),signal:AbortSignal.timeout(10000)});
+     const text=await response.text();assert.equal(response.status,200,text);const body=JSON.parse(text);assert.deepEqual(body,{id:'order-123',status:'accepted',currency:'USD'});
+     assert((await r.logs()).lines.some(line=>line.includes('ZERNOVA_TEST '+id)));
+     const invalid=await fetch(`http://127.0.0.1:${port}/orders`,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}',signal:AbortSignal.timeout(10000)});
+     assert.equal(invalid.status,400,await invalid.text());
+     return{status:response.status,body,invalidStatus:invalid.status,correlatedLogger:true};
+   });
    await test('Edit package and redeploy actual changed route',async()=>{await r.undeploy();await fs.writeFile(xml,initial.replace('path="/hello"','path="/hello-v2"'));artifact=await r.package();await r.deploy(artifact.artifact);const result=await request('/hello-v2');const old=await fetch(`http://127.0.0.1:${port}/hello`,{signal:AbortSignal.timeout(5000)});assert.equal(old.status,404);return{...result,oldRouteStatus:old.status}});
    await test('Runtime expression errors produce a real HTTP failure',async()=>{await r.undeploy();await fs.writeFile(xml,initial.replace("#['Hello from ZERNOVA']","#[1 + ]"));const invalid=await r.package();await r.deploy(invalid.artifact);const response=await fetch(`http://127.0.0.1:${port}/hello?testId=ZN-INVALID-EXPRESSION`,{signal:AbortSignal.timeout(10000)});const body=await response.text();assert.equal(response.status,500);return{status:response.status,body:body.slice(0,2000),note:'Response expressions compile on execution; successful deployment is not endpoint validation.'}});
    await test('Invalid configuration fails deployment rather than reporting healthy',async()=>{await r.undeploy();await fs.writeFile(xml,initial.replace('config-ref="Local_HTTP"','config-ref="Missing_Configuration"'));const invalid=await r.package();await assert.rejects(r.deploy(invalid.artifact),/failed|timed out/i);const status=await r.status();assert.notEqual(status.applications[app].healthy,true);return status});
    await test('Graceful shutdown and failed application cleanup',async()=>{const stopped=await r.stop();await r.undeploy();await checkPort(port);assert.equal((await r.status()).process,'STOPPED');return stopped});
    await test('Second cycle after complete stop',async()=>{await fs.writeFile(xml,initial);artifact=await r.package();await r.start(port);await r.deploy(artifact.artifact);const result=await request();await r.undeploy();const stop=await r.stop();await checkPort(port);return{...result,stop}});
+   await test('Owned JVM crash is detected and the project can recover',async()=>{
+     await fs.writeFile(xml,initial);artifact=await r.package();const started=await r.start(port);await r.deploy(artifact.artifact);
+     const live=await r.status();assert.equal(live.run_id,started.run_id);assert.equal(live.process,'RUNNING');assert(Number.isInteger(live.pid));
+     process.kill(live.pid,'SIGKILL');
+     for(let i=0;i<100&&(await r.status()).process!=='STOPPED';i++)await new Promise(ok=>setTimeout(ok,100));
+     const crashed=await r.status();assert.equal(crashed.process,'STOPPED');assert.equal(crashed.healthy,false);
+     await r.undeploy();await r.start(port);await r.deploy(artifact.artifact);const recovered=await request();await r.undeploy();await r.stop();return{crashDetected:true,...recovered};
+   });
  }finally{
    try{await r.stop();await r.undeploy()}catch(e){rows.push({name:'Final cleanup',status:'FAIL',error:String(e)});console.error(e)}
    await persist();

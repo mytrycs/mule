@@ -73,7 +73,11 @@ def main():
         build = checkout / 'zernova-build/build-source.sh'
         settings = shlex.quote(str(checkout / 'zernova-build/settings.xml'))
         local_repo = shlex.quote('-Dmaven.repo.local=' + str(repository))
-        build.write_text(build.read_text().replace('mvn ', 'mvn -s ' + settings + ' ' + local_repo + ' '))
+        recipe = build.read_text().replace('mvn ', 'mvn -s ' + settings + ' ' + local_repo + ' ')
+        # Prime the exact clean lifecycle too. An install-only baseline leaves
+        # Maven's clean plugin absent in an otherwise empty dependency cache.
+        recipe = recipe.replace(' install\n', ' clean install\n')
+        build.write_text(recipe)
         run(['bash', build], cwd=checkout)
     if not repository.is_dir():
         raise SystemExit('Prepared repository does not exist')

@@ -73,3 +73,7 @@ zernova-studio-kernel/evidence/
 
 zernova-studio-build/runtime-inputs/
 zernova-studio-build/runtime-v030/
+
+zernova-studio-build/runtime-inputs-preparing-*/
+
+zernova-studio-build/runtime-inputs-*/

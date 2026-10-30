@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zernova xmlns="https://schemas.zernova.dev/core"
+ xmlns:http="https://schemas.zernova.dev/http"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd https://schemas.zernova.dev/http https://schemas.zernova.dev/http/current/zernova-http.xsd">
+ <configuration-properties file="orders.properties"/>
+ <http:listener-config name="Orders_HTTP"><http:listener-connection host="127.0.0.1" port="${zernova.http.port}"/></http:listener-config>
+ <flow name="ordersFlow">
+  <http:listener config-ref="Orders_HTTP" path="/orders" allowedMethods="POST">
+   <http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{ id: payload.id as String, status: "accepted", currency: p("orders.currency") }
+]]]></http:body><http:headers>#[{'Content-Type': 'application/json'}]</http:headers></http:response>
+   <http:error-response statusCode="400"><http:body>#[{error: 'invalid-order'}]</http:body><http:headers>#[{'Content-Type': 'application/json'}]</http:headers></http:error-response>
+  </http:listener>
+  <choice><when expression="#[isEmpty(payload.id default '')]"><raise-error type="APP:INVALID_ORDER" description="Order id is required"/></when></choice>
+  <logger level="INFO" category="com.zernova.acceptance" message="#['ZERNOVA_TEST ' ++ (attributes.queryParams.testId default 'missing')]"/>
+ </flow>
+</zernova>

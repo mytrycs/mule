@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "name": "orders-api",
+  "group": "com.zernova.example",
+  "version": "1.0.0",
+  "dependencies": [
+    "http"
+  ]
+}

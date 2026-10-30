@@ -2,12 +2,21 @@
 # Copyright (c) 2026 ZerNova. Original native test infrastructure.
 # Preparation downloads happen in CI, never when a user runs the bundled VSIX.
 from pathlib import Path,PurePosixPath
+import tempfile
 import sys,os,json,hashlib,urllib.request,urllib.error,concurrent.futures,tarfile,zipfile,shutil,stat,subprocess
 TARGET=sys.argv[1]
 ROOT=Path(__file__).resolve().parent
 os.chdir(ROOT)
 INPUT=ROOT/'native-inputs';INPUT.mkdir(exist_ok=True)
-OUT=ROOT/'runtime-inputs';OUT.mkdir(exist_ok=False)
+FINAL=ROOT/'runtime-inputs'
+if FINAL.exists():
+ record=json.loads((FINAL/'bundle.json').read_text())
+ if record['target']!=TARGET:raise SystemExit('Prepared inputs belong to another target')
+ expected=json.loads((FINAL/'input-checksums.json').read_text())
+ actual={p.relative_to(FINAL).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in FINAL.rglob('*') if p.is_file() and p.name!='input-checksums.json'}
+ if actual!=expected:raise SystemExit('Prepared inputs changed; move runtime-inputs aside before rebuilding')
+ print('Verified existing pinned native inputs');sys.exit(0)
+OUT=Path(tempfile.mkdtemp(prefix='runtime-inputs-preparing-',dir=ROOT))
 FONTS={'.ttf','.otf','.woff','.woff2','.eot','.ttc'}
 def sha(p):
  h=hashlib.sha256()
@@ -51,7 +60,12 @@ java=INPUT/record['asset'];java_sha=record['sha256']
 if not java.exists() or sha(java)!=java_sha:download(record['url'],java,java_sha)
 vendor=record.get('vendor','Eclipse Temurin');version=record.get('version','17.0.21+9')
 if TARGET.startswith('win32'):
- unzip(java,OUT/'java');java_home='java'
+ unzip(java,OUT/'jdk-input')
+ jdk=OUT/'jdk-input';image=OUT/'java'
+ subprocess.run([str(jdk/'bin/jlink.exe'),'--module-path',str(jdk/'jmods'),'--add-modules','ALL-MODULE-PATH','--output',str(image),'--no-header-files','--no-man-pages','--compress=2'],check=True)
+ for name in ['NOTICE','LICENSE','DISCLAIMER']:
+  if (jdk/name).exists():shutil.copy2(jdk/name,image/name)
+ shutil.rmtree(jdk);java_home='java'
 else:
  with tarfile.open(java) as tar:
   files={m.name:m for m in tar.getmembers()}
@@ -108,4 +122,7 @@ for index,deps in [(0,[1,2,3,4,5,6,7]),(1,[8,7])]:
 shutil.copy2(ROOT/'LICENSE.txt',OUT/'notices/ZERNOVA_ORIGINAL_COMPONENTS.txt')
 info={'schemaVersion':1,'product':'ZERNOVA Runtime','version':'0.4.0-alpha.1','engineVersion':'4.10.0-SNAPSHOT','dataweaveVersion':'2.10.0','target':TARGET,'javaHome':java_home,'javaVendor':vendor,'javaVersion':version,'javaArchitecture':'arm64' if TARGET.endswith('arm64') else 'x64','controlAgent':'control/runtime-control.jar','sourceArchive':'sources/ZERNOVA_Runtime_Corresponding_Source.zip','distributionMode':'source-built-development','inputJavaSha256':java_sha}
 (OUT/'bundle.json').write_text(json.dumps(info,indent=2)+'\n')
-print(json.dumps({'target':TARGET,'inputs':str(OUT),'source':'checksum-pinned vendor downloads'}))
+checksums={p.relative_to(OUT).as_posix():sha(p) for p in sorted(OUT.rglob('*')) if p.is_file()}
+(OUT/'input-checksums.json').write_text(json.dumps(checksums,indent=2)+'\n')
+OUT.rename(FINAL)
+print(json.dumps({'target':TARGET,'inputs':str(FINAL),'source':'checksum-pinned vendor downloads'}))
