@@ -1,0 +1,1 @@
+612ca008c79e0a0e19f1ba7517e680dd9e3487f6d3a3402c6b71280fcebd5d4b  zernova-studio-kernel-preview-0.4.0-darwin-x64.vsix

@@ -1,0 +1,15 @@
+{
+  "studioVersion": "0.4.0",
+  "runtimeVersion": "0.4.0-alpha.1",
+  "target": "darwin-x64",
+  "verifiedCodeCommit": "e098822d2f4600f417b611e4d71cda2885301f5d",
+  "ciRun": "https://github.com/mytrycs/mule/actions/runs/41072634257",
+  "nativeTargetsPassed": 6,
+  "runtimeCasesPerTarget": 20,
+  "installedStudioCasesPerTarget": 9,
+  "vsix": "zernova-studio-kernel-preview-0.4.0-darwin-x64.vsix",
+  "vsixSha256": "612ca008c79e0a0e19f1ba7517e680dd9e3487f6d3a3402c6b71280fcebd5d4b",
+  "devTest": "http-logger-devtest",
+  "endpoint": "http://127.0.0.1:8081/hello?testId=dev-test-1",
+  "redeployPolicy": "authenticated restart of project-owned JVM"
+}

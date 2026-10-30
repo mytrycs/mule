@@ -1,0 +1,10 @@
+{
+  "root": "/Users/roz/.zernova-studio-tests/installed-1793372017883",
+  "vscode": "1.144.0",
+  "target": "darwin-x64",
+  "verifiedCodeCommit": "e098822d2f4600f417b611e4d71cda2885301f5d",
+  "sourceBuildDirty": false,
+  "vsixSha256": "612ca008c79e0a0e19f1ba7517e680dd9e3487f6d3a3402c6b71280fcebd5d4b",
+  "passed": 9,
+  "failed": 0
+}

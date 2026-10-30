@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-30",
+  "platform": "darwin-x64",
+  "studioVersion": "0.4.0",
+  "runtimeVersion": "0.4.0-alpha.1",
+  "method": "Native UI inspection of normally installed VSIX in isolated VS Code Insiders profile; stable VS Code installed-host acceptance recorded separately",
+  "checks": {
+    "flowOneLoggerWidthApproxPx": 375,
+    "flowTwoLoggersWidthApproxPx": 520,
+    "flowAfterDeleteWidthApproxPx": 375,
+    "subflowOneLoggerWidthApproxPx": 210,
+    "subflowTwoLoggersWidthApproxPx": 344,
+    "subflowAfterDeleteWidthApproxPx": 210,
+    "responseStartsAtFinalProcessor": true,
+    "responseEndsAtListener": true,
+    "responseBelowLabels": true,
+    "narrowViewportEndpointsAligned": true,
+    "subflowNoInventedListenerOrResponse": true,
+    "savedXmlPreservesMainFlowAndSubflow": true
+  },
+  "sample": {
+    "project": "zernova-studio-kernel/examples/http-logger-devtest",
+    "endpoint": "http://127.0.0.1:8081/hello?testId=dev-test-delivery-040",
+    "status": 200,
+    "body": "Hello from ZERNOVA",
+    "freshLogger": "ZERNOVA_TEST dev-test-delivery-040",
+    "stoppedAfterTest": true
+  }
+}

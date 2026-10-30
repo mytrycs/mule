@@ -5,21 +5,23 @@ including `zernova-studio-kernel/`, `zernova-studio-build/` and the Java runtime
 
 ## Current position
 
-We have an integrated development alpha. The source-built 4.10-derived runtime
-uses `com.zernova` Java packages and renamed classes. Studio 0.3.0 contains Runtime
-0.3.0-dev.2, Java 17 and the HTTP profile in a Mac x64 VSIX. Local installed-host
-tests and visible UI checks demonstrate creation, editing, offline packaging,
-deployment, real HTTP responses, logs, redeployment and shutdown.
+The active development candidate pairs Studio 0.4.0 with independently versioned
+ZERNOVA Runtime 0.4.0-alpha.1 and bundled Java 17. New applications execute
+ZERNOVA XML directly: a `zernova` root, ZERNOVA namespaces, application descriptors
+and offline packaging. The engine uses `com.zernova` Java packages. The original
+4.10 baseline remains explicitly identified as engine provenance/SDK compatibility.
 
-This establishes a working bounded product slice. It does not establish a
-production release, full Mule application/connector compatibility, stable-editor
-acceptance or six-platform installed-Studio support. Custom Java and additional
-dependencies are currently rejected by the offline builder. XML/deployment
-compatibility names remain in this alpha and are migration work; required
-upstream notices must remain accurate.
+Local tests cover the installed stable VS Code extension, HTTP Listener/Logger,
+Orders JSON transformation/validation, redeployment, shutdown and crash recovery.
+The visual flow response starts at the final processor, and flow/subflow cards
+resize as processors are added or removed. A six-platform CI matrix builds and
+tests native runtime and installed Studio packages; final results are recorded in
+`DEV_TEST_VERIFICATION.md` when the candidate completes.
 
-Evidence: `VERIFICATION.md`, `zernova-studio-kernel/STUDIO_LOCAL_VERIFICATION.md`,
-and `verification/`.
+The immediate delivery is an internal development alpha for owner feedback.
+Custom Java, arbitrary connector dependencies and YAML remain deferred. Required
+upstream legal attribution and historical provenance remain intact. This is not
+a production release or a claim of compatibility with every legacy application.
 
 ## Product identity and application language direction
 
@@ -49,15 +51,18 @@ versioning, and asked about YAML application definitions. Recommended direction:
 
 Sequence: repair clean builds; establish the independent version contract and
 ZERNOVA XML slice; prove the reference application in Studio and standalone;
-then qualify YAML against the same behavioral fixtures. These changes are
-planned work, not capabilities of the current 0.3.0 bundle.
+then qualify YAML against the same behavioral fixtures. The XML/version contract is implemented in the 0.4.0 candidate. YAML remains
+future work and is not part of this delivery.
 
 ## Implementation status
 
 The owner authorized all six phases and requested a bundled HTTP Listener/Logger
 dev-test delivery, plus intrinsic flow widths and last-component response lines.
-Implementation is in progress on the existing migration branch. YAML is deferred.
-No phase is complete until its actual build/installed/runtime evidence is recorded.
+The six-phase development-test slice is implemented and verified on the migration
+branch. The final clean CI run passed source builds, all six native runtime
+suites and all six installed-Studio suites. The owner delivery includes an Intel
+Mac VSIX, bundled runtime/Java, HTTP/Logger sample and verification notes. YAML is
+deferred. See `DEV_TEST_VERIFICATION.md` for the tested scope and evidence.
 
 ## Immediate milestone: reproducible internal release
 
@@ -65,27 +70,19 @@ The same committed Studio/runtime pair must build on a clean machine, install
 with its dependencies, and pass the supported workflows without a prepared
 developer environment.
 
-### First implementation task: close the clean-build failure
+### Clean-build foundation
 
-The latest checked CI run, for commit `08c8178b1c9bc794b92a06b09091b167df60f5ff`,
-failed in the historical dependency bootstrap. Its runner used Maven 3.10.0,
-which rejected the duplicate `com.sun.xml.bind:jaxb-impl` declaration in
-`modules/extensions-spring-support/pom.xml`. Native jobs were skipped.
+The historical bootstrap failure is repaired. Maven 3.9.11 is checksum-pinned,
+duplicate JAXB declarations are corrected, private bootstrap copies are excluded
+from the main-source license scan, and initial clean builds provision required
+plugins. Empty-cache CI source builds passed. Later repeat builds use cached
+adapted dependencies while recompiling the tracked engine from source.
 
-Run: https://github.com/mytrycs/mule/actions/runs/41057298180
-
-Work in order:
-
-1. Pin and record the build toolchain. Correct duplicate dependency declarations
-   in tracked source and the bootstrap adaptation without weakening validation.
-2. Complete the source build and selected tests in a fresh checkout with empty
-   dependency caches. Treat further failures as blockers until this path passes.
-3. Make preparation, failure recovery and repeat builds predictable. Document
-   which inputs are original, adapted, relocated or compiled from our source.
-4. Replace expiring workflow-artifact input recovery with durable, checksum-pinned
-   inputs or repeatable vendor downloads. Record dependency sources and licenses.
-5. Produce artifacts from a clean committed source tree, with exact versions,
-   dependency inventory, source archive, checksums and build/test provenance.
+Native Java and HTTP inputs now come from durable checksum-pinned downloads.
+Assembly verifies source-build success gates and the exact engine SHA, records
+clean/dirty/resumed provenance, and includes corresponding source and notices.
+See `DEV_TEST_VERIFICATION.md` for the verified code revision, final matrix and
+owner-test package.
 
 ### Acceptance gates
 

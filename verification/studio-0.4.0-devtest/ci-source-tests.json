@@ -1,0 +1,70 @@
+{
+  "run": "https://github.com/mytrycs/mule/actions/runs/41072634257",
+  "commit": "e098822d2f4600f417b611e4d71cda2885301f5d",
+  "relocatorTests": {
+    "passed": 11,
+    "failed": 0
+  },
+  "moduleSummaries": [
+    {
+      "reported": 5,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "reported": 65,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    {
+      "reported": 237,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "reported": 16,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "reported": 50,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "reported": 36,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "reported": 13,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "reported": 2,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "reported": 4,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "totals": {
+    "reported": 428,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 1
+  }
+}

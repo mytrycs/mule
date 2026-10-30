@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "counts": {
+    "sources": 7272,
+    "archives": 0,
+    "classes": 0
+  },
+  "passed": true,
+  "errors": []
+}
