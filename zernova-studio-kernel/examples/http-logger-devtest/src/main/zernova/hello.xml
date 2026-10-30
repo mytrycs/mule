@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zernova xmlns="https://schemas.zernova.dev/core"
+      xmlns:http="https://schemas.zernova.dev/http"
+      xmlns:doc="https://schemas.zernova.dev/documentation"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd https://schemas.zernova.dev/http https://schemas.zernova.dev/http/current/zernova-http.xsd">
+  <http:listener-config name="HTTP_Listener_config" basePath="">
+    <http:listener-connection protocol="HTTP" host="127.0.0.1" port="8081"/>
+  </http:listener-config>
+  <flow name="helloFlow">
+    <http:listener config-ref="HTTP_Listener_config" path="/hello" allowedMethods="GET" doc:name="HTTP Listener" doc:id="3bdaff6c-64d6-4350-bfb6-59f7de327e9c">
+      <http:response statusCode="200">
+        <http:body>#['Hello from ZERNOVA']</http:body>
+        <http:headers>#[{'Content-Type': 'text/plain; charset=UTF-8'}]</http:headers>
+      </http:response>
+    </http:listener>
+    <logger doc:name="Logger" doc:id="5a227cec-0c97-44e7-9984-b1f5c89f2060" level="INFO" category="io.zernova.acceptance" message="#['ZERNOVA_TEST ' ++ (attributes.queryParams.testId default 'missing')]"/>
+  </flow>
+</zernova>

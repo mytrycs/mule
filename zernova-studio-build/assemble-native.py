@@ -91,7 +91,7 @@ def main():
     excluded = {'.git', 'target', 'node_modules', '__pycache__'}
     with zipfile.ZipFile(source_archive, 'w', zipfile.ZIP_DEFLATED) as z:
         for folder in ['buildtools', 'core', 'core-tests', 'errors', 'manifest', 'modules',
-                       'runtime-extension-model', 'tests', 'upstream', 'zernova-build', 'zernova-studio-build/src']:
+                       'runtime-extension-model', 'tests', 'upstream', 'zernova-build', 'zernova-studio-build/src', 'zernova-studio-build/tests']:
             for path in sorted((ROOT / folder).rglob('*')):
                 if path.is_file() and not any(p in excluded or p.startswith('.zernova-') for p in path.relative_to(ROOT).parts):
                     z.write(path, path.relative_to(ROOT).as_posix())

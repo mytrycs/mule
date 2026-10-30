@@ -6,6 +6,7 @@ import net from 'node:net';
 import { randomUUID } from 'node:crypto';
 import { projectFiles } from '../src/host/projects';
 import { createIntegrationXml, applyOperation, parseIntegration } from '../src/shared/xml';
+import { freshFetch as fetch } from '../../zernova-studio-build/tests/http-client.cjs';
 
 export async function run() {
   const root = process.env.ZN_STUDIO_TEST_ROOT!;

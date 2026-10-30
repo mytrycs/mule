@@ -5,6 +5,7 @@ const fs=require('node:fs/promises'),path=require('node:path'),os=require('node:
 const assert=require('node:assert/strict');const {randomUUID,createHash}=require('node:crypto');
 const {BundledRuntime,checkPort}=require('../dist/portable-runtime.cjs');
 const {validateArtifact}=require('../dist/portable-packager.cjs');
+const {freshFetch:fetch}=require('./http-client.cjs');
 (async()=>{
  const target=`${process.platform}-${process.arch}`;
  const base=path.resolve(process.env.ZN_NATIVE_WORK||path.join(os.homedir(),'.zernova-native-tests',randomUUID()));
