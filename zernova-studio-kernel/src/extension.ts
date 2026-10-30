@@ -3,7 +3,7 @@ import { createInitialState, sanitizeState, cloneState, PREVIEW_STATE_KEY, DEFAU
 import { parseWebviewMessage, isScenario } from './shared/protocol';
 import { registerNavigation } from './host/navigation';
 import { currentHostTheme, renderWebview } from './host/webview';
-import { ProjectManager } from './host/projects';
+import { ProjectManager, isInside } from './host/projects';
 import { RuntimeManager } from './host/runtime';
 import { IntegrationEditorProvider, REAL_EDITOR_TYPE } from './host/documents';
 import { RUNTIME_ACTIONS, type RuntimeAction } from './shared/realProtocol';
@@ -36,7 +36,7 @@ export function activate(context: vscode.ExtensionContext) {
   const xmlSaves = new Map<string, ReturnType<typeof setTimeout>>();
   context.subscriptions.push(vscode.workspace.onDidChangeTextDocument(event => {
     const doc = event.document, project = projects.projectForUri(doc.uri);
-    if (!project || !doc.uri.fsPath.endsWith('.xml') || !doc.uri.fsPath.startsWith(path.join(project.root, 'src/main/zernova') + path.sep)) return;
+    if (!project || !doc.uri.fsPath.endsWith('.xml') || !isInside(path.join(project.root, 'src/main/zernova'), doc.uri.fsPath)) return;
     const key = doc.uri.toString(); clearTimeout(xmlSaves.get(key));
     xmlSaves.set(key, setTimeout(() => { xmlSaves.delete(key); if (!doc.isClosed && doc.isDirty) void doc.save(); }, 500));
   }), { dispose: () => { for (const timer of xmlSaves.values()) clearTimeout(timer); } });
