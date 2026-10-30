@@ -13,7 +13,7 @@ import { bundleInfo, verifyBundle, javaExecutable, cleanEnvironment, readJson, w
 import { packageApplication, validateArtifact, assertAppName } from './packager';
 
 interface AgentEndpoint { schemaVersion: 1; product: 'ZERNOVA Runtime Control'; port: number; pid: number; runId: string; stopping?: boolean; }
-interface RuntimeState { schema_version: 2; pid: number; run_id: string; console_log: string; runtime_ready: boolean; started_utc: string; config: { http_host: '127.0.0.1'; http_port: number; heap_mb: number }; }
+interface RuntimeState { schema_version: 2; pid: number; run_id: string; console_log: string; runtime_ready: boolean; deployment_attempted?: boolean; started_utc: string; config: { http_host: '127.0.0.1'; http_port: number; heap_mb: number }; }
 interface AppRecord { sha256: string; run_id: string; log_offset: number; deployed_utc: string; }
 export interface AppStatus { name: string; state: 'NOT_DEPLOYED' | 'STOPPED' | 'DEPLOYING' | 'DEPLOYED' | 'UNHEALTHY'; healthy: boolean; deployment: 'NOT_RUNNING' | 'PENDING' | 'DEPLOYED' | 'FAILED'; endpoint: 'NOT_CHECKED'; }
 export interface PortableStatus { schema_version: 2; product: 'ZERNOVA Runtime'; distribution_version: string; application_format_version: 1; kernel_version: string; upstream_baseline?: string; dataweave_version: string; build_mode: string; process: 'RUNNING' | 'STOPPED'; runtime: 'READY' | 'STARTING' | 'STOPPED'; pid?: number; run_id?: string; work_directory: string; healthy: boolean; applications: Record<string, AppStatus>; }
@@ -217,46 +217,47 @@ export class BundledRuntime {
     for (const sub of ['apps', 'logs', 'domains', 'domains/default', 'lib', 'lib/user']) { await fs.mkdir(path.join(this.runtime, sub), { recursive: true }); await ordinaryDirectory(path.join(this.runtime, sub)); }
   }
   async start(port: number, signal?: AbortSignal): Promise<PortableStatus> {
-    return this.mutate(async () => {
-      cancelled(signal);
-      if (await this.alive()) { const state = (await this.state())!; if (state.config.http_port !== port) throw new Error('Stop the project runtime before changing its port.'); return this.status(); }
-      await checkPort(port); const info = await bundleInfo(this.bundle); await this.ensureEngine(signal); const java = await javaExecutable(this.bundle, signal);
-      await fs.mkdir(this.control, { recursive: true, mode: 0o700 }); await ordinaryDirectory(this.control);
-      const runId = randomUUID(), token = randomBytes(32).toString('hex');
-      await fs.writeFile(path.join(this.control, 'auth.token'), token, { mode: 0o600 });
-      await fs.writeFile(path.join(this.control, 'run-id.txt'), runId, { mode: 0o600 });
-      await fs.rm(path.join(this.control, 'endpoint.json'), { force: true });
-      const logdir = path.join(this.instance, 'runs', runId); await fs.mkdir(logdir, { recursive: true, mode: 0o700 });
-      const logfile = path.join(logdir, 'console.log'), output = await fs.open(logfile, 'wx', 0o600);
-      await output.write(`ZERNOVA Runtime ${RUNTIME_VERSION} — bundled source-built development engine\nCopyright (c) 2003-2015 MuleSoft Inc.\nPowered by Mule. MuleSoft is Open for Integration. http://www.MuleSoft.com\n`);
-      const args = javaArguments(this.bundle, this.runtime, this.control, info.controlAgent, port);
-      await writeJson(path.join(logdir, 'launch.json'), { executable: java.executable, args, target: info.target, javaVersion: java.version, networkUsed: false });
-      let spawnError: Error | undefined;
-      const child = spawn(java.executable, args, { cwd: this.runtime, env: cleanEnvironment(), shell: false, detached: true, windowsHide: true, stdio: ['ignore', output.fd, output.fd] });
-      child.on('error', e => { spawnError = e; });
-      await new Promise<void>((resolve, reject) => { child.once('spawn', resolve); child.once('error', reject); }).finally(() => output.close());
-      if (!child.pid) throw new Error('The bundled runtime did not receive a process identity.');
-      children.set(this.instance, child); child.unref();
-      const state: RuntimeState = { schema_version: 2, pid: child.pid, run_id: runId, console_log: logfile, runtime_ready: false, started_utc: new Date().toISOString(), config: { http_host: '127.0.0.1', http_port: port, heap_mb: 768 } };
-      await writeJson(path.join(this.instance, 'state.json'), state);
-      this.output(`Starting bundled ZERNOVA Runtime on ${info.target}; console: ${logfile}\n`);
-      try {
-        const deadline = Date.now() + this.startupMs;
-        while (Date.now() < deadline) {
-          cancelled(signal);
-          if (spawnError || child.exitCode !== null || child.signalCode !== null) throw new Error(`Runtime exited during startup (${child.exitCode ?? child.signalCode ?? spawnError?.message}). Inspect ${logfile}\n${(await this.consoleText(state)).slice(-5000)}`);
-          const text = await this.consoleText(state);
-          if (text.includes('ZERNOVA Runtime is ready (deployment scan every ') && await this.controlRequest('STATUS')) {
-            state.runtime_ready = true; await writeJson(path.join(this.instance, 'state.json'), state); return this.status();
-          }
-          await wait(250, signal);
+    return this.mutate(() => this.startOwned(port, signal));
+  }
+  private async startOwned(port: number, signal?: AbortSignal): Promise<PortableStatus> {
+    cancelled(signal);
+    if (await this.alive()) { const state = (await this.state())!; if (state.config.http_port !== port) throw new Error('Stop the project runtime before changing its port.'); return this.status(); }
+    await checkPort(port); const info = await bundleInfo(this.bundle); await this.ensureEngine(signal); const java = await javaExecutable(this.bundle, signal);
+    await fs.mkdir(this.control, { recursive: true, mode: 0o700 }); await ordinaryDirectory(this.control);
+    const runId = randomUUID(), token = randomBytes(32).toString('hex');
+    await fs.writeFile(path.join(this.control, 'auth.token'), token, { mode: 0o600 });
+    await fs.writeFile(path.join(this.control, 'run-id.txt'), runId, { mode: 0o600 });
+    await fs.rm(path.join(this.control, 'endpoint.json'), { force: true });
+    const logdir = path.join(this.instance, 'runs', runId); await fs.mkdir(logdir, { recursive: true, mode: 0o700 });
+    const logfile = path.join(logdir, 'console.log'), output = await fs.open(logfile, 'wx', 0o600);
+    await output.write(`ZERNOVA Runtime ${RUNTIME_VERSION} — bundled source-built development engine\nCopyright (c) 2003-2015 MuleSoft Inc.\nPowered by Mule. MuleSoft is Open for Integration. http://www.MuleSoft.com\n`);
+    const args = javaArguments(this.bundle, this.runtime, this.control, info.controlAgent, port);
+    await writeJson(path.join(logdir, 'launch.json'), { executable: java.executable, args, target: info.target, javaVersion: java.version, networkUsed: false });
+    let spawnError: Error | undefined;
+    const child = spawn(java.executable, args, { cwd: this.runtime, env: cleanEnvironment(), shell: false, detached: true, windowsHide: true, stdio: ['ignore', output.fd, output.fd] });
+    child.on('error', e => { spawnError = e; });
+    await new Promise<void>((resolve, reject) => { child.once('spawn', resolve); child.once('error', reject); }).finally(() => output.close());
+    if (!child.pid) throw new Error('The bundled runtime did not receive a process identity.');
+    children.set(this.instance, child); child.unref();
+    const state: RuntimeState = { schema_version: 2, pid: child.pid, run_id: runId, console_log: logfile, runtime_ready: false, started_utc: new Date().toISOString(), config: { http_host: '127.0.0.1', http_port: port, heap_mb: 768 } };
+    await writeJson(path.join(this.instance, 'state.json'), state);
+    this.output(`Starting bundled ZERNOVA Runtime on ${info.target}; console: ${logfile}\n`);
+    try {
+      const deadline = Date.now() + this.startupMs;
+      while (Date.now() < deadline) {
+        cancelled(signal);
+        if (spawnError || child.exitCode !== null || child.signalCode !== null) throw new Error(`Runtime exited during startup (${child.exitCode ?? child.signalCode ?? spawnError?.message}). Inspect ${logfile}\n${(await this.consoleText(state)).slice(-5000)}`);
+        const text = await this.consoleText(state);
+        if (text.includes('ZERNOVA Runtime is ready (deployment scan every ') && await this.controlRequest('STATUS')) {
+          state.runtime_ready = true; await writeJson(path.join(this.instance, 'state.json'), state); return this.status();
         }
-        throw new Error(`Runtime startup timed out. Inspect ${logfile}`);
-      } catch (error) {
-        try { await this.stopOwned(); } catch (cleanup) { this.output('Startup cleanup requires attention: ' + String(cleanup) + '\n'); }
-        throw error;
+        await wait(250, signal);
       }
-    });
+      throw new Error(`Runtime startup timed out. Inspect ${logfile}`);
+    } catch (error) {
+      try { await this.stopOwned(); } catch (cleanup) { this.output('Startup cleanup requires attention: ' + String(cleanup) + '\n'); }
+      throw error;
+    }
   }
   private async foreignApplications(): Promise<string[]> {
     const names = new Set(Object.keys(await this.registry()));
@@ -274,18 +275,31 @@ export class BundledRuntime {
   async deploy(filename: string, name = this.application, signal?: AbortSignal): Promise<{ application: AppStatus; artifact_sha256: string }> {
     if (name !== this.application) throw new Error('A Studio runtime instance may deploy only its own project application.');
     return this.mutate(async () => {
-      cancelled(signal); const state = await this.state();
+      cancelled(signal); let state = await this.state();
       if (!state?.runtime_ready || !await this.alive()) throw new Error('Start the bundled runtime before deployment.');
       const foreign = await this.foreignApplications(); if (foreign.length) throw new Error('Unexpected applications in this private instance: ' + foreign.join(', '));
       const artifact = await validateArtifact(filename); if (artifact.name !== name) throw new Error('The artifact belongs to a different application.');
       const destination = path.join(this.runtime, 'apps', name + '.jar'), anchor = path.join(this.runtime, 'apps', name + '-anchor.txt'), appdir = path.join(this.runtime, 'apps', name);
       if (await exists(anchor) || await exists(destination) || await exists(appdir)) throw new Error('Undeploy the previous application before redeploying. No files were overwritten.');
+      // One app owns this JVM. A replacement gets fresh shared HTTP services:
+      // native Windows acceptance exposed handlers missing after live undeploy.
+      // Hold the same mutation lock across authenticated stop/start; never retry
+      // application requests or claim that a deployed banner proves HTTP health.
+      if (state.deployment_attempted) {
+        const port = state.config.http_port;
+        this.output('Restarting the private project runtime before replacement deployment.\n');
+        await this.stopOwned();
+        await this.startOwned(port, signal);
+        state = (await this.state())!;
+      }
       const tmp = path.join(this.instance, 'deploying-' + randomUUID() + '.tmp');
       try {
         await fs.copyFile(filename, tmp, fs.constants.COPYFILE_EXCL);
         if (await fileSha(tmp) !== artifact.sha256) throw new Error('Artifact changed during deployment copy.');
         cancelled(signal);
         const logOffset = (await fs.stat(state.console_log)).size;
+        state.deployment_attempted = true;
+        await writeJson(path.join(this.instance, 'state.json'), state);
         const registry = await this.registry(); registry[name] = { sha256: artifact.sha256, run_id: state.run_id, log_offset: logOffset, deployed_utc: new Date().toISOString() };
         await this.writeRegistry(registry); await fs.rename(tmp, destination);
         const deadline = Date.now() + this.deployMs;
