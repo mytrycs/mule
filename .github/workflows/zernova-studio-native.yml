@@ -45,6 +45,7 @@ jobs:
           printf '{"name":"zernova-runtime-native-verification","private":true,"version":"0.3.0"}\n' > package.json
           npm install --ignore-scripts --save-exact esbuild@0.28.2 jszip@3.10.1 sax@1.6.1
           node node_modules/esbuild/install.js
+          python prepare-vsix-layout-test.py
           node -e 'for(const name of ["runtime","packager"])require("esbuild").buildSync({entryPoints:["src/portable/"+name+".ts"],bundle:true,platform:"node",format:"cjs",target:"node20",outfile:"dist/portable-"+name+".cjs"})'
           python create-fixture.py
       - name: Prepare exact engine and native bundled Java
@@ -68,6 +69,7 @@ jobs:
           mkdir -p evidence
           node -e 'require("fs").writeFileSync("evidence/host.json",JSON.stringify({platform:process.platform,arch:process.arch,node:process.version,os:require("os").release(),runner:process.env.RUNNER_NAME},null,2))'
           if [ -f source-hash-check.json ]; then cp source-hash-check.json evidence/; fi
+          if [ -f vsix-layout-regression.json ]; then cp vsix-layout-regression.json evidence/; fi
           if [ -f runtime/bundle.json ]; then cp runtime/bundle.json evidence/bundle.json; fi
           if [ -f runtime/control/runtime-control.jar ]; then cp runtime/control/runtime-control.jar evidence/; fi
           cp RuntimeControlAgent.java evidence/
