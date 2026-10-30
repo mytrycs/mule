@@ -17,8 +17,9 @@ test('nested edits preserve enclosing XML, create unique descendant IDs and map 
  let xml=applyOperation(base(),{kind:'insert',flowId:'flow:test',component:'choice'}).text;
  const choice=parseIntegration(xml).flows[0].processors[0] as RealCore,branch=choice.children[0] as RealCore;
  const inserted=applyOperation(xml,{kind:'insert',flowId:'flow:test',component:'try',parentId:branch.id});xml=inserted.text;
+ xml=applyOperation(xml,{kind:'insert',flowId:'flow:test',component:'logger',parentId:inserted.selectionId}).text;
  const scope=processorTree(parseIntegration(xml).flows[0]).find(n=>n.id===inserted.selectionId) as RealCore;
- assert.equal(componentLocation(parseIntegration(xml),scope.children[0].id),'test/processors/0/route/0/processors/1/processors/0');
+ assert.equal(componentLocation(parseIntegration(xml),scope.children[0].id),'test/processors/0/route/0/processors/0/processors/0');
  xml=applyOperation(xml,{kind:'duplicateProcessor',id:scope.id}).text;
  const nodes=processorTree(parseIntegration(xml).flows[0]);assert.equal(new Set(nodes.map(n=>n.id)).size,nodes.length);
  assert.throws(()=>applyOperation(xml,{kind:'insert',flowId:'flow:test',component:'when'}),/matching scope/);
@@ -47,8 +48,19 @@ test('nested insertion stays inside its scope when the flow has an error handler
  xml=applyOperation(xml,{kind:'createErrorHandler',flowId:'flow:test'}).text;
  const scope=parseIntegration(xml).flows[0].processors[0] as RealCore;
  xml=applyOperation(xml,{kind:'insert',flowId:'flow:test',component:'logger',parentId:scope.id}).text;
- let flow=parseIntegration(xml).flows[0];assert.equal(flow.processors.length,1);assert.equal((flow.processors[0] as RealCore).children.length,2);assert.equal(flow.errorHandler?.processors.length,1);
+ let flow=parseIntegration(xml).flows[0];assert.equal(flow.processors.length,1);assert.equal((flow.processors[0] as RealCore).children.length,1);assert.equal(flow.errorHandler?.processors.length,1);
  xml=applyOperation(base(),{kind:'insert',flowId:'flow:test',component:'choice'}).text;let parent=parseIntegration(xml).flows[0].processors[0] as RealCore;
  xml=applyOperation(xml,{kind:'insert',flowId:'flow:test',component:'when',parentId:parent.id,index:2}).text;parent=parseIntegration(xml).flows[0].processors[0] as RealCore;assert.equal((parent.children.at(-1) as RealCore).coreType,'otherwise');
  assert.throws(()=>applyOperation(xml,{kind:'insert',flowId:'flow:test',component:'otherwise',parentId:parent.id}),/already has/);
+});
+
+test('processor scopes start empty and remain editable until users add real children',()=>{
+ for(const component of ['foreach','try','until-successful','cache','async']){
+  const result=applyOperation(base(),{kind:'insert',flowId:'flow:test',component});const model=parseIntegration(result.text),scope=model.flows[0].processors[0] as RealCore;assert.equal(scope.children.length,0);assert(scope.editable);assert(!result.text.includes('<logger'));assert(model.diagnostics.some(d=>d.code==='component-children'));
+  const filled=applyOperation(result.text,{kind:'insert',flowId:'flow:test',component:'logger',parentId:scope.id});assert.equal((parseIntegration(filled.text).flows[0].processors[0] as RealCore).children.length,1);
+ }
+});
+test('new flow and subflow append to the same XML without replacing earlier flows',()=>{
+ let xml=base();xml=applyOperation(xml,{kind:'insert',flowId:'flow:test',component:'logger'}).text;const original=xml.slice(xml.indexOf('<flow'),xml.indexOf('</flow>')+7);
+ xml=applyOperation(xml,{kind:'createFlow',name:'second'}).text;xml=applyOperation(xml,{kind:'createFlow',name:'helper',flowKind:'sub-flow'}).text;assert(xml.includes(original));assert.deepEqual(parseIntegration(xml).flows.map(f=>[f.name,f.kind]),[['test','flow'],['second','flow'],['helper','sub-flow']]);
 });

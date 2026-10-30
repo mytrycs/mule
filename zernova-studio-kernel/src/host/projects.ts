@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { studioForm } from './forms';
+import { studioForm,type StudioForm } from './forms';
 import { defaultRunConfiguration, parseRunFields, type RunConfiguration } from '../../../zernova-studio-build/src/portable/run-config';
 import * as fs from 'node:fs/promises';
 import path from 'node:path';
@@ -12,6 +12,7 @@ export interface Project { root: string; name: string; groupId: string; artifact
 export interface RuntimeSettings { schemaVersion: 2; runtimeHome: string; instanceDirectory: string; offline: true; }
 const PROJECTS_KEY = 'zernovaKernelStudio.projects.v1';
 const SETTINGS_KEY = 'zernovaKernelStudio.runtimeProfiles.v1';
+const CLOSED_KEY='zernovaKernelStudio.closedProjects.v1';
 const SELECTED_KEY = 'zernovaKernelStudio.selectedProject.v1';
 const artifactPattern = /^[A-Za-z][A-Za-z0-9_.-]{0,79}$/;
 const groupPattern = /^[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)+$/;
@@ -81,7 +82,8 @@ export class ProjectManager implements vscode.Disposable {
   async initialize(): Promise<void> {
     const paths = new Set<string>(this.context.globalState.get<string[]>(PROJECTS_KEY, []));
     for (const folder of vscode.workspace.workspaceFolders ?? []) if (folder.uri.scheme === 'file') paths.add(folder.uri.fsPath);
-    for (const candidate of paths) { try { await this.load(candidate, false); } catch { /* Non-project and unavailable previous paths stay out of navigation. */ } }
+    const closed=new Set(this.context.globalState.get<string[]>(CLOSED_KEY,[]));
+    for (const candidate of paths) { if(closed.has(candidate))continue;try { await this.load(candidate, false); } catch { /* Non-project and unavailable previous paths stay out of navigation. */ } }
     if (!this.current()) this.selected = this.list()[0]?.root;
     this.changed.fire();
   }
@@ -94,9 +96,10 @@ export class ProjectManager implements vscode.Disposable {
     const project = { root, name: path.basename(root), ...coords };
     this.projects.set(root, project);
     if (!this.watchers.has(root)) {
-      const watcher = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(vscode.Uri.file(root), 'src/main/zernova/*.xml'));
-      watcher.onDidCreate(() => this.changed.fire()); watcher.onDidDelete(() => this.changed.fire()); this.watchers.set(root, watcher);
+      const watcher = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(vscode.Uri.file(root), '**/*'));
+      const refresh=(uri:vscode.Uri)=>{const relative=path.relative(root,uri.fsPath).split(path.sep).join('/');if(!relative.split('/').some(p=>p==='.git'||p==='node_modules')&&(!relative.startsWith('target/')||relative.endsWith('.zapp')))this.changed.fire();};watcher.onDidCreate(refresh);watcher.onDidDelete(refresh);watcher.onDidChange(refresh); this.watchers.set(root, watcher);
     }
+    if(select)await this.context.globalState.update(CLOSED_KEY,this.context.globalState.get<string[]>(CLOSED_KEY,[]).filter(p=>p!==root));
     if (select) { this.selected = root; await this.context.workspaceState.update(SELECTED_KEY, root); }
     await this.context.globalState.update(PROJECTS_KEY, this.list().map(p => p.root)); this.changed.fire();
     return project;
@@ -182,15 +185,16 @@ export class ProjectManager implements vscode.Disposable {
       return this.load(root);
     }, 'Create an integration project using bundled ZERNOVA Runtime and Java. Drag this title bar to move the wizard.');
   }
-  async newIntegration(project: Project): Promise<vscode.Uri | undefined> {
-    return studioForm('New Integration XML', [{ key: 'filename', label: 'XML filename', value: 'hello.xml' }], async ({ filename }) => {
+  async newIntegration(project: Project,form:StudioForm=studioForm): Promise<vscode.Uri | undefined> {
+    return form('New Integration XML', [{ key: 'filename', label: 'XML filename', value: 'hello.xml' }], async ({ filename }) => {
       if (!/^[A-Za-z][A-Za-z0-9_.-]{0,100}\.xml$/.test(filename) || filename.includes('..')) throw new Error('Use an XML filename such as hello.xml without directories.');
       const directory = await fs.realpath(path.join(project.root, 'src/main/zernova'));
       if (!isInside(project.root, directory)) throw new Error('Source directory resolves outside the project.');
       const uri = vscode.Uri.file(path.join(directory, filename));
-      await fs.writeFile(uri.fsPath, NEW_INTEGRATION_XML, { flag: 'wx' }); this.changed.fire(); return uri;
+      await fs.writeFile(uri.fsPath, NEW_INTEGRATION_XML.replace('  <configuration-properties file="application.properties"/>\n',''), { flag: 'wx' }); this.changed.fire(); return uri;
     });
   }
+  async remove(project:Project):Promise<void>{await this.context.globalState.update(CLOSED_KEY,[...new Set([...this.context.globalState.get<string[]>(CLOSED_KEY,[]),project.root])]);this.projects.delete(project.root);this.watchers.get(project.root)?.dispose();this.watchers.delete(project.root);if(this.selected===project.root)this.selected=this.list()[0]?.root;await this.context.globalState.update(PROJECTS_KEY,this.list().map(p=>p.root));await this.context.workspaceState.update(SELECTED_KEY,this.selected);this.changed.fire();}
   refresh(): void { this.changed.fire(); }
 }
 
@@ -224,7 +228,7 @@ export function projectFiles(p: Project): Record<string, string> {
 </Configuration>
 `,
     '.gitignore': 'target/\n*.log\n.DS_Store\n',
-    'README.md': `# ${p.name}\n\nCreated by ZERNOVA Studio 0.5.0 with bundled Runtime 0.4.1-alpha.1 (4.10 source baseline, Java 17).\n\nCreate Integration XML, create a flow and add an HTTP Listener and Logger. Save and click Run. The offline builder supports core/XML/resources and the bundled HTTP profile; it rejects custom Java and additional dependencies. Runtime state stays outside the project.\n`,
+    'README.md': `# ${p.name}\n\nCreated by ZERNOVA Studio 0.6.0 with bundled Runtime 0.4.1-alpha.1 (4.10 source baseline, Java 17).\n\nCreate Integration XML, create a flow and add an HTTP Listener and Logger. Save and click Run. The offline builder supports core/XML/resources and the bundled HTTP profile; it rejects custom Java and additional dependencies. Runtime state stays outside the project.\n`,
   };
 }
 

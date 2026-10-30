@@ -1,3 +1,6 @@
+import {randomUUID} from 'node:crypto';
+import {studioForm,type StudioForm,type FormField} from './forms';
+import type {StudioFormView} from '../shared/studioForms';
 import * as vscode from 'vscode';
 import { saveAutomatically } from './saves';
 import { applyOperation, findConfigurationReferences, parseIntegration, XmlEditError, type XmlOperation } from '../shared/xml';
@@ -14,7 +17,7 @@ export interface IntegrationEditorOptions {
   runtimeState?: (uri: vscode.Uri) => unknown;
   runtimeAction?: (action: RuntimeAction, uri: vscode.Uri) => Promise<void>;
 }
-interface OpenEditor { document: vscode.TextDocument; panel: vscode.WebviewPanel; selectionId?: string; expectedChange?: { requestId: string; text: string }; queue: Promise<void>; disposed: boolean }
+interface OpenEditor { document: vscode.TextDocument; panel: vscode.WebviewPanel; selectionId?: string; expectedChange?: { requestId: string; text: string }; queue: Promise<void>; disposed: boolean; form?: {view:StudioFormView; submit:(values:Record<string,string>)=>Promise<unknown>; finish:(value?:unknown)=>void} }
 
 /** A CustomTextEditor owns no secondary file state: TextDocument is authoritative. */
 export class IntegrationEditorProvider implements vscode.CustomTextEditorProvider, vscode.Disposable {
@@ -39,8 +42,17 @@ export class IntegrationEditorProvider implements vscode.CustomTextEditorProvide
     return ({ [vscode.ColorThemeKind.Light]: 'light', [vscode.ColorThemeKind.Dark]: 'dark', [vscode.ColorThemeKind.HighContrast]: 'highContrast', [vscode.ColorThemeKind.HighContrastLight]: 'highContrastLight' })[vscode.window.activeColorTheme.kind];
   }
   activeDocumentUri(): vscode.Uri | undefined { return this.activeUri; }
-  async open(uri: vscode.Uri): Promise<void> { await vscode.commands.executeCommand('vscode.openWith', uri, REAL_EDITOR_TYPE); }
-  getDiagnostics(): { documents: string[]; rejectedMessages: number } { return { documents: [...this.editors.keys()], rejectedMessages: this.rejectedMessages }; }
+  async open(uri: vscode.Uri): Promise<void> { await vscode.commands.executeCommand('vscode.openWith', uri, REAL_EDITOR_TYPE,{preview:false,viewColumn:vscode.ViewColumn.Active}); }
+  formForProject(root:vscode.Uri):StudioForm{
+    return async <T>(title:string,fields:FormField[],submit:(values:Record<string,string>)=>Promise<T>,help=''):Promise<T|undefined>=>{
+      const matches=(e:OpenEditor)=>!e.disposed&&this.options.projectRoot?.(e.document.uri)?.toString()===root.toString();
+      const active=this.activeUri?this.editors.get(this.activeUri.toString()):undefined;const editor=active&&matches(active)?active:[...this.editors.values()].find(matches);
+      if(!editor)return studioForm(title,fields,submit,help);
+      if(editor.form)throw new Error('Finish the current Studio dialog first.');editor.panel.reveal(editor.panel.viewColumn);
+      return new Promise<T|undefined>(resolve=>{editor.form={view:{id:randomUUID(),title,fields,help},submit,finish:value=>resolve(value as T|undefined)};void editor.panel.webview.postMessage({type:'realForm',form:editor.form.view});});
+    };
+  }
+  getDiagnostics():{documents:string[];rejectedMessages:number;forms:{uri:string;title:string;busy:boolean}[]}{return {documents:[...this.editors.keys()],rejectedMessages:this.rejectedMessages,forms:[...this.editors.values()].filter(e=>e.form).map(e=>({uri:e.document.uri.toString(),title:e.form!.view.title,busy:!!e.form!.view.busy}))};}
 
   private snapshot(editor: OpenEditor): RealDocumentSnapshot {
     const document = editor.document, text = document.getText();
@@ -84,6 +96,14 @@ export class IntegrationEditorProvider implements vscode.CustomTextEditorProvide
           const requestId = rejected && (rejected.type === 'realEdit' || rejected.type === 'realXml') && typeof rejected.requestId === 'string' && /^[A-Za-z0-9_-]{1,100}$/.test(rejected.requestId) ? rejected.requestId : undefined;
           void panel.webview.postMessage({ type: 'realError', message: 'Unsupported or oversized editor request was rejected.', ...(requestId ? { requestId } : {}) }); return;
         }
+        if(message.type==='realFormCancel'||message.type==='realFormSubmit'){
+          const form=editor.form;if(!form||form.view.id!==message.id||form.view.busy)return;
+          const close=(value?:unknown)=>{if(editor.form===form){editor.form=undefined;void panel.webview.postMessage({type:'realForm',form:null});}form.finish(value);};
+          if(message.type==='realFormCancel'){close();return;}
+          if(Object.keys(message.values).length!==form.view.fields.length||!form.view.fields.every(f=>typeof message.values[f.key]==='string'&&message.values[f.key].length<=(f.maxLength??16000))){void panel.webview.postMessage({type:'realForm',form:{...form.view,error:'Invalid or oversized form input.'}});return;}
+          form.view={...form.view,fields:form.view.fields.map(f=>({...f,value:message.values[f.key]})),busy:true,error:''};void panel.webview.postMessage({type:'realForm',form:form.view});
+          void form.submit(message.values).then(close).catch(error=>{form.view={...form.view,busy:false,error:error instanceof Error?error.message:String(error)};if(!editor.disposed)void panel.webview.postMessage({type:'realForm',form:form.view});});return;
+        }
         if(message.type==='realResource'){void editor.queue.then(()=>this.options.resourceAction?.(document.uri,message.action,message.id,message.target)).then(()=>this.postDocument(editor)).catch(error=>panel.webview.postMessage({type:'realError',message:String(error)}));return;}
         if (message.type === 'realBreakpoint') { void this.options.breakpoint?.(document.uri,message.id).catch(error => panel.webview.postMessage({type:'realError',message:String(error)})); return; }
         // Cancellation must not wait behind the long-running build/run it cancels.
@@ -104,7 +124,7 @@ export class IntegrationEditorProvider implements vscode.CustomTextEditorProvide
         editor.queue = editor.queue.then(async () => {
           if (editor.disposed) return;
           try {
-            if (message.type === 'ready') { await this.postDocument(editor); await this.refreshRuntime(document.uri); return; }
+            if (message.type === 'ready') { if(editor.form)await panel.webview.postMessage({type:'realForm',form:editor.form.view});await this.postDocument(editor); await this.refreshRuntime(document.uri); return; }
             if (message.type === 'realAction') {
               if (message.action === 'save') { if (this.options.manualSave) await this.options.manualSave(document); else if (!await saveAutomatically(document)) throw new Error('The document could not be saved. Check permissions and try again.'); await this.postDocument(editor); }
               else if (message.action === 'undo' || message.action === 'redo') {
@@ -149,7 +169,7 @@ export class IntegrationEditorProvider implements vscode.CustomTextEditorProvide
         }).catch(error => { void panel.webview.postMessage({ type: 'realError', message: 'Editor request failed: ' + String(error) }); });
       }),
       panel.onDidDispose(() => {
-        editor.disposed = true; this.editors.delete(key);
+        editor.disposed = true;editor.form?.finish();editor.form=undefined; this.editors.delete(key);
         if (this.activeUri?.toString() === key) { this.activeUri = undefined; this.activeEmitter.fire(undefined); }
         for (const disposable of subscriptions) disposable.dispose();
       }),

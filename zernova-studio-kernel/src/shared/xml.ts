@@ -307,14 +307,14 @@ function catalogMarkup(key:string,node:Element,id:string):string{
  const definition=coreDefinition(key);if(!definition)throw new XmlEditError('Unknown core component.');
  const name=qname(node,definition.namespace==='core'?CORE_NS:TRANSFORM_NS,definition.local),docName=qname(node,DOC_NS,'name'),docId=qname(node,DOC_NS,'id');
  const attrs=definition.fields.filter(f=>f.initial!=='').map(f=>` ${f.key}="${escapedAttribute(f.initial)}"`).join('');
- const logger=()=>`<${qname(node,CORE_NS,'logger')} ${docName}="Logger" ${docId}="${newId()}" level="INFO" message="Processing ${escapedAttribute(definition.name)}"/>`;
  let body='';
  if(definition.children==='choice')body=catalogMarkup('when',node,newId())+catalogMarkup('otherwise',node,newId());
  else if(definition.children==='routes')body=catalogMarkup('route',node,newId())+catalogMarkup('route',node,newId());
  else if(definition.children==='handlers')body=catalogMarkup('on-error-propagate',node,newId());
  else if(definition.children==='batch')body=catalogMarkup('batch-step',node,newId());
- else if(definition.children)body=logger()+(['first-successful','round-robin'].includes(key)?logger():'');
- return `<${name} ${docName}="${escapedAttribute(definition.name)}" ${docId}="${id}"${attrs}${body?'>'+body+'</'+name+'>':'/>'}`;
+ // Processor scopes and routes start empty; users place actual processors.
+
+ return `<${name} ${docName}="${escapedAttribute(definition.name)}" ${docId}="${id}"${attrs}${definition.children?'>'+body+'</'+name+'>':'/>'}`;
 }
 
 export function parseIntegration(text: string): IntegrationModel { return parseInternal(text).model; }

@@ -1,3 +1,4 @@
+import {parseDependencies,isBundledHttp} from '../shared/projectArtifacts';
 import net from 'node:net';
 import { deploymentBanner, stageLine, deploymentConsole } from '../shared/deploymentLog';
 import { RUNTIME_VERSION } from '../../../zernova-studio-build/src/portable/bundle';
@@ -65,6 +66,7 @@ export class RuntimeManager implements vscode.Disposable {
     if (this.state(project).lastError !== text) this.append(project, 'buildOutput', `\n[${new Date().toISOString()}] ERROR: ${text}\n`);
     this.update(project, { lastError: text, ...(!this.operations.has(project.root) ? {phase:'Failed'} : {}) });
   }
+  buildCleaned(project:Project):void{this.update(project,{artifact:undefined,artifactSha256:undefined,phase:this.state(project).application==='DEPLOYED'?'Deployed · build output cleaned':'Build output cleaned'});}
   async manualSaved(project: Project, uri: vscode.Uri): Promise<void> {
     const relative = path.relative(project.root, uri.fsPath).split(path.sep).join('/');
     if (!(relative.startsWith('src/') || ['pom.xml', 'zernova-app.json', 'zernova-artifact.json'].includes(relative)) || !this.projects.getRunConfiguration(project).redeployOnSave) return;
@@ -133,14 +135,8 @@ export class RuntimeManager implements vscode.Disposable {
     this.update(project, { process: status.process, application: app?.state ?? 'NOT_DEPLOYED', endpoint: 'UNVERIFIED' });
   }
   private async metadata(project: Project): Promise<void> {
-    // Refuse unsupported Maven dependencies rather than silently omitting them.
-    const parser = saxParser(true, { xmlns: true }); const stack: string[] = []; const deps: Record<string, string>[] = []; let dep: Record<string, string> | undefined;
-    parser.ondoctype = () => { throw new Error('POM DOCTYPE is not supported.'); };
-    parser.onopentag = tag => { stack.push(tag.local); if (stack.join('/') === 'project/dependencies/dependency') dep = {}; };
-    parser.ontext = text => { if (dep && stack.length === 4) dep[stack[3]] = (dep[stack[3]] ?? '') + text; };
-    parser.onclosetag = () => { if (stack.join('/') === 'project/dependencies/dependency' && dep) { deps.push(dep); dep = undefined; } stack.pop(); };
-    parser.write(await fs.readFile(path.join(project.root, 'pom.xml'), 'utf8')).close();
-    if (deps.some(d => !['com.zernova.connectors'].includes(d.groupId?.trim()) || d.artifactId?.trim() !== 'zernova-http-connector' || d.version?.trim() !== '1.12.2' || d.classifier?.trim() !== 'zernova-plugin')) throw new Error('The bundled offline builder supports core and HTTP 1.12.2 only. Additional dependencies are not silently ignored.');
+    const deps=parseDependencies(await fs.readFile(path.join(project.root,'pom.xml'),'utf8')).dependencies;
+    if(deps.some(d=>!isBundledHttp(d)))throw new Error('The bundled offline builder supports core and HTTP 1.12.2 only (compile/runtime scope, JAR, zernova-plugin classifier). Additional dependencies are not silently ignored.');
     const metadata = { schemaVersion: 1, name: project.artifactId, group: project.groupId, version: project.version, dependencies: deps.length ? ['http'] : [] };
     const file = path.join(project.root, 'zernova-app.json');
     const existing = await fs.readFile(file, 'utf8').catch(e => { if (e.code === 'ENOENT') return undefined; throw e; });

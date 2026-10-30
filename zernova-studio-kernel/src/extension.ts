@@ -1,3 +1,5 @@
+import {ProjectActions,PROJECT_ACTIONS} from './host/projectActions';
+import {DependencyManager} from './host/dependencies';
 import { ResourceManager } from './host/resources';
 import * as vscode from 'vscode';
 import { saveAutomatically, isAutomaticSave } from './host/saves';
@@ -54,6 +56,9 @@ export function activate(context: vscode.ExtensionContext) {
     const project = projects.projectForUri(doc.uri);
     if (explicit && !isAutomaticSave(doc.uri) && project) void runtime.manualSaved(project, doc.uri);
   }));
+  let resourceIndex=0;let indexTimer:ReturnType<typeof setTimeout>|undefined;
+  const indexProjectResources=()=>{clearTimeout(indexTimer);const generation=++resourceIndex;indexTimer=setTimeout(()=>{void(async()=>{const paths:string[]=[];const visit=async(dir:string)=>{if(paths.length>=10000)return;const uri=vscode.Uri.file(dir);paths.push(uri.fsPath,uri.path);for(const e of await fs.readdir(dir,{withFileTypes:true})){if(['.git','node_modules','target','.DS_Store'].includes(e.name)||e.isSymbolicLink())continue;const file=path.join(dir,e.name);if(e.isDirectory())await visit(file);else{const uri=vscode.Uri.file(file);paths.push(uri.fsPath,uri.path);}}};for(const p of projects.list())await visit(p.root);if(generation===resourceIndex)await vscode.commands.executeCommand('setContext','zernovaKernelStudio.projectResources',[...new Set(paths)]);})().catch(()=>{});},150);};
+  context.subscriptions.push(projects.onDidChange(indexProjectResources),{dispose:()=>clearTimeout(indexTimer)});
   const initialized = projects.initialize().then(async () => { for (const project of projects.list()) await runtime.reconcile(project); });
   let state = sanitizeState(context.workspaceState.get<unknown>(PREVIEW_STATE_KEY));
   let ready = false;
@@ -129,7 +134,8 @@ export function activate(context: vscode.ExtensionContext) {
     await vscode.commands.executeCommand('workbench.view.extension.zernovaKernelStudio');
   }
 
-  registerNavigation(context, projects, runtime);
+  const dependencies=new DependencyManager(context,projects);
+  registerNavigation(context, projects, runtime,dependencies);
   const explicitUri = (candidate?: unknown): vscode.Uri | undefined => candidate instanceof vscode.Uri ? candidate
     : candidate && typeof candidate === 'object' && 'uri' in candidate && (candidate as { uri: unknown }).uri instanceof vscode.Uri ? (candidate as { uri: vscode.Uri }).uri
     : undefined;
@@ -138,7 +144,9 @@ export function activate(context: vscode.ExtensionContext) {
     try { await initialized; return await callback(...args); }
     catch (error) { void vscode.window.showErrorMessage('ZERNOVA: ' + (error instanceof Error ? error.message : String(error))); return undefined; }
   };
+  const projectActions=new ProjectActions(projects,runtime,dependencies,project=>documents.formForProject(vscode.Uri.file(project.root)));
   context.subscriptions.push(
+    ...PROJECT_ACTIONS.map(action=>vscode.commands.registerCommand('zernovaKernelStudio.'+action,guarded(candidate=>projectActions.execute(action,candidate)))),
     vscode.commands.registerCommand('zernovaKernelStudio.manualSave', guarded(async candidate => {
       const uri = commandUri(candidate); if (!uri) return;
       const doc = await vscode.workspace.openTextDocument(uri);
@@ -151,7 +159,8 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand('zernovaKernelStudio.selectProject', guarded(async candidate => { const uri = explicitUri(candidate); const project = await projects.select(uri, !uri); if (project) { projects.refresh(); await runtime.reconcile(project); } })),
     vscode.commands.registerCommand('zernovaKernelStudio.newIntegration', guarded(async candidate => {
       const project = await projects.select(explicitUri(candidate) ?? (projects.current() ? vscode.Uri.file(projects.current()!.root) : commandUri())); if (!project) return;
-      const uri = await projects.newIntegration(project); if (uri) await documents.open(uri); return uri?.toString();
+      if(!documents.activeDocumentUri()){const existing=(await fs.readdir(path.join(project.root,'src/main/zernova'))).find(n=>n.endsWith('.xml'));if(existing)await documents.open(vscode.Uri.file(path.join(project.root,'src/main/zernova',existing)));}
+      const uri = await projects.newIntegration(project,documents.formForProject(vscode.Uri.file(project.root))); if (uri) await documents.open(uri); return uri?.toString();
     })),
     vscode.commands.registerCommand('zernovaKernelStudio.openIntegration', guarded(async candidate => {
       let uri = commandUri(candidate);
@@ -166,7 +175,7 @@ export function activate(context: vscode.ExtensionContext) {
     })),
     vscode.commands.registerCommand('zernovaKernelStudio.toggleComponentBreakpoint', guarded(async (uri,id) => { if(!(uri instanceof vscode.Uri)||typeof id!=='string')throw new Error('Use a Studio component and its ID.'); const project=projects.projectForUri(uri);if(!project)throw new Error('Open a ZERNOVA project.');await runtime.toggleBreakpoint(project,uri,id); })),
     ...RUNTIME_ACTIONS.map(action => vscode.commands.registerCommand('zernovaKernelStudio.' + action, guarded(async candidate => {
-      const project = await projects.select(commandUri(candidate)); if (project) { try { return await runtime.execute(action as RuntimeAction, project); } catch (error) { runtime.reportError(project, error); return runtime.state(project); } }
+      const uri=commandUri(candidate);if(explicitUri(candidate)&&uri&&!projects.projectForUri(uri))throw new Error('Select a resource in an opened ZERNOVA project.');const project = await projects.select(uri); if (project) { try { return await runtime.execute(action as RuntimeAction, project); } catch (error) { runtime.reportError(project, error); return runtime.state(project); } }
     }))),
   );
   context.subscriptions.push(
@@ -206,6 +215,7 @@ export function activate(context: vscode.ExtensionContext) {
     whenStateSaved: () => stateWrites,
     whenInitialized: () => initialized,
     getProjectDiagnostics: () => ({ projects: projects.list().map(p => ({ ...p, configured: !!projects.getSettings(p) })), selected: projects.current()?.root, documents: documents.getDiagnostics() }),
+    getArtifactDiagnostics:async(candidate?:vscode.Uri)=>{const project=candidate?projects.projectForUri(candidate):projects.current();if(!project)throw new Error('Open a ZERNOVA project.');return {dependencies:await dependencies.projectArtifacts(project),runtime:await dependencies.runtimeArtifacts(project)};},
     getRuntimeDiagnostics: () => projects.list().map(p => runtime.state(p)),
   });
 }

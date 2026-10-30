@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zernova xmlns="https://schemas.zernova.dev/core" xmlns:http="https://schemas.zernova.dev/http" xmlns:zt="https://schemas.zernova.dev/transform" xmlns:doc="https://schemas.zernova.dev/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://schemas.zernova.dev/core https://schemas.zernova.dev/core/current/zernova.xsd https://schemas.zernova.dev/http https://schemas.zernova.dev/http/current/zernova-http.xsd https://schemas.zernova.dev/transform https://schemas.zernova.dev/transform/current/transform.xsd">
+<global-property name="zernova.env" value="development"/>
+<configuration-properties file="config/application-${zernova.env}.properties"/>
+<http:listener-config name="All_Core_HTTP"><http:listener-connection host="${http.host}" port="${http.port}"/></http:listener-config>
+<flow name="hello"><http:listener doc:id="all-core-3" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/hello" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><zt:message doc:id="all-core-1" doc:name="Transform Message" payloadResource="dwl/hello.dwl" attributesResource="dwl/attributes.dwl" variablesResource="dwl/variables.dwl" mimeType="application/json"/><logger doc:id="all-core-2" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="#['ALL_CORE_HELLO ' ++ (attributes.queryParams.testId default 'manual')]"/></flow>
+
+<flow name="variables"><http:listener doc:id="all-core-9" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/variables" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><set-variable doc:id="all-core-4" doc:name="Set Variable" variableName="kept" value="yes"/><set-variable doc:id="all-core-5" doc:name="Set Variable" variableName="removed" value="no"/><remove-variable doc:id="all-core-6" doc:name="Remove Variable" variableName="removed"/><set-payload doc:id="all-core-7" doc:name="Set Payload" value="done"/><logger doc:id="all-core-8" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_VARIABLES"/></flow>
+
+<flow name="reference"><http:listener doc:id="all-core-12" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/reference" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><flow-ref doc:id="all-core-10" doc:name="Flow Reference" name="allCoreHelper"/><logger doc:id="all-core-11" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_FLOW_REFERENCE"/></flow>
+
+<sub-flow name="allCoreHelper"><set-payload doc:id="all-core-13" doc:name="Set Payload" value="from-subflow"/><logger doc:id="all-core-14" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_SUBFLOW"/></sub-flow>
+
+<flow name="template"><http:listener doc:id="all-core-18" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/template" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><set-variable doc:id="all-core-15" doc:name="Set Variable" variableName="person" value="#[p('example.name')]"/><parse-template doc:id="all-core-16" doc:name="Parse Template" location="templates/message.txt"/><logger doc:id="all-core-17" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_TEMPLATE"/></flow>
+
+<flow name="choice"><http:listener doc:id="all-core-25" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/choice" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><choice doc:id="all-core-23" doc:name="Choice"><when doc:id="all-core-20" doc:name="When" expression="#[attributes.queryParams.pick == 'a']"><set-payload doc:id="all-core-19" doc:name="Set Payload" value="A"/></when><otherwise doc:id="all-core-22" doc:name="Otherwise"><set-payload doc:id="all-core-21" doc:name="Set Payload" value="B"/></otherwise></choice><logger doc:id="all-core-24" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_CHOICE"/></flow>
+
+<flow name="first"><http:listener doc:id="all-core-32" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/first" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><first-successful doc:id="all-core-30" doc:name="First Successful"><route doc:id="all-core-27" doc:name="Route"><raise-error doc:id="all-core-26" doc:name="Raise Error" type="APP:FIRST" description="Expected first-route rejection"/></route><route doc:id="all-core-29" doc:name="Route"><set-payload doc:id="all-core-28" doc:name="Set Payload" value="recovered"/></route></first-successful><logger doc:id="all-core-31" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_FIRST_SUCCESSFUL"/></flow>
+
+<flow name="round"><http:listener doc:id="all-core-39" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/round" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><round-robin doc:id="all-core-37" doc:name="Round Robin"><route doc:id="all-core-34" doc:name="Route"><set-payload doc:id="all-core-33" doc:name="Set Payload" value="one"/></route><route doc:id="all-core-36" doc:name="Route"><set-payload doc:id="all-core-35" doc:name="Set Payload" value="two"/></route></round-robin><logger doc:id="all-core-38" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_ROUND_ROBIN"/></flow>
+
+<flow name="scatter"><http:listener doc:id="all-core-46" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/scatter" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><scatter-gather doc:id="all-core-44" doc:name="Scatter-Gather"><route doc:id="all-core-41" doc:name="Route"><set-payload doc:id="all-core-40" doc:name="Set Payload" value="left"/></route><route doc:id="all-core-43" doc:name="Route"><set-payload doc:id="all-core-42" doc:name="Set Payload" value="right"/></route></scatter-gather><logger doc:id="all-core-45" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_SCATTER_GATHER"/></flow>
+
+<flow name="foreach"><http:listener doc:id="all-core-52" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/foreach" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><set-variable doc:id="all-core-47" doc:name="Set Variable" variableName="sum" value="#[0]"/><foreach doc:id="all-core-50" doc:name="For Each" collection="#[[1,2,3]]"><set-variable doc:id="all-core-48" doc:name="Set Variable" variableName="sum" value="#[vars.sum + payload]"/><logger doc:id="all-core-49" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_FOREACH_RECORD #[payload]"/></foreach><set-payload doc:id="all-core-51" doc:name="Set Payload" value="#[vars.sum]"/></flow>
+
+<flow name="tryscope"><http:listener doc:id="all-core-59" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/tryscope" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><try doc:id="all-core-58" doc:name="Try"><raise-error doc:id="all-core-53" doc:name="Raise Error" type="APP:TRY" description="Expected local Try failure"/><error-handler doc:id="all-core-57" doc:name="Error Handler"><on-error-continue doc:id="all-core-56" doc:name="On Error Continue" type="APP:TRY" logException="false"><set-payload doc:id="all-core-54" doc:name="Set Payload" value="handled"/><logger doc:id="all-core-55" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_TRY_HANDLED"/></on-error-continue></error-handler></try></flow>
+
+<flow name="retry"><http:listener doc:id="all-core-64" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/retry" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><until-successful doc:id="all-core-62" doc:name="Until Successful" maxRetries="50" millisBetweenRetries="100"><logger doc:id="all-core-60" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_RETRY_ATTEMPT"/><set-payload doc:id="all-core-61" doc:name="Set Payload" value="#[readUrl(p('allcore.retry.url'), 'text/plain')]"/></until-successful><logger doc:id="all-core-63" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_RETRY_COMPLETED"/></flow>
+
+<flow name="asyncscope"><http:listener doc:id="all-core-70" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/asyncscope" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><set-payload doc:id="all-core-65" doc:name="Set Payload" value="main"/><async doc:id="all-core-68" doc:name="Async"><set-payload doc:id="all-core-66" doc:name="Set Payload" value="async-only"/><logger doc:id="all-core-67" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_ASYNC_COMPLETED"/></async><logger doc:id="all-core-69" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_ASYNC_MAIN"/></flow>
+
+<flow name="cachetest"><http:listener doc:id="all-core-74" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/cachetest" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><zt:cache doc:id="all-core-72" doc:name="Cache" key="#[attributes.queryParams.key default 'default']" ttlMillis="60000" maxEntries="2"><set-payload doc:id="all-core-71" doc:name="Set Payload" value="#[uuid()]"/></zt:cache><logger doc:id="all-core-73" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_CACHE"/></flow>
+
+<flow name="cachettl"><http:listener doc:id="all-core-78" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/cachettl" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><zt:cache doc:id="all-core-76" doc:name="Cache" key="#['ttl']" ttlMillis="1000" maxEntries="2"><set-payload doc:id="all-core-75" doc:name="Set Payload" value="#[uuid()]"/></zt:cache><logger doc:id="all-core-77" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_CACHE_TTL"/></flow>
+
+<flow name="dynamic"><http:listener doc:id="all-core-82" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/dynamic" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><set-variable doc:id="all-core-79" doc:name="Set Variable" variableName="script" value="%dw 2.0
+output application/json
+---
+{dynamic:upper(&quot;hello&quot;),environment:p(&quot;zernova.env&quot;)}"/><zt:evaluate doc:id="all-core-80" doc:name="Dynamic Evaluate" expression="#[vars.script]"/><logger doc:id="all-core-81" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_DYNAMIC"/></flow>
+
+<flow name="business"><http:listener doc:id="all-core-85" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/business" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><zt:business-event doc:id="all-core-83" doc:name="Custom Business Event" name="all.core.accepted" data="#[{suite:'all-core',testId:attributes.queryParams.testId default 'manual'}]"/><set-payload doc:id="all-core-84" doc:name="Set Payload" value="business-event-written"/></flow>
+
+<flow name="continued"><http:listener doc:id="all-core-91" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/continued" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><raise-error doc:id="all-core-86" doc:name="Raise Error" type="APP:CONTINUE" description="Expected handled flow error"/><error-handler doc:id="all-core-90" doc:name="Error Handler"><on-error-continue doc:id="all-core-89" doc:name="On Error Continue" type="APP:CONTINUE" logException="false"><set-payload doc:id="all-core-87" doc:name="Set Payload" value="continued"/><logger doc:id="all-core-88" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_ON_ERROR_CONTINUE"/></on-error-continue></error-handler></flow>
+
+<flow name="propagated"><http:listener doc:id="all-core-97" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/propagated" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><raise-error doc:id="all-core-92" doc:name="Raise Error" type="APP:PROPAGATE" description="Expected all-core propagated error"/><error-handler doc:id="all-core-96" doc:name="Error Handler"><on-error-propagate doc:id="all-core-95" doc:name="On Error Propagate" type="APP:PROPAGATE" logException="false"><set-variable doc:id="all-core-93" doc:name="Set Variable" variableName="propagated" value="#[true]"/><logger doc:id="all-core-94" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_ON_ERROR_PROPAGATE"/></on-error-propagate></error-handler></flow>
+
+<flow name="batch"><http:listener doc:id="all-core-114" doc:name="HTTP Listener" config-ref="All_Core_HTTP" path="/batch" allowedMethods="GET"><http:response statusCode="200"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{payload:payload, variables:vars, marker:attributes.zernovaMarker default null}]]]></http:body><http:headers>#[{'Content-Type':'application/json'}]</http:headers></http:response><http:error-response statusCode="418"><http:body><![CDATA[#[%dw 2.0
+output application/json
+---
+{error:error.description,handled:vars.propagated default false,environment:p('zernova.env')}]]]></http:body><http:headers>#[{'Content-Type':'application/json','X-Zernova-Error':'all-core'}]</http:headers></http:error-response></http:listener><set-payload doc:id="all-core-104" doc:name="Set Payload" value="#[[1,2,3,4,5]]"/><zt:batch-job doc:id="all-core-112" doc:name="Batch Job" name="allCoreBatch" blockSize="2" maxFailedRecords="-1"><zt:batch-step doc:id="all-core-107" doc:name="Batch Step" name="validate"><choice doc:id="all-core-103" doc:name="Choice"><when doc:id="all-core-99" doc:name="When" expression="#[payload == 3]"><raise-error doc:id="all-core-98" doc:name="Raise Error" type="APP:RECORD" description="Expected record 3 rejection"/></when><otherwise doc:id="all-core-102" doc:name="Otherwise"><set-payload doc:id="all-core-100" doc:name="Set Payload" value="#[payload * 2]"/><logger doc:id="all-core-101" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_BATCH_RECORD #[payload]"/></otherwise></choice><zt:batch-aggregator doc:id="all-core-106" doc:name="Batch Aggregator" size="2"><logger doc:id="all-core-105" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_BATCH_GROUP #[write(payload,&quot;application/json&quot;)]"/></zt:batch-aggregator></zt:batch-step><zt:batch-step doc:id="all-core-109" doc:name="Batch Step" name="failedRecords" acceptPolicy="ONLY_FAILURES"><logger doc:id="all-core-108" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_BATCH_FAILURE #[payload]"/></zt:batch-step><zt:batch-on-complete doc:id="all-core-111" doc:name="Batch On Complete"><logger doc:id="all-core-110" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_BATCH_REPORT #[write(payload,&quot;application/json&quot;)]"/></zt:batch-on-complete></zt:batch-job><set-payload doc:id="all-core-113" doc:name="Set Payload" value="#[{accepted:true,jobId:vars.zernovaBatchJobId}]"/></flow>
+
+<flow name="allCoreScheduled"><scheduler doc:id="all-core-115" doc:name="Scheduler" disallowConcurrentExecution="true"><scheduling-strategy><fixed-frequency frequency="1000" timeUnit="MILLISECONDS"/></scheduling-strategy></scheduler><logger doc:id="all-core-116" doc:name="Logger" level="INFO" category="com.zernova.allcore" message="ALL_CORE_SCHEDULER"/></flow>
+</zernova>

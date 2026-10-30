@@ -1,6 +1,6 @@
-# Known limitations — Studio 0.5.0
+# Known limitations — Studio 0.6.0
 
-Studio 0.5.0 adds authoring for every core component and transformer category in the
+Studio adds authoring for every core component and transformer category in the
 referenced Mule runtime 4.13 core-components list. Runtime compatibility is based
 on the source-built ZERNOVA 0.4.1-alpha.1 engine and Java 17. The original managed
 ZERNOVA support module is now 0.5.0. This is a local development release.
@@ -63,3 +63,33 @@ ZERNOVA support module is now 0.5.0. This is a local development release.
 - Qualification for this release is local Mac x64. Prior runtime portability tests
   do not establish installed-Studio qualification on six targets. Java remains the
   tested patched Java 17 bundle. Java 25 migration is a separate compatibility project.
+
+Workbench additions in 0.6.0:
+
+- All flows/subflows in one XML are rendered together; the active flow only scopes
+  selection/properties. Reordering an existing processor remains within its current
+  chain; cross-flow/cross-scope moves are not included.
+- For Each, Try, Until Successful, Cache and other processor scopes start empty.
+  Incomplete scopes remain editable and are diagnosed before build. They do not
+  receive an automatic Logger. Structural router/error branches remain explicit.
+- The new-XML popup reuses a Studio editor for the selected project. If no Studio
+  editor is open, an existing integration is opened first when available; a project
+  without any integration/editor uses the standalone wizard as a first-file fallback.
+  A native text-editor surface cannot host arbitrary extension HTML. Newly created
+  XML opens as a separate editor tab, not a separate operating-system window.
+- Project menus operate on resources in registered projects. Destructive file/folder
+  actions use the operating-system Trash. Removing a project from Studio preserves
+  its files and requires its private runtime to be stopped.
+- Rename/Move change resource paths; semantic XML/DataWeave references to those
+  paths are not rewritten automatically. Review references before building.
+- Maven Dependencies shows direct POM declarations and the actual bundled HTTP
+  repository JARs. Property-based versions declared in the POM can be resolved for
+  the bundled HTTP profile. Other declarations remain visibly unavailable and builds
+  fail explicitly. Inherited/profile/BOM dependency resolution, arbitrary connector
+  downloads, Maven lifecycle execution, source compilation and JAR decompilation
+  are future work. Artifact detail forms are informational.
+- Runtime/connector presentation labels use ZERNOVA names. Artifact Details retains
+  physical filenames and legacy artifact identifiers where those are still present
+  in the compatible baseline; runtime binaries are not renamed by this UI update.
+- JSON HTTP bodies, including error responses, should declare DataWeave output
+  application/json. A Content-Type header alone does not serialize Java objects.

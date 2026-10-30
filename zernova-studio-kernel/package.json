@@ -2,7 +2,7 @@
   "name": "zernova-studio-kernel-preview",
   "displayName": "ZERNOVA Studio",
   "description": "ZERNOVA Studio development alpha with bundled ZERNOVA Runtime and patched Java 17.",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "publisher": "zernova-preview",
   "license": "SEE LICENSE IN LICENSE.txt",
   "private": true,
@@ -167,6 +167,132 @@
         "command": "zernovaKernelStudio.configureDebug",
         "title": "ZERNOVA: Debug Configuration",
         "icon": "$(gear)"
+      },
+      {
+        "command": "zernovaKernelStudio.openFile",
+        "category": "ZERNOVA",
+        "title": "Open",
+        "icon": "$(go-to-file)"
+      },
+      {
+        "command": "zernovaKernelStudio.openText",
+        "category": "ZERNOVA",
+        "title": "Open in Text Editor",
+        "icon": "$(code)"
+      },
+      {
+        "command": "zernovaKernelStudio.openToSide",
+        "category": "ZERNOVA",
+        "title": "Open to the Side",
+        "icon": "$(split-horizontal)"
+      },
+      {
+        "command": "zernovaKernelStudio.openPom",
+        "category": "ZERNOVA",
+        "title": "Open Maven POM",
+        "icon": "$(file-code)"
+      },
+      {
+        "command": "zernovaKernelStudio.copyPath",
+        "category": "ZERNOVA",
+        "title": "Copy Path",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "zernovaKernelStudio.copyRelativePath",
+        "category": "ZERNOVA",
+        "title": "Copy Relative Path",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "zernovaKernelStudio.revealFile",
+        "category": "ZERNOVA",
+        "title": "Reveal in Finder / File Manager",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "zernovaKernelStudio.revealExplorer",
+        "category": "ZERNOVA",
+        "title": "Reveal in Files Explorer",
+        "icon": "$(files)"
+      },
+      {
+        "command": "zernovaKernelStudio.findInFolder",
+        "category": "ZERNOVA",
+        "title": "Find in Folder\u2026",
+        "icon": "$(search)"
+      },
+      {
+        "command": "zernovaKernelStudio.refreshProject",
+        "category": "ZERNOVA",
+        "title": "Refresh Project and Dependencies",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "zernovaKernelStudio.manageDependencies",
+        "category": "ZERNOVA",
+        "title": "Manage Maven Dependencies\u2026",
+        "icon": "$(library)"
+      },
+      {
+        "command": "zernovaKernelStudio.removeDependency",
+        "category": "ZERNOVA",
+        "title": "Remove Dependency\u2026",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "zernovaKernelStudio.removeProject",
+        "category": "ZERNOVA",
+        "title": "Remove Project from Studio",
+        "icon": "$(close)"
+      },
+      {
+        "command": "zernovaKernelStudio.newFile",
+        "category": "ZERNOVA",
+        "title": "New File\u2026",
+        "icon": "$(new-file)"
+      },
+      {
+        "command": "zernovaKernelStudio.newFolder",
+        "category": "ZERNOVA",
+        "title": "New Folder\u2026",
+        "icon": "$(new-folder)"
+      },
+      {
+        "command": "zernovaKernelStudio.renameFile",
+        "category": "ZERNOVA",
+        "title": "Rename\u2026",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "zernovaKernelStudio.moveFile",
+        "category": "ZERNOVA",
+        "title": "Move\u2026",
+        "icon": "$(arrow-right)"
+      },
+      {
+        "command": "zernovaKernelStudio.deleteFile",
+        "category": "ZERNOVA",
+        "title": "Move to Trash\u2026",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "zernovaKernelStudio.inspectArtifact",
+        "category": "ZERNOVA",
+        "title": "Artifact Details\u2026",
+        "icon": "$(package)"
+      },
+      {
+        "command": "zernovaKernelStudio.revealArtifact",
+        "category": "ZERNOVA",
+        "title": "Reveal Artifact in Finder / File Manager",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "zernovaKernelStudio.cleanProject",
+        "category": "ZERNOVA",
+        "title": "Clean Build Output",
+        "icon": "$(clear-all)"
       }
     ],
     "viewsContainers": {
@@ -222,19 +348,124 @@
       ],
       "view/item/context": [
         {
-          "command": "zernovaKernelStudio.newIntegration",
-          "when": "view == zernovaKernelStudio.projects && viewItem == zernovaKernelStudio.project",
-          "group": "inline@1"
+          "command": "zernovaKernelStudio.openIntegration",
+          "when": "view == zernovaKernelStudio.projects && viewItem == zernovaKernelStudio.integration",
+          "group": "1_open@0"
         },
         {
-          "command": "zernovaKernelStudio.configureRuntime",
-          "when": "view == zernovaKernelStudio.projects && viewItem == zernovaKernelStudio.project",
-          "group": "runtime@1"
+          "command": "zernovaKernelStudio.openText",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(file|integration)$/",
+          "group": "1_open@1"
         },
         {
-          "command": "zernovaKernelStudio.run",
+          "command": "zernovaKernelStudio.openToSide",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(file|integration)$/",
+          "group": "1_open@2"
+        },
+        {
+          "submenu": "zernovaKernelStudio.newResource",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(project|folder|file|integration)$/",
+          "group": "2_new"
+        },
+        {
+          "command": "zernovaKernelStudio.manualSave",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(file|integration)$/",
+          "group": "3_save"
+        },
+        {
+          "submenu": "zernovaKernelStudio.runAs",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(project|folder|file|integration)$/",
+          "group": "4_execution@1"
+        },
+        {
+          "submenu": "zernovaKernelStudio.debugAs",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(project|folder|file|integration)$/",
+          "group": "4_execution@2"
+        },
+        {
+          "submenu": "zernovaKernelStudio.buildProject",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(project|folder|file|integration)$/",
+          "group": "4_execution@3"
+        },
+        {
+          "command": "zernovaKernelStudio.logs",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(project|folder|file|integration)$/",
+          "group": "4_execution@4"
+        },
+        {
+          "command": "zernovaKernelStudio.stopApplication",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(project|folder|file|integration)$/",
+          "group": "4_execution@5"
+        },
+        {
+          "command": "zernovaKernelStudio.stopRuntime",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(project|folder|file|integration)$/",
+          "group": "4_execution@6"
+        },
+        {
+          "submenu": "zernovaKernelStudio.maven",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(project|folder|file|integration)$/ || (view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(dependencies|dependency|artifact|runtimeArtifacts|projectArtifacts)$/)",
+          "group": "5_dependencies"
+        },
+        {
+          "command": "zernovaKernelStudio.removeDependency",
+          "when": "view == zernovaKernelStudio.projects && viewItem == zernovaKernelStudio.dependency",
+          "group": "5_dependencies@2"
+        },
+        {
+          "command": "zernovaKernelStudio.inspectArtifact",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(dependency|artifact)$/",
+          "group": "1_open@0"
+        },
+        {
+          "command": "zernovaKernelStudio.revealArtifact",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(dependency|artifact)$/",
+          "group": "1_open@1"
+        },
+        {
+          "command": "zernovaKernelStudio.findInFolder",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(project|folder)$/",
+          "group": "6_find"
+        },
+        {
+          "command": "zernovaKernelStudio.renameFile",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(folder|file|integration)$/",
+          "group": "7_resource@1"
+        },
+        {
+          "command": "zernovaKernelStudio.moveFile",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(folder|file|integration)$/",
+          "group": "7_resource@2"
+        },
+        {
+          "command": "zernovaKernelStudio.deleteFile",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(folder|file|integration)$/",
+          "group": "7_resource@3"
+        },
+        {
+          "command": "zernovaKernelStudio.copyPath",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(project|folder|file|integration)$/",
+          "group": "8_paths@1"
+        },
+        {
+          "command": "zernovaKernelStudio.copyRelativePath",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(project|folder|file|integration)$/",
+          "group": "8_paths@2"
+        },
+        {
+          "submenu": "zernovaKernelStudio.showIn",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(project|folder|file|integration)$/",
+          "group": "8_paths@3"
+        },
+        {
+          "command": "zernovaKernelStudio.refreshProject",
+          "when": "view == zernovaKernelStudio.projects && viewItem =~ /^zernovaKernelStudio\\.(project|folder|file|integration)$/",
+          "group": "9_project@1"
+        },
+        {
+          "command": "zernovaKernelStudio.removeProject",
           "when": "view == zernovaKernelStudio.projects && viewItem == zernovaKernelStudio.project",
-          "group": "runtime@2"
+          "group": "9_project@2"
         }
       ],
       "editor/context": [
@@ -277,6 +508,127 @@
           "command": "zernovaKernelStudio.configureDebug",
           "when": "resourceExtname == .xml && resourcePath =~ /src[\\\\/]main[\\\\/]zernova[\\\\/]/",
           "group": "9_zernova@2a"
+        }
+      ],
+      "zernovaKernelStudio.newResource": [
+        {
+          "command": "zernovaKernelStudio.newIntegration"
+        },
+        {
+          "command": "zernovaKernelStudio.newFile"
+        },
+        {
+          "command": "zernovaKernelStudio.newFolder"
+        }
+      ],
+      "zernovaKernelStudio.runAs": [
+        {
+          "command": "zernovaKernelStudio.run",
+          "group": "1"
+        },
+        {
+          "command": "zernovaKernelStudio.configureRun",
+          "group": "2"
+        }
+      ],
+      "zernovaKernelStudio.debugAs": [
+        {
+          "command": "zernovaKernelStudio.debug",
+          "group": "1"
+        },
+        {
+          "command": "zernovaKernelStudio.configureDebug",
+          "group": "2"
+        }
+      ],
+      "zernovaKernelStudio.buildProject": [
+        {
+          "command": "zernovaKernelStudio.build",
+          "group": "1"
+        },
+        {
+          "command": "zernovaKernelStudio.cleanProject",
+          "group": "2"
+        },
+        {
+          "command": "zernovaKernelStudio.diagnostics",
+          "group": "3"
+        }
+      ],
+      "zernovaKernelStudio.maven": [
+        {
+          "command": "zernovaKernelStudio.manageDependencies",
+          "group": "1"
+        },
+        {
+          "command": "zernovaKernelStudio.openPom",
+          "group": "2"
+        },
+        {
+          "command": "zernovaKernelStudio.refreshProject",
+          "group": "3"
+        }
+      ],
+      "zernovaKernelStudio.showIn": [
+        {
+          "command": "zernovaKernelStudio.revealExplorer"
+        },
+        {
+          "command": "zernovaKernelStudio.revealFile"
+        }
+      ],
+      "explorer/context": [
+        {
+          "submenu": "zernovaKernelStudio.explorerProject",
+          "when": "resourceScheme == file && resourcePath in zernovaKernelStudio.projectResources",
+          "group": "7_zernova"
+        }
+      ],
+      "zernovaKernelStudio.explorerProject": [
+        {
+          "command": "zernovaKernelStudio.newIntegration",
+          "group": "1_new"
+        },
+        {
+          "command": "zernovaKernelStudio.openIntegration",
+          "when": "resourceExtname == .xml && resourcePath =~ /src[\\\\/]main[\\\\/]zernova[\\\\/]/",
+          "group": "2_open"
+        },
+        {
+          "command": "zernovaKernelStudio.run",
+          "group": "3_run@1"
+        },
+        {
+          "command": "zernovaKernelStudio.debug",
+          "group": "3_run@2"
+        },
+        {
+          "command": "zernovaKernelStudio.configureRun",
+          "group": "3_run@3"
+        },
+        {
+          "command": "zernovaKernelStudio.configureDebug",
+          "group": "3_run@4"
+        },
+        {
+          "command": "zernovaKernelStudio.build",
+          "group": "4_build@1"
+        },
+        {
+          "command": "zernovaKernelStudio.cleanProject",
+          "group": "4_build@2"
+        },
+        {
+          "command": "zernovaKernelStudio.manageDependencies",
+          "group": "5_dependencies@1"
+        },
+        {
+          "command": "zernovaKernelStudio.openPom",
+          "group": "5_dependencies@2"
+        },
+        {
+          "command": "zernovaKernelStudio.refreshProject",
+          "group": "6_refresh"
         }
       ]
     },
@@ -322,7 +674,37 @@
           "description": "Rebuild and redeploy changed build inputs on explicit manual save, only while the app is deployed. Background XML autosaves never redeploy."
         }
       }
-    }
+    },
+    "submenus": [
+      {
+        "id": "zernovaKernelStudio.newResource",
+        "label": "New"
+      },
+      {
+        "id": "zernovaKernelStudio.runAs",
+        "label": "Run As"
+      },
+      {
+        "id": "zernovaKernelStudio.debugAs",
+        "label": "Debug As"
+      },
+      {
+        "id": "zernovaKernelStudio.buildProject",
+        "label": "Build"
+      },
+      {
+        "id": "zernovaKernelStudio.maven",
+        "label": "Maven / Dependencies"
+      },
+      {
+        "id": "zernovaKernelStudio.showIn",
+        "label": "Show In"
+      },
+      {
+        "id": "zernovaKernelStudio.explorerProject",
+        "label": "ZERNOVA"
+      }
+    ]
   },
   "scripts": {
     "build": "node scripts/build.mjs",

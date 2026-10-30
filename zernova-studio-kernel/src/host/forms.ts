@@ -1,7 +1,8 @@
 import * as vscode from 'vscode';
 import { randomBytes } from 'node:crypto';
 import { installDialogDragging } from '../webview/dialogDrag';
-export interface FormField { key: string; label: string; value: string; multiline?: boolean; hint?: string; browse?: boolean; options?: {value: string; label: string}[]; section?: string; maxLength?:number; }
+import type {FormField} from '../shared/studioForms';
+export type {FormField,StudioForm} from '../shared/studioForms';
 const escape = (value: string) => value.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
 /** A draggable, validated Studio form. Values are data, never executable commands. */
 export function studioForm<T>(title: string, fields: FormField[], submit: (values: Record<string, string>) => Promise<T>, help = ''): Promise<T | undefined> {

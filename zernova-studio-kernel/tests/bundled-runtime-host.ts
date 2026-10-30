@@ -59,11 +59,22 @@ export async function run() {
   };
   try {
     await check('Installed VSIX and actual custom editor', async () => {
-      assert(subject.extensionPath.startsWith(path.join(root, 'extensions'))); assert.equal(subject.packageJSON.version, '0.5.0');
+      assert(subject.extensionPath.startsWith(path.join(root, 'extensions'))); assert.equal(subject.packageJSON.version, '0.6.0');
       await vscode.commands.executeCommand('zernovaKernelStudio.openIntegration', file);
       for (let i = 0; i < 50 && !api.getProjectDiagnostics().documents.documents.includes(file.toString()); i++) await new Promise(resolve => setTimeout(resolve, 100));
       assert(api.getProjectDiagnostics().documents.documents.includes(file.toString()), 'The actual custom editor must resolve this project, including Windows drive-letter casing');
       return { extensionPath: subject.extensionPath, model: parseIntegration(xml).flows[0].name };
+    });
+    await check('Explorer exposes applicable resource, execution and dependency menus',async()=>{
+      const commands=await vscode.commands.getCommands(true);for(const name of ['newFile','newFolder','renameFile','moveFile','deleteFile','manageDependencies','inspectArtifact','openPom','cleanProject','configureRun','configureDebug'])assert(commands.includes('zernovaKernelStudio.'+name),name);
+      const menus=subject.packageJSON.contributes.menus;assert(menus['view/item/context'].some((e:any)=>e.command==='zernovaKernelStudio.renameFile'));assert(menus['explorer/context'].some((e:any)=>e.submenu==='zernovaKernelStudio.explorerProject'));
+      const artifacts=await api.getArtifactDiagnostics(file);assert(artifacts.dependencies.some((d:any)=>d.label.includes('zernova-http-connector')&&d.description.includes('resolved')));const jars=artifacts.dependencies.flatMap((d:any)=>d.children??[]);assert(jars.length>=9);for(const jar of jars)assert((await fs.stat(jar.file)).isFile());assert(artifacts.runtime.some((a:any)=>a.label.includes('ZERNOVA Runtime 0.4.1')));return {bundledMavenJars:jars.length,menus:true};
+    });
+    await check('New Integration dialog stays in the current Studio tab and cancellation creates no file',async()=>{
+      const tabs=vscode.window.tabGroups.all.flatMap(g=>g.tabs).length;const before=await fs.readFile(file.fsPath,'utf8');const filesBefore=(await fs.readdir(path.dirname(file.fsPath))).sort();
+      const pending=vscode.commands.executeCommand('zernovaKernelStudio.newIntegration',file);for(let i=0;i<100&&!api.getProjectDiagnostics().documents.forms.length;i++)await new Promise(resolve=>setTimeout(resolve,50));
+      const forms=api.getProjectDiagnostics().documents.forms;assert.equal(forms.length,1);assert.equal(forms[0].uri,file.toString());assert.equal(forms[0].title,'New Integration XML');assert.equal(vscode.window.tabGroups.all.flatMap(g=>g.tabs).length,tabs);
+      await vscode.commands.executeCommand('workbench.action.closeActiveEditor');assert.equal(await pending,undefined);assert.equal(await fs.readFile(file.fsPath,'utf8'),before);assert.deepEqual((await fs.readdir(path.dirname(file.fsPath))).sort(),filesBefore);await vscode.commands.executeCommand('zernovaKernelStudio.openIntegration',file);return {inline:true,extraTabs:0,originalUnchanged:true};
     });
     await check('Bundled Java/runtime diagnostics with invalid external tool paths', async () => { const state = await command('diagnostics'); assert.equal(state.phase, 'Diagnostics passed'); assert(state.runtimeOutput.includes('0.4.1-alpha.1')); return { phase: state.phase, offline: state.offline }; });
     await check('Studio offline build produces a fresh application', async () => { const state = await command('build'); assert.equal(state.phase, 'Build succeeded · not deployed'); assert(state.artifact.endsWith('.zapp')); return { artifact: state.artifact, sha256: state.artifactSha256 }; });
@@ -158,6 +169,14 @@ export async function run() {
       const detached=fetch(`http://localhost:${port}/hello?testId=DETACH-044`,{signal:AbortSignal.timeout(30000)});await waitPaused('studioFlow/processors/0');await command('debugDisconnect');assert.equal((await detached).status,200);assert.equal(api.getRuntimeDiagnostics()[0].debugConnected,false);
       await vscode.commands.executeCommand('zernovaKernelStudio.toggleComponentBreakpoint',file,first.id);
       return {heldBeforeExecution:true,step:true,continue:true,disconnectResumes:true,defaultDebugSessionOpened:false};
+    });
+    await check('Installed Studio builds and runs the shipped ALL-core app as one XML',async()=>{
+      await config.update('redeployOnSave',false,vscode.ConfigurationTarget.WorkspaceFolder);const example=path.join(subject.extensionPath,'examples/all-core');const resources=path.join(workspace,'src/main/resources');
+      for(const folder of ['config','dwl','templates'])await fs.cp(path.join(example,'src/main/resources',folder),path.join(resources,folder),{recursive:true});await fs.copyFile(path.join(example,'src/main/resources/retry-ready.txt'),path.join(resources,'retry-ready.txt'));
+      const properties=path.join(resources,'config/application-development.properties');await fs.writeFile(properties,(await fs.readFile(properties,'utf8')).replace('http.port=18081','http.port='+port));
+      const text=await fs.readFile(path.join(example,'src/main/zernova/all-core.xml'),'utf8');await edit(text);const model=parseIntegration(text);assert.equal(model.flows.length,21);const state=await command('run');assert.equal(state.application,'DEPLOYED');await waitForHttpReady(`http://localhost:${port}/hello`);
+      let response=await fetch(`http://localhost:${port}/hello?testId=INSTALLED-ALL-CORE`);assert.equal(response.status,200);const body=JSON.parse(await response.text());assert.equal(body.payload.message,'Hello from ZERNOVA');assert.equal(body.marker,'external-attributes');assert.equal(body.variables.transformed,true);
+      response=await fetch(`http://localhost:${port}/batch`);assert.equal(response.status,200);assert.equal(JSON.parse(await response.text()).payload.accepted,true);let logs='';for(let i=0;i<300;i++){logs=api.getRuntimeDiagnostics()[0].applicationLogs;if(logs.includes('name=allCoreBatch status=COMPLETED'))break;await new Promise(resolve=>setTimeout(resolve,100));}assert(logs.includes('total=5 failed=1 processed=5'));return {flows:21,externalOutputs:true,batchCompleted:true};
     });
     await check('Final shutdown', async () => { assert.equal((await command('stopRuntime')).process,'STOPPED'); });
   } finally {

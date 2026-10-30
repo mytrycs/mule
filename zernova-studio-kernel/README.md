@@ -1,3 +1,29 @@
+# ZERNOVA Studio 0.6.0 development release
+
+All flows and subflows in a configuration XML now share one canvas. Creating a
+flow appends to the current XML. The new-XML wizard floats inside an existing
+Studio editor and opens the created XML in a separate editor tab. Scopes start as
+empty drop areas, have compact title bars and use distinct component icons.
+
+Project Explorer includes file/folder actions, Run As, Debug As, Build, dependency
+management and ZERNOVA/Maven/project artifact groups. Declared dependencies show
+whether the current offline builder can use them; bundled JAR paths are inspectable.
+The dependency editor preserves unrelated POM content and synchronizes the managed
+application profile. Arbitrary Maven resolution and custom Java compilation remain
+outside this development build.
+
+The included all-core application uses every catalog component in one XML, with
+21 flows/subflows. Acceptance exercises real retry, Cache hit/eviction/expiry,
+error continuation/propagation, scheduling, external DataWeave outputs and Batch.
+
+Studio bundles Runtime 0.4.1-alpha.1, patched Java 17 and core support module 0.5.0.
+See [the test guide](https://github.com/mytrycs/mule/blob/codex/studio-workbench-0.6.0/zernova-studio-kernel/DEV_TEST_START_HERE.md) and
+[known limitations](https://github.com/mytrycs/mule/blob/codex/studio-workbench-0.6.0/zernova-studio-kernel/KNOWN_LIMITATIONS.md).
+
+The following sections preserve older release history.
+
+---
+
 # ZERNOVA Studio 0.5.0 development release
 
 Studio bundles the source-built ZERNOVA Runtime 0.4.1-alpha.1, patched Java 17,

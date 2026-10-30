@@ -1,3 +1,4 @@
+import type {StudioFormView} from './studioForms';
 import { coreDefinition } from './coreCatalog';
 import { MAX_XML_BYTES, type IntegrationModel, type XmlOperation, type ComponentValues } from './xml';
 
@@ -19,6 +20,8 @@ export interface RealDocumentSnapshot {
 export type ResourceAction = 'configureScript'|'openScript'|'configureEnvironment'|'addGlobalProperty'|'addPropertyFile';
 export type TransformTarget='payload'|'attributes'|'variables';
 export type RealWebviewMessage =
+  | {type:'realFormSubmit';id:string;values:Record<string,string>}
+  | {type:'realFormCancel';id:string}
   | { type:'realResource'; action:ResourceAction; id?:string; target?:TransformTarget }
   | { type: 'ready' }
   | { type: 'realBreakpoint'; id: string }
@@ -26,6 +29,7 @@ export type RealWebviewMessage =
   | { type: 'realXml'; version: number; requestId: string; text: string }
   | { type: 'realAction'; action: RealAction };
 export type RealHostMessage =
+  | {type:'realForm';form:StudioFormView|null}
   | { type: 'realDocument'; document: RealDocumentSnapshot }
   | { type: 'realAck'; requestId: string; version: number; selectionId?: string }
   | { type: 'realError'; message: string; requestId?: string }
@@ -64,6 +68,8 @@ export function parseXmlOperation(input: unknown): XmlOperation | null {
 export function parseRealMessage(input: unknown): RealWebviewMessage | null {
   if (!record(input)) return null;
   try { if (new TextEncoder().encode(JSON.stringify(input)).length > MAX_XML_BYTES + 200000) return null; } catch { return null; }
+  if(input.type==='realFormCancel'&&only(input,['type','id'])&&requestId(input.id))return {type:input.type,id:input.id};
+  if(input.type==='realFormSubmit'&&only(input,['type','id','values'])&&requestId(input.id)&&record(input.values)&&Object.keys(input.values).length<=100&&Object.entries(input.values).every(([k,v])=>/^[A-Za-z][A-Za-z0-9]*$/.test(k)&&string(v,16000)))return {type:input.type,id:input.id,values:input.values as Record<string,string>};
   if(input.type==='realResource'&&only(input,['type','action'],['id','target'])&&['configureScript','openScript','configureEnvironment','addGlobalProperty','addPropertyFile'].includes(String(input.action))&&(input.id===undefined||id(input.id))&&(input.target===undefined||['payload','attributes','variables'].includes(String(input.target))))return {type:'realResource',action:input.action as ResourceAction,...(input.id?{id:input.id as string}:{}),...(input.target?{target:input.target as TransformTarget}:{})};
   if (input.type === 'realBreakpoint' && only(input,['type','id']) && id(input.id)) return {type:'realBreakpoint',id:input.id};
   if (input.type === 'ready' && only(input, ['type'])) return { type: 'ready' };
