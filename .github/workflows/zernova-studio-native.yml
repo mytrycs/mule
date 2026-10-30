@@ -1,0 +1,80 @@
+# Copyright (c) 2026 ZerNova. Native development verification, not customer publication.
+name: ZERNOVA Studio native runtime matrix
+on:
+  push:
+    branches: ['zernova/studio-bundle-0.3.0']
+    paths: ['.github/workflows/zernova-studio-native.yml', 'zernova-studio-build/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { runner: ubuntu-24.04, target: linux-x64, arch: x64 }
+          - { runner: ubuntu-24.04-arm, target: linux-arm64, arch: arm64 }
+          - { runner: macos-15-intel, target: darwin-x64, arch: x64 }
+          - { runner: macos-15, target: darwin-arm64, arch: arm64 }
+          - { runner: windows-2025, target: win32-x64, arch: x64 }
+          - { runner: windows-11-arm, target: win32-arm64, arch: arm64 }
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 20
+    steps:
+      - name: Preserve source line endings
+        shell: bash
+        run: git config --global core.autocrlf false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          sparse-checkout: zernova-studio-build
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22.16.0'
+          architecture: ${{ matrix.arch }}
+      - name: Verify native host and install pinned test build tools
+        shell: bash
+        working-directory: zernova-studio-build
+        env:
+          ZN_TARGET: ${{ matrix.target }}
+        run: |
+          set -euo pipefail
+          node -e 'if(`${process.platform}-${process.arch}`!==process.env.ZN_TARGET)throw Error("Not a native matching Node host");console.log(process.version,process.platform,process.arch)'
+          printf '{"name":"zernova-runtime-native-verification","private":true,"version":"0.3.0"}\n' > package.json
+          npm install --ignore-scripts --save-exact esbuild@0.28.2 jszip@3.10.1 sax@1.6.1
+          node node_modules/esbuild/install.js
+          node node_modules/esbuild/bin/esbuild src/portable/runtime.ts --bundle --platform=node --format=cjs --target=node20 --outfile=dist/portable-runtime.cjs
+          node node_modules/esbuild/bin/esbuild src/portable/packager.ts --bundle --platform=node --format=cjs --target=node20 --outfile=dist/portable-packager.cjs
+          python create-fixture.py
+      - name: Prepare exact engine and native bundled Java
+        shell: bash
+        working-directory: zernova-studio-build
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python prepare-native.py '${{ matrix.target }}'
+      - name: Run actual offline build deploy request logs redeploy and cleanup
+        shell: bash
+        working-directory: zernova-studio-build
+        run: |
+          set -euo pipefail
+          mkdir -p evidence
+          node tests/native-runtime.cjs 2>&1 | tee evidence/native-execution.log
+      - name: Record platform and exact adapter source
+        if: always()
+        shell: bash
+        working-directory: zernova-studio-build
+        run: |
+          mkdir -p evidence
+          node -e 'require("fs").writeFileSync("evidence/host.json",JSON.stringify({platform:process.platform,arch:process.arch,node:process.version,os:require("os").release(),runner:process.env.RUNNER_NAME},null,2))'
+          if [ -f source-hash-check.json ]; then cp source-hash-check.json evidence/; fi
+          if [ -f runtime/bundle.json ]; then cp runtime/bundle.json evidence/bundle.json; fi
+          if [ -f package-lock.json ]; then cp package-lock.json evidence/test-tools-lock.json; fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: zernova-studio-native-${{ matrix.target }}
+          path: zernova-studio-build/evidence/
+          if-no-files-found: error
+          retention-days: 7
