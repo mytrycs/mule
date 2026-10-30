@@ -1,3 +1,4 @@
+import { registerPlatformIntegration } from "./platform/integration";
 import { ResourceManager } from './host/resources';
 import * as vscode from 'vscode';
 import { saveAutomatically, isAutomaticSave } from './host/saves';
@@ -18,7 +19,8 @@ let activePanel: vscode.WebviewPanel | undefined;
 /** Real project host and isolated design preview share the approved workbench. */
 export function activate(context: vscode.ExtensionContext) {
   const projects = new ProjectManager(context);
-  const runtime = new RuntimeManager(context, projects);
+  const platform = registerPlatformIntegration(context, projects);
+  const runtime = new RuntimeManager(context, projects, platform.prepare);
   const resources=new ResourceManager(projects);
   const documents = new IntegrationEditorProvider(context, {
     render: webview => renderWebview(webview, context.extensionUri, createInitialState(true), true),

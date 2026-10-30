@@ -2,7 +2,7 @@
   "name": "zernova-studio-kernel-preview",
   "displayName": "ZERNOVA Studio",
   "description": "ZERNOVA Studio development alpha with bundled ZERNOVA Runtime and patched Java 17.",
-  "version": "0.5.0",
+  "version": "0.5.0-platform-lab.2",
   "publisher": "zernova-preview",
   "license": "SEE LICENSE IN LICENSE.txt",
   "private": true,
@@ -167,6 +167,30 @@
         "command": "zernovaKernelStudio.configureDebug",
         "title": "ZERNOVA: Debug Configuration",
         "icon": "$(gear)"
+      },
+      {
+        "command": "zernovaKernelStudio.platform.signIn",
+        "title": "ZERNOVA: Sign in to Platform"
+      },
+      {
+        "command": "zernovaKernelStudio.platform.signOut",
+        "title": "ZERNOVA: Sign out of Platform"
+      },
+      {
+        "command": "zernovaKernelStudio.platform.browse",
+        "title": "ZERNOVA: Browse Exchange"
+      },
+      {
+        "command": "zernovaKernelStudio.platform.selectOrganization",
+        "title": "ZERNOVA: Select Platform Organization and Workspace"
+      },
+      {
+        "command": "zernovaKernelStudio.platform.addDependency",
+        "title": "ZERNOVA: Add Exchange API Dependency"
+      },
+      {
+        "command": "zernovaKernelStudio.platform.resolve",
+        "title": "ZERNOVA: Resolve Authenticated API Dependencies"
       }
     ],
     "viewsContainers": {
@@ -193,6 +217,11 @@
         {
           "id": "zernovaKernelStudio.runtimeInfo",
           "name": "Target Runtime",
+          "contextualTitle": "ZERNOVA Studio"
+        },
+        {
+          "id": "zernovaKernelStudio.exchange",
+          "name": "Platform & Exchange",
           "contextualTitle": "ZERNOVA Studio"
         }
       ]
@@ -320,9 +349,45 @@
           "default": false,
           "scope": "resource",
           "description": "Rebuild and redeploy changed build inputs on explicit manual save, only while the app is deployed. Background XML autosaves never redeploy."
+        },
+        "zernovaKernelStudio.platformUrl": {
+          "type": "string",
+          "default": "https://localhost:4640",
+          "scope": "machine",
+          "description": "Exact HTTPS origin of the customer Platform installation."
+        },
+        "zernovaKernelStudio.platformCertificate": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "description": "Optional operator-approved PEM CA/certificate file on this extension host. TLS verification stays enabled."
+        },
+        "zernovaKernelStudio.mavenExecutable": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "description": "Absolute Maven executable for isolated API specification resolution."
+        },
+        "zernovaKernelStudio.mavenJavaHome": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "description": "Optional Java home for the Maven helper; existing Runtime settings are unchanged."
+        },
+        "zernovaKernelStudio.mavenTruststore": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "description": "Optional private Java truststore containing system roots and the local lab certificate."
         }
       }
-    }
+    },
+    "authentication": [
+      {
+        "id": "zernova-platform",
+        "label": "ZERNOVA Platform"
+      }
+    ]
   },
   "scripts": {
     "build": "node scripts/build.mjs",

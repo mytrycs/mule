@@ -43,7 +43,7 @@ export class RuntimeManager implements vscode.Disposable {
   private readonly runtimeChannel = vscode.window.createOutputChannel('ZERNOVA Runtime');
   private readonly logChannel = vscode.window.createOutputChannel('ZERNOVA Application Logs');
   private readonly diagnostics = vscode.languages.createDiagnosticCollection('zernovaKernelStudio.build');
-  constructor(private readonly context: vscode.ExtensionContext, private readonly projects: ProjectManager) {}
+  constructor(private readonly context: vscode.ExtensionContext, private readonly projects: ProjectManager, private readonly resolveExchange?: (project:Project,deps:Record<string,string>[])=>Promise<{http:boolean}|undefined>) {}
   dispose(): void { for(const debugger_ of this.debuggers.values()) void debugger_.close(); for (const timer of this.logTimers.values()) clearInterval(timer); for (const op of this.operations.values()) op.abort(); this.changed.dispose(); this.buildChannel.dispose(); this.runtimeChannel.dispose(); this.logChannel.dispose(); this.diagnostics.dispose(); }
   state(project: Project): RuntimeViewState {
     let value = this.states.get(project.root);
@@ -140,8 +140,9 @@ export class RuntimeManager implements vscode.Disposable {
     parser.ontext = text => { if (dep && stack.length === 4) dep[stack[3]] = (dep[stack[3]] ?? '') + text; };
     parser.onclosetag = () => { if (stack.join('/') === 'project/dependencies/dependency' && dep) { deps.push(dep); dep = undefined; } stack.pop(); };
     parser.write(await fs.readFile(path.join(project.root, 'pom.xml'), 'utf8')).close();
-    if (deps.some(d => !['com.zernova.connectors'].includes(d.groupId?.trim()) || d.artifactId?.trim() !== 'zernova-http-connector' || d.version?.trim() !== '1.12.2' || d.classifier?.trim() !== 'zernova-plugin')) throw new Error('The bundled offline builder supports core and HTTP 1.12.2 only. Additional dependencies are not silently ignored.');
-    const metadata = { schemaVersion: 1, name: project.artifactId, group: project.groupId, version: project.version, dependencies: deps.length ? ['http'] : [] };
+    const exchange = await this.resolveExchange?.(project,deps);
+    if (!exchange && deps.some(d => !['com.zernova.connectors'].includes(d.groupId?.trim()) || d.artifactId?.trim() !== 'zernova-http-connector' || d.version?.trim() !== '1.12.2' || d.classifier?.trim() !== 'zernova-plugin')) throw new Error('The bundled offline builder supports core and HTTP 1.12.2 only. Additional dependencies are not silently ignored.');
+    const metadata = { schemaVersion: 1, name: project.artifactId, group: project.groupId, version: project.version, dependencies: (exchange ? exchange.http : deps.length > 0) ? ['http'] : [] };
     const file = path.join(project.root, 'zernova-app.json');
     const existing = await fs.readFile(file, 'utf8').catch(e => { if (e.code === 'ENOENT') return undefined; throw e; });
     if (existing) {
